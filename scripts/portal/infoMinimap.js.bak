@@ -1,0 +1,3 @@
+﻿function enter(pi) {
+ pi.openNPC(9900007, 99);
+}

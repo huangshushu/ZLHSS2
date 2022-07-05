@@ -1,0 +1,4 @@
+function enter(pi) {
+    pi.warp(910000000);
+	pi.ShowWZEffect("Effect/BasicEff.img/SkillBook/Success/0");
+}

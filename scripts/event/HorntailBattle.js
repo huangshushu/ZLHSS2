@@ -1,0 +1,6 @@
+/* ==================
+ 脚本类型: 脚本
+ 版权：游戏盒团队     
+ 联系扣扣：297870163    609654666
+ =====================
+ */function init(){em.setProperty("state","0");em.setProperty("leader","true")}function setup(a,b){em.setProperty("state","1");em.setProperty("preheadCheck","0");em.setProperty("leader","true");a=em.newInstance("HorntailBattle");a.setInstanceMap(240060200).resetFully();a.startEventTimer(45E5);return a}function playerEntry(a,b){var c=a.getMapFactory().getMap(240060200);b.changeMap(c,c.getPortal(0))}function changedMap(a,b,c){switch(c){case 240060200:return}a.unregisterPlayer(b);a.disposeIfPlayerBelow(0,0)&&(em.setProperty("state","0"),em.setProperty("leader","true"))}function playerDisconnected(a,b){return 0}function scheduledTimeout(a){a.disposeIfPlayerBelow(100,240050400);em.setProperty("state","0");em.setProperty("leader","true")}function playerExit(a,b){a.unregisterPlayer(b);a.disposeIfPlayerBelow(0,0)&&(em.setProperty("state","0"),em.setProperty("leader","true"))}function monsterValue(a,b){return 1}function allMonstersDead(a){}function playerRevive(a,b){return!1}function clearPQ(a){}function leftParty(a,b){}function disbandParty(a){}function playerDead(a,b){}function cancelSchedule(){};
