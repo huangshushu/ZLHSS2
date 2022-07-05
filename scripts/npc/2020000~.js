@@ -9,9 +9,6 @@
  * Processed Wood/Screws
  * Arrows/Bronze Arrows/Steel Arrows
  */
- /*
-修改by宗达 20160106 06:52
-*/
 var status = 0;
 var selectedType = -1;
 var selectedItem = -1;

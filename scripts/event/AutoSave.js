@@ -15,7 +15,7 @@ function scheduleNew() {
     while (nextTime <= java.lang.System.currentTimeMillis()) {
         nextTime += 1800 * 1000; //這裡就是設定多久存檔一次啦，單位是毫秒，可依據玩家數做調整
 }
-		em.broadcastYellowMsg("屁屁谷 : 本服已自動存檔,如有Lag延遲現象存屬正常");
+		em.broadcastYellowMsg("ZLHSS : 本服已自動存檔,如有Lag延遲現象存屬正常");
 
 		setupTask = em.scheduleAtTimestamp("start", nextTime);
 }
