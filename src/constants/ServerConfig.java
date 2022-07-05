@@ -21,17 +21,9 @@ public class ServerConfig {
     public static boolean Encoder = false;
     public static boolean TESPIA = false;
     public static boolean DISCOUNTED = false;
-    public static String SERVER_NAME = "冒险岛";
-    public static String TOUDING = "枫之谷 欢迎您 记得点拍卖签到.领取宠物";
-    //public static String IP = TESPIA ? getIP2() : "182.161.43.194";//LOCALHOST ? /*"192.168.0.105"*/ "127.0.0.1" : "127.0.0.1".equals(getIP()) ? getIP2() : getIP();
-    //public static String IP = "182.161.43.194";
-    //public static String IP = "39.104.172.229";
+    public static String SERVER_NAME = "大王ZLHSS冒险岛";
+    public static String TOUDING = "大王ZLHS 欢迎您 记得点拍卖签到.领取宠物";
     public static String IP = "47.95.13.193";
-//    public static String IP = "127.0.0.1";
-    //public static String IP = "103.219.31.182";
-    //public static String IP = "182.161.43.131";
-    //public static String IP = "192.168.1.102";
-    //public static boolean IsIp = "127.0.0.1".equals(getIP());
     private static String EVENTS = null;
     public static boolean DEBUG_MODE = false;
     public static boolean NMGB = true;
@@ -43,18 +35,8 @@ public class ServerConfig {
     public static boolean isPvPChannel(int ch) {
         return pvp && ch == pvpch;
     }
-
-    //public static final byte[] Gateway_IP = new byte[]{(byte) 182, (byte) 161, (byte) 43, (byte) 131};
-    //public static final byte[] Gateway_IP2 = /*getIP3();*/new byte[]{(byte) 182, (byte) 161, (byte) 43, (byte) 131};
-    //public static final byte[] Gateway_IP = new byte[]{(byte) 103, (byte) 219, (byte) 31, (byte) 182};
-    //public static final byte[] Gateway_IP2 = new byte[]{(byte) 103, (byte) 219, (byte) 31, (byte) 182};
-    //public static final byte[] Gateway_IP = new byte[]{(byte) 39, (byte) 104, (byte) 172, (byte) 229};
-    //public static final byte[] Gateway_IP2 = new byte[]{(byte) 39, (byte) 104, (byte) 172, (byte) 229};
     public static byte[] Gateway_IP = new byte[]{(byte) 47, (byte) 95, (byte) 13, (byte) 193};
     public static byte[] Gateway_IP2 = new byte[]{(byte) 47, (byte) 95, (byte) 13, (byte) 193};
-//     public static final byte[] Gateway_IP = new byte[]{(byte) 127, (byte) 0, (byte) 0, (byte) 1};
-//    public static final byte[] Gateway_IP2 = new byte[]{(byte) 127, (byte) 0, (byte) 0, (byte) 1};
-    //public static final byte[] Gateway_IP2 = new byte[]{(byte) 192, (byte) 168, (byte) 1, (byte) 102};
 
     public static String[] getEvents(boolean reLoad) {
         return getEventList(reLoad).split(",");
