@@ -1,0 +1,17 @@
+Two variables, the points the player has, and the points player can add.
+Each stage completed in Red Leaf High will add to the second variable.
+Boss Kumi sends the UI Window with the points whose player can add.
+
+Exploits:
+
+Client Sided:
+1. Send packets to update the point status.
+
+Patches:
+1. Check points by SQL.
+
+Server Sided:
+1. Send UI window with chosen points.
+
+Patches:
+1. Check if points whose needed to add equal to the second variable.

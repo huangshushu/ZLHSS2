@@ -1,0 +1,15 @@
+hard mode result ui: 0x48
+open_ui_option
+int 0x48
+int score
+
+
+Gloves retrieve quest: 7213 (first gloves)
+data: "7"
+packet:
+33 00 01 2D 1C 01 01 00 37
+show_status_info
+byte 1
+short quest
+byte 1 (in progress)
+maple ascii string "7"
