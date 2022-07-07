@@ -10280,6 +10280,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         return quantity;
     }
         
+          public void gainSP2(int sp) {
+        this.remainingSp[GameConstants.getSkillBook(job)] -= sp; //default
+        client.sendPacket(MaplePacketCreator.updateSp(this, false));
+        client.sendPacket(UIPacket.getSPMsg((byte) sp, (short) job));
+    }  
         
     
         

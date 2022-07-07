@@ -72,6 +72,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.script.Invocable;
+import static server.MapleCarnivalChallenge.getJobNameById;
 import server.MapleStatEffect;
 import server.MerchItemPackage;
 import server.SpeedRunner;
@@ -2234,6 +2235,245 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         }.start();
     }
            
-           
+    public void 对话结束() {
+        NPCScriptManager.getInstance().dispose(c);
+    }        
+    
+        public void 说明文字(String text) {
+        if (lastMsg > -1) {
+            return;
+        }
+        if (text.contains("#L")) { // will dc otherwise!
+            sendSimple(text);
+            return;
+        }
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "00 00", (byte) 0));
+        lastMsg = 0;
+    }
         
+            public void 是否说明文字(String text) {
+        if (lastMsg > -1) {
+            return;
+        }
+        if (text.contains("#L")) { // will dc otherwise!
+            sendSimple(text);
+            return;
+        }
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 1, text, "", (byte) 0));
+        lastMsg = 1;
+    }
+                public final MapleInventory 判断背包装备栏() {//判断背包
+        return c.getPlayer().getInventory(MapleInventoryType.getByType((byte) 1));
+    }
+
+    public final MapleInventory 判断背包消耗栏() {//判断背包
+        return c.getPlayer().getInventory(MapleInventoryType.getByType((byte) 2));
+    }
+
+    public final MapleInventory 判断背包设置栏() {//判断背包
+        return c.getPlayer().getInventory(MapleInventoryType.getByType((byte) 3));
+    }
+
+    public final MapleInventory 判断背包其他栏() {//判断背包
+        return c.getPlayer().getInventory(MapleInventoryType.getByType((byte) 4));
+    }
+
+    public final MapleInventory 判断背包特殊栏() {//判断背包
+        return c.getPlayer().getInventory(MapleInventoryType.getByType((byte) 5));
+    }
+        public void 完成任务(int id) {
+        MapleQuest.getInstance(id).complete(getPlayer(), npc);
+    }
+
+    public void 放弃任务(int id) {
+        MapleQuest.getInstance(id).forfeit(getPlayer());
+    }
+        public void 任务开始() {
+        MapleQuest.getInstance(questid).forceStart(getPlayer(), getNpc(), null);
+    }
+
+    public void 任务开始(int id) {
+        MapleQuest.getInstance(id).forceStart(getPlayer(), getNpc(), null);
+    }
+
+    public void 开始任务(int id) {
+        MapleQuest.getInstance(id).forceStart(getPlayer(), getNpc(), null);
+    }
+
+    public void 任务开始(String customData) {
+        MapleQuest.getInstance(questid).forceStart(getPlayer(), getNpc(), customData);
+    }
+
+    public void 任务完成() {
+        MapleQuest.getInstance(questid).forceComplete(getPlayer(), getNpc());
+    }
+
+    public void 任务完成(final int id) {
+        MapleQuest.getInstance(id).forceComplete(getPlayer(), getNpc());
+    }
+
+    public void 任务放弃(int id) {
+        MapleQuest.getInstance(id).forfeit(getPlayer());
+    }
+        public void 设置等级(int s) {//判断等级
+        c.getPlayer().setLevel((short) s);
+    }
+
+    public int 判断等级() {//判断等级
+        return getPlayer().getLevel();
+    }
+
+    public void 刷新() {//刷新
+        MapleCharacter player = c.getPlayer();
+        c.sendPacket(MaplePacketCreator.getCharInfo(player));
+        player.getMap().removePlayer(player);
+        player.getMap().addPlayer(player);
+    }
+       public int 判断金币() {//判断金币
+        return getPlayer().getMeso();
+    }
+
+    public int 判断角色ID() {//判断金币
+        return c.getPlayer().getId();
+    }
+
+    public int 判断点券() {
+        return c.getPlayer().getCSPoints(1);
+    }
+
+    public int 判断抵用券() {
+        return c.getPlayer().getCSPoints(2);
+    }
+
+    public int 判断声望() {
+        return getPlayer().getCurrentRep();
+    }
+
+    public int 判断学院() {
+        return getPlayer().getFamilyId();
+    }
+
+    public int 判断师傅() {
+        return getPlayer().getSeniorId();
+    }
+
+    public void 给声望(int s) {
+        c.getPlayer().setCurrentRep(s);
+    }
+
+    public void 组队人数() {
+        if (getParty() != null) {
+            c.getPlayer().getParty().getMembers().size();
+        }
+    }
+
+    public int 判断经验() {
+        return c.getPlayer().getExp();
+    }
+
+    public int 判断当前地图怪物数量() {
+        return c.getPlayer().getMap().getAllMonstersThreadsafe().size();
+    }
+
+    public int 判断指定地图怪物数量(int a) {
+        return getMap(a).getAllMonstersThreadsafe().size();
+    }
+
+    public int 判断当前地图玩家数量() {
+        return c.getPlayer().getMap().getCharactersSize();
+    }
+
+    public int 随机数(int a) {
+        return (int) Math.ceil(Math.random() * a);
+    }
+
+    public boolean 百分率(int q) {
+        int a = (int) Math.ceil(Math.random() * 100);
+        if (a <= q) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void 重置目标地图(int a) {
+        getMap(a).resetFully();
+    }
+
+    public void 清除地图怪物(int a, int b) {
+        MapleMonster mob;
+        double range = Double.POSITIVE_INFINITY;
+        MapleMap map = getMap(a);
+        boolean drop = false;
+        if (b == 0) {
+            drop = true;
+        } else {
+            drop = false;
+        }
+        for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range, Arrays.asList(MapleMapObjectType.MONSTER))) {
+            mob = (MapleMonster) monstermo;
+            map.killMonster(mob, c.getPlayer(), drop, false, (byte) 1);
+        }
+    }
+
+    public void 清除地图物品(int a) {
+        getMap(a).removeDrops();
+    }
+
+    public String 职业(int a) {
+        return getJobNameById(a);
+    }
+    
+       public void 给能力点(final int amount) {//给AP
+        c.getPlayer().gainAp((short) amount);
+    }
+
+    public void 收能力点(final int amount) {//给AP
+        c.getPlayer().gainAp((short) -amount);
+    }
+
+    public void 给技能点(final int amount) {//给AP
+        c.getPlayer().gainSP((short) amount);
+    }
+
+    public void 收技能点(final int amount) {//给AP
+        c.getPlayer().gainSP2((short) amount);
+    }
+
+
+    public void 脱光装备() {//脱下身上装备
+        MapleInventory equipped = getPlayer().getInventory(MapleInventoryType.EQUIPPED);
+        MapleInventory equip = getPlayer().getInventory(MapleInventoryType.EQUIP);
+        List<Short> ids = new LinkedList<Short>();
+        for (IItem item : equipped.list()) {
+            ids.add(item.getPosition());
+        }
+        for (short id : ids) {
+            MapleInventoryManipulator.unequip(getC(), id, equip.getNextFreeSlot());
+        }
+    }
+
+    public void 脱掉并且销毁装备(int x) {//脱下身上装备
+        MapleInventory equipped = getPlayer().getInventory(MapleInventoryType.EQUIPPED);
+        MapleInventory equip = getPlayer().getInventory(MapleInventoryType.EQUIP);
+        List<Short> ids = new LinkedList<Short>();
+        for (IItem item : equipped.list()) {
+            ids.add(item.getPosition());
+        }
+        for (short id : ids) {
+            if (id == x) {
+                MapleInventoryManipulator.unequip(getC(), id, equip.getNextFreeSlot());
+            }
+        }
+        MapleInventoryManipulator.removeFromSlot(getC(), MapleInventoryType.EQUIP, (short) 1, (short) 1, true);
+    }
+
+    public void 全服音效(boolean broadcast, String sound) {//播放音乐
+        for (ChannelServer cserv1 : ChannelServer.getAllInstances()) {
+            for (MapleCharacter mch : cserv1.getPlayerStorage().getAllCharacters()) {
+                World.Broadcast.broadcastMessage(MaplePacketCreator.playSound(sound));
+            }
+        }
+    }
+            
 }
