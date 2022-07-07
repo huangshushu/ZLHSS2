@@ -210,6 +210,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     private transient Event_PyramidSubway pyramidSubway = null;
     private transient List<Integer> pendingExpiration = null, pendingSkills = null;
     private final transient Map<Integer, Integer> movedMobs = new HashMap<>();
+   private long lasttime = 0L;
+    private long currenttime = 0L;
+    private long deadtime = 1000L;
 
     private MapleCharacter(final boolean ChannelServer) {
         this.setStance(0);
@@ -10185,4 +10188,75 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 		}
 		return true;
 	}
+        
+    public long getLasttime() {
+        return this.lasttime;
+    }
+
+    public void setLasttime(long lasttime) {
+        this.lasttime = lasttime;
+    }
+
+    public long getCurrenttime() {
+        return this.currenttime;
+    }
+
+    public void setCurrenttime(long currenttime) {
+        this.currenttime = currenttime;
+    }
+    
+        public long getDeadtime() {
+        return this.deadtime;
+    }
+
+    public void setDeadtime(long deadtime) {
+        this.deadtime = deadtime;
+    }
+    
+        public final void updateOfflineTime() {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            final PreparedStatement ps = con.prepareStatement("UPDATE characters SET OfflineTime = ? WHERE id = ?");
+            ps.setLong(1, System.currentTimeMillis());
+            ps.setInt(2, this.id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            System.err.println("更新角色下线时间错误！" + e);
+        }
+    }
+
+    public final void updateOfflineTime1() {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            final PreparedStatement ps = con.prepareStatement("UPDATE characters SET OfflineTime = ? WHERE id = ?");
+            ps.setLong(1, 0);
+            ps.setInt(2, this.id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            System.err.println("更新角色下线时间错误！" + e);
+        }
+    }
+
+    public final long getLastOfflineTime() {
+        long 离线时间 = 0;
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            final PreparedStatement ps = con.prepareStatement("select OfflineTime from characters WHERE id = ?");
+            //ps.setLong(1, System.currentTimeMillis());
+            ps.setInt(1, this.id);
+            final ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                离线时间 = rs.getLong("OfflineTime");
+            }
+            if (离线时间 == 0) {
+                离线时间 = System.currentTimeMillis();
+            }
+            rs.close();
+            ps.close();
+
+        } catch (SQLException e) {
+            System.err.println("获取角色最后下线时间错误！" + e);
+        }
+        return 离线时间;
+    }
+        
 }

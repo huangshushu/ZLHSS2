@@ -121,27 +121,44 @@ public class NPCHandler {
         }
     }
 
-    public static final void handleNPCTalk(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void handleNPCTalk(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {        
         if (c == null || chr == null || chr.getMap() == null) {
             return;
         }
+        
         final MapleNPC npc = chr.getMap().getNPCByOid(slea.readInt());
-
+        
+        
         if (npc == null) {
             return;
         }
-        if (chr.getConversation() != 0) {
-            chr.dropMessage(5, "你现在不能攻击或不能跟npc对话,请在对话框打 @解卡/@ea 来解除异常状态");
-            return;
-        }
-
+        
         if (chr.getAntiMacro().inProgress()) {
             chr.dropMessage(5, "被使用测谎仪时无法操作。");
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
         }
-
+        
+        //slea.readInt();
+        if (npc == null) {
+            return;
+        }
+        
+        chr.setCurrenttime(System.currentTimeMillis());
+        if (chr.getCurrenttime() - chr.getLasttime() < chr.getDeadtime()) {
+            chr.dropMessage("悠着点!");
+            c.getSession().write(MaplePacketCreator.enableActions());
+            return;
+        }       
+        if (chr.getConversation() != 0) {
+            NPCScriptManager.getInstance().dispose(c);
+            c.sendPacket(MaplePacketCreator.enableActions());
+            //  chr.dropMessage(5, "你现在已经假死请使用@ea");
+            return;
+        }
+        c.getPlayer().updateTick(slea.readInt());// 暂时不检测点NPC的速度
         if (npc.hasShop()) {
+            c.sendPacket(MaplePacketCreator.confirmShopTransaction((byte) 20));
             chr.setConversation(1);
             npc.sendShop(c);
         } else {
