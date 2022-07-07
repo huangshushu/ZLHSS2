@@ -35,8 +35,8 @@ public class ServerConfig {
     public static boolean isPvPChannel(int ch) {
         return pvp && ch == pvpch;
     }
-    public static byte[] Gateway_IP = new byte[]{(byte) 47, (byte) 95, (byte) 13, (byte) 193};
-    public static byte[] Gateway_IP2 = new byte[]{(byte) 47, (byte) 95, (byte) 13, (byte) 193};
+    public static byte[] Gateway_IP = new byte[]{(byte) 127, (byte) 0, (byte) 0, (byte) 1};
+    public static byte[] Gateway_IP2 = new byte[]{(byte) 127, (byte) 0, (byte) 0, (byte) 1};
 
     public static String[] getEvents(boolean reLoad) {
         return getEventList(reLoad).split(",");

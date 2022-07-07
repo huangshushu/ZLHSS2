@@ -31,6 +31,7 @@ import javax.script.Invocable;
 import javax.script.ScriptException;
 
 import client.MapleCharacter;
+import constants.ServerConfig;
 import database.DBConPool;
 import handling.channel.ChannelServer;
 import handling.world.MapleParty;
@@ -583,4 +584,7 @@ public class EventManager {
 
         return data;
     }
+     public String getServerName() {
+            return ServerConfig.SERVER_NAME;
+     }
 }

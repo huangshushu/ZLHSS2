@@ -31,6 +31,7 @@ import javax.script.ScriptException;
 
 import client.MapleCharacter;
 import client.MapleQuestStatus;
+import constants.ServerConfig;
 import handling.channel.ChannelServer;
 import handling.world.MapleParty;
 import handling.world.MaplePartyCharacter;
@@ -840,4 +841,8 @@ public class EventInstanceManager {
      public int 获取当前星期() {
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
     }
+     
+     public String getServerName() {
+            return ServerConfig.SERVER_NAME;
+     }
 }

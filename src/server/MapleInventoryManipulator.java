@@ -1035,6 +1035,11 @@ public class MapleInventoryManipulator {
                 return false;
             }
 
+            if ((source.getQuantity() - quantity < source.getQuantity())){
+                c.sendPacket(MaplePacketCreator.enableActions());
+                return false;
+            }
+                    
             if ((source.getItemId() == 2340000) || (source.getItemId() == 2049100)) {
                 if (WorldConstants.DropItem) {
                     World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密语系统] 危险贵重物品 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + quantity + " 物品 " + ii.getName(source.getItemId()) + " (" + source.getItemId() + ") x" + quantity));
@@ -1042,10 +1047,11 @@ public class MapleInventoryManipulator {
                 FileoutputUtil.logToFile("logs/Data/丢弃贵重物品.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + quantity + " 物品 " + ii.getName(source.getItemId()) + " (" + source.getItemId() + ") x" + quantity);
             }
 
-            if (/*quantity < 0 || */source == null || (!npcInduced && GameConstants.isPet(source.getItemId())) /*|| (quantity == 0 && !GameConstants.isRechargable(source.getItemId()))*/) {
+            if (quantity < 0 || source == null || (!npcInduced && GameConstants.isPet(source.getItemId())) || (quantity == 0 && !GameConstants.isRechargable(source.getItemId()))) {
                 c.sendPacket(MaplePacketCreator.enableActions());
                 return false;
             }
+                        
             if (!cs) {
                 if (ii.isCash(source.getItemId())) {
                     c.sendPacket(MaplePacketCreator.enableActions());

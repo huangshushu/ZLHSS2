@@ -42,6 +42,7 @@ import client.SkillEntry;
 import client.MapleStat;
 import client.inventory.Item;
 import client.inventory.ItemLoader;
+import constants.ServerConfig;
 import database.DBConPool;
 import server.MapleCarnivalParty;
 import server.Randomizer;
@@ -66,6 +67,9 @@ import handling.world.World;
 import handling.world.guild.MapleGuild;
 import server.MapleCarnivalChallenge;
 import handling.world.guild.MapleGuildAlliance;
+import java.awt.Point;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.script.Invocable;
 import server.MapleStatEffect;
@@ -88,6 +92,7 @@ import tools.FilePrinter;
 import tools.FileoutputUtil;
 import tools.SearchGenerator;
 import tools.StringUtil;
+import tools.packet.UIPacket;
 
 public class NPCConversationManager extends AbstractPlayerInteraction {
 
@@ -2090,5 +2095,145 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 		return getPlayer().haveSpaceForId(itemid);
 	}
         
+        
+      public String getServerName() {
+            return ServerConfig.SERVER_NAME;
+     }
+        
+      public String serverName() {//取服务器名字
+        return c.getChannelServer().getServerName();
+    }
+      
+    public String 开服名称() {//取服务器名字
+        return c.getChannelServer().getServerName();
+    }
+    
+    public void 全服黄色字体(String message) {
+        for (ChannelServer cserv1 : ChannelServer.getAllInstances()) {
+            for (MapleCharacter mch : cserv1.getPlayerStorage().getAllCharacters()) {
+                c.sendPacket(UIPacket.getTopMsg(message));
+            }
+        }
+    }
+    
+    public void 个人黄色字体(String message) {
+        c.sendPacket(UIPacket.getTopMsg(message));
+    }
+    
+        public int 今日在线() {
+        int data = 0;
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            PreparedStatement psu = con.prepareStatement("SELECT todayOnlineTime FROM characters WHERE id = ?");
+            psu.setInt(1, c.getPlayer().getId());
+            ResultSet rs = psu.executeQuery();
+            if (rs.next()) {
+                data = rs.getInt("todayOnlineTime");
+            }
+            rs.close();
+            psu.close();
 
+        } catch (SQLException ex) {
+            System.err.println("查询今日在线时间出错：" + ex.getMessage());
+        }
+
+        return data;
+    }
+
+    public int 总在线() {
+        int data = 0;
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            PreparedStatement psu = con.prepareStatement("SELECT totalOnlineTime FROM characters WHERE id = ?");
+            psu.setInt(1, c.getPlayer().getId());
+            ResultSet rs = psu.executeQuery();
+            if (rs.next()) {
+                data = rs.getInt("totalOnlineTime");
+            }
+            rs.close();
+            psu.close();
+        } catch (SQLException ex) {
+            System.err.println("查询总在线时间出错：" + ex.getMessage());
+        }
+
+        return data;
+    }
+
+    public int 在线人数() {
+        int count = 0;
+        for (ChannelServer chl : ChannelServer.getAllInstances()) {
+            count += chl.getPlayerStorage().getAllCharacters().size();
+        }
+        return count;
+    }
+    private Point position = new Point();
+
+    public void 清怪() {
+        MapleMap map = c.getPlayer().getMap();
+        double range = Double.POSITIVE_INFINITY;
+        MapleMonster mob;
+        for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range, Arrays.asList(MapleMapObjectType.MONSTER))) {
+            mob = (MapleMonster) monstermo;
+            map.killMonster(mob, c.getPlayer(), true, false, (byte) 1);
+        }
+    }
+        public void 个人存档() {
+        c.getPlayer().saveToDB(false, false);
+    }
+
+    public void 角色ID() {
+        c.getPlayer().getId();
+    }
+
+    public void 全服存档() {
+        try {
+            for (ChannelServer cserv : ChannelServer.getAllInstances()) {
+                for (MapleCharacter chr : cserv.getPlayerStorage().getAllCharacters()) {
+                    if (chr == null) {
+                        continue;
+                    }
+                    chr.saveToDB(false, false);
+                }
+            }
+        } catch (Exception e) {
+        }
+    }
+    
+        public void 给技能(final int action, final byte level, final byte masterlevel) {
+        c.getPlayer().changeSkillLevel(SkillFactory.getSkill(action), level, masterlevel);
+    }
+           public void 键盘上技能(final int id, final int key, final int type, final int action, final byte level, final byte masterlevel) throws SQLException {
+        //给予技能先
+        c.getPlayer().changeSkillLevel(SkillFactory.getSkill(action), level, masterlevel);
+        c.getPlayer().dropMessage(1, "<提示>\r\n5秒后你会自动下线，请1分钟后再次登陆。");
+        //存档
+        c.getPlayer().saveToDB(false, false);
+        new Thread() {
+            @Override
+            public void run() {
+                try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+                    //5秒后断开玩家链接
+                    Thread.sleep(1000 * 5);
+                    c.getPlayer().getClient().getSession().close();
+                    //10秒后开始执行上技能指令
+                    Thread.sleep(1000 * 10);
+                    PreparedStatement ps = null;
+                    ps = con.prepareStatement("INSERT INTO keymap (characterid, `key`, `type`, `action`) VALUES (?, ?, ?, ?)");
+                    //写ID
+                    ps.setInt(1, id);
+                    //写类型
+                    ps.setInt(2, key);
+                    //写建委
+                    ps.setInt(3, type);
+                    //写代码
+                    ps.setInt(4, action);
+                    ps.execute();
+                } catch (InterruptedException e) {
+                } catch (SQLException ex) {
+                    Logger.getLogger(NPCConversationManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }.start();
+    }
+           
+           
+        
 }

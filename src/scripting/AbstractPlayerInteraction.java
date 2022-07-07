@@ -56,6 +56,7 @@ import tools.packet.UIPacket;
 import client.messages.CommandProcessor;
 import constants.ItemConstants;
 import constants.ItemConstants.类型;
+import constants.ServerConfig;
 import constants.ServerConstants;
 import handling.channel.handler.InterServerHandler;
 import handling.world.World;
@@ -595,6 +596,53 @@ public abstract class AbstractPlayerInteraction {
         gainItem(id, quantity, randomStats, period, slots, owner, c);
     }
 
+        public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period, final int slots, final String owner, final MapleClient cg, byte Flag) {
+        if (id == 2070018) {
+            return;
+        }
+
+        if (quantity >= 0) {
+            final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+            final MapleInventoryType type = GameConstants.getInventoryType(id);
+
+            if (!MapleInventoryManipulator.checkSpace(cg, id, quantity, "")) {
+                return;
+            }
+            if (type.equals(MapleInventoryType.EQUIP) && !GameConstants.isThrowingStar(id) && !GameConstants.isBullet(id)) {
+                final Equip item = (Equip) (randomStats ? ii.randomizeStats((Equip) ii.getEquipById(id)) : ii.getEquipById(id));
+                if (period > 0) {
+                    item.setExpiration(System.currentTimeMillis() + (period * 24 * 60 * 60 * 1000));
+                }
+                if (slots > 0) {
+                    item.setUpgradeSlots((byte) (item.getUpgradeSlots() + slots));
+                }
+                if (owner != null) {
+                    item.setOwner(owner);
+                }
+                final String name = ii.getName(id);
+                if (id / 10000 == 114 && name != null && name.length() > 0) { //medal
+                    final String msg = "你已获得称号 <" + name + ">";
+                    cg.getPlayer().dropMessage(5, msg);
+                    //cg.getPlayer().dropMessage(5, msg);
+                }
+                MapleInventoryManipulator.addbyItem(cg, item.copy());
+            } else {
+                MapleInventoryManipulator.addById(cg, id, quantity, owner == null ? "" : owner, null, period);
+            }
+        } else {
+            MapleInventoryManipulator.removeById(cg, GameConstants.getInventoryType(id), id, -quantity, true, false);
+        }
+        cg.sendPacket(MaplePacketCreator.getShowItemGain(id, quantity, true));
+    }
+        
+            public final void gainItem(final int id, final short quantity, final long period, byte Flag) {
+        gainItem(id, quantity, false, period, -1, "", (byte) Flag);
+    }
+
+    public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period, final int slots, final String owner, byte Flag) {
+        gainItem(id, quantity, randomStats, period, slots, owner, c, Flag);
+    }
+        
     public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period, final int slots, final String owner, final MapleClient cg) {
         if (quantity >= 0) {
             final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
@@ -2756,4 +2804,404 @@ public abstract class AbstractPlayerInteraction {
         public void addFromDrop(MapleClient c, Item item, boolean show) {
         MapleInventoryManipulator.addFromDrop(getClient(), item, show);
     }
+        public String getServerName() {
+            return ServerConfig.SERVER_NAME;
+        }
+            public final int 判断职业() {
+        return c.getPlayer().getJob();
+    }
+                public final void 判断组队() {
+        c.getPlayer().getParty();
+    }
+
+    public final void 判断频道() {
+        getClient().getChannel();
+    }
+    
+        public final int getNX(int 类型) {
+        return c.getPlayer().getCSPoints(类型);
+    }
+           public final void gainD(final int amount) {
+        c.getPlayer().modifyCSPoints(2, amount, true);
+    }
+
+    public final void 给抵用券(final int amount) {
+        c.getPlayer().modifyCSPoints(2, amount, true);
+    }
+
+    public final void 收抵用券(final int amount) {
+        c.getPlayer().modifyCSPoints(2, -amount, true);
+    }
+
+    public final void 给点券(final int amount) {
+        c.getPlayer().modifyCSPoints(1, amount, true);
+    }
+
+    public final void 收点券(final int amount) {
+        c.getPlayer().modifyCSPoints(1, -amount, true);
+    }
+    
+        public final void 物品兑换1(final int id1, final short shuliang1, final int id2, final int shuliang2) {
+
+        if (!haveItem(id1, shuliang1, true, true)) {
+            c.getPlayer().dropMessage(1, "你没有足够的兑换物品。");
+            return;
+        }
+        gainItem(id1, (short) -shuliang1, false, 0, -1, "", (byte) 0);
+        gainItem(id2, (short) shuliang2, false, 0, -1, "", (byte) 0);
+        c.getPlayer().dropMessage(1, "兑换成功。");
+    }
+
+    public final void 概率给物品(final int id, final short quantity, double 概率2, String a) {
+        概率给物品(id, quantity, 概率2);
+    }
+
+    public final void 概率给物品(final int id, final short quantity, double 概率2) {
+        if (概率2 > 100) {
+            概率2 = 100;
+        }
+        if (概率2 <= 0) {
+            概率2 = 0;
+        }
+        final double 概率 = Math.ceil(Math.random() * 100);
+        if (概率2 > 0) {
+            if (概率 <= 概率2) {
+                gainItem(id, quantity, false, 0, -1, "", (byte) 0);
+            }
+        }
+    }
+
+    public final void 概率给物品2(final int id, final short quantity, double 概率2, String a) {
+        概率给物品2(id, quantity, 概率2);
+    }
+
+    public final void 概率给物品2(final int id, final short quantity, double 概率2) {
+        if (概率2 > 100) {
+            概率2 = 100;
+        }
+        if (概率2 <= 0) {
+            概率2 = 0;
+        }
+        final double 概率 = Math.ceil(Math.random() * 100);
+        if (概率2 > 0) {
+            if (概率 <= 概率2) {
+                short 数量 = (short) Math.ceil(Math.random() * quantity);
+                if (数量 == 0) {
+                    数量 = 1;
+                }
+                gainItem(id, 数量, false, 0, -1, "", (byte) 0);
+            }
+        }
+    }
+    
+          public final void 收物品(final int id, final short quantity) {
+        gainItem(id, (short) -quantity, false, 0, -1, "", (byte) 0);
+    }  
+          
+          
+              public int getHour() {
+        return Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+    }
+
+    public int 判断日() {
+        return Calendar.getInstance().get(Calendar.DATE);
+    }
+
+    public int 判断时() {
+        return Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+    }
+
+    public int getMin() {
+        return Calendar.getInstance().get(Calendar.MINUTE);
+    }
+
+    public int 判断分() {
+        return Calendar.getInstance().get(Calendar.MINUTE);
+    }
+
+    public int getSec() {
+        return Calendar.getInstance().get(Calendar.SECOND);
+    }
+        public final void worldMessage(final int type, int channel, final String message, boolean smegaEar) {
+        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(type, channel, message, smegaEar));
+    }
+
+    public final void worldMessage2(final int type, final String message) {//喇叭
+        switch (type) {
+            case 1: // 弹窗
+            case 2: // 粉蓝色底蓝色字
+            case 3: // 粉紫色底紫色字(带频道标记)
+            case 5: // 无底色粉红字
+            case 6: // 无底色粉蓝字
+            case 9: // 无底色粉蓝字    
+            case 11:// 带爱心的白色底粉红字
+            case 12:// 带电话的粉蓝底素字
+            case 13:// 带电话的粉蓝底素字
+            case 14:// 带电话的粉蓝底素字
+            case 15:// 带电话的粉蓝底素字
+            case 16:// 带电话的粉蓝底素字
+            case 17:// 带电话的粉蓝底素字
+            case 18:// 带电话的粉蓝底素字
+                World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(type, c.getChannel(), message));
+                break;
+            default:
+                World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(6, c.getChannel(), message));
+                break;
+        }
+    }
+    
+       public final void 个人公告(final String message) {
+        playerMessage(6, message);
+    }
+
+
+    public final void 地图公告(final String message) {
+        mapMessage(6, message);
+    }
+
+        public final boolean 是否队长() {
+        if (getParty() == null) {
+            return false;
+        }
+        return getParty().getLeader().getId() == c.getPlayer().getId();
+    }
+        
+            public final void 团队传送地图(final int mapId, final int portal) {
+        if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
+            if (portal < 0) {
+                warp(mapId);
+            } else {
+                warp(mapId, portal);
+            }
+            return;
+        }
+        final boolean rand = portal < 0;
+        final MapleMap target = getMap(mapId);
+        final int cMap = getPlayer().getMapId();
+
+        for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
+            final MapleCharacter curChar = getChannelServer().getPlayerStorage().getCharacterById(chr.getId());
+            if (curChar != null && (curChar.getMapId() == cMap || curChar.getEventInstance() == getPlayer().getEventInstance())) {
+                if (rand) {
+                    try {
+                        curChar.changeMap(target, target.getPortal(Randomizer.nextInt(target.getPortals().size())));
+                    } catch (Exception e) {
+                        curChar.changeMap(target, target.getPortal(0));
+                    }
+                } else {
+                    curChar.changeMap(target, target.getPortal(portal));
+                }
+            }
+        }
+    }
+            
+                public void 给金币(int gain) {
+        c.getPlayer().gainMeso(gain, true, false, true);
+    }
+
+    public void 收金币(int gain) {
+        c.getPlayer().gainMeso(-gain, true, false, true);
+    }
+    
+       public void 给经验(int gain) {
+        c.getPlayer().gainExp(gain, true, true, true);
+    }
+
+    public void 收经验(int gain) {
+        c.getPlayer().gainExp(-gain, true, true, true);
+    }
+    
+
+    public final void 给团队道具(final int id, final short quantity) {
+        givePartyItems(id, quantity, false);
+    }
+
+    public final void 收团队道具(final int id, final short quantity) {
+        givePartyItems2(id, quantity, false);
+    }
+    
+        public final void givePartyItems2(final int id, final short quantity, final boolean removeAll) {
+        if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
+            gainItem(id, (short) (removeAll ? -getPlayer().itemQuantity(id) : -quantity));
+            return;
+        }
+
+        for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
+            final MapleCharacter curChar = getMap().getCharacterById(chr.getId());
+            if (curChar != null) {
+                gainItem(id, (short) (removeAll ? -curChar.itemQuantity(id) : -quantity), false, 0, 0, "", curChar.getClient(), (byte) 0);
+            }
+        }
+    }
+
+
+    public final void 给团队经验(final int amount) {
+        if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
+            gainExp(amount);
+            return;
+        }
+        for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
+            final MapleCharacter curChar = getMap().getCharacterById(chr.getId());
+            if (curChar != null) {
+                curChar.gainExp(amount, true, true, true);
+            }
+        }
+    }
+
+
+    public final void 给团队点券(final int amount, final List<MapleCharacter> party) {
+        for (final MapleCharacter chr : party) {
+            chr.modifyCSPoints(1, amount, true);
+        }
+    }
+
+    public final void 给团队抵用券(final int amount, final List<MapleCharacter> party) {
+        for (final MapleCharacter chr : party) {
+            chr.modifyCSPoints(2, amount, true);
+        }
+    }
+    public void gainDY(int gain) {
+        c.getPlayer().modifyCSPoints(2, gain, true);
+    }
+    
+    public final void givePartyDY(final int amount) {
+        if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
+            gainDY(amount);
+            return;
+        }
+        for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
+            final MapleCharacter curChar = getMap().getCharacterById(chr.getId());
+            if (curChar != null) {
+                curChar.modifyCSPoints(2, amount, true);
+            }
+        }
+    }
+
+    public final void givePartyMeso(final int amount) {
+        if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
+            gainMeso(amount);
+            return;
+        }
+        for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
+            final MapleCharacter curChar = getMap().getCharacterById(chr.getId());
+            if (curChar != null) {
+                curChar.gainMeso(amount, true);
+            }
+        }
+    }
+
+    public final void 给团队金币(final int amount) {
+        if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
+            gainMeso(amount);
+            return;
+        }
+        for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
+            final MapleCharacter curChar = getMap().getCharacterById(chr.getId());
+            if (curChar != null) {
+                curChar.gainMeso(amount, true);
+            }
+        }
+    }
+
+    public final void 销毁物品(final int id) {
+        c.getPlayer().removeAll(id);
+    }
+    
+        public final int 判断地图() {
+        return c.getPlayer().getMap().getId();
+    }
+
+    public final int 判断地图指定怪物数量(final int mobid) {
+        int a = 0;
+        for (MapleMapObject obj : c.getPlayer().getMap().getAllMonstersThreadsafe()) {
+            final MapleMonster mob = (MapleMonster) obj;
+            if (mob.getId() == mobid) {
+                a += 1;
+            }
+        }
+        return a;
+    }
+    
+
+    public final boolean 判断当前地图指定怪物是否存在(final int mobid) {
+        for (MapleMapObject obj : c.getPlayer().getMap().getAllMonstersThreadsafe()) {
+            final MapleMonster mob = (MapleMonster) obj;
+            if (mob.getId() == mobid) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getSkillLevel(int id) {
+        return getPlayer().getSkillLevel(id);
+    }
+
+    public int 判断技能等级(int id) {
+        return getPlayer().getSkillLevel(id);
+    }
+    
+        public int 判断每日值(String bossid) {
+        return getPlayer().getBossLog(bossid);
+    }
+
+    public int 判断每日(String bossid) {
+        return getPlayer().getBossLog(bossid);
+    }
+    
+        public void 增加每日值(String bossid) {
+        getPlayer().setBossLog(bossid);
+    }
+
+    public void 增加每日(String bossid) {
+        getPlayer().setBossLog(bossid);
+    }
+    
+        public void 给个人每日(String bossid) {
+        getPlayer().setBossLog(bossid);
+    }
+        
+        
+           public final void 给团队每日(String bossid) {//给团队BOOSLOG？
+        if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
+            setBossLog(bossid);
+            return;
+        }
+        for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
+            final MapleCharacter curChar = getMap().getCharacterById(chr.getId());
+            if (curChar != null) {
+                curChar.setBossLog(bossid);
+            }
+        }
+    }
+
+    public int 判断团队每日(String bossid) {
+        int a = 0;
+        for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
+            final MapleCharacter curChar = getMap().getCharacterById(chr.getId());
+            if (curChar != null) {
+                a += curChar.getBossLog(bossid);
+            }
+        }
+        return a;
+    }
+
+    public int 判断队友是否在场(String bossid) {
+        int a = 0;
+        for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
+            final MapleCharacter curChar = getMap().getCharacterById(chr.getId());
+            if (curChar != null) {
+                a += curChar.getBossLog(bossid);
+            }
+        }
+        return a;
+    }
+    
+    
+        
+
+
+
+    
+        
 }
