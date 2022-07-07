@@ -137,6 +137,8 @@ import server.maps.Event_PyramidSubway;
 import server.maps.MapleFoothold;
 import server.maps.MapleMapEffect;
 import server.movement.LifeMovementFragment;
+import static tools.FileoutputUtil.log;
+import static tools.FileoutputUtil.log;
 import tools.data.MaplePacketLittleEndianWriter;
 import tools.packet.PlayerShopPacket;
 
@@ -10285,6 +10287,117 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         client.sendPacket(MaplePacketCreator.updateSp(this, false));
         client.sendPacket(UIPacket.getSPMsg((byte) sp, (short) job));
     }  
+          
+          	public int getHyPay(int type) {
+		int pay = 0;
+		try {
+			Connection con = DBConPool.getInstance().getDataSource().getConnection();
+			PreparedStatement ps = con.prepareStatement("select * from hypay where accname = ?");
+			ps.setString(1, getClient().getAccountName());
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				if (type == 1) { // 当前充值记录
+					pay = rs.getInt("pay");
+				} else if (type == 2) { // 已消费记录
+					pay = rs.getInt("payUsed");
+				} else if (type == 3) { // 当前消费总额
+					pay = rs.getInt("pay") + rs.getInt("payUsed");
+				} else if (type == 4) { // 充值奖励
+					pay = rs.getInt("payReward");
+				} else {
+					pay = 0;
+				}
+			} else {
+				PreparedStatement psu = con
+						.prepareStatement("insert into hypay (accname, pay, payUsed, payReward) VALUES (?, ?, ?, ?)");
+				psu.setString(1, getClient().getAccountName());
+				psu.setInt(2, 0); // 当前充值金额
+				psu.setInt(3, 0); // 已经消费金额
+				psu.setInt(4, 0); // 消费奖励
+				psu.executeUpdate();
+				psu.close();
+			}
+			ps.close();
+			rs.close();
+		} catch (SQLException ex) {
+                        System.err.println("获取充值信息发生错误" + ex);
+                        FileoutputUtil.outError("logs/充值信息异常.txt", ex);
+		}
+		return pay;
+	}
+
+	public int addHyPay(int hypay) {
+		int pay = getHyPay(1);
+		int payUsed = getHyPay(2);
+		int payReward = getHyPay(4);
+		if (hypay > pay) {
+			return -1;
+		}
+		try {
+			PreparedStatement ps = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("UPDATE hypay SET pay = ? ,payUsed = ? ,payReward = ? where accname = ?");
+			ps.setInt(1, pay - hypay); // 当前充值金额
+			ps.setInt(2, payUsed + hypay); // 已经消费金额
+			ps.setInt(3, payReward + hypay); // 消费奖励
+			ps.setString(4, getClient().getAccountName());
+			ps.executeUpdate();
+			ps.close();
+			return 1;
+		} catch (SQLException ex) {
+			System.err.println("获取充值信息发生错误" + ex);
+                        FileoutputUtil.outError("logs/充值信息异常.txt", ex);
+			return -1;
+		}
+	}
+
+	public int delPayReward(int pay) {
+		int payReward = getHyPay(4);
+		if (pay <= 0) {
+			return -1;
+		}
+		if (pay > payReward) {
+			return -1;
+		}
+		try {
+			PreparedStatement ps = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("UPDATE hypay SET payReward = ? where accname = ?");
+			ps.setInt(1, payReward - pay); // 消费奖励
+			ps.setString(2, getClient().getAccountName());
+			ps.executeUpdate();
+			ps.close();
+			return 1;
+		} catch (SQLException ex) {
+			System.err.println("获取充值信息发生错误" + ex);
+                        FileoutputUtil.outError("logs/充值信息异常.txt", ex);
+			return -1;
+		}
+	}
+  
+        /*
+        	// 更改伤害皮肤
+	public void changeDamageSkin(int id) {
+		MapleQuest q = MapleQuest.getInstance(7291);
+		if (q == null) {
+			return;
+		}
+		MapleQuestStatus status = getQuestNAdd(q);
+		status.setStatus((byte) 1);
+		status.setCustomData(String.valueOf(id));
+		updateQuest(status, true);
+		map.broadcastMessage(InventoryPacket.showDamageSkin(getId(), id)); // 发送给其他玩家显示角色更换技能皮肤
+		dropMessage(-9, "伤害皮肤已更改。");
+	}
+        */
+
+	/*
+	 * 获取伤害皮肤的数值
+	 */
+	public int getDamageSkin() {
+		MapleQuestStatus stat = getQuestNAdd(MapleQuest.getInstance(7291));
+		stat.setStatus((byte) 1); // 设置任务为进行中
+		if (stat.getCustomData() == null) {
+			stat.setCustomData("0");
+		}
+		return Integer.parseInt(stat.getCustomData());
+	}
         
     
         

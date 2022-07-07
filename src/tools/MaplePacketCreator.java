@@ -94,6 +94,11 @@ import tools.data.MaplePacketLittleEndianWriter;
 import tools.packet.PacketHelper;
 
 import static client.MapleStat.*;
+import database.DBConPool;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MaplePacketCreator {
 
@@ -5271,5 +5276,20 @@ public class MaplePacketCreator {
 
         return mplew.getPacket();
     }
+    
+        public static byte[] getKeymapNull() {
+        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+
+        mplew.writeShort(SendPacketOpcode.KEYMAP.getValue());
+        mplew.write(0);
+
+        for (int x = 0; x < 90; x++) {
+            mplew.write(0);
+            mplew.writeInt(0);
+        }
+
+        return mplew.getPacket();
+    }
+       
 
 }
