@@ -55,6 +55,7 @@ import java.awt.Rectangle;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.concurrent.locks.Lock;
+import scripting.ItemScriptManager;
 import server.AutobanManager;
 import server.Randomizer;
 import server.RandomRewards;
@@ -709,31 +710,31 @@ public class InventoryHandler {
                     if (warped) { // Removal of gold compass
                         MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, 2430008, 1, false, false);
                     } else { // Or mabe some other message.
-                        c.getPlayer().dropMessage(5, "全部地都在使用中，请稍后再尝试一次。");
+                        c.getPlayer().dropMessage(5, "全部地图都在使用中，请稍后再来尝试。");
                     }
                     break;
                 }
-                case 2430112: //miracle cube
+                /*case 2430112: //miracle cube
                     if (c.getPlayer().getInventory(MapleInventoryType.USE).getNumFreeSlot() >= 1) {
                         if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 25) {
                             if (MapleInventoryManipulator.checkSpace(c, 2049400, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, 2430112, 25, true, false)) {
                                 MapleInventoryManipulator.addById(c, 2049400, (short) 1);
                             } else {
-                                c.getPlayer().dropMessage(5, "请空出一些栏位。");
+                                c.getPlayer().dropMessage(5, "請空出一些欄位。");
                             }
                         } else if (c.getPlayer().getInventory(MapleInventoryType.USE).countById(2430112) >= 10) {
                             if (MapleInventoryManipulator.checkSpace(c, 2049400, 1, "") && MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, 2430112, 10, true, false)) {
                                 MapleInventoryManipulator.addById(c, 2049401, (short) 1);
                             } else {
-                                c.getPlayer().dropMessage(5, "请空出一些栏位。.");
+                                c.getPlayer().dropMessage(5, "請空出一些欄位。.");
                             }
                         } else {
                             c.getPlayer().dropMessage(5, "There needs to be 10 Fragments for a Potential Scroll, 25 for Advanced Potential Scroll.");
                         }
                     } else {
-                        c.getPlayer().dropMessage(5, "请空出一些栏位。");
+                        c.getPlayer().dropMessage(5, "請空出一些欄位。");
                     }
-                    break;
+                    break;*/
                 case 2430036: //croco 1 day
                     mountid = 1027;
                     expiration_days = 1;
@@ -863,16 +864,19 @@ public class InventoryHandler {
                     mountid = 1102;
                     expiration_days = 60;
                     break;
+                default:
+                    ItemScriptManager.getInstance().start(c, 9900004, toUse);
+                    break;
             }
         }
         if (mountid > 0) {
             mountid += (GameConstants.isAran(c.getPlayer().getJob()) ? 20000000 : 0);
             if (c.getPlayer().getSkillLevel(mountid) > 0) {
-                c.getPlayer().dropMessage(5, "已经有了这个技能了。");
+                c.getPlayer().dropMessage(5, "已经有这个技能了。");
             } else if (expiration_days > 0) {
                 MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (byte) 1, false);
                 c.getPlayer().changeSkillLevel(SkillFactory.getSkill(mountid), (byte) 1, (byte) 1, System.currentTimeMillis() + (long) (expiration_days * 24 * 60 * 60 * 1000));
-                c.getPlayer().dropMessage(5, "已经学会了这个技能了。");
+                c.getPlayer().dropMessage(5, "已经学会这个技能了。");
             }
         }
         c.sendPacket(MaplePacketCreator.enableActions());

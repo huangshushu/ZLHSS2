@@ -97,7 +97,7 @@ import tools.packet.UIPacket;
 
 public class NPCConversationManager extends AbstractPlayerInteraction {
 
-    private final MapleClient c;
+    protected MapleClient c;
     private final int npc, questid, mode;
     protected String script;
     private String getText;

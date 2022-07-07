@@ -759,6 +759,28 @@ public class MapleInventoryManipulator {
             }
         }
     }
+    
+        public static boolean removeFromSlot(MapleClient c, MapleInventoryType type, short slot, short quantity, boolean fromDrop, int a) {
+        return removeFromSlot(c, type, slot, quantity, fromDrop, false, a);
+    }
+
+    public static boolean removeFromSlot(MapleClient c, MapleInventoryType type, short slot, short quantity, boolean fromDrop, boolean consume, int a) {
+        if ((c.getPlayer() == null) || (c.getPlayer().getInventory(type) == null)) {
+            return false;
+        }
+        IItem item = c.getPlayer().getInventory(type).getItem(slot);
+        if (item != null) {
+            final boolean allowZero = consume && GameConstants.isRechargable(item.getItemId());
+            c.getPlayer().getInventory(type).removeItem(slot, quantity, allowZero);
+            if ((item.getQuantity() == 0) && (!allowZero)) {
+                c.sendPacket(MaplePacketCreator.modifyInventory(fromDrop, new ModifyInventory(ModifyInventory.Types.REMOVE, item)));
+            } else {
+                c.sendPacket(MaplePacketCreator.modifyInventory(fromDrop, new ModifyInventory(ModifyInventory.Types.UPDATE, item)));
+            }
+            return true;
+        }
+        return false;
+    }
 
     public static boolean removeById(final MapleClient c, final MapleInventoryType type, final int itemId, final int quantity, final boolean fromDrop, final boolean consume) {
         int remremove = quantity;
@@ -1166,4 +1188,5 @@ public class MapleInventoryManipulator {
             }
         }
     }
+    
 }
