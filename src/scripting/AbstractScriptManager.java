@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 import javax.script.ScriptException;
 import tools.EncodingDetect;
 import tools.FilePrinter;
+import tools.MaplePacketCreator;
 import tools.StringUtil;
 
 /**
@@ -110,7 +111,9 @@ public abstract class AbstractScriptManager {
                 }
             }
         } else if (c != null && npc) {
-            c.getPlayer().dropMessage(5, "你现在不能攻击或不能跟npc对话,请在对话框打 @解卡/@ea 来解除异常状态");
+            //c.getPlayer().dropMessage(5, "你现在不能攻击或不能跟npc对话,请在对话框打 @解卡/@ea 来解除异常状态");
+                c.sendPacket(MaplePacketCreator.enableActions());//解卡
+                NPCScriptManager.getInstance().dispose(c);
         }
         return (Invocable) engine;
     }

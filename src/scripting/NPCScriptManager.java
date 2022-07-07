@@ -34,6 +34,7 @@ import server.life.MapleLifeFactory;
 import server.life.MapleNPC;
 import server.quest.MapleQuest;
 import tools.FilePrinter;
+import tools.MaplePacketCreator;
 
 public class NPCScriptManager extends AbstractScriptManager {
 
@@ -48,6 +49,10 @@ public class NPCScriptManager extends AbstractScriptManager {
         start(c, npc, null);
     }
 
+    public final void start(final MapleClient c, final int npc, final int mode) {
+        start(c, npc, mode, null);
+    }
+
     public final void start(final MapleClient c, final int npc, String script) {
         start(c, npc, 0, script);
     }
@@ -56,9 +61,13 @@ public class NPCScriptManager extends AbstractScriptManager {
         final Lock lock = c.getNPCLock();
         lock.lock();
         try {
+            if (c.getPlayer().getMapId() == 180000001) {
+                return;
+            }      
             if (c.getPlayer().isGM()) {
                 c.getPlayer().dropMessage("[系统提示]您已经建立与NPC:" + npc + (script == null ? "" : ("(" + script + ")")) + (mode == 0 ? "" : "型号: " + mode) + "的对话。");
             }
+        
             if (!cms.containsKey(c) && c.canClickNPC()) {
                 if (c.getPlayer() != null && c.getPlayer().getDebugMessage()) {
                     c.getPlayer().dropMessage("start - !cms.containsKey(c) && c.canClickNPC()");
@@ -124,7 +133,10 @@ public class NPCScriptManager extends AbstractScriptManager {
                     iv.invokeFunction("action", (byte) 1, (byte) 0, 0);
                 }
             } else if (c.getPlayer() != null) {
-                c.getPlayer().dropMessage(5, "你现在不能攻击或不能跟npc对话,请在对话框打 @解卡/@ea 来解除异常状态");
+                //c.getPlayer().dropMessage(5, "你现在不能攻击或不能跟npc对话,请在对话框打 @解卡/@ea 来解除异常状态");
+                c.sendPacket(MaplePacketCreator.enableActions());//解卡
+                NPCScriptManager.getInstance().dispose(c);
+                //c.getPlayer().dropMessage(5, "NPC正忙，请稍后再试.");
             }
 
         } catch (final ScriptException | NoSuchMethodException e) {

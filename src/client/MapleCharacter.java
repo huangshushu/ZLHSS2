@@ -10274,5 +10274,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             //FileoutputUtil.outError("logs/数据库异常.txt", Wx);
         }
     }
+        public final int 判断物品数量(int itemid) {
+        final MapleInventoryType type = GameConstants.getInventoryType(itemid);
+        int quantity = inventory[type.ordinal()].countById(itemid);
+        return quantity;
+    }
+        
+        
+    
         
 }

@@ -3197,7 +3197,9 @@ public abstract class AbstractPlayerInteraction {
         return a;
     }
     
-    
+        public final boolean 判断物品数量(final int itemid, final int quantity) {
+        return haveItem(itemid, quantity, false, true);
+    }
         
 
 

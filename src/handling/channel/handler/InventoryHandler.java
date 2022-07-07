@@ -201,6 +201,7 @@ public class InventoryHandler {
     }
 
     public static final boolean UseRewardItem(final byte slot, final int itemId, final MapleClient c, final MapleCharacter chr) {
+        /*
         final IItem toUse = c.getPlayer().getInventory(GameConstants.getInventoryType(itemId)).getItem(slot);
         c.sendPacket(MaplePacketCreator.enableActions());
         if (toUse != null && toUse.getQuantity() >= 1 && toUse.getItemId() == itemId) {
@@ -280,6 +281,11 @@ public class InventoryHandler {
                 chr.dropMessage(6, "你有一个栏位满了 请空出来再打开");
             }
         }
+        return false;
+        */
+        c.sendPacket(MaplePacketCreator.enableActions());
+        NPCScriptManager.getInstance().dispose(c);
+        NPCScriptManager.getInstance().start(c, 9900004, itemId);
         return false;
     }
 
