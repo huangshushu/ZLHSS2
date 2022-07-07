@@ -81,7 +81,7 @@ public class MapleInventoryManipulator {
         }
         return uniqueid;
     }
-
+        
     public static boolean addById(MapleClient c, int itemId, short quantity) {
         return addById(c, itemId, quantity, null, null, 0);
     }

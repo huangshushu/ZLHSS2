@@ -93,6 +93,8 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     LIE_DETECTOR_REFRESH,
     QUEST_ACTION,
     SKILL_MACRO,
+    ITEM_BAOWU,
+    ITEM_SUNZI,
     REWARD_ITEM,
     ITEM_MAKER,
     USE_TREASUER_CHEST,

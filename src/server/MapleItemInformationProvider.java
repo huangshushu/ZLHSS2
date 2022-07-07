@@ -1800,4 +1800,6 @@ public class MapleItemInformationProvider {
 		}
 		return 2100000000;
 	}
+        
+        
 }

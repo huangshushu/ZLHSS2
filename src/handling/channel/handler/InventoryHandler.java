@@ -2982,4 +2982,190 @@ public class InventoryHandler {
         player.equipChanged();
         return true;
     }
+    
+        public static void UsePenguinBox(final LittleEndianAccessor slea, MapleClient c) {
+        final List<Integer> gift = new ArrayList<>();
+        final byte slot = (byte) slea.readShort();
+        final int item = slea.readInt();
+        final IItem toUse = c.getPlayer().getInventory(MapleInventoryType.USE).getItem(slot);
+
+        if (toUse.getItemId() != item) {
+            c.sendPacket(MaplePacketCreator.enableActions());
+            return;
+        } else if (c.getPlayer().getInventory(MapleInventoryType.EQUIP).getNumFreeSlot() <= 1) {
+            c.getPlayer().dropMessage(1, "背包已满，无法获得物品");
+            c.sendPacket(MaplePacketCreator.enableActions());
+            return;
+        }
+        switch (item) {
+//            case 2028168://圣诞箱子
+//                NPCScriptManager.getInstance().start(c, 9209101, 2028168);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                NPCScriptManager.getInstance().dispose(c);
+//                return;
+//            case 2022504://小红包
+//                NPCScriptManager.getInstance().start(c, 9300011, 101);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                NPCScriptManager.getInstance().dispose(c);
+//                return;
+//            case 2022505://中红包
+//                NPCScriptManager.getInstance().start(c, 9300011, 102);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                NPCScriptManager.getInstance().dispose(c);
+//                return;
+//            case 2022506://大红包
+//                NPCScriptManager.getInstance().start(c, 9300011, 103);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                NPCScriptManager.getInstance().dispose(c);
+//                return;
+//            case 2022507://特大红包
+//                NPCScriptManager.getInstance().start(c, 9300011, 104);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                NPCScriptManager.getInstance().dispose(c);
+//                return;
+//            case 2022465:
+//                NPCScriptManager.getInstance().start(c, 1, 2022465);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                NPCScriptManager.getInstance().dispose(c);
+//                return;
+//            case 2022466:
+//                NPCScriptManager.getInstance().start(c, 1, 2022466);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                NPCScriptManager.getInstance().dispose(c);
+//                return;
+//            case 2022467:
+//                NPCScriptManager.getInstance().start(c, 1, 2022467);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                NPCScriptManager.getInstance().dispose(c);
+//                return;
+//            case 2022468:
+//                NPCScriptManager.getInstance().start(c, 1, 2022468);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                NPCScriptManager.getInstance().dispose(c);
+//                return;
+//
+//            case 2022524://10
+//                NPCScriptManager.getInstance().start(c, 9900004, 9999998);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                return;
+//            case 4280000://10
+//                NPCScriptManager.getInstance().start(c, 1, 4280000);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                return;
+//            case 4280001://10
+//                NPCScriptManager.getInstance().start(c, 1, 4280001);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                return;
+//            case 2029997://10
+//                NPCScriptManager.getInstance().start(c, 1, 2029997);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                return;
+//            case 2029996://10
+//                NPCScriptManager.getInstance().start(c, 1, 2029996);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                return;
+//            case 2029995://10
+//                NPCScriptManager.getInstance().start(c, 1, 2029995);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                return;
+//            case 2029994://10
+//                NPCScriptManager.getInstance().start(c, 5, 6004);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                return;
+//            case 2029993://10
+//                NPCScriptManager.getInstance().start(c, 5, 6005);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                return;
+//            case 2029992://10
+//                NPCScriptManager.getInstance().start(c, 5, 6006);
+//                c.sendPacket(MaplePacketCreator.enableActions());
+//                return;
+
+            case 2022570:
+                gift.add(1302119);
+                gift.add(1312045);
+                gift.add(1322073);
+                break;
+            case 2022571:
+                gift.add(1372053);
+                gift.add(1382070);
+                break;
+            case 2022572:
+                gift.add(1462066);
+                gift.add(1452073);
+                break;
+            case 2022573:
+                gift.add(1332088);
+                gift.add(1472089);
+                break;
+            case 2022575:
+                gift.add(1040145);
+                gift.add(1041148);
+                break;
+            case 2022576:
+                gift.add(1050155);
+                gift.add(1051191);
+                break;
+            case 2022577:
+                gift.add(1040146);
+                gift.add(1041149);
+                break;
+            case 2022578:
+                gift.add(1040147);
+                gift.add(1041150);
+                break;
+            case 2022580:
+                gift.add(1072399);
+                gift.add(1060134);
+                gift.add(1061156);
+                break;
+            case 2022581:
+                gift.add(1072400);
+                break;
+            case 2022582:
+                gift.add(1072401);
+                gift.add(1060135);
+                gift.add(1061157);
+                break;
+            case 2022583:
+                gift.add(1072402);
+                gift.add(1060136);
+                gift.add(1061158);
+                break;
+
+            default:
+                c.sendPacket(MaplePacketCreator.enableActions());
+                NPCScriptManager.getInstance().dispose(c);
+                ItemScriptManager.getInstance().start(c, 9900004, toUse);
+                return;
+
+        }
+        //if (gift.isEmpty() && item != 2022428 && item != 2022465 && item != 2022466 && item != 2022467 && item != 2022468 && item != 2022336 && item != 2022615 && item != 2022503 && item != 2022514 && item != 2022428 && item != 2022504 && item != 2022505 && item != 2022506 && item != 2022507 && item != 2022508 && item != 2022509 && item != 2022510 && item != 2022511 && item != 2022512 && item != 2022513 && item != 2022514 && item != 2022515 && item != 2022516 && item != 2022517 && item != 2029999) {//2022504
+        //} else {
+        int rand = (java.util.concurrent.ThreadLocalRandom.current().nextInt(gift.size()));
+        MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (byte) 1, false);
+        MapleInventoryManipulator.addById(c, gift.get(rand), (short) 1);
+        gift.clear();
+        // }
+        c.sendPacket(MaplePacketCreator.enableActions());
+    }
+
+    //孙子兵法
+        /*
+    public static void SunziBF(final LittleEndianAccessor slea, final MapleClient c) {
+        slea.readInt();
+        byte slot = (byte) slea.readShort();
+        int itemid = slea.readInt();
+        MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+        IItem item = c.getPlayer().getInventory(MapleInventoryType.USE).getItem(slot);
+        if ((item == null) || (item.getItemId() != itemid) || (c.getPlayer().getLevel() > 255)) {
+            c.sendPacket(MaplePacketCreator.enableActions());
+            return;
+        }
+        //int expGained = ii.getExpCache(itemid) * c.getChannelServer().getExpRate();
+        int expGained = ii.getExpCache(itemid);
+        c.getPlayer().gainExp(expGained, true, false, false);
+        c.sendPacket(MaplePacketCreator.enableActions());
+        MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (short) 1, false);
+    }*/
 }

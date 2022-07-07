@@ -38,6 +38,7 @@ import handling.channel.handler.*;
 import handling.login.LoginServer;
 import handling.login.handler.*;
 import handling.mina.MaplePacketDecoder;
+import handling.world.MapleParty;
 import handling.world.World;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -561,6 +562,9 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 break;
             case SKILL_MACRO:
                 PlayerHandler.ChangeSkillMacro(slea, c.getPlayer());
+                break;
+            case ITEM_BAOWU:
+                InventoryHandler.UsePenguinBox(slea, c);
                 break;
             case GIVE_FAME:
                 PlayersHandler.GiveFame(slea, c, c.getPlayer());
