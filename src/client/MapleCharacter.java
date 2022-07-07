@@ -10258,5 +10258,21 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
         return 离线时间;
     }
+    
+        public void deleteBossLog(String bossid) {
+        deleteBossLog(this.id , bossid);
+    }
+
+    public void deleteBossLog(int id ,String bossid) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            PreparedStatement ps = con.prepareStatement("DELETE FROM bosslog WHERE characterid = ? and bossid = ?");
+            ps.setInt(1, id);
+            ps.setString(2, bossid);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException Wx) {
+            //FileoutputUtil.outError("logs/数据库异常.txt", Wx);
+        }
+    }
         
 }

@@ -45,6 +45,7 @@ import java.util.Map;
 
 import scripting.NPCScriptManager;
 import server.MapleItemInformationProvider;
+import server.ServerProperties;
 import server.customer.BossLogCopy.BossLogCopyManager;
 import server.maps.FieldLimitType;
 import tools.FilePrinter;
@@ -431,6 +432,33 @@ public class InterServerHandler {
         }
 
         NPCScriptManager.getInstance().start(c, 9010000, 0, "重返");
+        
+        
+                if ( player.getBossLog("离线挂机") > 0 && player.getMapId() == 910000007) {
+			long nowTimestamp = System.currentTimeMillis();
+			long 奖励时间 = nowTimestamp - player.getLastOfflineTime();
+			if(奖励时间 >= 60000){
+				int 离线时间 = (int) 奖励时间 / 60000;
+				if(离线时间 >= 1440){
+					离线时间 = 1440;
+					c.getPlayer().dropMessage(5, "您的离线时间超过24小时,离线奖励按照一天算。");
+				}
+                                final int 点卷数量 = Integer.parseInt(ServerProperties.getProperty("离线点卷数量"))* 离线时间;
+                                final int 抵用数量 = Integer.parseInt(ServerProperties.getProperty("离线抵用数量"))* 离线时间;
+                                final int 豆豆数量 = Integer.parseInt(ServerProperties.getProperty("离线豆豆数量"))* 离线时间;
+                                final int 金币数量 = Integer.parseInt(ServerProperties.getProperty("离线金币数量"))* 离线时间;
+                                final int 经验数量 = Integer.parseInt(ServerProperties.getProperty("离线经验数量"))* 离线时间;
+                                player.gainExp(经验数量, false, false, false);//给固定经验
+				player.modifyCSPoints(2, 抵用数量);
+				player.modifyCSPoints(1, 点卷数量);
+				player.gainBeans(豆豆数量);
+                                player.gainMeso((金币数量), true);//给金币
+				c.getPlayer().dropMessage(5, "您的离线时间"+离线时间+"分钟,离线获得[" + 经验数量 + "] 经验 ["+金币数量+"] 金币 ["+抵用数量+"] 抵用卷 ["+点卷数量+"] 点卷 ["+豆豆数量+"] 豆豆 !");
+				player.updateOfflineTime1();
+                                player.deleteBossLog("离线挂机");
+
+			}
+		}
 
         /*//扎昆重返
         int 扎昆的祭台地图 = 280030000;
