@@ -206,7 +206,7 @@ public class MapleMapFactory {
                     
                 }
 //                try {
-//                    java.sql.Connection con = DatabaseConnection.getConnection();
+//                    java.sql.Connection con = DBConPool.getInstance().getDataSource().getConnection();
 //                    java.sql.PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_customlife WHERE mid = ?");
 //                    ps.setInt(1, omapid);
 //                    ResultSet rs = ps.executeQuery();

@@ -1002,20 +1002,20 @@ public class MapleInventoryManipulator {
         return drop(c, type, src, quantity, npcInduced, false);
     }
 
-    public static boolean drop(final MapleClient c, MapleInventoryType type, final short src, short quantity, final boolean npcInduced, final boolean cs) {
+public static boolean drop(final MapleClient c, MapleInventoryType type, final short src, short quantity, final boolean npcInduced, final boolean cs) {
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         if (World.isShutDown) {
-            c.getPlayer().dropMessage(1, "目前无法丢落物品。");
+            c.getPlayer().dropMessage(1, "目前無法丟落物品。");
             c.sendPacket(MaplePacketCreator.enableActions());
             return false;
         }
 
         /*boolean ChrdangerousIp = c.getPlayer().chrdangerousIp(c.getSession().remoteAddress().toString());
         if (ChrdangerousIp) {
-            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密语系统] 危险IP丢弃物品 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + " 数量 " + quantity));
-            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密语系统] 危险IP丢弃物品 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + " 数量 " + quantity));
-            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密语系统] 危险IP丢弃物品 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + " 数量 " + quantity));
-            FileoutputUtil.logToFile("logs/Data/危险IP丢弃物品.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + " 数量 " + quantity);
+            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密語系統] 危險IP丟棄物品 帳號 " + c.getAccountName() + " 帳號ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 類型 " + type + " src " + src + " 數量 " + quantity));
+            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密語系統] 危險IP丟棄物品 帳號 " + c.getAccountName() + " 帳號ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 類型 " + type + " src " + src + " 數量 " + quantity));
+            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密語系統] 危險IP丟棄物品 帳號 " + c.getAccountName() + " 帳號ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 類型 " + type + " src " + src + " 數量 " + quantity));
+            FileoutputUtil.logToFile("logs/Data/危險IP丟棄物品.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帳號 " + c.getAccountName() + " 帳號ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 類型 " + type + " src " + src + " 數量 " + quantity);
         }*/
         //if (c.getPlayer().getMapId() == 130030000) {
         //    c.sendPacket(MaplePacketCreator.enableActions());
@@ -1030,21 +1030,15 @@ public class MapleInventoryManipulator {
             }
 
             final IItem source = c.getPlayer().getInventory(type).getItem(src);
-
-            /*boolean ChrdangerousName = c.getPlayer().ChrDangerousAcc(c.getAccountName());
-            if (ChrdangerousName) {
-                if (WorldConstants.DropItem) {
-                    World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密语系统] 危险帐号丢弃物品 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + quantity + " 物品 " + ii.getName(source.getItemId()) + " (" + source.getItemId() + ") x" + quantity));
-                }
-                FileoutputUtil.logToFile("logs/Data/危险帐号丢弃物品.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + quantity + " 物品 " + ii.getName(source.getItemId()) + " (" + source.getItemId() + ") x" + quantity);
+            if (c.getPlayer().getDebugMessage() || c.getPlayer().isGM()) {
+                c.getPlayer().dropMessage("丢弃道具: src : " + src + " 代碼：" + source.getItemId());
             }
-
-            if ((source.getItemId() / 10000 == 204) || (source.getItemId() == 2340000) || (source.getItemId() == 2022179) || (GameConstants.getInventoryType(source.getItemId()) == MapleInventoryType.SETUP)) {
-                if (WorldConstants.DropItem) {
-                    World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密语系统] 危险贵重物品 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + quantity + " 物品 " + ii.getName(source.getItemId()) + " (" + source.getItemId() + ") x" + quantity));
-                }
-                FileoutputUtil.logToFile("logs/Data/丢弃贵重物品.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + quantity + " 物品 " + ii.getName(source.getItemId()) + " (" + source.getItemId() + ") x" + quantity);
-            }*/
+            if (c.getPlayer().getLevel() < 10) {
+                c.getPlayer().dropMessage(1, "等级过低，无法丢出物品");
+                c.sendPacket(MaplePacketCreator.enableActions());
+            return false;
+        }
+            
             if (!cs) {
                 if (ii.isCash(source.getItemId())) {
                     c.sendPacket(MaplePacketCreator.enableActions());
@@ -1052,50 +1046,48 @@ public class MapleInventoryManipulator {
                 }
             }
             if (source.getItemId() == 4110010) {
-                c.getPlayer().dropMessage(1, "无法丢落该物品。");
+                c.getPlayer().dropMessage(1, "無法丟落該物品。");
                 c.sendPacket(MaplePacketCreator.enableActions());
                 return false;
             }
 
-            if ((source.getQuantity() - quantity < source.getQuantity())){
-                c.sendPacket(MaplePacketCreator.enableActions());
-                return false;
-            }
-                    
             if ((source.getItemId() == 2340000) || (source.getItemId() == 2049100)) {
                 if (WorldConstants.DropItem) {
-                    World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密语系统] 危险贵重物品 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + quantity + " 物品 " + ii.getName(source.getItemId()) + " (" + source.getItemId() + ") x" + quantity));
+                    World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密語系統] 危險貴重物品 帳號 " + c.getAccountName() + " 帳號ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 類型 " + type + " src " + src + quantity + " 物品 " + ii.getName(source.getItemId()) + " (" + source.getItemId() + ") x" + quantity));
                 }
-                FileoutputUtil.logToFile("logs/Data/丢弃贵重物品.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 类型 " + type + " src " + src + quantity + " 物品 " + ii.getName(source.getItemId()) + " (" + source.getItemId() + ") x" + quantity);
+                FileoutputUtil.logToFile("logs/Data/丟棄貴重物品.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帳號 " + c.getAccountName() + " 帳號ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 類型 " + type + " src " + src + quantity + " 物品 " + ii.getName(source.getItemId()) + " (" + source.getItemId() + ") x" + quantity);
             }
-
+            
             if (quantity < 0 || source == null || (!npcInduced && GameConstants.isPet(source.getItemId())) || (quantity == 0 && !GameConstants.isRechargable(source.getItemId()))) {
                 c.sendPacket(MaplePacketCreator.enableActions());
                 return false;
             }
-                        
+            
             if (!cs) {
                 if (ii.isCash(source.getItemId())) {
                     c.sendPacket(MaplePacketCreator.enableActions());
                     return false;
                 }
             }
-            final byte flag = source.getFlag();
+            
+            final short flag = source.getFlag();
             if (quantity > source.getQuantity()) {
                 c.sendPacket(MaplePacketCreator.enableActions());
                 return false;
             }
+            
             if (ItemFlag.LOCK.check(flag) || (quantity != 1 && type == MapleInventoryType.EQUIP)) { // hack
                 c.sendPacket(MaplePacketCreator.enableActions());
                 return false;
             }
+            
             final Point dropPos = new Point(c.getPlayer().getPosition());
             c.getPlayer().getCheatTracker().checkDrop();
             if (quantity < source.getQuantity() && !GameConstants.isRechargable(source.getItemId())) {
                 final IItem target = source.copy();
                 target.setQuantity(quantity);
                 source.setQuantity((short) (source.getQuantity() - quantity));
-                c.sendPacket(MaplePacketCreator.dropInventoryItemUpdate(type, source));
+                c.sendPacket(MaplePacketCreator.dropInventoryItemUpdate(type, source));//更新掉落装备
 
                 if (ii.isDropRestricted(target.getItemId()) || ii.isAccountShared(target.getItemId())) {
                     if (ItemFlag.KARMA_EQ.check(flag)) {
@@ -1114,7 +1106,7 @@ public class MapleInventoryManipulator {
                 }
             } else {
                 c.getPlayer().getInventory(type).removeSlot(src);
-                c.sendPacket(MaplePacketCreator.dropInventoryItem((src < 0 ? MapleInventoryType.EQUIP : type), src));
+                c.sendPacket(MaplePacketCreator.dropInventoryItem((src < 0 ? MapleInventoryType.EQUIP : type), src));////丢下道具[扔东西扔全部]
                 if (src < 0) {
                     c.getPlayer().equipChanged();
                 }
@@ -1135,7 +1127,7 @@ public class MapleInventoryManipulator {
                 }
             }
         } catch (Exception ex) {
-            FileoutputUtil.outError("logs/丢弃道具异常.txt", ex);
+            FileoutputUtil.outError("logs/丟棄道具異常.txt", ex);
         }
 
         return true;

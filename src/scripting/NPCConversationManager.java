@@ -2475,5 +2475,319 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
         }
     }
+    
+    public void 全服喇叭(String text) {//公告类型
+        World.Broadcast.broadcastMessage(MaplePacketCreator.黄色喇叭(text));
+    }
+    
+        public int 判断传送点x(int id, int cid) {
+        int ret = -1;
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM awarp WHERE id = ? and cid = ?");
+            ps.setInt(1, id);
+            ps.setInt(2, cid);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            ret = rs.getInt("x");
+            rs.close();
+            ps.close();
+        } catch (SQLException ex) {
+        }
+        return ret;
+    }
+
+    public int 判断传送点y(int id, int cid) {
+        int ret = -1;
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM awarp WHERE id = ? and cid = ?");
+            ps.setInt(1, id);
+            ps.setInt(2, cid);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            ret = rs.getInt("y");
+            rs.close();
+            ps.close();
+        } catch (SQLException ex) {
+        }
+        return ret;
+    }
+
+    public void 设置传送点x(int id, int cid, int x) {
+        try {
+            int ret = 判断传送点x(id, cid);
+            if (ret == -1) {
+                ret = 0;
+                PreparedStatement ps = null;
+                try {
+                    ps = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("INSERT INTO awarp (id, cid,x) VALUES (?, ?, ?)");
+                    ps.setInt(1, id);
+                    ps.setInt(2, cid);
+                    ps.setInt(3, x);
+                    ps.execute();
+                } catch (SQLException e) {
+                    System.out.println("设置传送点x1:" + e);
+                } finally {
+                    try {
+                        if (ps != null) {
+                            ps.close();
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("设置传送点x2:" + e);
+                    }
+                }
+            } else {
+                Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement("UPDATE awarp SET `x` = ? WHERE id = ? and cid = ?");
+                ps.setInt(1, x);
+                ps.setInt(2, id);
+                ps.setInt(3, cid);
+                ps.execute();
+                ps.close();
+            }
+        } catch (SQLException sql) {
+            System.err.println("设置传送点x3" + sql);
+        }
+    }
+
+    public void 设置传送点y(int id, int cid, int y) {
+        try {
+            int ret = 判断传送点x(id, cid);
+            if (ret == -1) {
+                ret = 0;
+                PreparedStatement ps = null;
+                try {
+                    ps = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("INSERT INTO awarp (id, cid,x) VALUES (?, ?, ?)");
+                    ps.setInt(1, id);
+                    ps.setInt(2, cid);
+                    ps.setInt(3, y);
+
+                    ps.execute();
+                } catch (SQLException e) {
+                    System.out.println("设置传送点y1:" + e);
+                } finally {
+                    try {
+                        if (ps != null) {
+                            ps.close();
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("设置传送点y2:" + e);
+                    }
+                }
+            } else {
+                Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement("UPDATE awarp SET `y` = ? WHERE id = ? and cid = ?");
+                ps.setInt(1, y);
+                ps.setInt(2, id);
+                ps.setInt(3, cid);
+                ps.execute();
+                ps.close();
+            }
+        } catch (SQLException sql) {
+            System.err.println("设置传送点y3" + sql);
+        }
+    }
+    
+        public String 怪物卡片排行榜() {
+        int 名次 = 1;
+        StringBuilder name = new StringBuilder();
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM monsterbook   order by level desc");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt("level") == 255) {
+                    String 玩家名字 = rs.getString("name");
+                    String 职业 = 职业(rs.getInt("job"));
+                    int 家族编号 = rs.getInt("guildid");
+                    name.append("    ");
+                    name.append("#b").append(玩家名字).append("#k");
+                    for (int j = 13 - 玩家名字.getBytes().length; j > 0; j--) {
+                        name.append(" ");
+                    }
+                    name.append("  ").append(职业).append("");
+                    for (int j = 15 - 职业.getBytes().length; j > 0; j--) {
+                        name.append(" ");
+                    }
+                    name.append("家族.#d").append(获取家族名称(家族编号)).append("#k\r\n");
+                }
+            }
+        } catch (SQLException ex) {
+        }
+        name.append("\r\n\r\n");
+        return name.toString();
+    }
+        
+            public static String 获取最强家族名称() {
+        String name = "";
+        String level = "";
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT `name`, `GP` FROM guilds  ORDER BY `GP` DESC LIMIT 1");
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    name = rs.getString("name");
+                    level = rs.getString("GP");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取家族名称出错 - 数据库查询失败：" + Ex);
+        }
+
+        return String.format("%s", name);
+    }
+
+    public static String 获取家族名称(int guildId) {
+        String data = "";
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT name as DATA FROM guilds WHERE guildid = ?");
+            ps.setInt(1, guildId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取家族名称出错 - 数据库查询失败：" + Ex);
+        }
+        return data;
+    }
+
+    public static String 获取家族族长备注(int guildId) {
+        String data = "";
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT rank1title as DATA FROM guilds WHERE guildid = ?");
+            ps.setInt(1, guildId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取家族名称出错 - 数据库查询失败：" + Ex);
+        }
+        return data;
+    }
+
+    public static String 获取家族副族长备注(int guildId) {
+        String data = "";
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT rank2title as DATA FROM guilds WHERE guildid = ?");
+            ps.setInt(1, guildId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取家族名称出错 - 数据库查询失败：" + Ex);
+        }
+        return data;
+    }
+
+    public static String 获取家族一级成员备注(int guildId) {
+        String data = "";
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT rank3title as DATA FROM guilds WHERE guildid = ?");
+            ps.setInt(1, guildId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取家族名称出错 - 数据库查询失败：" + Ex);
+        }
+        return data;
+    }
+
+    public static String 获取家族二级成员备注(int guildId) {
+        String data = "";
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT rank4title as DATA FROM guilds WHERE guildid = ?");
+            ps.setInt(1, guildId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取家族名称出错 - 数据库查询失败：" + Ex);
+        }
+        return data;
+    }
+
+    public static String 获取家族三级成员备注(int guildId) {
+        String data = "";
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT rank5title as DATA FROM guilds WHERE guildid = ?");
+            ps.setInt(1, guildId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取家族名称出错 - 数据库查询失败：" + Ex);
+        }
+        return data;
+    }
+
+    public static String 获取家族族长ID(int guildId) {
+        String data = "";
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT leader as DATA FROM guilds WHERE guildid = ?");
+            ps.setInt(1, guildId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取家族名称出错 - 数据库查询失败：" + Ex);
+        }
+        return data;
+    }
+
+    public static int 家族成员数(int a) {
+        int data = 0;
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM characters ");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    if (rs.getInt("guildid") == a) {
+                        data += 1;
+                    }
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取家族家族成员数失败：" + Ex);
+        }
+        return data;
+    }
+    
+        public String 显示物品(int a) {
+        String data = "";
+        data = "#v" + a + "# #b#z" + a + "##k";
+        return data;
+    }
             
 }

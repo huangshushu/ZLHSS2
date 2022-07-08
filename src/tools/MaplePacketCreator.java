@@ -5290,6 +5290,14 @@ public class MaplePacketCreator {
 
         return mplew.getPacket();
     }
+        
+    public static byte[] 黄色喇叭(String text) {
+        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+        mplew.writeShort(SendPacketOpcode.SERVERMESSAGE.getValue());
+        mplew.write(9);
+        mplew.writeMapleAsciiString(text);
+        return mplew.getPacket();
+    }
        
 
 }

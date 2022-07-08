@@ -3162,7 +3162,7 @@ public abstract class AbstractPlayerInteraction {
     }
         
         
-           public final void 给团队每日(String bossid) {//给团队BOOSLOG？
+    public final void 给团队每日(String bossid) {//给团队BOOSLOG？
         if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
             setBossLog(bossid);
             return;
@@ -3562,5 +3562,10 @@ public abstract class AbstractPlayerInteraction {
 		getPlayer().changeDamageSkin(id);
 	}
         */
+                
+    public void 打开NPC(int id, int wh) {
+        NPCScriptManager.getInstance().dispose(c);
+        NPCScriptManager.getInstance().start(getClient(), id, wh);
+    }
         
 }
