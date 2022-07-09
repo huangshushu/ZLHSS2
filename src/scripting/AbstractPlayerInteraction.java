@@ -3567,5 +3567,13 @@ public abstract class AbstractPlayerInteraction {
         NPCScriptManager.getInstance().dispose(c);
         NPCScriptManager.getInstance().start(getClient(), id, wh);
     }
+	public void gainNX(int type, int amount) {
+		if (type <= 0 || type > 2) {
+			type = 2;
+		}
+		c.getPlayer().modifyCSPoints(type, amount, true);
+	}
+        
+        
         
 }

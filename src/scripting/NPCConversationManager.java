@@ -2070,20 +2070,6 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         c.getPlayer().saveToDB(true, true);
     }
     
-    public void addMaxHp(short hp) {
-        List<Pair<MapleStat, Integer>> statup = new ArrayList<>();
-        c.getPlayer().getStat().setMaxHp((short) (c.getPlayer().getStat().getMaxHp() + hp));
-        statup.add(new Pair<>(MapleStat.MAXHP, (int) c.getPlayer().getStat().getMaxHp()));
-        c.sendPacket(MaplePacketCreator.updatePlayerStats((Map<MapleStat, Integer>) statup, c.getPlayer()));
-    }
-
-    public void addMaxMp(short MP) {
-        List<Pair<MapleStat, Integer>> statup = new ArrayList<>();
-        c.getPlayer().getStat().setMaxMp((short) (c.getPlayer().getStat().getMaxMp() + MP));
-        statup.add(new Pair<>(MapleStat.MAXMP, (int) c.getPlayer().getStat().getMaxMp()));
-        c.sendPacket(MaplePacketCreator.updatePlayerStats((Map<MapleStat, Integer>) statup, c.getPlayer()));
-    }
-    
     	public short getSpace(byte type) {
 		return getPlayer().getSpace(type);
 	}
@@ -2789,5 +2775,44 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         data = "#v" + a + "# #b#z" + a + "##k";
         return data;
     }
-            
+        
+	public void gainNX(int type, int amount) {
+		if (type <= 0 || type > 2) {
+			type = 2;
+		}
+		c.getPlayer().modifyCSPoints(type, amount, true);
+	}
+        
+    public void 增加角色最大生命值(short hp) {//设置当前生命值
+        Map<MapleStat, Integer> statup = new EnumMap<>(MapleStat.class);
+        c.getPlayer().getStat().setMaxHp((short) (c.getPlayer().getStat().getMaxHp() + hp));
+        statup.put(MapleStat.MAXHP, (int) c.getPlayer().getStat().getMaxHp());
+        c.sendPacket(MaplePacketCreator.updatePlayerStats(statup, c.getPlayer()));
+    }
+
+    public void 增加角色最大法力值(short MP) {//设置当前生命值
+        Map<MapleStat, Integer> statup = new EnumMap<>(MapleStat.class);
+        c.getPlayer().getStat().setMaxMp((short) (c.getPlayer().getStat().getMaxMp() + MP));
+        statup.put(MapleStat.MAXMP, (int) c.getPlayer().getStat().getMaxMp());
+        c.sendPacket(MaplePacketCreator.updatePlayerStats(statup, c.getPlayer()));
+    }
+    
+    public void addMaxHp(short hp) {
+        Map<MapleStat, Integer> statup = new EnumMap<>(MapleStat.class);
+        c.getPlayer().getStat().setMaxHp((short) (c.getPlayer().getStat().getMaxHp() + hp));
+        statup.put(MapleStat.MAXHP, (int) c.getPlayer().getStat().getMaxHp());
+        c.sendPacket(MaplePacketCreator.updatePlayerStats(statup, c.getPlayer()));
+    }
+
+    public void addMaxMp(short MP) {
+        Map<MapleStat, Integer> statup = new EnumMap<>(MapleStat.class);
+        c.getPlayer().getStat().setMaxMp((short) (c.getPlayer().getStat().getMaxMp() + MP));
+        statup.put(MapleStat.MAXMP, (int) c.getPlayer().getStat().getMaxMp());
+        c.sendPacket(MaplePacketCreator.updatePlayerStats(statup, c.getPlayer()));
+    }
+    
+        public void 全服公告(String text) {//公告类型
+        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, text));
+    }    
+  
 }

@@ -1087,7 +1087,7 @@ public static boolean drop(final MapleClient c, MapleInventoryType type, final s
                 final IItem target = source.copy();
                 target.setQuantity(quantity);
                 source.setQuantity((short) (source.getQuantity() - quantity));
-                c.sendPacket(MaplePacketCreator.dropInventoryItemUpdate(type, source));//更新掉落装备
+                c.sendPacket(MaplePacketCreator.dropInventoryItemUpdate(type, source));
 
                 if (ii.isDropRestricted(target.getItemId()) || ii.isAccountShared(target.getItemId())) {
                     if (ItemFlag.KARMA_EQ.check(flag)) {
@@ -1106,7 +1106,7 @@ public static boolean drop(final MapleClient c, MapleInventoryType type, final s
                 }
             } else {
                 c.getPlayer().getInventory(type).removeSlot(src);
-                c.sendPacket(MaplePacketCreator.dropInventoryItem((src < 0 ? MapleInventoryType.EQUIP : type), src));////丢下道具[扔东西扔全部]
+                c.sendPacket(MaplePacketCreator.dropInventoryItem((src < 0 ? MapleInventoryType.EQUIP : type), src));
                 if (src < 0) {
                     c.getPlayer().equipChanged();
                 }
