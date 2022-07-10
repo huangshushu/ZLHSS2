@@ -5298,6 +5298,42 @@ public class MaplePacketCreator {
         mplew.writeMapleAsciiString(text);
         return mplew.getPacket();
     }
+    
+        public static byte[] spouseMessage(int op, String msg) {
+        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+
+        mplew.writeShort(SendPacketOpcode.SERVERMESSAGE.getValue());
+        /*
+         * 多颜色信息提示
+         * 0x00 = 白色
+         * 0x01 = 绿色
+         * 0x06 = 灰色
+         * 0x07 = 黄色
+         * 0x08 = 浅黄
+         * 0x09 = 蓝色
+         * 0x0A = 白底黑字
+         * 0x0B = 普通提示颜色
+         * 0x0C = 白底蓝字
+         * 0x0D = 普通喇叭颜色
+         * 0x0E = 道具喇叭颜色
+         * 0x0F = 紫色
+         * 0x10 = 绿色抽奖喇叭颜色
+         * 0x11 = 灰色
+         * 0x12 = 黄色
+         * 0x13 = 浅绿色
+         * 0x14 = 道具喇叭颜色
+         * 0x15 = 白底粉字
+         * 0x16 = 红底黑字 喇叭颜色
+         * 0x17 = 粉色
+         * 0x18 = 绿色
+         * 0x19 = 红底黄字
+         * 0x20 = 紫色
+         */
+        mplew.writeShort(op);
+        mplew.writeMapleAsciiString(msg);
+
+        return mplew.getPacket();
+    }
        
 
 }

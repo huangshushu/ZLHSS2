@@ -2953,6 +2953,12 @@ public abstract class AbstractPlayerInteraction {
        public final void 个人公告(final String message) {
         playerMessage(6, message);
     }
+       public final void 全服道具公告(final String title, final String message, final int id){
+           final IItem item = MapleInventoryManipulator.addbyId_Gachapon(c, id, (short) 1);
+           final byte rareness = GameConstants.gachaponRareItem(item.getItemId());    
+           
+           World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega(title, message, item, rareness));
+       }
 
 
     public final void 地图公告(final String message) {
@@ -3573,7 +3579,14 @@ public abstract class AbstractPlayerInteraction {
 		}
 		c.getPlayer().modifyCSPoints(type, amount, true);
 	}
-        
-        
+
+	public void worldSpouseMessage(int type, String message) {
+		if (type == 0x00 || type == 0x01 || (type >= 0x06 && type <= 0x20)) {
+			World.Broadcast.broadcastMessage(MaplePacketCreator.spouseMessage(type, message));
+		} else {
+			World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, message));
+		}
+	}
+               
         
 }
