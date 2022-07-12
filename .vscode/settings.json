@@ -1,0 +1,9 @@
+{
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "libs/beansbinding-1.2.1.jar",
+    "libs/druid-1.0.27.jar",
+    "libs/mysql-connector-java-bin.jar",
+    "libs/netty-all-4.1.14.Final.jar"
+  ]
+}
