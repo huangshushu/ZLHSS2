@@ -54,7 +54,8 @@ public class ReactorActionManager extends AbstractPlayerInteraction {
         this.reactor = reactor;
     }
 
-    // only used for meso = false, really. No minItems because meso is used to fill the gap
+    // only used for meso = false, really. No minItems because meso is used to fill
+    // the gap
     public void dropItems() {
         dropItems(false, 0, 0, 0, 0);
     }
@@ -79,7 +80,8 @@ public class ReactorActionManager extends AbstractPlayerInteraction {
         // for (DropEntry d : chances){
         while (iter.hasNext()) {
             ReactorDropEntry d = (ReactorDropEntry) iter.next();
-            if (Math.random() < (1 / (double) d.chance) && (d.questid <= 0 || getPlayer().getQuestStatus(d.questid) == 1)) {
+            if (Math.random() < (1 / (double) d.chance)
+                    && (d.questid <= 0 || getPlayer().getQuestStatus(d.questid) == 1)) {
                 numItems++;
                 items.add(d);
             }
@@ -99,7 +101,8 @@ public class ReactorActionManager extends AbstractPlayerInteraction {
         for (final ReactorDropEntry d : items) {
             if (d.itemId == 0) {
                 range = maxMeso - minMeso;
-                mesoDrop = Randomizer.nextInt(range) + minMeso * ChannelServer.getInstance(getClient().getChannel()).getMesoRate();
+                mesoDrop = Randomizer.nextInt(range)
+                        + minMeso * ChannelServer.getInstance(getClient().getChannel()).getMesoRate();
                 reactor.getMap().spawnMesoDrop(mesoDrop, dropPos, reactor, getPlayer(), false, (byte) 0);
             } else {
                 IItem drop;
@@ -184,7 +187,7 @@ public class ReactorActionManager extends AbstractPlayerInteraction {
         spawnMonster(id, qty, getPosition());
     }
 
-    public void dispelAllMonsters(final int num) { //dispels all mobs, cpq
+    public void dispelAllMonsters(final int num) { // dispels all mobs, cpq
         final MCSkill skil = MapleCarnivalFactory.getInstance().getGuardian(num);
         if (skil != null) {
             for (MapleMonster mons : getMap().getAllMonstersThreadsafe()) {

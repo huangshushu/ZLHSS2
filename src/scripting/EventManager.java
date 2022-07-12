@@ -79,7 +79,8 @@ public class EventManager {
             iv.invokeFunction("cancelSchedule", (Object) null);
         } catch (ScriptException | NoSuchMethodException ex) {
             System.err.println("Event name : " + name + ", method Name : cancelSchedule:\n" + ex);
-            FilePrinter.printError("EventManager.txt", "Event name : " + name + ", method Name : cancelSchedule:\n" + ex);
+            FilePrinter.printError("EventManager.txt",
+                    "Event name : " + name + ", method Name : cancelSchedule:\n" + ex);
         }
     }
 
@@ -92,7 +93,8 @@ public class EventManager {
                     iv.invokeFunction(methodName, (Object) null);
                 } catch (ScriptException | NoSuchMethodException ex) {
                     System.err.println("Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
-                    FilePrinter.printError("EventManager.txt", "Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
+                    FilePrinter.printError("EventManager.txt",
+                            "Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
 
                 }
             }
@@ -108,8 +110,10 @@ public class EventManager {
                     iv.invokeFunction(methodName, eim);
                 } catch (ScriptException | NoSuchMethodException ex) {
                     System.err.println("Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
-                    FilePrinter.printError("EventManager.txt", "Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
-                    FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
+                    FilePrinter.printError("EventManager.txt",
+                            "Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
+                    FileoutputUtil.log(FileoutputUtil.ScriptEx_Log,
+                            "Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
 
                 }
             }
@@ -125,8 +129,10 @@ public class EventManager {
                     iv.invokeFunction(methodName, (Object) null);
                 } catch (ScriptException | NoSuchMethodException ex) {
                     System.err.println("Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
-                    FilePrinter.printError("EventManager.txt", "Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
-                    FileoutputUtil.log(FileoutputUtil.ScriptEx_Log, "Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
+                    FilePrinter.printError("EventManager.txt",
+                            "Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
+                    FileoutputUtil.log(FileoutputUtil.ScriptEx_Log,
+                            "Event name : " + name + ", method Name : " + methodName + ":\n" + ex);
                 }
             }
         }, timestamp);
@@ -162,8 +168,8 @@ public class EventManager {
         if (getProperty("leader") != null && instances.isEmpty() && getProperty("leader").equals("false")) {
             setProperty("leader", "true");
         }
-        if (this.name.equals("CWKPQ")) { //hard code it because i said so
-            final MapleSquad squad = ChannelServer.getInstance(channel).getMapleSquad("CWKPQ");//so fkin hacky
+        if (this.name.equals("CWKPQ")) { // hard code it because i said so
+            final MapleSquad squad = ChannelServer.getInstance(channel).getMapleSquad("CWKPQ");// so fkin hacky
             if (squad != null) {
                 squad.clear();
             }
@@ -219,7 +225,7 @@ public class EventManager {
         }
     }
 
-    //GPQ
+    // GPQ
     public void startInstance(MapleCharacter character, String leader) {
         try {
             EventInstanceManager eim = (EventInstanceManager) (iv.invokeFunction("setup", (Object) null));
@@ -249,20 +255,22 @@ public class EventManager {
             eim.registerPlayer(character);
         } catch (ScriptException | NoSuchMethodException ex) {
             System.err.println("Event name : " + name + ", method Name : setup-character:\n" + ex);
-            FilePrinter.printError("EventManager.txt", "Event name : " + name + ", method Name : setup-character:\n" + ex);
+            FilePrinter.printError("EventManager.txt",
+                    "Event name : " + name + ", method Name : setup-character:\n" + ex);
         }
     }
 
-    //PQ method: starts a PQ
+    // PQ method: starts a PQ
     public void startInstance(MapleParty party, MapleMap map) {
         try {
             EventInstanceManager eim = (EventInstanceManager) (iv.invokeFunction("setup", party.getId()));
             eim.registerParty(party, map);
         } catch (ScriptException ex) {
             System.err.println("Event name : " + name + ", method Name : setup-partyid:\n" + ex);
-            FilePrinter.printError("EventManager.txt", "Event name : " + name + ", method Name : setup-partyid:\n" + ex);
+            FilePrinter.printError("EventManager.txt",
+                    "Event name : " + name + ", method Name : setup-partyid:\n" + ex);
         } catch (NoSuchMethodException ex) {
-            //ignore
+            // ignore
             startInstance_NoID(party, map, ex);
         }
     }
@@ -277,11 +285,12 @@ public class EventManager {
             eim.registerParty(party, map);
         } catch (ScriptException | NoSuchMethodException ex) {
             System.err.println("Event name : " + name + ", method Name : setup-party:\n" + ex);
-            FilePrinter.printError("EventManager.txt", "Event name : " + name + ", method Name : setup-party:\n" + ex + "\n" + (old == null ? "no old exception" : old));
+            FilePrinter.printError("EventManager.txt", "Event name : " + name + ", method Name : setup-party:\n" + ex
+                    + "\n" + (old == null ? "no old exception" : old));
         }
     }
 
-    //non-PQ method for starting instance
+    // non-PQ method for starting instance
     public void startInstance(EventInstanceManager eim, String leader) {
         try {
             iv.invokeFunction("setup", eim);
@@ -298,10 +307,10 @@ public class EventManager {
 
     public void startInstance(MapleSquad squad, MapleMap map, int questID) {
         if (squad.getStatus() == 0) {
-            return; //we dont like cleared squads
+            return; // we dont like cleared squads
         }
         if (!squad.getLeader().isGM()) {
-            if (squad.getMembers().size() < squad.getType().i) { //less than 3
+            if (squad.getMembers().size() < squad.getType().i) { // less than 3
                 squad.getLeader().dropMessage(5, "这个远征队至少要有 " + squad.getType().i + " 人以上才可以开战.");
                 return;
             }
@@ -320,10 +329,10 @@ public class EventManager {
     }
 
     public void warpAllPlayer(int from, int to) {
-        //if (ChannelServer.getInstance(1).isShutdown()) {
-        //    System.out.println("warpAllPlayer - 关闭服务器中无法调用");
-        //     return;
-        //}
+        // if (ChannelServer.getInstance(1).isShutdown()) {
+        // System.out.println("warpAllPlayer - 关闭服务器中无法调用");
+        // return;
+        // }
         final MapleMap tomap = getMapFactory().getMap(to);
         final MapleMap frommap = getMapFactory().getMap(from);
         List<MapleCharacter> list = frommap.getCharactersThreadsafe();
@@ -406,40 +415,45 @@ public class EventManager {
         return true;
     }
 
-    /*public boolean scheduleRandomEventInChannel(int chz) {
-        final ChannelServer cs = ChannelServer.getInstance(chz);
-        if (cs == null || cs.getEvent() > -1) {
-            return false;
-        }
-        MapleEventType t = null;
-        while (t == null) {
-            for (MapleEventType x : MapleEventType.values()) {
-                t = (cs.getChannel() == 2 || cs.getChannel() == 3) ? MapleEventType.终极忍耐 : (cs.getChannel() == 4 || cs.getChannel() == 5) ? MapleEventType.滚雪球 : (cs.getChannel() == 6 || cs.getChannel() == 7) ? MapleEventType.爬绳子 : MapleEventType.寻宝;
-                break;
-                //}
-            }
-        }
-        final String msg = MapleEvent.scheduleEvent(t, cs);
-        if (msg.length() > 0) {
-            broadcastYellowMsg(msg);
-            return false;
-        }
-        EventTimer.getInstance().schedule(new Runnable() {
-
-            @Override
-            public void run() {
-                if (cs.getEvent() >= 0) {
-                    MapleEvent.setEvent(cs, true);
-                }
-            }
-        }, 600000);
-        return true;
-    }*/
+    /*
+     * public boolean scheduleRandomEventInChannel(int chz) {
+     * final ChannelServer cs = ChannelServer.getInstance(chz);
+     * if (cs == null || cs.getEvent() > -1) {
+     * return false;
+     * }
+     * MapleEventType t = null;
+     * while (t == null) {
+     * for (MapleEventType x : MapleEventType.values()) {
+     * t = (cs.getChannel() == 2 || cs.getChannel() == 3) ? MapleEventType.终极忍耐 :
+     * (cs.getChannel() == 4 || cs.getChannel() == 5) ? MapleEventType.滚雪球 :
+     * (cs.getChannel() == 6 || cs.getChannel() == 7) ? MapleEventType.爬绳子 :
+     * MapleEventType.寻宝;
+     * break;
+     * //}
+     * }
+     * }
+     * final String msg = MapleEvent.scheduleEvent(t, cs);
+     * if (msg.length() > 0) {
+     * broadcastYellowMsg(msg);
+     * return false;
+     * }
+     * EventTimer.getInstance().schedule(new Runnable() {
+     * 
+     * @Override
+     * public void run() {
+     * if (cs.getEvent() >= 0) {
+     * MapleEvent.setEvent(cs, true);
+     * }
+     * }
+     * }, 600000);
+     * return true;
+     * }
+     */
     public void setWorldEvent() {
         for (int i = 0; i < eventChannel.length; i++) {
-//            eventChannel[i] = 1; //2-8
-            eventChannel[i] = Randomizer.nextInt(ChannelServer.getAllInstances().size()) + i; //2-13
-            //eventChannel[i] = i + 2;
+            // eventChannel[i] = 1; //2-8
+            eventChannel[i] = Randomizer.nextInt(ChannelServer.getAllInstances().size()) + i; // 2-13
+            // eventChannel[i] = i + 2;
         }
     }
 
@@ -447,7 +461,8 @@ public class EventManager {
         try {
             this.iv.invokeFunction(methodName, this);
         } catch (ScriptException | NoSuchMethodException ex) {
-            System.out.println("Event name" + this.getName() + ", Instance name : " + name + ", method Name : " + methodName + ":\n" + ex);
+            System.out.println("Event name" + this.getName() + ", Instance name : " + name + ", method Name : "
+                    + methodName + ":\n" + ex);
             FilePrinter.printError("EventManager.txt", "Event name : " + name + ", method Name : setup-squad:\n" + ex);
         }
     }
@@ -466,17 +481,18 @@ public class EventManager {
             System.err.println("Error while set bosslog." + Ex);
         }
     }
-    
-     public int 获取当前星期() {
+
+    public int 获取当前星期() {
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
     }
-     
+
     public static String 获取最高金币玩家名字() {
         String name = "";
         String level = "";
         try {
             Connection con = DBConPool.getInstance().getDataSource().getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT `name`, `meso` FROM characters WHERE gm = 0 ORDER BY `meso` DESC LIMIT 1");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT `name`, `meso` FROM characters WHERE gm = 0 ORDER BY `meso` DESC LIMIT 1");
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     name = rs.getString("name");
@@ -490,7 +506,7 @@ public class EventManager {
 
         return String.format("%s", name);
     }
-    
+
     public static int 获取最高玩家等级() {
         int data = 0;
         try {
@@ -508,13 +524,14 @@ public class EventManager {
 
         return data;
     }
-    
+
     public static String 获取最高等级玩家名字() {
         String name = "";
         String level = "";
         try {
             Connection con = DBConPool.getInstance().getDataSource().getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT `name`, `level` FROM characters WHERE gm = 0 ORDER BY `level` DESC LIMIT 1");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT `name`, `level` FROM characters WHERE gm = 0 ORDER BY `level` DESC LIMIT 1");
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     name = rs.getString("name");
@@ -528,7 +545,7 @@ public class EventManager {
 
         return String.format("%s", name);
     }
-    
+
     public static int 获取最高玩家人气() {
         int data = 0;
         try {
@@ -546,13 +563,14 @@ public class EventManager {
 
         return data;
     }
-    
+
     public static String 获取最高人气玩家名字() {
         String name = "";
         String level = "";
         try {
             Connection con = DBConPool.getInstance().getDataSource().getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT `name`, `fame` FROM characters WHERE gm = 0 ORDER BY `fame` DESC LIMIT 1");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT `name`, `fame` FROM characters WHERE gm = 0 ORDER BY `fame` DESC LIMIT 1");
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     name = rs.getString("name");
@@ -566,7 +584,7 @@ public class EventManager {
 
         return String.format("%s", name);
     }
-    
+
     public static int 获取最高玩家金币() {
         int data = 0;
         try {
@@ -584,7 +602,8 @@ public class EventManager {
 
         return data;
     }
-     public String getServerName() {
-            return ServerConfig.SERVER_NAME;
-     }
+
+    public String getServerName() {
+        return ServerConfig.SERVER_NAME;
+    }
 }

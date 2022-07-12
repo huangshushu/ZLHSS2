@@ -63,11 +63,12 @@ public class NPCScriptManager extends AbstractScriptManager {
         try {
             if (c.getPlayer().getMapId() == 180000001) {
                 return;
-            }      
-            if (c.getPlayer().isGM()) {
-                c.getPlayer().dropMessage("[系统提示]您已经建立与NPC:" + npc + (script == null ? "" : ("(" + script + ")")) + (mode == 0 ? "" : "型号: " + mode) + "的对话。");
             }
-        
+            if (c.getPlayer().isGM()) {
+                c.getPlayer().dropMessage("[系统提示]您已经建立与NPC:" + npc + (script == null ? "" : ("(" + script + ")"))
+                        + (mode == 0 ? "" : "型号: " + mode) + "的对话。");
+            }
+
             if (!cms.containsKey(c) && c.canClickNPC()) {
                 if (c.getPlayer() != null && c.getPlayer().getDebugMessage()) {
                     c.getPlayer().dropMessage("start - !cms.containsKey(c) && c.canClickNPC()");
@@ -78,16 +79,16 @@ public class NPCScriptManager extends AbstractScriptManager {
                 }
                 if (script == null) {
                     if (mode != 0) {
-                        iv = getInvocable("npc/" + npc + "_" + mode + ".js", c, true); //safe disposal
+                        iv = getInvocable("npc/" + npc + "_" + mode + ".js", c, true); // safe disposal
                     } else {
-                        iv = getInvocable("npc/" + npc + ".js", c, true); //safe disposal
+                        iv = getInvocable("npc/" + npc + ".js", c, true); // safe disposal
                     }
                 } else {
-                    iv = getInvocable("special/" + script + ".js", c, true); //safe disposal
+                    iv = getInvocable("special/" + script + ".js", c, true); // safe disposal
                 }
 
                 if (iv == null) {
-                    iv = getInvocable("special/notcoded.js", c, true); //safe disposal
+                    iv = getInvocable("special/notcoded.js", c, true); // safe disposal
                     if (iv == null) {
                         dispose(c);
                         return;
@@ -133,10 +134,10 @@ public class NPCScriptManager extends AbstractScriptManager {
                     iv.invokeFunction("action", (byte) 1, (byte) 0, 0);
                 }
             } else if (c.getPlayer() != null) {
-                //c.getPlayer().dropMessage(5, "你现在不能攻击或不能跟npc对话,请在对话框打 @解卡/@ea 来解除异常状态");
-                c.sendPacket(MaplePacketCreator.enableActions());//解卡
+                // c.getPlayer().dropMessage(5, "你现在不能攻击或不能跟npc对话,请在对话框打 @解卡/@ea 来解除异常状态");
+                c.sendPacket(MaplePacketCreator.enableActions());// 解卡
                 NPCScriptManager.getInstance().dispose(c);
-                //c.getPlayer().dropMessage(5, "NPC正忙，请稍后再试.");
+                // c.getPlayer().dropMessage(5, "NPC正忙，请稍后再试.");
             }
 
         } catch (final ScriptException | NoSuchMethodException e) {
@@ -176,7 +177,8 @@ public class NPCScriptManager extends AbstractScriptManager {
                     }
                 }
                 System.err.println("NPC 脚本错误. 它ID为 : " + cm.getNpc() + ":" + e);
-                FilePrinter.printError("NPCScriptManager.txt", "Error executing NPC script, NPC ID : " + cm.getNpc() + "." + e);
+                FilePrinter.printError("NPCScriptManager.txt",
+                        "Error executing NPC script, NPC ID : " + cm.getNpc() + "." + e);
                 dispose(c);
             } finally {
                 lock.unlock();
@@ -208,14 +210,16 @@ public class NPCScriptManager extends AbstractScriptManager {
                 if (c.getPlayer().isGM()) {
                     c.getPlayer().dropMessage("[系统提示]您已经建立与任务脚本:" + quest + "的往来。");
                 }
-                //System.out.println("NPCID started: " + npc + " startquest " + quest);
+                // System.out.println("NPCID started: " + npc + " startquest " + quest);
                 iv.invokeFunction("start", (byte) 1, (byte) 0, 0); // start it off as something
             } else {
-                // c.getPlayer().dropMessage(-1, "You already are talking to an NPC. Use @ea if this is not intended.");
+                // c.getPlayer().dropMessage(-1, "You already are talking to an NPC. Use @ea if
+                // this is not intended.");
             }
         } catch (final ScriptException | NoSuchMethodException e) {
             System.err.println("Error executing Quest script. (" + quest + ")..NPCID: " + npc + ":" + e);
-            FilePrinter.printError("NPCScriptManager.txt", "Error executing Quest script. (" + quest + ")..NPCID: " + npc + ":" + e);
+            FilePrinter.printError("NPCScriptManager.txt",
+                    "Error executing Quest script. (" + quest + ")..NPCID: " + npc + ":" + e);
             dispose(c);
         } finally {
             lock.unlock();
@@ -241,7 +245,8 @@ public class NPCScriptManager extends AbstractScriptManager {
                 c.getPlayer().dropMessage("[系统提示]任务脚本:" + cm.getQuest() + "错误...NPC: " + cm.getNpc() + ":" + e);
             }
             System.err.println("Error executing Quest script. (" + cm.getQuest() + ")...NPC: " + cm.getNpc() + ":" + e);
-            FilePrinter.printError("NPCScriptManager.txt", "Error executing Quest script. (" + cm.getQuest() + ")..NPCID: " + cm.getNpc() + ":" + e);
+            FilePrinter.printError("NPCScriptManager.txt",
+                    "Error executing Quest script. (" + cm.getQuest() + ")..NPCID: " + cm.getNpc() + ":" + e);
             dispose(c);
         } finally {
             lock.unlock();
@@ -253,7 +258,7 @@ public class NPCScriptManager extends AbstractScriptManager {
             return;
         }
         final Lock lock = c.getNPCLock();
-        //final NPCConversationManager cm = cms.get(c);
+        // final NPCConversationManager cm = cms.get(c);
         lock.lock();
         try {
             if (!cms.containsKey(c) && c.canClickNPC()) {
@@ -269,17 +274,19 @@ public class NPCScriptManager extends AbstractScriptManager {
 
                 c.getPlayer().setConversation(1);
                 c.setClickedNPC();
-                //System.out.println("NPCID started: " + npc + " endquest " + quest);
+                // System.out.println("NPCID started: " + npc + " endquest " + quest);
                 iv.invokeFunction("end", (byte) 1, (byte) 0, 0); // start it off as something
             } else {
-                // c.getPlayer().dropMessage(-1, "You already are talking to an NPC. Use @ea if this is not intended.");
+                // c.getPlayer().dropMessage(-1, "You already are talking to an NPC. Use @ea if
+                // this is not intended.");
             }
         } catch (ScriptException | NoSuchMethodException e) {
             if (c.getPlayer().isGM()) {
                 c.getPlayer().dropMessage("[系统提示]任务脚本:" + quest + "错误...NPC: " + quest + ":" + e);
             }
             System.err.println("Error executing Quest script. (" + quest + ")..NPCID: " + npc + ":" + e);
-            FilePrinter.printError("NPCScriptManager.txt", "Error executing Quest script. (" + quest + ")..NPCID: " + npc + ":" + e);
+            FilePrinter.printError("NPCScriptManager.txt",
+                    "Error executing Quest script. (" + quest + ")..NPCID: " + npc + ":" + e);
             dispose(c);
         } finally {
             lock.unlock();
@@ -305,7 +312,8 @@ public class NPCScriptManager extends AbstractScriptManager {
                 c.getPlayer().dropMessage("[系统提示]任务脚本:" + cm.getQuest() + "错误...NPC: " + cm.getNpc() + ":" + e);
             }
             System.err.println("Error executing Quest script. (" + cm.getQuest() + ")...NPC: " + cm.getNpc() + ":" + e);
-            FilePrinter.printError("NPCScriptManager.txt", "Error executing Quest script. (" + cm.getQuest() + ")..NPCID: " + cm.getNpc() + ":" + e);
+            FilePrinter.printError("NPCScriptManager.txt",
+                    "Error executing Quest script. (" + cm.getQuest() + ")..NPCID: " + cm.getNpc() + ":" + e);
             dispose(c);
         } finally {
             lock.unlock();

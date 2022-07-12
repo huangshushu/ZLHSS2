@@ -106,7 +106,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     public boolean pendingDisposal = false;
     private final Invocable iv;
 
-    public NPCConversationManager(MapleClient c, int npc, int questid, int mode, String npcscript, byte type, Invocable iv) {
+    public NPCConversationManager(MapleClient c, int npc, int questid, int mode, String npcscript, byte type,
+            Invocable iv) {
         super(c);
         this.c = c;
         this.npc = npc;
@@ -161,7 +162,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         if (lastMsg > -1) {
             return;
         }
-        if (text.contains("#L")) { //sendNext will dc otherwise!
+        if (text.contains("#L")) { // sendNext will dc otherwise!
             sendSimple(text);
             return;
         }
@@ -330,7 +331,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         if (lastMsg > -1) {
             return;
         }
-        if (!text.contains("#L")) { //sendSimple will dc otherwise!
+        if (!text.contains("#L")) { // sendSimple will dc otherwise!
             sendNext(text);
             return;
         }
@@ -342,7 +343,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         if (lastMsg > -1) {
             return;
         }
-        if (!text.contains("#L")) { //sendSimple will dc otherwise!
+        if (!text.contains("#L")) { // sendSimple will dc otherwise!
             sendNextS(text, type);
             return;
         }
@@ -357,7 +358,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         c.sendPacket(MaplePacketCreator.getNPCTalkStyle(npc, text, styles));
         lastMsg = 7;
     }
-    
+
     public void sendStyle(String text, int caid, int styles[]) {
         if (lastMsg > -1) {
             return;
@@ -460,7 +461,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     }
 
     public void sendStorage() {
-        if (getPlayer().hasBlockedInventory2(true)) { //hack
+        if (getPlayer().hasBlockedInventory2(true)) { // hack
             c.getPlayer().dropMessage(1, "系统错误，请联系管理员。");
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
@@ -485,7 +486,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     }
 
     public int gainGachaponItem(int id, int quantity) {
-        return gainGachaponItem(id, quantity, c.getPlayer().getMap().getStreetName() + " - " + c.getPlayer().getMap().getMapName());
+        return gainGachaponItem(id, quantity,
+                c.getPlayer().getMap().getStreetName() + " - " + c.getPlayer().getMap().getMapName());
     }
 
     public int gainGachaponItem(int id, int quantity, final String msg) {
@@ -501,15 +503,20 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             final byte rareness = GameConstants.gachaponRareItem(item.getItemId());
             if (rareness == 1) {
                 if (c.getPlayer().getMapId() == 910000000) {
-                    World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[自由市场]", " : 恭喜玩家 " + c.getPlayer().getName() + " 在" + msg + "获得！", item, rareness));
+                    World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[自由市场]",
+                            " : 恭喜玩家 " + c.getPlayer().getName() + " 在" + msg + "获得！", item, rareness));
                 } else {
-                    World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[隐藏地图-转蛋屋]", " : 恭喜玩家 " + c.getPlayer().getName() + " 在" + msg + "获得！", item, rareness));
+                    World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[隐藏地图-转蛋屋]",
+                            " : 恭喜玩家 " + c.getPlayer().getName() + " 在" + msg + "获得！", item, rareness));
                 }
-                //World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg + "] " + c.getPlayer().getName(), " : 被他抽到了，大家恭喜他吧！", item, rareness));
+                // World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg
+                // + "] " + c.getPlayer().getName(), " : 被他抽到了，大家恭喜他吧！", item, rareness));
             } else if (rareness == 2) {
-                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg + "] " + c.getPlayer().getName(), " : 被他成功转到了，大家恭喜他吧！", item, rareness));
+                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega(
+                        "[" + msg + "] " + c.getPlayer().getName(), " : 被他成功转到了，大家恭喜他吧！", item, rareness));
             } else if (rareness > 2) {
-                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg + "] " + c.getPlayer().getName(), " : 被他从枫叶转蛋机转到了，大家恭喜他吧！", item, rareness));
+                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega(
+                        "[" + msg + "] " + c.getPlayer().getName(), " : 被他从枫叶转蛋机转到了，大家恭喜他吧！", item, rareness));
             }
             return item.getItemId();
         } catch (Exception e) {
@@ -518,7 +525,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     }
 
     public int gainGachaponItemTime(int id, int quantity, long period) {
-        return gainGachaponItemTime(id, quantity, c.getPlayer().getMap().getStreetName() + " - " + c.getPlayer().getMap().getMapName(), period);
+        return gainGachaponItemTime(id, quantity,
+                c.getPlayer().getMap().getStreetName() + " - " + c.getPlayer().getMap().getMapName(), period);
     }
 
     public int gainGachaponItemTime(int id, int quantity, final String msg, long period) {
@@ -527,7 +535,9 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             if (!ii.itemExists(id)) {
                 return -1;
             }
-            final IItem item = ii.isCash(id) ? MapleInventoryManipulator.addbyId_GachaponTime(c, id, (short) quantity, period) : MapleInventoryManipulator.addbyId_Gachapon(c, id, (short) quantity);
+            final IItem item = ii.isCash(id)
+                    ? MapleInventoryManipulator.addbyId_GachaponTime(c, id, (short) quantity, period)
+                    : MapleInventoryManipulator.addbyId_Gachapon(c, id, (short) quantity);
 
             if (item == null) {
                 return -1;
@@ -535,15 +545,20 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             final byte rareness = GameConstants.gachaponRareItem(item.getItemId());
             if (rareness == 1) {
                 if (c.getPlayer().getMapId() == 910000000) {
-                    World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[自由市场]", " : 恭喜玩家 " + c.getPlayer().getName() + " 在" + msg + "获得！", item, rareness));
+                    World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[自由市场]",
+                            " : 恭喜玩家 " + c.getPlayer().getName() + " 在" + msg + "获得！", item, rareness));
                 } else {
-                    World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[隐藏地图-转蛋屋]", " : 恭喜玩家 " + c.getPlayer().getName() + " 在" + msg + "获得！", item, rareness));
+                    World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[隐藏地图-转蛋屋]",
+                            " : 恭喜玩家 " + c.getPlayer().getName() + " 在" + msg + "获得！", item, rareness));
                 }
-                //World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg + "] " + c.getPlayer().getName(), " : 被他抽到了，大家恭喜他吧！", item, rareness));
+                // World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg
+                // + "] " + c.getPlayer().getName(), " : 被他抽到了，大家恭喜他吧！", item, rareness));
             } else if (rareness == 2) {
-                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg + "] " + c.getPlayer().getName(), " : 被他成功转到了，大家恭喜他吧！", item, rareness));
+                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega(
+                        "[" + msg + "] " + c.getPlayer().getName(), " : 被他成功转到了，大家恭喜他吧！", item, rareness));
             } else if (rareness > 2) {
-                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg + "] " + c.getPlayer().getName(), " : 被他从枫叶转蛋机转到了，大家恭喜他吧！", item, rareness));
+                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega(
+                        "[" + msg + "] " + c.getPlayer().getName(), " : 被他从枫叶转蛋机转到了，大家恭喜他吧！", item, rareness));
             }
             return item.getItemId();
         } catch (Exception e) {
@@ -555,7 +570,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         c.getPlayer().changeJob(job);
     }
 
-     public void startQuest(int id) {
+    public void startQuest(int id) {
         MapleQuest.getInstance(id).start(getPlayer(), npc);
     }
 
@@ -702,7 +717,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         MapleMap target = getMap(mapId);
         for (MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
             MapleCharacter curChar = c.getChannelServer().getPlayerStorage().getCharacterByName(chr.getName());
-            if ((curChar.getEventInstance() == null && getPlayer().getEventInstance() == null) || curChar.getEventInstance() == getPlayer().getEventInstance()) {
+            if ((curChar.getEventInstance() == null && getPlayer().getEventInstance() == null)
+                    || curChar.getEventInstance() == getPlayer().getEventInstance()) {
                 curChar.changeMap(target, target.getPortal(0));
                 curChar.gainExp(exp, true, false, true);
             }
@@ -713,7 +729,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         MapleMap target = getMap(mapId);
         for (MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
             MapleCharacter curChar = c.getChannelServer().getPlayerStorage().getCharacterByName(chr.getName());
-            if ((curChar.getEventInstance() == null && getPlayer().getEventInstance() == null) || curChar.getEventInstance() == getPlayer().getEventInstance()) {
+            if ((curChar.getEventInstance() == null && getPlayer().getEventInstance() == null)
+                    || curChar.getEventInstance() == getPlayer().getEventInstance()) {
                 curChar.changeMap(target, target.getPortal(0));
                 curChar.gainExp(exp, true, false, true);
                 curChar.gainMeso(meso, true);
@@ -735,7 +752,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 
     public boolean registerSquad(String type, int minutes, String startText) {
         if (c.getChannelServer().getMapleSquad(type) == null) {
-            final MapleSquad squad = new MapleSquad(c.getChannel(), type, c.getPlayer(), minutes * 60 * 1000, startText);
+            final MapleSquad squad = new MapleSquad(c.getChannel(), type, c.getPlayer(), minutes * 60 * 1000,
+                    startText);
             final boolean ret = c.getChannelServer().addMapleSquad(squad, type);
             if (ret) {
                 final MapleMap map = c.getPlayer().getMap();
@@ -970,21 +988,25 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         MapleMap map = c.getPlayer().getMap();
         double range = Double.POSITIVE_INFINITY;
         MapleMonster mob;
-        for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range, Arrays.asList(MapleMapObjectType.MONSTER))) {
+        for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
+                Arrays.asList(MapleMapObjectType.MONSTER))) {
             mob = (MapleMonster) monstermo;
             if (mob.getStats().isBoss()) {
                 map.killMonster(mob, c.getPlayer(), false, false, (byte) 1);
             }
         }
-        /*int mapid = c.getPlayer().getMapId();
-         MapleMap map = c.getChannelServer().getMapFactory().getMap(mapid);
-         map.killAllMonsters(true); // No drop. */
+        /*
+         * int mapid = c.getPlayer().getMapId();
+         * MapleMap map = c.getChannelServer().getMapFactory().getMap(mapid);
+         * map.killAllMonsters(true); // No drop.
+         */
     }
 
     public void giveMerchantMesos() {
         long mesos = 0;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement("SELECT mesos FROM hiredmerchants WHERE merchantid = ?");
+            PreparedStatement ps = (PreparedStatement) con
+                    .prepareStatement("SELECT mesos FROM hiredmerchants WHERE merchantid = ?");
             ps.setInt(1, getPlayer().getId());
             ResultSet rs = ps.executeQuery();
             if (!rs.next()) {
@@ -1016,7 +1038,9 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 
     public long getMerchantMesos() {
         long mesos = 0;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = (PreparedStatement) con.prepareStatement("SELECT mesos FROM hiredmerchants WHERE merchantid = ?")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = (PreparedStatement) con
+                        .prepareStatement("SELECT mesos FROM hiredmerchants WHERE merchantid = ?")) {
             ps.setInt(1, getPlayer().getId());
             try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next()) {
@@ -1200,7 +1224,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     public boolean addFromDrop(Object statsSel) {
         if (statsSel instanceof IItem) {
             final IItem it = (IItem) statsSel;
-            return MapleInventoryManipulator.checkSpace(getClient(), it.getItemId(), it.getQuantity(), it.getOwner()) && MapleInventoryManipulator.addFromDrop(getClient(), it, false);
+            return MapleInventoryManipulator.checkSpace(getClient(), it.getItemId(), it.getQuantity(), it.getOwner())
+                    && MapleInventoryManipulator.addFromDrop(getClient(), it, false);
         }
         return false;
     }
@@ -1309,12 +1334,14 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 
     public boolean createAlliance(String alliancename) {
         MapleParty pt = c.getPlayer().getParty();
-        MapleCharacter otherChar = c.getChannelServer().getPlayerStorage().getCharacterById(pt.getMemberByIndex(1).getId());
+        MapleCharacter otherChar = c.getChannelServer().getPlayerStorage()
+                .getCharacterById(pt.getMemberByIndex(1).getId());
         if (otherChar == null || otherChar.getId() == c.getPlayer().getId()) {
             return false;
         }
         try {
-            return World.Alliance.createAlliance(alliancename, c.getPlayer().getId(), otherChar.getId(), c.getPlayer().getGuildId(), otherChar.getGuildId());
+            return World.Alliance.createAlliance(alliancename, c.getPlayer().getId(), otherChar.getId(),
+                    c.getPlayer().getGuildId(), otherChar.getGuildId());
         } catch (Exception re) {
             return false;
         }
@@ -1324,7 +1351,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         try {
             final MapleGuild gs = World.Guild.getGuild(c.getPlayer().getGuildId());
             if (gs != null && c.getPlayer().getGuildRank() == 1 && c.getPlayer().getAllianceRank() == 1) {
-                if (World.Alliance.getAllianceLeader(gs.getAllianceId()) == c.getPlayer().getId() && World.Alliance.changeAllianceCapacity(gs.getAllianceId())) {
+                if (World.Alliance.getAllianceLeader(gs.getAllianceId()) == c.getPlayer().getId()
+                        && World.Alliance.changeAllianceCapacity(gs.getAllianceId())) {
                     gainMeso(-MapleGuildAlliance.CHANGE_CAPACITY_COST);
                     return true;
                 }
@@ -1338,7 +1366,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         try {
             final MapleGuild gs = World.Guild.getGuild(c.getPlayer().getGuildId());
             if (gs != null && c.getPlayer().getGuildRank() == 1 && c.getPlayer().getAllianceRank() == 1) {
-                if (World.Alliance.getAllianceLeader(gs.getAllianceId()) == c.getPlayer().getId() && World.Alliance.disbandAlliance(gs.getAllianceId())) {
+                if (World.Alliance.getAllianceLeader(gs.getAllianceId()) == c.getPlayer().getId()
+                        && World.Alliance.disbandAlliance(gs.getAllianceId())) {
                     return true;
                 }
             }
@@ -1452,7 +1481,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 
     public final void maxAllSkills() {
         for (ISkill skil : SkillFactory.getAllSkills()) {
-            if (GameConstants.isApplicableSkill(skil.getId())) { //no db/additionals/resistance skills
+            if (GameConstants.isApplicableSkill(skil.getId())) { // no db/additionals/resistance skills
                 teachSkill(skil.getId(), skil.getMaxLevel(), skil.getMaxLevel());
             }
         }
@@ -1504,7 +1533,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 
     public final void doWeddingEffect(final Object ch) {
         final MapleCharacter chr = (MapleCharacter) ch;
-        getMap().broadcastMessage(MaplePacketCreator.yellowChat(chr.getName() + ", 你愿意承认 " + getPlayer().getName() + " 做你的丈夫，诚实遵照上帝的诫命，和他生活在一起，无论在什么环境愿顺服他、爱惜他、安慰他、尊重他保护他，以致奉召归主？？"));
+        getMap().broadcastMessage(MaplePacketCreator.yellowChat(chr.getName() + ", 你愿意承认 " + getPlayer().getName()
+                + " 做你的丈夫，诚实遵照上帝的诫命，和他生活在一起，无论在什么环境愿顺服他、爱惜他、安慰他、尊重他保护他，以致奉召归主？？"));
         CloneTimer.getInstance().schedule(new Runnable() {
 
             @Override
@@ -1512,7 +1542,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                 if (chr == null || getPlayer() == null) {
                     warpMap(680000500, 0);
                 } else {
-                    getMap().broadcastMessage(MaplePacketCreator.yellowChat(getPlayer().getName() + ", 你愿意承认接纳 " + chr.getName() + " 做你的妻子，诚实遵照上帝的诫命，和她生活在一起，无论在什么环境，愿意终生养她、爱惜她、安慰她、尊重她、保护她，以至奉召归主？？"));
+                    getMap().broadcastMessage(MaplePacketCreator.yellowChat(getPlayer().getName() + ", 你愿意承认接纳 "
+                            + chr.getName() + " 做你的妻子，诚实遵照上帝的诫命，和她生活在一起，无论在什么环境，愿意终生养她、爱惜她、安慰她、尊重她、保护她，以至奉召归主？？"));
                 }
             }
         }, 10000);
@@ -1535,20 +1566,24 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                     sendNPCText(getPlayer().getName() + " 和 " + chr.getName() + "， 我希望你们两个能在此时此刻永远爱著对方！", 9201002);
                     getMap().startExtendedMapEffect("那么现在请新娘亲吻 " + getPlayer().getName() + "！", 5120006);
                     if (chr.getGuildId() > 0) {
-                        World.Guild.guildPacket(chr.getGuildId(), MaplePacketCreator.sendMarriage(false, chr.getName()));
+                        World.Guild.guildPacket(chr.getGuildId(),
+                                MaplePacketCreator.sendMarriage(false, chr.getName()));
                     }
                     if (chr.getFamilyId() > 0) {
-                        World.Family.familyPacket(chr.getFamilyId(), MaplePacketCreator.sendMarriage(true, chr.getName()), chr.getId());
+                        World.Family.familyPacket(chr.getFamilyId(),
+                                MaplePacketCreator.sendMarriage(true, chr.getName()), chr.getId());
                     }
                     if (getPlayer().getGuildId() > 0) {
-                        World.Guild.guildPacket(getPlayer().getGuildId(), MaplePacketCreator.sendMarriage(false, getPlayer().getName()));
+                        World.Guild.guildPacket(getPlayer().getGuildId(),
+                                MaplePacketCreator.sendMarriage(false, getPlayer().getName()));
                     }
                     if (getPlayer().getFamilyId() > 0) {
-                        World.Family.familyPacket(getPlayer().getFamilyId(), MaplePacketCreator.sendMarriage(true, chr.getName()), getPlayer().getId());
+                        World.Family.familyPacket(getPlayer().getFamilyId(),
+                                MaplePacketCreator.sendMarriage(true, chr.getName()), getPlayer().getId());
                     }
                 }
             }
-        }, 20000); //10 sec 10 sec
+        }, 20000); // 10 sec 10 sec
     }
 
     public void 开启小钢珠(int type) {
@@ -1563,7 +1598,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         return getClient().getPlayer().getBeans();
     }
 
-    public void warpBack(int mid, final int retmap, final int time) { //时间秒数
+    public void warpBack(int mid, final int retmap, final int time) { // 时间秒数
 
         MapleMap warpMap = c.getChannelServer().getMapFactory().getMap(mid);
         c.getPlayer().changeMap(warpMap, warpMap.getPortal(0));
@@ -1578,7 +1613,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                     c.getPlayer().dropMessage(6, "已经到达目的地了!");
                 }
             }
-        }, 1000 * time); //设定时间, (1 秒 = 1000)
+        }, 1000 * time); // 设定时间, (1 秒 = 1000)
     }
 
     public void ChangeName(String name) {
@@ -1642,7 +1677,9 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         IItem toDrop = ii.randomizeStats((Equip) ii.getEquipById(item));
         toDrop.setGMLog(getPlayer().getName() + " 领取勋章");
         MapleInventoryManipulator.addbyItem(c, toDrop);
-        FileoutputUtil.logToFile("logs/Data/NPC领取勋章.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 领取了RC勋章");
+        FileoutputUtil.logToFile("logs/Data/NPC领取勋章.txt",
+                "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0]
+                        + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 领取了RC勋章");
         return true;
     }
 
@@ -1750,19 +1787,29 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             StringBuilder name = new StringBuilder();
             for (int i = 0; i < ranks.size(); i++) {
                 de = ranks.get(i);
-                if (de.chance > 0 && (de.questid <= 0 || (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0))) {
+                if (de.chance > 0 && (de.questid <= 0
+                        || (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0))) {
                     itemId = de.itemId;
                     if (num == 0) {
                         name.append("当前怪物 #o" + mobId + "# 的爆率为:\r\n");
                         name.append("--------------------------------------\r\n");
                     }
                     String namez = "#z" + itemId + "#";
-                    if (itemId == 0) { //meso
-                        itemId = 4031041; //display sack of cash
-                        namez = (de.Minimum * getClient().getChannelServer().getMesoRate()) + " 到 " + (de.Maximum * getClient().getChannelServer().getMesoRate()) + " 金币";
+                    if (itemId == 0) { // meso
+                        itemId = 4031041; // display sack of cash
+                        namez = (de.Minimum * getClient().getChannelServer().getMesoRate()) + " 到 "
+                                + (de.Maximum * getClient().getChannelServer().getMesoRate()) + " 金币";
                     }
                     ch = de.chance * getClient().getChannelServer().getDropRate();
-                    name.append((num + 1) + ") #v" + itemId + "#" + namez /*+ " - " + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0) + "% 爆率。 "*/ + (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0 ? ("需要接受任务 " + MapleQuest.getInstance(de.questid).getName() + "") : "") + "\r\n");
+                    name.append((num + 1) + ") #v" + itemId + "#"
+                            + namez /*
+                                     * + " - " + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() /
+                                     * 10000.0) + "% 爆率。 "
+                                     */
+                            + (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0
+                                    ? ("需要接受任务 " + MapleQuest.getInstance(de.questid).getName() + "")
+                                    : "")
+                            + "\r\n");
                     num++;
                 }
             }
@@ -1785,23 +1832,48 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             name.append("【#r#o" + mobId + "##k】掉宝物品查询列表:#b" + "\r\n");
             for (int i = 0; i < ranks.size(); i++) {
                 de = ranks.get(i);
-                if (de.chance > 0 && (de.questid <= 0 || (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0))) {
+                if (de.chance > 0 && (de.questid <= 0
+                        || (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0))) {
                     itemId = de.itemId;
-                    /*   if (num == 0) {
-                        name.append("【#r#o"+ mobId + "##k】掉宝数据列表:#b" +"\r\n");
-                    }*/
+                    /*
+                     * if (num == 0) {
+                     * name.append("【#r#o"+ mobId + "##k】掉宝数据列表:#b" +"\r\n");
+                     * }
+                     */
                     String namez = "#z" + itemId + "#";
-                    if (itemId == 0) { //meso
-                        itemId = 4031041; //display sack of cash
-                        namez = (de.Minimum * getClient().getChannelServer().getMesoRate()) + " to " + (de.Maximum * getClient().getChannelServer().getMesoRate()) + " #b金币#l#k";
+                    if (itemId == 0) { // meso
+                        itemId = 4031041; // display sack of cash
+                        namez = (de.Minimum * getClient().getChannelServer().getMesoRate()) + " to "
+                                + (de.Maximum * getClient().getChannelServer().getMesoRate()) + " #b金币#l#k";
                     } else if (itemId != 0 && ii.itemExists(itemId)) {
                         ch = de.chance * getClient().getChannelServer().getDropRate();
                         if (GM == false) {
-                            name.append("#k" + (num + 1) + ": #v" + itemId + "# " + namez + ((chr.isGM()) ? "#d  掉落机率：" + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0) + "%\r\n" : "\r\n") + "#b(掉落条件:" + (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0 ? ("需要接取任务#r " + MapleQuest.getInstance(de.questid).getName() + " #b)\r\n") : "#r无#b)") + "\r\n");
+                            name.append("#k" + (num + 1) + ": #v" + itemId + "# " + namez
+                                    + ((chr.isGM()) ? "#d  掉落机率："
+                                            + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0)
+                                            + "%\r\n" : "\r\n")
+                                    + "#b(掉落条件:"
+                                    + (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0
+                                            ? ("需要接取任务#r " + MapleQuest.getInstance(de.questid).getName() + " #b)\r\n")
+                                            : "#r无#b)")
+                                    + "\r\n");
                         } else {
-                            name.append("#L" + itemId + "##k" + (num + 1) + ": #v" + itemId + "# " + namez + ((chr.isGM()) ? "#d  掉落机率：" + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0) + "%(点选更改)\r\n" : "\r\n") + "#b(掉落条件:" + (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0 ? ("需要接取任务#r " + MapleQuest.getInstance(de.questid).getName() + " #b)\r\n") : "#r无#b)") + "\r\n");
+                            name.append("#L" + itemId + "##k" + (num + 1) + ": #v" + itemId + "# " + namez
+                                    + ((chr.isGM()) ? "#d  掉落机率："
+                                            + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0)
+                                            + "%(点选更改)\r\n" : "\r\n")
+                                    + "#b(掉落条件:"
+                                    + (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0
+                                            ? ("需要接取任务#r " + MapleQuest.getInstance(de.questid).getName() + " #b)\r\n")
+                                            : "#r无#b)")
+                                    + "\r\n");
                         }
-                        //                       name.append("#k" + (num + 1) + ": #v" + itemId + "# " + namez + " #d" +"%\r\n#b(掉落条件:" + (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0 ? ("需要接取任务#r " + MapleQuest.getInstance(de.questid).getName() + " #b)\r\n") : "#r无#b)") + ((chr.isGM())?"掉落机率：" + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0) +"\r\n":"\r\n"));
+                        // name.append("#k" + (num + 1) + ": #v" + itemId + "# " + namez + " #d"
+                        // +"%\r\n#b(掉落条件:" + (de.questid > 0 &&
+                        // MapleQuest.getInstance(de.questid).getName().length() > 0 ? ("需要接取任务#r " +
+                        // MapleQuest.getInstance(de.questid).getName() + " #b)\r\n") : "#r无#b)") +
+                        // ((chr.isGM())?"掉落机率：" + (Integer.valueOf(ch >= 999999 ? 1000000 :
+                        // ch).doubleValue() / 10000.0) +"\r\n":"\r\n"));
 
                         num++;
                     } else {
@@ -1828,12 +1900,12 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         c.getSession().write(MaplePacketCreator.updateBeans(this.c.getPlayer()));
     }
 
-    public void openBeans() {//打开豆豆机界面
+    public void openBeans() {// 打开豆豆机界面
         c.getSession().write(MaplePacketCreator.openBeans(getPlayer().getBeans(), 0));
         c.getPlayer().dropMessage(5, "按住左右键可以调整力道,建议调好角度一路给他打,不要按暂停若九宫格卡住没反应请离开在近来");
     }
 
-    public void setMonsterRiding(int itemid) {//装备不能正常装备的坐骑
+    public void setMonsterRiding(int itemid) {// 装备不能正常装备的坐骑
         short src = getClient().getPlayer().haveItemPos(itemid);
         if (src == 100) {
             c.getPlayer().dropMessage(5, "你没有当前坐骑。");
@@ -1896,7 +1968,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         Iterator monster = getMap().getAllUniqueMonsters().iterator();
         while (monster.hasNext()) {
             Object monsterid = monster.next();
-//            msg += "#L" + monsterid + "##o" + monsterid + "#" + ((chr.isGM()) ? " 代码:" + monsterid + "#l\r\n" : "(查看)#l\r\n");
+            // msg += "#L" + monsterid + "##o" + monsterid + "#" + ((chr.isGM()) ? " 代码:" +
+            // monsterid + "#l\r\n" : "(查看)#l\r\n");
             msg += "#L" + monsterid + "##o" + monsterid + "#" + " 代码:" + monsterid + " (查看)#l\r\n";
         }
         sendOk(msg);
@@ -1914,7 +1987,14 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             int chance = mi.getDropChance(mobs.get(i)) * getClient().getChannelServer().getDropRate();
 
-            text += "#r#o" + mobs.get(i) + "##k " /*+ (Integer.valueOf(chance >= 999999 ? 1000000 : chance).doubleValue() / 10000.0) + "%" */ + (quest > 0 && MapleQuest.getInstance(quest).getName().length() > 0 ? ("#b需要进行 " + MapleQuest.getInstance(quest).getName() + " 任务来取得#k") : "") + "\r\n";
+            text += "#r#o" + mobs.get(i) + "##k " /*
+                                                   * + (Integer.valueOf(chance >= 999999 ? 1000000 :
+                                                   * chance).doubleValue() / 10000.0) + "%"
+                                                   */
+                    + (quest > 0 && MapleQuest.getInstance(quest).getName().length() > 0
+                            ? ("#b需要进行 " + MapleQuest.getInstance(quest).getName() + " 任务来取得#k")
+                            : "")
+                    + "\r\n";
 
         }
         sendNext(text);
@@ -1925,7 +2005,9 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     }
 
     public void getGachaponMega(String msg, Item item, int quantity) {
-        World.Broadcast.broadcastGashponmega(MaplePacketCreator.getGachaponMega(c.getPlayer().getName(), " : x" + quantity + "恭喜玩家 " + c.getPlayer().getName() + " 在" + msg + "获得！", item, (byte) 1, c.getPlayer().getClient().getChannel()));
+        World.Broadcast.broadcastGashponmega(MaplePacketCreator.getGachaponMega(c.getPlayer().getName(),
+                " : x" + quantity + "恭喜玩家 " + c.getPlayer().getName() + " 在" + msg + "获得！", item, (byte) 1,
+                c.getPlayer().getClient().getChannel()));
     }
 
     public void EnterCS(int mod) {
@@ -1972,58 +2054,58 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     public List<Integer> 查爆率(String name) {
         List<Integer> moblist = new ArrayList<>();
         Map<Integer, String> nameCache = MapleItemInformationProvider.getInstance().getNameCache();
-        for (Integer key:nameCache.keySet()) {
+        for (Integer key : nameCache.keySet()) {
             if (nameCache.get(key).contains(name)) {
                 moblist.add(key);
             }
         }
         return moblist;
     }
-    
-    public void gainEquiPproperty(int upgr, int watk, int matk, int str, int dex, int Int, int luk, int hp, int mp, int acc, int avoid)
-    {
-        Equip item = (Equip)this.c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem((short)1).copy();
-        item.setUpgradeSlots((byte)(item.getUpgradeSlots() + upgr));
-        item.setWatk((short)(item.getWatk() + watk));
-        item.setMatk((short)(item.getMatk() + matk));
-        item.setStr((short)(item.getStr() + str));
-        item.setDex((short)(item.getDex() + dex));
-        item.setInt((short)(item.getInt() + Int));
-        item.setLuk((short)(item.getLuk() + luk));
-        item.setHp((short)(item.getHp() + hp));
-        item.setMp((short)(item.getMp() + mp));
-        item.setAcc((short)(byte)(item.getAcc() + acc));
-        item.setAvoid((short)(byte)(item.getAvoid() + avoid));
-        MapleInventoryManipulator.removeFromSlot(getC(), MapleInventoryType.EQUIP, (short)1, (short)1, true);
+
+    public void gainEquiPproperty(int upgr, int watk, int matk, int str, int dex, int Int, int luk, int hp, int mp,
+            int acc, int avoid) {
+        Equip item = (Equip) this.c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem((short) 1).copy();
+        item.setUpgradeSlots((byte) (item.getUpgradeSlots() + upgr));
+        item.setWatk((short) (item.getWatk() + watk));
+        item.setMatk((short) (item.getMatk() + matk));
+        item.setStr((short) (item.getStr() + str));
+        item.setDex((short) (item.getDex() + dex));
+        item.setInt((short) (item.getInt() + Int));
+        item.setLuk((short) (item.getLuk() + luk));
+        item.setHp((short) (item.getHp() + hp));
+        item.setMp((short) (item.getMp() + mp));
+        item.setAcc((short) (byte) (item.getAcc() + acc));
+        item.setAvoid((short) (byte) (item.getAvoid() + avoid));
+        MapleInventoryManipulator.removeFromSlot(getC(), MapleInventoryType.EQUIP, (short) 1, (short) 1, true);
         MapleInventoryManipulator.addFromDrop(getChar().getClient(), item, false);
     }
-    
-    //检测队友等级(不包含队长)
-    //有点问题，暂时无法使用
-    public final boolean CheckMembersLevel (int lvl) {
-	//如果组队为空直接返回false
+
+    // 检测队友等级(不包含队长)
+    // 有点问题，暂时无法使用
+    public final boolean CheckMembersLevel(int lvl) {
+        // 如果组队为空直接返回false
         if (getParty() == null) {
             return false;
         }
-		//遍历组队队员
+        // 遍历组队队员
         for (MaplePartyCharacter player : getParty().getMembers()) {
-			//条件:等级符合要求并且排除队长
+            // 条件:等级符合要求并且排除队长
             if (player.getLevel() <= lvl) {
-				continue;//等级符合要求,跳出循环,直接继续检测下一位
-			}
-			//只要有一位不满足条件直接false结束
-			if(!isLeader()){
-			return false;
-			}
+                continue;// 等级符合要求,跳出循环,直接继续检测下一位
+            }
+            // 只要有一位不满足条件直接false结束
+            if (!isLeader()) {
+                return false;
+            }
         }
         return true;
     }
-    
+
     public String getItemName(int id) {
         MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         return ii.getName(id);
     }
-    
+
     /*
      * 检测队伍是否能组队任务
      * 必须是所有队伍中的成员满足条件才可以开始任务
@@ -2049,7 +2131,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             if (player == null) {
                 getPlayer().dropMessage(5, "队伍中的成员 " + partyPlayer.getName() + " 不在线 或者 不在同一地图.");
             } else if (player.getLevel() < minLevel || player.getLevel() > maxLevel) {
-                getPlayer().dropMessage(5, "队伍中的成员 " + partyPlayer.getName() + " 等级不符合要求.等级限制: Lv." + minLevel + "～" + maxLevel);
+                getPlayer().dropMessage(5,
+                        "队伍中的成员 " + partyPlayer.getName() + " 等级不符合要求.等级限制: Lv." + minLevel + "～" + maxLevel);
             } else if (!player.haveItem(itemId)) {
                 getPlayer().dropMessage(5, "队伍中的成员 " + partyPlayer.getName() + " 没有开始组队任务需要的道具.");
             } else {
@@ -2058,43 +2141,42 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         }
         return partySize == chrSize;
     }
-    
+
     /*
      * 删除全部指定道具ID的信息
      */
     public void deleteAll(int itemId) {
         MapleInventoryManipulator.removeAllById(getClient(), itemId, true);
     }
-    
+
     public void 即时存档() {
         c.getPlayer().saveToDB(true, true);
     }
-    
-    	public short getSpace(byte type) {
-		return getPlayer().getSpace(type);
-	}
 
-	public boolean haveSpace(int type) {
-		return getPlayer().haveSpace(type);
-	}
+    public short getSpace(byte type) {
+        return getPlayer().getSpace(type);
+    }
 
-	public boolean haveSpaceForId(int itemid) {
-		return getPlayer().haveSpaceForId(itemid);
-	}
-        
-        
-      public String getServerName() {
-            return ServerConfig.SERVER_NAME;
-     }
-        
-      public String serverName() {//取服务器名字
+    public boolean haveSpace(int type) {
+        return getPlayer().haveSpace(type);
+    }
+
+    public boolean haveSpaceForId(int itemid) {
+        return getPlayer().haveSpaceForId(itemid);
+    }
+
+    public String getServerName() {
+        return ServerConfig.SERVER_NAME;
+    }
+
+    public String serverName() {// 取服务器名字
         return c.getChannelServer().getServerName();
     }
-      
-    public String 开服名称() {//取服务器名字
+
+    public String 开服名称() {// 取服务器名字
         return c.getChannelServer().getServerName();
     }
-    
+
     public void 全服黄色字体(String message) {
         for (ChannelServer cserv1 : ChannelServer.getAllInstances()) {
             for (MapleCharacter mch : cserv1.getPlayerStorage().getAllCharacters()) {
@@ -2102,14 +2184,14 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
         }
     }
-    
+
     public void 个人黄色字体(String message) {
         c.sendPacket(UIPacket.getTopMsg(message));
     }
-    
-        public int 今日在线() {
+
+    public int 今日在线() {
         int data = 0;
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement psu = con.prepareStatement("SELECT todayOnlineTime FROM characters WHERE id = ?");
             psu.setInt(1, c.getPlayer().getId());
             ResultSet rs = psu.executeQuery();
@@ -2128,7 +2210,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 
     public int 总在线() {
         int data = 0;
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement psu = con.prepareStatement("SELECT totalOnlineTime FROM characters WHERE id = ?");
             psu.setInt(1, c.getPlayer().getId());
             ResultSet rs = psu.executeQuery();
@@ -2151,18 +2233,21 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         }
         return count;
     }
+
     private Point position = new Point();
 
     public void 清怪() {
         MapleMap map = c.getPlayer().getMap();
         double range = Double.POSITIVE_INFINITY;
         MapleMonster mob;
-        for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range, Arrays.asList(MapleMapObjectType.MONSTER))) {
+        for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
+                Arrays.asList(MapleMapObjectType.MONSTER))) {
             mob = (MapleMonster) monstermo;
             map.killMonster(mob, c.getPlayer(), true, false, (byte) 1);
         }
     }
-        public void 个人存档() {
+
+    public void 个人存档() {
         c.getPlayer().saveToDB(false, false);
     }
 
@@ -2183,34 +2268,37 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         } catch (Exception e) {
         }
     }
-    
-        public void 给技能(final int action, final byte level, final byte masterlevel) {
+
+    public void 给技能(final int action, final byte level, final byte masterlevel) {
         c.getPlayer().changeSkillLevel(SkillFactory.getSkill(action), level, masterlevel);
     }
-           public void 键盘上技能(final int id, final int key, final int type, final int action, final byte level, final byte masterlevel) throws SQLException {
-        //给予技能先
+
+    public void 键盘上技能(final int id, final int key, final int type, final int action, final byte level,
+            final byte masterlevel) throws SQLException {
+        // 给予技能先
         c.getPlayer().changeSkillLevel(SkillFactory.getSkill(action), level, masterlevel);
         c.getPlayer().dropMessage(1, "<提示>\r\n5秒后你会自动下线，请1分钟后再次登陆。");
-        //存档
+        // 存档
         c.getPlayer().saveToDB(false, false);
         new Thread() {
             @Override
             public void run() {
-                try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                    //5秒后断开玩家链接
+                try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+                    // 5秒后断开玩家链接
                     Thread.sleep(1000 * 5);
                     c.getPlayer().getClient().getSession().close();
-                    //10秒后开始执行上技能指令
+                    // 10秒后开始执行上技能指令
                     Thread.sleep(1000 * 10);
                     PreparedStatement ps = null;
-                    ps = con.prepareStatement("INSERT INTO keymap (characterid, `key`, `type`, `action`) VALUES (?, ?, ?, ?)");
-                    //写ID
+                    ps = con.prepareStatement(
+                            "INSERT INTO keymap (characterid, `key`, `type`, `action`) VALUES (?, ?, ?, ?)");
+                    // 写ID
                     ps.setInt(1, id);
-                    //写类型
+                    // 写类型
                     ps.setInt(2, key);
-                    //写建委
+                    // 写建委
                     ps.setInt(3, type);
-                    //写代码
+                    // 写代码
                     ps.setInt(4, action);
                     ps.execute();
                 } catch (InterruptedException e) {
@@ -2220,12 +2308,12 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
         }.start();
     }
-           
+
     public void 对话结束() {
         NPCScriptManager.getInstance().dispose(c);
-    }        
-    
-        public void 说明文字(String text) {
+    }
+
+    public void 说明文字(String text) {
         if (lastMsg > -1) {
             return;
         }
@@ -2236,8 +2324,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 0, text, "00 00", (byte) 0));
         lastMsg = 0;
     }
-        
-            public void 是否说明文字(String text) {
+
+    public void 是否说明文字(String text) {
         if (lastMsg > -1) {
             return;
         }
@@ -2248,33 +2336,36 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 1, text, "", (byte) 0));
         lastMsg = 1;
     }
-                public final MapleInventory 判断背包装备栏() {//判断背包
+
+    public final MapleInventory 判断背包装备栏() {// 判断背包
         return c.getPlayer().getInventory(MapleInventoryType.getByType((byte) 1));
     }
 
-    public final MapleInventory 判断背包消耗栏() {//判断背包
+    public final MapleInventory 判断背包消耗栏() {// 判断背包
         return c.getPlayer().getInventory(MapleInventoryType.getByType((byte) 2));
     }
 
-    public final MapleInventory 判断背包设置栏() {//判断背包
+    public final MapleInventory 判断背包设置栏() {// 判断背包
         return c.getPlayer().getInventory(MapleInventoryType.getByType((byte) 3));
     }
 
-    public final MapleInventory 判断背包其他栏() {//判断背包
+    public final MapleInventory 判断背包其他栏() {// 判断背包
         return c.getPlayer().getInventory(MapleInventoryType.getByType((byte) 4));
     }
 
-    public final MapleInventory 判断背包特殊栏() {//判断背包
+    public final MapleInventory 判断背包特殊栏() {// 判断背包
         return c.getPlayer().getInventory(MapleInventoryType.getByType((byte) 5));
     }
-        public void 完成任务(int id) {
+
+    public void 完成任务(int id) {
         MapleQuest.getInstance(id).complete(getPlayer(), npc);
     }
 
     public void 放弃任务(int id) {
         MapleQuest.getInstance(id).forfeit(getPlayer());
     }
-        public void 任务开始() {
+
+    public void 任务开始() {
         MapleQuest.getInstance(questid).forceStart(getPlayer(), getNpc(), null);
     }
 
@@ -2301,25 +2392,27 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     public void 任务放弃(int id) {
         MapleQuest.getInstance(id).forfeit(getPlayer());
     }
-        public void 设置等级(int s) {//判断等级
+
+    public void 设置等级(int s) {// 判断等级
         c.getPlayer().setLevel((short) s);
     }
 
-    public int 判断等级() {//判断等级
+    public int 判断等级() {// 判断等级
         return getPlayer().getLevel();
     }
 
-    public void 刷新() {//刷新
+    public void 刷新() {// 刷新
         MapleCharacter player = c.getPlayer();
         c.sendPacket(MaplePacketCreator.getCharInfo(player));
         player.getMap().removePlayer(player);
         player.getMap().addPlayer(player);
     }
-       public int 判断金币() {//判断金币
+
+    public int 判断金币() {// 判断金币
         return getPlayer().getMeso();
     }
 
-    public int 判断角色ID() {//判断金币
+    public int 判断角色ID() {// 判断金币
         return c.getPlayer().getId();
     }
 
@@ -2396,7 +2489,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         } else {
             drop = false;
         }
-        for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range, Arrays.asList(MapleMapObjectType.MONSTER))) {
+        for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
+                Arrays.asList(MapleMapObjectType.MONSTER))) {
             mob = (MapleMonster) monstermo;
             map.killMonster(mob, c.getPlayer(), drop, false, (byte) 1);
         }
@@ -2409,25 +2503,24 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     public String 职业(int a) {
         return getJobNameById(a);
     }
-    
-       public void 给能力点(final int amount) {//给AP
+
+    public void 给能力点(final int amount) {// 给AP
         c.getPlayer().gainAp((short) amount);
     }
 
-    public void 收能力点(final int amount) {//给AP
+    public void 收能力点(final int amount) {// 给AP
         c.getPlayer().gainAp((short) -amount);
     }
 
-    public void 给技能点(final int amount) {//给AP
+    public void 给技能点(final int amount) {// 给AP
         c.getPlayer().gainSP((short) amount);
     }
 
-    public void 收技能点(final int amount) {//给AP
+    public void 收技能点(final int amount) {// 给AP
         c.getPlayer().gainSP2((short) amount);
     }
 
-
-    public void 脱光装备() {//脱下身上装备
+    public void 脱光装备() {// 脱下身上装备
         MapleInventory equipped = getPlayer().getInventory(MapleInventoryType.EQUIPPED);
         MapleInventory equip = getPlayer().getInventory(MapleInventoryType.EQUIP);
         List<Short> ids = new LinkedList<Short>();
@@ -2439,7 +2532,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         }
     }
 
-    public void 脱掉并且销毁装备(int x) {//脱下身上装备
+    public void 脱掉并且销毁装备(int x) {// 脱下身上装备
         MapleInventory equipped = getPlayer().getInventory(MapleInventoryType.EQUIPPED);
         MapleInventory equip = getPlayer().getInventory(MapleInventoryType.EQUIP);
         List<Short> ids = new LinkedList<Short>();
@@ -2454,19 +2547,19 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         MapleInventoryManipulator.removeFromSlot(getC(), MapleInventoryType.EQUIP, (short) 1, (short) 1, true);
     }
 
-    public void 全服音效(boolean broadcast, String sound) {//播放音乐
+    public void 全服音效(boolean broadcast, String sound) {// 播放音乐
         for (ChannelServer cserv1 : ChannelServer.getAllInstances()) {
             for (MapleCharacter mch : cserv1.getPlayerStorage().getAllCharacters()) {
                 World.Broadcast.broadcastMessage(MaplePacketCreator.playSound(sound));
             }
         }
     }
-    
-    public void 全服喇叭(String text) {//公告类型
+
+    public void 全服喇叭(String text) {// 公告类型
         World.Broadcast.broadcastMessage(MaplePacketCreator.黄色喇叭(text));
     }
-    
-        public int 判断传送点x(int id, int cid) {
+
+    public int 判断传送点x(int id, int cid) {
         int ret = -1;
         try {
             Connection con = DBConPool.getInstance().getDataSource().getConnection();
@@ -2507,7 +2600,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                 ret = 0;
                 PreparedStatement ps = null;
                 try {
-                    ps = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("INSERT INTO awarp (id, cid,x) VALUES (?, ?, ?)");
+                    ps = DBConPool.getInstance().getDataSource().getConnection()
+                            .prepareStatement("INSERT INTO awarp (id, cid,x) VALUES (?, ?, ?)");
                     ps.setInt(1, id);
                     ps.setInt(2, cid);
                     ps.setInt(3, x);
@@ -2544,7 +2638,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                 ret = 0;
                 PreparedStatement ps = null;
                 try {
-                    ps = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("INSERT INTO awarp (id, cid,x) VALUES (?, ?, ?)");
+                    ps = DBConPool.getInstance().getDataSource().getConnection()
+                            .prepareStatement("INSERT INTO awarp (id, cid,x) VALUES (?, ?, ?)");
                     ps.setInt(1, id);
                     ps.setInt(2, cid);
                     ps.setInt(3, y);
@@ -2574,8 +2669,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             System.err.println("设置传送点y3" + sql);
         }
     }
-    
-        public String 怪物卡片排行榜() {
+
+    public String 怪物卡片排行榜() {
         int 名次 = 1;
         StringBuilder name = new StringBuilder();
         try {
@@ -2604,8 +2699,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         name.append("\r\n\r\n");
         return name.toString();
     }
-        
-            public static String 获取最强家族名称() {
+
+    public static String 获取最强家族名称() {
         String name = "";
         String level = "";
         try {
@@ -2769,34 +2864,34 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         }
         return data;
     }
-    
-        public String 显示物品(int a) {
+
+    public String 显示物品(int a) {
         String data = "";
         data = "#v" + a + "# #b#z" + a + "##k";
         return data;
     }
-        
-	public void gainNX(int type, int amount) {
-		if (type <= 0 || type > 2) {
-			type = 2;
-		}
-		c.getPlayer().modifyCSPoints(type, amount, true);
-	}
-        
-    public void 增加角色最大生命值(short hp) {//设置当前生命值
+
+    public void gainNX(int type, int amount) {
+        if (type <= 0 || type > 2) {
+            type = 2;
+        }
+        c.getPlayer().modifyCSPoints(type, amount, true);
+    }
+
+    public void 增加角色最大生命值(short hp) {// 设置当前生命值
         Map<MapleStat, Integer> statup = new EnumMap<>(MapleStat.class);
         c.getPlayer().getStat().setMaxHp((short) (c.getPlayer().getStat().getMaxHp() + hp));
         statup.put(MapleStat.MAXHP, (int) c.getPlayer().getStat().getMaxHp());
         c.sendPacket(MaplePacketCreator.updatePlayerStats(statup, c.getPlayer()));
     }
 
-    public void 增加角色最大法力值(short MP) {//设置当前生命值
+    public void 增加角色最大法力值(short MP) {// 设置当前生命值
         Map<MapleStat, Integer> statup = new EnumMap<>(MapleStat.class);
         c.getPlayer().getStat().setMaxMp((short) (c.getPlayer().getStat().getMaxMp() + MP));
         statup.put(MapleStat.MAXMP, (int) c.getPlayer().getStat().getMaxMp());
         c.sendPacket(MaplePacketCreator.updatePlayerStats(statup, c.getPlayer()));
     }
-    
+
     public void addMaxHp(short hp) {
         Map<MapleStat, Integer> statup = new EnumMap<>(MapleStat.class);
         c.getPlayer().getStat().setMaxHp((short) (c.getPlayer().getStat().getMaxHp() + hp));
@@ -2810,9 +2905,9 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         statup.put(MapleStat.MAXMP, (int) c.getPlayer().getStat().getMaxMp());
         c.sendPacket(MaplePacketCreator.updatePlayerStats(statup, c.getPlayer()));
     }
-    
-        public void 全服公告(String text) {//公告类型
+
+    public void 全服公告(String text) {// 公告类型
         World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, text));
-    }    
-  
+    }
+
 }

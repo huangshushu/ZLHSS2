@@ -53,7 +53,7 @@ import tools.packet.UIPacket;
 
 public class EventInstanceManager {
 
-    private List<MapleCharacter> chars = new LinkedList<>(); //this is messy
+    private List<MapleCharacter> chars = new LinkedList<>(); // this is messy
     private List<Integer> dced = new LinkedList<>();
     private List<MapleMonster> mobs = new LinkedList<>();
     private Map<Integer, Integer> killCount = new HashMap<>();
@@ -95,8 +95,10 @@ public class EventInstanceManager {
 
         } catch (RejectedExecutionException ex) {
         } catch (ScriptException | NoSuchMethodException ex) {
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerEntry:\n" + ex);
-            System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerEntry:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt",
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerEntry:\n" + ex);
+            System.err.println(
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerEntry:\n" + ex);
         }
     }
 
@@ -108,8 +110,10 @@ public class EventInstanceManager {
             em.getIv().invokeFunction("changedMap", this, chr, mapid);
         } catch (NullPointerException npe) {
         } catch (Exception ex) {
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : changedMap:\n" + ex);
-            System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : changedMap:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt",
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : changedMap:\n" + ex);
+            System.err.println(
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : changedMap:\n" + ex);
         }
     }
 
@@ -126,8 +130,10 @@ public class EventInstanceManager {
                 try {
                     em.getIv().invokeFunction("scheduledTimeout", eim);
                 } catch (Exception ex) {
-                    FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : scheduledTimeout:\n" + ex);
-                    System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : scheduledTimeout:\n" + ex);
+                    FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName()
+                            + ", Instance name : " + name + ", method Name : scheduledTimeout:\n" + ex);
+                    System.err.println("Event name" + em.getName() + ", Instance name : " + name
+                            + ", method Name : scheduledTimeout:\n" + ex);
                 }
             }
         }, delay);
@@ -159,14 +165,16 @@ public class EventInstanceManager {
             }
             timeOut(time, this);
         } catch (Exception ex) {
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : restartEventTimer:\n" + ex);
-            System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : restartEventTimer:\n");
+            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name
+                    + ", method Name : restartEventTimer:\n" + ex);
+            System.err.println(
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : restartEventTimer:\n");
             ex.printStackTrace();
         }
     }
 
     public void startEventTimer(long time) {
-        restartEventTimer(time); //just incase
+        restartEventTimer(time); // just incase
     }
 
     public boolean isTimerStarted() {
@@ -201,8 +209,8 @@ public class EventInstanceManager {
     }
 
     private boolean unregisterPlayer_NoLock(final MapleCharacter chr) {
-        if (name.equals("CWKPQ")) { //hard code it because i said so
-            final MapleSquad squad = ChannelServer.getInstance(channel).getMapleSquad("CWKPQ");//so fkin hacky
+        if (name.equals("CWKPQ")) { // hard code it because i said so
+            final MapleSquad squad = ChannelServer.getInstance(channel).getMapleSquad("CWKPQ");// so fkin hacky
             if (squad != null) {
                 squad.removeMember(chr.getName());
                 if (squad.getLeaderName().equals(chr.getName())) {
@@ -333,8 +341,10 @@ public class EventInstanceManager {
                 em.getIv().invokeFunction("allMonstersDead", this);
             } catch (RejectedExecutionException ex) {
             } catch (ScriptException | NoSuchMethodException ex) {
-                FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : allMonstersDead:\n" + ex);
-                System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : allMonstersDead:\n" + ex);
+                FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : "
+                        + name + ", method Name : allMonstersDead:\n" + ex);
+                System.err.println("Event name" + em.getName() + ", Instance name : " + name
+                        + ", method Name : allMonstersDead:\n" + ex);
             }
         }
     }
@@ -347,8 +357,10 @@ public class EventInstanceManager {
             em.getIv().invokeFunction("playerDead", this, chr);
         } catch (RejectedExecutionException ex) {
         } catch (ScriptException | NoSuchMethodException ex) {
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerDead:\n" + ex);
-            System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerDead:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt",
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerDead:\n" + ex);
+            System.err.println(
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerDead:\n" + ex);
         }
     }
 
@@ -363,8 +375,10 @@ public class EventInstanceManager {
             }
         } catch (RejectedExecutionException ex) {
         } catch (ScriptException | NoSuchMethodException ex) {
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerRevive:\n" + ex);
-            System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerRevive:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt",
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerRevive:\n" + ex);
+            System.err.println(
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerRevive:\n" + ex);
         }
         return true;
     }
@@ -393,7 +407,8 @@ public class EventInstanceManager {
                 if (getPlayerCount() <= 0) {
                     dispose_NoLock();
                 }
-            } else if ((ret > 0 && getPlayerCount() < ret) || (ret < 0 && (isLeader(chr) || getPlayerCount() < (ret * -1)))) {
+            } else if ((ret > 0 && getPlayerCount() < ret)
+                    || (ret < 0 && (isLeader(chr) || getPlayerCount() < (ret * -1)))) {
                 final List<MapleCharacter> chrs = new LinkedList<>(chars);
                 for (MapleCharacter player : chrs) {
                     if (player.getId() != idz) {
@@ -433,31 +448,39 @@ public class EventInstanceManager {
             }
             killCount.put(chr.getId(), kc);
             if (chr.getCarnivalParty() != null && (mob.getStats().getPoint() > 0 || mob.getStats().getCP() > 0)) {
-                em.getIv().invokeFunction("monsterKilled", this, chr, mob.getStats().getCP() > 0 ? mob.getStats().getCP() : mob.getStats().getPoint());
+                em.getIv().invokeFunction("monsterKilled", this, chr,
+                        mob.getStats().getCP() > 0 ? mob.getStats().getCP() : mob.getStats().getPoint());
             }
         } catch (RejectedExecutionException ex) {
         } catch (ScriptException | NoSuchMethodException ex) {
-            System.err.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
+            System.err.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name
+                    + ", method Name : monsterValue:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt", "Event name" + (em == null ? "null" : em.getName())
+                    + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
         }
     }
 
     public void monsterDamaged(final MapleCharacter chr, final MapleMonster mob, final int damage) {
-        if (disposed || mob.getId() != 9700037) { //ghost PQ boss only.
+        if (disposed || mob.getId() != 9700037) { // ghost PQ boss only.
             return;
         }
         try {
             em.getIv().invokeFunction("monsterDamaged", this, chr, mob.getId(), damage);
         } catch (RejectedExecutionException ex) {
         } catch (ScriptException ex) {
-            System.err.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : restartEventTimer:\n" + ex);
+            System.err.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name
+                    + ", method Name : monsterValue:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name
+                    + ", method Name : restartEventTimer:\n" + ex);
         } catch (NoSuchMethodException ex) {
-            System.err.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name + ", method Name : monsterValue:\n" + ex);
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : restartEventTimer:\n" + ex);
+            System.err.println("Event name" + (em == null ? "null" : em.getName()) + ", Instance name : " + name
+                    + ", method Name : monsterValue:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name
+                    + ", method Name : restartEventTimer:\n" + ex);
         } catch (Exception ex) {
             ex.printStackTrace();
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : restartEventTimer:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name
+                    + ", method Name : restartEventTimer:\n" + ex);
         }
     }
 
@@ -511,7 +534,8 @@ public class EventInstanceManager {
             em.disposeInstance(name);
         } catch (Exception e) {
             System.err.println("Caused by : " + emN + " instance name: " + name + " method: dispose: " + e);
-            FilePrinter.printError("EventInstanceManager.txt", "Caused by : " + emN + " instance name: " + name + " method: dispose: " + e);
+            FilePrinter.printError("EventInstanceManager.txt",
+                    "Caused by : " + emN + " instance name: " + name + " method: dispose: " + e);
         }
     }
 
@@ -533,14 +557,16 @@ public class EventInstanceManager {
         return mobs;
     }
 
-    /*public final void giveAchievement(final int type) {
-     if (disposed) {
-     return;
-     }
-     for (MapleCharacter chr : getPlayers()) {
-     chr.finishAchievement(type);
-     }
-     }*/
+    /*
+     * public final void giveAchievement(final int type) {
+     * if (disposed) {
+     * return;
+     * }
+     * for (MapleCharacter chr : getPlayers()) {
+     * chr.finishAchievement(type);
+     * }
+     * }
+     */
     public final void broadcastPlayerMsg(final int type, final String msg) {
         if (disposed) {
             return;
@@ -570,7 +596,7 @@ public class EventInstanceManager {
         return this.getMapFactory().CreateInstanceMap(mapid, false, false, false, assignedid);
     }
 
-    public final MapleMap setInstanceMap(final int mapid) { //gets instance map from the channelserv
+    public final MapleMap setInstanceMap(final int mapid) { // gets instance map from the channelserv
         if (disposed) {
             return this.getMapFactory().getMap(mapid);
         }
@@ -591,7 +617,7 @@ public class EventInstanceManager {
             boolean instanced = false;
             int trueMapID;
             if (args >= mapIds.size()) {
-                //assume real map
+                // assume real map
                 trueMapID = args;
             } else {
                 trueMapID = mapIds.get(args);
@@ -629,10 +655,10 @@ public class EventInstanceManager {
     }
 
     public final void schedule(final String methodName, final long delay) {
-        //if (ChannelServer.getInstance(1).isShutdown()) {
-        //    System.err.println("schedule - 关闭服务器中无法调用");
-        //    return;
-        //}
+        // if (ChannelServer.getInstance(1).isShutdown()) {
+        // System.err.println("schedule - 关闭服务器中无法调用");
+        // return;
+        // }
         if (disposed) {
             return;
         }
@@ -647,8 +673,10 @@ public class EventInstanceManager {
                 } catch (NullPointerException npe) {
                 } catch (RejectedExecutionException ex) {
                 } catch (ScriptException | NoSuchMethodException ex) {
-                    System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : " + methodName + ":\n" + ex);
-                    FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : " + methodName + ":\n" + ex);
+                    System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : "
+                            + methodName + ":\n" + ex);
+                    FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName()
+                            + ", Instance name : " + name + ", method Name : " + methodName + ":\n" + ex);
                 }
             }
         }, delay);
@@ -690,8 +718,10 @@ public class EventInstanceManager {
         try {
             em.getIv().invokeFunction("leftParty", this, chr);
         } catch (Exception ex) {
-            System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : leftParty:\n" + ex);
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : leftParty:\n" + ex);
+            System.err.println(
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : leftParty:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt",
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : leftParty:\n" + ex);
         }
     }
 
@@ -702,12 +732,14 @@ public class EventInstanceManager {
         try {
             em.getIv().invokeFunction("disbandParty", this);
         } catch (Exception ex) {
-            System.out.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : disbandParty:\n" + ex);
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : disbandParty:\n" + ex);
+            System.out.println(
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : disbandParty:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt",
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : disbandParty:\n" + ex);
         }
     }
 
-    //Separate function to warp players to a "finish" map, if applicable
+    // Separate function to warp players to a "finish" map, if applicable
     public final void finishPQ() {
         if (disposed) {
             return;
@@ -716,8 +748,10 @@ public class EventInstanceManager {
             em.getIv().invokeFunction("clearPQ", this);
         } catch (RejectedExecutionException ex) {
         } catch (ScriptException | NoSuchMethodException ex) {
-            System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : clearPQ:\n" + ex);
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : clearPQ:\n" + ex);
+            System.err.println(
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : clearPQ:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt",
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : clearPQ:\n" + ex);
         }
     }
 
@@ -729,8 +763,10 @@ public class EventInstanceManager {
             em.getIv().invokeFunction("playerExit", this, chr);
         } catch (RejectedExecutionException ex) {
         } catch (ScriptException | NoSuchMethodException ex) {
-            System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerExit:\n" + ex);
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerExit:\n" + ex);
+            System.err.println(
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerExit:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt",
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : playerExit:\n" + ex);
         }
     }
 
@@ -764,10 +800,12 @@ public class EventInstanceManager {
             em.getIv().invokeFunction("registerCarnivalParty", this, carnivalParty);
         } catch (RejectedExecutionException ex) {
         } catch (ScriptException ex) {
-            System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : registerCarnivalParty:\n" + ex);
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : registerCarnivalParty:\n" + ex);
+            System.err.println("Event name" + em.getName() + ", Instance name : " + name
+                    + ", method Name : registerCarnivalParty:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name
+                    + ", method Name : registerCarnivalParty:\n" + ex);
         } catch (NoSuchMethodException ex) {
-            //ignore
+            // ignore
         }
     }
 
@@ -779,8 +817,10 @@ public class EventInstanceManager {
             em.getIv().invokeFunction("onMapLoad", this, chr);
         } catch (RejectedExecutionException ex) {
         } catch (ScriptException ex) {
-            System.err.println("Event name" + em.getName() + ", Instance name : " + name + ", method Name : onMapLoad:\n" + ex);
-            FilePrinter.printError("EventInstanceManager.txt", "Event name" + em.getName() + ", Instance name : " + name + ", method Name : onMapLoad:\n" + ex);
+            System.err.println(
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : onMapLoad:\n" + ex);
+            FilePrinter.printError("EventInstanceManager.txt",
+                    "Event name" + em.getName() + ", Instance name : " + name + ", method Name : onMapLoad:\n" + ex);
         } catch (NoSuchMethodException ex) {
             // Ignore, we don't want to update this for all events.
         }
@@ -800,15 +840,19 @@ public class EventInstanceManager {
             MapleCharacter player = squad.getChar(chr);
             if (player != null && player.getMapId() == mapid) {
                 if (questID > 0) {
-                    player.getQuestNAdd(MapleQuest.getInstance(questID)).setCustomData(String.valueOf(System.currentTimeMillis()));
+                    player.getQuestNAdd(MapleQuest.getInstance(questID))
+                            .setCustomData(String.valueOf(System.currentTimeMillis()));
                 }
                 registerPlayer(player);
-                /*                if (player.getParty() != null) {
-                 PartySearch ps = World.Party.getSearch(player.getParty());
-                 if (ps != null) {
-                 World.Party.removeSearch(ps, "The Party Listing has been removed because the Party Quest has started.");
-                 }
-                 }*/
+                /*
+                 * if (player.getParty() != null) {
+                 * PartySearch ps = World.Party.getSearch(player.getParty());
+                 * if (ps != null) {
+                 * World.Party.removeSearch(ps,
+                 * "The Party Listing has been removed because the Party Quest has started.");
+                 * }
+                 * }
+                 */
             }
         }
         squad.setStatus((byte) 2);
@@ -837,12 +881,12 @@ public class EventInstanceManager {
         MapleItemInformationProvider.getInstance().getItemEffect(id).applyTo(chr);
         chr.getClient().sendPacket(UIPacket.getStatusMsg(id));
     }
-    
-     public int 获取当前星期() {
+
+    public int 获取当前星期() {
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
     }
-     
-     public String getServerName() {
-            return ServerConfig.SERVER_NAME;
-     }
+
+    public String getServerName() {
+        return ServerConfig.SERVER_NAME;
+    }
 }

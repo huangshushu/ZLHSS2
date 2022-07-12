@@ -19,7 +19,8 @@ import tools.HexTool;
 public class MaplePacketLittleEndianWriter {
 
     private final ByteArrayOutputStream baos;
-    private static final Charset ASCII = Charset.forName(ServerConstants.MAPLE_TYPE.getANSI()); // US-ASCII, ISO-8859-1, UTF-8, MS949
+    private static final Charset ASCII = Charset.forName(ServerConstants.MAPLE_TYPE.getANSI()); // US-ASCII, ISO-8859-1,
+                                                                                                // UTF-8, MS949
 
     /**
      * Constructor - initializes this stream with a default size.
@@ -232,6 +233,7 @@ public class MaplePacketLittleEndianWriter {
             long length = file.length();
             if (length > Integer.MAX_VALUE) {
                 System.err.println("档案太大");
+                is.close();
                 return;
             }
             bytes = new byte[(int) length];

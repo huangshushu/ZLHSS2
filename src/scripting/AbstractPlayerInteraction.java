@@ -124,7 +124,7 @@ public abstract class AbstractPlayerInteraction {
     public void setBossLog(String bossid) {
         getPlayer().setBossLog(bossid);
     }
-    
+
     public int getBossLogC(String bossid) {
         return getPlayer().getBossLogC(bossid);
     }
@@ -186,9 +186,11 @@ public abstract class AbstractPlayerInteraction {
 
     public final void instantMapWarp(final int map, final int portal) {
         final MapleMap mapz = getWarpMap(map);
-        if (portal != 0 && map == c.getPlayer().getMapId()) { //test
+        if (portal != 0 && map == c.getPlayer().getMapId()) { // test
             final Point portalPos = new Point(c.getPlayer().getMap().getPortal(portal).getPosition());
-            c.getSession().writeAndFlush(MaplePacketCreator.instantMapWarp((byte) portal)); //until we get packet for far movement, this will do
+            c.getSession().writeAndFlush(MaplePacketCreator.instantMapWarp((byte) portal)); // until we get packet for
+                                                                                            // far movement, this will
+                                                                                            // do
             c.getPlayer().checkFollow();
             c.getPlayer().getMap().movePlayer(c.getPlayer(), portalPos);
 
@@ -199,10 +201,11 @@ public abstract class AbstractPlayerInteraction {
 
     public final void warp(final int map, final int portal) {
         final MapleMap mapz = getWarpMap(map);
-        if (portal != 0 && map == getClient().getPlayer().getMapId()) { //test
+        if (portal != 0 && map == getClient().getPlayer().getMapId()) { // test
             final Point portalPos = new Point(c.getPlayer().getMap().getPortal(portal).getPosition());
-            if (portalPos.distanceSq(getPlayer().getPosition()) < 90000.0) { //estimation
-                getClient().sendPacket(MaplePacketCreator.instantMapWarp((byte) portal)); //until we get packet for far movement, this will do
+            if (portalPos.distanceSq(getPlayer().getPosition()) < 90000.0) { // estimation
+                getClient().sendPacket(MaplePacketCreator.instantMapWarp((byte) portal)); // until we get packet for far
+                                                                                          // movement, this will do
                 getClient().getPlayer().checkFollow();
                 getClient().getPlayer().getMap().movePlayer(c.getPlayer(), portalPos);
             } else {
@@ -223,12 +226,14 @@ public abstract class AbstractPlayerInteraction {
         if (map == 109060000 || map == 109060002 || map == 109060004) {
             portal = mapz.getSnowballPortal();
         }
-        if (map == getClient().getPlayer().getMapId()) { //test
+        if (map == getClient().getPlayer().getMapId()) { // test
             final Point portalPos = new Point(c.getPlayer().getMap().getPortal(portal).getPosition());
-            if (portalPos.distanceSq(getPlayer().getPosition()) < 90000.0) { //estimation
+            if (portalPos.distanceSq(getPlayer().getPosition()) < 90000.0) { // estimation
                 getClient().getPlayer().checkFollow();
-                getClient().sendPacket(MaplePacketCreator.instantMapWarp((byte) getClient().getPlayer().getMap().getPortal(portal).getId()));
-                getClient().getPlayer().getMap().movePlayer(c.getPlayer(), new Point(c.getPlayer().getMap().getPortal(portal).getPosition()));
+                getClient().sendPacket(MaplePacketCreator
+                        .instantMapWarp((byte) getClient().getPlayer().getMap().getPortal(portal).getId()));
+                getClient().getPlayer().getMap().movePlayer(c.getPlayer(),
+                        new Point(c.getPlayer().getMap().getPortal(portal).getPosition()));
             } else {
                 getClient().getPlayer().changeMap(mapz, mapz.getPortal(portal));
             }
@@ -276,7 +281,8 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final MapleMap getMap_Instanced(final int map) {
-        return getClient().getPlayer().getEventInstance() == null ? getMap(map) : getClient().getPlayer().getEventInstance().getMapInstance(map);
+        return getClient().getPlayer().getEventInstance() == null ? getMap(map)
+                : getClient().getPlayer().getEventInstance().getMapInstance(map);
     }
 
     public void spawnMonster(final int id, final int qty) {
@@ -362,11 +368,11 @@ public abstract class AbstractPlayerInteraction {
         return getClient().getPlayer().getName();
     }
 
-    //获取没有时间限制的道具
+    // 获取没有时间限制的道具
     public final boolean haveItemTime(final int itemid) {
         if (haveItem(itemid)) {
             final MapleInventoryType type = GameConstants.getInventoryType(itemid);
-            for (IItem item : getChar().getInventory(type)) { //omfg;
+            for (IItem item : getChar().getInventory(type)) { // omfg;
                 if (item.getItemId() == itemid) {
                     return item.getExpiration() == -1;
                 }
@@ -377,11 +383,11 @@ public abstract class AbstractPlayerInteraction {
         }
     }
 
-    //获取没有时间限制的道具
+    // 获取没有时间限制的道具
     public final boolean haveItemTimeNo(final int itemid) {
         if (haveItem(itemid)) {
             final MapleInventoryType type = GameConstants.getInventoryType(itemid);
-            for (IItem item : getChar().getInventory(type)) { //omfg;
+            for (IItem item : getChar().getInventory(type)) { // omfg;
                 if (item.getItemId() == itemid) {
                     return item.getExpiration() > 0;
                 }
@@ -400,7 +406,8 @@ public abstract class AbstractPlayerInteraction {
         return haveItem(itemid, quantity, false, true);
     }
 
-    public final boolean haveItem(final int itemid, final int quantity, final boolean checkEquipped, final boolean greaterOrEquals) {
+    public final boolean haveItem(final int itemid, final int quantity, final boolean checkEquipped,
+            final boolean greaterOrEquals) {
         return getClient().getPlayer().haveItem(itemid, quantity, checkEquipped, greaterOrEquals);
     }
 
@@ -414,14 +421,16 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final boolean canHoldByType(byte bytype, int num) {
-        if ((c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getSlotLimit() - (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getNumSlotLimit() + 1)) <= num) {
+        if ((c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getSlotLimit()
+                - (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getNumSlotLimit() + 1)) <= num) {
             return false;
         }
         return true;
     }
 
     public final boolean canHoldByTypea(byte bytype, int num) {
-        if (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getSlotLimit() - (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getNextFreeSlot() - 1) <= num) {
+        if (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getSlotLimit()
+                - (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getNextFreeSlot() - 1) <= num) {
             return false;
         }
         return true;
@@ -554,17 +563,19 @@ public abstract class AbstractPlayerInteraction {
         return getPotion(2);
     }
 
-    public final void gainItemPeriod(final int id, final short quantity, final int period) { //period is in days
+    public final void gainItemPeriod(final int id, final short quantity, final int period) { // period is in days
         gainItem(id, quantity, false, period, -1, "");
     }
 
-    public final void gainItemPeriod(final int id, final short quantity, final long period, final String owner) { //period is in days
+    public final void gainItemPeriod(final int id, final short quantity, final long period, final String owner) { // period
+                                                                                                                  // is
+                                                                                                                  // in
+                                                                                                                  // days
         gainItem(id, quantity, false, period, -1, owner);
     }
 
     public final void gainItem(final int id, final short quantity) {
-        
-        
+
         gainItem(id, quantity, false, 0, -1, "");
     }
 
@@ -588,15 +599,18 @@ public abstract class AbstractPlayerInteraction {
         }
     }
 
-    public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period, final int slots) {
+    public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period,
+            final int slots) {
         gainItem(id, quantity, randomStats, period, slots, "");
     }
 
-    public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period, final int slots, final String owner) {
+    public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period,
+            final int slots, final String owner) {
         gainItem(id, quantity, randomStats, period, slots, owner, c);
     }
 
-        public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period, final int slots, final String owner, final MapleClient cg, byte Flag) {
+    public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period,
+            final int slots, final String owner, final MapleClient cg, byte Flag) {
         if (id == 2070018) {
             return;
         }
@@ -608,8 +622,10 @@ public abstract class AbstractPlayerInteraction {
             if (!MapleInventoryManipulator.checkSpace(cg, id, quantity, "")) {
                 return;
             }
-            if (type.equals(MapleInventoryType.EQUIP) && !GameConstants.isThrowingStar(id) && !GameConstants.isBullet(id)) {
-                final Equip item = (Equip) (randomStats ? ii.randomizeStats((Equip) ii.getEquipById(id)) : ii.getEquipById(id));
+            if (type.equals(MapleInventoryType.EQUIP) && !GameConstants.isThrowingStar(id)
+                    && !GameConstants.isBullet(id)) {
+                final Equip item = (Equip) (randomStats ? ii.randomizeStats((Equip) ii.getEquipById(id))
+                        : ii.getEquipById(id));
                 if (period > 0) {
                     item.setExpiration(System.currentTimeMillis() + (period * 24 * 60 * 60 * 1000));
                 }
@@ -620,10 +636,10 @@ public abstract class AbstractPlayerInteraction {
                     item.setOwner(owner);
                 }
                 final String name = ii.getName(id);
-                if (id / 10000 == 114 && name != null && name.length() > 0) { //medal
+                if (id / 10000 == 114 && name != null && name.length() > 0) { // medal
                     final String msg = "你已获得称号 <" + name + ">";
                     cg.getPlayer().dropMessage(5, msg);
-                    //cg.getPlayer().dropMessage(5, msg);
+                    // cg.getPlayer().dropMessage(5, msg);
                 }
                 MapleInventoryManipulator.addbyItem(cg, item.copy());
             } else {
@@ -634,16 +650,18 @@ public abstract class AbstractPlayerInteraction {
         }
         cg.sendPacket(MaplePacketCreator.getShowItemGain(id, quantity, true));
     }
-        
-            public final void gainItem(final int id, final short quantity, final long period, byte Flag) {
+
+    public final void gainItem(final int id, final short quantity, final long period, byte Flag) {
         gainItem(id, quantity, false, period, -1, "", (byte) Flag);
     }
 
-    public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period, final int slots, final String owner, byte Flag) {
+    public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period,
+            final int slots, final String owner, byte Flag) {
         gainItem(id, quantity, randomStats, period, slots, owner, c, Flag);
     }
-        
-    public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period, final int slots, final String owner, final MapleClient cg) {
+
+    public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period,
+            final int slots, final String owner, final MapleClient cg) {
         if (quantity >= 0) {
             final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
             final MapleInventoryType type = GameConstants.getInventoryType(id);
@@ -651,8 +669,10 @@ public abstract class AbstractPlayerInteraction {
             if (!MapleInventoryManipulator.checkSpace(cg, id, quantity, "")) {
                 return;
             }
-            if (type.equals(MapleInventoryType.EQUIP) && !GameConstants.isThrowingStar(id) && !GameConstants.isBullet(id)) {
-                final Equip item = (Equip) (randomStats ? ii.randomizeStats((Equip) ii.getEquipById(id)) : ii.getEquipById(id));
+            if (type.equals(MapleInventoryType.EQUIP) && !GameConstants.isThrowingStar(id)
+                    && !GameConstants.isBullet(id)) {
+                final Equip item = (Equip) (randomStats ? ii.randomizeStats((Equip) ii.getEquipById(id))
+                        : ii.getEquipById(id));
                 if (period > 0) {
                     item.setExpiration(System.currentTimeMillis() + (period * 24 * 60 * 60 * 1000));
                 }
@@ -663,7 +683,7 @@ public abstract class AbstractPlayerInteraction {
                     item.setOwner(owner);
                 }
                 final String name = ii.getName(id);
-                if (id / 10000 == 114 && name != null && name.length() > 0) { //medal
+                if (id / 10000 == 114 && name != null && name.length() > 0) { // medal
                     final String msg = "你已获得称号 <" + name + ">";
                     cg.getPlayer().dropMessage(-1, msg);
                     cg.getPlayer().dropMessage(5, msg);
@@ -688,11 +708,13 @@ public abstract class AbstractPlayerInteraction {
         gainItemStatus(id, quantity, false, 0, -1, "");
     }
 
-    public final void gainItemStatus(final int id, final short quantity, final boolean randomStats, final long period, final int slots, final String owner) {
+    public final void gainItemStatus(final int id, final short quantity, final boolean randomStats, final long period,
+            final int slots, final String owner) {
         gainItemStatus(id, quantity, randomStats, period, slots, owner, c);
     }
 
-    public final void gainItemStatus(final int id, final short quantity, final boolean randomStats, final long period, final int slots, final String owner, final MapleClient cg) {
+    public final void gainItemStatus(final int id, final short quantity, final boolean randomStats, final long period,
+            final int slots, final String owner, final MapleClient cg) {
         if (quantity >= 0) {
             final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
             final MapleInventoryType type = GameConstants.getInventoryType(id);
@@ -701,8 +723,10 @@ public abstract class AbstractPlayerInteraction {
 
                 return;
             }
-            if (type.equals(MapleInventoryType.EQUIP) && !GameConstants.isThrowingStar(id) && !GameConstants.isBullet(id)) {
-                final Equip item = (Equip) (randomStats ? ii.randomizeStats((Equip) ii.getEquipById(id)) : ii.getEquipById(id));
+            if (type.equals(MapleInventoryType.EQUIP) && !GameConstants.isThrowingStar(id)
+                    && !GameConstants.isBullet(id)) {
+                final Equip item = (Equip) (randomStats ? ii.randomizeStats((Equip) ii.getEquipById(id))
+                        : ii.getEquipById(id));
                 if (period > 0) {
                     item.setExpiration(System.currentTimeMillis() + (period * 24 * 60 * 60 * 1000));
                 }
@@ -717,7 +741,7 @@ public abstract class AbstractPlayerInteraction {
                 item.setInt((short) 1);
                 item.setLuk((short) 1);
                 final String name = ii.getName(id);
-                if (id / 10000 == 114 && name != null && name.length() > 0) { //medal
+                if (id / 10000 == 114 && name != null && name.length() > 0) { // medal
                     final String msg = "你已获得称号 <" + name + ">";
                     cg.getPlayer().dropMessage(-1, msg);
                     cg.getPlayer().dropMessage(5, msg);
@@ -831,7 +855,8 @@ public abstract class AbstractPlayerInteraction {
 
         for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
             final MapleCharacter curChar = getChannelServer().getPlayerStorage().getCharacterById(chr.getId());
-            if (curChar != null && (curChar.getMapId() == cMap || curChar.getEventInstance() == getPlayer().getEventInstance())) {
+            if (curChar != null
+                    && (curChar.getMapId() == cMap || curChar.getEventInstance() == getPlayer().getEventInstance())) {
                 curChar.changeMap(target, target.getPortal(0));
             }
         }
@@ -852,7 +877,8 @@ public abstract class AbstractPlayerInteraction {
 
         for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
             final MapleCharacter curChar = getChannelServer().getPlayerStorage().getCharacterById(chr.getId());
-            if (curChar != null && (curChar.getMapId() == cMap || curChar.getEventInstance() == getPlayer().getEventInstance())) {
+            if (curChar != null
+                    && (curChar.getMapId() == cMap || curChar.getEventInstance() == getPlayer().getEventInstance())) {
                 if (rand) {
                     try {
                         curChar.changeMap(target, target.getPortal(Randomizer.nextInt(target.getPortals().size())));
@@ -876,7 +902,8 @@ public abstract class AbstractPlayerInteraction {
         final int cMap = getPlayer().getMapId();
         for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
             final MapleCharacter curChar = getChannelServer().getPlayerStorage().getCharacterById(chr.getId());
-            if (curChar != null && (curChar.getMapId() == cMap || curChar.getEventInstance() == getPlayer().getEventInstance())) {
+            if (curChar != null
+                    && (curChar.getMapId() == cMap || curChar.getEventInstance() == getPlayer().getEventInstance())) {
                 curChar.changeMap(target, target.getPortal(0));
             }
         }
@@ -899,7 +926,8 @@ public abstract class AbstractPlayerInteraction {
             if (quantity >= 0) {
                 MapleInventoryManipulator.addById(chr.getClient(), id, quantity);
             } else {
-                MapleInventoryManipulator.removeById(chr.getClient(), GameConstants.getInventoryType(id), id, -quantity, true, false);
+                MapleInventoryManipulator.removeById(chr.getClient(), GameConstants.getInventoryType(id), id, -quantity,
+                        true, false);
             }
             chr.getClient().sendPacket(MaplePacketCreator.getShowItemGain(id, quantity, true));
         }
@@ -933,7 +961,8 @@ public abstract class AbstractPlayerInteraction {
         for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
             final MapleCharacter curChar = getMap().getCharacterById(chr.getId());
             if (curChar != null) {
-                gainItem(id, (short) (removeAll ? -curChar.itemQuantity(id) : quantity), false, 0, 0, "", curChar.getClient());
+                gainItem(id, (short) (removeAll ? -curChar.itemQuantity(id) : quantity), false, 0, 0, "",
+                        curChar.getClient());
             }
         }
     }
@@ -1042,7 +1071,8 @@ public abstract class AbstractPlayerInteraction {
         final MaplePet pet = getPlayer().getPet(index);
         if (pet != null) {
             pet.setCloseness(pet.getCloseness() + closeness);
-            getClient().sendPacket(PetPacket.updatePet(pet, getPlayer().getInventory(MapleInventoryType.CASH).getItem((byte) pet.getInventoryPosition())));
+            getClient().sendPacket(PetPacket.updatePet(pet,
+                    getPlayer().getInventory(MapleInventoryType.CASH).getItem((byte) pet.getInventoryPosition())));
         }
     }
 
@@ -1050,7 +1080,8 @@ public abstract class AbstractPlayerInteraction {
         for (final MaplePet pet : getPlayer().getPets()) {
             if (pet != null) {
                 pet.setCloseness(pet.getCloseness() + closeness);
-                getClient().sendPacket(PetPacket.updatePet(pet, getPlayer().getInventory(MapleInventoryType.CASH).getItem((byte) pet.getInventoryPosition())));
+                getClient().sendPacket(PetPacket.updatePet(pet,
+                        getPlayer().getInventory(MapleInventoryType.CASH).getItem((byte) pet.getInventoryPosition())));
             }
         }
     }
@@ -1106,7 +1137,7 @@ public abstract class AbstractPlayerInteraction {
     public final int getMonsterCount(final int mapid) {
         return getClient().getChannelServer().getMapFactory().getMap(mapid).getNumMonsters();
     }
-    
+
     public final int getMonsterCountByMonsterId(final int mobid) {
         int a = 0;
         for (MapleMapObject obj : c.getPlayer().getMap().getAllMonstersThreadsafe()) {
@@ -1117,7 +1148,7 @@ public abstract class AbstractPlayerInteraction {
         }
         return a;
     }
-    
+
     public final int getMonsterCount(final int mapid, final int mobid) {
         int a = 0;
         for (MapleMapObject obj : c.getChannelServer().getMapFactory().getMap(mapid).getAllMonstersThreadsafe()) {
@@ -1146,7 +1177,7 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final void dojo_getUp() {
-        getClient().sendPacket(MaplePacketCreator.updateInfoQuest(1207, "pt=1;min=4;belt=1;tuto=1")); //todo
+        getClient().sendPacket(MaplePacketCreator.updateInfoQuest(1207, "pt=1;min=4;belt=1;tuto=1")); // todo
         getClient().sendPacket(MaplePacketCreator.Mulung_DojoUp2());
         getClient().sendPacket(MaplePacketCreator.instantMapWarp((byte) 6));
     }
@@ -1179,7 +1210,8 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final void saveReturnLocation(final String loc) {
-        getClient().getPlayer().saveLocation(SavedLocationType.fromString(loc), getClient().getPlayer().getMap().getReturnMap().getId());
+        getClient().getPlayer().saveLocation(SavedLocationType.fromString(loc),
+                getClient().getPlayer().getMap().getReturnMap().getId());
     }
 
     public final void clearSavedLocation(final String loc) {
@@ -1286,7 +1318,8 @@ public abstract class AbstractPlayerInteraction {
             fullness = 100;
         }
         try {
-            MapleInventoryManipulator.addById(c, id, (short) 1, "", MaplePet.createPet(id, name, level, closeness, fullness, MapleInventoryIdentifier.getInstance(), id == 5000054 ? (int) period : 0, flags), 45);
+            MapleInventoryManipulator.addById(c, id, (short) 1, "", MaplePet.createPet(id, name, level, closeness,
+                    fullness, MapleInventoryIdentifier.getInstance(), id == 5000054 ? (int) period : 0, flags), 45);
         } catch (NullPointerException ex) {
             ex.printStackTrace();
         }
@@ -1300,14 +1333,14 @@ public abstract class AbstractPlayerInteraction {
         if (getPlayer().getGuildId() <= 0) {
             return;
         }
-        World.Guild.gainGP(getPlayer().getGuildId(), gp); //1 for
+        World.Guild.gainGP(getPlayer().getGuildId(), gp); // 1 for
     }
 
     public int getGP() {
         if (getPlayer().getGuildId() <= 0) {
             return 0;
         }
-        return World.Guild.getGP(getPlayer().getGuildId()); //1 for
+        return World.Guild.getGP(getPlayer().getGuildId()); // 1 for
     }
 
     public void showMapEffect(String path) {
@@ -1387,7 +1420,7 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public void enterMTS() {
-        //原进入拍卖
+        // 原进入拍卖
         InterServerHandler.EnterCashShop(c, c.getPlayer(), true);
     }
 
@@ -1396,7 +1429,8 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public int getTotalOnline() {
-        return ChannelServer.getAllInstances().stream().map((cserv) -> cserv.getConnectedClients()).reduce(0, Integer::sum);
+        return ChannelServer.getAllInstances().stream().map((cserv) -> cserv.getConnectedClients()).reduce(0,
+                Integer::sum);
     }
 
     public int getMP() {
@@ -1458,7 +1492,10 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public void getItemLog(String mob, String itemmob) {
-        FileoutputUtil.logToFile("logs/Data/" + mob + ".txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " " + itemmob);
+        FileoutputUtil.logToFile("logs/Data/" + mob + ".txt",
+                "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0]
+                        + " 帐号 " + c.getAccountName() + " 帐号ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName()
+                        + " 角色ID " + c.getPlayer().getId() + " " + itemmob);
     }
 
     public int getAccNewTime(String time) {
@@ -1517,16 +1554,16 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public List<IItem> getMonsterRidinglist() {
-        //MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+        // MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         MapleInventory Equip = c.getPlayer().getInventory(MapleInventoryType.EQUIP);
         List<IItem> ret = new ArrayList();
         for (IItem tep : Equip) {
-            //Map stats = ii.getEquipStats(tep.getItemId());
-            //if (stats.containsKey("cash")) {
+            // Map stats = ii.getEquipStats(tep.getItemId());
+            // if (stats.containsKey("cash")) {
             if (tep.getItemId() >= 1930000 && tep.getItemId() <= 1992050) {
                 ret.add(tep);
             }
-            //}
+            // }
         }
         return ret;
     }
@@ -1576,7 +1613,8 @@ public abstract class AbstractPlayerInteraction {
             }
         }
 
-        if (c.getPlayer().getMapId() == 749060605 || c.getPlayer().getMapId() == 229010000 || c.getPlayer().getMapId() == 910000000) {
+        if (c.getPlayer().getMapId() == 749060605 || c.getPlayer().getMapId() == 229010000
+                || c.getPlayer().getMapId() == 910000000) {
             c.getPlayer().dropMessage(5, "当前地图无法使用.");
             return false;
         }
@@ -1585,11 +1623,19 @@ public abstract class AbstractPlayerInteraction {
             c.getPlayer().dropMessage(5, "你的等级不足10级无法使用.");
             return false;
         }
-        if (c.getPlayer().hasBlockedInventory(true) || c.getPlayer().getMap().getSquadByMap() != null || c.getPlayer().getEventInstance() != null || c.getPlayer().getMap().getEMByMap() != null || c.getPlayer().getMapId() >= 990000000/* || FieldLimitType.VipRock.check(c.getPlayer().getMap().getFieldLimit())*/) {
+        if (c.getPlayer().hasBlockedInventory(true) || c.getPlayer().getMap().getSquadByMap() != null
+                || c.getPlayer().getEventInstance() != null || c.getPlayer().getMap().getEMByMap() != null
+                || c.getPlayer().getMapId() >= 990000000/*
+                                                         * || FieldLimitType.VipRock.check(c.getPlayer().getMap().
+                                                         * getFieldLimit())
+                                                         */) {
             c.getPlayer().dropMessage(5, "请稍后再试");
             return false;
         }
-        if ((c.getPlayer().getMapId() >= 680000210 && c.getPlayer().getMapId() <= 680000502) || (c.getPlayer().getMapId() / 1000 == 980000 && c.getPlayer().getMapId() != 980000000) || (c.getPlayer().getMapId() / 100 == 1030008) || (c.getPlayer().getMapId() / 100 == 922010) || (c.getPlayer().getMapId() / 10 == 13003000)) {
+        if ((c.getPlayer().getMapId() >= 680000210 && c.getPlayer().getMapId() <= 680000502)
+                || (c.getPlayer().getMapId() / 1000 == 980000 && c.getPlayer().getMapId() != 980000000)
+                || (c.getPlayer().getMapId() / 100 == 1030008) || (c.getPlayer().getMapId() / 100 == 922010)
+                || (c.getPlayer().getMapId() / 10 == 13003000)) {
             c.getPlayer().dropMessage(5, "请稍后再试.");
             return false;
         }
@@ -1653,7 +1699,7 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public void forceReAddItem(Item item, byte type) {
-        //c.getPlayer().forceReAddItem(item, MapleInventoryType.getByType(type));
+        // c.getPlayer().forceReAddItem(item, MapleInventoryType.getByType(type));
         c.getPlayer().forceReAddItem_Flag(item, MapleInventoryType.getByType(type));
         c.getPlayer().equipChanged();
     }
@@ -1662,7 +1708,7 @@ public abstract class AbstractPlayerInteraction {
         Map<MapleStat, Integer> statups = new EnumMap<>(MapleStat.class);
 
         c.getPlayer().setLevel((short) 1);
-       // c.getPlayer().levelUp();
+        // c.getPlayer().levelUp();
         if (c.getPlayer().getExp() < 0) {
             c.getPlayer().gainExp(-c.getPlayer().getExp(), false, false, true);
         }
@@ -1676,10 +1722,10 @@ public abstract class AbstractPlayerInteraction {
 
         c.getSession().write(MaplePacketCreator.updateSp(c.getPlayer(), false));
 
-        //c.getPlayer().getStat().maxhp = 50;
-        //c.getPlayer().getStat().maxmp = 50;
-        //c.getPlayer().getStat().setHp(50);
-        //c.getPlayer().getStat().setMp(50);
+        // c.getPlayer().getStat().maxhp = 50;
+        // c.getPlayer().getStat().maxmp = 50;
+        // c.getPlayer().getStat().setHp(50);
+        // c.getPlayer().getStat().setMp(50);
         statups.put(MapleStat.STR, Integer.valueOf(c.getPlayer().getStat().getStr()));
         statups.put(MapleStat.DEX, Integer.valueOf(c.getPlayer().getStat().getDex()));
         statups.put(MapleStat.LUK, Integer.valueOf(c.getPlayer().getStat().getLuk()));
@@ -1703,7 +1749,7 @@ public abstract class AbstractPlayerInteraction {
         return BossLogCopyManager.getInstance();
     }
 
-    //bossrank
+    // bossrank
     /**
      * 积分排行
      *
@@ -1782,7 +1828,7 @@ public abstract class AbstractPlayerInteraction {
      * 增加指定type类型add数量 (type 1:积分 2:次数 )
      *
      * @param bossname
-     * @param type 1:积分 2:次数
+     * @param type     1:积分 2:次数
      * @param add
      * @return
      */
@@ -1793,11 +1839,11 @@ public abstract class AbstractPlayerInteraction {
     /**
      * 增加指定玩家指定type的数量
      *
-     * @param cid 玩家ID
-     * @param cname 玩家名
+     * @param cid      玩家ID
+     * @param cname    玩家名
      * @param bossname
-     * @param type 1:积分 2:次数
-     * @param add 数量
+     * @param type     1:积分 2:次数
+     * @param add      数量
      * @return
      */
     public int setBossRank(int cid, String cname, String bossname, byte type, int add) {
@@ -1831,10 +1877,10 @@ public abstract class AbstractPlayerInteraction {
             return ret;
         }
         switch (type) {
-            case 1://积分
+            case 1:// 积分
                 ret = info.getPoints();
                 break;
-            case 2://次数
+            case 2:// 次数
                 ret = info.getCount();
                 break;
         }
@@ -1860,7 +1906,7 @@ public abstract class AbstractPlayerInteraction {
             ps = con.prepareStatement(sql);
             if (objects.length > 0) {
                 for (int i = 0; i < objects.length; i++) {
-                    ps.setObject(i+1, objects[i]);
+                    ps.setObject(i + 1, objects[i]);
                 }
             }
             ps.executeUpdate();
@@ -1885,18 +1931,18 @@ public abstract class AbstractPlayerInteraction {
             ps = con.prepareStatement(sql);
             if (objects.length > 0) {
                 for (int i = 0; i < objects.length; i++) {
-                    ps.setObject(i+1, objects[i]);
+                    ps.setObject(i + 1, objects[i]);
                 }
             }
             rs = ps.executeQuery();
             while (rs.next()) {
                 Map<String, Object> map = new HashMap<>();
                 ResultSetMetaData metaData = rs.getMetaData();
-                //获取列的数量
+                // 获取列的数量
                 int columnCount = metaData.getColumnCount();
-                //循环列
+                // 循环列
                 for (int i = 0; i < columnCount; i++) {
-                    String key = metaData.getColumnName(i+1);
+                    String key = metaData.getColumnName(i + 1);
                     map.put(key, rs.getObject(key));
                 }
                 list.add(map);
@@ -1938,9 +1984,9 @@ public abstract class AbstractPlayerInteraction {
             if (fff == null) {
                 c.getPlayer().dropMessage(6, "Player must be online");
             } else {
-                int[] ringID = {MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance()};
+                int[] ringID = { MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance() };
                 try {
-                    MapleCharacter[] chrz = {fff, c.getPlayer()};
+                    MapleCharacter[] chrz = { fff, c.getPlayer() };
                     for (int i = 0; i < chrz.length; i++) {
                         Equip eq = (Equip) MapleItemInformationProvider.getInstance().getEquipById(itemId, ringID[i]);
                         if (eq == null) {
@@ -1967,13 +2013,16 @@ public abstract class AbstractPlayerInteraction {
         if (getPlayer().getParty().getMembers().size() != 2) {
             return 1;
         }
-        if ((getPlayer().getGender() == 0) && (!getPlayer().haveItem(1050121)) && (!getPlayer().haveItem(1050122)) && (!getPlayer().haveItem(1050113))) {
+        if ((getPlayer().getGender() == 0) && (!getPlayer().haveItem(1050121)) && (!getPlayer().haveItem(1050122))
+                && (!getPlayer().haveItem(1050113))) {
             return 5;
         }
-        if ((getPlayer().getGender() == 1) && (!getPlayer().haveItem(1051129)) && (!getPlayer().haveItem(1051130)) && (!getPlayer().haveItem(1051114))) {
+        if ((getPlayer().getGender() == 1) && (!getPlayer().haveItem(1051129)) && (!getPlayer().haveItem(1051130))
+                && (!getPlayer().haveItem(1051114))) {
             return 5;
         }
-        if (!getPlayer().haveItem(1112001) && (!getPlayer().haveItem(1112012)) && (!getPlayer().haveItem(1112002)) && (!getPlayer().haveItem(1112007))) {
+        if (!getPlayer().haveItem(1112001) && (!getPlayer().haveItem(1112012)) && (!getPlayer().haveItem(1112002))
+                && (!getPlayer().haveItem(1112007))) {
             return 6;
         }
         for (MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
@@ -1990,13 +2039,16 @@ public abstract class AbstractPlayerInteraction {
             if (curChar.getGender() == getPlayer().getGender()) {
                 return 4;
             }
-            if ((curChar.getGender() == 0) && (!curChar.haveItem(1050121)) && (!curChar.haveItem(1050122)) && (!curChar.haveItem(1050113))) {
+            if ((curChar.getGender() == 0) && (!curChar.haveItem(1050121)) && (!curChar.haveItem(1050122))
+                    && (!curChar.haveItem(1050113))) {
                 return 5;
             }
-            if ((curChar.getGender() == 1) && (!curChar.haveItem(1051129)) && (!curChar.haveItem(1051130)) && (!curChar.haveItem(1051114))) {
+            if ((curChar.getGender() == 1) && (!curChar.haveItem(1051129)) && (!curChar.haveItem(1051130))
+                    && (!curChar.haveItem(1051114))) {
                 return 5;
             }
-            if (!curChar.haveItem(1112001) && (!curChar.haveItem(1112012)) && (!curChar.haveItem(1112002)) && (!curChar.haveItem(1112007))) {
+            if (!curChar.haveItem(1112001) && (!curChar.haveItem(1112012)) && (!curChar.haveItem(1112002))
+                    && (!curChar.haveItem(1112007))) {
                 return 6;
             }
         }
@@ -2033,7 +2085,11 @@ public abstract class AbstractPlayerInteraction {
                     sb.append(c.getPlayer().getName());
                     sb.append(" : ");
                     sb.append(message);
-                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1 || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1 || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1 || message.indexOf("白吃") != -1) {;
+                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1
+                            || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1
+                            || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1
+                            || message.indexOf("白吃") != -1) {
+                        ;
                         c.getPlayer().dropMessage("說髒話是不禮貌的，請勿說髒話。");
                         c.getSession().write(MaplePacketCreator.enableActions());
                         return;
@@ -2063,7 +2119,10 @@ public abstract class AbstractPlayerInteraction {
                     if (message.length() > 65) {
                         break;
                     }
-                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1 || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1 || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1 || message.indexOf("白吃") != -1) {
+                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1
+                            || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1
+                            || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1
+                            || message.indexOf("白吃") != -1) {
                         c.getPlayer().dropMessage("說髒話是不禮貌的，請勿說髒話。");
                         c.getSession().write(MaplePacketCreator.enableActions());
                         return;
@@ -2099,13 +2158,17 @@ public abstract class AbstractPlayerInteraction {
                     final List<String> messages = new LinkedList<String>();
                     messages.add(c.getPlayer().getName());
                     messages.addAll(Arrays.asList(message.split("\r\n")));
-                    for (String s:messages) {
+                    for (String s : messages) {
                         if (s.length() > 65) {
                             break;
                         }
                     }
                     final boolean ear = true;
-                    if (c.getPlayer().isPlayer() && messages.indexOf("幹") != -1 || messages.indexOf("豬") != -1 || messages.indexOf("笨") != -1 || messages.indexOf("靠") != -1 || messages.indexOf("腦包") != -1 || messages.indexOf("腦") != -1 || messages.indexOf("智障") != -1 || messages.indexOf("白目") != -1 || messages.indexOf("白吃") != -1) {
+                    if (c.getPlayer().isPlayer() && messages.indexOf("幹") != -1 || messages.indexOf("豬") != -1
+                            || messages.indexOf("笨") != -1 || messages.indexOf("靠") != -1
+                            || messages.indexOf("腦包") != -1 || messages.indexOf("腦") != -1
+                            || messages.indexOf("智障") != -1 || messages.indexOf("白目") != -1
+                            || messages.indexOf("白吃") != -1) {
                         c.getPlayer().dropMessage("說髒話是不禮貌的，請勿說髒話。");
                         c.getSession().write(MaplePacketCreator.enableActions());
                         return;
@@ -2136,16 +2199,21 @@ public abstract class AbstractPlayerInteraction {
                         break;
                     }
                     final boolean ear = true;
-                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1 || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1 || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1 || message.indexOf("白吃") != -1) {
+                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1
+                            || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1
+                            || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1
+                            || message.indexOf("白吃") != -1) {
                         c.getPlayer().dropMessage("說髒話是不禮貌的，請勿說髒話。");
                         c.getSession().write(MaplePacketCreator.enableActions());
                         return;
                     }
                     if (c.getPlayer().isPlayer()) {
-                        World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(0x0B, c.getChannel(), message, ear));
+                        World.Broadcast
+                                .broadcastSmega(MaplePacketCreator.serverNotice(0x0B, c.getChannel(), message, ear));
                         System.out.println("[玩家廣播頻道 " + c.getPlayer().getName() + "] : " + message);
                     } else if (c.getPlayer().isGM()) {
-                        World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(0x0B, c.getChannel(), message, ear));
+                        World.Broadcast
+                                .broadcastSmega(MaplePacketCreator.serverNotice(0x0B, c.getChannel(), message, ear));
                         System.out.println("[ＧＭ廣播頻道 " + c.getPlayer().getName() + "] : " + message);
                     }
                 } else {
@@ -2173,16 +2241,21 @@ public abstract class AbstractPlayerInteraction {
                     sb.append(message);
 
                     final boolean ear = true;
-                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1 || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1 || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1 || message.indexOf("白吃") != -1) {
+                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1
+                            || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1
+                            || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1
+                            || message.indexOf("白吃") != -1) {
                         c.getPlayer().dropMessage("說髒話是不禮貌的，請勿說髒話。");
                         c.getSession().write(MaplePacketCreator.enableActions());
                         return;
                     }
                     if (c.getPlayer().isPlayer()) {
-                        World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(12, c.getChannel(), sb.toString(), ear));
+                        World.Broadcast.broadcastSmega(
+                                MaplePacketCreator.serverNotice(12, c.getChannel(), sb.toString(), ear));
                         System.out.println("[玩家廣播頻道 " + c.getPlayer().getName() + "] : " + message);
                     } else if (c.getPlayer().isGM()) {
-                        World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(12, c.getChannel(), sb.toString(), ear));
+                        World.Broadcast.broadcastSmega(
+                                MaplePacketCreator.serverNotice(12, c.getChannel(), sb.toString(), ear));
                         System.out.println("[ＧＭ廣播頻道 " + c.getPlayer().getName() + "] : " + message);
                     }
                 } else {
@@ -2210,16 +2283,21 @@ public abstract class AbstractPlayerInteraction {
                     sb.append(message);
 
                     final boolean ear = true;
-                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1 || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1 || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1 || message.indexOf("白吃") != -1) {
+                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1
+                            || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1
+                            || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1
+                            || message.indexOf("白吃") != -1) {
                         c.getPlayer().dropMessage("說髒話是不禮貌的，請勿說髒話。");
                         c.getSession().write(MaplePacketCreator.enableActions());
                         return;
                     }
                     if (c.getPlayer().isPlayer()) {
-                        World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(3, c.getChannel(), sb.toString(), ear));
+                        World.Broadcast
+                                .broadcastSmega(MaplePacketCreator.serverNotice(3, c.getChannel(), sb.toString(), ear));
                         System.out.println("[玩家廣播頻道 " + c.getPlayer().getName() + "] : " + message);
                     } else if (c.getPlayer().isGM()) {
-                        World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(3, c.getChannel(), sb.toString(), ear));
+                        World.Broadcast
+                                .broadcastSmega(MaplePacketCreator.serverNotice(3, c.getChannel(), sb.toString(), ear));
                         System.out.println("[ＧＭ廣播頻道 " + c.getPlayer().getName() + "] : " + message);
                     }
                 } else {
@@ -2247,16 +2325,21 @@ public abstract class AbstractPlayerInteraction {
                     sb.append(message);
 
                     final boolean ear = true;
-                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1 || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1 || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1 || message.indexOf("白吃") != -1) {
+                    if (c.getPlayer().isPlayer() && message.indexOf("幹") != -1 || message.indexOf("豬") != -1
+                            || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1
+                            || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1
+                            || message.indexOf("白吃") != -1) {
                         c.getPlayer().dropMessage("說髒話是不禮貌的，請勿說髒話。");
                         c.getSession().write(MaplePacketCreator.enableActions());
                         return;
                     }
                     if (c.getPlayer().isPlayer()) {
-                        World.Broadcast.broadcastSmega(MaplePacketCreator.itemMegaphone(sb.toString(), ear, c.getChannel(), item));
+                        World.Broadcast.broadcastSmega(
+                                MaplePacketCreator.itemMegaphone(sb.toString(), ear, c.getChannel(), item));
                         System.out.println("[玩家廣播頻道 " + c.getPlayer().getName() + "] : " + message);
                     } else if (c.getPlayer().isGM()) {
-                        World.Broadcast.broadcastSmega(MaplePacketCreator.itemMegaphone(sb.toString(), ear, c.getChannel(), item));
+                        World.Broadcast.broadcastSmega(
+                                MaplePacketCreator.itemMegaphone(sb.toString(), ear, c.getChannel(), item));
                         System.out.println("[ＧＭ廣播頻道 " + c.getPlayer().getName() + "] : " + message);
                     }
                 } else {
@@ -2285,16 +2368,21 @@ public abstract class AbstractPlayerInteraction {
                         break;
                     }
                     final boolean ear = true;
-                    if (c.getPlayer().isPlayer() && text.indexOf("幹") != -1 || text.indexOf("豬") != -1 || text.indexOf("笨") != -1 || text.indexOf("靠") != -1 || text.indexOf("腦包") != -1 || text.indexOf("腦") != -1 || text.indexOf("智障") != -1 || text.indexOf("白目") != -1 || text.indexOf("白吃") != -1) {
+                    if (c.getPlayer().isPlayer() && text.indexOf("幹") != -1 || text.indexOf("豬") != -1
+                            || text.indexOf("笨") != -1 || text.indexOf("靠") != -1 || text.indexOf("腦包") != -1
+                            || text.indexOf("腦") != -1 || text.indexOf("智障") != -1 || text.indexOf("白目") != -1
+                            || text.indexOf("白吃") != -1) {
                         c.getPlayer().dropMessage("說髒話是不禮貌的，請勿說髒話。");
                         c.getSession().write(MaplePacketCreator.enableActions());
                         return;
                     }
                     if (c.getPlayer().isPlayer()) {
-                        World.Broadcast.broadcastSmega(MaplePacketCreator.getAvatarMega(c.getPlayer(), c.getChannel(), itemId, text, ear));
+                        World.Broadcast.broadcastSmega(
+                                MaplePacketCreator.getAvatarMega(c.getPlayer(), c.getChannel(), itemId, text, ear));
                         System.out.println("[玩家廣播頻道 " + c.getPlayer().getName() + "] : " + text);
                     } else if (c.getPlayer().isGM()) {
-                        World.Broadcast.broadcastSmega(MaplePacketCreator.getAvatarMega(c.getPlayer(), c.getChannel(), itemId, text, ear));
+                        World.Broadcast.broadcastSmega(
+                                MaplePacketCreator.getAvatarMega(c.getPlayer(), c.getChannel(), itemId, text, ear));
                         System.out.println("[ＧＭ廣播頻道 " + c.getPlayer().getName() + "] : " + text);
                     }
                 } else {
@@ -2305,16 +2393,19 @@ public abstract class AbstractPlayerInteraction {
         }
         c.getSession().write(MaplePacketCreator.enableActions());
     }
-    
-    //min 新手玩家最小等级 max 新手玩家最大等级  Members 新手玩家数量 itemID 奖励物品 quantity 奖励数量
+
+    // min 新手玩家最小等级 max 新手玩家最大等级 Members 新手玩家数量 itemID 奖励物品 quantity 奖励数量
     // Members 新手玩家数量 意思是。不包含带人的玩家。 比如说我要求 高等级带新手必须要2人以上。我就写 2 就行。最多写5.
-    public final void givePartyLevelItems(final int min, final int max, final int Members, final int itemID, final int quantity) {
-        if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1 || getPlayer().getParty().getMembers().size() <= Members) {
+    public final void givePartyLevelItems(final int min, final int max, final int Members, final int itemID,
+            final int quantity) {
+        if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1
+                || getPlayer().getParty().getMembers().size() <= Members) {
             return;
         }
         int A = 0;
         for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
-            final MapleCharacter curChar = getPlayer().getClient().getChannelServer().getPlayerStorage().getCharacterById(chr.getId());
+            final MapleCharacter curChar = getPlayer().getClient().getChannelServer().getPlayerStorage()
+                    .getCharacterById(chr.getId());
             if (curChar.getLevel() >= min && curChar.getLevel() <= max) {
                 A++;
             }
@@ -2323,31 +2414,33 @@ public abstract class AbstractPlayerInteraction {
             return;
         }
         for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
-            final MapleCharacter curChar = getPlayer().getClient().getChannelServer().getPlayerStorage().getCharacterById(chr.getId());
+            final MapleCharacter curChar = getPlayer().getClient().getChannelServer().getPlayerStorage()
+                    .getCharacterById(chr.getId());
             if (curChar != null && isLeader() && curChar.getLevel() >= 120) {
                 gainItem(itemID, (short) (quantity));
                 break;
             }
         }
     }
-    
-       /*
-    保存队伍里所有玩家所在的地图
-    */
+
+    /*
+     * 保存队伍里所有玩家所在的地图
+     */
     public final void savePartyLocation(final String loc) {
         if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
             c.getPlayer().saveLocation(SavedLocationType.fromString(loc));
             return;
         }
-         for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
-            final MapleCharacter curChar = getPlayer().getClient().getChannelServer().getPlayerStorage().getCharacterById(chr.getId());
+        for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
+            final MapleCharacter curChar = getPlayer().getClient().getChannelServer().getPlayerStorage()
+                    .getCharacterById(chr.getId());
             if (curChar != null) {
                 curChar.saveLocation(SavedLocationType.fromString(loc));
             }
         }
     }
-    
-        /*
+
+    /*
      * 检测组队BOSSLOG
      */
     public int checkPartyBossLog(String bossid, int b) {
@@ -2363,8 +2456,8 @@ public abstract class AbstractPlayerInteraction {
         }
         return a;
     }
-    
-        /*
+
+    /*
      * 给组队BOSSLOG
      */
     public final void givePartyBossLog(String bossid) {
@@ -2379,8 +2472,8 @@ public abstract class AbstractPlayerInteraction {
             }
         }
     }
-    
-     /*
+
+    /*
      * 设置或增加组队成员的挑战BOSS次数
      * bossid 挑战BOSS任务的名称
      * type 0 = 0点重置 大于0不重置
@@ -2408,21 +2501,21 @@ public abstract class AbstractPlayerInteraction {
             }
         }
     }
-    
+
     public void resetBossLog(String bossid) {
         getPlayer().resetBossLog(bossid);
     }
-    
-     /*
+
+    /*
      * Vip 会员变量参数
      */
     public void setVip(int vip, long period) {
         getClient().getPlayer().setVip(vip);
         /*
-        if (period > 0) {
-            getClient().getPlayer().setViptime(period);
-        }
-        */
+         * if (period > 0) {
+         * getClient().getPlayer().setViptime(period);
+         * }
+         */
     }
 
     public boolean isVip() {
@@ -2434,21 +2527,21 @@ public abstract class AbstractPlayerInteraction {
     }
 
     /*
-    public void setViptime(long period) {
-        if (period != 0) {
-            getClient().getPlayer().setViptime(period);
-        }
-    }
-    */
-    
+     * public void setViptime(long period) {
+     * if (period != 0) {
+     * getClient().getPlayer().setViptime(period);
+     * }
+     * }
+     */
+
     /*
      * 删除角色
      */
     public int deleteCharacter(int cid) {
         return getClient().deleteCharacter(cid);
     }
-    
-     /**
+
+    /**
      * 获取FullPoint点数
      *
      * @return
@@ -2472,9 +2565,10 @@ public abstract class AbstractPlayerInteraction {
 
     /***
      * 增加FullPoint点数
+     * 
      * @param Name
      * @param Channale
-     * @param Piot 
+     * @param Piot
      */
     public void GainPiot(String Name, int Channale, int Piot) {
         try {
@@ -2483,27 +2577,29 @@ public abstract class AbstractPlayerInteraction {
                 ret = 0;
                 PreparedStatement ps = null;
                 try {
-                    ps = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("INSERT INTO FullPoint (channel, Name,Point) VALUES (?, ?, ?)");
+                    ps = DBConPool.getInstance().getDataSource().getConnection()
+                            .prepareStatement("INSERT INTO FullPoint (channel, Name,Point) VALUES (?, ?, ?)");
                     ps.setInt(1, Channale);
                     ps.setString(2, Name);
                     ps.setInt(3, ret);
 
                     ps.execute();
                 } catch (SQLException e) {
-                    System.out.println("xxxxxxxx:"+e);
+                    System.out.println("xxxxxxxx:" + e);
                 } finally {
                     try {
                         if (ps != null) {
                             ps.close();
                         }
                     } catch (SQLException e) {
-                        System.out.println("xxxxxxxxzzzzzzz:"+e);
+                        System.out.println("xxxxxxxxzzzzzzz:" + e);
                     }
                 }
             }
-            ret+=Piot;
+            ret += Piot;
             Connection con = DBConPool.getInstance().getDataSource().getConnection();
-            PreparedStatement ps = con.prepareStatement("UPDATE FullPoint SET `Point` = ? WHERE Name = ? and channel = ?");
+            PreparedStatement ps = con
+                    .prepareStatement("UPDATE FullPoint SET `Point` = ? WHERE Name = ? and channel = ?");
             ps.setInt(1, ret);
             ps.setString(2, Name);
             ps.setInt(3, Channale);
@@ -2513,8 +2609,8 @@ public abstract class AbstractPlayerInteraction {
             System.err.println("獲取錯誤!!55" + sql);
         }
     }
-    
-        /**
+
+    /**
      * 获取背包种类道具集合
      *
      * @param type
@@ -2531,35 +2627,36 @@ public abstract class AbstractPlayerInteraction {
         }
         return items;
     }
-     //获取师徒记录
+
+    // 获取师徒记录
     public int getMentorLog(String bossid) {
         return getPlayer().getMentorLog(bossid);
     }
 
-    //获取弟子列表
+    // 获取弟子列表
     public List<Integer> getMentorLog2(int i) {
         return getPlayer().getMentorLog2(i);
     }
-    
-    //给师徒记录
+
+    // 给师徒记录
     public void setMentorLog(String bossid) {
         getPlayer().setMentorLog(bossid);
     }
 
-    //逐出师门
+    // 逐出师门
     public void dropMentorLog(String boyid) {
         getPlayer().leftMentorLog(boyid);
     }
-    
+
     public void resetAp() {
         boolean beginner = getPlayer().getJob() == 0 || getPlayer().getJob() == 1000 || getPlayer().getJob() == 2001;
         getPlayer().resetStatsByJob(beginner);
     }
-    
+
     public int 获取当前星期() {
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
     }
-    
+
     public void equipqh(byte slot, boolean 攻击) {
         Equip sel = (Equip) this.c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem((short) slot);
         if (攻击) {
@@ -2616,7 +2713,7 @@ public abstract class AbstractPlayerInteraction {
         this.c.getPlayer().equipChanged();
         fakeRelog();
     }
-    
+
     public void fakeRelog() {
         if ((!this.c.getPlayer().isAlive()) || (this.c.getPlayer().getEventInstance() != null)) {
             this.c.getPlayer().dropMessage(1, "刷新人物数据失败.");
@@ -2625,7 +2722,7 @@ public abstract class AbstractPlayerInteraction {
         this.c.getPlayer().dropMessage(5, "正在刷新人数据.请等待...");
         this.c.getPlayer().fakeRelog();
     }
-    
+
     /**
      * 制作道具
      *
@@ -2639,7 +2736,8 @@ public abstract class AbstractPlayerInteraction {
      * @param period 时间
      * @param owner  道具签名
      */
-    public void makeitem(int id, short str, short dex, short ints, short luk, short watk, short matk, long period, String owner) {
+    public void makeitem(int id, short str, short dex, short ints, short luk, short watk, short matk, long period,
+            String owner) {
         if (!canHold(id) || !GameConstants.isEquip(id)) {
             playerMessage("装备栏空间不足或添加的道具不是装备isEquip");
             return;
@@ -2659,8 +2757,8 @@ public abstract class AbstractPlayerInteraction {
         equip.setGMLog("脚本获得 " + this.id + " (" + this.id2 + ") 地图: " + getPlayer().getMapId());
         MapleInventoryManipulator.addbyItem(getC(), equip.copy());
     }
-    
-        /**
+
+    /**
      * 获取怪物状态
      *
      * @param hp  最大HP
@@ -2671,157 +2769,161 @@ public abstract class AbstractPlayerInteraction {
     public final OverrideMonsterStats getOverrideMonsterStats(final long hp, final int mp, final int exp) {
         return new OverrideMonsterStats((int) hp, mp, exp);
     }
-    
+
     public int getDaysPQLog(String pqName, int days) {
         return getPlayer().getDaysPQLog(pqName, 0, days);
     }
 
+    public int getPQLog(String pqName) {
+        return getPlayer().getPQLog(pqName);
+    }
 
-	public int getPQLog(String pqName) {
-		return getPlayer().getPQLog(pqName);
-	}
+    public int getPQLog(String pqName, int type) {
+        return getPlayer().getPQLog(pqName, type);
+    }
 
-	public int getPQLog(String pqName, int type) {
-		return getPlayer().getPQLog(pqName, type);
-	}
+    public int getPQLog(String pqName, int type, int days) {
+        return getPlayer().getDaysPQLog(pqName, type, days);
+    }
 
-	public int getPQLog(String pqName, int type, int days) {
-		return getPlayer().getDaysPQLog(pqName, type, days);
-	}
+    public void setPQLog(String pqName) {
+        getPlayer().setPQLog(pqName);
+    }
 
-	public void setPQLog(String pqName) {
-		getPlayer().setPQLog(pqName);
-	}
+    public void setPQLog(String pqName, int type) {
+        getPlayer().setPQLog(pqName, type);
+    }
 
-	public void setPQLog(String pqName, int type) {
-		getPlayer().setPQLog(pqName, type);
-	}
+    public void setPQLog(String pqName, int type, int count) {
+        getPlayer().setPQLog(pqName, type, count);
+    }
 
-	public void setPQLog(String pqName, int type, int count) {
-		getPlayer().setPQLog(pqName, type, count);
-	}
+    public void resetPQLog(String pqName) {
+        getPlayer().resetPQLog(pqName);
+    }
 
-	public void resetPQLog(String pqName) {
-		getPlayer().resetPQLog(pqName);
-	}
+    public void resetPQLog(String pqName, int type) {
+        getPlayer().resetPQLog(pqName, type);
+    }
 
-	public void resetPQLog(String pqName, int type) {
-		getPlayer().resetPQLog(pqName, type);
-	}
+    public void setPartyPQLog(String pqName) {
+        this.setPartyPQLog(pqName, 0);
+    }
 
-	public void setPartyPQLog(String pqName) {
-		this.setPartyPQLog(pqName, 0);
-	}
+    public void setPartyPQLog(String pqName, int type) {
+        this.setPartyPQLog(pqName, type, 1);
+    }
 
-	public void setPartyPQLog(String pqName, int type) {
-		this.setPartyPQLog(pqName, type, 1);
-	}
+    public void setPartyPQLog(String pqName, int type, int count) {
+        if (this.getPlayer().getParty() == null || this.getPlayer().getParty().getMembers().size() == 1) {
+            getPlayer().setPQLog(pqName, type, count);
+            return;
+        }
+        int n4 = this.getPlayer().getMapId();
+        for (MaplePartyCharacter partyCharacter : this.getPlayer().getParty().getMembers()) {
+            MapleCharacter player = this.getPlayer().getMap().getCharacterById(partyCharacter.getId());
+            if (player == null || player.getMapId() != n4)
+                continue;
+            player.setPQLog(pqName, type, count);
+        }
+    }
 
-	public void setPartyPQLog(String pqName, int type, int count) {
-		if (this.getPlayer().getParty() == null || this.getPlayer().getParty().getMembers().size() == 1) {
-			getPlayer().setPQLog(pqName, type, count);
-			return;
-		}
-		int n4 = this.getPlayer().getMapId();
-		for (MaplePartyCharacter partyCharacter : this.getPlayer().getParty().getMembers()) {
-			MapleCharacter player = this.getPlayer().getMap().getCharacterById(partyCharacter.getId());
-			if (player == null || player.getMapId() != n4) continue;
-			player.setPQLog(pqName, type, count);
-		}
-	}
-    
-    	/**
-	 * 获取角色武器的攻击突破上限
-	 */
+    /**
+     * 获取角色武器的攻击突破上限
+     */
     public int getLimitBreak() {
-		int limitBreak = 999999; // 默认的上限
-		MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-		Equip weapon = (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -11);
-		if (weapon != null) {
-			// 武器自带的突破上限数字 + 武器附加的上限数字
-			limitBreak = ii.getLimitBreak(weapon.getItemId()) + weapon.getLimitBreak();
-		}
-		return limitBreak;
-	}
-    
-	/**
-	 * 修改角色武器的攻击上限 如果角色武器为空 或者不是武器 返回 假 如果角色武器新的攻击上限属性小于0 或者大于1亿也返回 假
-	 */
+        int limitBreak = 999999; // 默认的上限
+        MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+        Equip weapon = (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -11);
+        if (weapon != null) {
+            // 武器自带的突破上限数字 + 武器附加的上限数字
+            limitBreak = ii.getLimitBreak(weapon.getItemId()) + weapon.getLimitBreak();
+        }
+        return limitBreak;
+    }
+
+    /**
+     * 修改角色武器的攻击上限 如果角色武器为空 或者不是武器 返回 假 如果角色武器新的攻击上限属性小于0 或者大于1亿也返回 假
+     */
     public boolean changeLimitBreak(int amount) {
-		// 获取角色的武器信息 检查是否为空或者是否为武器
-		Equip equip = (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -11);
-		if (equip == null || !ItemConstants.isWeapon(equip.getItemId())) {
-			return false;
-		}
-		// 检查新属性是否小于0或者超过设置的上限
-		int newLimitBreak = equip.getLimitBreak() + amount;
-		if (newLimitBreak < 0 || newLimitBreak > 2100000000) {
-			return false;
-		}
-		// 设置道具的新攻击上限
-		equip.setLimitBreak(newLimitBreak);
-		// 更新道具状态信息
-		c.getPlayer().forceUpdateItem(equip);
-		return true;
-	}
-    
-	private int getDot(String data) {
-		int gbk = data.getBytes(Charset.forName("GBK")).length, utf_8 = data.getBytes(Charset.forName("UTF-8")).length;
-		for (int i = 0; i < 50; i++) {
-			for (int j = 0; j < 50; j++) {
-				if (i + j * 2 == gbk) {
-					if (i + j * 3 == utf_8) {
-						return i + j * 2;
-					}
-				}
-			}
-		}
-		return 0;
-	}
-        
-	public final void gainMembersPQ(String pqName, int num) {
-		if (getParty() == null) {
-			return;
-		}
-		for (MaplePartyCharacter partyCharacter : getParty().getMembers()) {
-			MapleCharacter player = getChannelServer().getPlayerStorage().getCharacterById(partyCharacter.getId());
-			if (player == null) {
-				continue;
-			}
-			player.setPQLog(pqName, 0, num);
-		}
-	}
-        
+        // 获取角色的武器信息 检查是否为空或者是否为武器
+        Equip equip = (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -11);
+        if (equip == null || !ItemConstants.isWeapon(equip.getItemId())) {
+            return false;
+        }
+        // 检查新属性是否小于0或者超过设置的上限
+        int newLimitBreak = equip.getLimitBreak() + amount;
+        if (newLimitBreak < 0 || newLimitBreak > 2100000000) {
+            return false;
+        }
+        // 设置道具的新攻击上限
+        equip.setLimitBreak(newLimitBreak);
+        // 更新道具状态信息
+        c.getPlayer().forceUpdateItem(equip);
+        return true;
+    }
+
+    private int getDot(String data) {
+        int gbk = data.getBytes(Charset.forName("GBK")).length, utf_8 = data.getBytes(Charset.forName("UTF-8")).length;
+        for (int i = 0; i < 50; i++) {
+            for (int j = 0; j < 50; j++) {
+                if (i + j * 2 == gbk) {
+                    if (i + j * 3 == utf_8) {
+                        return i + j * 2;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+    public final void gainMembersPQ(String pqName, int num) {
+        if (getParty() == null) {
+            return;
+        }
+        for (MaplePartyCharacter partyCharacter : getParty().getMembers()) {
+            MapleCharacter player = getChannelServer().getPlayerStorage().getCharacterById(partyCharacter.getId());
+            if (player == null) {
+                continue;
+            }
+            player.setPQLog(pqName, 0, num);
+        }
+    }
+
     public MapleItemInformationProvider getItemInfo() {
         return MapleItemInformationProvider.getInstance();
     }
-    
+
     public Equip getNewEquip(int equipid) {
         Equip equip = (Equip) getItemInfo().getEquipById(equipid);
         return getItemInfo().randomizeStats(equip);
     }
-    
-        public void addFromDrop(MapleClient c, Item item, boolean show) {
+
+    public void addFromDrop(MapleClient c, Item item, boolean show) {
         MapleInventoryManipulator.addFromDrop(getClient(), item, show);
     }
-        public String getServerName() {
-            return ServerConfig.SERVER_NAME;
-        }
-            public final int 判断职业() {
+
+    public String getServerName() {
+        return ServerConfig.SERVER_NAME;
+    }
+
+    public final int 判断职业() {
         return c.getPlayer().getJob();
     }
-                public final void 判断组队() {
+
+    public final void 判断组队() {
         c.getPlayer().getParty();
     }
 
     public final void 判断频道() {
         getClient().getChannel();
     }
-    
-        public final int getNX(int 类型) {
+
+    public final int getNX(int 类型) {
         return c.getPlayer().getCSPoints(类型);
     }
-           public final void gainD(final int amount) {
+
+    public final void gainD(final int amount) {
         c.getPlayer().modifyCSPoints(2, amount, true);
     }
 
@@ -2840,8 +2942,8 @@ public abstract class AbstractPlayerInteraction {
     public final void 收点券(final int amount) {
         c.getPlayer().modifyCSPoints(1, -amount, true);
     }
-    
-        public final void 物品兑换1(final int id1, final short shuliang1, final int id2, final int shuliang2) {
+
+    public final void 物品兑换1(final int id1, final short shuliang1, final int id2, final int shuliang2) {
 
         if (!haveItem(id1, shuliang1, true, true)) {
             c.getPlayer().dropMessage(1, "你没有足够的兑换物品。");
@@ -2893,13 +2995,12 @@ public abstract class AbstractPlayerInteraction {
             }
         }
     }
-    
-          public final void 收物品(final int id, final short quantity) {
+
+    public final void 收物品(final int id, final short quantity) {
         gainItem(id, (short) -quantity, false, 0, -1, "", (byte) 0);
-    }  
-          
-          
-              public int getHour() {
+    }
+
+    public int getHour() {
         return Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
     }
 
@@ -2922,18 +3023,19 @@ public abstract class AbstractPlayerInteraction {
     public int getSec() {
         return Calendar.getInstance().get(Calendar.SECOND);
     }
-        public final void worldMessage(final int type, int channel, final String message, boolean smegaEar) {
+
+    public final void worldMessage(final int type, int channel, final String message, boolean smegaEar) {
         World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(type, channel, message, smegaEar));
     }
 
-    public final void worldMessage2(final int type, final String message) {//喇叭
+    public final void worldMessage2(final int type, final String message) {// 喇叭
         switch (type) {
             case 1: // 弹窗
             case 2: // 粉蓝色底蓝色字
             case 3: // 粉紫色底紫色字(带频道标记)
             case 5: // 无底色粉红字
             case 6: // 无底色粉蓝字
-            case 9: // 无底色粉蓝字    
+            case 9: // 无底色粉蓝字
             case 11:// 带爱心的白色底粉红字
             case 12:// 带电话的粉蓝底素字
             case 13:// 带电话的粉蓝底素字
@@ -2949,30 +3051,30 @@ public abstract class AbstractPlayerInteraction {
                 break;
         }
     }
-    
-       public final void 个人公告(final String message) {
+
+    public final void 个人公告(final String message) {
         playerMessage(6, message);
     }
-       public final void 全服道具公告(final String title, final String message, final int id){
-           final IItem item = MapleInventoryManipulator.addbyId_Gachapon(c, id, (short) 1);
-           final byte rareness = GameConstants.gachaponRareItem(item.getItemId());    
-           
-           World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega(title, message, item, rareness));
-       }
 
+    public final void 全服道具公告(final String title, final String message, final int id) {
+        final IItem item = MapleInventoryManipulator.addbyId_Gachapon(c, id, (short) 1);
+        final byte rareness = GameConstants.gachaponRareItem(item.getItemId());
+
+        World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega(title, message, item, rareness));
+    }
 
     public final void 地图公告(final String message) {
         mapMessage(6, message);
     }
 
-        public final boolean 是否队长() {
+    public final boolean 是否队长() {
         if (getParty() == null) {
             return false;
         }
         return getParty().getLeader().getId() == c.getPlayer().getId();
     }
-        
-            public final void 团队传送地图(final int mapId, final int portal) {
+
+    public final void 团队传送地图(final int mapId, final int portal) {
         if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
             if (portal < 0) {
                 warp(mapId);
@@ -2987,7 +3089,8 @@ public abstract class AbstractPlayerInteraction {
 
         for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
             final MapleCharacter curChar = getChannelServer().getPlayerStorage().getCharacterById(chr.getId());
-            if (curChar != null && (curChar.getMapId() == cMap || curChar.getEventInstance() == getPlayer().getEventInstance())) {
+            if (curChar != null
+                    && (curChar.getMapId() == cMap || curChar.getEventInstance() == getPlayer().getEventInstance())) {
                 if (rand) {
                     try {
                         curChar.changeMap(target, target.getPortal(Randomizer.nextInt(target.getPortals().size())));
@@ -3000,23 +3103,22 @@ public abstract class AbstractPlayerInteraction {
             }
         }
     }
-            
-                public void 给金币(int gain) {
+
+    public void 给金币(int gain) {
         c.getPlayer().gainMeso(gain, true, false, true);
     }
 
     public void 收金币(int gain) {
         c.getPlayer().gainMeso(-gain, true, false, true);
     }
-    
-       public void 给经验(int gain) {
+
+    public void 给经验(int gain) {
         c.getPlayer().gainExp(gain, true, true, true);
     }
 
     public void 收经验(int gain) {
         c.getPlayer().gainExp(-gain, true, true, true);
     }
-    
 
     public final void 给团队道具(final int id, final short quantity) {
         givePartyItems(id, quantity, false);
@@ -3025,8 +3127,8 @@ public abstract class AbstractPlayerInteraction {
     public final void 收团队道具(final int id, final short quantity) {
         givePartyItems2(id, quantity, false);
     }
-    
-        public final void givePartyItems2(final int id, final short quantity, final boolean removeAll) {
+
+    public final void givePartyItems2(final int id, final short quantity, final boolean removeAll) {
         if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
             gainItem(id, (short) (removeAll ? -getPlayer().itemQuantity(id) : -quantity));
             return;
@@ -3035,11 +3137,11 @@ public abstract class AbstractPlayerInteraction {
         for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
             final MapleCharacter curChar = getMap().getCharacterById(chr.getId());
             if (curChar != null) {
-                gainItem(id, (short) (removeAll ? -curChar.itemQuantity(id) : -quantity), false, 0, 0, "", curChar.getClient(), (byte) 0);
+                gainItem(id, (short) (removeAll ? -curChar.itemQuantity(id) : -quantity), false, 0, 0, "",
+                        curChar.getClient(), (byte) 0);
             }
         }
     }
-
 
     public final void 给团队经验(final int amount) {
         if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
@@ -3054,7 +3156,6 @@ public abstract class AbstractPlayerInteraction {
         }
     }
 
-
     public final void 给团队点券(final int amount, final List<MapleCharacter> party) {
         for (final MapleCharacter chr : party) {
             chr.modifyCSPoints(1, amount, true);
@@ -3066,10 +3167,11 @@ public abstract class AbstractPlayerInteraction {
             chr.modifyCSPoints(2, amount, true);
         }
     }
+
     public void gainDY(int gain) {
         c.getPlayer().modifyCSPoints(2, gain, true);
     }
-    
+
     public final void givePartyDY(final int amount) {
         if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
             gainDY(amount);
@@ -3112,8 +3214,8 @@ public abstract class AbstractPlayerInteraction {
     public final void 销毁物品(final int id) {
         c.getPlayer().removeAll(id);
     }
-    
-        public final int 判断地图() {
+
+    public final int 判断地图() {
         return c.getPlayer().getMap().getId();
     }
 
@@ -3127,7 +3229,6 @@ public abstract class AbstractPlayerInteraction {
         }
         return a;
     }
-    
 
     public final boolean 判断当前地图指定怪物是否存在(final int mobid) {
         for (MapleMapObject obj : c.getPlayer().getMap().getAllMonstersThreadsafe()) {
@@ -3146,29 +3247,28 @@ public abstract class AbstractPlayerInteraction {
     public int 判断技能等级(int id) {
         return getPlayer().getSkillLevel(id);
     }
-    
-        public int 判断每日值(String bossid) {
+
+    public int 判断每日值(String bossid) {
         return getPlayer().getBossLog(bossid);
     }
 
     public int 判断每日(String bossid) {
         return getPlayer().getBossLog(bossid);
     }
-    
-        public void 增加每日值(String bossid) {
+
+    public void 增加每日值(String bossid) {
         getPlayer().setBossLog(bossid);
     }
 
     public void 增加每日(String bossid) {
         getPlayer().setBossLog(bossid);
     }
-    
-        public void 给个人每日(String bossid) {
+
+    public void 给个人每日(String bossid) {
         getPlayer().setBossLog(bossid);
     }
-        
-        
-    public final void 给团队每日(String bossid) {//给团队BOOSLOG？
+
+    public final void 给团队每日(String bossid) {// 给团队BOOSLOG？
         if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
             setBossLog(bossid);
             return;
@@ -3202,78 +3302,78 @@ public abstract class AbstractPlayerInteraction {
         }
         return a;
     }
-    
-        public final boolean 判断物品数量(final int itemid, final int quantity) {
+
+    public final boolean 判断物品数量(final int itemid, final int quantity) {
         return haveItem(itemid, quantity, false, true);
     }
-        
+
     public int 取数组随机数(int... args_all) {
         int args = args_all[Randomizer.nextInt(args_all.length)];
         return args;
     }
-    
-        public void getKeymapNull() {
+
+    public void getKeymapNull() {
         c.getSession().write(MaplePacketCreator.getKeymapNull());
     }
 
     public void updateChr() {
         c.getPlayer().changeChannel(c.getChannel() == ChannelServer.getChannelCount() ? 1 : (c.getChannel() + 1));
     }
-    
-               public boolean 是否主城() {
+
+    public boolean 是否主城() {
         int a = getPlayer().getMapId();
         switch (a) {
-            //彩虹村
+            // 彩虹村
             case 1000000:
-            //彩虹村武器店
+                // 彩虹村武器店
             case 1000001:
-            //彩虹村村民家
+                // 彩虹村村民家
             case 1000002:
-            //彩虹村杂货店
+                // 彩虹村杂货店
             case 1000003:
-            //南港
+                // 南港
             case 2000000:
-            //射手村
+                // 射手村
             case 100000000:
-            //射手村民宅
+                // 射手村民宅
             case 100000001:
-            //射手村集市
+                // 射手村集市
             case 100000100:
-            //射手村武器店
+                // 射手村武器店
             case 100000101:
-            //射手村杂货店
+                // 射手村杂货店
             case 100000102:
-            //射手村整容院
+                // 射手村整容院
             case 100000103:
-            //射手村美发店
+                // 射手村美发店
             case 100000104:
-            //射手村护肤中心
+                // 射手村护肤中心
             case 100000105:
-            //射手村公园
+                // 射手村公园
             case 100000200:
-            //宠物公园 
+                // 宠物公园
             case 100000202:
-            //射手村游戏中心
+                // 射手村游戏中心
             case 100000203:
-            //弓箭手的殿堂
+                // 弓箭手的殿堂
             case 100000204:
-            //魔法密林
+                // 魔法密林
             case 101000000:
-            //魔法密林武器店
+                // 魔法密林武器店
             case 101000001:
-            //魔法密林杂货店
+                // 魔法密林杂货店
             case 101000002:
-            //魔法密林图书馆
+                // 魔法密林图书馆
             case 101000003:
-            //魔法师的殿堂
+                // 魔法师的殿堂
             case 101000004:
-            //生命之林
+                // 生命之林
             case 101000200:
-            //魔法密林码头
+                // 魔法密林码头
             case 101000300:
-            //候船室
+                // 候船室
             case 101000301:
-            //勇士部落
+                // 勇士部落
             case 102000000:
             case 102000001:
             case 102000002:
@@ -3463,8 +3563,8 @@ public abstract class AbstractPlayerInteraction {
                 return false;
         }
     }
-            
-                public String 角色ID取名字1(int id) {
+
+    public String 角色ID取名字1(int id) {
         String data = "";
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT name as DATA FROM characters WHERE id = ?");
@@ -3483,8 +3583,8 @@ public abstract class AbstractPlayerInteraction {
         }
         return data;
     }
-                
-                    public int getBossLog每日(String boss, int id) {
+
+    public int getBossLog每日(String boss, int id) {
         int count = 0;
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -3492,7 +3592,8 @@ public abstract class AbstractPlayerInteraction {
         int days = c.get(Calendar.DAY_OF_MONTH);
         String day = "" + year + "-" + month + "-" + days + "";
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM bosslog WHERE characterid = ? AND bossid = ? AND lastattempt >= ?");
+            PreparedStatement ps = con.prepareStatement(
+                    "SELECT COUNT(*) FROM bosslog WHERE characterid = ? AND bossid = ? AND lastattempt >= ?");
             ps.setInt(1, id);
             ps.setString(2, boss);
             ps.setString(3, day);
@@ -3511,7 +3612,8 @@ public abstract class AbstractPlayerInteraction {
 
     public void setOneTimeLog每日(String bossid, int id, String mod) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("insert into onetimelo" + mod + " (characterid, log) values (?,?)");
+            PreparedStatement ps = con
+                    .prepareStatement("insert into onetimelo" + mod + " (characterid, log) values (?,?)");
             ps.setInt(1, id);
             ps.setString(2, bossid);
             ps.executeUpdate();
@@ -3522,7 +3624,8 @@ public abstract class AbstractPlayerInteraction {
 
     public void changeOneTimeLog每日(String bossid, int id, String mod) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("update onetimelo" + mod + " set log = ? where characterid = ?");
+            PreparedStatement ps = con
+                    .prepareStatement("update onetimelo" + mod + " set log = ? where characterid = ?");
             ps.setString(1, bossid);
             ps.setInt(2, id);
             ps.executeUpdate();
@@ -3548,45 +3651,46 @@ public abstract class AbstractPlayerInteraction {
         }
         return count;
     }
-    
-    	/*
-	 * 充值函数 1 = 当前充值金额 2 = 已经消费金额 3 = 总计消费金额
-	 */
-	public int getHyPay(int type) {
-		return getPlayer().getHyPay(type);
-	}
 
-	public int addHyPay(int hypay) {
-		return getPlayer().addHyPay(hypay);
-	}
-        
-        	public int delPayReward(int pay) {
-		return getPlayer().delPayReward(pay);
-	}
-                /*
-                	public void changeDamageSkin(int id) {
-		getPlayer().changeDamageSkin(id);
-	}
-        */
-                
+    /*
+     * 充值函数 1 = 当前充值金额 2 = 已经消费金额 3 = 总计消费金额
+     */
+    public int getHyPay(int type) {
+        return getPlayer().getHyPay(type);
+    }
+
+    public int addHyPay(int hypay) {
+        return getPlayer().addHyPay(hypay);
+    }
+
+    public int delPayReward(int pay) {
+        return getPlayer().delPayReward(pay);
+    }
+
+    /*
+     * public void changeDamageSkin(int id) {
+     * getPlayer().changeDamageSkin(id);
+     * }
+     */
+
     public void 打开NPC(int id, int wh) {
         NPCScriptManager.getInstance().dispose(c);
         NPCScriptManager.getInstance().start(getClient(), id, wh);
     }
-	public void gainNX(int type, int amount) {
-		if (type <= 0 || type > 2) {
-			type = 2;
-		}
-		c.getPlayer().modifyCSPoints(type, amount, true);
-	}
 
-	public void worldSpouseMessage(int type, String message) {
-		if (type == 0x00 || type == 0x01 || (type >= 0x06 && type <= 0x20)) {
-			World.Broadcast.broadcastMessage(MaplePacketCreator.spouseMessage(type, message));
-		} else {
-			World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, message));
-		}
-	}
-               
-        
+    public void gainNX(int type, int amount) {
+        if (type <= 0 || type > 2) {
+            type = 2;
+        }
+        c.getPlayer().modifyCSPoints(type, amount, true);
+    }
+
+    public void worldSpouseMessage(int type, String message) {
+        if (type == 0x00 || type == 0x01 || (type >= 0x06 && type <= 0x20)) {
+            World.Broadcast.broadcastMessage(MaplePacketCreator.spouseMessage(type, message));
+        } else {
+            World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, message));
+        }
+    }
+
 }

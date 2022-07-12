@@ -35,7 +35,7 @@ public class FileoutputUtil {
             IP_Log = "logs\\Log_AccountIP.txt",
             GMCommand_Log = "logs\\Log_GMCommand.txt",
             // Zakum_Log = "Log_Zakum.rtf",
-            //Horntail_Log = "Log_Horntail.rtf",
+            // Horntail_Log = "Log_Horntail.rtf",
             UnknownPacket_Log = "logs\\数据包_未知.txt",
             Packet_Log = "logs\\数据包收发\\Log.txt",
             Pinkbean_Log = "logs\\Log_Pinkbean.rtf",
@@ -47,8 +47,8 @@ public class FileoutputUtil {
             Movement_Log = "logs\\Log_Movement.txt",
             Client_Error_2 = "logs/Client/用户端_报错_非38.txt",
             Client_Error = "logs/Client/用户端_报错.txt",
-            CommandEx_Log = "logs/Except/Log_Command_Except.txt" //PQ_Log = "Log_PQ.rtf"
-            ;
+            CommandEx_Log = "logs/Except/Log_Command_Except.txt" // PQ_Log = "Log_PQ.rtf"
+    ;
     // End
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static final SimpleDateFormat sdfGMT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -61,12 +61,14 @@ public class FileoutputUtil {
     }
 
     public static boolean readtxt(String txt, String existMsg) {
-        /* String filePath = test.class.getResource("").getPath().replace("file:", "")
-         + "/test.txt"; // 文件和该类在同个目录下*/
+        /*
+         * String filePath = test.class.getResource("").getPath().replace("file:", "")
+         * + "/test.txt"; // 文件和该类在同个目录下
+         */
         File file = new File(txt);
         if (!file.exists()) {
             try {
-                file.createNewFile(); // 创建新文件  
+                file.createNewFile(); // 创建新文件
             } catch (IOException ex) {
                 ex.printStackTrace();
                 // Logger.getLogger(FileoutputUtil.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,10 +77,11 @@ public class FileoutputUtil {
         String filePath = txt;
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StringUtil.codeString(filePath))); // 指定读取文件的编码格式，以免出现中文乱码
+            reader = new BufferedReader(
+                    new InputStreamReader(new FileInputStream(filePath), StringUtil.codeString(filePath))); // 指定读取文件的编码格式，以免出现中文乱码
             String str;
             while ((str = reader.readLine()) != null) {
-                //  System.out.println(str);
+                // System.out.println(str);
                 return str.contains(existMsg);
             }
 
@@ -111,7 +114,8 @@ public class FileoutputUtil {
     }
 
     public static void printError(final String name, final String s) {
-        logToFile(FILE_PATH + ERROR + sdf_.format(Calendar.getInstance().getTime()) + "/" + name, s + "\r\n---------------------------------\r\n");
+        logToFile(FILE_PATH + ERROR + sdf_.format(Calendar.getInstance().getTime()) + "/" + name,
+                s + "\r\n---------------------------------\r\n");
     }
 
     public static void outputFileError(final String file, final Throwable t, boolean size) {
@@ -123,11 +127,14 @@ public class FileoutputUtil {
     }
 
     public static void log(final String file, final String msg, boolean size) {
-        logToFile(file, "\r\n------------------------ " + CurrentReadable_Time() + " ------------------------\r\n" + msg, false, size);
+        logToFile(file,
+                "\r\n------------------------ " + CurrentReadable_Time() + " ------------------------\r\n" + msg, false,
+                size);
     }
 
     public static void log(final String file, final String msg) {
-        logToFile(file, "\r\n------------------------ " + CurrentReadable_Time() + " ------------------------\r\n" + msg);
+        logToFile(file,
+                "\r\n------------------------ " + CurrentReadable_Time() + " ------------------------\r\n" + msg);
     }
 
     public static void logToFile(final String file, final String[] msgs) {
@@ -153,17 +160,19 @@ public class FileoutputUtil {
 
     /**
      *
-     * @param file - 档案名称(包含目录)
-     * @param msg - 要记录的讯息
+     * @param file      - 档案名称(包含目录)
+     * @param msg       - 要记录的讯息
      * @param notExists - 档案是否存在
-     * @param size - 是否单文件限制大小
+     * @param size      - 是否单文件限制大小
      */
     public static void logToFile(final String file, final String msg, boolean notExists, boolean size) {
         FileOutputStream out = null;
         try {
             File outputFile = new File(file);
             if (outputFile.exists() && outputFile.isFile() && outputFile.length() >= 1024000 && size) {
-                outputFile.renameTo(new File(file.substring(0, file.length() - 4) + "_" + sdfT.format(Calendar.getInstance().getTime()) + file.substring(file.length() - 4, file.length())));
+                outputFile.renameTo(new File(
+                        file.substring(0, file.length() - 4) + "_" + sdfT.format(Calendar.getInstance().getTime())
+                                + file.substring(file.length() - 4, file.length())));
                 outputFile = new File(file);
             }
             if (outputFile.getParentFile() != null) {
@@ -171,9 +180,10 @@ public class FileoutputUtil {
             }
             out = new FileOutputStream(file, true);
             if (!out.toString().contains(msg) || !notExists) {
-                OutputStreamWriter osw = new OutputStreamWriter(out, "UTF-8");
-                osw.write(msg);
-                osw.flush();
+                try (OutputStreamWriter osw = new OutputStreamWriter(out, "UTF-8")) {
+                    osw.write(msg);
+                    osw.flush();
+                }
             }
         } catch (IOException ess) {
         } finally {
@@ -196,7 +206,7 @@ public class FileoutputUtil {
 
     public static String NowTime() {
         Date now = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");//可以方便地修改日期格式    
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");// 可以方便地修改日期格式
         String hehe = dateFormat.format(now);
         return hehe;
     }
@@ -232,7 +242,8 @@ public class FileoutputUtil {
         FileOutputStream out = null;
         try {
             out = new FileOutputStream(file, true);
-            out.write(("\n------------------------ " + CurrentReadable_Time() + " ------------------------\n").getBytes());
+            out.write(("\n------------------------ " + CurrentReadable_Time() + " ------------------------\n")
+                    .getBytes());
             out.write(getString(t).getBytes());
         } catch (IOException ess) {
         } finally {

@@ -65,8 +65,10 @@ public class ReactorScriptManager extends AbstractScriptManager {
             scriptengine.put("rm", rm);
             iv.invokeFunction("act");
         } catch (ScriptException | NoSuchMethodException e) {
-            System.err.println("Error executing reactor script. ReactorID: " + reactor.getReactorId() + ", ReactorName: " + reactor.getName() + ":" + e);
-            FilePrinter.printError("ReactorScriptManager.txt", "Error executing reactor script. ReactorID: " + reactor.getReactorId() + ", ReactorName: " + reactor.getName() + ":" + e);
+            System.err.println("Error executing reactor script. ReactorID: " + reactor.getReactorId()
+                    + ", ReactorName: " + reactor.getName() + ":" + e);
+            FilePrinter.printError("ReactorScriptManager.txt", "Error executing reactor script. ReactorID: "
+                    + reactor.getReactorId() + ", ReactorName: " + reactor.getName() + ":" + e);
         }
     }
 

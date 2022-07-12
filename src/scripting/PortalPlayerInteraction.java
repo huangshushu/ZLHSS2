@@ -38,14 +38,14 @@ public class PortalPlayerInteraction extends AbstractPlayerInteraction {
 
     public final void inFreeMarket() {
         if (getMapId() != 910000000) {
-        if (getPlayer().getLevel() >= 10) {
-            saveLocation("FREE_MARKET");
-            playPortalSE();
-            //warp(910000000, "st00");
-            warp(910000000);
-        } else {
-            playerMessage(5, "你需要10级才可以进入自由市场");
-        }
+            if (getPlayer().getLevel() >= 10) {
+                saveLocation("FREE_MARKET");
+                playPortalSE();
+                // warp(910000000, "st00");
+                warp(910000000);
+            } else {
+                playerMessage(5, "你需要10级才可以进入自由市场");
+            }
         }
     }
 

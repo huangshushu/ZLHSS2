@@ -40,11 +40,13 @@ public class ItemActionManager extends NPCConversationManager {
     }
 
     public boolean used(int q) {
-        return MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.getByType(item.getType()), item.getPosition(), (short) q, true, false, 0);
+        return MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.getByType(item.getType()),
+                item.getPosition(), (short) q, true, false, 0);
     }
 
     public boolean usedAll() {
-        return MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.getByType(item.getType()), item.getPosition(), (short) item.getQuantity(), true, false, 0);
+        return MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.getByType(item.getType()),
+                item.getPosition(), (short) item.getQuantity(), true, false, 0);
     }
 
     public void dispose(int remove) {

@@ -71,11 +71,19 @@ public class PortalScriptManager {
         final ScriptEngine portal = sef.getScriptEngine();
         try {
             in = new FileInputStream(scriptFile);
-            BufferedReader bf = new BufferedReader(new InputStreamReader(in, EncodingDetect.getJavaEncode(scriptFile)));
-            String lines = "load('nashorn:mozilla_compat.js');" + bf.lines().collect(Collectors.joining(System.lineSeparator()));
-            CompiledScript compiled = ((Compilable) portal).compile(lines);
-            compiled.eval();
-        } catch (final FileNotFoundException | UnsupportedEncodingException | ScriptException e) {
+            try (BufferedReader bf = new BufferedReader(
+                    new InputStreamReader(in, EncodingDetect.getJavaEncode(scriptFile)))) {
+                String lines = "load('nashorn:mozilla_compat.js');"
+                        + bf.lines().collect(Collectors.joining(System.lineSeparator()));
+                CompiledScript compiled = ((Compilable) portal).compile(lines);
+                compiled.eval();
+            } catch (FileNotFoundException e) {
+                throw e;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } catch (final FileNotFoundException | ScriptException e) {
             System.err.println("Error executing Portalscript: " + scriptName + ":" + e);
             FilePrinter.printError("PortalScriptManager.txt", e);
         } finally {
@@ -103,8 +111,10 @@ public class PortalScriptManager {
                 System.err.println("进入传送脚本失败: " + portal.getScriptName() + ":" + e);
             }
         } else {
-            //System.err.println("未处理的传送脚本 " + portal.getScriptName() + " 所在地图 " + c.getPlayer().getMapId());
-            //FilePrinter.printError("PortalScriptManager.txt", "未处理的传送脚本 " + portal.getScriptName() + " 所在地图 " + c.getPlayer().getMapId());
+            // System.err.println("未处理的传送脚本 " + portal.getScriptName() + " 所在地图 " +
+            // c.getPlayer().getMapId());
+            // FilePrinter.printError("PortalScriptManager.txt", "未处理的传送脚本 " +
+            // portal.getScriptName() + " 所在地图 " + c.getPlayer().getMapId());
         }
         clearScripts();
     }

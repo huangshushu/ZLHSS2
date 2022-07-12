@@ -42,10 +42,12 @@ public class EventScriptManager extends AbstractScriptManager {
             this.iv = iv;
             this.em = em;
         }
+
         public String script;
         public Invocable iv;
         public EventManager em;
     }
+
     private final Map<String, EventEntry> events = new LinkedHashMap<>();
     private final AtomicInteger runningInstanceMapId = new AtomicInteger(0);
 

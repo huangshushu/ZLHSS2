@@ -91,16 +91,20 @@ public abstract class AbstractScriptManager {
                         c.getPlayer().dropMessage("getInvocable - Part4");
                     }
                 }
-                BufferedReader bf = new BufferedReader(new InputStreamReader(in, EncodingDetect.getJavaEncode(scriptFile)));
-                String lines = "load('nashorn:mozilla_compat.js');" + bf.lines().collect(Collectors.joining(System.lineSeparator()));
-                engine.eval(lines);
+                try (BufferedReader bf = new BufferedReader(
+                        new InputStreamReader(in, EncodingDetect.getJavaEncode(scriptFile)))) {
+                    String lines = "load('nashorn:mozilla_compat.js');"
+                            + bf.lines().collect(Collectors.joining(System.lineSeparator()));
+                    engine.eval(lines);
+                }
                 if (c != null && c.getPlayer() != null) {
                     if (c.getPlayer().getDebugMessage()) {
                         c.getPlayer().dropMessage("getInvocable - Part5");
                     }
                 }
             } catch (ScriptException | IOException e) {
-                FilePrinter.printError("AbstractScriptManager.txt", "Error executing script. Path: " + path + "\nException " + e);
+                FilePrinter.printError("AbstractScriptManager.txt",
+                        "Error executing script. Path: " + path + "\nException " + e);
                 return null;
             } finally {
                 try {
@@ -111,9 +115,9 @@ public abstract class AbstractScriptManager {
                 }
             }
         } else if (c != null && npc) {
-            //c.getPlayer().dropMessage(5, "你现在不能攻击或不能跟npc对话,请在对话框打 @解卡/@ea 来解除异常状态");
-                c.sendPacket(MaplePacketCreator.enableActions());//解卡
-                NPCScriptManager.getInstance().dispose(c);
+            // c.getPlayer().dropMessage(5, "你现在不能攻击或不能跟npc对话,请在对话框打 @解卡/@ea 来解除异常状态");
+            c.sendPacket(MaplePacketCreator.enableActions());// 解卡
+            NPCScriptManager.getInstance().dispose(c);
         }
         return (Invocable) engine;
     }

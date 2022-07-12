@@ -43,7 +43,8 @@ public class ItemScriptManager extends AbstractScriptManager {
             ScriptEngine scriptengine = (ScriptEngine) iv;
             ItemActionManager im = new ItemActionManager(c, npc, item, iv);
             if (iv == null) {
-                im.sendOk("对不起，我并没有被管理员设置可使用，如果您觉得我应该工作的，那就请您汇报给管理员。\r\n我的信息: #b#i" + item.getItemId() + ":##z" + item.getItemId() + "##k ID: " + item.getItemId());
+                im.sendOk("对不起，我并没有被管理员设置可使用，如果您觉得我应该工作的，那就请您汇报给管理员。\r\n我的信息: #b#i" + item.getItemId() + ":##z"
+                        + item.getItemId() + "##k ID: " + item.getItemId());
                 dispose(c);
                 return;
             }
@@ -54,11 +55,11 @@ public class ItemScriptManager extends AbstractScriptManager {
             try {
                 iv.invokeFunction("start", new Object[0]);
             } catch (NoSuchMethodException nsme) {
-                iv.invokeFunction("action", new Object[]{(byte) 1, (byte) 0, (int) (byte) 0});
+                iv.invokeFunction("action", new Object[] { (byte) 1, (byte) 0, (int) (byte) 0 });
             }
         } catch (ScriptException | NoSuchMethodException e) {
             System.err.println("执行道具脚本失败 道具ID: (" + item.getItemId() + ")..NPCID: " + npc + ":" + e);
-             FilePrinter.printError("AbstractScriptManager.txt", e);
+            FilePrinter.printError("AbstractScriptManager.txt", e);
             dispose(c);
             notice(c, item.getItemId());
         }
@@ -75,7 +76,7 @@ public class ItemScriptManager extends AbstractScriptManager {
                     dispose(c);
                 } else {
                     c.setClickedNPC();
-                    im.getIv().invokeFunction("action", new Object[]{mode, type, selection});
+                    im.getIv().invokeFunction("action", new Object[] { mode, type, selection });
                 }
             } catch (ScriptException | NoSuchMethodException e) {
                 int npcId = im.getNpc();
