@@ -89,7 +89,11 @@ public class GuildHandler {
             c.saveToDB(false, false);
         } catch (Exception e) {
             System.out.println("公会的错误:" + e);
-            FileoutputUtil.logToFile("logs/公会存档保存数据异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getClient().getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getClient().getAccountName() + " 帐号ID " + c.getClient().getAccID() + " 角色名 " + c.getName() + " 角色ID " + c.getId());
+            FileoutputUtil.logToFile("logs/公会存档保存数据异常.txt",
+                    "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                            + c.getClient().getSession().remoteAddress().toString().split(":")[0] + " 帐号 "
+                            + c.getClient().getAccountName() + " 帐号ID " + c.getClient().getAccID() + " 角色名 "
+                            + c.getName() + " 角色ID " + c.getId());
             FileoutputUtil.outError("logs/公会存档保存数据异常.txt", e);
 
         }
@@ -130,8 +134,7 @@ public class GuildHandler {
 
     public static final void HandleGuild(final LittleEndianAccessor slea, final MapleClient c) {
 
-        if (System.currentTimeMillis()
-                >= nextPruneTime) {
+        if (System.currentTimeMillis() >= nextPruneTime) {
             Iterator<Invited> itr = invited.iterator();
             Invited inv;
             while (itr.hasNext()) {
@@ -184,7 +187,7 @@ public class GuildHandler {
                 World.Guild.setGuildMemberOnline(c.getPlayer().getMGC(), true, c.getChannel());
                 c.getPlayer().dropMessage(1, "恭喜你成功创建一个公会.");
                 respawnPlayer(c.getPlayer());
-                //SaveCharDb(c.getPlayer());
+                // SaveCharDb(c.getPlayer());
                 break;
             }
 
@@ -240,7 +243,7 @@ public class GuildHandler {
                         }
                         c.getPlayer().saveGuildStatus();
                         respawnPlayer(c.getPlayer());
-                        //SaveCharDb(c.getPlayer());
+                        // SaveCharDb(c.getPlayer());
                         break;
                     }
                 }
@@ -250,7 +253,8 @@ public class GuildHandler {
                 int cid = slea.readInt();
                 String name = slea.readMapleAsciiString();
 
-                if (cid != c.getPlayer().getId() || !name.equals(c.getPlayer().getName()) || c.getPlayer().getGuildId() <= 0) {
+                if (cid != c.getPlayer().getId() || !name.equals(c.getPlayer().getName())
+                        || c.getPlayer().getGuildId() <= 0) {
                     return;
                 }
                 if (c.getPlayer().getMapId() == 990001000) {
@@ -259,8 +263,8 @@ public class GuildHandler {
                 }
                 World.Guild.leaveGuild(c.getPlayer().getMGC());
                 c.sendPacket(MaplePacketCreator.showGuildInfo(null));
-                //c.sendPacket(MaplePacketCreator.fuckGuildInfo(c.getPlayer()));
-                //SaveCharDb(c.getPlayer());
+                c.sendPacket(MaplePacketCreator.fakeGuildInfo(c.getPlayer()));
+                // SaveCharDb(c.getPlayer());
                 break;
             }
             case EXPEL: {
@@ -281,7 +285,7 @@ public class GuildHandler {
                     return;
                 }
                 World.Guild.expelMember(c.getPlayer().getMGC(), name, cid);
-                //SaveCharDb(c.getPlayer());
+                // SaveCharDb(c.getPlayer());
                 break;
             }
             case CHANGE_RANK_TITLE: {
@@ -300,7 +304,8 @@ public class GuildHandler {
                 int cid = slea.readInt();
                 byte newRank = slea.readByte();
 
-                if ((newRank <= 1 || newRank > 5) || c.getPlayer().getGuildRank() > 2 || (newRank <= 2 && c.getPlayer().getGuildRank() != 1) || c.getPlayer().getGuildId() <= 0) {
+                if ((newRank <= 1 || newRank > 5) || c.getPlayer().getGuildRank() > 2
+                        || (newRank <= 2 && c.getPlayer().getGuildRank() != 1) || c.getPlayer().getGuildId() <= 0) {
                     return;
                 }
 
@@ -308,7 +313,8 @@ public class GuildHandler {
                 break;
             }
             case CHANGE_EMBLEM: {
-                if (c.getPlayer().getGuildId() <= 0 || c.getPlayer().getGuildRank() != 1 || c.getPlayer().getMapId() != 200000301) {
+                if (c.getPlayer().getGuildId() <= 0 || c.getPlayer().getGuildRank() != 1
+                        || c.getPlayer().getMapId() != 200000301) {
                     return;
                 }
 

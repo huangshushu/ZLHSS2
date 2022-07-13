@@ -30,10 +30,10 @@ public class MapConstants {
                 return false;
         }
     }
-    
+
     public static boolean isForceRespawn(int mapid) {
         switch (mapid) {
-            case 925100100: //crocs and stuff
+            case 925100100: // crocs and stuff
                 return true;
             default:
                 return false;
@@ -76,7 +76,8 @@ public class MapConstants {
     }
 
     public static boolean isEventMap(final int mapid) {
-        return (mapid >= 109010000 && mapid < 109050000) || (mapid > 109050001 && mapid < 109090000) || (mapid >= 809040000 && mapid <= 809040100);
+        return (mapid >= 109010000 && mapid < 109050000) || (mapid > 109050001 && mapid < 109090000)
+                || (mapid >= 809040000 && mapid <= 809040100);
     }
 
     public static boolean inBossMap(int mapid) {
@@ -103,19 +104,19 @@ public class MapConstants {
             case 922010900: // 时空的裂缝
             case 925020200: // 武陵
             case 930000600: // 剧毒森林
-            case 270050100: //皮卡丘
-            case 702060000://妖僧
+            case 270050100: // 皮卡丘
+            case 702060000:// 妖僧
                 return true;
         }
         return false;
     }
 
-    public static int isMonsterSpawn(MapleMap map) { //回传生怪数量倍率
+    public static int isMonsterSpawn(MapleMap map) { // 回传生怪数量倍率
         if (MapConstants.isBossMap(map.getId()) || MapConstants.isEventMap(map.getId())) {
             return 1;
         }
 
-        for (MapleMapObject obj : map.getAllMonstersThreadsafe()) { //判断地图有boss 回传倍率1
+        for (MapleMapObject obj : map.getAllMonstersThreadsafe()) { // 判断地图有boss 回传倍率1
             final MapleMonster mob = (MapleMonster) obj;
             if (mob.getStats().isBoss()) {
                 return 1;
@@ -145,11 +146,11 @@ public class MapConstants {
             case 270030200:// 忘却之路2 2600712 2600700
             case 270030300:// 忘却之路3 2600713 2600700
             case 270030400:// 忘却之路4 2600714 2600713 2600700
-            case 270030500:// 忘却之路5 2600714	
-            case 220060201://  弯曲的时间
-            case 220060301://  纠结的时间
-            case 220070201://  毁坏的时间
-            case 220070301://  禁忌的时间  
+            case 270030500:// 忘却之路5 2600714
+            case 220060201:// 弯曲的时间
+            case 220060301:// 纠结的时间
+            case 220070201:// 毁坏的时间
+            case 220070301:// 禁忌的时间
                 return 2;
         }
         return 1;
@@ -178,10 +179,10 @@ public class MapConstants {
             case 922010900: // 时空的裂缝
             case 925020200: // 武陵
             case 930000600: // 剧毒森林
-            case 270030500: // 忘却    
+            case 270030500: // 忘却
             case 270010500: // 忘却
             case 270020500: // 忘却
-            case 749040001://年兽
+            case 749040001:// 年兽
                 return true;
         }
         return false;

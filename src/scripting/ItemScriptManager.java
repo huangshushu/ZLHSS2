@@ -5,21 +5,17 @@
  */
 package scripting;
 
-import client.MapleClient;
-import client.inventory.IItem;
-import client.inventory.Item;
 import java.util.Map;
 import java.util.WeakHashMap;
+
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
-import tools.FilePrinter;
-import tools.FileoutputUtil;
 
-/**
- *
- * @author wubin
- */
+import client.MapleClient;
+import client.inventory.IItem;
+import tools.FilePrinter;
+
 public class ItemScriptManager extends AbstractScriptManager {
 
     private static final ItemScriptManager instance = new ItemScriptManager();

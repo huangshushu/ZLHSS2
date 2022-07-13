@@ -20,6 +20,8 @@
  */
 package handling.mina;
 
+import java.util.List;
+
 import client.MapleClient;
 import constants.ServerConfig;
 import handling.RecvPacketOpcode;
@@ -27,13 +29,10 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.util.AttributeKey;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
 import tools.FilePrinter;
-import tools.MapleAESOFB;
 import tools.FileoutputUtil;
 import tools.HexTool;
+import tools.MapleAESOFB;
 import tools.MapleCustomEncryption;
 import tools.data.ByteArrayByteStream;
 import tools.data.LittleEndianAccessor;
@@ -45,7 +44,8 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
         public int packetlength = -1;
     }
 
-    public static final AttributeKey<DecoderState> DECODER_STATE_KEY = AttributeKey.valueOf(MaplePacketDecoder.class.getName() + ".STATE");
+    public static final AttributeKey<DecoderState> DECODER_STATE_KEY = AttributeKey
+            .valueOf(MaplePacketDecoder.class.getName() + ".STATE");
 
     @Override
     protected void decode(ChannelHandlerContext chc, ByteBuf in, List<Object> message) throws Exception {
@@ -71,27 +71,32 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
             MapleCustomEncryption.decryptData(decryptedPacket);
             message.add(decryptedPacket);
 
-            //封包输出
+            // 封包输出
             int packetLen = decryptedPacket.length;
             short pHeader = new LittleEndianAccessor(new ByteArrayByteStream(decryptedPacket)).readShort();
             String op = RecvPacketOpcode.nameOf(pHeader);
-            //boolean ChrdangerousIp = client.dangerousIp(client.getSession().remoteAddress().toString());
-            if ((ServerConfig.LOG_PACKETS || ServerConfig.CHRLOG_PACKETS /*|| dangerousIp*/) && !RecvPacketOpcode.isSpamHeader(RecvPacketOpcode.valueOf(op))) {
+            // boolean ChrdangerousIp =
+            // client.dangerousIp(client.getSession().remoteAddress().toString());
+            if ((ServerConfig.LOG_PACKETS || ServerConfig.CHRLOG_PACKETS /* || dangerousIp */)
+                    && !RecvPacketOpcode.isSpamHeader(RecvPacketOpcode.valueOf(op))) {
                 String tab = "";
                 for (int i = 4; i > op.length() / 8; i--) {
                     tab += "\t";
                 }
                 String t = packetLen >= 10 ? packetLen >= 100 ? packetLen >= 1000 ? "" : " " : "  " : "   ";
-                final StringBuilder sb = new StringBuilder("[接收]\t" + op + tab + "\t包头:" + HexTool.getOpcodeToString(pHeader) + t + "[" + packetLen + "字元]");
+                final StringBuilder sb = new StringBuilder("[接收]\t" + op + tab + "\t包头:"
+                        + HexTool.getOpcodeToString(pHeader) + t + "[" + packetLen + "字元]");
                 if (ServerConfig.LOG_PACKETS) {
                     System.out.println(sb.toString());
                 }
-                sb.append("\r\n\r\n").append(HexTool.toString(decryptedPacket)).append("\r\n").append(HexTool.toStringFromAscii(decryptedPacket));
+                sb.append("\r\n\r\n").append(HexTool.toString(decryptedPacket)).append("\r\n")
+                        .append(HexTool.toStringFromAscii(decryptedPacket));
                 if (ServerConfig.LOG_PACKETS) {
                     FileoutputUtil.log(FileoutputUtil.Packet_Log, "\r\n\r\n" + sb.toString() + "\r\n\r\n");
                 } else if (ServerConfig.CHRLOG_PACKETS) {
                     if (client.getPlayer() != null) {
-                        FilePrinter.print("封包记录/" + client.getPlayer().getName() + ".txt", "\r\n\r\n" + sb.toString() + "\r\n\r\n");
+                        FilePrinter.print("封包记录/" + client.getPlayer().getName() + ".txt",
+                                "\r\n\r\n" + sb.toString() + "\r\n\r\n");
                     }
                 }
             }

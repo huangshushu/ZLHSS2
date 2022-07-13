@@ -26,9 +26,9 @@ import server.Randomizer;
 public enum MapleDisease implements Serializable {
 
     POTION(0x80000000000L, true),
-    SHADOW(0x100000000000L, true), //receiving damage/moving
+    SHADOW(0x100000000000L, true), // receiving damage/moving
     BLIND(0x200000000000L, true),
-    FREEZE(0x8000000000000L, true),//0x8000000000000L, true
+    FREEZE(0x8000000000000L, true), // 0x8000000000000L, true
     SLOW(0x1),
     MORPH(0x2),
     SEDUCE(0x80),
@@ -41,6 +41,7 @@ public enum MapleDisease implements Serializable {
     DARKNESS(0x10000000000000L),
     WEAKEN(0x4000000000000000L),
     CURSE(0x8000000000000000L),;
+
     // 0x100 is disable skill except buff
     private static final long serialVersionUID = 0L;
     private final long i;
@@ -138,6 +139,8 @@ public enum MapleDisease implements Serializable {
                 return 136;
             case FREEZE:
                 return 137;
+            default:
+                break;
         }
         return 0;
     }

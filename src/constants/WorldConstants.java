@@ -23,8 +23,10 @@ public class WorldConstants {
     public static String SCROLL_MESSAGE = "";
     public static boolean AVAILABLE = true;
     public static final int gmserver = -1; // -1 = no gm server
-    public static final byte recommended = (byte) -1; //-1 = no recommended
-    public static final String recommendedmsg = recommended < 0 ? "" : "        Join " + getById(recommended).name() + ",       the newest world! (If youhave friends who play, consider joining their worldinstead. Characters can`t move between worlds.)";
+    public static final byte recommended = (byte) -1; // -1 = no recommended
+    public static final String recommendedmsg = recommended < 0 ? ""
+            : "        Join " + getById(recommended).name()
+                    + ",       the newest world! (If youhave friends who play, consider joining their worldinstead. Characters can`t move between worlds.)";
 
     public static interface Option {
 
@@ -56,6 +58,7 @@ public class WorldConstants {
         星光精灵(120),
         菇菇宝贝(1),
         雪吉拉(120);
+
         private final int world;
 
         WorldOption(int world) {
@@ -71,6 +74,7 @@ public class WorldConstants {
     public static enum TespiaWorldOption implements Option {
 
         测试机("t0");
+
         private final int world;
         private final String worldName;
 

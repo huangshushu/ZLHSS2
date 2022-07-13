@@ -71,7 +71,7 @@ public class OnlyID {
         StringBuilder chrs = new StringBuilder();
         StringBuilder Sql = new StringBuilder();
         List<Quadra<Integer, Integer, Long, Integer>> equipOnlyIds = new ArrayList();
-        Map checkItems = new HashMap();
+        final Map checkItems = new HashMap();
         List<Integer> all = new LinkedList<>();
         List<Integer> gm = new LinkedList<>();
 
@@ -167,7 +167,8 @@ public class OnlyID {
                 String msg = "发现复制,唯一ID [" + itemonly + "] " + chrs.toString() + " 物品[" + itemname + "](" + item + ")";
                 System.out.println(msg);
                 World.Broadcast.broadcastGMMessage((MaplePacketCreator.serverNotice(6, msg)));
-                FileoutputUtil.logToFile("Hack/复制装备.txt", FileoutputUtil.CurrentReadable_TimeGMT() + " " + msg + "\r\n");
+                FileoutputUtil.logToFile("Hack/复制装备.txt",
+                        FileoutputUtil.CurrentReadable_TimeGMT() + " " + msg + "\r\n");
             }
 
         } catch (SQLException ex) {

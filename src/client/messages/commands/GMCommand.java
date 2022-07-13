@@ -255,9 +255,10 @@ public class GMCommand {
             if (victim != null) {
                 victim.setBuLingZanZu(mod);
                 victim.modifyCSPoints(1, mod * 5, true);
-                //victim.modifyCSPoints(3, mod * 2);
-                victim.gainVip();//更新vip等级
-                FileoutputUtil.logToFile("logs/Data/补领赞助.txt", "\r\n " + FileoutputUtil.NowTime() + " GM " + c.getPlayer().getName() + " 给了 " + victim.getName() + " " + mod + "台币补领赞助");
+                // victim.modifyCSPoints(3, mod * 2);
+                victim.gainVip();// 更新vip等级
+                FileoutputUtil.logToFile("logs/Data/补领赞助.txt", "\r\n " + FileoutputUtil.NowTime() + " GM "
+                        + c.getPlayer().getName() + " 给了 " + victim.getName() + " " + mod + "台币补领赞助");
                 c.getPlayer().dropMessage(6, "玩家[" + playername + "] 补领赞助 [" + mod + "] 台币。");
             } else {
                 c.getPlayer().dropMessage(6, "玩家[" + playername + "]不存在于资料库内。");
@@ -288,7 +289,8 @@ public class GMCommand {
             MapleCharacter victim = MapleCharacter.getCharacterById(playerid);
             if (victim != null) {
                 victim.modifyCSPoints(3, mod, true);
-                FileoutputUtil.logToFile("logs/Data/补领红利.txt", "\r\n " + FileoutputUtil.NowTime() + " GM " + c.getPlayer().getName() + " 给了 " + victim.getName() + " " + mod + "点补领红利");
+                FileoutputUtil.logToFile("logs/Data/补领红利.txt", "\r\n " + FileoutputUtil.NowTime() + " GM "
+                        + c.getPlayer().getName() + " 给了 " + victim.getName() + " " + mod + "点补领红利");
                 c.getPlayer().dropMessage(6, "玩家[" + playername + "] 补领红利 [" + mod + "] 红利。");
             } else {
                 c.getPlayer().dropMessage(6, "玩家[" + playername + "]不存在于资料库内。");
@@ -307,7 +309,8 @@ public class GMCommand {
         @Override
         public boolean execute(MapleClient c, String splitted[]) {
             Point pos = c.getPlayer().getPosition();
-            c.getPlayer().dropMessage(6, "X: " + pos.x + " | Y: " + pos.y + " | RX0: " + (pos.x + 50) + " | RX1: " + (pos.x - 50) + " | FH: " + c.getPlayer().getFH() + "| CY:" + pos.y);
+            c.getPlayer().dropMessage(6, "X: " + pos.x + " | Y: " + pos.y + " | RX0: " + (pos.x + 50) + " | RX1: "
+                    + (pos.x - 50) + " | FH: " + c.getPlayer().getFH() + "| CY:" + pos.y);
             return true;
         }
 
@@ -417,7 +420,9 @@ public class GMCommand {
             if (range == -1) {
                 range = 2;
             }
-            byte[] packet = MaplePacketCreator.yellowChat((splitted[0].equals("!y") ? ("[" + c.getPlayer().getName() + "] ") : "") + StringUtil.joinStringFrom(splitted, 2));
+            byte[] packet = MaplePacketCreator
+                    .yellowChat((splitted[0].equals("!y") ? ("[" + c.getPlayer().getName() + "] ") : "")
+                            + StringUtil.joinStringFrom(splitted, 2));
             if (range == 0) {
                 c.getPlayer().getMap().broadcastMessage(packet);
             } else if (range == 1) {
@@ -535,8 +540,10 @@ public class GMCommand {
                     } catch (Exception e) {
                     }
                     c.sendPacket(MaplePacketCreator.showGuildInfo(c.getPlayer()));
-                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(), MaplePacketCreator.removePlayerFromMap(c.getPlayer().getId()), false);
-                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(), MaplePacketCreator.spawnPlayerMapobject(c.getPlayer()), false);
+                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(),
+                            MaplePacketCreator.removePlayerFromMap(c.getPlayer().getId()), false);
+                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(),
+                            MaplePacketCreator.spawnPlayerMapobject(c.getPlayer()), false);
                     c.getPlayer().saveGuildStatus();
                 } else {
                     c.getPlayer().dropMessage(6, "公会名称不存在。");
@@ -621,7 +628,8 @@ public class GMCommand {
         public boolean execute(MapleClient c, String splitted[]) {
             for (MapleMapObject reactor1l : c.getPlayer().getMap().getAllNPCsThreadsafe()) {
                 MapleNPC reactor2l = (MapleNPC) reactor1l;
-                c.getPlayer().dropMessage(5, "NPC: oID: " + reactor2l.getObjectId() + " npcID: " + reactor2l.getId() + " Position: " + reactor2l.getPosition().toString() + " Name: " + reactor2l.getName());
+                c.getPlayer().dropMessage(5, "NPC: oID: " + reactor2l.getObjectId() + " npcID: " + reactor2l.getId()
+                        + " Position: " + reactor2l.getPosition().toString() + " Name: " + reactor2l.getName());
             }
             return true;
         }
@@ -638,7 +646,10 @@ public class GMCommand {
         public boolean execute(MapleClient c, String splitted[]) {
             for (MapleMapObject reactor1l : c.getPlayer().getMap().getAllReactorsThreadsafe()) {
                 MapleReactor reactor2l = (MapleReactor) reactor1l;
-                c.getPlayer().dropMessage(5, "Reactor: oID: " + reactor2l.getObjectId() + " reactorID: " + reactor2l.getReactorId() + " Position: " + reactor2l.getPosition().toString() + " State: " + reactor2l.getState() + " Name: " + reactor2l.getName());
+                c.getPlayer().dropMessage(5,
+                        "Reactor: oID: " + reactor2l.getObjectId() + " reactorID: " + reactor2l.getReactorId()
+                                + " Position: " + reactor2l.getPosition().toString() + " State: " + reactor2l.getState()
+                                + " Name: " + reactor2l.getName());
             }
             return true;
         }
@@ -654,7 +665,10 @@ public class GMCommand {
         @Override
         public boolean execute(MapleClient c, String splitted[]) {
             for (MaplePortal portal : c.getPlayer().getMap().getPortals()) {
-                c.getPlayer().dropMessage(5, "Portal: ID: " + portal.getId() + " script: " + portal.getScriptName() + " name: " + portal.getName() + " pos: " + portal.getPosition().x + "," + portal.getPosition().y + " target: " + portal.getTargetMapId() + " / " + portal.getTarget());
+                c.getPlayer().dropMessage(5,
+                        "Portal: ID: " + portal.getId() + " script: " + portal.getScriptName() + " name: "
+                                + portal.getName() + " pos: " + portal.getPosition().x + "," + portal.getPosition().y
+                                + " target: " + portal.getTargetMapId() + " / " + portal.getTarget());
             }
             return true;
         }
@@ -787,7 +801,8 @@ public class GMCommand {
         @Override
         public boolean execute(MapleClient c, String splitted[]) {
             MaplePortal portal = c.getPlayer().getMap().findClosestSpawnpoint(c.getPlayer().getPosition());
-            c.getPlayer().dropMessage(6, portal.getName() + " id: " + portal.getId() + " script: " + portal.getScriptName());
+            c.getPlayer().dropMessage(6,
+                    portal.getName() + " id: " + portal.getId() + " script: " + portal.getScriptName());
 
             return true;
         }
@@ -834,7 +849,8 @@ public class GMCommand {
                 c.getPlayer().dropMessage(5, "找不到 '" + splitted[1]);
                 return false;
             } else {
-                victim.getMap().broadcastMessage(MaplePacketCreator.getChatText(victim.getId(), StringUtil.joinStringFrom(splitted, 2), victim.isGM(), 0));
+                victim.getMap().broadcastMessage(MaplePacketCreator.getChatText(victim.getId(),
+                        StringUtil.joinStringFrom(splitted, 2), victim.isGM(), 0));
             }
             return true;
         }
@@ -851,7 +867,8 @@ public class GMCommand {
         public boolean execute(MapleClient c, String splitted[]) {
             for (MapleCharacter victim : c.getPlayer().getMap().getCharactersThreadsafe()) {
                 if (victim.getId() != c.getPlayer().getId()) {
-                    victim.getMap().broadcastMessage(MaplePacketCreator.getChatText(victim.getId(), StringUtil.joinStringFrom(splitted, 1), victim.isGM(), 0));
+                    victim.getMap().broadcastMessage(MaplePacketCreator.getChatText(victim.getId(),
+                            StringUtil.joinStringFrom(splitted, 1), victim.isGM(), 0));
                 }
             }
             return true;
@@ -870,7 +887,8 @@ public class GMCommand {
         public boolean execute(MapleClient c, String splitted[]) {
             for (MapleCharacter victim : c.getChannelServer().getPlayerStorage().getAllCharactersThreadSafe()) {
                 if (victim.getId() != c.getPlayer().getId()) {
-                    victim.getMap().broadcastMessage(MaplePacketCreator.getChatText(victim.getId(), StringUtil.joinStringFrom(splitted, 1), victim.isGM(), 0));
+                    victim.getMap().broadcastMessage(MaplePacketCreator.getChatText(victim.getId(),
+                            StringUtil.joinStringFrom(splitted, 1), victim.isGM(), 0));
                 }
             }
             return true;
@@ -890,7 +908,8 @@ public class GMCommand {
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                 for (MapleCharacter victim : cserv.getPlayerStorage().getAllCharactersThreadSafe()) {
                     if (victim.getId() != c.getPlayer().getId()) {
-                        victim.getMap().broadcastMessage(MaplePacketCreator.getChatText(victim.getId(), StringUtil.joinStringFrom(splitted, 1), victim.isGM(), 0));
+                        victim.getMap().broadcastMessage(MaplePacketCreator.getChatText(victim.getId(),
+                                StringUtil.joinStringFrom(splitted, 1), victim.isGM(), 0));
                     }
                 }
             }
@@ -912,7 +931,12 @@ public class GMCommand {
                 victim = c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]);
             }
             try {
-                World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(3, victim == null ? c.getChannel() : victim.getClient().getChannel(), victim == null ? splitted[1] : victim.getName() + " : " + StringUtil.joinStringFrom(splitted, 2), true));
+                World.Broadcast
+                        .broadcastSmega(MaplePacketCreator
+                                .serverNotice(3, victim == null ? c.getChannel() : victim.getClient().getChannel(),
+                                        victim == null ? splitted[1]
+                                                : victim.getName() + " : " + StringUtil.joinStringFrom(splitted, 2),
+                                        true));
             } catch (Exception e) {
                 return false;
             }
@@ -990,8 +1014,8 @@ public class GMCommand {
             }
             minutesLeft = Integer.parseInt(splitted[1]);
             c.getPlayer().dropMessage(6, "服务器将在 " + minutesLeft + "分钟后关闭. 请尽速关闭精灵商人 并下线.");
-            //WorldConstants.ADMIN_ONLY = true;
-            //c.getPlayer().dropMessage(6, "已经开启管理员模式。");
+            // WorldConstants.ADMIN_ONLY = true;
+            // c.getPlayer().dropMessage(6, "已经开启管理员模式。");
             if (ts == null && (t == null || !t.isAlive())) {
                 ServerConstants.是否已关服 = 1;
                 t = new Thread(ShutdownServer.getInstance());
@@ -1003,7 +1027,7 @@ public class GMCommand {
                             World.isShutDown = true;
                             c.getPlayer().dropMessage(6, "已经限制玩家玩家所有行动。");
                         } else if (minutesLeft == 0) {
-                            //ShutdownServer.getInstance().run();
+                            // ShutdownServer.getInstance().run();
                             ShutdownServer.getInstance().shutdown();
                             t.start();
                             ts.cancel(false);
@@ -1022,7 +1046,8 @@ public class GMCommand {
                     }
                 }, 60000);
             } else {
-                c.getPlayer().dropMessage(6, new StringBuilder().append("服务器关闭时间修改为 ").append(minutesLeft).append("分钟后，请稍等服务器关闭").toString());
+                c.getPlayer().dropMessage(6, new StringBuilder().append("服务器关闭时间修改为 ").append(minutesLeft)
+                        .append("分钟后，请稍等服务器关闭").toString());
             }
             return true;
         }
@@ -1182,7 +1207,8 @@ public class GMCommand {
             c.getPlayer().setHair(victim.getHair());
             c.getPlayer().setFace(victim.getFace());
 
-            c.getPlayer().setSkinColor(victim.getSkinColor() == 0 ? c.getPlayer().getSkinColor() : victim.getSkinColor());
+            c.getPlayer()
+                    .setSkinColor(victim.getSkinColor() == 0 ? c.getPlayer().getSkinColor() : victim.getSkinColor());
 
             c.getPlayer().setGender(victim.getGender());
 
@@ -1263,7 +1289,8 @@ public class GMCommand {
                     if (equip[i] != 0) {
                         IItem n = victim.getInventory(types).getItem((short) equip[i]).copy();
                         player.getInventory(types).addItem(n);
-                        c.sendPacket(MaplePacketCreator.modifyInventory(false, new ModifyInventory(ModifyInventory.Types.ADD, n)));
+                        c.sendPacket(MaplePacketCreator.modifyInventory(false,
+                                new ModifyInventory(ModifyInventory.Types.ADD, n)));
                     }
                 }
             }
@@ -1271,7 +1298,8 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!copyinv 玩家名称 装备栏位(0 = 装备中 1=装备栏 2=消耗栏 3=其他栏 4=装饰栏 5=点数栏)(预设装备栏) - 复制玩家道具").toString();
+            return new StringBuilder()
+                    .append("!copyinv 玩家名称 装备栏位(0 = 装备中 1=装备栏 2=消耗栏 3=其他栏 4=装饰栏 5=点数栏)(预设装备栏) - 复制玩家道具").toString();
         }
     }
 
@@ -1282,7 +1310,8 @@ public class GMCommand {
             if (splitted.length < 2) {
                 return false;
             }
-            c.getPlayer().getMap().broadcastMessage(MaplePacketCreator.getClock(CommandProcessorUtil.getOptionalIntArg(splitted, 1, 60)));
+            c.getPlayer().getMap().broadcastMessage(
+                    MaplePacketCreator.getClock(CommandProcessorUtil.getOptionalIntArg(splitted, 1, 60)));
             return true;
         }
 
@@ -1485,7 +1514,8 @@ public class GMCommand {
 
         @Override
         public boolean execute(MapleClient c, String splitted[]) {
-            c.getPlayer().dropMessage("自订物件重新载入完成 共重新载入:" + MapleMapFactory.loadCustomLife(true, c.getPlayer().getMap()));
+            c.getPlayer()
+                    .dropMessage("自订物件重新载入完成 共重新载入:" + MapleMapFactory.loadCustomLife(true, c.getPlayer().getMap()));
             return true;
         }
 
@@ -1509,8 +1539,8 @@ public class GMCommand {
             CashItemFactory.getInstance().initialize();
             MapleMonsterInformationProvider.getInstance().clearDrops();
 
-            MapleGuild.loadAll(); //(this); 
-            MapleFamily.loadAll(); //(this); 
+            MapleGuild.loadAll(); // (this);
+            MapleFamily.loadAll(); // (this);
             MapleLifeFactory.loadQuestCounts();
             MapleQuest.initQuests();
             MapleOxQuizFactory.getInstance();
@@ -1724,7 +1754,8 @@ public class GMCommand {
                                 }
                             }
                         }
-                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "关键时刻开放囉，没有30等以上的玩家是得不到的。"));
+                        World.Broadcast
+                                .broadcastMessage(MaplePacketCreator.serverNotice(6, "关键时刻开放囉，没有30等以上的玩家是得不到的。"));
                         ts.cancel(false);
                         ts = null;
                     }
@@ -1756,14 +1787,14 @@ public class GMCommand {
                             add = true;
                             c.getPlayer().reloadC();
                             c.getPlayer().dropMessage(5, "已经解锁");
-                            //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                            // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                         }
                         if (ItemFlag.UNTRADEABLE.check(item.getFlag())) {
                             item.setFlag((byte) (item.getFlag() - ItemFlag.UNTRADEABLE.getValue()));
                             add = true;
                             c.getPlayer().reloadC();
                             c.getPlayer().dropMessage(5, "已经解锁");
-                            //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                            // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                         }
                         if (add) {
                             eqs.put(item, type);
@@ -1778,14 +1809,14 @@ public class GMCommand {
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (ItemFlag.UNTRADEABLE.check(item.getFlag())) {
                         item.setFlag((byte) (item.getFlag() - ItemFlag.UNTRADEABLE.getValue()));
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (add) {
                         eqs.put(item, MapleInventoryType.EQUIP);
@@ -1799,14 +1830,14 @@ public class GMCommand {
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (ItemFlag.UNTRADEABLE.check(item.getFlag())) {
                         item.setFlag((byte) (item.getFlag() - ItemFlag.UNTRADEABLE.getValue()));
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (add) {
                         eqs.put(item, MapleInventoryType.EQUIP);
@@ -1820,14 +1851,14 @@ public class GMCommand {
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (ItemFlag.UNTRADEABLE.check(item.getFlag())) {
                         item.setFlag((byte) (item.getFlag() - ItemFlag.UNTRADEABLE.getValue()));
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (add) {
                         eqs.put(item, MapleInventoryType.USE);
@@ -1841,14 +1872,14 @@ public class GMCommand {
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (ItemFlag.UNTRADEABLE.check(item.getFlag())) {
                         item.setFlag((byte) (item.getFlag() - ItemFlag.UNTRADEABLE.getValue()));
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (add) {
                         eqs.put(item, MapleInventoryType.SETUP);
@@ -1862,14 +1893,14 @@ public class GMCommand {
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (ItemFlag.UNTRADEABLE.check(item.getFlag())) {
                         item.setFlag((byte) (item.getFlag() - ItemFlag.UNTRADEABLE.getValue()));
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (add) {
                         eqs.put(item, MapleInventoryType.ETC);
@@ -1883,14 +1914,14 @@ public class GMCommand {
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (ItemFlag.UNTRADEABLE.check(item.getFlag())) {
                         item.setFlag((byte) (item.getFlag() - ItemFlag.UNTRADEABLE.getValue()));
                         add = true;
                         c.getPlayer().reloadC();
                         c.getPlayer().dropMessage(5, "已经解锁");
-                        //c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
+                        // c.sendPacket(MaplePacketCreator.updateSpecialItemUse(item, type.getType()));
                     }
                     if (add) {
                         eqs.put(item, MapleInventoryType.CASH);
@@ -1954,12 +1985,14 @@ public class GMCommand {
                 } else if (i < 200) {
                     int val = start + i - (int) ('A');
                     client.inventory.Item item = new client.inventory.Item(val, (byte) 0, (short) 1);
-                    c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), item, new Point(dStart, c.getPlayer().getPosition().y), false, false);
+                    c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), item,
+                            new Point(dStart, c.getPlayer().getPosition().y), false, false);
                     dStart += w;
                 } else if (i >= 200 && i <= 300) {
                     int val = nstart + i - (int) ('0') - 200;
                     client.inventory.Item item = new client.inventory.Item(val, (byte) 0, (short) 1);
-                    c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), item, new Point(dStart, c.getPlayer().getPosition().y), false, false);
+                    c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), item,
+                            new Point(dStart, c.getPlayer().getPosition().y), false, false);
                     dStart += w;
                 }
             }
@@ -1995,9 +2028,9 @@ public class GMCommand {
                 if (fff == null) {
                     c.getPlayer().dropMessage(6, "玩家必须上线");
                 } else {
-                    int[] ringID = {MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance()};
+                    int[] ringID = { MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance() };
                     try {
-                        MapleCharacter[] chrz = {fff, c.getPlayer()};
+                        MapleCharacter[] chrz = { fff, c.getPlayer() };
                         for (int i = 0; i < chrz.length; i++) {
                             Equip eq = (Equip) MapleItemInformationProvider.getInstance().getEquipById(itemId);
                             if (eq == null) {
@@ -2268,9 +2301,10 @@ public class GMCommand {
             }
             c.getPlayer().setExp(0);
             c.getPlayer().updateSingleStat(MapleStat.EXP, 0);
-//            if (c.getPlayer().getLevel() < 200) {
-//                c.getPlayer().gainExp(GameConstants.getExpNeededForLevel(c.getPlayer().getLevel()) + 1, true, false, true);
-//            }
+            // if (c.getPlayer().getLevel() < 200) {
+            // c.getPlayer().gainExp(GameConstants.getExpNeededForLevel(c.getPlayer().getLevel())
+            // + 1, true, false, true);
+            // }
             return true;
         }
 
@@ -2346,7 +2380,8 @@ public class GMCommand {
                 return false;
             }
             MapleMap map = c.getPlayer().getMap();
-            List<MapleMapObject> reactors = map.getMapObjectsInRange(c.getPlayer().getPosition(), Double.POSITIVE_INFINITY, Arrays.asList(MapleMapObjectType.REACTOR));
+            List<MapleMapObject> reactors = map.getMapObjectsInRange(c.getPlayer().getPosition(),
+                    Double.POSITIVE_INFINITY, Arrays.asList(MapleMapObjectType.REACTOR));
             if (splitted[1].equals("all")) {
                 for (MapleMapObject reactorL : reactors) {
                     MapleReactor reactor2l = (MapleReactor) reactorL;
@@ -2441,7 +2476,8 @@ public class GMCommand {
             if (splitted.length < 2) {
                 return false;
             }
-            MapleQuest.getInstance(Integer.parseInt(splitted[1])).complete(c.getPlayer(), Integer.parseInt(splitted[2]), Integer.parseInt(splitted[3]));
+            MapleQuest.getInstance(Integer.parseInt(splitted[1])).complete(c.getPlayer(), Integer.parseInt(splitted[2]),
+                    Integer.parseInt(splitted[3]));
             return true;
         }
 
@@ -2459,7 +2495,8 @@ public class GMCommand {
             if (splitted.length < 2) {
                 return false;
             }
-            MapleQuest.getInstance(Integer.parseInt(splitted[1])).forceStart(c.getPlayer(), Integer.parseInt(splitted[2]), splitted.length >= 4 ? splitted[3] : null);
+            MapleQuest.getInstance(Integer.parseInt(splitted[1])).forceStart(c.getPlayer(),
+                    Integer.parseInt(splitted[2]), splitted.length >= 4 ? splitted[3] : null);
             return true;
         }
 
@@ -2477,7 +2514,8 @@ public class GMCommand {
             if (splitted.length < 2) {
                 return false;
             }
-            MapleQuest.getInstance(Integer.parseInt(splitted[1])).forceComplete(c.getPlayer(), Integer.parseInt(splitted[2]));
+            MapleQuest.getInstance(Integer.parseInt(splitted[1])).forceComplete(c.getPlayer(),
+                    Integer.parseInt(splitted[2]));
             return true;
         }
 
@@ -2493,7 +2531,9 @@ public class GMCommand {
         @Override
         public boolean execute(MapleClient c, String splitted[]) {
 
-            MapleQuest.getInstance(Integer.parseInt(splitted[2])).forceStart(c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]), Integer.parseInt(splitted[3]), splitted.length >= 4 ? splitted[4] : null);
+            MapleQuest.getInstance(Integer.parseInt(splitted[2])).forceStart(
+                    c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]),
+                    Integer.parseInt(splitted[3]), splitted.length >= 4 ? splitted[4] : null);
             return true;
         }
 
@@ -2508,7 +2548,9 @@ public class GMCommand {
 
         @Override
         public boolean execute(MapleClient c, String splitted[]) {
-            MapleQuest.getInstance(Integer.parseInt(splitted[2])).forceComplete(c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]), Integer.parseInt(splitted[3]));
+            MapleQuest.getInstance(Integer.parseInt(splitted[2])).forceComplete(
+                    c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]),
+                    Integer.parseInt(splitted[3]));
             return true;
         }
 
@@ -2526,7 +2568,7 @@ public class GMCommand {
             boolean next = false;
             boolean Action = false;
             String LogType = null;
-            String[] Log = {"伤害", "聊天", "商城", "广播", "精灵商人"};
+            String[] Log = { "伤害", "聊天", "商城", "广播", "精灵商人" };
             StringBuilder show_log = new StringBuilder();
             for (String s : Log) {
                 show_log.append(s);
@@ -2640,7 +2682,8 @@ public class GMCommand {
                     id = MapleCharacter.getCharacterByName(name).getId();
                 }
 
-                PreparedStatement ps = con.prepareStatement("select inventoryitemid, quantity from inventoryitems WHERE itemid = ? and characterid = ?");
+                PreparedStatement ps = con.prepareStatement(
+                        "select inventoryitemid, quantity from inventoryitems WHERE itemid = ? and characterid = ?");
                 ps.setInt(1, item);
                 ps.setInt(2, id);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -2702,7 +2745,7 @@ public class GMCommand {
             if (splitted.length > 1) {
                 ch = ChannelServer.getInstance(Integer.parseInt(splitted[1]));
             }
-            int[] maps = {240060000, 240060100, 240060200};
+            int[] maps = { 240060000, 240060100, 240060200 };
             for (int i = 0; i < maps.length; i++) {
                 int mapid = maps[i];
                 ch.getMapFactory().destroyMap(mapid, true);
@@ -2775,7 +2818,8 @@ public class GMCommand {
                 newhp = 1;
             }
 
-            final OverrideMonsterStats overrideStats = new OverrideMonsterStats(newhp, onemob.getMobMaxMp(), newexp, false);
+            final OverrideMonsterStats overrideStats = new OverrideMonsterStats(newhp, onemob.getMobMaxMp(), newexp,
+                    false);
             for (int i = 0; i < num; i++) {
                 MapleMonster mob = MapleLifeFactory.getMonster(mid);
                 mob.setHp(newhp);
@@ -2850,7 +2894,8 @@ public class GMCommand {
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
                 String itemname = "null";
 
-                try (PreparedStatement ps = con.prepareStatement("select itemid from inventoryitems WHERE inventoryitemid = ?")) {
+                try (PreparedStatement ps = con
+                        .prepareStatement("select itemid from inventoryitems WHERE inventoryitemid = ?")) {
                     ps.setLong(1, inventoryitemid);
                     try (ResultSet rs = ps.executeQuery()) {
                         if (rs.next()) {
@@ -2862,10 +2907,12 @@ public class GMCommand {
                     }
                 }
 
-                try (PreparedStatement ps = con.prepareStatement("Delete from inventoryequipment WHERE inventoryitemid = " + inventoryitemid)) {
+                try (PreparedStatement ps = con.prepareStatement(
+                        "Delete from inventoryequipment WHERE inventoryitemid = " + inventoryitemid)) {
                     ps.executeUpdate();
                 }
-                try (PreparedStatement ps = con.prepareStatement("Delete from inventoryitems WHERE inventoryitemid = ?")) {
+                try (PreparedStatement ps = con
+                        .prepareStatement("Delete from inventoryitems WHERE inventoryitemid = ?")) {
                     ps.setLong(1, inventoryitemid);
                     ps.executeUpdate();
                 }
@@ -3017,8 +3064,10 @@ public class GMCommand {
                 c.getPlayer().dropMessage("地图[" + splitted[2] + "] 不存在。");
                 return true;
             }
-            List<MapleMapObject> monsters = map.getMapObjectsInRange(c.getPlayer().getPosition(), range, Arrays.asList(MapleMapObjectType.MONSTER));
-            for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range, Arrays.asList(MapleMapObjectType.MONSTER))) {
+            List<MapleMapObject> monsters = map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
+                    Arrays.asList(MapleMapObjectType.MONSTER));
+            for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
+                    Arrays.asList(MapleMapObjectType.MONSTER))) {
                 mob = (MapleMonster) monstermo;
                 map.killMonster(mob, c.getPlayer(), withdrop, false, (byte) 1);
             }
@@ -3045,7 +3094,8 @@ public class GMCommand {
             MapleMap map = c.getPlayer().getMap();
             double range = Double.POSITIVE_INFINITY;
             MapleMonster mob;
-            for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range, Arrays.asList(MapleMapObjectType.MONSTER))) {
+            for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
+                    Arrays.asList(MapleMapObjectType.MONSTER))) {
                 mob = (MapleMonster) monstermo;
                 if (mob.getId() == Integer.parseInt(splitted[1])) {
                     mob.damage(c.getPlayer(), mob.getHp(), false);
@@ -3117,7 +3167,11 @@ public class GMCommand {
             c.getPlayer().dropMessage(5, "精灵金币总量: " + c.getPlayer().getHiredMerchMeso());
             long meso = c.getPlayer().getHiredMerchMeso() + c.getPlayer().getStorageMeso() + c.getPlayer().getChrMeso();
             c.getPlayer().dropMessage(5, "服务器金币总量: " + meso);
-            FileoutputUtil.logToFile("logs/Data/金币总量.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 玩家金币总量: " + c.getPlayer().getChrMeso() + " 仓库金币总量: " + c.getPlayer().getStorageMeso() + " 精灵金币总量: " + c.getPlayer().getHiredMerchMeso() + " 服务器金币总量: " + meso);
+            FileoutputUtil.logToFile("logs/Data/金币总量.txt",
+                    "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                            + c.getSession().remoteAddress().toString().split(":")[0] + " 玩家金币总量: "
+                            + c.getPlayer().getChrMeso() + " 仓库金币总量: " + c.getPlayer().getStorageMeso() + " 精灵金币总量: "
+                            + c.getPlayer().getHiredMerchMeso() + " 服务器金币总量: " + meso);
             return true;
         }
 
@@ -3136,13 +3190,14 @@ public class GMCommand {
             }
             boolean custMap = splitted.length >= 2;
             int mapid = custMap ? Integer.parseInt(splitted[1]) : player.getMapId();
-            MapleMap map = custMap ? player.getClient().getChannelServer().getMapFactory().getMap(mapid) : player.getMap();
+            MapleMap map = custMap ? player.getClient().getChannelServer().getMapFactory().getMap(mapid)
+                    : player.getMap();
             if (player.getClient().getChannelServer().getMapFactory().destroyMap(mapid)) {
                 MapleMap newMap = player.getClient().getChannelServer().getMapFactory().getMap(mapid);
                 MaplePortal newPor = newMap.getPortal(0);
-                LinkedHashSet<MapleCharacter> mcs = new LinkedHashSet<>(map.getCharacters()); // do NOT remove, fixing ConcurrentModificationEx.
-                outerLoop:
-                for (MapleCharacter m : mcs) {
+                LinkedHashSet<MapleCharacter> mcs = new LinkedHashSet<>(map.getCharacters()); // do NOT remove, fixing
+                                                                                              // ConcurrentModificationEx.
+                outerLoop: for (MapleCharacter m : mcs) {
                     for (int x = 0; x < 5; x++) {
                         try {
                             m.changeMap(newMap, newPor);
@@ -3189,7 +3244,7 @@ public class GMCommand {
                 int ch = World.Find.findChannel(name);
                 if (victim != null) {
                     if (ch <= 0) {
-                        //c.getPlayer().dropMessage(5, "该角色为离线状态");
+                        // c.getPlayer().dropMessage(5, "该角色为离线状态");
                         victim.setChrDangerousAcc(victim.getClient().getAccountName());
                     } else {
                         victim.setChrDangerousAcc(victim.getClient().getAccountName());
@@ -3225,7 +3280,8 @@ public class GMCommand {
 
         @Override
         public boolean execute(MapleClient c, String splitted[]) {
-            c.getPlayer().getClient().getChannelServer().getEventSM().getEventManager("shaoling").setProperty("state", "0");
+            c.getPlayer().getClient().getChannelServer().getEventSM().getEventManager("shaoling").setProperty("state",
+                    "0");
             c.getPlayer().dropMessage(6, "重置少林脚本成功");
             return true;
         }

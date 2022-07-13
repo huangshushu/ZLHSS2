@@ -18,65 +18,65 @@ public class ItemConstants {
 
         public static Map<Integer, Integer> getDamageSkin() {
             if (damageSkin.isEmpty()) {
-                //Effect.wz/BasicEff.img/damageSkin
-                damageSkin.put(2431965, 0); //基本伤害肌肤
-                damageSkin.put(2431966, 1); //数位显示肌肤
-                damageSkin.put(2432084, 1); //数位显示字型
-                damageSkin.put(2431967, 2); //克里提亚斯伤害肌肤
-                damageSkin.put(2432131, 3); //组队任务伤害肌肤
-                damageSkin.put(2432153, 4); //冲击震撼字型
-                damageSkin.put(2432638, 4); //具有冲击性的伤害字型
-                damageSkin.put(2432659, 4); //具有冲击性的伤害字型
-                damageSkin.put(2432154, 5); //甜蜜饼干字型
-                damageSkin.put(2432637, 5); //传统韩果伤害字型
-                damageSkin.put(2432658, 5); //传统韩果伤害字型
-                damageSkin.put(2432207, 6); //铁壁城墙字型
-                damageSkin.put(2432354, 7); //圣诞快乐伤害字型
-                damageSkin.put(2432355, 8); //雪花飘落字型
-                damageSkin.put(2432972, 8); //雪花伤害肌肤
-                damageSkin.put(2432465, 9); //爱丽西亚的伤害字型
-                damageSkin.put(2432479, 10); //桃乐丝的伤害字型
-                damageSkin.put(2432526, 11); //键盘战士字型
-                damageSkin.put(2432639, 11); //键盘战士伤害字型
-                damageSkin.put(2432660, 11); //键盘战士伤害字型
-                damageSkin.put(2432532, 12); //多彩春风字型
-                damageSkin.put(2432592, 13); //单身部队伤害字型
-                damageSkin.put(2432640, 14); //雷咪纳杉司伤害字型
-                damageSkin.put(2432661, 14); //雷咪纳杉司伤害字型
-                damageSkin.put(2432710, 15); //菇菇宝贝伤害字型
-                damageSkin.put(2432836, 16); //王冠伤害字型
-                damageSkin.put(2432973, 17); //灰白伤害肌肤
-                damageSkin.put(2433063, 18); //明星星球伤害肌肤
-                damageSkin.put(2433456, 19); //韩文的伤害字型(效果是中文)
-                damageSkin.put(2433178, 20); //2014万圣节伤害肌肤
-//            damageSkin.put(2433456, 21); //韩文的伤害字型
-                damageSkin.put(2433631, 22); //NENE鸡的伤害字型
-                damageSkin.put(2433655, 22); //NENE鸡的伤害字型
-                damageSkin.put(2433981, 28); //皮卡啾伤害字型
-                damageSkin.put(2432591, 1000); //樱花浪漫字型伤害肌肤
-                damageSkin.put(2432803, 1004); //浓姬伤害字型(30日)
-                damageSkin.put(2432804, 1004); //浓姬伤害字型(无限期)
-                damageSkin.put(2432846, 1005); //杰特字型交换卷
-                damageSkin.put(2433049, 1009); //初音未来伤害字型
-                damageSkin.put(2433038, 1010); //皇家神兽学院字型
-                damageSkin.put(2433165, 1011); //侠客字型交换卷
-                damageSkin.put(2433197, 1012); //菲欧娜字型交换卷
-                damageSkin.put(2433195, 1013); //橘子节字型交换卷
-                damageSkin.put(2433182, 1014); //万圣节南瓜字型交换卷
-                damageSkin.put(2433183, 1015); //万圣节幽灵字型交换卷
-                damageSkin.put(2433184, 1016); //万圣节扫把字型交换卷
-                //1018 - 跟1014一样
-                damageSkin.put(2433775, 1032); //杀人鲸伤害字型
-                damageSkin.put(2433776, 1033); //史乌伤害字型
-                damageSkin.put(2433828, 1034); //太阳伤害字型
-                damageSkin.put(2433829, 1035); //雨伤害字型
-                damageSkin.put(2433830, 1036); //彩虹伤害字型
-                damageSkin.put(2433831, 1037); //雪伤害字型
-                damageSkin.put(2433832, 1038); //闪电伤害字型
-                damageSkin.put(2433833, 1039); //风伤害字型
-                damageSkin.put(2434004, 1041); //小筱伤害字型
-                damageSkin.put(2434499, 1049); //月亮伤害字型
-                //1050 - 跟1034一样
+                // Effect.wz/BasicEff.img/damageSkin
+                damageSkin.put(2431965, 0); // 基本伤害肌肤
+                damageSkin.put(2431966, 1); // 数位显示肌肤
+                damageSkin.put(2432084, 1); // 数位显示字型
+                damageSkin.put(2431967, 2); // 克里提亚斯伤害肌肤
+                damageSkin.put(2432131, 3); // 组队任务伤害肌肤
+                damageSkin.put(2432153, 4); // 冲击震撼字型
+                damageSkin.put(2432638, 4); // 具有冲击性的伤害字型
+                damageSkin.put(2432659, 4); // 具有冲击性的伤害字型
+                damageSkin.put(2432154, 5); // 甜蜜饼干字型
+                damageSkin.put(2432637, 5); // 传统韩果伤害字型
+                damageSkin.put(2432658, 5); // 传统韩果伤害字型
+                damageSkin.put(2432207, 6); // 铁壁城墙字型
+                damageSkin.put(2432354, 7); // 圣诞快乐伤害字型
+                damageSkin.put(2432355, 8); // 雪花飘落字型
+                damageSkin.put(2432972, 8); // 雪花伤害肌肤
+                damageSkin.put(2432465, 9); // 爱丽西亚的伤害字型
+                damageSkin.put(2432479, 10); // 桃乐丝的伤害字型
+                damageSkin.put(2432526, 11); // 键盘战士字型
+                damageSkin.put(2432639, 11); // 键盘战士伤害字型
+                damageSkin.put(2432660, 11); // 键盘战士伤害字型
+                damageSkin.put(2432532, 12); // 多彩春风字型
+                damageSkin.put(2432592, 13); // 单身部队伤害字型
+                damageSkin.put(2432640, 14); // 雷咪纳杉司伤害字型
+                damageSkin.put(2432661, 14); // 雷咪纳杉司伤害字型
+                damageSkin.put(2432710, 15); // 菇菇宝贝伤害字型
+                damageSkin.put(2432836, 16); // 王冠伤害字型
+                damageSkin.put(2432973, 17); // 灰白伤害肌肤
+                damageSkin.put(2433063, 18); // 明星星球伤害肌肤
+                damageSkin.put(2433456, 19); // 韩文的伤害字型(效果是中文)
+                damageSkin.put(2433178, 20); // 2014万圣节伤害肌肤
+                // damageSkin.put(2433456, 21); //韩文的伤害字型
+                damageSkin.put(2433631, 22); // NENE鸡的伤害字型
+                damageSkin.put(2433655, 22); // NENE鸡的伤害字型
+                damageSkin.put(2433981, 28); // 皮卡啾伤害字型
+                damageSkin.put(2432591, 1000); // 樱花浪漫字型伤害肌肤
+                damageSkin.put(2432803, 1004); // 浓姬伤害字型(30日)
+                damageSkin.put(2432804, 1004); // 浓姬伤害字型(无限期)
+                damageSkin.put(2432846, 1005); // 杰特字型交换卷
+                damageSkin.put(2433049, 1009); // 初音未来伤害字型
+                damageSkin.put(2433038, 1010); // 皇家神兽学院字型
+                damageSkin.put(2433165, 1011); // 侠客字型交换卷
+                damageSkin.put(2433197, 1012); // 菲欧娜字型交换卷
+                damageSkin.put(2433195, 1013); // 橘子节字型交换卷
+                damageSkin.put(2433182, 1014); // 万圣节南瓜字型交换卷
+                damageSkin.put(2433183, 1015); // 万圣节幽灵字型交换卷
+                damageSkin.put(2433184, 1016); // 万圣节扫把字型交换卷
+                // 1018 - 跟1014一样
+                damageSkin.put(2433775, 1032); // 杀人鲸伤害字型
+                damageSkin.put(2433776, 1033); // 史乌伤害字型
+                damageSkin.put(2433828, 1034); // 太阳伤害字型
+                damageSkin.put(2433829, 1035); // 雨伤害字型
+                damageSkin.put(2433830, 1036); // 彩虹伤害字型
+                damageSkin.put(2433831, 1037); // 雪伤害字型
+                damageSkin.put(2433832, 1038); // 闪电伤害字型
+                damageSkin.put(2433833, 1039); // 风伤害字型
+                damageSkin.put(2434004, 1041); // 小筱伤害字型
+                damageSkin.put(2434499, 1049); // 月亮伤害字型
+                // 1050 - 跟1034一样
             }
             Map<Integer, Integer> value = new TreeMap();
             value.putAll(damageSkin);
@@ -115,13 +115,13 @@ public class ItemConstants {
     public static class 卷轴 {
 
         public static boolean canScroll(final int itemId) {
-            return (itemId / 100000 != 19 && itemId / 100000 != 16) || 类型.心脏(itemId); //no mech/taming/dragon/心脏
+            return (itemId / 100000 != 19 && itemId / 100000 != 16) || 类型.心脏(itemId); // no mech/taming/dragon/心脏
         }
 
         public static boolean canHammer(final int itemId) {
             switch (itemId) {
                 case 1122000:
-                case 1122076: //ht, chaos ht
+                case 1122076: // ht, chaos ht
                     return false;
             }
             return canScroll(itemId);
@@ -129,21 +129,21 @@ public class ItemConstants {
 
         public static int getChaosNumber(int itemId) {
             switch (itemId) {
-                case 2049116://惊讶的混沌卷轴 60%
-                case 2049132://惊讶的混沌卷轴 30%
-                case 2049133://惊讶的混沌卷轴 50%
-                case 2049134://惊讶的混沌卷轴 70%
-                case 2049135://惊讶乐观的混沌卷轴 20%
-                case 2049136://惊讶乐观的混沌卷轴 20%
-                case 2049137://惊讶乐观的混沌卷轴 40%
-                case 2049140://珠宝戒指的惊讶的混沌卷轴 40%
-                case 2049142://惊讶的混沌卷轴 40%
-                case 2049145://珠宝工艺惊讶的混沌卷轴 40%
-                case 2049152://惊讶的混沌卷轴 60%
-                case 2049153://惊讶乐观的混沌卷轴
-                case 2049156://惊讶的混沌卷轴 20%
-                case 2049159://惊讶的混沌卷轴 50%
-                case 2049165://惊讶的混沌卷轴 50%
+                case 2049116:// 惊讶的混沌卷轴 60%
+                case 2049132:// 惊讶的混沌卷轴 30%
+                case 2049133:// 惊讶的混沌卷轴 50%
+                case 2049134:// 惊讶的混沌卷轴 70%
+                case 2049135:// 惊讶乐观的混沌卷轴 20%
+                case 2049136:// 惊讶乐观的混沌卷轴 20%
+                case 2049137:// 惊讶乐观的混沌卷轴 40%
+                case 2049140:// 珠宝戒指的惊讶的混沌卷轴 40%
+                case 2049142:// 惊讶的混沌卷轴 40%
+                case 2049145:// 珠宝工艺惊讶的混沌卷轴 40%
+                case 2049152:// 惊讶的混沌卷轴 60%
+                case 2049153:// 惊讶乐观的混沌卷轴
+                case 2049156:// 惊讶的混沌卷轴 20%
+                case 2049159:// 惊讶的混沌卷轴 50%
+                case 2049165:// 惊讶的混沌卷轴 50%
                     return 10;
             }
             return 5;
@@ -151,23 +151,23 @@ public class ItemConstants {
 
         public static int getBonusPotentialScrollSucc(int scrollId) {
             switch (scrollId) {
-                case 2048306://成功100,3行
-                case 2048307://成功100
-                case 2048315://成功100
-                case 2048316://成功100
+                case 2048306:// 成功100,3行
+                case 2048307:// 成功100
+                case 2048315:// 成功100
+                case 2048316:// 成功100
                     return 100;
-                case 2048313://心之项炼专用,成功80
+                case 2048313:// 心之项炼专用,成功80
                     return 80;
-                case 2048305://成功70,失败损坏100
+                case 2048305:// 成功70,失败损坏100
                     return 70;
-                case 2048309://成功60,无损
-                case 2048310://成功60,失败损坏100
-                case 2048314://成功60
+                case 2048309:// 成功60,无损
+                case 2048310:// 成功60,失败损坏100
+                case 2048314:// 成功60
                     return 60;
-                case 2048308://成功50,失败损坏50
-                case 2048311://成功50,失败损坏50
+                case 2048308:// 成功50,失败损坏50
+                case 2048311:// 成功50,失败损坏50
                     return 50;
-                case 2048312://成功1
+                case 2048312:// 成功1
                     return 1;
                 default:
                     return 0;
@@ -176,11 +176,11 @@ public class ItemConstants {
 
         public static int getBonusPotentialScrollCurse(int scrollId) {
             switch (scrollId) {
-                case 2048305://成功70,失败损坏100
-                case 2048310://成功60,失败损坏100
+                case 2048305:// 成功70,失败损坏100
+                case 2048310:// 成功60,失败损坏100
                     return 100;
-                case 2048308://成功50,失败损坏50
-                case 2048311://成功50,失败损坏50
+                case 2048308:// 成功50,失败损坏50
+                case 2048311:// 成功50,失败损坏50
                     return 50;
                 default:
                     return 0;
@@ -188,7 +188,7 @@ public class ItemConstants {
         }
 
         public static int getSuccessTablet(final int scrollId, final int level) {
-            if (scrollId % 1000 / 100 == 2) { //2047_2_00 = armor, 2047_3_00 = accessory
+            if (scrollId % 1000 / 100 == 2) { // 2047_2_00 = armor, 2047_3_00 = accessory
                 switch (level) {
                     case 0:
                         return 70;
@@ -229,25 +229,25 @@ public class ItemConstants {
                     case 0:
                         return 70;
                     case 1:
-                        return 50; //-20
+                        return 50; // -20
                     case 2:
-                        return 36; //-14
+                        return 36; // -14
                     case 3:
-                        return 26; //-10
+                        return 26; // -10
                     case 4:
-                        return 19; //-7
+                        return 19; // -7
                     case 5:
-                        return 14; //-5
+                        return 14; // -5
                     case 6:
-                        return 10; //-4
+                        return 10; // -4
                     default:
-                        return 7;  //-3
+                        return 7; // -3
                 }
             }
         }
 
         public static int getCurseTablet(final int scrollId, final int level) {
-            if (scrollId % 1000 / 100 == 2) { //2047_2_00 = armor, 2047_3_00 = accessory
+            if (scrollId % 1000 / 100 == 2) { // 2047_2_00 = armor, 2047_3_00 = accessory
                 switch (level) {
                     case 0:
                         return 10;
@@ -288,19 +288,19 @@ public class ItemConstants {
                     case 0:
                         return 10;
                     case 1:
-                        return 14; //+4
+                        return 14; // +4
                     case 2:
-                        return 19; //+5
+                        return 19; // +5
                     case 3:
-                        return 26; //+7
+                        return 26; // +7
                     case 4:
-                        return 36; //+10
+                        return 36; // +10
                     case 5:
-                        return 50; //+14
+                        return 50; // +14
                     case 6:
-                        return 70; //+20
+                        return 70; // +20
                     default:
-                        return 100;  //+30
+                        return 100; // +30
                 }
             }
         }
@@ -308,7 +308,7 @@ public class ItemConstants {
         public static int getEnhanceTimes(int itemId) {
             MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
             int level = ii.getReqLevel(itemId);
-            boolean isSuperiorEquip = false;//ii.isSuperiorEquip(itemId);
+            boolean isSuperiorEquip = false;// ii.isSuperiorEquip(itemId);
             int enhanceTimes = 0;
             if (level >= 0 && level < 95) {
                 enhanceTimes = isSuperiorEquip ? 3 : 5;
@@ -330,7 +330,8 @@ public class ItemConstants {
     public static class 套装 {
 
         public static ArrayList<Integer> get6YearSet() {
-            int[] set = {1462116, 1342039, 1402109, 1472139, 1332147, 1322105, 1442135, 1452128, 1312071, 1382123, 1492100, 1372099, 1432098, 1422072, 1302172, 1482101, 1412070};
+            int[] set = { 1462116, 1342039, 1402109, 1472139, 1332147, 1322105, 1442135, 1452128, 1312071, 1382123,
+                    1492100, 1372099, 1432098, 1422072, 1302172, 1482101, 1412070 };
             ArrayList<Integer> list = new ArrayList();
             for (int i : set) {
                 list.add(i);
@@ -339,7 +340,9 @@ public class ItemConstants {
         }
 
         public static ArrayList<Integer> get7YearSet() {
-            int[] set = {1003243, 1052358, 1072522, 1082315, 1102295, 1132093, 1152061, 1332145, 1402107, 1442133, 1462114, 1472137, 1532070, 1522066, 1452126, 1312069, 1382121, 1492098, 1372097, 1362058, 1432096, 1422070, 1302170, 1482099, 1412068};
+            int[] set = { 1003243, 1052358, 1072522, 1082315, 1102295, 1132093, 1152061, 1332145, 1402107, 1442133,
+                    1462114, 1472137, 1532070, 1522066, 1452126, 1312069, 1382121, 1492098, 1372097, 1362058, 1432096,
+                    1422070, 1302170, 1482099, 1412068 };
             ArrayList<Integer> list = new ArrayList();
             for (int i : set) {
                 list.add(i);
@@ -348,7 +351,12 @@ public class ItemConstants {
         }
 
         public static ArrayList<Integer> get8YearSet() {
-            int[] set = {1462159, 1462156, 1402145, 1402151, 1052461, 1052457, 1532073, 1532074, 1472177, 1472179, 1332186, 1332193, 1322154, 1322162, 1442173, 1442182, 1522068, 1522071, 1452165, 1312114, 1312116, 1382160, 1132154, 1132151, 1072666, 1072660, 1212069, 1212068, 1492152, 1492138, 1372139, 1372131, 1222063, 1222064, 1082433, 1082430, 1362060, 1362067, 1432138, 1432135, 1152088, 1152089, 1003529, 1003552, 1422107, 1422105, 1232070, 1232063, 1302227, 1302212, 1113036, 1113035, 1112743, 1112742, 1482140, 1482138, 1242048, 1242075, 1412102, 1412014, 1102394, 1102441};
+            int[] set = { 1462159, 1462156, 1402145, 1402151, 1052461, 1052457, 1532073, 1532074, 1472177, 1472179,
+                    1332186, 1332193, 1322154, 1322162, 1442173, 1442182, 1522068, 1522071, 1452165, 1312114, 1312116,
+                    1382160, 1132154, 1132151, 1072666, 1072660, 1212069, 1212068, 1492152, 1492138, 1372139, 1372131,
+                    1222063, 1222064, 1082433, 1082430, 1362060, 1362067, 1432138, 1432135, 1152088, 1152089, 1003529,
+                    1003552, 1422107, 1422105, 1232070, 1232063, 1302227, 1302212, 1113036, 1113035, 1112743, 1112742,
+                    1482140, 1482138, 1242048, 1242075, 1412102, 1412014, 1102394, 1102441 };
             ArrayList<Integer> list = new ArrayList();
             for (int i : set) {
                 list.add(i);
@@ -358,35 +366,35 @@ public class ItemConstants {
 
         public static ArrayList<Integer> get10YearSet() {
             int[] set = {
-                1004172,//帽子
-                1012471,//脸饰
-                1052758,//套服
-                1102691,//披风
-                1122280,//坠饰
-                1212095,//魔法克鲁
-                1222089,//灵魂射手
-                1232089,//魔剑
-                1242095,//能量剑
-                1302304,//单手剑
-                1312179,//单手斧
-                1322230,//单手棍
-                1332254,//短剑
-                1342094,//双刀
-                1362115,//手杖
-                1372201,//短杖
-                1382239,//长杖
-                1402229,//双手剑
-                1412158,//双手斧
-                1422165,//双手棍
-                1432194,//枪
-                1442248,//矛
-                1452232,//弓
-                1462219,//弩
-                1472241,//拳套
-                1482196,//指虎
-                1492205,//火枪
-                1522118,//双弩枪
-                1532124,//加农炮
+                    1004172, // 帽子
+                    1012471, // 脸饰
+                    1052758, // 套服
+                    1102691, // 披风
+                    1122280, // 坠饰
+                    1212095, // 魔法克鲁
+                    1222089, // 灵魂射手
+                    1232089, // 魔剑
+                    1242095, // 能量剑
+                    1302304, // 单手剑
+                    1312179, // 单手斧
+                    1322230, // 单手棍
+                    1332254, // 短剑
+                    1342094, // 双刀
+                    1362115, // 手杖
+                    1372201, // 短杖
+                    1382239, // 长杖
+                    1402229, // 双手剑
+                    1412158, // 双手斧
+                    1422165, // 双手棍
+                    1432194, // 枪
+                    1442248, // 矛
+                    1452232, // 弓
+                    1462219, // 弩
+                    1472241, // 拳套
+                    1482196, // 指虎
+                    1492205, // 火枪
+                    1522118, // 双弩枪
+                    1532124,// 加农炮
             };
             ArrayList<Integer> list = new ArrayList();
             for (int i : set) {
@@ -396,315 +404,329 @@ public class ItemConstants {
         }
     }
 
-//    public static class 方块 {
-//
-//        public static boolean canUseCube(Equip eq, int cubeId) {
-//            switch (cubeId) {
-//                case 2711007://10周年武器专用方块
-//                    if (套装.get10YearSet().contains(eq.getItemId()) && 类型.武器(eq.getItemId())) {
-//                        return true;
-//                    }
-//                    return false;
-//                case 5062100://枫叶奇幻方块(罕见)
-//                    if (套装.get7YearSet().contains(eq.getItemId()) && eq.getState(false) < 20) {
-//                        return true;
-//                    }
-//                    return false;
-//                case 5062102://[6周年]奇幻方块
-//                    if (套装.get6YearSet().contains(eq.getItemId()) && 类型.武器(eq.getItemId())) {
-//                        return true;
-//                    }
-//                    return false;
-//                case 5062103://梦幻的神奇魔方
-//                    if (套装.get8YearSet().contains(eq.getItemId())) {
-//                        return true;
-//                    }
-//                    return false;
-//                case 2711000://可疑的方块
-//                case 2711001://奇怪的方块
-//                    if (eq.getState(false) < 18) {
-//                        return true;
-//                    }
-//                    return false;
-//                case 2710000://奇怪的方块(罕见)
-//                case 2711005://工匠的方块
-//                case 5062000://奇幻方块
-//                case 5062004://星星方块
-//                    if (eq.getState(false) < 20) {
-//                        return true;
-//                    }
-//                    return false;
-//                default:
-//                    return true;
-//            }
-//        }
-//
-//        public enum CubeType {
-//
-//            特殊(0x1),
-//            稀有(0x2),
-//            罕见(0x4),
-//            传说(0x8),
-//            等级下降(0x10),
-//            调整潜能条数(0x20),
-//            洗后无法交易(0x40),
-//            对等(0x80),
-//            去掉无用潜能(0x100),
-//            前两条相同(0x200),
-//            附加潜能(0x400),
-//            点商光环(0x800),
-//            ;
-//            private final int value;
-//
-//            private CubeType(int value) {
-//                this.value = value;
-//            }
-//
-//            public final int getValue() {
-//                return value;
-//            }
-//
-//            public final boolean check(int flag) {
-//                return (flag & value) == value;
-//            }
-//        }
-//
-//        public static int getCubeType(int itemId) {
-//            int type = CubeType.特殊.getValue() | CubeType.稀有.getValue() | CubeType.罕见.getValue() | CubeType.传说.getValue();
-//            switch (itemId) {
-//                case 2711000://可疑的方块(稀有)
-//                case 2711001://奇怪的方块(传说,说明上是传说,实际只能洗到稀有)
-//                    type -= CubeType.罕见.getValue();
-//                case 2710000://奇怪的方块(罕见)
-//                    type -= CubeType.传说.getValue();
-//                    type |= CubeType.等级下降.getValue();
-//                    break;
-//                case 2710001://情谊魔方(洗后装备不可交换)
-//                    type -= CubeType.传说.getValue();
-//                case 3994895://枫方块
-//                    type |= CubeType.洗后无法交易.getValue();
-//                    break;
-//                case 2711005://工匠的方块
-//                case 2711007://10周年武器专用方块
-//                case 5062000://奇幻方块
-//                    type -= CubeType.传说.getValue();
-//                    break;
-//                case 5062001://超级奇幻方块
-//                    type -= CubeType.传说.getValue();
-//                    type |= CubeType.调整潜能条数.getValue();
-//                    break;
-//                case 5062004://星星方块
-//                    type -= CubeType.传说.getValue();
-//                    type |= CubeType.去掉无用潜能.getValue();
-//                    break;
-//                case 5062013://太阳方块
-//                    type |= CubeType.去掉无用潜能.getValue();
-//                case 5062005://惊奇方块
-//                case 5062006://白金奇幻方块
-//                case 5062021://新对等方块
-//                    type |= CubeType.对等.getValue();
-//                    break;
-//                case 5062008://镜射方块
-//                case 5062019://闪耀镜射方块
-//                    type |= CubeType.前两条相同.getValue();
-//                    break;
-//                case 5062500://大师附加奇幻方块
-//                case 5062501://[MS特价] 大师附加奇幻方块
-//                    type |= CubeType.附加潜能.getValue();
-//                    break;
-//                case 2711006://名匠的方块
-//                case 5062002://传说方块
-//                case 5062009://红色方块
-//                case 5062010://黑色方块
-//                case 5062017://闪耀方块
-//                case 5062020://闪炫方块
-//                case 5062090://记忆方块
-//                case 5062100://枫叶奇幻方块
-//                case 5062102://[6周年]奇幻方块
-//                case 5062103://奇异奇幻方块
-//                default:
-//                    break;
-//            }
-//            if (MapleItemInformationProvider.getInstance().isCash(itemId)) {
-//                type |= CubeType.点商光环.getValue();
-//            }
-//            return type;
-//        }
-//
-//        public static boolean potentialIDFits(final int potentialID, final int newstate, final int i) {
-//            //first line is always the best
-//            //but, sometimes it is possible to get second/third line as well
-//            //may seem like big chance, but it's not as it grabs random potential ID anyway
-//            if (newstate == 20) {
-//                return (i == 1 || Randomizer.nextInt(20) == 0 ? potentialID >= 40000 : potentialID >= 30000 && potentialID < 60004); // xml say so
-//            } else if (newstate == 19) {
-//                return (i == 1 || Randomizer.nextInt(20) == 0 ? potentialID >= 30000 && potentialID < 40000 : potentialID >= 20000 && potentialID < 30000);
-//            } else if (newstate == 18) {
-//                return (i == 1 || Randomizer.nextInt(20) == 0 ? potentialID >= 20000 && potentialID < 30000 : potentialID >= 10000 && potentialID < 20000);
-//            } else if (newstate == 17) {
-//                return (i == 1 || Randomizer.nextInt(20) == 0 ? potentialID >= 10000 && potentialID < 20000 : potentialID < 10000);
-//            } else {
-//                return false;
-//            }
-//        }
-//
-//        public static boolean optionTypeFits(final int optionType, final int itemId) {
-//            switch (optionType) {
-//                case 10: // 武器、盾牌、副手和能源
-//                    return 类型.武器(itemId) || 类型.副手(itemId) || 类型.能源(itemId);
-//                case 11: // 除了武器的全部装备
-//                    return !类型.武器(itemId);
-//                case 20: // 除了配饰和武器的全部装备
-//                    return !类型.饰品(itemId) && !类型.武器(itemId);
-//                case 40: // 配饰
-//                    return 类型.饰品(itemId);
-//                case 51: // 帽子
-//                    return 类型.帽子(itemId);
-//                case 52: // 披风
-//                    return 类型.披风(itemId);
-//                case 53: // 上衣、裤子与套服
-//                    return 类型.上衣(itemId) || 类型.套服(itemId) || 类型.裤裙(itemId);
-//                case 54: // 手套
-//                    return 类型.手套(itemId);
-//                case 55: // 鞋子
-//                    return 类型.鞋子(itemId);
-//                default:
-//                    return true;
-//            }
-//        }
-//
-//        public static boolean isAllowedPotentialStat(Equip eqp, int opID, boolean bonus, boolean cash) { //For now
-//            MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-//            boolean superPot = ZZMSConfig.superiorPotential && ii.isSuperiorEquip(eqp.getItemId()) && Randomizer.nextInt(100) < 15;
-//            //判断潜能是主潜还是附潜
-//            int type = opID / 1000 % 10;
-//            if ((bonus && ((!superPot && type != 2) || (superPot && type >= 1))) || (!bonus && type == 2)) {
-//                return false;
-//            }
-//            //点商光环清除罕见以上潜能的非常的垃圾纯数字潜能
-//            if ((opID % 1000 <= 14 || opID % 1000 == 81) && type != 1 && opID < 60000 && cash) {
-//                return false;
-//            }
-//
-//            int state = opID % 1000;
-//            return superPot && !bonus ? (state != 4 && state != 9 && state != 24 && (state < 13 || state > 18)) : opID < 60000;
-//        }
-//
-//        public static int getCubeFragment(int itemId) {
-//            switch (itemId) {
-//                case 5062000://奇幻方块
-//                    return 2430112;
-//                case 5062002://传说方块
-//                    return 2430481;
-//                case 5062004://星星方块
-//                    return 2432114;
-//                case 5062005://惊奇方块
-//                    return 2430759;
-//                case 5062006://白金奇幻方块
-//                    return 2431427;
-//                case 5062009://红色方块
-//                    return 2431893;
-//                case 5062010://黑色方块
-//                    return 2431894;
-//                case 5062013://太阳方块
-//                    return 2432115;
-//                case 5062090://记忆方块
-//                    return 2431445;
-//                case 5062100://枫叶魔方
-//                    return 2430112;
-//                case 5062102://[7周年]神奇魔方
-//                    return 2430112;
-//                case 5062103://奇异奇幻方块
-//                    return 2430112;
-//                case 5062500://大师附加奇幻方块
-//                    return 2430915;
-//                default:
-//                    return 0;
-//            }
-//        }
-//
-//        public static boolean canLockCube(int itemId) {
-//            switch (itemId) {
-//                case 5062000://奇幻方块
-//                case 5062004://星星方块
-//                case 5062006://白金奇幻方块
-//                case 5062013://太阳方块
-//                    return true;
-//                default:
-//                    return false;
-//            }
-//        }
-//
-//        public static long getMapleCubeCost(int times, int potentialState) {
-//            potentialState -= 1;
-//            if (potentialState < 0) {
-//                return 100;
-//            }
-//            long cost = 0;
-//            long[] mapleCubeCostPlus = {100, 10000, 500000, 20000000};
-//            long[] mapleCubeCostInitial = {100, 100000, 1000000, 10000000};
-//            long[] mapleCubeCostMax = {15000, 47400000, 5113000000L, 9999999999L};
-//            if (times >= 50) {
-//                cost = mapleCubeCostMax[potentialState];
-//            } else {
-//                for (int i = 1; i <= times; i++) {
-//                    long plus = 1;
-//                    for (int j = 0; j < i / (potentialState == 0 ? 10 : 5); j++) {
-//                        if (potentialState == 0) {
-//                            plus += 1;
-//                        } else if (potentialState == 1) {
-//                            plus *= 2;
-//                        } else if (potentialState == 2) {
-//                            plus *= 2 + (j == 0 ? 2 : 0);
-//                        } else if (potentialState == 3) {
-//                            plus *= 2 + (j == 3 ? 1 : 0);
-//                        }
-//                    }
-//                    cost += mapleCubeCostPlus[potentialState] * plus;
-//                }
-//            }
-//            cost += mapleCubeCostInitial[potentialState];
-//            cost = cost > mapleCubeCostMax[potentialState] ? mapleCubeCostMax[potentialState] : cost;
-//            return cost;
-//        }
-//
-//        public static boolean isUselessPotential(StructItemOption pot) {
-//            boolean useless = false;
-//            for (String s : pot.getItemOption()) {
-//                if (pot.get(s) > 0) {
-//                    switch (s) {
-//                        case "incSTRr":
-//                        case "incDEXr":
-//                        case "incINTr":
-//                        case "incLUKr":
-//                        case "incMHPr":
-//                        case "incPADr":
-//                        case "incMADr":
-//                        case "incCriticaldamageMin":
-//                        case "incCriticaldamageMax":
-//                        case "incDAMr":
-//                        case "incTerR":
-//                        case "incAsrR":
-//                        case "ignoreTargetDEF":
-//                        case "incMaxDamage":
-//                        case "reduceCooltime":
-//                        case "boss":
-//                        case "incMesoProp":
-//                        case "incRewardProp":
-//                        case "level":
-//                        case "attackType":
-//                            break;
-//                        default:
-//                            useless = true;
-//                    }
-//                }
-//            }
-//            return useless;
-//        }
-//    }
+    // public static class 方块 {
+    //
+    // public static boolean canUseCube(Equip eq, int cubeId) {
+    // switch (cubeId) {
+    // case 2711007://10周年武器专用方块
+    // if (套装.get10YearSet().contains(eq.getItemId()) && 类型.武器(eq.getItemId())) {
+    // return true;
+    // }
+    // return false;
+    // case 5062100://枫叶奇幻方块(罕见)
+    // if (套装.get7YearSet().contains(eq.getItemId()) && eq.getState(false) < 20) {
+    // return true;
+    // }
+    // return false;
+    // case 5062102://[6周年]奇幻方块
+    // if (套装.get6YearSet().contains(eq.getItemId()) && 类型.武器(eq.getItemId())) {
+    // return true;
+    // }
+    // return false;
+    // case 5062103://梦幻的神奇魔方
+    // if (套装.get8YearSet().contains(eq.getItemId())) {
+    // return true;
+    // }
+    // return false;
+    // case 2711000://可疑的方块
+    // case 2711001://奇怪的方块
+    // if (eq.getState(false) < 18) {
+    // return true;
+    // }
+    // return false;
+    // case 2710000://奇怪的方块(罕见)
+    // case 2711005://工匠的方块
+    // case 5062000://奇幻方块
+    // case 5062004://星星方块
+    // if (eq.getState(false) < 20) {
+    // return true;
+    // }
+    // return false;
+    // default:
+    // return true;
+    // }
+    // }
+    //
+    // public enum CubeType {
+    //
+    // 特殊(0x1),
+    // 稀有(0x2),
+    // 罕见(0x4),
+    // 传说(0x8),
+    // 等级下降(0x10),
+    // 调整潜能条数(0x20),
+    // 洗后无法交易(0x40),
+    // 对等(0x80),
+    // 去掉无用潜能(0x100),
+    // 前两条相同(0x200),
+    // 附加潜能(0x400),
+    // 点商光环(0x800),
+    // ;
+    // private final int value;
+    //
+    // private CubeType(int value) {
+    // this.value = value;
+    // }
+    //
+    // public final int getValue() {
+    // return value;
+    // }
+    //
+    // public final boolean check(int flag) {
+    // return (flag & value) == value;
+    // }
+    // }
+    //
+    // public static int getCubeType(int itemId) {
+    // int type = CubeType.特殊.getValue() | CubeType.稀有.getValue() |
+    // CubeType.罕见.getValue() | CubeType.传说.getValue();
+    // switch (itemId) {
+    // case 2711000://可疑的方块(稀有)
+    // case 2711001://奇怪的方块(传说,说明上是传说,实际只能洗到稀有)
+    // type -= CubeType.罕见.getValue();
+    // case 2710000://奇怪的方块(罕见)
+    // type -= CubeType.传说.getValue();
+    // type |= CubeType.等级下降.getValue();
+    // break;
+    // case 2710001://情谊魔方(洗后装备不可交换)
+    // type -= CubeType.传说.getValue();
+    // case 3994895://枫方块
+    // type |= CubeType.洗后无法交易.getValue();
+    // break;
+    // case 2711005://工匠的方块
+    // case 2711007://10周年武器专用方块
+    // case 5062000://奇幻方块
+    // type -= CubeType.传说.getValue();
+    // break;
+    // case 5062001://超级奇幻方块
+    // type -= CubeType.传说.getValue();
+    // type |= CubeType.调整潜能条数.getValue();
+    // break;
+    // case 5062004://星星方块
+    // type -= CubeType.传说.getValue();
+    // type |= CubeType.去掉无用潜能.getValue();
+    // break;
+    // case 5062013://太阳方块
+    // type |= CubeType.去掉无用潜能.getValue();
+    // case 5062005://惊奇方块
+    // case 5062006://白金奇幻方块
+    // case 5062021://新对等方块
+    // type |= CubeType.对等.getValue();
+    // break;
+    // case 5062008://镜射方块
+    // case 5062019://闪耀镜射方块
+    // type |= CubeType.前两条相同.getValue();
+    // break;
+    // case 5062500://大师附加奇幻方块
+    // case 5062501://[MS特价] 大师附加奇幻方块
+    // type |= CubeType.附加潜能.getValue();
+    // break;
+    // case 2711006://名匠的方块
+    // case 5062002://传说方块
+    // case 5062009://红色方块
+    // case 5062010://黑色方块
+    // case 5062017://闪耀方块
+    // case 5062020://闪炫方块
+    // case 5062090://记忆方块
+    // case 5062100://枫叶奇幻方块
+    // case 5062102://[6周年]奇幻方块
+    // case 5062103://奇异奇幻方块
+    // default:
+    // break;
+    // }
+    // if (MapleItemInformationProvider.getInstance().isCash(itemId)) {
+    // type |= CubeType.点商光环.getValue();
+    // }
+    // return type;
+    // }
+    //
+    // public static boolean potentialIDFits(final int potentialID, final int
+    // newstate, final int i) {
+    // //first line is always the best
+    // //but, sometimes it is possible to get second/third line as well
+    // //may seem like big chance, but it's not as it grabs random potential ID
+    // anyway
+    // if (newstate == 20) {
+    // return (i == 1 || Randomizer.nextInt(20) == 0 ? potentialID >= 40000 :
+    // potentialID >= 30000 && potentialID < 60004); // xml say so
+    // } else if (newstate == 19) {
+    // return (i == 1 || Randomizer.nextInt(20) == 0 ? potentialID >= 30000 &&
+    // potentialID < 40000 : potentialID >= 20000 && potentialID < 30000);
+    // } else if (newstate == 18) {
+    // return (i == 1 || Randomizer.nextInt(20) == 0 ? potentialID >= 20000 &&
+    // potentialID < 30000 : potentialID >= 10000 && potentialID < 20000);
+    // } else if (newstate == 17) {
+    // return (i == 1 || Randomizer.nextInt(20) == 0 ? potentialID >= 10000 &&
+    // potentialID < 20000 : potentialID < 10000);
+    // } else {
+    // return false;
+    // }
+    // }
+    //
+    // public static boolean optionTypeFits(final int optionType, final int itemId)
+    // {
+    // switch (optionType) {
+    // case 10: // 武器、盾牌、副手和能源
+    // return 类型.武器(itemId) || 类型.副手(itemId) || 类型.能源(itemId);
+    // case 11: // 除了武器的全部装备
+    // return !类型.武器(itemId);
+    // case 20: // 除了配饰和武器的全部装备
+    // return !类型.饰品(itemId) && !类型.武器(itemId);
+    // case 40: // 配饰
+    // return 类型.饰品(itemId);
+    // case 51: // 帽子
+    // return 类型.帽子(itemId);
+    // case 52: // 披风
+    // return 类型.披风(itemId);
+    // case 53: // 上衣、裤子与套服
+    // return 类型.上衣(itemId) || 类型.套服(itemId) || 类型.裤裙(itemId);
+    // case 54: // 手套
+    // return 类型.手套(itemId);
+    // case 55: // 鞋子
+    // return 类型.鞋子(itemId);
+    // default:
+    // return true;
+    // }
+    // }
+    //
+    // public static boolean isAllowedPotentialStat(Equip eqp, int opID, boolean
+    // bonus, boolean cash) { //For now
+    // MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+    // boolean superPot = ZZMSConfig.superiorPotential &&
+    // ii.isSuperiorEquip(eqp.getItemId()) && Randomizer.nextInt(100) < 15;
+    // //判断潜能是主潜还是附潜
+    // int type = opID / 1000 % 10;
+    // if ((bonus && ((!superPot && type != 2) || (superPot && type >= 1))) ||
+    // (!bonus && type == 2)) {
+    // return false;
+    // }
+    // //点商光环清除罕见以上潜能的非常的垃圾纯数字潜能
+    // if ((opID % 1000 <= 14 || opID % 1000 == 81) && type != 1 && opID < 60000 &&
+    // cash) {
+    // return false;
+    // }
+    //
+    // int state = opID % 1000;
+    // return superPot && !bonus ? (state != 4 && state != 9 && state != 24 &&
+    // (state < 13 || state > 18)) : opID < 60000;
+    // }
+    //
+    // public static int getCubeFragment(int itemId) {
+    // switch (itemId) {
+    // case 5062000://奇幻方块
+    // return 2430112;
+    // case 5062002://传说方块
+    // return 2430481;
+    // case 5062004://星星方块
+    // return 2432114;
+    // case 5062005://惊奇方块
+    // return 2430759;
+    // case 5062006://白金奇幻方块
+    // return 2431427;
+    // case 5062009://红色方块
+    // return 2431893;
+    // case 5062010://黑色方块
+    // return 2431894;
+    // case 5062013://太阳方块
+    // return 2432115;
+    // case 5062090://记忆方块
+    // return 2431445;
+    // case 5062100://枫叶魔方
+    // return 2430112;
+    // case 5062102://[7周年]神奇魔方
+    // return 2430112;
+    // case 5062103://奇异奇幻方块
+    // return 2430112;
+    // case 5062500://大师附加奇幻方块
+    // return 2430915;
+    // default:
+    // return 0;
+    // }
+    // }
+    //
+    // public static boolean canLockCube(int itemId) {
+    // switch (itemId) {
+    // case 5062000://奇幻方块
+    // case 5062004://星星方块
+    // case 5062006://白金奇幻方块
+    // case 5062013://太阳方块
+    // return true;
+    // default:
+    // return false;
+    // }
+    // }
+    //
+    // public static long getMapleCubeCost(int times, int potentialState) {
+    // potentialState -= 1;
+    // if (potentialState < 0) {
+    // return 100;
+    // }
+    // long cost = 0;
+    // long[] mapleCubeCostPlus = {100, 10000, 500000, 20000000};
+    // long[] mapleCubeCostInitial = {100, 100000, 1000000, 10000000};
+    // long[] mapleCubeCostMax = {15000, 47400000, 5113000000L, 9999999999L};
+    // if (times >= 50) {
+    // cost = mapleCubeCostMax[potentialState];
+    // } else {
+    // for (int i = 1; i <= times; i++) {
+    // long plus = 1;
+    // for (int j = 0; j < i / (potentialState == 0 ? 10 : 5); j++) {
+    // if (potentialState == 0) {
+    // plus += 1;
+    // } else if (potentialState == 1) {
+    // plus *= 2;
+    // } else if (potentialState == 2) {
+    // plus *= 2 + (j == 0 ? 2 : 0);
+    // } else if (potentialState == 3) {
+    // plus *= 2 + (j == 3 ? 1 : 0);
+    // }
+    // }
+    // cost += mapleCubeCostPlus[potentialState] * plus;
+    // }
+    // }
+    // cost += mapleCubeCostInitial[potentialState];
+    // cost = cost > mapleCubeCostMax[potentialState] ?
+    // mapleCubeCostMax[potentialState] : cost;
+    // return cost;
+    // }
+    //
+    // public static boolean isUselessPotential(StructItemOption pot) {
+    // boolean useless = false;
+    // for (String s : pot.getItemOption()) {
+    // if (pot.get(s) > 0) {
+    // switch (s) {
+    // case "incSTRr":
+    // case "incDEXr":
+    // case "incINTr":
+    // case "incLUKr":
+    // case "incMHPr":
+    // case "incPADr":
+    // case "incMADr":
+    // case "incCriticaldamageMin":
+    // case "incCriticaldamageMax":
+    // case "incDAMr":
+    // case "incTerR":
+    // case "incAsrR":
+    // case "ignoreTargetDEF":
+    // case "incMaxDamage":
+    // case "reduceCooltime":
+    // case "boss":
+    // case "incMesoProp":
+    // case "incRewardProp":
+    // case "level":
+    // case "attackType":
+    // break;
+    // default:
+    // useless = true;
+    // }
+    // }
+    // }
+    // return useless;
+    // }
+    // }
     public static class 类型 {
 
-        //<editor-fold defaultstate="collapsed" desc="道具一级分类">
+        // <editor-fold defaultstate="collapsed" desc="道具一级分类">
         public static boolean 帽子(int itemid) {
             return itemid / 10000 == 100;
         }
@@ -977,13 +999,14 @@ public class ItemConstants {
             return id / 10000 == 500;
         }
 
-        //</editor-fold>
+        // </editor-fold>
         public static boolean 防具(int itemid) {
             return 帽子(itemid) || 上衣(itemid) || 套服(itemid) || 裤裙(itemid) || 鞋子(itemid) || 手套(itemid) || 披风(itemid);
         }
 
         public static boolean 饰品(int itemid) {
-            return 脸饰(itemid) || 眼饰(itemid) || 耳环(itemid) || 戒指(itemid) || 坠饰(itemid) || 腰带(itemid) || 勋章(itemid) || 肩饰(itemid) || 口袋道具(itemid) || 胸章(itemid) || 能源(itemid) || 图腾(itemid);
+            return 脸饰(itemid) || 眼饰(itemid) || 耳环(itemid) || 戒指(itemid) || 坠饰(itemid) || 腰带(itemid) || 勋章(itemid)
+                    || 肩饰(itemid) || 口袋道具(itemid) || 胸章(itemid) || 能源(itemid) || 图腾(itemid);
         }
 
         public static boolean 副手(int itemid) {
@@ -1175,15 +1198,15 @@ public class ItemConstants {
 
         public static boolean 管理员装备(final int itemid) {
             switch (itemid) {
-                case 1002140://维泽特帽
-                case 1003142://维泽特帽
-                case 1003274://维泽特帽
-                case 1042003://维泽特西装
-                case 1042223://维泽特西装
-                case 1062007://维泽特西裤
-                case 1062140://维泽特西裤
-                case 1322013://维泽特手提包
-                case 1322106://维泽特手提包
+                case 1002140:// 维泽特帽
+                case 1003142:// 维泽特帽
+                case 1003274:// 维泽特帽
+                case 1042003:// 维泽特西装
+                case 1042223:// 维泽特西装
+                case 1062007:// 维泽特西裤
+                case 1062140:// 维泽特西裤
+                case 1322013:// 维泽特手提包
+                case 1322106:// 维泽特手提包
                 case 1002959:
                     return true;
             }
@@ -1199,9 +1222,11 @@ public class ItemConstants {
         }
 
         public static boolean 阿斯旺卷轴(int itemid) {
-            //return MapleItemInformationProvider.getInstance().getEquipStats(scroll.getItemId()).containsKey("tuc");
-            //should add this ^ too.
-            return itemid >= 2046060 && itemid <= 2046069 || itemid >= 2046141 && itemid <= 2046145 || itemid >= 2046519 && itemid <= 2046530 || itemid >= 2046701 && itemid <= 2046712;
+            // return
+            // MapleItemInformationProvider.getInstance().getEquipStats(scroll.getItemId()).containsKey("tuc");
+            // should add this ^ too.
+            return itemid >= 2046060 && itemid <= 2046069 || itemid >= 2046141 && itemid <= 2046145
+                    || itemid >= 2046519 && itemid <= 2046530 || itemid >= 2046701 && itemid <= 2046712;
         }
 
         public static boolean 提升卷(int itemid) { // 龙骑士获得的强化牌板
@@ -1228,16 +1253,16 @@ public class ItemConstants {
                 return false;
             }
             switch (itemid) {
-                case 2049122://乐观的混卷轴50%
-                case 2049129://乐观的混卷轴 50%
-                case 2049130://乐观的混卷轴 30%
-                case 2049131://乐观的混卷轴 20%
-                case 2049135://惊讶乐观的混卷轴 20%
-                case 2049136://惊讶乐观的混卷轴 20%
-                case 2049137://惊讶乐观的混卷轴 40%
-                case 2049141://珠宝戒指的乐观的混卷轴 30%
-                case 2049155://珠宝工艺乐观的混卷轴 30%
-                case 2049153://惊讶乐观的混卷轴
+                case 2049122:// 乐观的混卷轴50%
+                case 2049129:// 乐观的混卷轴 50%
+                case 2049130:// 乐观的混卷轴 30%
+                case 2049131:// 乐观的混卷轴 20%
+                case 2049135:// 惊讶乐观的混卷轴 20%
+                case 2049136:// 惊讶乐观的混卷轴 20%
+                case 2049137:// 惊讶乐观的混卷轴 40%
+                case 2049141:// 珠宝戒指的乐观的混卷轴 30%
+                case 2049155:// 珠宝工艺乐观的混卷轴 30%
+                case 2049153:// 惊讶乐观的混卷轴
                     return true;
             }
             return false;
@@ -1261,8 +1286,8 @@ public class ItemConstants {
 
         public static boolean 回真卷轴(int itemid) {
             switch (itemid) {
-                case 5064200://完美回真卡
-                case 5064201://星光回真卷轴
+                case 5064200:// 完美回真卡
+                case 5064201:// 星光回真卷轴
                     return true;
                 default:
                     return itemid / 100 == 20496;
@@ -1271,8 +1296,8 @@ public class ItemConstants {
 
         public static boolean 幸运日卷轴(int itemid) {
             switch (itemid) {
-                case 5063100://幸运保护券(防爆+幸运)
-                case 5068000://宠物专用幸运日卷轴
+                case 5063100:// 幸运保护券(防爆+幸运)
+                case 5068000:// 宠物专用幸运日卷轴
                     return true;
                 default:
                     return itemid / 1000 == 2530;
@@ -1281,11 +1306,11 @@ public class ItemConstants {
 
         public static boolean 保护卷轴(int itemid) {
             switch (itemid) {
-                case 5063100://幸运保护券(防爆+幸运)
-                case 5064000://装备保护卷轴(无法用于尊贵或12星以上)
-                case 5064002://星光装备保护卷轴(105以下的装备且无法用于尊贵或12星以上)
-                case 5064003://尊贵装备保护卷轴(无法用于非尊贵以及尊贵7星以上)
-                case 5064004://[MS特价] 装备保护卷轴(无法用于尊贵或12星以上)
+                case 5063100:// 幸运保护券(防爆+幸运)
+                case 5064000:// 装备保护卷轴(无法用于尊贵或12星以上)
+                case 5064002:// 星光装备保护卷轴(105以下的装备且无法用于尊贵或12星以上)
+                case 5064003:// 尊贵装备保护卷轴(无法用于非尊贵以及尊贵7星以上)
+                case 5064004:// [MS特价] 装备保护卷轴(无法用于尊贵或12星以上)
                     return true;
                 default:
                     return itemid / 1000 == 2531;
@@ -1294,9 +1319,9 @@ public class ItemConstants {
 
         public static boolean 安全卷轴(int itemid) {
             switch (itemid) {
-                case 5064100://安全盾牌卷轴
-                case 5064101://星光安全盾牌卷轴(105以下的装备)
-                case 5068100://宠物安全盾牌卷轴
+                case 5064100:// 安全盾牌卷轴
+                case 5064101:// 星光安全盾牌卷轴(105以下的装备)
+                case 5068100:// 宠物安全盾牌卷轴
                     return true;
                 default:
                     return itemid / 1000 == 2532;
@@ -1305,9 +1330,9 @@ public class ItemConstants {
 
         public static boolean 卷轴保护卡(int itemid) {
             switch (itemid) {
-                case 5064300://卷轴保护卡
-                case 5064301://星光卷轴保护卡(105以下的装备)
-                case 5068200://宠物卷轴保护卡
+                case 5064300:// 卷轴保护卡
+                case 5064301:// 星光卷轴保护卡(105以下的装备)
+                case 5068200:// 宠物卷轴保护卡
                     return true;
             }
             return false;
@@ -1330,13 +1355,14 @@ public class ItemConstants {
         }
 
         public static boolean 特殊潜能道具(final int itemid) {
-            if (itemid / 100 == 10121 && itemid % 100 >= 64 && itemid % 100 <= 74 && itemid % 100 != 65 && itemid % 100 != 66) {//恰吉
+            if (itemid / 100 == 10121 && itemid % 100 >= 64 && itemid % 100 <= 74 && itemid % 100 != 65
+                    && itemid % 100 != 66) {// 恰吉
                 return true;
-            } else if (itemid / 10 == 112212 && (itemid % 10 >= 2 && itemid % 10 <= 6)) {//真. 枫叶之心
+            } else if (itemid / 10 == 112212 && (itemid % 10 >= 2 && itemid % 10 <= 6)) {// 真. 枫叶之心
                 return true;
-            } else if (itemid >= 1122224 && itemid <= 1122245) {//心之项炼
+            } else if (itemid >= 1122224 && itemid <= 1122245) {// 心之项炼
                 return true;
-            } else if (itemid / 10 == 101244) {//卡尔顿的胡子
+            } else if (itemid / 10 == 101244) {// 卡尔顿的胡子
                 return true;
             }
             return false;
@@ -1366,7 +1392,8 @@ public class ItemConstants {
             if (id == 33030 || id == 33160 || id == 33590) {
                 return false;
             }
-            if (id / 1000 == 30 || id / 1000 == 33 || (id / 1000 == 32 && id >= 32370) || id / 1000 == 36 || (id / 1000 == 37 && id >= 37160 && id <= 37170)) {
+            if (id / 1000 == 30 || id / 1000 == 33 || (id / 1000 == 32 && id >= 32370) || id / 1000 == 36
+                    || (id / 1000 == 37 && id >= 37160 && id <= 37170)) {
                 return true;
             }
             switch (id) {
@@ -1382,7 +1409,8 @@ public class ItemConstants {
             if (id == 32160 || id == 32330 || id == 34740) {
                 return false;
             }
-            if (id / 1000 == 31 || id / 1000 == 34 || (id / 1000 == 32 && id < 32370) || (id / 1000 == 37 && id < 37160)) {
+            if (id / 1000 == 31 || id / 1000 == 34 || (id / 1000 == 32 && id < 32370)
+                    || (id / 1000 == 37 && id < 37160)) {
                 return true;
             }
             switch (id) {
@@ -1502,11 +1530,11 @@ public class ItemConstants {
             case 3010118: // Musical Note Chair
             case 3010124: // Dunas Jet Char
             case 3010125: // Nibelung Battleship
-            case 3010131: //chewing panda chair
+            case 3010131: // chewing panda chair
             case 3010137: // Dragon lord Chair
             case 3010156: // Visitor Representative
             case 3010615: // Nao Resting
-            case 3010592: //Black Bean Chair
+            case 3010592: // Black Bean Chair
             case 3010602: // Heart Cloud Chair
             case 3010670: // absolute Ring chair
             case 3010728: // ilove Maplestory
@@ -1537,7 +1565,7 @@ public class ItemConstants {
             case 2040834: // Scroll for gloves for att 50%^
             case 1102042: // Purple adventure cape
                 return 2;
-            //1 = wedding msg o.o
+            // 1 = wedding msg o.o
         }
         return 0;
     }
@@ -1561,15 +1589,15 @@ public class ItemConstants {
                 || source.getUpgradeSlots() > 32
                 || source.getViciousHammer() > 1
                 || source.getWatk() > 1000
-                || source.getWdef() > 1500 /*|| source.getLevel() > 32*/;
+                || source.getWdef() > 1500 /* || source.getLevel() > 32 */;
     }
 
     public static boolean isForGM(int itemid) {
-        return (itemid >= 2049335 && itemid <= 2049349) || //强化卷轴
-                itemid == 2430011 || //特务召唤
-                itemid == 2430012 || //移除特务
-                itemid == 2430124 || //GM测试
-                itemid == 2002085;//GM的无敌饮料
+        return (itemid >= 2049335 && itemid <= 2049349) || // 强化卷轴
+                itemid == 2430011 || // 特务召唤
+                itemid == 2430012 || // 移除特务
+                itemid == 2430124 || // GM测试
+                itemid == 2002085;// GM的无敌饮料
     }
 
     public static boolean isMadeByGM(final MapleClient c, final int itemId, short slot) {
@@ -1594,120 +1622,120 @@ public class ItemConstants {
         boolean isCash = MapleItemInformationProvider.getInstance().isCash(itemId);
         if (类型.帽子(itemId)) {
             if (isCash) {
-                return new short[]{-101};
+                return new short[] { -101 };
             } else {
-                return new short[]{-1};
+                return new short[] { -1 };
             }
         } else if (类型.脸饰(itemId)) {
             if (isCash) {
-                return new short[]{-102};
+                return new short[] { -102 };
             } else {
-                return new short[]{-2};
+                return new short[] { -2 };
             }
         } else if (类型.眼饰(itemId)) {
             if (isCash) {
-                return new short[]{-103};
+                return new short[] { -103 };
             } else {
-                return new short[]{-3};
+                return new short[] { -3 };
             }
         } else if (类型.耳环(itemId)) {
             if (isCash) {
-                return new short[]{-104};
+                return new short[] { -104 };
             } else {
-                return new short[]{-4};
+                return new short[] { -4 };
             }
         } else if (类型.上衣(itemId) || 类型.套服(itemId)) {
             if (isCash) {
-                return new short[]{-105};
+                return new short[] { -105 };
             } else {
-                return new short[]{-5};
+                return new short[] { -5 };
             }
         } else if (类型.裤裙(itemId)) {
             if (isCash) {
-                return new short[]{-106};
+                return new short[] { -106 };
             } else {
-                return new short[]{-6};
+                return new short[] { -6 };
             }
         } else if (类型.鞋子(itemId)) {
             if (isCash) {
-                return new short[]{-107};
+                return new short[] { -107 };
             } else {
-                return new short[]{-7};
+                return new short[] { -7 };
             }
         } else if (类型.手套(itemId)) {
             if (isCash) {
-                return new short[]{-108};
+                return new short[] { -108 };
             } else {
-                return new short[]{-8};
+                return new short[] { -8 };
             }
         } else if (类型.披风(itemId)) {
             if (isCash) {
-                return new short[]{-109};
+                return new short[] { -109 };
             } else {
-                return new short[]{-9};
+                return new short[] { -9 };
             }
         } else if (类型.副手(itemId)) {
             if (isCash) {
-                return new short[]{-110};
+                return new short[] { -110 };
             } else {
-                return new short[]{-10};
+                return new short[] { -10 };
             }
         } else if (类型.武器(itemId)) {
             if (isCash) {
-                return new short[]{-111};
+                return new short[] { -111 };
             } else {
-                return new short[]{-11};
+                return new short[] { -11 };
             }
         } else if (类型.戒指(itemId)) {
             if (isCash) {
-                return new short[]{-112, -113, -115, -116};
+                return new short[] { -112, -113, -115, -116 };
             } else {
-                return new short[]{-12, -13, -15, -16};
+                return new short[] { -12, -13, -15, -16 };
             }
         } else if (类型.坠饰(itemId)) {
-            return new short[]{-17, -36};
+            return new short[] { -17, -36 };
         } else if (类型.骑宠(itemId)) {
-            return new short[]{-18};
+            return new short[] { -18 };
         } else if (类型.马鞍(itemId)) {
-            return new short[]{-19};
+            return new short[] { -19 };
         } else if (类型.勋章(itemId)) {
-            return new short[]{-21};
+            return new short[] { -21 };
         } else if (类型.腰带(itemId)) {
-            return new short[]{-22};
+            return new short[] { -22 };
         } else if (类型.肩饰(itemId)) {
-            return new short[]{-28};
+            return new short[] { -28 };
         } else if (类型.口袋道具(itemId)) {
-            return new short[]{-31};
+            return new short[] { -31 };
         } else if (类型.机器人(itemId)) {
-            return new short[]{-32};
+            return new short[] { -32 };
         } else if (类型.心脏(itemId)) {
-            return new short[]{-33};
+            return new short[] { -33 };
         } else if (类型.胸章(itemId)) {
-            return new short[]{-34};
+            return new short[] { -34 };
         } else if (类型.能源(itemId)) {
-            return new short[]{-35};
+            return new short[] { -35 };
         } else if (类型.宠物装备(itemId)) {
-            return new short[]{-114, -124, -126};
+            return new short[] { -114, -124, -126 };
         } else if (类型.龙面具(itemId)) {
-            return new short[]{-1000};
+            return new short[] { -1000 };
         } else if (类型.龙坠饰(itemId)) {
-            return new short[]{-1001};
+            return new short[] { -1001 };
         } else if (类型.龙之翼(itemId)) {
-            return new short[]{-1002};
+            return new short[] { -1002 };
         } else if (类型.龙尾巴(itemId)) {
-            return new short[]{-1003};
+            return new short[] { -1003 };
         } else if (类型.引擎(itemId)) {
-            return new short[]{-1100};
+            return new short[] { -1100 };
         } else if (类型.手臂(itemId)) {
-            return new short[]{-1101};
+            return new short[] { -1101 };
         } else if (类型.腿(itemId)) {
-            return new short[]{-1102};
+            return new short[] { -1102 };
         } else if (类型.机壳(itemId)) {
-            return new short[]{-1103};
+            return new short[] { -1103 };
         } else if (类型.晶体管(itemId)) {
-            return new short[]{-1104};
+            return new short[] { -1104 };
         } else if (类型.图腾(itemId)) {
-            return new short[]{-5000, -5001, -5002};
+            return new short[] { -5000, -5001, -5002 };
         } else {
             return new short[0];
         }
@@ -1734,7 +1762,7 @@ public class ItemConstants {
         }
         return false;
     }
-    
+
     /*
      * 检测装备是否是武器
      * 夜光武器: 1212000 开始
@@ -1746,12 +1774,13 @@ public class ItemConstants {
      * 驯兽武器: 1252000 - 1252063
      */
     public static boolean isWeapon(int itemId) {
-        if (itemId == 1342069) { //空气刃 双刀副手 点装道具
+        if (itemId == 1342069) { // 空气刃 双刀副手 点装道具
             return false;
         }
-        return itemId >= 1300000 && itemId < 1540000 || itemId / 1000 == 1212 || itemId / 1000 == 1222 || itemId / 1000 == 1232 || itemId / 1000 == 1242 || itemId / 1000 == 1252;
+        return itemId >= 1300000 && itemId < 1540000 || itemId / 1000 == 1212 || itemId / 1000 == 1222
+                || itemId / 1000 == 1232 || itemId / 1000 == 1242 || itemId / 1000 == 1252;
     }
-    
+
     public static MapleInventoryType getInventoryType(int itemId) {
         byte type = (byte) (itemId / 1000000);
         if (type < 1 || type > 5) {

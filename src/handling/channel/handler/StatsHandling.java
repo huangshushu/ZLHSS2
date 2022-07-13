@@ -20,28 +20,26 @@
  */
 package handling.channel.handler;
 
-import constants.GameConstants;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.EnumMap;
+import java.util.Map;
 
 import client.ISkill;
-import client.MapleClient;
 import client.MapleCharacter;
+import client.MapleClient;
 import client.MapleStat;
 import client.PlayerStats;
 import client.SkillFactory;
-import java.util.EnumMap;
-import java.util.Map;
+import constants.GameConstants;
 import server.Randomizer;
 import tools.FilePrinter;
 import tools.MaplePacketCreator;
-import tools.Pair;
 import tools.data.LittleEndianAccessor;
 
 public class StatsHandling {
 
-    public static final void DistributeAP(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
-          Map<MapleStat, Integer> statupdate = new EnumMap<>(MapleStat.class);
+    public static final void DistributeAP(final LittleEndianAccessor slea, final MapleClient c,
+            final MapleCharacter chr) {
+        Map<MapleStat, Integer> statupdate = new EnumMap<>(MapleStat.class);
         if (chr != null) {
             c.sendPacket(MaplePacketCreator.updatePlayerStats(statupdate, true, chr));
             chr.updateTick(slea.readInt());
@@ -73,7 +71,7 @@ public class StatsHandling {
                             return;
                         }
                         stat.setInt((short) (stat.getInt() + 1));
-                       statupdate.put(MapleStat.INT, (int) stat.getInt());
+                        statupdate.put(MapleStat.INT, (int) stat.getInt());
                         break;
                     case LUK: // Luk
                         if (stat.getLuk() >= 30000) {
@@ -98,7 +96,9 @@ public class StatsHandling {
                             }
                         } else if ((job >= 200 && job <= 232)) { // Magician
                             maxhp += Randomizer.rand(10, 20);
-                        } else if ((job >= 300 && job <= 322) || (job >= 400 && job <= 434) || (job >= 1300 && job <= 1312) || (job >= 1400 && job <= 1412) || (job >= 3300 && job <= 3312)) { // Bowman
+                        } else if ((job >= 300 && job <= 322) || (job >= 400 && job <= 434)
+                                || (job >= 1300 && job <= 1312) || (job >= 1400 && job <= 1412)
+                                || (job >= 3300 && job <= 3312)) { // Bowman
                             maxhp += Randomizer.rand(16, 20);
                         } else if ((job >= 500 && job <= 522) || (job >= 3500 && job <= 3512)) { // Pirate
                             ISkill improvingMaxHP = SkillFactory.getSkill(5100000);
@@ -131,7 +131,7 @@ public class StatsHandling {
                         maxhp = (short) Math.min(30000, Math.abs(maxhp));
                         chr.setHpMpApUsed((short) (chr.getHpMpApUsed() + 1));
                         stat.setMaxHp(maxhp);
-                       statupdate.put(MapleStat.MAXHP, (int) maxhp);
+                        statupdate.put(MapleStat.MAXHP, (int) maxhp);
                         break;
                     case MAXMP: // MP
                         short maxmp = stat.getMaxMp();
@@ -151,7 +151,10 @@ public class StatsHandling {
                             if (improvingMaxMPLevel >= 1) {
                                 maxmp += improvingMaxMP.getEffect(improvingMaxMPLevel).getY() * 2;
                             }
-                        } else if ((job >= 300 && job <= 322) || (job >= 400 && job <= 434) || (job >= 500 && job <= 522) || (job >= 3200 && job <= 3212) || (job >= 3500 && job <= 3512) || (job >= 1300 && job <= 1312) || (job >= 1400 && job <= 1412) || (job >= 1500 && job <= 1512)) { // Bowman
+                        } else if ((job >= 300 && job <= 322) || (job >= 400 && job <= 434)
+                                || (job >= 500 && job <= 522) || (job >= 3200 && job <= 3212)
+                                || (job >= 3500 && job <= 3512) || (job >= 1300 && job <= 1312)
+                                || (job >= 1400 && job <= 1412) || (job >= 1500 && job <= 1512)) { // Bowman
                             maxmp += Randomizer.rand(10, 12);
                             maxmp += stat.getTotalInt() / 20;
                         } else if (job >= 1100 && job <= 1112) { // Soul Master
@@ -173,7 +176,7 @@ public class StatsHandling {
                         maxmp = (short) Math.min(30000, Math.abs(maxmp));
                         chr.setHpMpApUsed((short) (chr.getHpMpApUsed() + 1));
                         stat.setMaxMp(maxmp);
-                       statupdate.put(MapleStat.MAXMP, (int) maxmp);
+                        statupdate.put(MapleStat.MAXMP, (int) maxmp);
                         break;
                     default:
                         c.sendPacket(MaplePacketCreator.enableActions());
@@ -238,7 +241,7 @@ public class StatsHandling {
                 final int recoveryLevel = chr.getSkillLevel(SkillFactory.getSkill(30001001));
                 final int nimbleFeetLevel = chr.getSkillLevel(SkillFactory.getSkill(30000002));
                 remainingSp = Math.min((chr.getLevel() - 1), 9) - snailsLevel - recoveryLevel - nimbleFeetLevel;
-                isBeginnerSkill = true; //resist can max ALL THREE
+                isBeginnerSkill = true; // resist can max ALL THREE
                 break;
             }
             default: {
@@ -249,8 +252,10 @@ public class StatsHandling {
         final ISkill skill = SkillFactory.getSkill(skillid);
         if (skill != null) {
             if (skill.hasRequiredSkill()) {
-                if (chr.getSkillLevel(SkillFactory.getSkill(skill.getRequiredSkillId())) < skill.getRequiredSkillLevel()) {
-//                AutobanManager.getInstance().addPoints(c, 1000, 0, "Trying to learn a skill without the required skill (" + skillid + ")");
+                if (chr.getSkillLevel(SkillFactory.getSkill(skill.getRequiredSkillId())) < skill
+                        .getRequiredSkillLevel()) {
+                    // AutobanManager.getInstance().addPoints(c, 1000, 0, "Trying to learn a skill
+                    // without the required skill (" + skillid + ")");
                     return;
                 }
             }
@@ -258,8 +263,10 @@ public class StatsHandling {
             final int curLevel = chr.getSkillLevel(skill);
 
             if (skill.isInvisible() && chr.getSkillLevel(skill) == 0) {
-                if ((skill.isFourthJob() && chr.getMasterLevel(skill) == 0) || (!skill.isFourthJob() && maxlevel < 10 && !isBeginnerSkill)) {
-                    //AutobanManager.getInstance().addPoints(c, 1000, 0, "Illegal distribution of SP to invisible skills (" + skillid + ")");
+                if ((skill.isFourthJob() && chr.getMasterLevel(skill) == 0)
+                        || (!skill.isFourthJob() && maxlevel < 10 && !isBeginnerSkill)) {
+                    // AutobanManager.getInstance().addPoints(c, 1000, 0, "Illegal distribution of
+                    // SP to invisible skills (" + skillid + ")");
                     return;
                 }
             }
@@ -271,7 +278,8 @@ public class StatsHandling {
                 }
             }
 
-            if ((remainingSp > 0 && curLevel + 1 <= maxlevel) && (skill.canBeLearnedBy(chr.getJob()) || isBeginnerSkill)) {
+            if ((remainingSp > 0 && curLevel + 1 <= maxlevel)
+                    && (skill.canBeLearnedBy(chr.getJob()) || isBeginnerSkill)) {
                 if (!isBeginnerSkill) {
                     final int skillbook = GameConstants.getSkillBookForSkill(skillid);
                     chr.setRemainingSp(chr.getRemainingSp(skillbook) - 1, skillbook);
@@ -279,13 +287,15 @@ public class StatsHandling {
                 c.sendPacket(MaplePacketCreator.updateSp(chr, false));
                 chr.changeSkillLevel(skill, (byte) (curLevel + 1), chr.getMasterLevel(skill));
             } else if (!skill.canBeLearnedBy(chr.getJob())) {
-//            AutobanManager.getInstance().addPoints(c, 1000, 0, "Trying to learn a skill for a different job (" + skillid + ")");
+                // AutobanManager.getInstance().addPoints(c, 1000, 0, "Trying to learn a skill
+                // for a different job (" + skillid + ")");
 
             }
         }
     }
 
-    public static final void AutoAssignAP(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void AutoAssignAP(final LittleEndianAccessor slea, final MapleClient c,
+            final MapleCharacter chr) {
         chr.updateTick(slea.readInt());
         slea.skip(4);
 

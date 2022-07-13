@@ -25,7 +25,7 @@ public class ConsoleCommandProcessor {
     static {
 
         Class<?>[] CommandFiles = {
-            ConsoleCommand.class
+                ConsoleCommand.class
         };
 
         for (Class<?> clasz : CommandFiles) {
@@ -40,14 +40,16 @@ public class ConsoleCommandProcessor {
                             try {
                                 enabled = c.getDeclaredField("enabled").getBoolean(c.getDeclaredField("enabled"));
                             } catch (NoSuchFieldException ex) {
-                                enabled = true; //Enable all coded commands by default.
+                                enabled = true; // Enable all coded commands by default.
                             }
                             if (o instanceof ConsoleCommandExecute && enabled) {
                                 cL.add(c.getSimpleName().toLowerCase());
-                                commands.put(c.getSimpleName().toLowerCase(), new ConsoleCommandObject(c.getSimpleName().toLowerCase(), (ConsoleCommandExecute) o));
+                                commands.put(c.getSimpleName().toLowerCase(), new ConsoleCommandObject(
+                                        c.getSimpleName().toLowerCase(), (ConsoleCommandExecute) o));
                             }
                         }
-                    } catch (InstantiationException | IllegalAccessException | SecurityException | IllegalArgumentException ex) {
+                    } catch (InstantiationException | IllegalAccessException | SecurityException
+                            | IllegalArgumentException ex) {
                         FilePrinter.printError(FilePrinter.ConsoleCommandProcessor, ex);
                     }
                 }

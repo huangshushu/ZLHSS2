@@ -20,9 +20,6 @@
  */
 package server.life;
 
-import constants.GameConstants;
-import constants.MoonlightRevamp;
-import constants.ServerConfig;
 import java.awt.Point;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -30,7 +27,6 @@ import server.MapleCarnivalFactory;
 import server.MapleCarnivalFactory.MCSkill;
 import server.maps.MapleMap;
 import server.maps.MapleReactor;
-import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 
 public class SpawnPoint extends Spawns {
@@ -45,7 +41,8 @@ public class SpawnPoint extends Spawns {
     private final String msg;
     private final byte carnivalTeam;
 
-    public SpawnPoint(final MapleMonster monster, final Point pos, final int mobTime, final byte carnivalTeam, final String msg) {
+    public SpawnPoint(final MapleMonster monster, final Point pos, final int mobTime, final byte carnivalTeam,
+            final String msg) {
         this.monster = monster;
         this.pos = pos;
         this.mobTime = (mobTime < 0 ? -1 : (mobTime * 1000));
@@ -120,13 +117,16 @@ public class SpawnPoint extends Spawns {
         map.spawnMonster(monster, -2);
 
         if (carnivalTeam > -1) {
-            for (MapleReactor r : map.getAllReactorsThreadsafe()) { //parsing through everytime a monster is spawned? not good idea
-                if (r.getName().startsWith(String.valueOf(carnivalTeam)) && r.getReactorId() == (9980000 + carnivalTeam) && r.getState() < 5) {
-                    final int num = Integer.parseInt(r.getName().substring(1, 2)); //00, 01, etc
+            for (MapleReactor r : map.getAllReactorsThreadsafe()) { // parsing through everytime a monster is spawned?
+                                                                    // not good idea
+                if (r.getName().startsWith(String.valueOf(carnivalTeam)) && r.getReactorId() == (9980000 + carnivalTeam)
+                        && r.getState() < 5) {
+                    final int num = Integer.parseInt(r.getName().substring(1, 2)); // 00, 01, etc
                     final MCSkill skil = MapleCarnivalFactory.getInstance().getGuardian(num);
-                    //if (skil == null) {
-                    //    FileoutputUtil.logToFile("logs/怪物技能错误/怪物技能错误.txt", "\r\n " + "spawnMonster mobSkill ==null");
-                    //}
+                    // if (skil == null) {
+                    // FileoutputUtil.logToFile("logs/怪物技能错误/怪物技能错误.txt", "\r\n " + "spawnMonster
+                    // mobSkill ==null");
+                    // }
                     if (skil != null && skil.getMobSkill() != null && monster != null) {
                         skil.getMobSkill().applyEffect(null, monster, false);
                     }

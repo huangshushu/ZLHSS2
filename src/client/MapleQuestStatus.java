@@ -20,13 +20,12 @@
  */
 package client;
 
-import constants.GameConstants;
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.io.Serializable;
-import java.sql.SQLException;
-
 import java.util.Map.Entry;
+
+import constants.GameConstants;
 import server.life.MapleLifeFactory;
 import server.quest.MapleQuest;
 import tools.FileoutputUtil;
@@ -50,7 +49,7 @@ public class MapleQuestStatus implements Serializable {
      */
     public MapleQuestStatus(final MapleQuest quest, final int status) {
         this.quest = quest;
-        this.setStatus((byte)status);
+        this.setStatus((byte) status);
         this.completionTime = System.currentTimeMillis();
         if (status == 1) { // Started
             if (!quest.getRelevantMobs().isEmpty()) {
@@ -122,7 +121,7 @@ public class MapleQuestStatus implements Serializable {
             if (mob != null) {
                 final int mo = maxMob(id);
                 if (mob >= mo) {
-                    return false; //nothing happened
+                    return false; // nothing happened
                 }
                 killedMobs.put(id, Math.min(mob + 1, mo));
                 return true;
@@ -131,12 +130,12 @@ public class MapleQuestStatus implements Serializable {
                 if (questCount(mo.getKey(), id)) {
                     final int mobb = maxMob(mo.getKey());
                     if (mo.getValue() >= mobb) {
-                        return false; //nothing
+                        return false; // nothing
                     }
                     killedMobs.put(mo.getKey(), Math.min(mo.getValue() + 1, mobb));
                     return true;
                 }
-            } //i doubt this
+            } // i doubt this
         } catch (Exception ex) {
             ex.printStackTrace();
             FileoutputUtil.outError("logs/杀死怪物计次异常.txt", ex);
@@ -158,7 +157,7 @@ public class MapleQuestStatus implements Serializable {
 
     public final void setMobKills(final int id, final int count) {
         if (killedMobs == null) {
-            registerMobs(); //lol
+            registerMobs(); // lol
         }
         killedMobs.put(id, count);
     }

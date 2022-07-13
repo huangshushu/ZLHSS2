@@ -5,19 +5,19 @@
  */
 package client;
 
-import handling.world.World;
 import java.util.concurrent.ScheduledFuture;
+
+import handling.world.World;
 import scripting.LieDetectorScript;
 import server.Timer.EtcTimer;
 import server.maps.MapleMap;
-import tools.FileoutputUtil;
 import tools.HexTool;
 import tools.MaplePacketCreator;
 import tools.Pair;
 
 public class MapleLieDetector {
 
-    //public MapleCharacter chr;
+    // public MapleCharacter chr;
     public byte type;
     public int attempt;
     public int cid;
@@ -28,10 +28,12 @@ public class MapleLieDetector {
     public long lasttime;
     public ScheduledFuture<?> schedule;
 
-    /*public MapleLieDetector(MapleCharacter c) {
-        this.chr = c;
-        reset();
-    }*/
+    /*
+     * public MapleLieDetector(MapleCharacter c) {
+     * this.chr = c;
+     * reset();
+     * }
+     */
     public MapleLieDetector(int chid) {
         cid = chid;
         reset();
@@ -60,18 +62,24 @@ public class MapleLieDetector {
         schedule = EtcTimer.getInstance().schedule(new Runnable() {
             public void run() {
                 MapleCharacter searchchr = MapleCharacter.getOnlineCharacterById(cid);
-                if (((!MapleLieDetector.this.isPassed()) /*&& (!isItem)*/) && (searchchr != null)) {
+                if (((!MapleLieDetector.this.isPassed()) /* && (!isItem) */) && (searchchr != null)) {
                     if (MapleLieDetector.this.attempt >= 3) {
                         MapleCharacter search_chr = searchchr.getMap().getCharacterByName(tester);
                         if ((search_chr != null) && (search_chr.getId() != searchchr.getId())) {
                             search_chr.dropMessage(5, searchchr.getName() + " 没有通过测谎仪。");
-                            //FileoutputUtil.logToFile("logs/Data/测谎失败.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + searchchr.getClient().getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + searchchr.getClient().getAccountName() + " 玩家: " + searchchr.getClient().getPlayer().getName() + " 没有通过测谎仪。");
+                            // FileoutputUtil.logToFile("logs/Data/测谎失败.txt", "\r\n " +
+                            // FileoutputUtil.NowTime() + " IP: " +
+                            // searchchr.getClient().getSession().remoteAddress().toString().split(":")[0] +
+                            // " 帐号: " + searchchr.getClient().getAccountName() + " 玩家: " +
+                            // searchchr.getClient().getPlayer().getName() + " 没有通过测谎仪。");
                         }
                         MapleLieDetector.this.end();
-                        searchchr.getClient().getSession().writeAndFlush(MaplePacketCreator.LieDetectorResponse((byte) 7, (byte) 0));
+                        searchchr.getClient().getSession()
+                                .writeAndFlush(MaplePacketCreator.LieDetectorResponse((byte) 7, (byte) 0));
                         MapleMap map = searchchr.getMap().getReturnMap();
                         searchchr.changeMap(map, map.getPortal(0));
-                        World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 玩家: " + searchchr.getName() + " (等级 " + searchchr.getLevel() + ") 未通过测谎仪检测，疑似使用脚本外挂！"));
+                        World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 玩家: "
+                                + searchchr.getName() + " (等级 " + searchchr.getLevel() + ") 未通过测谎仪检测，疑似使用脚本外挂！"));
                     } else {
                         MapleLieDetector.this.startLieDetector(tester, isItem, true);
                     }

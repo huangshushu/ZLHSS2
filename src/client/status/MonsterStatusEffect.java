@@ -42,7 +42,8 @@ public class MonsterStatusEffect {
     private boolean newpoison = true;
     private boolean ignoreBoss = false;
 
-    public MonsterStatusEffect(final MonsterStatus stat, final Integer x, final int skillId, final MobSkill mobskill, final boolean monsterSkill) {
+    public MonsterStatusEffect(final MonsterStatus stat, final Integer x, final int skillId, final MobSkill mobskill,
+            final boolean monsterSkill) {
         this.stati = stat;
         this.skill = skillId;
         this.monsterSkill = monsterSkill;
@@ -50,7 +51,8 @@ public class MonsterStatusEffect {
         this.x = x;
     }
 
-    public MonsterStatusEffect(final MonsterStatus stat, final Integer x, final int skillId, final MobSkill mobskill, final boolean monsterSkill, final boolean reflect) {
+    public MonsterStatusEffect(final MonsterStatus stat, final Integer x, final int skillId, final MobSkill mobskill,
+            final boolean monsterSkill, final boolean reflect) {
         this.stati = stat;
         this.skill = skillId;
         this.monsterSkill = monsterSkill;
@@ -107,11 +109,11 @@ public class MonsterStatusEffect {
     public final long getCancelTask() {
         return this.cancelTime;
     }
-    
+
     public void setnewpoison(boolean s) {
         this.newpoison = s;
     }
-    
+
     public void setDotTime(long duration) {
         this.dotTime = duration;
     }
@@ -150,7 +152,7 @@ public class MonsterStatusEffect {
         this.poisonDamage = 0;
         this.weakChr = null;
     }
-    
+
     public void scheduledoPoison(final MapleMonster mon) {
         final java.util.Timer timer = new java.util.Timer(true);
         final long time = System.currentTimeMillis();
@@ -160,15 +162,15 @@ public class MonsterStatusEffect {
                 @Override
                 public void run() {
                     if (time + getDotTime() > System.currentTimeMillis() && mon.isAlive()) {
-                        //每次需要执行的代码放到这里面。  
-                        //if (weakChr.get().isAdmin()) {
-                        //      weakChr.get().dropMessage(6, "[持续伤害] 持续伤害");
-                        //}
+                        // 每次需要执行的代码放到这里面。
+                        // if (weakChr.get().isAdmin()) {
+                        // weakChr.get().dropMessage(6, "[持续伤害] 持续伤害");
+                        // }
                         setnewpoison(false);
                         mon.doPoison(eff, weakChr);
                     } else {
                         setnewpoison(true);
-                        //cancelPoisonSchedule(mon);
+                        // cancelPoisonSchedule(mon);
                         timer.cancel();
                     }
                 }
@@ -201,10 +203,12 @@ public class MonsterStatusEffect {
                 return 4111003;
             case VENOMOUS_WEAPON:
                 return 5211004;
-            case DOOM: //not used
+            case DOOM: // not used
                 return 2311005;
-            case NINJA_AMBUSH: //not used
+            case NINJA_AMBUSH: // not used
                 return 4121004;
+            default:
+                break;
         }
         return 0;
     }

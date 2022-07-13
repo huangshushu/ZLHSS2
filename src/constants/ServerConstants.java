@@ -32,31 +32,31 @@ public class ServerConstants {
     public static boolean TESPIA = false;
     public static final boolean PollEnabled = false;
     public static final String Poll_Question = "Are you mudkiz?";
-    public static final String[] Poll_Answers = {"test1", "test2", "test3"};
+    public static final String[] Poll_Answers = { "test1", "test2", "test3" };
     // End of Poll
     public static final short MAPLE_VERSION = 79;
     public static final String MAPLE_PATCH = "1";
     public static MapleType MAPLE_TYPE = MapleType.中国;
     public static boolean Use_Fixed_IV = false;
     public static final int MIN_MTS = 1;
-    public static final int MTS_BASE = 10; //+1000 to everything in MSEA but cash is costly here
-    public static final int MTS_TAX = 10; //+% to everything
-    public static final int MTS_MESO = 5000; //mesos needed
+    public static final int MTS_BASE = 10; // +1000 to everything in MSEA but cash is costly here
+    public static final int MTS_TAX = 10; // +% to everything
+    public static final int MTS_MESO = 5000; // mesos needed
     public static final int CHANNEL_COUNT = 200;
     public static final String CashShop_Key = "a;!%dfb_=*-a123d9{P~";
     public static final String Login_Key = "pWv]xq:SPTCtk^LGnU9F";
-    public static int[] hot_sell = {10000007, 10000008, 10000009, 10000010, 10000011};
+    public static int[] hot_sell = { 10000007, 10000008, 10000009, 10000010, 10000011 };
     public static boolean MobDropMPoint = true;
     public static int MobDropMPointRate = 30;
     public static int MobDropMPointLimit = 2500;
     public static int MobDropMPointMin = 1;
-    public static int MopDropMPointMax = 2;  
+    public static int MopDropMPointMax = 2;
     public static int 攻击上限 = 50000000;
 
     public static int 是否已关服 = 0;
 
     /*
-     *druid recycle
+     * druid recycle
      */
     public static boolean SQL_REMOVEABANDONED = true;
     public static int SQL_REMOVEABANDONEDTIMEOUT = 5;
@@ -71,6 +71,7 @@ public class ServerConstants {
         领导者(4),
         超级管理员(5),
         神(100);
+
         private final char commandPrefix;
         private final int level;
 
@@ -95,6 +96,7 @@ public class ServerConstants {
         高级VIP(3),
         尊贵VIP(4),
         至尊VIP(5);
+
         private final char commandPrefix;
         private final int level;
 
@@ -111,10 +113,12 @@ public class ServerConstants {
             return level;
         }
     }
+
     public static enum CommandType {
 
         NORMAL(0),
         TRADE(1);
+
         private final int level;
 
         CommandType(int level) {
@@ -138,6 +142,7 @@ public class ServerConstants {
         SEA(7, "UTF-8"),
         GLOBAL(8, "UTF-8"),
         BRAZIL(9, "UTF-8");
+
         byte type;
         final String ANSI;
 
@@ -151,9 +156,9 @@ public class ServerConstants {
                 return type;
             }
             if (this == 한국 || this == 한국_TEST) {
-                return 2;//KMS测试机
+                return 2;// KMS测试机
             } else {
-                return 5;//测试机
+                return 5;// 测试机
             }
         }
 
@@ -176,7 +181,9 @@ public class ServerConstants {
     }
 
     public static void loadSetting() {
-        String[] x = ServerProperties.getProperty("server.settings.cashshop.HotSell", "10000007, 10000008, 10000009, 10000010, 10000011").split(",");
+        String[] x = ServerProperties
+                .getProperty("server.settings.cashshop.HotSell", "10000007, 10000008, 10000009, 10000010, 10000011")
+                .split(",");
         int[] y = new int[x.length];
         for (int i = 0; i < x.length; i++) {
             y[i] = Integer.parseInt(x[i].replace(" ", ""));

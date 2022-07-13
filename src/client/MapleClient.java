@@ -20,21 +20,32 @@
  */
 package client;
 
-import constants.ServerConfig;
-import constants.ServerConstants.PlayerGMRank;
-import database.DBConPool;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.script.ScriptEngine;
+
+import constants.ServerConstants.PlayerGMRank;
+import database.DBConPool;
 import database.DatabaseException;
 import handling.MapleServerHandler;
 import handling.cashshop.CashShopServer;
@@ -48,32 +59,16 @@ import handling.world.family.MapleFamilyCharacter;
 import handling.world.guild.MapleGuildCharacter;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
-import java.io.UnsupportedEncodingException;
-import static java.lang.Thread.sleep;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import server.maps.MapleMap;
-import server.shops.IMaplePlayerShop;
-import tools.MapleAESOFB;
-import tools.packet.LoginPacket;
-
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import server.Timer.PingTimer;
+import server.maps.MapleMap;
 import server.quest.MapleQuest;
+import server.shops.IMaplePlayerShop;
 import tools.FilePrinter;
 import tools.FileoutputUtil;
 import tools.HexTool;
+import tools.MapleAESOFB;
 import tools.MaplePacketCreator;
-import java.sql.Statement;
+import tools.packet.LoginPacket;
 
 public class MapleClient {
 
@@ -180,7 +175,9 @@ public class MapleClient {
 
     private List<CharNameAndId> loadCharactersInternal(int serverId) {
         List<CharNameAndId> chars = new LinkedList<>();
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT id, name FROM characters WHERE accountid = ? AND world = ?")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con
+                        .prepareStatement("SELECT id, name FROM characters WHERE accountid = ? AND world = ?")) {
             ps.setInt(1, accountId);
             ps.setInt(2, serverId);
 
@@ -227,7 +224,9 @@ public class MapleClient {
 
     public boolean isBannedIP(String ip) {
         boolean ret = false;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM ipbans WHERE ? LIKE CONCAT(ip, '%')")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con
+                        .prepareStatement("SELECT COUNT(*) FROM ipbans WHERE ? LIKE CONCAT(ip, '%')")) {
             ps.setString(1, ip);
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
@@ -244,7 +243,9 @@ public class MapleClient {
 
     public boolean hasBannedIP() {
         boolean ret = false;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM ipbans WHERE ? LIKE CONCAT(ip, '%')")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con
+                        .prepareStatement("SELECT COUNT(*) FROM ipbans WHERE ? LIKE CONCAT(ip, '%')")) {
             ps.setString(1, getSessionIPAddress());
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
@@ -285,7 +286,8 @@ public class MapleClient {
     public int login(String account, String password, boolean isIPBanned) {
         int loginok = 5;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT id, banned, password, salt, macs, 2ndpassword, gm, vip, greason, tempban, gender, SessionIP FROM accounts WHERE name = ?")) {
+            try (PreparedStatement ps = con.prepareStatement(
+                    "SELECT id, banned, password, salt, macs, 2ndpassword, gm, vip, greason, tempban, gender, SessionIP FROM accounts WHERE name = ?")) {
                 ps.setString(1, account);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
@@ -311,13 +313,14 @@ public class MapleClient {
                                 unban();
                             }
                             byte loginstate = getLoginState();
-                            //if (loginstate > MapleClient.LOGIN_NOTLOGGEDIN) { // already loggedin
-                            //    loggedIn = false;
-                            //     loginok = 7;
-                            //} else {
+                            // if (loginstate > MapleClient.LOGIN_NOTLOGGEDIN) { // already loggedin
+                            // loggedIn = false;
+                            // loginok = 7;
+                            // } else {
                             boolean updatePasswordHash = false;
                             // Check if the passwords are correct here. :B
-                            if (LoginCryptoLegacy.isLegacyPassword(passhash) && LoginCryptoLegacy.checkPassword(password, passhash)) {
+                            if (LoginCryptoLegacy.isLegacyPassword(passhash)
+                                    && LoginCryptoLegacy.checkPassword(password, passhash)) {
                                 // Check if a password upgrade is needed.
                                 loginok = 0;
                                 updatePasswordHash = true;
@@ -338,7 +341,7 @@ public class MapleClient {
                                 ChannelServer.forceRemovePlayerByAccId(this, accountId);
                                 this.updateLoginState(MapleClient.LOGIN_NOTLOGGEDIN, this.getSessionIPAddress());
                             }
-                            //}
+                            // }
                         }
                     }
                 }
@@ -389,7 +392,9 @@ public class MapleClient {
             MessageDigest digester = MessageDigest.getInstance("SHA-1");
             digester.update(secondPassword.getBytes("UTF-8"), 0, secondPassword.length());
             String hash = HexTool.toString(digester.digest()).replace(" ", "").toLowerCase();
-            try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `2ndpassword` = ? WHERE id = ?")) {
+            try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                    PreparedStatement ps = con
+                            .prepareStatement("UPDATE `accounts` SET `2ndpassword` = ? WHERE id = ?")) {
                 ps.setString(1, hash);
                 ps.setInt(2, accountId);
                 ps.executeUpdate();
@@ -408,7 +413,8 @@ public class MapleClient {
 
     private void unban() {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("UPDATE accounts SET banned = 0 and banreason = '' WHERE id = ?")) {
+            try (PreparedStatement ps = con
+                    .prepareStatement("UPDATE accounts SET banned = 0 and banreason = '' WHERE id = ?")) {
                 ps.setInt(1, accountId);
                 ps.executeUpdate();
             }
@@ -457,7 +463,9 @@ public class MapleClient {
         // System.out.println(("UPDATE:" + String.valueOf(newstate)));
         loginMutex.lock();
         try {
-            try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE accounts SET loggedin = ?, SessionIP = ?, lastlogin = CURRENT_TIMESTAMP() WHERE id = ?")) {
+            try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                    PreparedStatement ps = con.prepareStatement(
+                            "UPDATE accounts SET loggedin = ?, SessionIP = ?, lastlogin = CURRENT_TIMESTAMP() WHERE id = ?")) {
                 ps.setInt(1, newstate);
                 ps.setString(2, SessionID);
                 ps.setInt(3, getAccID());
@@ -471,7 +479,8 @@ public class MapleClient {
                 loggedIn = false;
                 serverTransition = false;
             } else {
-                serverTransition = (newstate == MapleClient.LOGIN_SERVER_TRANSITION || newstate == MapleClient.CHANGE_CHANNEL);
+                serverTransition = (newstate == MapleClient.LOGIN_SERVER_TRANSITION
+                        || newstate == MapleClient.CHANGE_CHANNEL);
                 loggedIn = !serverTransition;
             }
         } finally {
@@ -479,18 +488,25 @@ public class MapleClient {
         }
     }
 
-    /*public final void updateSecondPassword() {
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `2ndpassword` = ? WHERE id = ?")) {
-            ps.setString(1, LoginCrypto.hexSha1(this.secondPassword));
-            ps.setInt(2, accountId);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("更新第二组密码错误" + e);
-            FileoutputUtil.outError("logs/资料库异常.txt", e);
-        }
-    }*/
+    /*
+     * public final void updateSecondPassword() {
+     * try (Connection con =
+     * DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps
+     * =
+     * con.prepareStatement("UPDATE `accounts` SET `2ndpassword` = ? WHERE id = ?"))
+     * {
+     * ps.setString(1, LoginCrypto.hexSha1(this.secondPassword));
+     * ps.setInt(2, accountId);
+     * ps.executeUpdate();
+     * } catch (SQLException e) {
+     * System.err.println("更新第二组密码错误" + e);
+     * FileoutputUtil.outError("logs/资料库异常.txt", e);
+     * }
+     * }
+     */
     public final void updateGender() {
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `gender` = ? WHERE id = ?")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `gender` = ? WHERE id = ?")) {
             ps.setInt(1, gender);
             ps.setInt(2, accountId);
             ps.executeUpdate();
@@ -504,7 +520,8 @@ public class MapleClient {
     public final byte getLoginState() { // TODO hide?
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps;
-            ps = con.prepareStatement("SELECT loggedin, lastlogin, `birthday` + 0 AS `bday` FROM accounts WHERE id = ?");
+            ps = con.prepareStatement(
+                    "SELECT loggedin, lastlogin, `birthday` + 0 AS `bday` FROM accounts WHERE id = ?");
             ps.setInt(1, getAccID());
             byte state;
             try (ResultSet rs = ps.executeQuery()) {
@@ -516,7 +533,9 @@ public class MapleClient {
                 state = rs.getByte("loggedin");
 
                 if (state == MapleClient.LOGIN_SERVER_TRANSITION || state == MapleClient.CHANGE_CHANNEL) {
-                    if (rs.getTimestamp("lastlogin").getTime() + 70000 < System.currentTimeMillis()) { // connecting to chanserver timeout
+                    if (rs.getTimestamp("lastlogin").getTime() + 70000 < System.currentTimeMillis()) { // connecting to
+                                                                                                       // chanserver
+                                                                                                       // timeout
                         state = MapleClient.LOGIN_NOTLOGGEDIN;
                         updateLoginState(state, getSessionIPAddress());
                     }
@@ -538,20 +557,21 @@ public class MapleClient {
 
     public final void removalTask(boolean shutdown) {
         try {
-           // try {
-                //player.updateBuffTime();
+            // try {
+            // player.updateBuffTime();
 
-           // } catch (final Exception e) {
-           //     FileoutputUtil.outputFileError("logs/buff记录时间异常.txt", e);
-          //  }
+            // } catch (final Exception e) {
+            // FileoutputUtil.outputFileError("logs/buff记录时间异常.txt", e);
+            // }
             player.cancelAllBuffs_();
             player.cancelAllDebuffs();
             player.cancelAllSkillID();
             if (player.getMarriageId() > 0) {
                 final MapleQuestStatus stat1 = player.getQuestNAdd(MapleQuest.getInstance(160001));
                 final MapleQuestStatus stat2 = player.getQuestNAdd(MapleQuest.getInstance(160002));
-                if (stat1.getCustomData() != null && (stat1.getCustomData().equals("2_") || stat1.getCustomData().equals("2"))) {
-                    //dc in process of marriage
+                if (stat1.getCustomData() != null
+                        && (stat1.getCustomData().equals("2_") || stat1.getCustomData().equals("2"))) {
+                    // dc in process of marriage
                     if (stat2.getCustomData() != null) {
                         stat2.setCustomData("0");
                     }
@@ -564,10 +584,10 @@ public class MapleClient {
             }
             if (player.getMap() != null) {
                 switch (player.getMapId()) {
-                    case 541010100: //latanica
-                    case 541020800: //scar/targa
-                    case 551030200: //krexel
-                    case 220080001: //pap
+                    case 541010100: // latanica
+                    case 541020800: // scar/targa
+                    case 551030200: // krexel
+                    case 220080001: // pap
                     case 240060000:
                     case 240060100:
                     case 240060200:
@@ -576,19 +596,21 @@ public class MapleClient {
                 }
                 player.getMap().removePlayer(player);
             }
-            /*synchronized (this) {//精灵商人东西修复
-                final IMaplePlayerShop shop = player.getPlayerShop();
-                if (shop != null) {
-                    shop.removeVisitor(player);
-                    if (shop.isOwner(player)) {
-                        if (shop.getShopType() == 1 && shop.isAvailable() && !shutdown) {
-                            shop.setOpen(true);
-                        } else {
-                            shop.closeShop(true, !shutdown);
-                        }
-                    }
-                }
-            }*/
+            /*
+             * synchronized (this) {//精灵商人东西修复
+             * final IMaplePlayerShop shop = player.getPlayerShop();
+             * if (shop != null) {
+             * shop.removeVisitor(player);
+             * if (shop.isOwner(player)) {
+             * if (shop.getShopType() == 1 && shop.isAvailable() && !shutdown) {
+             * shop.setOpen(true);
+             * } else {
+             * shop.closeShop(true, !shutdown);
+             * }
+             * }
+             * }
+             * }
+             */
             final IMaplePlayerShop shop = player.getPlayerShop();
             if (shop != null) {
                 shop.removeVisitor(player);
@@ -636,7 +658,10 @@ public class MapleClient {
                 try {
                     player.saveToDB(true, fromCS);
                 } catch (Exception ex) {
-                    FileoutputUtil.logToFile("logs/下线保存数据异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + getAccountName() + " 帐号ID " + getAccID() + " 角色名 " + player.getName() + " 角色ID " + player.getId());
+                    FileoutputUtil.logToFile("logs/下线保存数据异常.txt",
+                            "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                                    + getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + getAccountName()
+                                    + " 帐号ID " + getAccID() + " 角色名 " + player.getName() + " 角色ID " + player.getId());
                     FileoutputUtil.outError("logs/下线保存数据异常.txt", ex);
                 }
                 if (shutdown) {
@@ -650,7 +675,7 @@ public class MapleClient {
                     try {
                         if (ch == null || clone || ch.isShutdown()) {
                             player = null;
-                            return;//no idea
+                            return;// no idea
                         }
                         if (messengerid > 0) {
                             World.Messenger.leaveMessenger(messengerid, chrm);
@@ -661,7 +686,8 @@ public class MapleClient {
                             if (map != null && party.getLeader().getId() == idz) {
                                 MaplePartyCharacter lchr = null;
                                 for (MaplePartyCharacter pchr : party.getMembers()) {
-                                    if (pchr != null && map.getCharacterById(pchr.getId()) != null && (lchr == null || lchr.getLevel() < pchr.getLevel())) {
+                                    if (pchr != null && map.getCharacterById(pchr.getId()) != null
+                                            && (lchr == null || lchr.getLevel() < pchr.getLevel())) {
                                         lchr = pchr;
                                     }
                                 }
@@ -696,7 +722,7 @@ public class MapleClient {
                 } else {
                     final int ch = World.Find.findChannel(idz);
                     if (ch > 0) {
-                        disconnect(RemoveInChannelServer, false);//u lie
+                        disconnect(RemoveInChannelServer, false);// u lie
                         return;
                     }
                     try {
@@ -720,7 +746,7 @@ public class MapleClient {
 
                     } finally {
                         if ((RemoveInChannelServer && ch > 0) || (RemoveInChannelServer && ch == -10)) {
-                            //if (RemoveInChannelServer && ch == -10) {
+                            // if (RemoveInChannelServer && ch == -10) {
                             CashShopServer.getPlayerStorage().deregisterPlayer(idz, namez);
                         }
                         player = null;
@@ -733,7 +759,10 @@ public class MapleClient {
             }
             engines.clear();
         } catch (Exception ex) {
-            FileoutputUtil.logToFile("logs/下线处理异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + getAccountName() + " 帐号ID " + getAccID() + " 角色名 " + player.getName() + " 角色ID " + player.getId());
+            FileoutputUtil.logToFile("logs/下线处理异常.txt",
+                    "\r\n " + FileoutputUtil.NowTime() + " IP: " + getSession().remoteAddress().toString().split(":")[0]
+                            + " 帐号 " + getAccountName() + " 帐号ID " + getAccID() + " 角色名 " + player.getName() + " 角色ID "
+                            + player.getId());
 
             FileoutputUtil.outError("logs/下线处理异常.txt", ex);
         }
@@ -811,7 +840,8 @@ public class MapleClient {
             FileoutputUtil.outError("logs/资料库异常.txt", ex);
         }
 
-        FileoutputUtil.logToFile("Logs/Data/角色删除.txt", FileoutputUtil.NowTime() + " 帐号: " + accountName + "(" + this.accountId + ") 角色: " + cid + " (" + name + ") IP: " + getSessionIPAddress() + " \r\n");
+        FileoutputUtil.logToFile("Logs/Data/角色删除.txt", FileoutputUtil.NowTime() + " 帐号: " + accountName + "("
+                + this.accountId + ") 角色: " + cid + " (" + name + ") IP: " + getSessionIPAddress() + " \r\n");
 
         Set<Integer> channels = ChannelServer.getAllChannels();
         for (Integer ch : channels) {
@@ -821,7 +851,8 @@ public class MapleClient {
             }
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT guildid, guildrank, familyid, name FROM characters WHERE id = ? AND accountid = ?")) {
+            try (PreparedStatement ps = con.prepareStatement(
+                    "SELECT guildid, guildrank, familyid, name FROM characters WHERE id = ? AND accountid = ?")) {
                 ps.setInt(1, cid);
                 ps.setInt(2, accountId);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -831,7 +862,7 @@ public class MapleClient {
                         return 1;
                     }
                     if (rs.getInt("guildid") > 0) { // is in a guild when deleted
-                        if (rs.getInt("guildrank") == 1) { //cant delete when leader
+                        if (rs.getInt("guildrank") == 1) { // cant delete when leader
                             rs.close();
                             ps.close();
                             return 1;
@@ -846,10 +877,12 @@ public class MapleClient {
 
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM characters WHERE id = ?", cid);
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM monsterbook WHERE charid = ?", cid);
-            //MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM hiredmerch WHERE characterid = ?", cid);
+            // MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM hiredmerch WHERE
+            // characterid = ?", cid);
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM mts_cart WHERE characterid = ?", cid);
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM mts_items WHERE characterid = ?", cid);
-            //MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM cheatlog WHERE characterid = ?", cid);
+            // MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM cheatlog WHERE
+            // characterid = ?", cid);
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM mountdata WHERE characterid = ?", cid);
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM inventoryitems WHERE characterid = ?", cid);
             MapleCharacter.deleteWhereCharacterId(con, "DELETE FROM famelog WHERE characterid = ?", cid);
@@ -897,12 +930,15 @@ public class MapleClient {
     public final void updateSecondPassword() {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
 
-            //PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `2ndpassword` = ?, `salt2` = ? WHERE id = ?");
+            // PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET
+            // `2ndpassword` = ?, `salt2` = ? WHERE id = ?");
             PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `2ndpassword` = ? WHERE id = ?");
-            //final String newSalt = LoginCrypto.makeSalt();
-            //ps.setString(1, LoginCrypto.rand_s(LoginCrypto.makeSaltedSha512Hash(secondPassword, newSalt)));
+            // final String newSalt = LoginCrypto.makeSalt();
+            // ps.setString(1,
+            // LoginCrypto.rand_s(LoginCrypto.makeSaltedSha512Hash(secondPassword,
+            // newSalt)));
             ps.setString(1, LoginCrypto.hexSha1(secondPassword));
-            //ps.setString(2, newSalt);
+            // ps.setString(2, newSalt);
             ps.setInt(2, accountId);
             ps.executeUpdate();
             ps.close();
@@ -982,7 +1018,8 @@ public class MapleClient {
                     if (getLatency() < 0) {
                         closeseesion = true;
                         MapleClient.this.setReceiving(false);
-                        MapleClient.this.updateLoginState(MapleClient.LOGIN_NOTLOGGEDIN, MapleClient.this.getSessionIPAddress());
+                        MapleClient.this.updateLoginState(MapleClient.LOGIN_NOTLOGGEDIN,
+                                MapleClient.this.getSessionIPAddress());
                         getSession().close();
                     }
                 } catch (final NullPointerException e) {
@@ -1005,30 +1042,32 @@ public class MapleClient {
         lastNpcClick = 0;
     }
 
-    /*public final void sendPing() {
-        lastPing = System.currentTimeMillis();
-        session.writeAndFlush(LoginPacket.getPing());
-
-        PingTimer.getInstance().schedule(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    if (getLatency() < 0) {
-                        disconnect(true, false);
-                        if (getSession().isActive()) {
-                            getSession().close();
-                            System.out.println("[心跳包] Ping超时.");
-                        }
-                    }
-                } catch (final NullPointerException e) {
-                    System.out.println("[心跳包] Ping超时.");
-                    FileoutputUtil.outputFileError("logs/Ping超时.txt", e);
-                    // client already gone
-                }
-            }
-        }, 60 * 1000); // note: idletime gets added to this too
-    }*/
+    /*
+     * public final void sendPing() {
+     * lastPing = System.currentTimeMillis();
+     * session.writeAndFlush(LoginPacket.getPing());
+     * 
+     * PingTimer.getInstance().schedule(new Runnable() {
+     * 
+     * @Override
+     * public void run() {
+     * try {
+     * if (getLatency() < 0) {
+     * disconnect(true, false);
+     * if (getSession().isActive()) {
+     * getSession().close();
+     * System.out.println("[心跳包] Ping超时.");
+     * }
+     * }
+     * } catch (final NullPointerException e) {
+     * System.out.println("[心跳包] Ping超时.");
+     * FileoutputUtil.outputFileError("logs/Ping超时.txt", e);
+     * // client already gone
+     * }
+     * }
+     * }, 60 * 1000); // note: idletime gets added to this too
+     * }
+     */
     public static final String getLogMessage(final MapleClient cfor, final String message) {
         return getLogMessage(cfor, message, new Object[0]);
     }
@@ -1166,17 +1205,19 @@ public class MapleClient {
             return 15;
         }
         if (charslots != DEFAULT_CHARSLOT) {
-            return charslots; //save a sql
+            return charslots; // save a sql
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT charslots FROM character_slots WHERE accid = ? AND worldid = ?")) {
+            try (PreparedStatement ps = con
+                    .prepareStatement("SELECT charslots FROM character_slots WHERE accid = ? AND worldid = ?")) {
                 ps.setInt(1, accountId);
                 ps.setInt(2, world);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
                         charslots = rs.getInt("charslots");
                     } else {
-                        try (PreparedStatement psu = con.prepareStatement("INSERT INTO character_slots (accid, worldid, charslots) VALUES (?, ?, ?)")) {
+                        try (PreparedStatement psu = con.prepareStatement(
+                                "INSERT INTO character_slots (accid, worldid, charslots) VALUES (?, ?, ?)")) {
                             psu.setInt(1, accountId);
                             psu.setInt(2, world);
                             psu.setInt(3, charslots);
@@ -1198,7 +1239,8 @@ public class MapleClient {
         charslots++;
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("UPDATE character_slots SET charslots = ? WHERE worldid = ? AND accid = ?")) {
+            try (PreparedStatement ps = con
+                    .prepareStatement("UPDATE character_slots SET charslots = ? WHERE worldid = ? AND accid = ?")) {
                 ps.setInt(1, charslots);
                 ps.setInt(2, world);
                 ps.setInt(3, accountId);
@@ -1334,7 +1376,8 @@ public class MapleClient {
             final String email = rs.getString("email");
             rs.close();
             ps.close();
-            ps = con.prepareStatement("UPDATE accounts SET banned = 0, banreason = '' WHERE email = ?" + (sessionIP == null ? "" : " OR sessionIP = ?"));
+            ps = con.prepareStatement("UPDATE accounts SET banned = 0, banreason = '' WHERE email = ?"
+                    + (sessionIP == null ? "" : " OR sessionIP = ?"));
             ps.setString(1, email);
             if (sessionIP != null) {
                 ps.setString(2, sessionIP);
@@ -1389,7 +1432,8 @@ public class MapleClient {
         if (macData.equalsIgnoreCase("00-00-00-00-00-00") || macData.length() != 17) {
             return false;
         }
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("INSERT INTO macbans (mac) VALUES (?)")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement("INSERT INTO macbans (mac) VALUES (?)")) {
             ps.setString(1, macData);
             ps.executeUpdate();
             ps.close();
@@ -1410,7 +1454,8 @@ public class MapleClient {
             return false;
         }
         boolean ret = false;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM macbans WHERE mac = ?")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM macbans WHERE mac = ?")) {
             ps.setString(1, mac);
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
@@ -1463,7 +1508,8 @@ public class MapleClient {
 
     private void loadMacsIfNescessary() throws SQLException {
         if (macs.isEmpty()) {
-            try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT macs FROM accounts WHERE id = ?")) {
+            try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                    PreparedStatement ps = con.prepareStatement("SELECT macs FROM accounts WHERE id = ?")) {
                 ps.setInt(1, accountId);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
@@ -1541,28 +1587,35 @@ public class MapleClient {
         }
     }
 
-    /*public static boolean landersLogin(String lip) {
-        String ip = lip.substring(1, lip.lastIndexOf(':'));
-        boolean ret = false;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM ipcheck WHERE ? LIKE CONCAT(ip, '%')")) {
-            ps.setString(1, ip);
-            try (ResultSet rs = ps.executeQuery()) {
-                rs.next();
-                if (rs.getInt(1) > 0) {
-                    ret = true;
-                }
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error ipcheck " + ex);
-            FileoutputUtil.outError("logs/资料库异常.txt", ex);
-        }
-        return ret;
-    }*/
+    /*
+     * public static boolean landersLogin(String lip) {
+     * String ip = lip.substring(1, lip.lastIndexOf(':'));
+     * boolean ret = false;
+     * try (Connection con =
+     * DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps
+     * = con.
+     * prepareStatement("SELECT COUNT(*) FROM ipcheck WHERE ? LIKE CONCAT(ip, '%')"
+     * )) {
+     * ps.setString(1, ip);
+     * try (ResultSet rs = ps.executeQuery()) {
+     * rs.next();
+     * if (rs.getInt(1) > 0) {
+     * ret = true;
+     * }
+     * }
+     * 
+     * } catch (SQLException ex) {
+     * System.err.println("Error ipcheck " + ex);
+     * FileoutputUtil.outError("logs/资料库异常.txt", ex);
+     * }
+     * return ret;
+     * }
+     */
     public List<String> loadCharacterNamesByCharId(int charId) {
         List<String> chars = new LinkedList<>();
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            try (PreparedStatement ps = con.prepareStatement("SELECT id,name FROM characters WHERE accountid= (SELECT accountid FROM characters where id=?)")) {
+            try (PreparedStatement ps = con.prepareStatement(
+                    "SELECT id,name FROM characters WHERE accountid= (SELECT accountid FROM characters where id=?)")) {
                 ps.setInt(1, charId);
                 try (ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
@@ -1688,25 +1741,30 @@ public class MapleClient {
         }
     }
 
-
-    /*public boolean dangerousIp(String lip) {
-        String ip = lip.substring(1, lip.lastIndexOf(':'));
-        boolean ret = false;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM dangerousip WHERE ? LIKE CONCAT(ip, '%')")) {
-            ps.setString(1, ip);
-            try (ResultSet rs = ps.executeQuery()) {
-                rs.next();
-                if (rs.getInt(1) > 0) {
-                    ret = true;
-                }
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Error dangerousIp " + ex);
-            FileoutputUtil.outError("logs/资料库异常.txt", ex);
-        }
-        return ret;
-    }*/
+    /*
+     * public boolean dangerousIp(String lip) {
+     * String ip = lip.substring(1, lip.lastIndexOf(':'));
+     * boolean ret = false;
+     * try (Connection con =
+     * DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps
+     * = con.
+     * prepareStatement("SELECT COUNT(*) FROM dangerousip WHERE ? LIKE CONCAT(ip, '%')"
+     * )) {
+     * ps.setString(1, ip);
+     * try (ResultSet rs = ps.executeQuery()) {
+     * rs.next();
+     * if (rs.getInt(1) > 0) {
+     * ret = true;
+     * }
+     * }
+     * 
+     * } catch (SQLException ex) {
+     * System.err.println("Error dangerousIp " + ex);
+     * FileoutputUtil.outError("logs/资料库异常.txt", ex);
+     * }
+     * return ret;
+     * }
+     */
     public static final byte setTGJF(String charname, int x) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT accountid from characters where name = ?");
@@ -1813,7 +1871,9 @@ public class MapleClient {
     public boolean dangerousIp(String lip) {
         String ip = lip.substring(1, lip.lastIndexOf(':'));
         boolean ret = false;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM dangerousip WHERE ? LIKE CONCAT(ip, '%')")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con
+                        .prepareStatement("SELECT COUNT(*) FROM dangerousip WHERE ? LIKE CONCAT(ip, '%')")) {
             ps.setString(1, ip);
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();

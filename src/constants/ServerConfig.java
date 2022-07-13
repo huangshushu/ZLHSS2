@@ -1,8 +1,7 @@
 package constants;
 
 import java.io.File;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+
 import server.ServerProperties;
 
 public class ServerConfig {
@@ -35,8 +34,9 @@ public class ServerConfig {
     public static boolean isPvPChannel(int ch) {
         return pvp && ch == pvpch;
     }
-    public static byte[] Gateway_IP = new byte[]{(byte) 127, (byte) 0, (byte) 0, (byte) 1};
-    public static byte[] Gateway_IP2 = new byte[]{(byte) 127, (byte) 0, (byte) 0, (byte) 1};
+
+    public static byte[] Gateway_IP = new byte[] { (byte) 127, (byte) 0, (byte) 0, (byte) 1 };
+    public static byte[] Gateway_IP2 = new byte[] { (byte) 127, (byte) 0, (byte) 0, (byte) 1 };
 
     public static String[] getEvents(boolean reLoad) {
         return getEventList(reLoad).split(",");
@@ -68,7 +68,7 @@ public class ServerConfig {
 
     public static String getVipMedalName(int lv) {
         String medal = "";
-        if (SERVER_NAME.equals("枫之谷")) {
+        if (SERVER_NAME.equals("大王ZLHSS")) {
             switch (lv) {
                 case 1:
                     medal = " <普通VIP>";
@@ -89,7 +89,7 @@ public class ServerConfig {
                     medal = " <VIP" + medal + ">";
                     break;
             }
-        } else if (SERVER_NAME.equals("枫之谷")) {
+        } else if (SERVER_NAME.equals("大王ZLHSS冒险岛")) {
             switch (lv) {
                 case 1:
                     medal = "☆";
@@ -147,43 +147,4 @@ public class ServerConfig {
     static {
         loadSetting();
     }
-
-    //v113.cizaojdk.top 自己用
-    /*public static String getIP() {
-        InetAddress ip = null;
-        try {
-            ip = InetAddress.getByName("rose1234.ddns.net");
-            //ip = InetAddress.getByName("v113.cizaojdk.top");
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            System.out.println("getIP_null_null");
-        }
-        System.out.println(ip.getHostAddress());
-        return ip.getHostAddress();
-    }*/
-    //taiwangf.ddns.net
-    /*public static String getIP2() {
-        InetAddress ip = null;
-        try {
-            //ip = InetAddress.getByName(TESPIA ? "yuchan0516.no-ip.org" : "paopaoms.win");
-            //ip = InetAddress.getByName(TESPIA ? "77520.ddns.net" : "www.paopaoms.win");
-            ip = InetAddress.getByName(TESPIA ? "77520.ddns.net" : "paopaoms.cizaojdk.top");
-            //ip = InetAddress.getByName("taiwangf.ddns.net");
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            System.out.println("getIP2_null_null");
-        }
-        return ip.getHostAddress().toString();
-    }*/
- /*public static byte[] getIP3() {
-        InetAddress ip = null;
-        try {
-            ip = InetAddress.getByName("rose1234.ddns.net");
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-            System.out.println("获取失败");
-        }
-        System.out.println(ip.getAddress());
-        return ip.getAddress();
-    }*/
 }

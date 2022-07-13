@@ -88,7 +88,9 @@ public class InternCommand {
                 ps.close();
                 rs.close();
 
-                ps = con.prepareStatement("INSERT INTO RCmedals (`accountid`,`id`, `name`, `amount`) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                ps = con.prepareStatement(
+                        "INSERT INTO RCmedals (`accountid`,`id`, `name`, `amount`) VALUES (?, ?, ?, ?)",
+                        Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, accountid);
                 ps.setInt(2, id);
                 ps.setString(3, name);
@@ -125,7 +127,8 @@ public class InternCommand {
             }
             int ch = World.Find.findChannel(name);
             if (ch > 0) {
-                MapleCharacter victim = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(splitted[1]);
+                MapleCharacter victim = ChannelServer.getInstance(ch).getPlayerStorage()
+                        .getCharacterByName(splitted[1]);
                 victim.canTalk(!victim.getCanTalk());
                 c.getPlayer().dropMessage("玩家[" + victim.getName() + "] 目前已经" + (victim.getCanTalk() ? "可以说话" : "闭嘴"));
             } else {
@@ -230,23 +233,35 @@ public class InternCommand {
                         } catch (Exception ex) {
                         }
                         c.getPlayer().dropMessage(5, "此玩家状态:");
-                        c.getPlayer().dropMessage(5, "玩家名称: " + victim.getName() + " 玩家编号: " + victim.getId() + " 帐号: " + victim.getClient().getAccountName() + " 帐号ID: " + victim.getAccountID());
-                        c.getPlayer().dropMessage(5, "玩家权限: " + victim.getGMLevel() + " 等级: " + victim.getLevel() + " 职业: " + victim.getJob() + " 名声: " + victim.getFame());
+                        c.getPlayer().dropMessage(5, "玩家名称: " + victim.getName() + " 玩家编号: " + victim.getId() + " 帐号: "
+                                + victim.getClient().getAccountName() + " 帐号ID: " + victim.getAccountID());
+                        c.getPlayer().dropMessage(5, "玩家权限: " + victim.getGMLevel() + " 等级: " + victim.getLevel()
+                                + " 职业: " + victim.getJob() + " 名声: " + victim.getFame());
                         c.getPlayer().dropMessage(5, "地图: " + victim.getMapId() + " - " + victim.getMap().getMapName());
-                        c.getPlayer().dropMessage(5, "目前HP: " + victim.getStat().getHp() + " 目前MP: " + victim.getStat().getMp());
-                        c.getPlayer().dropMessage(5, "最大HP: " + victim.getStat().getMaxHp() + " 最大MP: " + victim.getStat().getMaxMp());
-                        c.getPlayer().dropMessage(5, "力量: " + victim.getStat().getStr() + "  ||  敏捷: " + victim.getStat().getDex() + "  ||  智力: " + victim.getStat().getInt() + "  ||  幸运: " + victim.getStat().getLuk());
-                        c.getPlayer().dropMessage(5, "物理攻击: " + victim.getStat().getTotalWatk() + "  ||  魔法攻击: " + victim.getStat().getTotalMagic());
-                        //       c.getPlayer().dropMessage(5, "物理攻击: " + victim.getStat().getTotalWatk() + "  ||  魔法攻击: " + victim.getStat().getTotalMagic());
-                        c.getPlayer().dropMessage(5, "经验倍率: " + victim.getStat().expBuff + " 金钱倍率: " + victim.getStat().mesoBuff + " 掉宝倍率: " + victim.getStat().dropBuff);
-                        c.getPlayer().dropMessage(5, "GASH: " + victim.getOfflineAcash(victim) + " 枫叶点数: " + victim.getCSPoints(2) + " 枫币: " + victim.getMeso() + " 仓库枫币 " + mesoInStorage);
+                        c.getPlayer().dropMessage(5,
+                                "目前HP: " + victim.getStat().getHp() + " 目前MP: " + victim.getStat().getMp());
+                        c.getPlayer().dropMessage(5,
+                                "最大HP: " + victim.getStat().getMaxHp() + " 最大MP: " + victim.getStat().getMaxMp());
+                        c.getPlayer().dropMessage(5,
+                                "力量: " + victim.getStat().getStr() + "  ||  敏捷: " + victim.getStat().getDex()
+                                        + "  ||  智力: " + victim.getStat().getInt() + "  ||  幸运: "
+                                        + victim.getStat().getLuk());
+                        c.getPlayer().dropMessage(5, "物理攻击: " + victim.getStat().getTotalWatk() + "  ||  魔法攻击: "
+                                + victim.getStat().getTotalMagic());
+                        // c.getPlayer().dropMessage(5, "物理攻击: " + victim.getStat().getTotalWatk() + "
+                        // || 魔法攻击: " + victim.getStat().getTotalMagic());
+                        c.getPlayer().dropMessage(5, "经验倍率: " + victim.getStat().expBuff + " 金钱倍率: "
+                                + victim.getStat().mesoBuff + " 掉宝倍率: " + victim.getStat().dropBuff);
+                        c.getPlayer().dropMessage(5, "GASH: " + victim.getOfflineAcash(victim) + " 枫叶点数: "
+                                + victim.getCSPoints(2) + " 枫币: " + victim.getMeso() + " 仓库枫币 " + mesoInStorage);
                         c.getPlayer().dropMessage(5, "赞助红利: " + victim.getCSPoints(3));
                         c.getPlayer().dropMessage(5, "赞助总额: " + victim.getMoneyAll() + " 新台币");
-                        //c.getPlayer().dropMessage(5, "推荐人数 " + victim.getAcLogS("推荐人数") + "人");
+                        // c.getPlayer().dropMessage(5, "推荐人数 " + victim.getAcLogS("推荐人数") + "人");
                         if (ch <= 0) {
                             c.getPlayer().dropMessage(5, "该角色为离线状态");
                         } else {
-                            c.getPlayer().dropMessage(5, "IP:" + victim.getClient().getSessionIPAddress() + " 目前MAC:" + victim.getNowMacs() + " 所有MAC:" + victim.getClient().getMacs());
+                            c.getPlayer().dropMessage(5, "IP:" + victim.getClient().getSessionIPAddress() + " 目前MAC:"
+                                    + victim.getNowMacs() + " 所有MAC:" + victim.getClient().getMacs());
                             c.getPlayer().dropMessage(5, "对服务器延迟: " + victim.getClient().getLatency());
                         }
                     }
@@ -259,7 +274,8 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase()).append(" <玩家名字> - 观察玩家").toString();
+            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase())
+                    .append(" <玩家名字> - 观察玩家").toString();
         }
     }
 
@@ -285,26 +301,39 @@ public class InternCommand {
                         } catch (Exception ex) {
                         }
                         c.getPlayer().dropMessage(5, "此玩家状态:");
-                        c.getPlayer().dropMessage(5, "玩家名称: " + victim.getName() + " 玩家编号: " + victim.getId() + " 帐号: " + victim.getClient().getAccountName() + " 帐号ID: " + victim.getAccountID());
-                        c.getPlayer().dropMessage(5, "玩家权限: " + victim.getGMLevel() + " 等级: " + victim.getLevel() + " 职业: " + victim.getJob() + " 名声: " + victim.getFame());
+                        c.getPlayer().dropMessage(5, "玩家名称: " + victim.getName() + " 玩家编号: " + victim.getId() + " 帐号: "
+                                + victim.getClient().getAccountName() + " 帐号ID: " + victim.getAccountID());
+                        c.getPlayer().dropMessage(5, "玩家权限: " + victim.getGMLevel() + " 等级: " + victim.getLevel()
+                                + " 职业: " + victim.getJob() + " 名声: " + victim.getFame());
                         c.getPlayer().dropMessage(5, "地图: " + victim.getMapId() + " - " + victim.getMap().getMapName());
-                        c.getPlayer().dropMessage(5, "目前HP: " + victim.getStat().getHp() + " 目前MP: " + victim.getStat().getMp());
-                        c.getPlayer().dropMessage(5, "最大HP: " + victim.getStat().getMaxHp() + " 最大MP: " + victim.getStat().getMaxMp());
-                        c.getPlayer().dropMessage(5, "力量: " + victim.getStat().getStr() + "  ||  敏捷: " + victim.getStat().getDex() + "  ||  智力: " + victim.getStat().getInt() + "  ||  幸运: " + victim.getStat().getLuk());
-                        c.getPlayer().dropMessage(5, "物理攻击: " + victim.getStat().getTotalWatk() + "  ||  魔法攻击: " + victim.getStat().getTotalMagic());
-                        //       c.getPlayer().dropMessage(5, "物理攻击: " + victim.getStat().getTotalWatk() + "  ||  魔法攻击: " + victim.getStat().getTotalMagic());
-                        c.getPlayer().dropMessage(5, "经验倍率: " + victim.getStat().expBuff + " 金钱倍率: " + victim.getStat().mesoBuff + " 掉宝倍率: " + victim.getStat().dropBuff);
-                        c.getPlayer().dropMessage(5, "GASH: " + victim.getOfflineAcash(victim) + " 枫叶点数: " + victim.getCSPoints(2) + " 枫币: " + victim.getMeso() + " 仓库枫币 " + mesoInStorage);
+                        c.getPlayer().dropMessage(5,
+                                "目前HP: " + victim.getStat().getHp() + " 目前MP: " + victim.getStat().getMp());
+                        c.getPlayer().dropMessage(5,
+                                "最大HP: " + victim.getStat().getMaxHp() + " 最大MP: " + victim.getStat().getMaxMp());
+                        c.getPlayer().dropMessage(5,
+                                "力量: " + victim.getStat().getStr() + "  ||  敏捷: " + victim.getStat().getDex()
+                                        + "  ||  智力: " + victim.getStat().getInt() + "  ||  幸运: "
+                                        + victim.getStat().getLuk());
+                        c.getPlayer().dropMessage(5, "物理攻击: " + victim.getStat().getTotalWatk() + "  ||  魔法攻击: "
+                                + victim.getStat().getTotalMagic());
+                        // c.getPlayer().dropMessage(5, "物理攻击: " + victim.getStat().getTotalWatk() + "
+                        // || 魔法攻击: " + victim.getStat().getTotalMagic());
+                        c.getPlayer().dropMessage(5, "经验倍率: " + victim.getStat().expBuff + " 金钱倍率: "
+                                + victim.getStat().mesoBuff + " 掉宝倍率: " + victim.getStat().dropBuff);
+                        c.getPlayer().dropMessage(5, "GASH: " + victim.getOfflineAcash(victim) + " 枫叶点数: "
+                                + victim.getCSPoints(2) + " 枫币: " + victim.getMeso() + " 仓库枫币 " + mesoInStorage);
                         c.getPlayer().dropMessage(5, "赞助红利: " + victim.getCSPoints(3));
                         c.getPlayer().dropMessage(5, "赞助总额: " + victim.getMoneyAll() + " 新台币");
-                        //c.getPlayer().dropMessage(5, "赞助积分: " + victim.getCZJF() + " 推广积分: " + victim.getTGJF());
-                        //c.getPlayer().dropMessage(5, "赞助总额: " + victim.getAddLog() + " 新台币");
-                        //c.getPlayer().dropMessage(5, "推荐人数 " + victim.getAcLogS("推荐人数") + "人");
+                        // c.getPlayer().dropMessage(5, "赞助积分: " + victim.getCZJF() + " 推广积分: " +
+                        // victim.getTGJF());
+                        // c.getPlayer().dropMessage(5, "赞助总额: " + victim.getAddLog() + " 新台币");
+                        // c.getPlayer().dropMessage(5, "推荐人数 " + victim.getAcLogS("推荐人数") + "人");
 
                         if (ch <= 0) {
                             c.getPlayer().dropMessage(5, "该角色为离线状态");
                         } else {
-                            c.getPlayer().dropMessage(5, "IP:" + victim.getClient().getSessionIPAddress() + " 目前MAC:" + victim.getNowMacs() + " 所有MAC:" + victim.getClient().getMacs());
+                            c.getPlayer().dropMessage(5, "IP:" + victim.getClient().getSessionIPAddress() + " 目前MAC:"
+                                    + victim.getNowMacs() + " 所有MAC:" + victim.getClient().getMacs());
                             c.getPlayer().dropMessage(5, "对服务器延迟: " + victim.getClient().getLatency());
                         }
                     }
@@ -317,7 +346,8 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase()).append(" <玩家ID> - 观察玩家").toString();
+            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase())
+                    .append(" <玩家ID> - 观察玩家").toString();
         }
     }
 
@@ -522,7 +552,8 @@ public class InternCommand {
 
         @Override
         public boolean execute(MapleClient c, String splitted[]) {
-            if (splitted.length < 3 || splitted[1] == null || splitted[1].equals("") || splitted[2] == null || splitted[2].equals("")) {
+            if (splitted.length < 3 || splitted[1] == null || splitted[1].equals("") || splitted[2] == null
+                    || splitted[2].equals("")) {
                 return false;
             } else {
                 int item = Integer.parseInt(splitted[2]);
@@ -715,9 +746,12 @@ public class InternCommand {
                     } else if (ch <= 0) {
                         c.getPlayer().dropMessage(5, "该角色为离线状态");
                     } else {
-                        c.getPlayer().dropMessage(5, "玩家名称: " + victim.getName() + " 等级: " + victim.getLevel() + " 职业: " + victim.getJob());
-                        c.getPlayer().dropMessage(5, "力量: " + victim.getStr() + " 敏捷: " + victim.getDex() + " 智力: " + victim.getInt() + " 幸运: " + victim.getLuk());
-                        c.getPlayer().dropMessage(5, "HP: " + victim.getHp() + " 最大HP: " + victim.getMaxHp() + " MP: " + victim.getMp() + " 最大MP: " + victim.getMaxMp());
+                        c.getPlayer().dropMessage(5,
+                                "玩家名称: " + victim.getName() + " 等级: " + victim.getLevel() + " 职业: " + victim.getJob());
+                        c.getPlayer().dropMessage(5, "力量: " + victim.getStr() + " 敏捷: " + victim.getDex() + " 智力: "
+                                + victim.getInt() + " 幸运: " + victim.getLuk());
+                        c.getPlayer().dropMessage(5, "HP: " + victim.getHp() + " 最大HP: " + victim.getMaxHp() + " MP: "
+                                + victim.getMp() + " 最大MP: " + victim.getMaxMp());
                         c.getPlayer().dropMessage(5, "Buff技能数量: " + victim.getSkillID().size());
                         c.getPlayer().dropMessage(5, "技能ID: " + victim.getSkillID().keySet().toString());
                     }
@@ -730,7 +764,8 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase()).append(" <玩家名字> - 查看玩家技能数据").toString();
+            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase())
+                    .append(" <玩家名字> - 查看玩家技能数据").toString();
         }
     }
 
@@ -750,7 +785,7 @@ public class InternCommand {
             }
 
             int answer = Integer.parseInt(splitted[1]);
-            List<MapleCharacter> chrlist = chr.getMap().getCharacters();//取得当前地图玩家集合
+            List<MapleCharacter> chrlist = chr.getMap().getCharacters();// 取得当前地图玩家集合
             for (MapleCharacter chra : chrlist) {
                 if (生死活动.isCorrectAnswer(chra, answer)) {
                     chra.getStat().setHp(0);
@@ -771,7 +806,8 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase()).append(" <1干死右边，2干死左边>").toString();
+            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase())
+                    .append(" <1干死右边，2干死左边>").toString();
         }
     }
 }

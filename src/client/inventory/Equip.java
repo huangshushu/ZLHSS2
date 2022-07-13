@@ -28,7 +28,9 @@ public class Equip extends Item implements IEquip, Serializable {
 
     private byte upgradeSlots = 0;
     private byte level = 0, vicioushammer = 0, enhance = 0;
-    private short str = 0, dex = 0, _int = 0, luk = 0, hp = 0, mp = 0, watk = 0, matk = 0, wdef = 0, mdef = 0, acc = 0, avoid = 0, hands = 0, speed = 0, jump = 0, potential1 = 0, potential2 = 0, potential3 = 0, hpR = 0, mpR = 0, charmExp = 0, pvpDamage = 0;
+    private short str = 0, dex = 0, _int = 0, luk = 0, hp = 0, mp = 0, watk = 0, matk = 0, wdef = 0, mdef = 0, acc = 0,
+            avoid = 0, hands = 0, speed = 0, jump = 0, potential1 = 0, potential2 = 0, potential3 = 0, hpR = 0, mpR = 0,
+            charmExp = 0, pvpDamage = 0;
     private int itemEXP = 0, durability = -1, incSkill = -1, grade;
     private int limitBreak = 0; // 武器装备的攻击突破上限附加数字
 
@@ -312,7 +314,7 @@ public class Equip extends Item implements IEquip, Serializable {
         if (itemEXP <= 0) {
             return 0;
         }
-        //aproximate value
+        // aproximate value
         if (GameConstants.isWeapon(getItemId())) {
             return itemEXP / IEquip.WEAPON_RATIO;
         } else {
@@ -329,7 +331,7 @@ public class Equip extends Item implements IEquip, Serializable {
         for (int i = getBaseLevel(); i <= GameConstants.getMaxLevel(getItemId()); i++) {
             if (expz >= GameConstants.getExpForLevel(i, getItemId())) {
                 expz -= GameConstants.getExpForLevel(i, getItemId());
-            } else { //for 0, dont continue;
+            } else { // for 0, dont continue;
                 break;
             }
         }
@@ -338,7 +340,8 @@ public class Equip extends Item implements IEquip, Serializable {
 
     @Override
     public int getExpPercentage() {
-        if (getEquipLevel() < getBaseLevel() || getEquipLevel() > GameConstants.getMaxLevel(getItemId()) || GameConstants.getExpForLevel(getEquipLevel(), getItemId()) <= 0) {
+        if (getEquipLevel() < getBaseLevel() || getEquipLevel() > GameConstants.getMaxLevel(getItemId())
+                || GameConstants.getExpForLevel(getEquipLevel(), getItemId()) <= 0) {
             return 0;
         }
         return getEquipExpForLevel() * 100 / GameConstants.getExpForLevel(getEquipLevel(), getItemId());
@@ -353,11 +356,13 @@ public class Equip extends Item implements IEquip, Serializable {
         }
         int levelz = getBaseLevel();
         int expz = getEquipExp();
-        for (int i = levelz; (GameConstants.getStatFromWeapon(getItemId()) == null ? (i <= GameConstants.getMaxLevel(getItemId())) : (i < GameConstants.getMaxLevel(getItemId()))); i++) {
+        for (int i = levelz; (GameConstants.getStatFromWeapon(getItemId()) == null
+                ? (i <= GameConstants.getMaxLevel(getItemId()))
+                : (i < GameConstants.getMaxLevel(getItemId()))); i++) {
             if (expz >= GameConstants.getExpForLevel(i, getItemId())) {
                 levelz++;
                 expz -= GameConstants.getExpForLevel(i, getItemId());
-            } else { //for 0, dont continue;
+            } else { // for 0, dont continue;
                 break;
             }
         }
@@ -372,7 +377,8 @@ public class Equip extends Item implements IEquip, Serializable {
     @Override
     public void setQuantity(short quantity) {
         if (quantity < 0 || quantity > 1) {
-            throw new RuntimeException("Setting the quantity to " + quantity + " on an equip (itemid: " + getItemId() + ")");
+            throw new RuntimeException(
+                    "Setting the quantity to " + quantity + " on an equip (itemid: " + getItemId() + ")");
         }
         super.setQuantity(quantity);
     }
@@ -437,20 +443,20 @@ public class Equip extends Item implements IEquip, Serializable {
         return 0;
     }
 
-    public void resetPotential() { //equip first receive
-        //0.04% chance unique, 4% chance epic, else rare
+    public void resetPotential() { // equip first receive
+        // 0.04% chance unique, 4% chance epic, else rare
         final int rank = Randomizer.nextInt(100) < 4 ? (Randomizer.nextInt(100) < 4 ? -7 : -6) : -5;
         setPotential1((short) rank);
-        setPotential2((short) (Randomizer.nextInt(10) == 1 ? rank : 0)); //1/10 chance of 3 line
-        setPotential3((short) 0); //just set it theoretically
+        setPotential2((short) (Randomizer.nextInt(10) == 1 ? rank : 0)); // 1/10 chance of 3 line
+        setPotential3((short) 0); // just set it theoretically
     }
 
     public void renewPotential() {
-        //4% chance upgrade
+        // 4% chance upgrade
         final int rank = Randomizer.nextInt(100) < 4 && getState() != 7 ? -(getState() + 1) : -(getState());
         setPotential1((short) rank);
-        setPotential2((short) (getPotential3() > 0 ? rank : 0)); //1/10 chance of 3 line
-        setPotential3((short) 0); //just set it theoretically
+        setPotential2((short) (getPotential3() > 0 ? rank : 0)); // 1/10 chance of 3 line
+        setPotential3((short) 0); // just set it theoretically
     }
 
     @Override
@@ -470,7 +476,7 @@ public class Equip extends Item implements IEquip, Serializable {
     public void setMpR(final short mp) {
         this.mpR = mp;
     }
-    
+
     public int getIncSkill() {
         return incSkill;
     }
@@ -503,14 +509,15 @@ public class Equip extends Item implements IEquip, Serializable {
     public void setGrade(int grade) {
         this.grade = grade;
     }
-    
-    	/*
-	 * 武器装备的攻击突破上限附加数字 5000000 = 500万 上限设置为 21亿
-	 */
-	public int getLimitBreak() {
-		return Math.min(limitBreak, 199999);
-	}
-	public void setLimitBreak(int lb) {
-		this.limitBreak = lb;
-	}
+
+    /*
+     * 武器装备的攻击突破上限附加数字 5000000 = 500万 上限设置为 21亿
+     */
+    public int getLimitBreak() {
+        return Math.min(limitBreak, 199999);
+    }
+
+    public void setLimitBreak(int lb) {
+        this.limitBreak = lb;
+    }
 }

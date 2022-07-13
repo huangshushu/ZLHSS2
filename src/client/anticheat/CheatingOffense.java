@@ -56,8 +56,8 @@ public enum CheatingOffense {
     SUMMON_HACK((byte) 1, 300000),
     SUMMON_HACK_MOBS((byte) 1, 300000),
     ARAN_COMBO_HACK((byte) 1, 600000, 50),
-    快速攻击((byte) 5, 6000, 200, (byte) 2),// 6秒內触发兩百次即封号
-    快速攻击2((byte) 5, 6000, 500, (byte) 2),// 6秒內触发五百次即封号
+    快速攻击((byte) 5, 6000, 200, (byte) 2), // 6秒內触发兩百次即封号
+    快速攻击2((byte) 5, 6000, 500, (byte) 2), // 6秒內触发五百次即封号
     HEAL_ATTACKING_UNDEAD((byte) 20, 30000, 2);
 
     private final byte points;
@@ -100,7 +100,8 @@ public enum CheatingOffense {
         this(points, validityDuration, autobancount, (byte) 1);
     }
 
-    private CheatingOffense(final byte points, final long validityDuration, final int autobancount, final byte bantype) {
+    private CheatingOffense(final byte points, final long validityDuration, final int autobancount,
+            final byte bantype) {
         this.points = points;
         this.validityDuration = validityDuration;
         this.autobancount = autobancount;

@@ -84,7 +84,8 @@ public class XMLDomMapleData implements MapleData, Serializable {
                 for (int i = 0; i < childNodes.getLength(); i++) {
                     try {
                         final Node childNode = childNodes.item(i);
-                        if (childNode != null && childNode.getNodeType() == Node.ELEMENT_NODE && childNode.getAttributes().getNamedItem("name").getNodeValue().equals(segments[x])) {
+                        if (childNode != null && childNode.getNodeType() == Node.ELEMENT_NODE
+                                && childNode.getAttributes().getNamedItem("name").getNodeValue().equals(segments[x])) {
                             myNode = childNode;
                             foundChild = true;
                             break;
@@ -140,11 +141,16 @@ public class XMLDomMapleData implements MapleData, Serializable {
                 return attributes.getNamedItem("value").getNodeValue();
             }
             case VECTOR: {
-                return new Point(Integer.parseInt(attributes.getNamedItem("x").getNodeValue()), Integer.parseInt(attributes.getNamedItem("y").getNodeValue()));
+                return new Point(Integer.parseInt(attributes.getNamedItem("x").getNodeValue()),
+                        Integer.parseInt(attributes.getNamedItem("y").getNodeValue()));
             }
             case CANVAS: {
-                return new FileStoredPngMapleCanvas(Integer.parseInt(attributes.getNamedItem("width").getNodeValue()), Integer.parseInt(attributes.getNamedItem("height").getNodeValue()), new File(imageDataDir, getName() + ".png"));
+                return new FileStoredPngMapleCanvas(Integer.parseInt(attributes.getNamedItem("width").getNodeValue()),
+                        Integer.parseInt(attributes.getNamedItem("height").getNodeValue()),
+                        new File(imageDataDir, getName() + ".png"));
             }
+            default:
+                break;
         }
         return null;
     }

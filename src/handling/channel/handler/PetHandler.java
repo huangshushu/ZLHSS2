@@ -53,10 +53,12 @@ public class PetHandler {
 
     }
 
-    public static final void Pet_AutoPotion(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void Pet_AutoPotion(final LittleEndianAccessor slea, final MapleClient c,
+            final MapleCharacter chr) {
         slea.skip(13);
         final byte slot = slea.readByte();
-        if (chr == null || !chr.isAlive() || chr.getMapId() == 749040100 || chr.getMap() == null || chr.hasDisease(MapleDisease.POTION)) {
+        if (chr == null || !chr.isAlive() || chr.getMapId() == 749040100 || chr.getMap() == null
+                || chr.hasDisease(MapleDisease.POTION)) {
             return;
         }
         final IItem toUse = chr.getInventory(MapleInventoryType.USE).getItem(slot);
@@ -71,7 +73,8 @@ public class PetHandler {
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
         }
-        if (!FieldLimitType.PotionUse.check(chr.getMap().getFieldLimit()) || chr.getMapId() == 610030600) { //cwk quick hack
+        if (!FieldLimitType.PotionUse.check(chr.getMap().getFieldLimit()) || chr.getMapId() == 610030600) { // cwk quick
+                                                                                                            // hack
             if (MapleItemInformationProvider.getInstance().getItemEffect(toUse.getItemId()).applyTo(chr)) {
                 MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (short) 1, false);
                 if (chr.getMap().getConsumeItemCoolTime() > 0) {
@@ -93,7 +96,8 @@ public class PetHandler {
         chr.getMap().broadcastMessage(chr, PetPacket.petChat(chr.getId(), command, text, chr.getPetIndex(petid)), true);
     }
 
-    public static final void PetCommand(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
+    public static final void PetCommand(final LittleEndianAccessor slea, final MapleClient c,
+            final MapleCharacter chr) {
         final byte petIndex = chr.getPetIndex(slea.readInt());
         if (petIndex == -1) {
             return;
@@ -120,10 +124,12 @@ public class PetHandler {
                     c.sendPacket(PetPacket.showOwnPetLevelUp(petIndex));
                     chr.getMap().broadcastMessage(PetPacket.showPetLevelUp(chr, petIndex));
                 }
-                c.sendPacket(PetPacket.updatePet(pet, chr.getInventory(MapleInventoryType.CASH).getItem((byte) pet.getInventoryPosition())));
+                c.sendPacket(PetPacket.updatePet(pet,
+                        chr.getInventory(MapleInventoryType.CASH).getItem((byte) pet.getInventoryPosition())));
             }
         }
-        chr.getMap().broadcastMessage(chr, PetPacket.commandResponse(chr.getId(), command, petIndex, success, false), true);
+        chr.getMap().broadcastMessage(chr, PetPacket.commandResponse(chr.getId(), command, petIndex, success, false),
+                true);
     }
 
     public static final void PetFood(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
@@ -180,8 +186,10 @@ public class PetHandler {
                     chr.getMap().broadcastMessage(PetPacket.showPetLevelUp(chr, index));
                 }
             }
-            c.sendPacket(PetPacket.updatePet(pet, chr.getInventory(MapleInventoryType.CASH).getItem((byte) pet.getInventoryPosition())));
-            chr.getMap().broadcastMessage(c.getPlayer(), PetPacket.commandResponse(chr.getId(), (byte) 1, index, true, true), true);
+            c.sendPacket(PetPacket.updatePet(pet,
+                    chr.getInventory(MapleInventoryType.CASH).getItem((byte) pet.getInventoryPosition())));
+            chr.getMap().broadcastMessage(c.getPlayer(),
+                    PetPacket.commandResponse(chr.getId(), (byte) 1, index, true, true), true);
         } else {
             if (gainCloseness) {
                 int newCloseness = pet.getCloseness() - 1;
@@ -193,8 +201,10 @@ public class PetHandler {
                     pet.setLevel(pet.getLevel() - 1);
                 }
             }
-            c.sendPacket(PetPacket.updatePet(pet, chr.getInventory(MapleInventoryType.CASH).getItem((byte) pet.getInventoryPosition())));
-            chr.getMap().broadcastMessage(chr, PetPacket.commandResponse(chr.getId(), (byte) 1, chr.getPetIndex(pet), false, true), true);
+            c.sendPacket(PetPacket.updatePet(pet,
+                    chr.getInventory(MapleInventoryType.CASH).getItem((byte) pet.getInventoryPosition())));
+            chr.getMap().broadcastMessage(chr,
+                    PetPacket.commandResponse(chr.getId(), (byte) 1, chr.getPetIndex(pet), false, true), true);
         }
         MapleInventoryManipulator.removeById(c, MapleInventoryType.USE, itemId, 1, true, false);
         c.sendPacket(MaplePacketCreator.enableActions());
@@ -216,12 +226,13 @@ public class PetHandler {
             }
             pet.updatePosition(res);
             chr.getMap().broadcastMessage(chr, PetPacket.movePet(chr.getId(), petId, slot, res), false);
-            if (chr.hasBlockedInventory(false)) { //hack
+            if (chr.hasBlockedInventory(false)) { // hack
                 return;
             }
 
-            //if (chr.getStat().hasVac && (chr.getStat().hasMeso || chr.getStat().hasItem)) {
-            if (chr.getStat().hasVac /*&& (chr.getStat().hasMeso || chr.getStat().hasItem)*/) {
+            // if (chr.getStat().hasVac && (chr.getStat().hasMeso || chr.getStat().hasItem))
+            // {
+            if (chr.getStat().hasVac /* && (chr.getStat().hasMeso || chr.getStat().hasItem) */) {
                 List<MapleMapItem> objects = chr.getMap().getAllItems();
                 for (MapleMapItem mapitem : objects) {
                     final Lock lock = mapitem.getLock();
@@ -233,13 +244,17 @@ public class PetHandler {
                         if (mapitem.getOwner() != chr.getId() && mapitem.isPlayerDrop()) {
                             continue;
                         }
-                        if (mapitem.getOwner() != chr.getId() && ((!mapitem.isPlayerDrop() && mapitem.getDropType() == 0) || (mapitem.isPlayerDrop() && chr.getMap().getEverlast()))) {
+                        if (mapitem.getOwner() != chr.getId()
+                                && ((!mapitem.isPlayerDrop() && mapitem.getDropType() == 0)
+                                        || (mapitem.isPlayerDrop() && chr.getMap().getEverlast()))) {
                             continue;
                         }
-                        if (!mapitem.isPlayerDrop() && mapitem.getDropType() == 1 && mapitem.getOwner() != chr.getId() && (chr.getParty() == null || chr.getParty().getMemberById(mapitem.getOwner()) == null)) {
+                        if (!mapitem.isPlayerDrop() && mapitem.getDropType() == 1 && mapitem.getOwner() != chr.getId()
+                                && (chr.getParty() == null
+                                        || chr.getParty().getMemberById(mapitem.getOwner()) == null)) {
                             continue;
                         }
-                        //if (mapitem.getMeso() > 0 && chr.getStat().hasMeso) {
+                        // if (mapitem.getMeso() > 0 && chr.getStat().hasMeso) {
                         if (mapitem.getMeso() > 0 && chr.getStat().hasVac) {
                             if (chr.getParty() != null && mapitem.getOwner() != chr.getId()) {
                                 final List<MapleCharacter> toGive = new LinkedList<>();
@@ -251,16 +266,20 @@ public class PetHandler {
                                     }
                                 }
                                 for (final MapleCharacter m : toGive) {
-                                    m.gainMeso(mapitem.getMeso() / toGive.size() + (m.getStat().hasPartyBonus ? (int) (mapitem.getMeso() / 20.0) : 0), true, true);
+                                    m.gainMeso(mapitem.getMeso() / toGive.size()
+                                            + (m.getStat().hasPartyBonus ? (int) (mapitem.getMeso() / 20.0) : 0), true,
+                                            true);
                                 }
                             } else {
                                 chr.gainMeso(mapitem.getMeso(), true, true);
                             }
                             InventoryHandler.removeItemPet(chr, mapitem, slot);
-                            //} else if (chr.getStat().hasItem && MapleItemInformationProvider.getInstance().isPickupBlocked(mapitem.getItem().getItemId())) {
+                            // } else if (chr.getStat().hasItem &&
+                            // MapleItemInformationProvider.getInstance().isPickupBlocked(mapitem.getItem().getItemId()))
+                            // {
                         } else if (chr.getStat().hasVac && MaplePet.PetFlag.ITEM_PICKUP.check(pet.getFlags())) {
                             boolean exc = false;
-                            List excluded = pet.getExcluded();
+                            final List excluded = pet.getExcluded();
                             if (excluded.size() > 0) {
                                 for (Object excluded1 : excluded) {
                                     if (((Integer) excluded1) == mapitem.getItemId()) {
@@ -271,13 +290,17 @@ public class PetHandler {
                             if (!exc) {
                                 if (InventoryHandler.useItem(chr.getClient(), mapitem.getItemId())) {
                                     InventoryHandler.removeItemPet(chr, mapitem, slot);
-                                } else if (MapleInventoryManipulator.checkSpace(chr.getClient(), mapitem.getItem().getItemId(), mapitem.getItem().getQuantity(), mapitem.getItem().getOwner())) {
-                                    if (mapitem.getItem().getQuantity() >= 50 && GameConstants.isUpgradeScroll(mapitem.getItem().getItemId())) {
+                                } else if (MapleInventoryManipulator.checkSpace(chr.getClient(),
+                                        mapitem.getItem().getItemId(), mapitem.getItem().getQuantity(),
+                                        mapitem.getItem().getOwner())) {
+                                    if (mapitem.getItem().getQuantity() >= 50
+                                            && GameConstants.isUpgradeScroll(mapitem.getItem().getItemId())) {
 
-                                        //chr.getClient().setMonitored(true); //hack check
+                                        // chr.getClient().setMonitored(true); //hack check
                                     }
 
-                                    if (MapleInventoryManipulator.addFromDrop(chr.getClient(), mapitem.getItem(), true, mapitem.getDropper() instanceof MapleMonster, false)) {
+                                    if (MapleInventoryManipulator.addFromDrop(chr.getClient(), mapitem.getItem(), true,
+                                            mapitem.getDropper() instanceof MapleMonster, false)) {
 
                                         InventoryHandler.removeItemPet(chr, mapitem, slot);
                                     }

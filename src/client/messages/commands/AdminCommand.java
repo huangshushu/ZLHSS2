@@ -1,8 +1,15 @@
 package client.messages.commands;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.concurrent.ScheduledFuture;
+
 import client.MapleCharacter;
 import client.MapleCharacterUtil;
-import constants.ServerConstants.PlayerGMRank;
 import client.MapleClient;
 import client.MapleDisease;
 import client.MapleStat;
@@ -14,23 +21,13 @@ import client.inventory.MapleInventoryIdentifier;
 import client.inventory.MapleInventoryType;
 import client.inventory.MaplePet;
 import client.inventory.ModifyInventory;
-import client.inventory.OnlyID;
 import client.messages.CommandProcessorUtil;
 import constants.GameConstants;
 import constants.PiPiConfig;
+import constants.ServerConstants.PlayerGMRank;
 import database.DBConPool;
-import handling.cashshop.CashShopServer;
 import handling.channel.ChannelServer;
 import handling.world.World;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
 import scripting.EventManager;
 import server.MapleInventoryManipulator;
 import server.MapleItemInformationProvider;
@@ -38,6 +35,7 @@ import server.MaplePortal;
 import server.Timer.EventTimer;
 import server.events.MapleEvent;
 import server.events.MapleEventType;
+import server.gashapon.GashaponFactory;
 import server.life.MapleLifeFactory;
 import server.life.MapleMonster;
 import server.life.MapleNPC;
@@ -46,21 +44,14 @@ import server.life.OverrideMonsterStats;
 import server.life.PlayerNPC;
 import server.maps.MapleMap;
 import server.maps.MapleMapObject;
-import server.maps.MapleMapObjectType;
 import tools.CPUSampler;
+import tools.FileoutputUtil;
+import tools.HexTool;
 import tools.MaplePacketCreator;
 import tools.MockIOSession;
 import tools.StringUtil;
-import tools.packet.MobPacket;
-import java.util.concurrent.ScheduledFuture;
-import scripting.NPCScriptManager;
-import java.util.LinkedHashSet;
-import java.util.ListIterator;
-import server.gashapon.GashaponFactory;
-import tools.FileoutputUtil;
-import tools.HexTool;
-import tools.Triple;
 import tools.data.MaplePacketLittleEndianWriter;
+import tools.packet.MobPacket;
 
 /**
  *
@@ -199,9 +190,13 @@ public class AdminCommand {
             }
             player.modifyCSPoints(1, amount, true);
             player.dropMessage("已经收到Gash点数" + amount + "点");
-            String msg = "[GM 密语] GM " + c.getPlayer().getName() + " 给了 " + player.getName() + " Gash点数 " + amount + "点";
+            String msg = "[GM 密语] GM " + c.getPlayer().getName() + " 给了 " + player.getName() + " Gash点数 " + amount
+                    + "点";
             // World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg));
-            FileoutputUtil.logToFile("logs/Data/给予点数.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " GM " + c.getPlayer().getName() + " 给了 " + player.getName() + " Gash点数 " + amount + "点");
+            FileoutputUtil.logToFile("logs/Data/给予点数.txt",
+                    "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                            + c.getSession().remoteAddress().toString().split(":")[0] + " GM " + c.getPlayer().getName()
+                            + " 给了 " + player.getName() + " Gash点数 " + amount + "点");
             return true;
         }
 
@@ -315,25 +310,26 @@ public class AdminCommand {
                         if (GameConstants.isPet(itemId)) {
                             MaplePet pet = MaplePet.createPet(itemId, MapleInventoryIdentifier.getInstance());
                             if (pet != null) {
-                                MapleInventoryManipulator.addById(mch.getClient(), itemId, (short) 1, "", pet, ii.getPetLife(itemId));
+                                MapleInventoryManipulator.addById(mch.getClient(), itemId, (short) 1, "", pet,
+                                        ii.getPetLife(itemId));
                             }
                         } else if (!ii.itemExists(itemId)) {
                             c.getPlayer().dropMessage(5, itemId + " - 物品不存在");
                         } else {
                             IItem item;
-                            //byte flag = 0;
-                            //flag |= ItemFlag.LOCK.getValue();
+                            // byte flag = 0;
+                            // flag |= ItemFlag.LOCK.getValue();
 
                             if (GameConstants.getInventoryType(itemId) == MapleInventoryType.EQUIP) {
                                 item = ii.randomizeStats((Equip) ii.getEquipById(itemId));
-                                //item.setFlag(flag);
+                                // item.setFlag(flag);
                             } else {
                                 item = new client.inventory.Item(itemId, (byte) 0, quantity, (byte) 0);
                                 if (GameConstants.getInventoryType(itemId) != MapleInventoryType.USE) {
-                                    //item.setFlag(flag);
+                                    // item.setFlag(flag);
                                 }
                             }
-                            //item.setOwner(c.getPlayer().getName());
+                            // item.setOwner(c.getPlayer().getName());
                             item.setGMLog(c.getPlayer().getName());
 
                             MapleInventoryManipulator.addbyItem(mch.getClient(), item);
@@ -343,10 +339,12 @@ public class AdminCommand {
                 }
                 for (ChannelServer cserv1 : ChannelServer.getAllInstances()) {
                     for (MapleCharacter mch : cserv1.getPlayerStorage().getAllCharacters()) {
-                        mch.startMapEffect(c.getPlayer().getName() + "发放礼物" + quantity + "个" + ii.getName(itemId) + "给在线的所有玩家！祝您玩得开心快乐", 5121009);
+                        mch.startMapEffect(c.getPlayer().getName() + "发放礼物" + quantity + "个" + ii.getName(itemId)
+                                + "给在线的所有玩家！祝您玩得开心快乐", 5121009);
                     }
                 }
-                c.getPlayer().dropMessage(6, new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家获得: ").append(quantity).append(" 个").append(ii.getName(itemId)).toString());
+                c.getPlayer().dropMessage(6, new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家获得: ")
+                        .append(quantity).append(" 个").append(ii.getName(itemId)).toString());
             } else {
                 c.getPlayer().dropMessage(6, "用法: !给所有人道具 [物品ID] [数量] ");
             }
@@ -379,7 +377,8 @@ public class AdminCommand {
             if (GameConstants.isPet(itemId)) {
                 MaplePet pet = MaplePet.createPet(itemId, MapleInventoryIdentifier.getInstance());
                 if (pet != null) {
-                    MapleInventoryManipulator.addById(c, itemId, (short) 1, c.getPlayer().getName(), pet, ii.getPetLife(itemId));
+                    MapleInventoryManipulator.addById(c, itemId, (short) 1, c.getPlayer().getName(), pet,
+                            ii.getPetLife(itemId));
                 }
             } else if (!ii.itemExists(itemId)) {
                 c.getPlayer().dropMessage(5, itemId + " - 物品不存在");
@@ -440,7 +439,8 @@ public class AdminCommand {
         public boolean execute(MapleClient c, String splitted[]) {
             for (final MapleMapObject mmo : c.getPlayer().getMap().getAllMonstersThreadsafe()) {
                 final MapleMonster monster = (MapleMonster) mmo;
-                c.getPlayer().getMap().broadcastMessage(MobPacket.moveMonster(false, 0, 0, monster.getObjectId(), monster.getPosition(), c.getPlayer().getPosition(), c.getPlayer().getLastRes()));
+                c.getPlayer().getMap().broadcastMessage(MobPacket.moveMonster(false, 0, 0, monster.getObjectId(),
+                        monster.getPosition(), c.getPlayer().getPosition(), c.getPlayer().getLastRes()));
                 monster.setPosition(c.getPlayer().getPosition());
             }
             return true;
@@ -503,12 +503,14 @@ public class AdminCommand {
                 if (c.getPlayer().getMapId() == 109020001) {
                     sec = 10;
                     c.getPlayer().dropMessage(5, "已经关闭活动入口，１０秒后开始活动。");
-                    World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "频道:" + c.getChannel() + "活动目前已经关闭大门口，１０秒后开始活动。"));
+                    World.Broadcast.broadcastMessage(
+                            MaplePacketCreator.serverNotice(6, "频道:" + c.getChannel() + "活动目前已经关闭大门口，１０秒后开始活动。"));
                     c.getPlayer().getMap().broadcastMessage(MaplePacketCreator.getClock(sec));
                 } else {
                     sec = 60;
                     c.getPlayer().dropMessage(5, "已经关闭活动入口，６０秒后开始活动。");
-                    World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "频道:" + c.getChannel() + "活动目前已经关闭大门口，６０秒后开始活动。"));
+                    World.Broadcast.broadcastMessage(
+                            MaplePacketCreator.serverNotice(6, "频道:" + c.getChannel() + "活动目前已经关闭大门口，６０秒后开始活动。"));
                     c.getPlayer().getMap().broadcastMessage(MaplePacketCreator.getClock(sec));
                 }
                 ts = EventTimer.getInstance().register(new Runnable() {
@@ -579,13 +581,15 @@ public class AdminCommand {
                 MapleInventoryType type = GameConstants.getInventoryType(itemid);
                 for (IItem item : chr.getInventory(type).listById(itemid)) {
                     item.setFlag((byte) (item.getFlag() | ItemFlag.LOCK.getValue()));
-                    chr.getClient().sendPacket(MaplePacketCreator.modifyInventory(false, new ModifyInventory(ModifyInventory.Types.UPDATE, item)));
+                    chr.getClient().sendPacket(MaplePacketCreator.modifyInventory(false,
+                            new ModifyInventory(ModifyInventory.Types.UPDATE, item)));
                 }
                 if (type == MapleInventoryType.EQUIP) {
                     type = MapleInventoryType.EQUIPPED;
                     for (IItem item : chr.getInventory(type).listById(itemid)) {
                         item.setFlag((byte) (item.getFlag() | ItemFlag.LOCK.getValue()));
-                        chr.getClient().sendPacket(MaplePacketCreator.modifyInventory(false, new ModifyInventory(ModifyInventory.Types.UPDATE, item)));
+                        chr.getClient().sendPacket(MaplePacketCreator.modifyInventory(false,
+                                new ModifyInventory(ModifyInventory.Types.UPDATE, item)));
                     }
                 }
                 c.getPlayer().dropMessage(6, "玩家 " + splitted[1] + "身上所有ID为 " + splitted[2] + " 的道具已经从锁定了");
@@ -625,7 +629,7 @@ public class AdminCommand {
         @Override
         public boolean execute(MapleClient c, String splitted[]) {
             if (splitted.length < 3) {
-                //   c.getPlayer().dropMessage(6, "");
+                // c.getPlayer().dropMessage(6, "");
                 return false;
             }
             int type;
@@ -677,15 +681,19 @@ public class AdminCommand {
                 } else {
                     victim.setChair(0);
                     victim.getClient().sendPacket(MaplePacketCreator.cancelChair(-1));
-                    victim.getMap().broadcastMessage(victim, MaplePacketCreator.showChair(c.getPlayer().getId(), 0), false);
-                    victim.getDiseaseBuff(dis, MobSkillFactory.getMobSkill(type, CommandProcessorUtil.getOptionalIntArg(splitted, 3, 1)));
+                    victim.getMap().broadcastMessage(victim, MaplePacketCreator.showChair(c.getPlayer().getId(), 0),
+                            false);
+                    victim.getDiseaseBuff(dis,
+                            MobSkillFactory.getMobSkill(type, CommandProcessorUtil.getOptionalIntArg(splitted, 3, 1)));
                 }
             } else {
                 for (MapleCharacter victim : c.getPlayer().getMap().getCharactersThreadsafe()) {
                     victim.setChair(0);
                     victim.getClient().sendPacket(MaplePacketCreator.cancelChair(-1));
-                    victim.getMap().broadcastMessage(victim, MaplePacketCreator.showChair(c.getPlayer().getId(), 0), false);
-                    victim.getDiseaseBuff(dis, MobSkillFactory.getMobSkill(type, CommandProcessorUtil.getOptionalIntArg(splitted, 2, 1)));
+                    victim.getMap().broadcastMessage(victim, MaplePacketCreator.showChair(c.getPlayer().getId(), 0),
+                            false);
+                    victim.getDiseaseBuff(dis,
+                            MobSkillFactory.getMobSkill(type, CommandProcessorUtil.getOptionalIntArg(splitted, 2, 1)));
                 }
             }
             return true;
@@ -693,7 +701,9 @@ public class AdminCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!disease <SEAL/DARKNESS/WEAKEN/STUN/CURSE/POISON/SLOW/SEDUCE/REVERSE/ZOMBIFY/POTION/SHADOW/BLIND/FREEZE> [角色名称] <状态等级> - 让人得到特殊状态").toString();
+            return new StringBuilder().append(
+                    "!disease <SEAL/DARKNESS/WEAKEN/STUN/CURSE/POISON/SLOW/SEDUCE/REVERSE/ZOMBIFY/POTION/SHADOW/BLIND/FREEZE> [角色名称] <状态等级> - 让人得到特殊状态")
+                    .toString();
         }
 
     }
@@ -1129,10 +1139,10 @@ public class AdminCommand {
                 } else {
                     int npcId = Integer.parseInt(splitted[2]);
                     MapleNPC npc_c = MapleLifeFactory.getNPC(npcId);
-                    //if (npc_c == null || npc_c.getName().equals("MISSINGNO")) {
-                    //c.getPlayer().dropMessage(6, "NPC不存在");
-                    //     return true;
-                    //  }
+                    // if (npc_c == null || npc_c.getName().equals("MISSINGNO")) {
+                    // c.getPlayer().dropMessage(6, "NPC不存在");
+                    // return true;
+                    // }
                     if (!(npcId >= 9901500 && npcId <= 9901551) || !(npcId >= 9901000 && npcId >= 9901319)) {
                         c.getPlayer().dropMessage(6, "NPC不存在");
                         return true;
@@ -1161,7 +1171,8 @@ public class AdminCommand {
             try {
                 c.getPlayer().dropMessage(6, "Making playerNPC...");
                 MapleClient cs = new MapleClient(null, null, new MockIOSession());
-                MapleCharacter chhr = MapleCharacter.loadCharFromDB(MapleCharacterUtil.getIdByName(splitted[1]), cs, false);
+                MapleCharacter chhr = MapleCharacter.loadCharFromDB(MapleCharacterUtil.getIdByName(splitted[1]), cs,
+                        false);
                 if (chhr == null) {
                     c.getPlayer().dropMessage(6, splitted[1] + " does not exist");
 
@@ -1271,7 +1282,8 @@ public class AdminCommand {
                 newhp = 1;
             }
 
-            final OverrideMonsterStats overrideStats = new OverrideMonsterStats(newhp, onemob.getMobMaxMp(), newexp, false);
+            final OverrideMonsterStats overrideStats = new OverrideMonsterStats(newhp, onemob.getMobMaxMp(), newexp,
+                    false);
             for (int i = 0; i < num; i++) {
                 MapleMonster mob = MapleLifeFactory.getMonster(mid);
                 mob.setHp(newhp);
@@ -1298,7 +1310,7 @@ public class AdminCommand {
                     chr.changeMap(target, target.getPortal(0));
                 }
             } catch (Exception e) {
-                return false; //assume drunk GM
+                return false; // assume drunk GM
             }
             return true;
         }
@@ -1339,7 +1351,8 @@ public class AdminCommand {
             if (splitted.length != 2) {
                 return false;
             }
-            MapleMap target = c.getChannelServer().getEventSM().getEventManager("lolcastle").getInstance("lolcastle" + splitted[1]).getMapFactory().getMap(990000300, false, false);
+            MapleMap target = c.getChannelServer().getEventSM().getEventManager("lolcastle")
+                    .getInstance("lolcastle" + splitted[1]).getMapFactory().getMap(990000300, false, false);
             c.getPlayer().changeMap(target, target.getPortal(0));
 
             return true;
@@ -1358,7 +1371,7 @@ public class AdminCommand {
         public boolean execute(MapleClient c, String splitted[]) {
             CPUSampler sampler = CPUSampler.getInstance();
             sampler.addIncluded("client");
-            sampler.addIncluded("constants"); //or should we do Packages.constants etc.?
+            sampler.addIncluded("constants"); // or should we do Packages.constants etc.?
             sampler.addIncluded("database");
             sampler.addIncluded("handling");
             sampler.addIncluded("provider");
@@ -1416,7 +1429,8 @@ public class AdminCommand {
             }
             final int mapId = Integer.parseInt(splitted[1]);
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
-                if (cserv.getMapFactory().isMapLoaded(mapId) && cserv.getMapFactory().getMap(mapId).getCharactersSize() > 0) {
+                if (cserv.getMapFactory().isMapLoaded(mapId)
+                        && cserv.getMapFactory().getMap(mapId).getCharactersSize() > 0) {
                     c.getPlayer().dropMessage(5, "There exists characters on channel " + cserv.getChannel());
                     return true;
                 }
@@ -1481,7 +1495,8 @@ public class AdminCommand {
                 npc.setFh(fh);
                 npc.setCustom(true);
                 try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                    try (PreparedStatement ps = con.prepareStatement("INSERT INTO wz_customlife (dataid, f, hide, fh, cy, rx0, rx1, type, x, y, mid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+                    try (PreparedStatement ps = con.prepareStatement(
+                            "INSERT INTO wz_customlife (dataid, f, hide, fh, cy, rx0, rx1, type, x, y, mid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
                         ps.setInt(1, npcId);
                         ps.setInt(2, 0); // 1 = right , 0 = left
                         ps.setInt(3, 0); // 1 = hide, 0 = show
@@ -1501,11 +1516,14 @@ public class AdminCommand {
                 }
                 for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                     cserv.getMapFactory().getMap(c.getPlayer().getMapId()).addMapObject(npc);
-                    cserv.getMapFactory().getMap(c.getPlayer().getMapId()).broadcastMessage(MaplePacketCreator.spawnNPC(npc, true));
-//                    c.getPlayer().getMap().addMapObject(npc);
-//                    c.getPlayer().getMap().broadcastMessage(MaplePacketCreator.spawnNPC(npc, true));
+                    cserv.getMapFactory().getMap(c.getPlayer().getMapId())
+                            .broadcastMessage(MaplePacketCreator.spawnNPC(npc, true));
+                    // c.getPlayer().getMap().addMapObject(npc);
+                    // c.getPlayer().getMap().broadcastMessage(MaplePacketCreator.spawnNPC(npc,
+                    // true));
                 }
-                c.getPlayer().dropMessage(6, "Please do not reload this map or else the NPC will disappear till the next restart.");
+                c.getPlayer().dropMessage(6,
+                        "Please do not reload this map or else the NPC will disappear till the next restart.");
             } else {
                 c.getPlayer().dropMessage(6, "查无此 Npc ");
             }
@@ -1622,12 +1640,13 @@ public class AdminCommand {
                 } else {
                     toDrop = new client.inventory.Item(itemId, (byte) 0, (short) quantity, (byte) 0);
                 }
-                //toDrop.setOwner(c.getPlayer().getName());
+                // toDrop.setOwner(c.getPlayer().getName());
                 toDrop.setGMLog(c.getPlayer().getName());
                 if (name != null) {
                     int ch = World.Find.findChannel(name);
                     if (ch > 0) {
-                        MapleCharacter victim = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(name);
+                        MapleCharacter victim = ChannelServer.getInstance(ch).getPlayerStorage()
+                                .getCharacterByName(name);
                         if (victim != null) {
                             victim.getMap().spawnItemDrop(victim, victim, toDrop, victim.getPosition(), true, true);
                         }
@@ -1635,7 +1654,8 @@ public class AdminCommand {
                         c.getPlayer().dropMessage("玩家: [" + name + "] 不在线上唷");
                     }
                 } else {
-                    c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), toDrop, c.getPlayer().getPosition(), true, true);
+                    c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), toDrop,
+                            c.getPlayer().getPosition(), true, true);
                 }
             }
             return true;
@@ -1694,7 +1714,7 @@ public class AdminCommand {
                 Scroll = Integer.parseInt(splitted[splitted_count++]);
                 day = Integer.parseInt(splitted[splitted_count++]);
             } catch (Exception ex) {
-                //   ex.printStackTrace();
+                // ex.printStackTrace();
             }
             boolean Str_check = Str != 0;
             boolean Int_check = Int != 0;
@@ -1777,18 +1797,22 @@ public class AdminCommand {
                 if (DAY_check) {
                     equip.setExpiration(System.currentTimeMillis() + (day * 24 * 60 * 60 * 1000));
                 }
-                c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), equip, c.getPlayer().getPosition(), true, true);
+                c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), equip, c.getPlayer().getPosition(),
+                        true, true);
             } else {
                 toDrop = new client.inventory.Item(itemId, (byte) 0, (short) quantity, (byte) 0);
                 toDrop.setGMLog(c.getPlayer().getName() + " 使用 !Prodrop");
-                c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), toDrop, c.getPlayer().getPosition(), true, true);
+                c.getPlayer().getMap().spawnItemDrop(c.getPlayer(), c.getPlayer(), toDrop, c.getPlayer().getPosition(),
+                        true, true);
             }
             return true;
         }
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!ProDrop <物品代码> (<力量> <敏捷> <智力> <幸运> <HP> <MP> <物攻> <魔攻> <物防> <魔防> <武器+x> <命中> <回避> <移动> <跳跃> <冲卷数> <天数>)").toString();
+            return new StringBuilder().append(
+                    "!ProDrop <物品代码> (<力量> <敏捷> <智力> <幸运> <HP> <MP> <物攻> <魔攻> <物防> <魔防> <武器+x> <命中> <回避> <移动> <跳跃> <冲卷数> <天数>)")
+                    .toString();
         }
     }
 
@@ -1835,7 +1859,8 @@ public class AdminCommand {
                 c.getPlayer().dropMessage("找不到此玩家");
             } else {
                 c.getPlayer().dropMessage("已经给予玩家[" + name + "] " + input + " " + gain);
-                FileoutputUtil.logToFile("logs/Data/给点数.txt", "\r\n " + FileoutputUtil.NowTime() + " GM " + c.getPlayer().getName() + " 给了 " + victim.getName() + " " + input + " " + gain + "点");
+                FileoutputUtil.logToFile("logs/Data/给点数.txt", "\r\n " + FileoutputUtil.NowTime() + " GM "
+                        + c.getPlayer().getName() + " 给了 " + victim.getName() + " " + input + " " + gain + "点");
                 victim.modifyCSPoints(nx, gain, true);
             }
             return true;
@@ -1866,7 +1891,8 @@ public class AdminCommand {
         @Override
         public boolean execute(MapleClient c, String[] splitted) {
             MaplePortal portal = c.getPlayer().getMap().findClosestPortal(c.getPlayer().getTruePosition());
-            c.getPlayer().dropMessage(-11, portal.getName() + " id: " + portal.getId() + " script: " + portal.getScriptName());
+            c.getPlayer().dropMessage(-11,
+                    portal.getName() + " id: " + portal.getId() + " script: " + portal.getScriptName());
             return true;
         }
 
@@ -1910,7 +1936,10 @@ public class AdminCommand {
                         mch.startMapEffect("管理员发放" + quantity + show + "给在线的所有玩家！祝您玩得开心快乐", 5121009);
                     }
                 }
-                c.getPlayer().dropMessage(6, new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家获得: ").append(quantity).append(" 点的").append(type == 1 ? "GASH " : " 枫叶点数 ").append(" 共计: ").append(ret * quantity).toString());
+                c.getPlayer().dropMessage(6,
+                        new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家获得: ").append(quantity)
+                                .append(" 点的").append(type == 1 ? "GASH " : " 枫叶点数 ").append(" 共计: ")
+                                .append(ret * quantity).toString());
             } else {
                 c.getPlayer().dropMessage(6, "用法: !给所有人点数 [点数类型1-2] [点数数量] 1是GASH.2是枫叶点数");
             }
@@ -1959,7 +1988,10 @@ public class AdminCommand {
                     chrrr.startMapEffect("管理员发放" + quantity + show + "给地图的所有玩家！祝您玩得开心快乐", 5121009);
                 }
 
-                c.getPlayer().dropMessage(6, new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家获得: ").append(quantity).append(" 点的").append(type == 1 ? "GASH " : " 枫叶点数 ").append(" 共计: ").append(ret * quantity).toString());
+                c.getPlayer().dropMessage(6,
+                        new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家获得: ").append(quantity)
+                                .append(" 点的").append(type == 1 ? "GASH " : " 枫叶点数 ").append(" 共计: ")
+                                .append(ret * quantity).toString());
             } else {
                 c.getPlayer().dropMessage(6, "用法: !给地图人点数 [点数类型1-2] [点数数量] 1是GASH.2是枫叶点数");
             }
@@ -1994,7 +2026,8 @@ public class AdminCommand {
                     chrrr.startMapEffect("管理员发放" + quantity + "金币给地图的所有玩家！祝您玩得开心快乐", 5121009);
                 }
 
-                c.getPlayer().dropMessage(6, new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家获得: ").append(quantity).append(" 金币").append(" 共计: ").append(ret * quantity).toString());
+                c.getPlayer().dropMessage(6, new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家获得: ")
+                        .append(quantity).append(" 金币").append(" 共计: ").append(ret * quantity).toString());
             } else {
                 c.getPlayer().dropMessage(6, "用法: !给地图人金币 [数量]");
             }
@@ -2007,7 +2040,7 @@ public class AdminCommand {
             return new StringBuilder().append("!给地图人金币 - [数量]").toString();
         }
     }
-    
+
     public static class 给地图人红利 extends CommandExecute {
 
         @Override
@@ -2026,7 +2059,8 @@ public class AdminCommand {
                     chrrr.startMapEffect("管理员发放" + quantity + "红利给地图的所有玩家！祝您玩得开心快乐", 5121009);
                 }
 
-                c.getPlayer().dropMessage(6, new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家获得: ").append(quantity).append(" 红利").append(" 共计: ").append(ret * quantity).toString());
+                c.getPlayer().dropMessage(6, new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家获得: ")
+                        .append(quantity).append(" 红利").append(" 共计: ").append(ret * quantity).toString());
             } else {
                 c.getPlayer().dropMessage(6, "用法: !给地图人红利 [数量]");
             }
@@ -2069,7 +2103,8 @@ public class AdminCommand {
             }
 
             c.getPlayer().dropMessage("已经给予玩家[" + name + "] " + gain + " " + "推广积分");
-            FileoutputUtil.logToFile("logs/Data/给推广积分.txt", "\r\n " + FileoutputUtil.NowTime() + " GM " + c.getPlayer().getName() + " 给了 " + name + " " + gain + "推广积分");
+            FileoutputUtil.logToFile("logs/Data/给推广积分.txt", "\r\n " + FileoutputUtil.NowTime() + " GM "
+                    + c.getPlayer().getName() + " 给了 " + name + " " + gain + "推广积分");
 
             return true;
         }
@@ -2109,7 +2144,8 @@ public class AdminCommand {
             }
 
             c.getPlayer().dropMessage("已经给予玩家[" + name + "] " + gain + " " + "FB积分");
-            FileoutputUtil.logToFile("logs/Data/给FB积分.txt", "\r\n " + FileoutputUtil.NowTime() + " GM " + c.getPlayer().getName() + " 给了 " + name + " " + gain + "FB积分");
+            FileoutputUtil.logToFile("logs/Data/给FB积分.txt", "\r\n " + FileoutputUtil.NowTime() + " GM "
+                    + c.getPlayer().getName() + " 给了 " + name + " " + gain + "FB积分");
 
             return true;
         }
@@ -2132,7 +2168,8 @@ public class AdminCommand {
                 }
             }
 
-            c.getPlayer().dropMessage(6, new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家被测谎").toString());
+            c.getPlayer().dropMessage(6,
+                    new StringBuilder().append("命令使用成功，当前共有: ").append(ret).append(" 个玩家被测谎").toString());
             return true;
 
         }

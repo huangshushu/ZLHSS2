@@ -5,6 +5,13 @@
  */
 package client.messages.commands;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+
 import client.MapleCharacter;
 import client.MapleCharacterUtil;
 import client.MapleClient;
@@ -14,14 +21,6 @@ import database.DBConPool;
 import handling.cashshop.CashShopServer;
 import handling.channel.ChannelServer;
 import handling.world.World;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import server.maps.MapleMap;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
@@ -63,13 +62,15 @@ public class PracticerCommand {
                 sb.append("寻找到的玩家共").append(chrs.size()).append("位 名单如下 : ");
                 c.getPlayer().dropMessage(5, sb.toString());
                 for (MapleCharacter list : chrs) {
-                    c.getPlayer().dropMessage(5, "频道" + list.getClient().getChannel() + ": " + list.getName() + "(" + list.getId() + ") -- " + list.getMapId() + "(" + list.getMap().getMapName() + ")");
+                    c.getPlayer().dropMessage(5, "频道" + list.getClient().getChannel() + ": " + list.getName() + "("
+                            + list.getId() + ") -- " + list.getMapId() + "(" + list.getMap().getMapName() + ")");
                 }
                 return true;
             } else if (chrs.isEmpty()) {
                 c.getPlayer().dropMessage(6, "没有搜寻到名称含有 '" + input + "' 的角色");
             } else if (smart_victim != null) {
-                c.getPlayer().changeMap(smart_victim.getMap(), smart_victim.getMap().findClosestSpawnpoint(smart_victim.getTruePosition()));
+                c.getPlayer().changeMap(smart_victim.getMap(),
+                        smart_victim.getMap().findClosestSpawnpoint(smart_victim.getTruePosition()));
             } else {
                 c.getPlayer().dropMessage(6, "角色不存在或是不在线上");
             }
@@ -98,11 +99,13 @@ public class PracticerCommand {
 
             if (victim != null) {
                 if (splitted.length == 2) {
-                    c.getPlayer().changeMap(victim.getMap(), victim.getMap().findClosestSpawnpoint(victim.getPosition()));
+                    c.getPlayer().changeMap(victim.getMap(),
+                            victim.getMap().findClosestSpawnpoint(victim.getPosition()));
                 } else {
                     MapleMap target = null;
                     try {
-                        target = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(Integer.parseInt(splitted[2]));
+                        target = ChannelServer.getInstance(c.getChannel()).getMapFactory()
+                                .getMap(Integer.parseInt(splitted[2]));
                     } catch (Exception ex) {
 
                     }
@@ -178,9 +181,11 @@ public class PracticerCommand {
             MapleCharacter victim = c.getChannelServer().getPlayerStorage().getCharacterById(input);
             if (victim != null) {
                 if (splitted.length == 2) {
-                    c.getPlayer().changeMap(victim.getMap(), victim.getMap().findClosestSpawnpoint(victim.getPosition()));
+                    c.getPlayer().changeMap(victim.getMap(),
+                            victim.getMap().findClosestSpawnpoint(victim.getPosition()));
                 } else {
-                    MapleMap target = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(Integer.parseInt(splitted[2]));
+                    MapleMap target = ChannelServer.getInstance(c.getChannel()).getMapFactory()
+                            .getMap(Integer.parseInt(splitted[2]));
                     if (target == null) {
                         c.getPlayer().dropMessage(6, "地图不存在");
                     } else {
@@ -189,7 +194,8 @@ public class PracticerCommand {
                 }
             } else {
                 try {
-                    victim = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterById(Integer.parseInt(splitted[1]));
+                    victim = ChannelServer.getInstance(ch).getPlayerStorage()
+                            .getCharacterById(Integer.parseInt(splitted[1]));
                     if (victim != null) {
                         if (victim.getMapId() != c.getPlayer().getMapId()) {
                             final MapleMap mapp = c.getChannelServer().getMapFactory().getMap(victim.getMapId());
@@ -260,7 +266,7 @@ public class PracticerCommand {
                             ban = true;
                             c.getPlayer().dropMessage(6, "[" + getCommand() + "] 成功封锁 " + target.getName() + ".");
                             target.getClient().getSession().close();
-                            //target.getClient().disconnect(true, false);
+                            // target.getClient().disconnect(true, false);
                         } else {
                             c.getPlayer().dropMessage(6, "[" + getCommand() + "] 封锁失败.");
                             return true;
@@ -271,11 +277,15 @@ public class PracticerCommand {
                     }
                 }
             }
-            FileoutputUtil.logToFile("logs/Hack/指令封锁名单.txt", "\r\n " + FileoutputUtil.NowTime() + " " + c.getPlayer().getName() + " 封锁了 " + splitted[1] + " 原因: " + sb.toString() + " 是否离线封锁: " + offline);
+            FileoutputUtil.logToFile("logs/Hack/指令封锁名单.txt",
+                    "\r\n " + FileoutputUtil.NowTime() + " " + c.getPlayer().getName() + " 封锁了 " + splitted[1] + " 原因: "
+                            + sb.toString() + " 是否离线封锁: " + offline);
             String reason = "null".equals(input) ? "使用违法程式练功" : StringUtil.joinStringFrom(splitted, 2);
-            World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "[封锁系统] " + splitted[1] + " 因为" + reason + "而被管理员永久停权。"));
+            World.Broadcast.broadcastMessage(
+                    MaplePacketCreator.serverNotice(6, "[封锁系统] " + splitted[1] + " 因为" + reason + "而被管理员永久停权。"));
 
-            String msg = "[GM 密语] GM " + c.getPlayer().getName() + "  封锁了 " + splitted[1] + " 是否离线封锁 " + offline + " 原因：" + reason;
+            String msg = "[GM 密语] GM " + c.getPlayer().getName() + "  封锁了 " + splitted[1] + " 是否离线封锁 " + offline
+                    + " 原因：" + reason;
             World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg));
             return true;
         }
@@ -332,7 +342,7 @@ public class PracticerCommand {
                             ban = true;
                             c.getPlayer().dropMessage(6, "[" + getCommand() + "] 成功封锁 " + target.getName() + ".");
                             target.getClient().getSession().close();
-                            //target.getClient().disconnect(true, false);
+                            // target.getClient().disconnect(true, false);
                         } else {
                             c.getPlayer().dropMessage(6, "[" + getCommand() + "] 封锁失败.");
                             return true;
@@ -346,11 +356,16 @@ public class PracticerCommand {
 
             }
 
-            FileoutputUtil.logToFile("logs/Hack/指令封锁名单.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " " + c.getPlayer().getName() + " 封锁了 " + name + " 原因: " + sb.toString() + " 是否离线封锁: " + offline);
+            FileoutputUtil.logToFile("logs/Hack/指令封锁名单.txt",
+                    "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                            + c.getSession().remoteAddress().toString().split(":")[0] + " " + c.getPlayer().getName()
+                            + " 封锁了 " + name + " 原因: " + sb.toString() + " 是否离线封锁: " + offline);
             String reason = "null".equals(input) ? "使用违法程式练功" : StringUtil.joinStringFrom(splitted, 2);
-            World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "[封锁系统] " + name + " 因为" + reason + "而被管理员永久停权。"));
+            World.Broadcast.broadcastMessage(
+                    MaplePacketCreator.serverNotice(6, "[封锁系统] " + name + " 因为" + reason + "而被管理员永久停权。"));
 
-            String msg = "[GM 密语] GM " + c.getPlayer().getName() + "  封锁了 " + name + " 是否离线封锁 " + offline + " 原因：" + reason;
+            String msg = "[GM 密语] GM " + c.getPlayer().getName() + "  封锁了 " + name + " 是否离线封锁 " + offline + " 原因："
+                    + reason;
             World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg));
             return true;
         }
@@ -368,7 +383,9 @@ public class PracticerCommand {
             if (splitted.length < 2) {
                 return false;
             }
-            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(5, "<GM聊天视窗>" + "频道" + c.getPlayer().getClient().getChannel() + " [" + c.getPlayer().getName() + "](" + c.getPlayer().getId() + ") : " + StringUtil.joinStringFrom(splitted, 1)));
+            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(5,
+                    "<GM聊天视窗>" + "频道" + c.getPlayer().getClient().getChannel() + " [" + c.getPlayer().getName() + "]("
+                            + c.getPlayer().getId() + ") : " + StringUtil.joinStringFrom(splitted, 1)));
             return true;
         }
 
@@ -568,8 +585,10 @@ public class PracticerCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             int total = 0;
             int curConnected = c.getChannelServer().getConnectedClients();
-            c.getPlayer().dropMessage(6, "-------------------------------------------------------------------------------------");
-            c.getPlayer().dropMessage(6, new StringBuilder().append("频道: ").append(c.getChannelServer().getChannel()).append(" 线上人数: ").append(curConnected).toString());
+            c.getPlayer().dropMessage(6,
+                    "-------------------------------------------------------------------------------------");
+            c.getPlayer().dropMessage(6, new StringBuilder().append("频道: ").append(c.getChannelServer().getChannel())
+                    .append(" 线上人数: ").append(curConnected).toString());
             total += curConnected;
             for (MapleCharacter chr : c.getChannelServer().getPlayerStorage().getAllCharactersThreadSafe()) {
                 if (chr != null && c.getPlayer().getGMLevel() >= chr.getGMLevel()) {
@@ -590,15 +609,18 @@ public class PracticerCommand {
                 }
             }
             c.getPlayer().dropMessage(6, new StringBuilder().append("当前频道总计线上人数: ").append(total).toString());
-            c.getPlayer().dropMessage(6, "-------------------------------------------------------------------------------------");
+            c.getPlayer().dropMessage(6,
+                    "-------------------------------------------------------------------------------------");
             int channelOnline = c.getChannelServer().getConnectedClients();
             int totalOnline = 0;
-            /*服务器总人数*/
+            /* 服务器总人数 */
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                 totalOnline += cserv.getConnectedClients();
             }
-            c.getPlayer().dropMessage(6, new StringBuilder().append("当前服务器总计线上人数: ").append(totalOnline).append("个").toString());
-            c.getPlayer().dropMessage(6, "-------------------------------------------------------------------------------------");
+            c.getPlayer().dropMessage(6,
+                    new StringBuilder().append("当前服务器总计线上人数: ").append(totalOnline).append("个").toString());
+            c.getPlayer().dropMessage(6,
+                    "-------------------------------------------------------------------------------------");
 
             return true;
         }
@@ -618,10 +640,12 @@ public class PracticerCommand {
                 return false;
             }
             final int mapId = Integer.parseInt(splitted[1]);
-            c.getPlayer().dropMessage(6, "---------------------------------------------------------------------------------------");
+            c.getPlayer().dropMessage(6,
+                    "---------------------------------------------------------------------------------------");
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                 int curConnected = cserv.getConnectedClients();
-                c.getPlayer().dropMessage(6, new StringBuilder().append("频道: ").append(cserv.getChannel())./*append(" 线上人数: ").append(curConnected).*/toString());
+                c.getPlayer().dropMessage(6, new StringBuilder().append("频道: ").append(cserv.getChannel())
+                        ./* append(" 线上人数: ").append(curConnected). */toString());
                 total += curConnected;
                 for (MapleCharacter chr : cserv.getPlayerStorage().getAllCharacters()) {
                     if (chr != null && c.getPlayer().getGMLevel() >= chr.getGMLevel()) {
@@ -646,10 +670,12 @@ public class PracticerCommand {
                     }
 
                 }
-                
+
             }
-            //c.getPlayer().dropMessage(6, new StringBuilder().append("当前服务器总计在线: ").append(total).toString());
-            c.getPlayer().dropMessage(6, "---------------------------------------------------------------------------------------");
+            // c.getPlayer().dropMessage(6, new StringBuilder().append("当前服务器总计在线:
+            // ").append(total).toString());
+            c.getPlayer().dropMessage(6,
+                    "---------------------------------------------------------------------------------------");
             return true;
         }
 
@@ -668,13 +694,13 @@ public class PracticerCommand {
             int GmInChannel = 0;
             List<MapleCharacter> chrs = new LinkedList<>();
 
-            /*当前频道总GM数*/
+            /* 当前频道总GM数 */
             for (MapleCharacter chr : c.getChannelServer().getPlayerStorage().getAllCharactersThreadSafe()) {
                 if (chr.getGMLevel() > 0) {
                     channelOnline++;
                 }
             }
-            /*服务器总GM数*/
+            /* 服务器总GM数 */
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                 for (MapleCharacter chr : cserv.getPlayerStorage().getAllCharactersThreadSafe()) {
                     if (chr != null && chr.getGMLevel() > 0) {
@@ -682,7 +708,8 @@ public class PracticerCommand {
                     }
                 }
             }
-            c.getPlayer().dropMessage(6, "-------------------------------------------------------------------------------------");
+            c.getPlayer().dropMessage(6,
+                    "-------------------------------------------------------------------------------------");
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                 for (MapleCharacter chr : cserv.getPlayerStorage().getAllCharactersThreadSafe()) {
                     if (chr != null && chr.getGMLevel() > 0) {
@@ -691,7 +718,8 @@ public class PracticerCommand {
                 }
                 GmInChannel = chrs.size();
                 if (GmInChannel > 0) {
-                    c.getPlayer().dropMessage(6, new StringBuilder().append("频道: ").append(cserv.getChannel()).append(" 线上GM人数: ").append(GmInChannel).toString());
+                    c.getPlayer().dropMessage(6, new StringBuilder().append("频道: ").append(cserv.getChannel())
+                            .append(" 线上GM人数: ").append(GmInChannel).toString());
                     for (MapleCharacter chr : chrs) {
                         if (chr != null) {
                             StringBuilder ret = new StringBuilder();
@@ -708,10 +736,13 @@ public class PracticerCommand {
                 chrs = new LinkedList<>();
             }
             c.getPlayer().dropMessage(6, new StringBuilder().append("当前频道总计GM线上人数: ").append(channelOnline).toString());
-            c.getPlayer().dropMessage(6, "-------------------------------------------------------------------------------------");
+            c.getPlayer().dropMessage(6,
+                    "-------------------------------------------------------------------------------------");
 
-            c.getPlayer().dropMessage(6, new StringBuilder().append("当前服务器GM总计线上人数: ").append(totalOnline).append("个").toString());
-            c.getPlayer().dropMessage(6, "-------------------------------------------------------------------------------------");
+            c.getPlayer().dropMessage(6,
+                    new StringBuilder().append("当前服务器GM总计线上人数: ").append(totalOnline).append("个").toString());
+            c.getPlayer().dropMessage(6,
+                    "-------------------------------------------------------------------------------------");
             return true;
         }
 
@@ -730,7 +761,8 @@ public class PracticerCommand {
             }
             MapleCharacter victim = c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]);
             if (victim != null) {
-                victim.changeMap(c.getPlayer().getMap(), c.getPlayer().getMap().findClosestSpawnpoint(c.getPlayer().getPosition()));
+                victim.changeMap(c.getPlayer().getMap(),
+                        c.getPlayer().getMap().findClosestSpawnpoint(c.getPlayer().getPosition()));
             } else {
                 int ch = World.Find.findChannel(splitted[1]);
                 if (ch < 0) {
@@ -741,7 +773,8 @@ public class PracticerCommand {
                     c.getPlayer().dropMessage(5, "正在把玩家传到这来");
                     victim.dropMessage(5, "正在传送到GM那边");
                     if (victim.getMapId() != c.getPlayer().getMapId()) {
-                        final MapleMap mapp = victim.getClient().getChannelServer().getMapFactory().getMap(c.getPlayer().getMapId());
+                        final MapleMap mapp = victim.getClient().getChannelServer().getMapFactory()
+                                .getMap(c.getPlayer().getMapId());
                         victim.changeMap(mapp, mapp.getPortal(0));
                     }
                     victim.changeChannel(c.getChannel());
@@ -760,7 +793,8 @@ public class PracticerCommand {
 
         @Override
         public boolean execute(MapleClient c, String[] splitted) {
-            StringBuilder builder = new StringBuilder("在地图上的玩家 : ").append(c.getPlayer().getMap().getCharactersThreadsafe().size()).append(", ");
+            StringBuilder builder = new StringBuilder("在地图上的玩家 : ")
+                    .append(c.getPlayer().getMap().getCharactersThreadsafe().size()).append(", ");
             for (MapleCharacter chr : c.getPlayer().getMap().getCharactersThreadsafe()) {
                 if (builder.length() > 150) { // wild guess :o
                     builder.setLength(builder.length() - 2);
@@ -854,8 +888,10 @@ public class PracticerCommand {
                 c.getPlayer().dropMessage(6, "[" + getCommand() + "] IP以及Mac已成功解锁.");
             }
             if (ret_ == 1 || ret_ == 2) {
-                FileoutputUtil.logToFile("logs/Hack/ban/解除封锁名单.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " " + c.getPlayer().getName() + " 解锁了 " + splitted[1]
-                );
+                FileoutputUtil.logToFile("logs/Hack/ban/解除封锁名单.txt",
+                        "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                                + c.getSession().remoteAddress().toString().split(":")[0] + " "
+                                + c.getPlayer().getName() + " 解锁了 " + splitted[1]);
             }
             return true;
         }
@@ -1183,29 +1219,32 @@ public class PracticerCommand {
             }
             MapleCharacter victim = MapleCharacter.getCharacterById(playerid);
 
-            /*List<String> charName = c.loadCharacterNamesByCharId(playerid);
-            for (ChannelServer cs : ChannelServer.getAllInstances()) {
-                for (final String names : charName) {
-                    MapleCharacter character = cs.getPlayerStorage().getCharacterByName(names);
-                    if (character != null) {
-                        character.getClient().disconnect(true, false);
-                        character.getClient().getSession().close();
-                        c.getPlayer().dropMessage(" 玩家 " + names + "频道解卡成功");
-                    } else {
-                        c.getPlayer().dropMessage("该玩家不在频道线上");
-                    }
-                }
-            }
-            for (final String namesa : charName) {
-                MapleCharacter charactercs = CashShopServer.getPlayerStorage().getCharacterByName(namesa);
-                if (charactercs != null) {
-                    charactercs.getClient().disconnect(true, true);
-                    charactercs.getClient().getSession().close();
-                    c.getPlayer().dropMessage(" 玩家 " + namesa + "商城解卡成功");
-                } else {
-                    c.getPlayer().dropMessage("该玩家不在商城线上");
-                }
-            }*/
+            /*
+             * List<String> charName = c.loadCharacterNamesByCharId(playerid);
+             * for (ChannelServer cs : ChannelServer.getAllInstances()) {
+             * for (final String names : charName) {
+             * MapleCharacter character = cs.getPlayerStorage().getCharacterByName(names);
+             * if (character != null) {
+             * character.getClient().disconnect(true, false);
+             * character.getClient().getSession().close();
+             * c.getPlayer().dropMessage(" 玩家 " + names + "频道解卡成功");
+             * } else {
+             * c.getPlayer().dropMessage("该玩家不在频道线上");
+             * }
+             * }
+             * }
+             * for (final String namesa : charName) {
+             * MapleCharacter charactercs =
+             * CashShopServer.getPlayerStorage().getCharacterByName(namesa);
+             * if (charactercs != null) {
+             * charactercs.getClient().disconnect(true, true);
+             * charactercs.getClient().getSession().close();
+             * c.getPlayer().dropMessage(" 玩家 " + namesa + "商城解卡成功");
+             * } else {
+             * c.getPlayer().dropMessage("该玩家不在商城线上");
+             * }
+             * }
+             */
             if (victim != null) {
                 victim.updateNewState(0, victim.getAccountID());
                 c.getPlayer().dropMessage("修改玩家[" + playername + "]登录状态成功。");
@@ -1221,80 +1260,90 @@ public class PracticerCommand {
         }
     }
 
-    /*public static class fixch extends CommandExecute {
+    /*
+     * public static class fixch extends CommandExecute {
+     * 
+     * @Override
+     * public boolean execute(MapleClient c, String[] splitted) {
+     * if (splitted.length < 2) {
+     * return false;
+     * }
+     * ChannelServer.forceRemovePlayerByCharName(c, splitted[1]);
+     * c.getPlayer().dropMessage("已经解卡玩家<" + splitted[1] + ">");
+     * return true;
+     * }
+     * 
+     * @Override
+     * public String getMessage() {
+     * return new StringBuilder().append("!fixch <玩家名称> - 解卡角").toString();
+     * }
+     * }
+     */
 
-        @Override
-        public boolean execute(MapleClient c, String[] splitted) {
-            if (splitted.length < 2) {
-                return false;
-            }
-            ChannelServer.forceRemovePlayerByCharName(c, splitted[1]);
-            c.getPlayer().dropMessage("已经解卡玩家<" + splitted[1] + ">");
-            return true;
-        }
-
-        @Override
-        public String getMessage() {
-            return new StringBuilder().append("!fixch <玩家名称> - 解卡角").toString();
-        }
-    }*/
-
- /*public static class fixac extends CommandExecute {
-
-        @Override
-        public boolean execute(MapleClient c, String[] splitted) {
-            if (splitted.length < 2) {
-                return false;
-            }
-            String input = splitted[1];
-            int Accountid = 0;
-            int times = 0;
-
-            try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT accountid FROM characters WHERE name = ?")) {
-                ps.setString(1, input);
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (!rs.next()) {
-                        rs.close();
-                        ps.close();
-                        return true;
-                    }
-                    Accountid = rs.getInt(1);
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(PracticerCommand.class.getName()).log(Level.SEVERE, null, ex);
-                FileoutputUtil.outError("logs/资料库异常.txt", ex);
-            }
-
-            try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT name FROM characters WHERE accountid = ?")) {
-                ps.setInt(1, Accountid);
-                try (ResultSet rs = ps.executeQuery()) {
-                    if (!rs.next()) {
-                        rs.close();
-                        ps.close();
-                        return false;
-                    }
-                    times++;
-                    try {
-                        ChannelServer.forceRemovePlayerByCharName(c, rs.getString("name"));
-                    } catch (Exception ex) {
-                        FileoutputUtil.outError("logs/资料库异常.txt", ex);
-                    }
-                }
-            } catch (Exception ex) {
-                Logger.getLogger(PracticerCommand.class.getName()).log(Level.SEVERE, null, ex);
-                FileoutputUtil.outError("logs/资料库异常.txt", ex);
-            }
-            if (c != null && c.getPlayer() != null) {
-                c.getPlayer().dropMessage("已经解卡玩家<" + splitted[1] + ">帐号内的" + times + "个角色");
-            }
-            return true;
-        }
-
-        @Override
-        public String getMessage() {
-            return new StringBuilder().append("!fixac <玩家名称> - 解帐号卡角").toString();
-        }
-    }*/
+    /*
+     * public static class fixac extends CommandExecute {
+     * 
+     * @Override
+     * public boolean execute(MapleClient c, String[] splitted) {
+     * if (splitted.length < 2) {
+     * return false;
+     * }
+     * String input = splitted[1];
+     * int Accountid = 0;
+     * int times = 0;
+     * 
+     * try (Connection con =
+     * DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps
+     * = con.prepareStatement("SELECT accountid FROM characters WHERE name = ?")) {
+     * ps.setString(1, input);
+     * try (ResultSet rs = ps.executeQuery()) {
+     * if (!rs.next()) {
+     * rs.close();
+     * ps.close();
+     * return true;
+     * }
+     * Accountid = rs.getInt(1);
+     * }
+     * } catch (Exception ex) {
+     * Logger.getLogger(PracticerCommand.class.getName()).log(Level.SEVERE, null,
+     * ex);
+     * FileoutputUtil.outError("logs/资料库异常.txt", ex);
+     * }
+     * 
+     * try (Connection con =
+     * DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps
+     * = con.prepareStatement("SELECT name FROM characters WHERE accountid = ?")) {
+     * ps.setInt(1, Accountid);
+     * try (ResultSet rs = ps.executeQuery()) {
+     * if (!rs.next()) {
+     * rs.close();
+     * ps.close();
+     * return false;
+     * }
+     * times++;
+     * try {
+     * ChannelServer.forceRemovePlayerByCharName(c, rs.getString("name"));
+     * } catch (Exception ex) {
+     * FileoutputUtil.outError("logs/资料库异常.txt", ex);
+     * }
+     * }
+     * } catch (Exception ex) {
+     * Logger.getLogger(PracticerCommand.class.getName()).log(Level.SEVERE, null,
+     * ex);
+     * FileoutputUtil.outError("logs/资料库异常.txt", ex);
+     * }
+     * if (c != null && c.getPlayer() != null) {
+     * c.getPlayer().dropMessage("已经解卡玩家<" + splitted[1] + ">帐号内的" + times + "个角色");
+     * }
+     * return true;
+     * }
+     * 
+     * @Override
+     * public String getMessage() {
+     * return new StringBuilder().append("!fixac <玩家名称> - 解帐号卡角").toString();
+     * }
+     * }
+     */
     public static class Job extends CommandExecute {
 
         @Override
@@ -1335,7 +1384,9 @@ public class PracticerCommand {
 
         @Override
         public boolean execute(MapleClient c, String splitted[]) {
-            c.getPlayer().dropMessage(5, "目前地图 " + c.getPlayer().getMap().getId() + "座标 (" + String.valueOf(c.getPlayer().getPosition().x) + " , " + String.valueOf(c.getPlayer().getPosition().y) + ")");
+            c.getPlayer().dropMessage(5,
+                    "目前地图 " + c.getPlayer().getMap().getId() + "座标 (" + String.valueOf(c.getPlayer().getPosition().x)
+                            + " , " + String.valueOf(c.getPlayer().getPosition().y) + ")");
             return true;
         }
 
@@ -1395,12 +1446,15 @@ public class PracticerCommand {
                 MACbanned = true;
             }
 
-            c.getPlayer().dropMessage("玩家[" + name + "] 帐号ID[" + acid + "]是否被封锁: " + (ACbanned ? "是" : "否") + (Systemban ? "(系统自动封锁)" : "") + ", 原因: " + reason);
+            c.getPlayer().dropMessage("玩家[" + name + "] 帐号ID[" + acid + "]是否被封锁: " + (ACbanned ? "是" : "否")
+                    + (Systemban ? "(系统自动封锁)" : "") + ", 原因: " + reason);
             c.getPlayer().dropMessage("IP: " + ip + " 是否在封锁IP名单: " + (IPbanned ? "是" : "否"));
             for (String SingleMac : mac.split(", ")) {
-                c.getPlayer().dropMessage("MAC: " + SingleMac + " 是否在封锁MAC名单: " + (c.isBannedMac(SingleMac) ? "是" : "否"));
+                c.getPlayer()
+                        .dropMessage("MAC: " + SingleMac + " 是否在封锁MAC名单: " + (c.isBannedMac(SingleMac) ? "是" : "否"));
             }
-            // c.getPlayer().dropMessage("MAC: " + mac + " 是否在封锁MAC名单: " + (MACbanned ? "是" : "否"));
+            // c.getPlayer().dropMessage("MAC: " + mac + " 是否在封锁MAC名单: " + (MACbanned ? "是"
+            // : "否"));
             return true;
         }
 
@@ -1423,7 +1477,8 @@ public class PracticerCommand {
                 return true;
             }
             c.getPlayer().dropMessage("封锁MAC [" + mac + "] 成功");
-            try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("INSERT INTO macbans (mac) VALUES (?)")) {
+            try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                    PreparedStatement ps = con.prepareStatement("INSERT INTO macbans (mac) VALUES (?)")) {
                 ps.setString(1, mac);
                 ps.executeUpdate();
                 ps.close();
@@ -1441,52 +1496,56 @@ public class PracticerCommand {
         }
     }
 
-    /*public static class BanIP extends CommandExecute {
-
-        @Override
-        public boolean execute(MapleClient c, String[] splitted) {
-            if (splitted.length < 2) {
-                return false;
-            }
-            boolean error = false;
-            String IP = splitted[1];
-            if (!IP.contains("/") || !IP.contains(".")) {
-                c.getPlayer().dropMessage("输入IP必须包含 '/' 以及 '.' 例如: !banIP /127.0.0.1");
-                return true;
-            }
-            try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-                PreparedStatement ps;
-                ps = con.prepareStatement("INSERT INTO ipbans (ip) VALUES (?)");
-                ps.setString(1, IP);
-                ps.executeUpdate();
-                ps.close();
-            } catch (Exception ex) {
-                FileoutputUtil.outError("logs/资料库异常.txt", ex);
-                error = true;
-            }
-            try {
-                for (ChannelServer cs : ChannelServer.getAllInstances()) {
-                    for (MapleCharacter chr : cs.getPlayerStorage().getAllCharactersThreadSafe()) {
-                        //    if (chr.getClient().getSessionIPAddress().equals(IP)) {
-                        if (!chr.getClient().isGm()) {
-                            chr.getClient().disconnect(true, false);
-                            //chr.getClient().getSession().close();
-                        }
-                        //   }
-                    }
-                }
-            } catch (Exception ex) {
-                FileoutputUtil.outError("logs/资料库异常.txt", ex);
-            }
-            c.getPlayer().dropMessage("封锁IP [" + IP + "] " + (error ? "成功 " : "失败"));
-            return true;
-        }
-
-        @Override
-        public String getMessage() {
-            return new StringBuilder().append("!BanIP <IP> - 封锁IP ").toString();
-        }
-    }*/
+    /*
+     * public static class BanIP extends CommandExecute {
+     * 
+     * @Override
+     * public boolean execute(MapleClient c, String[] splitted) {
+     * if (splitted.length < 2) {
+     * return false;
+     * }
+     * boolean error = false;
+     * String IP = splitted[1];
+     * if (!IP.contains("/") || !IP.contains(".")) {
+     * c.getPlayer().dropMessage("输入IP必须包含 '/' 以及 '.' 例如: !banIP /127.0.0.1");
+     * return true;
+     * }
+     * try (Connection con =
+     * DBConPool.getInstance().getDataSource().getConnection()) {
+     * PreparedStatement ps;
+     * ps = con.prepareStatement("INSERT INTO ipbans (ip) VALUES (?)");
+     * ps.setString(1, IP);
+     * ps.executeUpdate();
+     * ps.close();
+     * } catch (Exception ex) {
+     * FileoutputUtil.outError("logs/资料库异常.txt", ex);
+     * error = true;
+     * }
+     * try {
+     * for (ChannelServer cs : ChannelServer.getAllInstances()) {
+     * for (MapleCharacter chr : cs.getPlayerStorage().getAllCharactersThreadSafe())
+     * {
+     * // if (chr.getClient().getSessionIPAddress().equals(IP)) {
+     * if (!chr.getClient().isGm()) {
+     * chr.getClient().disconnect(true, false);
+     * //chr.getClient().getSession().close();
+     * }
+     * // }
+     * }
+     * }
+     * } catch (Exception ex) {
+     * FileoutputUtil.outError("logs/资料库异常.txt", ex);
+     * }
+     * c.getPlayer().dropMessage("封锁IP [" + IP + "] " + (error ? "成功 " : "失败"));
+     * return true;
+     * }
+     * 
+     * @Override
+     * public String getMessage() {
+     * return new StringBuilder().append("!BanIP <IP> - 封锁IP ").toString();
+     * }
+     * }
+     */
     public static class 个人公告 extends CommandExecute {
 
         @Override
