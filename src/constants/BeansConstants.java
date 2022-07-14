@@ -9,10 +9,6 @@ import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
-/**
- *
- * @author wubin
- */
 public class BeansConstants {
 
     private static BeansConstants instance = null;

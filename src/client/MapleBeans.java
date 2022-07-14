@@ -5,10 +5,6 @@
  */
 package client;
 
-/**
- *
- * @author wubin
- */
 public class MapleBeans {
 
     private final int number;

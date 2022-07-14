@@ -1,4 +1,4 @@
-﻿/* Author: Xterminator
+﻿/* 
 	NPC Name: 		Regular Cab
 	Map(s): 		Victoria Road : Ellinia (101000000)
 	Description: 		Ellinia Cab

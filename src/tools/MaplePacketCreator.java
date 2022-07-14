@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.alibaba.druid.sql.ast.statement.SQLIfStatement.Else;
+
 import client.BuddyEntry;
 import client.MapleBeans;
 import client.MapleBuffStat;
@@ -3331,9 +3333,14 @@ public class MaplePacketCreator {
         mplew.writeShort(SendPacketOpcode.GUILD_OPERATION.getValue());
         mplew.write(0x1A); // signature for showing guild info
 
-        String Prefix = c.getNick();
+        String Prefix = "";
         mplew.write(1); // bInGuild
         mplew.writeInt(0);
+        if (MapleCharacter.getOneTimeLog("关闭勋章显示") >= 1) {
+            Prefix = "";
+        } else {
+            Prefix = c.getNick();
+        }
         mplew.writeMapleAsciiString(Prefix);
         // mplew.writeMapleAsciiString("");
         mplew.write(0);// members.size()
@@ -3381,8 +3388,13 @@ public class MaplePacketCreator {
     }
 
     public static void getGuildInfo(MaplePacketLittleEndianWriter mplew, MapleGuild guild, MapleCharacter c) {
-        String Prefix = c == null ? "" : c.getNick();
+        String Prefix = "";
         mplew.writeInt(guild.getId());
+        if (MapleCharacter.getOneTimeLog("关闭勋章显示") >= 1) {
+            Prefix = "";
+        } else {
+            Prefix = "|" + c.getNick();
+        }
         mplew.writeMapleAsciiString(guild.getName() + Prefix);
         for (int i = 1; i <= 5; i++) {
             mplew.writeMapleAsciiString(guild.getRankTitle(i));

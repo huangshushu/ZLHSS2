@@ -14,10 +14,6 @@ import java.net.URL;
 import tools.HexTool;
 import tools.Pair;
 
-/**
- *
- * @author wubin
- */
 public class LieDetectorScript {
 
     private static final String IMG_DIRECTORY = "scripts/liedetector/";

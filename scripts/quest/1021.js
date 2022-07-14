@@ -1,8 +1,3 @@
-/* Author: Xterminator (Modified by RMZero213)
-	NPC Name: 		Roger
-	Map(s): 		Maple Road : Lower level of the Training Camp (2)
-	Description: 		Quest - Roger's Apple
-*/
 var status = -1;
 
 function start(mode, type, selection) {

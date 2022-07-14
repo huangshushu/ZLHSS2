@@ -154,7 +154,7 @@ public class GuildHandler {
 
         switch (operation) {
 
-            case CREATE: {
+            case CREATE: { // 创建
                 int cost = 500000;
                 if (c.getPlayer().getGuildId() > 0 || c.getPlayer().getMapId() != 200000301) {
                     c.getPlayer().dropMessage(1, "无法建立公会\r\n已经有公会或不在英雄之殿");
@@ -191,7 +191,7 @@ public class GuildHandler {
                 break;
             }
 
-            case INVITE: {
+            case INVITE: { // 邀请
                 if (c.getPlayer().getGuildId() <= 0 || c.getPlayer().getGuildRank() > 2) { // 1 == guild master, 2 == jr
                     return;
                 }
@@ -208,7 +208,7 @@ public class GuildHandler {
                 }
                 break;
             }
-            case ACCEPTED: {
+            case ACCEPTED: { // 接受
                 if (c.getPlayer().getGuildId() > 0) {
                     return;
                 }
@@ -249,7 +249,7 @@ public class GuildHandler {
                 }
                 break;
             }
-            case LEAVING: {
+            case LEAVING: { // 离开
                 int cid = slea.readInt();
                 String name = slea.readMapleAsciiString();
 
@@ -267,7 +267,7 @@ public class GuildHandler {
                 // SaveCharDb(c.getPlayer());
                 break;
             }
-            case EXPEL: {
+            case EXPEL: { // 驱除
                 int cid = slea.readInt();
                 String name = slea.readMapleAsciiString();
                 MapleCharacter victim = null;

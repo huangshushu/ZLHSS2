@@ -1,4 +1,4 @@
-﻿/* Author: Xterminator
+﻿/* 
 	NPC Name: 		Tian
 	Map(s): 		Ludibrium: Station<Orbis> (220000110)
 	Description: 		Ludibrium Ticketing Usher

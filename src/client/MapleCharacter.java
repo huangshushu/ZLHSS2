@@ -155,12 +155,50 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             fairyExp = 30, numClones, subcategory, fairyHour = 1; // Make this a quest record, TODO : Transfer it
                                                                   // somehow with the current data
     private short level, mulung_energy, availableCP, totalCP, fame, hpmpApUsed, job, remainingAp;
-    private int accountid, id, meso, exp, hair, face, mapid, bookCover, dojo,
-            guildid = 0, fallcounter = 0, maplepoints, chair, itemEffect/* , points */, vpoints,
-            rank = 1, rankMove = 0, jobRank = 1, jobRankMove = 0, marriageId, marriageItemId = 0,
-            currentrep, totalrep, linkMid = 0, coconutteam = 0, followid = 0, battleshipHP = 0,
-            expression, constellation, blood, month, day, beans, beansNum, beansRange,
-            gachexp, combo, MSG = 0, 打怪 = 0, 吸怪 = 0, FLY_吸怪 = 0, vip, CsMod = 0, msgCount = 0;
+    private int accountid;
+    private static int id;
+    private int meso;
+    private int exp;
+    private int hair;
+    private int face;
+    private int mapid;
+    private int bookCover;
+    private int dojo;
+    private int guildid = 0;
+    private int fallcounter = 0;
+    private int maplepoints;
+    private int chair;
+    private int itemEffect/* , points */;
+    private int vpoints;
+    private int rank = 1;
+    private int rankMove = 0;
+    private int jobRank = 1;
+    private int jobRankMove = 0;
+    private int marriageId;
+    private int marriageItemId = 0;
+    private int currentrep;
+    private int totalrep;
+    private int linkMid = 0;
+    private int coconutteam = 0;
+    private int followid = 0;
+    private int battleshipHP = 0;
+    private int expression;
+    private int constellation;
+    private int blood;
+    private int month;
+    private int day;
+    private int beans;
+    private int beansNum;
+    private int beansRange;
+    private int gachexp;
+    private int combo;
+    private int MSG = 0;
+    private int 打怪 = 0;
+    private int 吸怪 = 0;
+    private int FLY_吸怪 = 0;
+    private int vip;
+    private int CsMod = 0;
+    private int msgCount = 0;
     private Point old = new Point(0, 0);
     private boolean smega = true, gashponmega = true, hidden, hasSummon = false, 精灵商人购买开关 = false,
             玩家私聊开关 = false, 玩家密语开关 = false, 好友聊天开关 = false, 队伍聊天开关 = false, 公会聊天开关 = false,
@@ -5788,7 +5826,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
     }
 
-    public int getOneTimeLog(String log) {
+    public static int getOneTimeLog(String log) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             int ret_count = 0;
             PreparedStatement ps;
@@ -7746,11 +7784,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     public String getNick() {
         String name = "";
-        if (getOneTimeLog("关闭VIP星星数显示") < 1) {
-            if (getVipMedal()) {
-                if (getVip() > 0) {
-                    name += getVipName();
-                }
+
+        if (getVipMedal()) {
+            if (getVip() > 0) {
+                name += getVipName();
             }
         }
 

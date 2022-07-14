@@ -1,4 +1,4 @@
-﻿/* Author: Xterminator
+﻿/* 
 	NPC Name: 		Nautilus' Mid-Sized Taxi
 	Map(s): 		Victoria Road : Nautilus Harbor (120000000)
 	Description: 		Nautilus Harbor Taxi

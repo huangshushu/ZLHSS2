@@ -1,4 +1,4 @@
-﻿/* Author: Xterminator
+﻿/* 
 	NPC Name: 		Cloy
 	Map(s): 		Victoria Road : Henesys Park (100000200)
 	Description: 		Pet Master

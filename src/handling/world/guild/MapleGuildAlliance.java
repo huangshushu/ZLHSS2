@@ -39,16 +39,18 @@ public class MapleGuildAlliance implements java.io.Serializable {
 
         NONE, DISBAND, NEWGUILD
     }
+
     public static final long serialVersionUID = 24081985245L;
     public static final int CHANGE_CAPACITY_COST = 10000000;
     private final int[] guilds = new int[5];
-    private int allianceid, leaderid, capacity; //make SQL for this auto-increment
+    private int allianceid, leaderid, capacity; // make SQL for this auto-increment
     private String name, notice;
     private String ranks[] = new String[5];
 
     public MapleGuildAlliance(final int id) {
         super();
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT * FROM alliances WHERE id = ?")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM alliances WHERE id = ?")) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (!rs.first()) {
@@ -77,7 +79,9 @@ public class MapleGuildAlliance implements java.io.Serializable {
     public static final Collection<MapleGuildAlliance> loadAll() {
         final Collection<MapleGuildAlliance> ret = new ArrayList<>();
         MapleGuildAlliance g;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT id FROM alliances"); ResultSet rs = ps.executeQuery()) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement("SELECT id FROM alliances");
+                ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 g = new MapleGuildAlliance(rs.getInt("id"));
                 if (g.getId() > 0) {
@@ -119,7 +123,8 @@ public class MapleGuildAlliance implements java.io.Serializable {
             ps.close();
             rs.close();
 
-            ps = con.prepareStatement("insert into alliances (name, guild1, guild2, leaderid) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement("insert into alliances (name, guild1, guild2, leaderid) VALUES (?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, name);
             ps.setInt(2, guild1);
             ps.setInt(3, guild2);
@@ -170,11 +175,12 @@ public class MapleGuildAlliance implements java.io.Serializable {
 
     public final void broadcast(final byte[] packet, final int exceptionId, final GAOp op, final boolean expelled) {
         if (op == GAOp.DISBAND) {
-            World.Alliance.setOldAlliance(exceptionId, expelled, allianceid); //-1 = alliance gone, exceptionId = guild left/expelled
+            World.Alliance.setOldAlliance(exceptionId, expelled, allianceid); // -1 = alliance gone, exceptionId = guild
+                                                                              // left/expelled
         } else if (op == GAOp.NEWGUILD) {
-            World.Alliance.setNewAlliance(exceptionId, allianceid); //exceptionId = guild that just joined
+            World.Alliance.setNewAlliance(exceptionId, allianceid); // exceptionId = guild that just joined
         } else {
-            World.Alliance.sendGuild(packet, exceptionId, allianceid); //exceptionId = guild to broadcast to only
+            World.Alliance.sendGuild(packet, exceptionId, allianceid); // exceptionId = guild to broadcast to only
         }
 
     }
@@ -188,7 +194,9 @@ public class MapleGuildAlliance implements java.io.Serializable {
     }
 
     public final void saveToDb() {
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE alliances set guild1 = ?, guild2 = ?, guild3 = ?, guild4 = ?, guild5 = ?, rank1 = ?, rank2 = ?, rank3 = ?, rank4 = ?, rank5 = ?, capacity = ?, leaderid = ?, notice = ? where id = ?")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement(
+                        "UPDATE alliances set guild1 = ?, guild2 = ?, guild3 = ?, guild4 = ?, guild5 = ?, rank1 = ?, rank2 = ?, rank3 = ?, rank4 = ?, rank5 = ?, capacity = ?, leaderid = ?, notice = ? where id = ?")) {
             for (int i = 0; i < 5; i++) {
                 ps.setInt(i + 1, guilds[i] < 0 ? 0 : guilds[i]);
                 ps.setString(i + 6, ranks[i]);
@@ -282,7 +290,7 @@ public class MapleGuildAlliance implements java.io.Serializable {
                 } else {
                     guilds[i] = -1;
                 }
-                if (i == 0) { //leader guild.. FUCK THIS ALLIANCE! xD
+                if (i == 0) { // leader guild.. FUCK THIS ALLIANCE! xD
                     return disband();
                 } else {
                     broadcast(MaplePacketCreator.getAllianceUpdate(this));
@@ -303,18 +311,28 @@ public class MapleGuildAlliance implements java.io.Serializable {
         if (leaderid == c) {
             return false;
         }
-        //MapleCharacter cb = c;
-        //re-arrange the guilds so guild1 is always the leader guild
-        int g = -1; //this shall be leader
+        // MapleCharacter cb = c;
+        // re-arrange the guilds so guild1 is always the leader guild
+        int g = -1; // this shall be leader
         String leaderName = null;
         for (int i = 0; i < getNoGuilds(); i++) {
             MapleGuild g_ = World.Guild.getGuild(guilds[i]);
             if (g_ != null) {
                 MapleGuildCharacter newLead = g_.getMGC(c);
                 MapleGuildCharacter oldLead = g_.getMGC(leaderid);
-                if (newLead != null && oldLead != null) { //same guild
+                if (newLead != null && oldLead != null) { // same guild
                     return false;
-                } else if (newLead != null && newLead.getGuildRank() == 1 && newLead.getAllianceRank() == 2) { //guild1 should always be leader so no worries about g being -1
+                } else if (newLead != null && newLead.getGuildRank() == 1 && newLead.getAllianceRank() == 2) { // guild1
+                                                                                                               // should
+                                                                                                               // always
+                                                                                                               // be
+                                                                                                               // leader
+                                                                                                               // so no
+                                                                                                               // worries
+                                                                                                               // about
+                                                                                                               // g
+                                                                                                               // being
+                                                                                                               // -1
                     g_.changeARank(c, 1);
                     g = i;
                     leaderName = newLead.getName();
@@ -326,7 +344,7 @@ public class MapleGuildAlliance implements java.io.Serializable {
             }
         }
         if (g == -1) {
-            return false; //nothing was done
+            return false; // nothing was done
         }
         final int oldGuild = guilds[g];
         guilds[g] = guilds[0];

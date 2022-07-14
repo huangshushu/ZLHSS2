@@ -74,7 +74,7 @@ public class MapleBBSThread implements java.io.Serializable {
             } else if (o1.localthreadID == o2.localthreadID) {
                 return 0;
             } else {
-                return -1; //opposite here as oldest is last, newest is first
+                return -1; // opposite here as oldest is last, newest is first
             }
         }
     }

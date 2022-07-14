@@ -1,10 +1,4 @@
-﻿/* Author: aaroncsn (MapleSea Like)(Incomplete- Needs skin id)
-	NPC Name: 		Laila
-	Map(s): 		The Burning Road: Ariant(2600000000)
-	Description: 	Skin Care Specialist
-*/
-
-var status = 0;
+﻿var status = 0;
 var skin = Array(0, 1, 2, 3, 4);
 
 function start() {

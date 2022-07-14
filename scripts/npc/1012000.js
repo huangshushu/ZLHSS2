@@ -1,4 +1,4 @@
-﻿/* Author: Xterminator
+﻿/* 
 	NPC Name: 		Regular Cab
 	Map(s): 		Victoria Road : Henesys (100000000)
 	Description: 		Henesys Cab

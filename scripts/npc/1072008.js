@@ -1,9 +1,3 @@
-/**
-	Author: xQuasar
-	NPC: Kyrin - Pirate Job Advancer
-	Inside Test Room
-**/
-
 var status;
 
 function start() {

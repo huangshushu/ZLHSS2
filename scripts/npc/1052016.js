@@ -1,4 +1,4 @@
-﻿/* Author: Xterminator
+﻿/* 
 	NPC Name: 		Regular Cab
 	Map(s): 		Victoria Road : Kerning City (103000000)
 	Description: 		Kerning City Cab

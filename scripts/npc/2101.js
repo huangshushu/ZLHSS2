@@ -1,8 +1,3 @@
-/* Author: Xterminator
-	NPC Name: 		Heena
-	Map(s): 		Maple Road : Lower level of the Training Camp (2)
-	Description: 		Takes you outside of Training Camp
-*/
 var status = 0;
 
 function start() {

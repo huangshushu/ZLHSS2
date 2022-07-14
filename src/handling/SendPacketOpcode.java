@@ -9,7 +9,7 @@ import java.util.Properties;
 import tools.StringUtil;
 
 public enum SendPacketOpcode implements WritableIntValueHolder {
-//# 地图风筝封包包头
+    // # 地图风筝封包包头
 
     SPAWN_KITE_ERROR(0x109),
     SPAWN_KITE(0x10A),
@@ -29,8 +29,8 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     RELOG_RESPONSE(0x0F),
     SECONDPW_ERROR(0x10),
     CHOOSE_GENDER(0x14),
-    GENDER_SET(0x15),//maybe this is RELOG_RESPONSE, can't care less
-    SERVERSTATUS(0x16),//CHECK_USER_LIMIT_RESULT
+    GENDER_SET(0x15), // maybe this is RELOG_RESPONSE, can't care less
+    SERVERSTATUS(0x16), // CHECK_USER_LIMIT_RESULT
 
     MODIFY_INVENTORY_ITEM(0x1B),
     UPDATE_INVENTORY_SLOT(0x1C),
@@ -61,30 +61,30 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     ALLIANCE_OPERATION(0x3B),
     SPAWN_PORTAL(0x3C),
     SERVERMESSAGE(0x3D),
-    INCUBATOR_RESULT(0x3E),// incubatorResult
-    PIGMI_REWARD(0xFFFE), //>?????
+    INCUBATOR_RESULT(0x3E), // incubatorResult
+    PIGMI_REWARD(0xFFFE), // >?????
     SHOP_SCANNER_RESULT(0x3F),
-    SHOP_LINK_RESULT(0x40),//
+    SHOP_LINK_RESULT(0x40), //
     MARRIAGE_REQUEST(0x41),
     MARRIAGE_RESULT(0x42),
     WEDDING_GIFT_RESULT(0x43), //
     NOTIFY_MARRIED_PARTNER_MAP_TRANSFER(0x44), //
-    CASH_PET_FOOD_RESULT(0x45),//
+    CASH_PET_FOOD_RESULT(0x45), //
     SET_WEEK_EVENT_MESSAGE(0x46),
-    SET_POTION_DISCOUNT_RATE(0x47),//
+    SET_POTION_DISCOUNT_RATE(0x47), //
     BRIDE_MOB_CATCH_FAIL(0x48), //
     IMITATED_NPC_RESULT(0x4A),
-    IMITATED_NPC_DATA(0x4B),//
-    LIMITED_NPC_DISABLE_INFO(0x4C),//
+    IMITATED_NPC_DATA(0x4B), //
+    LIMITED_NPC_DISABLE_INFO(0x4C), //
     MONSTERBOOK_ADD(0x4D),
     MONSTERBOOK_CHANGE_COVER(0x4E),
-    HOUR_CHANGED(0x4F),//
-    MINIMAP_ON_OFF(0x50),//
-    CONSULT_AUTHKEY_UPDATE(0x51),//[1]][4]?
-    CLASS_COMPETITION_AUTHKEY_UPDATE(0x52),//[1]][4]?
-    WEB_BOARD_AUTHKEY_UPDATE(0x53),// [1]][4]?
-    SESSION_VALUE(0x54),//
-    BONUS_EXP_CHANGED(0x55),//
+    HOUR_CHANGED(0x4F), //
+    MINIMAP_ON_OFF(0x50), //
+    CONSULT_AUTHKEY_UPDATE(0x51), // [1]][4]?
+    CLASS_COMPETITION_AUTHKEY_UPDATE(0x52), // [1]][4]?
+    WEB_BOARD_AUTHKEY_UPDATE(0x53), // [1]][4]?
+    SESSION_VALUE(0x54), //
+    BONUS_EXP_CHANGED(0x55), //
 
     FAMILY_CHART_RESULT(0x56),
     // 信息
@@ -102,7 +102,7 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     // 名声度
     FAMILY_FAMOUS_POINT_INC_RESULT(0x5D),
     // 登入登出提醒
-    FAMILY_NOTIFY_LOGIN_OR_LOGOUT(0x5E), //? is logged in. LOLWUT
+    FAMILY_NOTIFY_LOGIN_OR_LOGOUT(0x5E), // ? is logged in. LOLWUT
     FAMILY_SET_PRIVILEGE(0x5F),
     FAMILY_SUMMON_REQUEST(0x60),
     LEVEL_UPDATE(0x61),
@@ -110,22 +110,22 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     JOB_UPDATE(0x63),
     SET_BUY_EQUIP_EXT(0x64), //
     SCRIPT_PROGRESS_MESSAGE(0x65),
-    DATA_CRC_CHECK_FAILED(0x66),//
+    DATA_CRC_CHECK_FAILED(0x66), //
     BBS_OPERATION(0x68),
     FISHING_BOARD_UPDATE(0x69),
     AVATAR_MEGA(0x6D),
     SKILL_MACRO(0x7A),
     SET_FIELD(0x7B),
-    SET_ITC(0x7C), //MTS
+    SET_ITC(0x7C), // MTS
     SET_CASH_SHOP(0x7D),
     SET_MAP_OBJECT_VISIBLE(0x7F),
     CLEAR_BACK_EFFECT(0x80),
-    MAP_BLOCKED(0x81),//
+    MAP_BLOCKED(0x81), //
     SERVER_BLOCKED(0x82),
     SHOW_EQUIP_EFFECT(0x83),
     MULTICHAT(0x84),
     WHISPER(0x85),
-    SPOUSE_CHAT(0x86),//
+    SPOUSE_CHAT(0x86), //
     BOSS_ENV(0x87),
     MOVE_ENV(0x88),
     CASH_SONG(0x89),
@@ -144,15 +144,15 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     CHATTEXT(0x9B),
     CHALKBOARD(0x9C),
     UPDATE_CHAR_BOX(0x9D),
-    SHOW_CONSUME_EFFECT(0x9E),//
+    SHOW_CONSUME_EFFECT(0x9E), //
     SHOW_SCROLL_EFFECT(0x9F),
     FISHING_CAUGHT(0xA0),
-    HIT_BY_USER(0xA1), //[4][4]
+    HIT_BY_USER(0xA1), // [4][4]
     SPAWN_PET(0xA2),
     MOVE_PET(0xA5),
     PET_CHAT(0xA6),
     PET_NAMECHANGE(0xA7),
-    PET_EXCEPTION_LIST(0xA8),//
+    PET_EXCEPTION_LIST(0xA8), //
     PET_COMMAND(0xA9),
     SPAWN_SUMMON(0xAA),
     REMOVE_SUMMON(0xAB),
@@ -171,9 +171,9 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     SHOW_ITEM_EFFECT(0xBA),
     SHOW_CHAIR(0xBD),
     UPDATE_CHAR_LOOK(0xBE),
-    ACTIVE_PORTABLE_CHAIR(0xBD),//
+    ACTIVE_PORTABLE_CHAIR(0xBD), //
     // 0xBC ?? sub_9A4751((void *)v3, Format);
-    AVARTAR_MODFIED(0xBE),//
+    AVARTAR_MODFIED(0xBE), //
     SHOW_FOREIGN_EFFECT(0xBF),
     GIVE_FOREIGN_BUFF(0xC0),
     CANCEL_FOREIGN_BUFF(0xC1),
@@ -290,6 +290,7 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     TOP_MSG,
     CHAR_CASH,
     CS_WEB;
+
     private short code = -2;
 
     private SendPacketOpcode() {
@@ -324,38 +325,38 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
             case "WARP_TO_MAP":
             case "PING":
             case "NPC_ACTION":
-//            case "AUTH_RESPONSE":
-//            case "SERVERLIST":
-//            case "UPDATE_STATS":
-//            case "MOVE_PLAYER":
-//            case "SPAWN_NPC":
-//            case "SPAWN_NPC_REQUEST_CONTROLLER":
-//            case "REMOVE_NPC":
-//            case "MOVE_MONSTER":
-//            case "MOVE_MONSTER_RESPONSE":
-            //case "SPAWN_MONSTER":
-//            case "SPAWN_MONSTER_CONTROL":
-//            case "HAKU_MOVE":
-//            case "MOVE_SUMMON":
-//            case "MOVE_FAMILIAR":
-//            case "ANDROID_MOVE":
-//            case "INVENTORY_OPERATION":
-//            case "MOVE_PET":
-//            case "SHOW_SPECIAL_EFFECT":
-//            case "DROP_ITEM_FROM_MAPOBJECT":
-//            case "REMOVE_ITEM_FROM_MAP":
-//            case "UPDATE_PARTYMEMBER_HP":
-//            case "DAMAGE_PLAYER":
-//            case "SHOW_MONSTER_HP":
-//            case "CLOSE_RANGE_ATTACK":
-//            case "RANGED_ATTACK":
-//            case "ARAN_COMBO":
-//            case "REMOVE_BG_LAYER":
-//            case "SPECIAL_STAT":
-//            case "TOP_MSG":
-//            case "ANGELIC_CHANGE":
-//            case "UPDATE_CHAR_LOOK":
-//            case "KILL_MONSTER":
+                // case "AUTH_RESPONSE":
+                // case "SERVERLIST":
+                // case "UPDATE_STATS":
+                // case "MOVE_PLAYER":
+                // case "SPAWN_NPC":
+                // case "SPAWN_NPC_REQUEST_CONTROLLER":
+                // case "REMOVE_NPC":
+                // case "MOVE_MONSTER":
+                // case "MOVE_MONSTER_RESPONSE":
+                // case "SPAWN_MONSTER":
+                // case "SPAWN_MONSTER_CONTROL":
+                // case "HAKU_MOVE":
+                // case "MOVE_SUMMON":
+                // case "MOVE_FAMILIAR":
+                // case "ANDROID_MOVE":
+                // case "INVENTORY_OPERATION":
+                // case "MOVE_PET":
+                // case "SHOW_SPECIAL_EFFECT":
+                // case "DROP_ITEM_FROM_MAPOBJECT":
+                // case "REMOVE_ITEM_FROM_MAP":
+                // case "UPDATE_PARTYMEMBER_HP":
+                // case "DAMAGE_PLAYER":
+                // case "SHOW_MONSTER_HP":
+                // case "CLOSE_RANGE_ATTACK":
+                // case "RANGED_ATTACK":
+                // case "ARAN_COMBO":
+                // case "REMOVE_BG_LAYER":
+                // case "SPECIAL_STAT":
+                // case "TOP_MSG":
+                // case "ANGELIC_CHANGE":
+                // case "UPDATE_CHAR_LOOK":
+                // case "KILL_MONSTER":
                 return true;
             default:
                 return false;
@@ -365,7 +366,9 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     public static final void reloadValues() {
         String fileName = "send.ini";
         Properties props = new Properties();
-        try (FileInputStream fileInputStream = new FileInputStream(fileName); BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream, StringUtil.codeString(fileName)))) {
+        try (FileInputStream fileInputStream = new FileInputStream(fileName);
+                BufferedReader br = new BufferedReader(
+                        new InputStreamReader(fileInputStream, StringUtil.codeString(fileName)))) {
             props.load(br);
         } catch (IOException ex) {
             InputStream in = SendPacketOpcode.class.getClassLoader().getResourceAsStream("properties/" + fileName);

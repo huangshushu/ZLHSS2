@@ -1,7 +1,4 @@
-/* Author: Xterminator
-	Map(s): 		Hidden Street : Pirate Test Room (108000502)
-	Description: 		
-*/
+
 function init() {
 }
 

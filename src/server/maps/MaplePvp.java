@@ -13,10 +13,6 @@ import server.life.MapleLifeFactory;
 import server.life.MapleMonster;
 import tools.MaplePacketCreator;
 
-/**
- *
- * @author wubin
- */
 public class MaplePvp {
 
     private static int pvpDamage;
@@ -28,23 +24,23 @@ public class MaplePvp {
 
     private static boolean isMeleeAttack(AttackInfo attack) {
         switch (attack.skill) {
-            case 1001004:    //Power Strike
-            case 1001005:    //Slash Blast
-            case 4001334:    //Double Stab
-            case 4201005:    //Savage Blow
-            case 1111004:    //Panic: Axe
-            case 1111003:    //Panic: Sword
-            case 1311004:    //Dragon Fury: Pole Arm
-            case 1311003:    //Dragon Fury: Spear
-            case 1311002:    //Pole Arm Crusher
-            case 1311005:    //Sacrifice
-            case 1311001:    //Spear Crusher
-            case 1121008:    //Brandish
-            case 1221009:    //Blast
-            case 1121006:    //Rush
-            case 1221007:    //Rush
-            case 1321003:    //Rush
-            case 4221001:    //Assassinate
+            case 1001004: // Power Strike
+            case 1001005: // Slash Blast
+            case 4001334: // Double Stab
+            case 4201005: // Savage Blow
+            case 1111004: // Panic: Axe
+            case 1111003: // Panic: Sword
+            case 1311004: // Dragon Fury: Pole Arm
+            case 1311003: // Dragon Fury: Spear
+            case 1311002: // Pole Arm Crusher
+            case 1311005: // Sacrifice
+            case 1311001: // Spear Crusher
+            case 1121008: // Brandish
+            case 1221009: // Blast
+            case 1121006: // Rush
+            case 1221007: // Rush
+            case 1321003: // Rush
+            case 4221001: // Assassinate
                 return true;
         }
         return false;
@@ -52,38 +48,38 @@ public class MaplePvp {
 
     private static boolean isRangeAttack(AttackInfo attack) {
         switch (attack.skill) {
-            case 2001004:    //Energy Bolt
-            case 2001005:    //Magic Claw
-            case 3001004:    //Arrow Blow
-            case 3001005:    //Double Shot
-            case 4001344:    //Lucky Seven
-            case 2101004:    //Fire Arrow
-            case 2101005:    //Poison Brace
-            case 2201004:    //Cold Beam
-            case 2301005:    //Holy Arrow
-            case 4101005:    //Drain
-            case 2211002:    //Ice Strike
-            case 2211003:    //Thunder Spear
-            case 3111006:    //Strafe
-            case 3211006:    //Strafe
-            case 4111005:    //Avenger
-            case 4211002:    //Assaulter
-            case 2121003:    //Fire Demon
-            case 2221006:    //Chain Lightning
-            case 2221003:    //Ice Demon
-            case 2111006:	 //Element Composition F/P
-            case 2211006:	 //Element Composition I/L
-            case 2321007:    //Angel's Ray
-            case 3121003:    //Dragon Pulse
-            case 3121004:    //Hurricane
-            case 3221003:    //Dragon Pulse
-            case 3221001:    //Piercing
-            case 3221007:    //Sniping
-            case 4121003:    //Showdown taunt
-            case 4121007:    //Triple Throw
-            case 4221007:    //Boomerang Step
-            case 4221003:    //Showdown taunt
-            case 4111004:    //Shadow Meso
+            case 2001004: // Energy Bolt
+            case 2001005: // Magic Claw
+            case 3001004: // Arrow Blow
+            case 3001005: // Double Shot
+            case 4001344: // Lucky Seven
+            case 2101004: // Fire Arrow
+            case 2101005: // Poison Brace
+            case 2201004: // Cold Beam
+            case 2301005: // Holy Arrow
+            case 4101005: // Drain
+            case 2211002: // Ice Strike
+            case 2211003: // Thunder Spear
+            case 3111006: // Strafe
+            case 3211006: // Strafe
+            case 4111005: // Avenger
+            case 4211002: // Assaulter
+            case 2121003: // Fire Demon
+            case 2221006: // Chain Lightning
+            case 2221003: // Ice Demon
+            case 2111006: // Element Composition F/P
+            case 2211006: // Element Composition I/L
+            case 2321007: // Angel's Ray
+            case 3121003: // Dragon Pulse
+            case 3121004: // Hurricane
+            case 3221003: // Dragon Pulse
+            case 3221001: // Piercing
+            case 3221007: // Sniping
+            case 4121003: // Showdown taunt
+            case 4121007: // Triple Throw
+            case 4221007: // Boomerang Step
+            case 4221003: // Showdown taunt
+            case 4111004: // Shadow Meso
                 return true;
         }
         return false;
@@ -91,32 +87,32 @@ public class MaplePvp {
 
     private static boolean isAoeAttack(AttackInfo attack) {
         switch (attack.skill) {
-            case 2201005:    //Thunderbolt
-            case 3101005:    //Arrow Bomb : Bow
-            case 3201005:    //Iron Arrow : Crossbow
-            case 1111006:    //Coma: Axe
-            case 1111005:    //Coma: Sword
-            case 1211002:    //Charged Blow
-            case 1311006:    //Dragon Roar
-            case 2111002:    //Explosion
-            case 2111003:    //Poison Mist
-            case 2311004:    //Shining Ray
-            case 3111004:    //Arrow Rain
-            case 3111003:    //Inferno
-            case 3211004:    //Arrow Eruption
-            case 3211003:    //Blizzard (Sniper)
-            case 4211004:    //Band of Thieves
-            case 1221011:    //Sanctuary Skill
-            case 2121001:    //Big Bang
-            case 2121007:    //Meteo
-            case 2121006:    //Paralyze
-            case 2221001:    //Big Bang
-            case 2221007:    //Blizzard
-            case 2321008:    //Genesis
-            case 2321001:    //Big Bang
-            case 4121004:    //Ninja Ambush
-            case 4121008:    //Ninja Storm knockback
-            case 4221004:    //Ninja Ambush
+            case 2201005: // Thunderbolt
+            case 3101005: // Arrow Bomb : Bow
+            case 3201005: // Iron Arrow : Crossbow
+            case 1111006: // Coma: Axe
+            case 1111005: // Coma: Sword
+            case 1211002: // Charged Blow
+            case 1311006: // Dragon Roar
+            case 2111002: // Explosion
+            case 2111003: // Poison Mist
+            case 2311004: // Shining Ray
+            case 3111004: // Arrow Rain
+            case 3111003: // Inferno
+            case 3211004: // Arrow Eruption
+            case 3211003: // Blizzard (Sniper)
+            case 4211004: // Band of Thieves
+            case 1221011: // Sanctuary Skill
+            case 2121001: // Big Bang
+            case 2121007: // Meteo
+            case 2121006: // Paralyze
+            case 2221001: // Big Bang
+            case 2221007: // Blizzard
+            case 2321008: // Genesis
+            case 2321001: // Big Bang
+            case 4121004: // Ninja Ambush
+            case 4121008: // Ninja Storm knockback
+            case 4221004: // Ninja Ambush
                 return true;
         }
         return false;
@@ -174,7 +170,8 @@ public class MaplePvp {
             maxDis = 350;
             maxHeight = 350;
             isAoe = true;
-            if (attack.skill == 2121001 || attack.skill == 2221001 || attack.skill == 2321001 || attack.skill == 2121006) {
+            if (attack.skill == 2121001 || attack.skill == 2221001 || attack.skill == 2321001
+                    || attack.skill == 2121006) {
                 maxDis = 175;
                 maxHeight = 175;
                 pvpDamage = (int) (Math.floor(Math.random() * (350 - 180) + 180));
@@ -184,8 +181,9 @@ public class MaplePvp {
         }
     }
 
-    private static void monsterBomb(MapleCharacter player, MapleCharacter attackedPlayers, MapleMap map, AttackInfo attack) {
-        //level balances
+    private static void monsterBomb(MapleCharacter player, MapleCharacter attackedPlayers, MapleMap map,
+            AttackInfo attack) {
+        // level balances
         if (attackedPlayers.getLevel() > player.getLevel() + 25) {
             pvpDamage *= 1.35;
         } else if (attackedPlayers.getLevel() < player.getLevel() - 25) {
@@ -196,14 +194,16 @@ public class MaplePvp {
             pvpDamage /= 1.50;
         }
 
-        //buff modifiers
+        // buff modifiers
         Integer mguard = attackedPlayers.getBuffedValue(MapleBuffStat.MAGIC_GUARD);
         Integer mesoguard = attackedPlayers.getBuffedValue(MapleBuffStat.MESOGUARD);
 
-        int magicattack = (player.getDex() + player.getInt() + player.getLuk() + player.getStr()) / 300; //4项属性值最后除以3=magicattack K攻击力+magicattack值
+        int magicattack = (player.getDex() + player.getInt() + player.getLuk() + player.getStr()) / 300; // 4项属性值最后除以3=magicattack
+                                                                                                         // K攻击力+magicattack值
         pvpDamage += magicattack;
 
-        int magicat = (player.getStat().getTotalMagic() + player.getStat().getTotalWatk()) / 100; //魔法+物理攻击除以100=magicat值 PK攻击力+magicat值
+        int magicat = (player.getStat().getTotalMagic() + player.getStat().getTotalWatk()) / 100; // 魔法+物理攻击除以100=magicat值
+                                                                                                  // PK攻击力+magicat值
         pvpDamage += magicat;
 
         if (pvpDamage > 99999) {
@@ -230,16 +230,20 @@ public class MaplePvp {
             }
         }
 
-        //set up us teh bonmb
-        //training thingy = 9409000
+        // set up us teh bonmb
+        // training thingy = 9409000
         MapleMonster pvpMob = MapleLifeFactory.getMonster(9400711);
         map.spawnMonsterOnGroundBelow(pvpMob, attackedPlayers.getPosition());
         for (int attacks = 0; attacks < attack.hits; attacks++) {
             if (attack.skill == 0) {
-                map.broadcastMessage(MaplePacketCreator.damagePlayer(1, pvpMob.getId(), attackedPlayers.getId(), pvpDamage, 0, (byte) 0, 0, false, pvpMob.getObjectId(), (int) pvpMob.getPosition().getX(), (int) pvpMob.getPosition().getY()));
+                map.broadcastMessage(MaplePacketCreator.damagePlayer(1, pvpMob.getId(), attackedPlayers.getId(),
+                        pvpDamage, 0, (byte) 0, 0, false, pvpMob.getObjectId(), (int) pvpMob.getPosition().getX(),
+                        (int) pvpMob.getPosition().getY()));
                 attackedPlayers.addHP(-pvpDamage);
             } else {
-                map.broadcastMessage(MaplePacketCreator.damagePlayer(1, pvpMob.getId(), attackedPlayers.getId(), pvpDamage * attackedPlayers.getLevel(), 0, (byte) 0, 0, false, pvpMob.getObjectId(), (int) pvpMob.getPosition().getX(), (int) pvpMob.getPosition().getY()));
+                map.broadcastMessage(MaplePacketCreator.damagePlayer(1, pvpMob.getId(), attackedPlayers.getId(),
+                        pvpDamage * attackedPlayers.getLevel(), 0, (byte) 0, 0, false, pvpMob.getObjectId(),
+                        (int) pvpMob.getPosition().getX(), (int) pvpMob.getPosition().getY()));
                 attackedPlayers.addHP(-pvpDamage * attackedPlayers.getLevel());
             }
         }
@@ -250,30 +254,34 @@ public class MaplePvp {
             attackedDamage = pvpDamage * attack.hits * attackedPlayers.getLevel();
         }
 
-        attackedPlayers.getClient().sendPacket(MaplePacketCreator.getErrorNotice(player.getName() + " 打了 " + attackedDamage + " 点的伤害!"));
+        attackedPlayers.getClient()
+                .sendPacket(MaplePacketCreator.getErrorNotice(player.getName() + " 打了 " + attackedDamage + " 点的伤害!"));
         map.killMonster(pvpMob, player, false, false, (byte) -1);
 
-        //rewards
+        // rewards
         if (attackedPlayers.getStat().getHp() <= 0 && !attackedPlayers.isAlive()) {
             int expReward = attackedPlayers.getLevel() * 100;
             int gpReward = (int) (Math.floor(Math.random() * (200 - 50) + 50));
             if (player.getLevel() * .25 >= player.getLevel()) {
                 expReward *= 20;
             }
-            //   player.gainExp(expReward, true, true, true);
+            // player.gainExp(expReward, true, true, true);
 
-//            player.gainPvpKill();
-            player.getClient().sendPacket(MaplePacketCreator.getErrorNotice("你杀了 " + attackedPlayers.getName() + "!! !"));
-//            player.setPvpKills(player.getPvpKills() + 1);
+            // player.gainPvpKill();
+            player.getClient()
+                    .sendPacket(MaplePacketCreator.getErrorNotice("你杀了 " + attackedPlayers.getName() + "!! !"));
+            // player.setPvpKills(player.getPvpKills() + 1);
             attackedPlayers.getClient().sendPacket(MaplePacketCreator.getErrorNotice("无情的" + player.getName() + "杀了你"));
-//            attackedPlayers.gainPvpDeath();
-//            attackedPlayers.setPvpDeaths(player.getPvpDeaths() + 1);
+            // attackedPlayers.gainPvpDeath();
+            // attackedPlayers.setPvpDeaths(player.getPvpDeaths() + 1);
 
             int random = (int) Math.floor(Math.random() * 3000.0D);
             if (attackedPlayers.getMeso() >= random) {
-                attackedPlayers.getMap().spawnMesoDrop(random, attackedPlayers.getPosition(), attackedPlayers, attackedPlayers, false, (byte) 0);
+                attackedPlayers.getMap().spawnMesoDrop(random, attackedPlayers.getPosition(), attackedPlayers,
+                        attackedPlayers, false, (byte) 0);
                 attackedPlayers.gainMeso(-random, true);
-                attackedPlayers.getClient().sendPacket(MaplePacketCreator.getErrorNotice("无情的" + player.getName() + "杀了你 你损失了" + random + "元!"));
+                attackedPlayers.getClient().sendPacket(
+                        MaplePacketCreator.getErrorNotice("无情的" + player.getName() + "杀了你 你损失了" + random + "元!"));
 
             } else {
                 attackedPlayers.dropMessage("[系统警告] 您的枫币已经不足，请马上离开。");
@@ -285,9 +293,11 @@ public class MaplePvp {
     public static void doPvP(MapleCharacter player, MapleMap map, AttackInfo attack) {
         DamageBalancer(attack);
         getDirection(attack);
-        for (MapleCharacter attackedPlayers : player.getMap().getNearestPvpChar(player.getPosition(), maxDis, maxHeight, player.getMap().getCharacters())) {
+        for (MapleCharacter attackedPlayers : player.getMap().getNearestPvpChar(player.getPosition(), maxDis, maxHeight,
+                player.getMap().getCharacters())) {
             if (attackedPlayers.getLevel() >= 70) {
-                if (attackedPlayers.isAlive() && (player.getParty() == null || player.getParty() != attackedPlayers.getParty())) {
+                if (attackedPlayers.isAlive()
+                        && (player.getParty() == null || player.getParty() != attackedPlayers.getParty())) {
                     monsterBomb(player, attackedPlayers, map, attack);
                 }
             }

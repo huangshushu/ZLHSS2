@@ -1,8 +1,3 @@
-/* Author: Xterminator
-	NPC Name: 		Rain
-	Map(s): 		Maple Road : Amherst (1010000)
-	Description: 		Talks about Amherst
-*/
 var status = 0;
 
 function start() {

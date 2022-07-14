@@ -874,7 +874,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 
     public void increaseGuildCapacity() {
         if (c.getPlayer().getMeso() < 250000) {
-            c.sendPacket(MaplePacketCreator.serverNotice(1, "You do not have enough mesos."));
+            c.sendPacket(MaplePacketCreator.serverNotice(1, "你没有足够的金币."));
             return;
         }
         final int gid = c.getPlayer().getGuildId();

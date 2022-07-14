@@ -1,4 +1,4 @@
-﻿/* Author: Xterminator
+﻿/* 
 	NPC Name: 		Regular Cab
 	Map(s): 		Victoria Road : Perion (102000000)
 	Description: 		Perion Cab

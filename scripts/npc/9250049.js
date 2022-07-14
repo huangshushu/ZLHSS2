@@ -1,10 +1,4 @@
-﻿/* Author: aaroncsn (MapleSea Like)(INcomplete- HairStyle)
-	NPC Name: 		Wi
-	Map(s): 		Thailand:Floating Market(500000000)
-	Description: 		Thailand Hair Salon
-*/
-
-var status = 0;
+﻿var status = 0;
 var beauty = 0;
 var mhair = Array(30030, 30020, 30000, 30130, 30350, 30190, 30110, 30180, 30050, 30040, 30160);
 var fhair = Array(31050, 31040, 31000, 31060, 31090, 31020, 31130, 31120, 31140, 31330, 31010);

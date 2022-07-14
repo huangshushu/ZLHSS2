@@ -47,7 +47,8 @@ public class MapleGuildCharacter implements java.io.Serializable { // alias for 
     }
 
     // or we could just read from the database
-    public MapleGuildCharacter(final int id, final short lv, final String name, final byte channel, final int job, final byte rank, final byte allianceRank, final int gid, final boolean on) {
+    public MapleGuildCharacter(final int id, final short lv, final String name, final byte channel, final int job,
+            final byte rank, final byte allianceRank, final int gid, final boolean on) {
         this.level = lv;
         this.id = id;
         this.name = name;

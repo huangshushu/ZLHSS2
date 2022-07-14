@@ -33,8 +33,6 @@ import java.security.NoSuchAlgorithmException;
  * and overly complicated. Will go away when/if official oms has no more users
  * with legacy passhashes.
  *
- * @author Nol888
- * @version 0.1
  */
 public class LoginCryptoLegacy {
 
@@ -78,9 +76,9 @@ public class LoginCryptoLegacy {
      * Check a password against a hash.
      *
      * @param password The password to validate.
-     * @param hash The hash to validate against.
+     * @param hash     The hash to validate against.
      * @return <code>true</code> if the password is correct, <code>false</code>
-     * otherwise.
+     *         otherwise.
      */
     public static final boolean checkPassword(String password, String hash) {
         return (myCrypt(password, hash).equals(hash));
@@ -94,7 +92,7 @@ public class LoginCryptoLegacy {
      * Encrypt a string with <code>Seed</code> as a seed code.
      *
      * @param password Password to encrypt.
-     * @param seed Seed to use.
+     * @param seed     Seed to use.
      * @return The salted SHA1 hash of password.
      * @throws RuntimeException
      */
@@ -123,7 +121,8 @@ public class LoginCryptoLegacy {
             do {
                 byte[] CombinedBytes = new byte[sha1Hash.length + password.length()];
                 System.arraycopy(sha1Hash, 0, CombinedBytes, 0, sha1Hash.length);
-                System.arraycopy(password.getBytes("iso-8859-1"), 0, CombinedBytes, sha1Hash.length, password.getBytes("iso-8859-1").length);
+                System.arraycopy(password.getBytes("iso-8859-1"), 0, CombinedBytes, sha1Hash.length,
+                        password.getBytes("iso-8859-1").length);
                 digester.update(CombinedBytes, 0, CombinedBytes.length);
                 sha1Hash = digester.digest();
             } while (--count > 0);
@@ -170,7 +169,8 @@ public class LoginCryptoLegacy {
         return buf.toString();
     }
 
-    public static final String encodeSHA1(final String text) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public static final String encodeSHA1(final String text)
+            throws NoSuchAlgorithmException, UnsupportedEncodingException {
         final MessageDigest md = MessageDigest.getInstance("SHA-1");
         md.update(text.getBytes("iso-8859-1"), 0, text.length());
         return convertToHex(md.digest());

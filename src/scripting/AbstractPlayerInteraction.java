@@ -655,7 +655,6 @@ public abstract class AbstractPlayerInteraction {
                 if (id / 10000 == 114 && name != null && name.length() > 0) { // medal
                     final String msg = "你已获得称号 <" + name + ">";
                     cg.getPlayer().dropMessage(5, msg);
-                    // cg.getPlayer().dropMessage(5, msg);
                 }
                 MapleInventoryManipulator.addbyItem(cg, item.copy());
             } else {
@@ -3284,7 +3283,7 @@ public abstract class AbstractPlayerInteraction {
         getPlayer().setBossLog(bossid);
     }
 
-    public final void 给团队每日(String bossid) {// 给团队BOOSLOG？
+    public final void 给团队每日(String bossid) {
         if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
             setBossLog(bossid);
             return;

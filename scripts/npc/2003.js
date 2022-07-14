@@ -1,9 +1,4 @@
-﻿/* Author: Xterminator
-	NPC Name: 		Robin
-	Map(s): 		Maple Road : Snail Hunting Ground I (40000)
-	Description: 		Beginner Helper
-*/
-var status;
+﻿var status;
 var sel;
 
 function start() {

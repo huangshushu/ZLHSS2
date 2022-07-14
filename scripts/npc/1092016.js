@@ -1,4 +1,4 @@
-﻿/* Author: aaroncsn (MapleSea Like)
+﻿/* 
 	NPC Name: 		Glittering Stone
 	Map(s): 		Nautilus:Power Source Chamber(120000301)
 	Description: 		Unknown

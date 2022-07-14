@@ -1,4 +1,4 @@
-/* Author: Xterminator
+/* 
 	NPC Name: 		Trainer Frod
 	Map(s): 		Victoria Road : Pet-Walking Road (100000202)
 	Description: 		Pet Trainer

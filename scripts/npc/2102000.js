@@ -1,4 +1,4 @@
-﻿/* Author: Xterminator
+﻿/* 
 	NPC Name: 		Asesson
 	Map(s): 		Ariant: Ariant Station Platform (260000100)
 	Description: 	Ariant Ticketing Usher

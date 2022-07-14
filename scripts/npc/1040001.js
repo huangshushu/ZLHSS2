@@ -1,4 +1,4 @@
-/* Author: aaroncsn (MapleSea Like)
+/* 
 	NPC Name: 		Mike
 	Map(s): 		Warning Street: Perion Dungeon Entrance(106000300)
 	Description: 		Unknown
