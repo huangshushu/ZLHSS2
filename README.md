@@ -1,4 +1,6 @@
 ## ZLHSS2
+
+QQ：2215672221@qq.com
 ___
 ## 相关下载：
 服务端地址：https://github.com/huangshushu/ZLHSS2/releases
