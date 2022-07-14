@@ -1,7 +1,7 @@
 ## ZLHSS2
 ___
 ## 相关下载：
-服务端地址：https://github.com/huangshushu/ZLHSS2
+服务端地址：https://github.com/huangshushu/ZLHSS2/releases
 
 客户端地址：https://musetransfer.com/s/yeqo09s9q
 
