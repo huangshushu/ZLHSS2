@@ -142,8 +142,6 @@ public enum MonsterStatus {
                 return MapleDisease.DARKNESS;
             case SPEED:
                 return MapleDisease.SLOW;
-            default:
-                break;
         }
         return null;
     }

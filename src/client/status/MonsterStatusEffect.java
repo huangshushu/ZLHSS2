@@ -20,11 +20,11 @@
  */
 package client.status;
 
-import client.MapleCharacter;
 import java.lang.ref.WeakReference;
 import java.util.TimerTask;
-import server.life.MapleMonster;
 
+import client.MapleCharacter;
+import server.life.MapleMonster;
 import server.life.MobSkill;
 
 public class MonsterStatusEffect {
@@ -207,8 +207,6 @@ public class MonsterStatusEffect {
                 return 2311005;
             case NINJA_AMBUSH: // not used
                 return 4121004;
-            default:
-                break;
         }
         return 0;
     }

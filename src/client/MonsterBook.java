@@ -20,17 +20,17 @@
  */
 package client;
 
-import constants.GameConstants;
-import database.DBConPool;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import constants.GameConstants;
+import database.DBConPool;
 import server.MapleItemInformationProvider;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
@@ -72,7 +72,9 @@ public class MonsterBook implements Serializable {
 
     public final static MonsterBook loadCards(final int charid) throws SQLException {
         Map<Integer, Integer> cards;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT * FROM monsterbook WHERE charid = ? ORDER BY cardid ASC")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con
+                        .prepareStatement("SELECT * FROM monsterbook WHERE charid = ? ORDER BY cardid ASC")) {
             ps.setInt(1, charid);
             try (ResultSet rs = ps.executeQuery()) {
                 cards = new LinkedHashMap<>();
@@ -154,13 +156,14 @@ public class MonsterBook implements Serializable {
 
     public final void updateCard(final MapleClient c, final int cardid) {
         c.sendPacket(MonsterBookPacket.changeCover(cardid));
-        //更新四维
+        // 更新四维
         c.getPlayer().updateStat();
     }
 
     public final void addCard(final MapleClient c, final int cardid) {
         changed = true;
-        c.getPlayer().getMap().broadcastMessage(c.getPlayer(), MonsterBookPacket.showForeginCardEffect(c.getPlayer().getId()), false);
+        c.getPlayer().getMap().broadcastMessage(c.getPlayer(),
+                MonsterBookPacket.showForeginCardEffect(c.getPlayer().getId()), false);
 
         if (cards.containsKey(cardid)) {
             final int levels = cards.get(cardid);
@@ -193,7 +196,7 @@ public class MonsterBook implements Serializable {
         c.sendPacket(MonsterBookPacket.showGainCard(cardid));
         c.sendPacket(MaplePacketCreator.showSpecialEffect(0xF));
         calculateLevel();
-        //更新四维
+        // 更新四维
         c.getPlayer().updateStat();
     }
 

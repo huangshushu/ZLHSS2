@@ -56,6 +56,7 @@ public enum MapleStat {
         AVOID(0x200),
         SPEED(0x400),
         JUMP(0x800);
+
         private final int i;
 
         private Temp(int i) {

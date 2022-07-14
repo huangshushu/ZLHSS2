@@ -21,20 +21,21 @@
  */
 package client.inventory;
 
-import constants.GameConstants;
-import database.DBConPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
-import java.util.Map;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import constants.GameConstants;
+import database.DBConPool;
 import tools.FileoutputUtil;
 import tools.Pair;
 
@@ -52,6 +53,7 @@ public enum ItemLoader {
     MTS_TRANSFER("mtstransfer", "mtstransferequipment", 9, "characterid"),
     CASHSHOP_DB("csitems", "csequipment", 10, "accountid"),
     CASHSHOP_RESIST("csitems", "csequipment", 11, "accountid");
+
     private final int value;
     private final String table, table_equip;
     private List<String> arg;
@@ -67,7 +69,7 @@ public enum ItemLoader {
         return value;
     }
 
-    //does not need connection con to be auto commit
+    // does not need connection con to be auto commit
     public Map<Long, Pair<IItem, MapleInventoryType>> loadItems(boolean login, Integer... id) throws SQLException {
         List<Integer> lulz = Arrays.asList(id);
         Map<Long, Pair<IItem, MapleInventoryType>> items = new LinkedHashMap<>();
@@ -103,7 +105,8 @@ public enum ItemLoader {
                 MapleInventoryType mit = MapleInventoryType.getByType(rs.getByte("inventorytype"));
 
                 if (mit.equals(MapleInventoryType.EQUIP) || mit.equals(MapleInventoryType.EQUIPPED)) {
-                    Equip equip = new Equip(rs.getInt("itemid"), rs.getShort("position"), rs.getInt("uniqueid"), rs.getByte("flag"));
+                    Equip equip = new Equip(rs.getInt("itemid"), rs.getShort("position"), rs.getInt("uniqueid"),
+                            rs.getByte("flag"));
                     if (!login) {
                         equip.setQuantity((short) 1);
                         equip.setInventoryId(rs.getLong("inventoryitemid"));
@@ -139,10 +142,11 @@ public enum ItemLoader {
                         equip.setGiftFrom(rs.getString("sender"));
                         equip.setGrade(rs.getInt("grade"));
                         equip.setRate(rs.getInt("rate"));
-                        //equip.setLimitBreak(rs.getInt("limitBreak")); //武器攻击突破上限
+                        // equip.setLimitBreak(rs.getInt("limitBreak")); //武器攻击突破上限
                         if (equip.getUniqueId() > -1) {
                             if (GameConstants.isEffectRing(rs.getInt("itemid"))) {
-                                MapleRing ring = MapleRing.loadFromDb(equip.getUniqueId(), mit.equals(MapleInventoryType.EQUIPPED));
+                                MapleRing ring = MapleRing.loadFromDb(equip.getUniqueId(),
+                                        mit.equals(MapleInventoryType.EQUIPPED));
                                 if (ring != null) {
                                     equip.setRing(ring);
                                 }
@@ -151,7 +155,8 @@ public enum ItemLoader {
                     }
                     items.put(rs.getLong("inventoryitemid"), new Pair<>(equip.copy(), mit));
                 } else {
-                    Item item = new Item(rs.getInt("itemid"), rs.getShort("position"), rs.getShort("quantity"), rs.getByte("flag"));
+                    Item item = new Item(rs.getInt("itemid"), rs.getShort("position"), rs.getShort("quantity"),
+                            rs.getByte("flag"));
                     item.setUniqueId(rs.getInt("uniqueid"));
                     item.setOwner(rs.getString("owner"));
                     item.setInventoryId(rs.getLong("inventoryitemid"));
@@ -161,12 +166,13 @@ public enum ItemLoader {
                     item.setRate(rs.getInt("rate"));
                     if (GameConstants.isPet(item.getItemId())) {
                         if (item.getUniqueId() > -1) {
-                            MaplePet pet = MaplePet.loadFromDb(item.getItemId(), item.getUniqueId(), item.getPosition());
+                            MaplePet pet = MaplePet.loadFromDb(item.getItemId(), item.getUniqueId(),
+                                    item.getPosition());
                             if (pet != null) {
                                 item.setPet(pet);
                             }
                         } else {
-                            //O_O hackish fix
+                            // O_O hackish fix
                             final int new_unique = MapleInventoryIdentifier.getInstance();
                             item.setUniqueId(new_unique);
                             item.setPet(MaplePet.createPet(item.getItemId(), new_unique));
@@ -192,7 +198,8 @@ public enum ItemLoader {
         }
     }
 
-    public void saveItems(List<Pair<IItem, MapleInventoryType>> items, final Connection con, Integer... id) throws SQLException {
+    public void saveItems(List<Pair<IItem, MapleInventoryType>> items, final Connection con, Integer... id)
+            throws SQLException {
         try {
             List<Integer> lulz = Arrays.asList(id);
             if (lulz.size() != arg.size()) {
@@ -230,13 +237,16 @@ public enum ItemLoader {
                 query_2.append(g);
                 query_2.append(", ");
             }
-            query_2.append("itemid, inventorytype, position, quantity, owner, GM_Log, uniqueid, expiredate, flag, `type`, sender, equipOnlyId, rate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?");
+            query_2.append(
+                    "itemid, inventorytype, position, quantity, owner, GM_Log, uniqueid, expiredate, flag, `type`, sender, equipOnlyId, rate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?");
             for (String g : arg) {
                 query_2.append(", ?");
             }
             query_2.append(")");
             ps = con.prepareStatement(query_2.toString(), Statement.RETURN_GENERATED_KEYS);
-            PreparedStatement pse = con.prepareStatement("INSERT INTO " + table_equip + " VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pse = con.prepareStatement("INSERT INTO " + table_equip
+                    + " VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
             final Iterator<Pair<IItem, MapleInventoryType>> iter = items.iterator();
             Pair<IItem, MapleInventoryType> pair;
             while (iter.hasNext()) {
@@ -299,7 +309,7 @@ public enum ItemLoader {
                     pse.setInt(26, equip.getHpR());
                     pse.setInt(27, equip.getMpR());
                     pse.setInt(28, equip.getGrade());
-                    //pse.setInt(29, equip.getLimitBreak()); //武器攻击突破上限
+                    // pse.setInt(29, equip.getLimitBreak()); //武器攻击突破上限
                     pse.executeUpdate();
                 }
             }

@@ -20,62 +20,63 @@
  */
 package scripting;
 
-import static server.MapleCarnivalChallenge.getJobNameById;
-
-import java.awt.Point;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.sql.Connection;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.script.Invocable;
-
+import client.inventory.Equip;
 import client.ISkill;
+import client.inventory.IItem;
 import client.MapleCharacter;
+import constants.GameConstants;
+import client.inventory.ItemFlag;
 import client.MapleClient;
 import client.MapleJob;
-import client.MapleStat;
-import client.SkillEntry;
-import client.SkillFactory;
-import client.inventory.Equip;
-import client.inventory.IItem;
-import client.inventory.Item;
-import client.inventory.ItemFlag;
 import client.inventory.MapleInventory;
 import client.inventory.MapleInventoryType;
-import constants.GameConstants;
+import client.SkillFactory;
+import client.SkillEntry;
+import client.MapleStat;
+import client.inventory.Item;
+import client.inventory.ItemLoader;
 import constants.ServerConfig;
 import database.DBConPool;
+import server.MapleCarnivalParty;
+import server.Randomizer;
+import server.MapleInventoryManipulator;
+import server.MapleShopFactory;
+import server.MapleSquad;
+import server.maps.MapleMap;
+import server.maps.Event_DojoAgent;
+import server.maps.AramiaFireWorks;
+import server.quest.MapleQuest;
+import tools.MaplePacketCreator;
+import tools.Pair;
+import tools.packet.PlayerShopPacket;
+import server.MapleItemInformationProvider;
 import handling.channel.ChannelServer;
 import handling.channel.MapleGuildRanking;
 import handling.channel.handler.InterServerHandler;
+import handling.channel.handler.InventoryHandler;
 import handling.world.MapleParty;
 import handling.world.MaplePartyCharacter;
 import handling.world.World;
 import handling.world.guild.MapleGuild;
-import handling.world.guild.MapleGuildAlliance;
 import server.MapleCarnivalChallenge;
-import server.MapleCarnivalParty;
-import server.MapleInventoryManipulator;
-import server.MapleItemInformationProvider;
-import server.MapleShopFactory;
-import server.MapleSquad;
+import handling.world.guild.MapleGuildAlliance;
+import java.awt.Point;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.script.Invocable;
+import static server.MapleCarnivalChallenge.getJobNameById;
 import server.MapleStatEffect;
-import server.Randomizer;
+import server.MerchItemPackage;
 import server.SpeedRunner;
+import server.maps.SpeedRunType;
 import server.StructPotentialItem;
 import server.Timer;
 import server.Timer.CloneTimer;
@@ -84,22 +85,14 @@ import server.gashapon.GashaponFactory;
 import server.life.MapleMonster;
 import server.life.MapleMonsterInformationProvider;
 import server.life.MonsterDropEntry;
-import server.maps.AramiaFireWorks;
-import server.maps.Event_DojoAgent;
 import server.maps.Event_PyramidSubway;
-import server.maps.MapleMap;
 import server.maps.MapleMapObject;
 import server.maps.MapleMapObjectType;
-import server.maps.SpeedRunType;
-import server.quest.MapleQuest;
 import server.shops.HiredMerchant;
 import tools.FilePrinter;
 import tools.FileoutputUtil;
-import tools.MaplePacketCreator;
-import tools.Pair;
 import tools.SearchGenerator;
 import tools.StringUtil;
-import tools.packet.PlayerShopPacket;
 import tools.packet.UIPacket;
 
 public class NPCConversationManager extends AbstractPlayerInteraction {
@@ -874,7 +867,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 
     public void increaseGuildCapacity() {
         if (c.getPlayer().getMeso() < 250000) {
-            c.sendPacket(MaplePacketCreator.serverNotice(1, "你没有足够的金币."));
+            c.sendPacket(MaplePacketCreator.serverNotice(1, "You do not have enough mesos."));
             return;
         }
         final int gid = c.getPlayer().getGuildId();

@@ -20,8 +20,7 @@
  */
 package client.inventory;
 
-import client.MapleCharacter;
-import constants.GameConstants;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,7 +28,9 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.io.Serializable;
+
+import client.MapleCharacter;
+import constants.GameConstants;
 import server.MapleItemInformationProvider;
 import tools.MaplePacketCreator;
 
@@ -105,8 +106,10 @@ public class MapleInventory implements Iterable<IItem>, Serializable {
                 ret.add(item);
             }
         }
-        // the linkedhashmap does impose insert order as returned order but we can not guarantee that this is still the
-        // correct order - blargh, we could empty the map and reinsert in the correct order after each inventory
+        // the linkedhashmap does impose insert order as returned order but we can not
+        // guarantee that this is still the
+        // correct order - blargh, we could empty the map and reinsert in the correct
+        // order after each inventory
         // addition, or we could use an array/list, it's only 255 entries anyway...
         if (ret.size() > 1) {
             Collections.sort(ret);
@@ -139,7 +142,7 @@ public class MapleInventory implements Iterable<IItem>, Serializable {
         item.setPosition((short) slotId);
         return (short) slotId;
     }
-    
+
     public short addItem(IItem item, int slotId) {
         this.inventory.put((short) slotId, item);
         item.setPosition((short) slotId);
@@ -167,8 +170,11 @@ public class MapleInventory implements Iterable<IItem>, Serializable {
             source.setPosition(dSlot);
             inventory.put(dSlot, source);
             inventory.remove(sSlot);
-        } else if (target.getItemId() == source.getItemId() && !GameConstants.isThrowingStar(source.getItemId()) && !GameConstants.isBullet(source.getItemId()) && target.getOwner().equals(source.getOwner()) && target.getExpiration() == source.getExpiration()) {
-            if (type.getType() == MapleInventoryType.EQUIP.getType() || type.getType() == MapleInventoryType.CASH.getType()) {
+        } else if (target.getItemId() == source.getItemId() && !GameConstants.isThrowingStar(source.getItemId())
+                && !GameConstants.isBullet(source.getItemId()) && target.getOwner().equals(source.getOwner())
+                && target.getExpiration() == source.getExpiration()) {
+            if (type.getType() == MapleInventoryType.EQUIP.getType()
+                    || type.getType() == MapleInventoryType.CASH.getType()) {
                 swap(target, source);
             } else if (source.getQuantity() + target.getQuantity() > slotMax) {
                 source.setQuantity((short) ((source.getQuantity() + target.getQuantity()) - slotMax));
@@ -217,8 +223,10 @@ public class MapleInventory implements Iterable<IItem>, Serializable {
             removeSlot(slot);
         }
         if (chr != null) {
-            chr.getClient().sendPacket(MaplePacketCreator.modifyInventory(false, new ModifyInventory(ModifyInventory.Types.REMOVE, item)));
-            chr.dropMessage(5, "加值道具[" + MapleItemInformationProvider.getInstance().getName(item.getItemId()) + "]因到期而消失了。");
+            chr.getClient().sendPacket(
+                    MaplePacketCreator.modifyInventory(false, new ModifyInventory(ModifyInventory.Types.REMOVE, item)));
+            chr.dropMessage(5,
+                    "加值道具[" + MapleItemInformationProvider.getInstance().getName(item.getItemId()) + "]因到期而消失了。");
         }
     }
 

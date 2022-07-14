@@ -20,14 +20,15 @@
  */
 package client.inventory;
 
-import client.MapleBuffStat;
-import client.MapleCharacter;
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.io.Serializable;
 import java.util.concurrent.ScheduledFuture;
+
+import client.MapleBuffStat;
+import client.MapleCharacter;
 import server.Randomizer;
 import server.Timer.MapTimer;
 import tools.FilePrinter;
@@ -60,7 +61,8 @@ public class MapleMount implements Serializable {
         if (!changed) {
             return;
         }
-        try (PreparedStatement ps = con.prepareStatement("UPDATE mountdata set `Level` = ?, `Exp` = ?, `Fatigue` = ? WHERE characterid = ?")) {
+        try (PreparedStatement ps = con
+                .prepareStatement("UPDATE mountdata set `Level` = ?, `Exp` = ?, `Fatigue` = ? WHERE characterid = ?")) {
             ps.setByte(1, level);
             ps.setInt(2, exp);
             ps.setByte(3, fatigue);

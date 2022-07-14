@@ -1,20 +1,23 @@
 package server.quest;
 
+import client.ISkill;
+import java.util.Calendar;
+import java.util.List;
+import java.util.LinkedList;
 import java.io.Serializable;
+
+import client.inventory.IItem;
+import client.SkillFactory;
+import constants.GameConstants;
+import client.MapleCharacter;
+import client.inventory.MaplePet;
+import client.inventory.MapleInventoryType;
+import client.MapleQuestStatus;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
+import provider.MapleData;
+import provider.MapleDataTool;
 
-import client.ISkill;
-import client.MapleCharacter;
-import client.MapleQuestStatus;
-import client.SkillFactory;
-import client.inventory.IItem;
-import client.inventory.MapleInventoryType;
-import client.inventory.MaplePet;
-import constants.GameConstants;
 import tools.Pair;
 
 public class MapleQuestRequirement implements Serializable {
@@ -45,13 +48,11 @@ public class MapleQuestRequirement implements Serializable {
                 String[] first = rse.getString("intStoresFirst").split(", ");
                 String[] second = rse.getString("intStoresSecond").split(", ");
                 if (first.length <= 0 && rse.getString("intStoresFirst").length() > 0) {
-                    dataStore.add(new Pair<Integer, Integer>(Integer.parseInt(rse.getString("intStoresFirst")),
-                            Integer.parseInt(rse.getString("intStoresSecond"))));
+                    dataStore.add(new Pair<Integer, Integer>(Integer.parseInt(rse.getString("intStoresFirst")), Integer.parseInt(rse.getString("intStoresSecond"))));
                 }
                 for (int i = 0; i < first.length; i++) {
                     if (first[i].length() > 0 && second[i].length() > 0) {
-                        dataStore.add(
-                                new Pair<Integer, Integer>(Integer.parseInt(first[i]), Integer.parseInt(second[i])));
+                        dataStore.add(new Pair<Integer, Integer>(Integer.parseInt(first[i]), Integer.parseInt(second[i])));
                     }
                 }
                 break;
@@ -76,8 +77,6 @@ public class MapleQuestRequirement implements Serializable {
                 stringStore = rse.getString("stringStore");
                 break;
             }
-            default:
-                break;
         }
     }
 
@@ -151,8 +150,7 @@ public class MapleQuestRequirement implements Serializable {
                     return true;
                 }
                 final Calendar cal = Calendar.getInstance();
-                cal.set(Integer.parseInt(timeStr.substring(0, 4)), Integer.parseInt(timeStr.substring(4, 6)),
-                        Integer.parseInt(timeStr.substring(6, 8)), Integer.parseInt(timeStr.substring(8, 10)), 0);
+                cal.set(Integer.parseInt(timeStr.substring(0, 4)), Integer.parseInt(timeStr.substring(4, 6)), Integer.parseInt(timeStr.substring(6, 8)), Integer.parseInt(timeStr.substring(8, 10)), 0);
                 return cal.getTimeInMillis() >= System.currentTimeMillis();
             case mob:
                 for (Pair<Integer, Integer> a : dataStore) {
@@ -186,8 +184,7 @@ public class MapleQuestRequirement implements Serializable {
             case questComplete:
                 return c.getNumQuest() >= intStore;
             case interval:
-                return c.getQuest(quest).getStatus() != 2
-                        || c.getQuest(quest).getCompletionTime() <= System.currentTimeMillis() - intStore * 60 * 1000L;
+                return c.getQuest(quest).getStatus() != 2 || c.getQuest(quest).getCompletionTime() <= System.currentTimeMillis() - intStore * 60 * 1000L;
             case pet:
                 for (Pair<Integer, Integer> a : dataStore) {
                     if (c.getPetIndex(a.getRight()) != -1) {
@@ -203,7 +200,7 @@ public class MapleQuestRequirement implements Serializable {
                 }
                 return false;
             case partyQuest_S:
-                final int[] partyQuests = new int[] { 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1300, 1301, 1302 };
+                final int[] partyQuests = new int[]{1200, 1201, 1202, 1203, 1204, 1205, 1206, 1300, 1301, 1302};
                 int sRankings = 0;
                 for (int i : partyQuests) {
                     final String rank = c.getOneInfo(i, "rank");
@@ -214,16 +211,13 @@ public class MapleQuestRequirement implements Serializable {
                 return sRankings >= 5;
             case subJobFlags: // 1 for non-DB, 2 for DB...
                 return c.getSubcategory() == (intStore / 2);
-            /*
-             * case craftMin:
-             * case willMin:
-             * case charismaMin:
-             * case insightMin:
-             * case charmMin:
-             * case senseMin:
-             * return c.getTrait(MapleTraitType.getByQuestName(type.name())).getLevel() >=
-             * intStore;
-             */
+            /*case craftMin:
+            case willMin:
+            case charismaMin:
+            case insightMin:
+            case charmMin:
+            case senseMin:
+                return c.getTrait(MapleTraitType.getByQuestName(type.name())).getLevel() >= intStore;*/
             default:
                 return true;
         }

@@ -20,47 +20,52 @@
  */
 package handling.channel;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import client.MapleCharacter;
 import client.MapleClient;
 import constants.ServerConfig;
+import constants.ServerConstants;
 import constants.WorldConstants;
 import handling.cashshop.CashShopServer;
 import handling.login.LoginServer;
 import handling.mina.ServerConnection;
+import handling.world.CharacterTransfer;
 import handling.world.CheaterData;
+import handling.world.World;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import scripting.EventScriptManager;
 import server.MapleSquad;
 import server.MapleSquad.MapleSquadType;
+import server.maps.MapleMapFactory;
+import server.shops.HiredMerchant;
+import tools.MaplePacketCreator;
+import server.life.PlayerNPC;
+
+import java.io.Serializable;
+import java.util.EnumMap;
+import java.util.HashSet;
+import java.util.Set;
 import server.ServerProperties;
+import server.events.MapleCoconut;
 import server.events.MapleEvent;
 import server.events.MapleEventType;
 import server.events.MapleFitness;
-import server.events.MapleJewel;
 import server.events.MapleOla;
 import server.events.MapleOxQuiz;
 import server.events.MapleSnowball;
-import server.life.PlayerNPC;
-import server.maps.MapleMapFactory;
+import server.events.MapleJewel;
 import server.maps.MapleMapObject;
-import server.shops.HiredMerchant;
 import server.shops.MaplePlayerShop;
 import tools.CollectionUtil;
 import tools.ConcurrentEnumMap;
 import tools.FileoutputUtil;
-import tools.MaplePacketCreator;
 
 public class ChannelServer implements Serializable {
 
@@ -81,8 +86,8 @@ public class ChannelServer implements Serializable {
     private final Map<Integer, HiredMerchant> merchants = new HashMap<>();
     private final Map<Integer, MaplePlayerShop> playershops = new HashMap<>();
     private final Map<Integer, PlayerNPC> playerNPCs = new HashMap<>();
-    private final ReentrantReadWriteLock merchLock = new ReentrantReadWriteLock(); // merchant
-    private final ReentrantReadWriteLock squadLock = new ReentrantReadWriteLock(); // squad
+    private final ReentrantReadWriteLock merchLock = new ReentrantReadWriteLock(); //merchant
+    private final ReentrantReadWriteLock squadLock = new ReentrantReadWriteLock(); //squad
     private int eventmap = -1;
     private final Map<MapleEventType, MapleEvent> events = new EnumMap<>(MapleEventType.class);
 
@@ -100,10 +105,8 @@ public class ChannelServer implements Serializable {
         if (!events.isEmpty()) {
             return;
         }
-        // events.put(MapleEventType.打瓶盖, new MapleCoconut(channel,
-        // MapleEventType.打瓶盖.mapids));
-        // events.put(MapleEventType.打果子, new MapleCoconut(channel,
-        // MapleEventType.打果子.mapids));
+        //events.put(MapleEventType.打瓶盖, new MapleCoconut(channel, MapleEventType.打瓶盖.mapids));
+        //events.put(MapleEventType.打果子, new MapleCoconut(channel, MapleEventType.打果子.mapids));
         events.put(MapleEventType.终极忍耐, new MapleFitness(channel, MapleEventType.终极忍耐.mapids));
         events.put(MapleEventType.爬绳子, new MapleOla(channel, MapleEventType.爬绳子.mapids));
         events.put(MapleEventType.是非题大考验, new MapleOxQuiz(channel, MapleEventType.是非题大考验.mapids));
@@ -112,7 +115,7 @@ public class ChannelServer implements Serializable {
     }
 
     public final void setup() {
-        setChannel(channel); // instances.put
+        setChannel(channel); //instances.put
         try {
             eventSM = new EventScriptManager(this, ServerProperties.getProperty("server.settings.events").split(","));
             port = (short) ((ServerProperties.getProperty("server.settings.channel.port", DEFAULT_PORT) + channel) - 1);
@@ -137,12 +140,12 @@ public class ChannelServer implements Serializable {
         broadcastPacket(MaplePacketCreator.serverNotice(0, "【频道" + getChannel() + "】 这个频道正在关闭中."));
         shutdown = true;
 
-        // System.out.println("【频道" + getChannel() + "】 储存商人资料...");
-        //
-        // closeAllMerchant();
+//        System.out.println("【频道" + getChannel() + "】 储存商人资料...");
+//
+//        closeAllMerchant();
         System.out.println("【频道" + getChannel() + "】 储存角色资料...");
 
-        // getPlayerStorage().disconnectAll();
+        //    getPlayerStorage().disconnectAll();
         System.out.println("【频道" + getChannel() + "】 解除端口绑定中...");
 
         try {
@@ -174,8 +177,8 @@ public class ChannelServer implements Serializable {
     }
 
     public final PlayerStorage getPlayerStorage() {
-        if (players == null) { // wth
-            players = new PlayerStorage(channel); // wthhhh
+        if (players == null) { //wth
+            players = new PlayerStorage(channel); //wthhhh
         }
         return players;
     }
@@ -204,7 +207,6 @@ public class ChannelServer implements Serializable {
     public final void broadcastSmegaPacket(final byte[] data) {
         getPlayerStorage().broadcastSmegaPacket(data);
     }
-
     public final void broadcastGashponmegaPacket(final byte[] data) {
         getPlayerStorage().broadcastGashponmegaPacket(data);
     }
@@ -241,9 +243,9 @@ public class ChannelServer implements Serializable {
         WorldConstants.DROP_RATE = dropRate;
     }
 
-    // public final String getIP() {
-    // return ServerConfig.IP;
-    // }
+    //public final String getIP() {
+    //   return ServerConfig.IP;
+    //}
     public final int getChannel() {
         return channel;
     }
@@ -335,7 +337,7 @@ public class ChannelServer implements Serializable {
             while (merchants_.hasNext()) {
                 HiredMerchant hm = merchants_.next().getValue();
                 hm.closeShop(true, false);
-                // HiredMerchantSave.QueueShopForSave(hm);
+                //HiredMerchantSave.QueueShopForSave(hm);
                 hm.getMap().removeMapObject(hm);
                 merchants_.remove();
                 ret++;
@@ -343,10 +345,10 @@ public class ChannelServer implements Serializable {
         } finally {
             merchLock.writeLock().unlock();
         }
-        // hacky
+        //hacky
         for (int i = 910000001; i <= 910000022; i++) {
             for (MapleMapObject mmo : mapFactory.getMap(i).getAllHiredMerchantsThreadsafe()) {
-                // HiredMerchantSave.QueueShopForSave((HiredMerchant) mmo);
+                //HiredMerchantSave.QueueShopForSave((HiredMerchant) mmo);
                 ((HiredMerchant) mmo).closeShop(true, false);
                 ret++;
             }
@@ -525,7 +527,7 @@ public class ChannelServer implements Serializable {
     public void broadcastSmega(byte[] message) {
         broadcastSmegaPacket(message);
     }
-
+    
     public void broadcastGashponmega(byte[] message) {
         broadcastGashponmegaPacket(message);
     }
@@ -551,11 +553,7 @@ public class ChannelServer implements Serializable {
                 }
 
             } catch (Exception e) {
-                FileoutputUtil.logToFile("logs/saveAll存档保存数据异常.txt",
-                        "\r\n " + FileoutputUtil.NowTime() + " IP: "
-                                + chr.getClient().getSession().remoteAddress().toString().split(":")[0] + " 帐号 "
-                                + chr.getClient().getAccountName() + " 帐号ID " + chr.getClient().getAccID() + " 角色名 "
-                                + chr.getName() + " 角色ID " + chr.getId());
+                FileoutputUtil.logToFile("logs/saveAll存档保存数据异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + chr.getClient().getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + chr.getClient().getAccountName() + " 帐号ID " + chr.getClient().getAccID() + " 角色名 " + chr.getName() + " 角色ID " + chr.getId());
                 FileoutputUtil.outError("logs/saveAll存档保存数据异常.txt", e);
 
             }
@@ -608,10 +606,7 @@ public class ChannelServer implements Serializable {
             for (MapleCharacter c : chrs) {
                 if (c.getAccountID() == accid) {
                     try {
-                        // FileoutputUtil.logToFile("logs/Hack/洗道具.txt", "\r\n" +
-                        // FileoutputUtil.NowTime() + " MAC: " + client.getMacs() + " IP: " +
-                        // client.getSessionIPAddress() + " 帐号: " + accid + " 角色: " + c.getName(),
-                        // false, false);
+                        //   FileoutputUtil.logToFile("logs/Hack/洗道具.txt", "\r\n" + FileoutputUtil.NowTime() + " MAC: " + client.getMacs() + " IP: " + client.getSessionIPAddress() + " 帐号: " + accid + " 角色: " + c.getName(), false, false);
                         if (c.getClient() != null) {
                             if (c.getClient() != client) {
                                 c.getClient().unLockDisconnect();
@@ -626,58 +621,50 @@ public class ChannelServer implements Serializable {
         }
     }
 
-    /*
-     * public static void forceRemovePlayerByCharName(MapleClient client, String
-     * Name) {
-     * for (ChannelServer ch : ChannelServer.getAllInstances()) {
-     * Collection<MapleCharacter> chrs =
-     * ch.getPlayerStorage().getAllCharactersThreadSafe();
-     * for (MapleCharacter c : chrs) {
-     * if (c.getName().equalsIgnoreCase(Name)) {
-     * try {
-     * if (c.getClient() != null) {
-     * if (c.getClient() != client) {
-     * c.getClient().unLockDisconnect();
-     * }
-     * }
-     * } catch (Exception ex) {
-     * }
-     * chrs = ch.getPlayerStorage().getAllCharactersThreadSafe();
-     * if (chrs.contains(c)) {
-     * ch.removePlayer(c);
-     * }
-     * c.getMap().removePlayer(c);
-     * }
-     * }
-     * }
-     * }
-     */
+    /*public static void forceRemovePlayerByCharName(MapleClient client, String Name) {
+        for (ChannelServer ch : ChannelServer.getAllInstances()) {
+            Collection<MapleCharacter> chrs = ch.getPlayerStorage().getAllCharactersThreadSafe();
+            for (MapleCharacter c : chrs) {
+                if (c.getName().equalsIgnoreCase(Name)) {
+                    try {
+                        if (c.getClient() != null) {
+                            if (c.getClient() != client) {
+                                c.getClient().unLockDisconnect();
+                            }
+                        }
+                    } catch (Exception ex) {
+                    }
+                    chrs = ch.getPlayerStorage().getAllCharactersThreadSafe();
+                    if (chrs.contains(c)) {
+                        ch.removePlayer(c);
+                    }
+                    c.getMap().removePlayer(c);
+                }
+            }
+        }
+    }*/
 
-    /*
-     * public static void forceRemovePlayerByCharId(MapleClient client, int charId)
-     * {
-     * for (ChannelServer ch : ChannelServer.getAllInstances()) {
-     * Collection<MapleCharacter> chrs =
-     * ch.getPlayerStorage().getAllCharactersThreadSafe();
-     * for (MapleCharacter c : chrs) {
-     * if (c.getId() == charId) {
-     * try {
-     * if (c.getClient() != null) {
-     * if (c.getClient() != client) {
-     * c.getClient().unLockDisconnect();
-     * }
-     * }
-     * } catch (Exception ex) {
-     * }
-     * chrs = ch.getPlayerStorage().getAllCharactersThreadSafe();
-     * if (chrs.contains(c)) {
-     * ch.removePlayer(c);
-     * }
-     * }
-     * }
-     * }
-     * }
-     */
+ /*public static void forceRemovePlayerByCharId(MapleClient client, int charId) {
+        for (ChannelServer ch : ChannelServer.getAllInstances()) {
+            Collection<MapleCharacter> chrs = ch.getPlayerStorage().getAllCharactersThreadSafe();
+            for (MapleCharacter c : chrs) {
+                if (c.getId() == charId) {
+                    try {
+                        if (c.getClient() != null) {
+                            if (c.getClient() != client) {
+                                c.getClient().unLockDisconnect();
+                            }
+                        }
+                    } catch (Exception ex) {
+                    }
+                    chrs = ch.getPlayerStorage().getAllCharactersThreadSafe();
+                    if (chrs.contains(c)) {
+                        ch.removePlayer(c);
+                    }
+                }
+            }
+        }
+    }*/
     public static final Set<Integer> getChannels() {
         return new HashSet<>(instances.keySet());
     }

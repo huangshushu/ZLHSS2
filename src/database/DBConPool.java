@@ -9,6 +9,10 @@ import com.alibaba.druid.pool.DruidDataSource;
 import constants.ServerConstants;
 import server.ServerProperties;
 
+/**
+ *
+ * @author XiaoMaDengDengWo
+ */
 public class DBConPool {
 
     private static DruidDataSource dataSource = null;
@@ -33,7 +37,7 @@ public class DBConPool {
         dbport = ServerProperties.getProperty("server.settings.db.port", dbport);
         dbUser = ServerProperties.getProperty("server.settings.db.user", dbUser);
         dbPass = ServerProperties.getProperty("server.settings.db.password", dbPass);
-        // dbPass = "mFQz4QbrXCGJWWR0";
+//        dbPass = "mFQz4QbrXCGJWWR0";
     }
 
     private static class InstanceHolder {
@@ -59,13 +63,15 @@ public class DBConPool {
         dataSource = new DruidDataSource();
         dataSource.setName("mysql_pool");
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://" + "127.0.0.1" + ":" + dbport + "/" + dbName
-                + "?useUnicode=true&characterEncoding=UTF8");
+        dataSource.setUrl("jdbc:mysql://" + "127.0.0.1" + ":" + dbport + "/" + dbName + "?useUnicode=true&characterEncoding=UTF8");
         dataSource.setUsername(dbUser);
         dataSource.setPassword(dbPass);
-        dataSource.setInitialSize(20);// 150
-        dataSource.setMinIdle(30);// 250
-        dataSource.setMaxActive(300);// 1000
+        dataSource.setInitialSize(20);//150
+        dataSource.setMinIdle(30);//250
+        dataSource.setMaxActive(300);//1000
+        //dataSource.setInitialSize(750);
+        //dataSource.setMinIdle(1250);
+        //dataSource.setMaxActive(5000);
         dataSource.setTimeBetweenEvictionRunsMillis(60000);
         dataSource.setMinEvictableIdleTimeMillis(300000);
         dataSource.setValidationQuery("SELECT 'x'");
@@ -74,9 +80,7 @@ public class DBConPool {
         dataSource.setTestWhileIdle(true);
         dataSource.setMaxWait(60000);
         dataSource.setUseUnfairLock(true);
-        /*
-         * druid recycle
-         */
+
         dataSource.setRemoveAbandoned(ServerConstants.SQL_REMOVEABANDONED);
         dataSource.setRemoveAbandonedTimeout(ServerConstants.SQL_REMOVEABANDONEDTIMEOUT);
         dataSource.setLogAbandoned(ServerConstants.SQL_LOGABANDONED);

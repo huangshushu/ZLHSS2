@@ -72,13 +72,13 @@ public class BuddyEntry {
     /**
      * 建构子
      *
-     * @param name 好友角色名称
+     * @param name        好友角色名称
      * @param characterId 好友角色ID
-     * @param group 好友所在群组
-     * @param channel 角色所在频道，离线则 -1
-     * @param visible 好友是否可见
-     * @param job 好友角色职业
-     * @param level 好友角色等级
+     * @param group       好友所在群组
+     * @param channel     角色所在频道，离线则 -1
+     * @param visible     好友是否可见
+     * @param job         好友角色职业
+     * @param level       好友角色等级
      */
     public BuddyEntry(String name, int characterId, String group, int channel, boolean visible, int level, int job) {
         super();

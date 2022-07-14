@@ -4,12 +4,6 @@
  */
 package tools;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import client.ISkill;
 import client.MapleJob;
 import client.SkillFactory;
@@ -17,9 +11,15 @@ import client.inventory.MapleInventoryType;
 import constants.GameConstants;
 import handling.RecvPacketOpcode;
 import handling.SendPacketOpcode;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import provider.MapleData;
 import provider.MapleDataProviderFactory;
 import provider.MapleDataTool;
+import server.ItemInformation;
 import server.MapleItemInformationProvider;
 import server.life.MapleLifeFactory;
 import server.life.MapleMonsterInformationProvider;
@@ -69,7 +69,6 @@ public class SearchGenerator {
             return "未知";
         }
     }
-
     public static final int 道具 = SearchType.道具.getValue();
     public static final int NPC = SearchType.NPC.getValue();
     public static final int 地图 = SearchType.地图.getValue();
@@ -99,7 +98,7 @@ public class SearchGenerator {
 
         switch (type) {
             case 道具:
-                for (Pair<Integer, String> itemInfo : MapleItemInformationProvider.getInstance().getAllItems()) {
+                  for (Pair<Integer, String> itemInfo : MapleItemInformationProvider.getInstance().getAllItems()) {
                     values.put(itemInfo.left, itemInfo.right);
                 }
                 break;
@@ -110,15 +109,12 @@ public class SearchGenerator {
                 MapleData data = MapleDataProviderFactory.getDataProvider("String.wz").getData("Map.img");
                 for (MapleData mapAreaData : data.getChildren()) {
                     for (MapleData mapIdData : mapAreaData.getChildren()) {
-                        values.put(Integer.parseInt(mapIdData.getName()),
-                                "'" + MapleDataTool.getString(mapIdData.getChildByPath("streetName"), "无名称") + " : "
-                                        + MapleDataTool.getString(mapIdData.getChildByPath("mapName"), "无名称") + "'");
+                        values.put(Integer.parseInt(mapIdData.getName()), "'" + MapleDataTool.getString(mapIdData.getChildByPath("streetName"), "无名称") + " : " + MapleDataTool.getString(mapIdData.getChildByPath("mapName"), "无名称") + "'");
                     }
                 }
                 break;
             case 怪物:
-                for (Map.Entry<Integer, String> mob : MapleMonsterInformationProvider.getInstance().getAllMonsters()
-                        .entrySet()) {
+                for (Map.Entry<Integer, String> mob : MapleMonsterInformationProvider.getInstance().getAllMonsters().entrySet()) {
                     values.put(mob.getKey(), mob.getValue());
                 }
                 break;
@@ -164,8 +160,6 @@ public class SearchGenerator {
                     }
                 }
                 break;
-            default:
-                break;
         }
 
         searchs.put(type, values);
@@ -181,8 +175,7 @@ public class SearchGenerator {
         Map<Integer, String> ss = getSearchs(type);
 
         for (int i : ss.keySet()) {
-            if (String.valueOf(i).toLowerCase().contains(search.toLowerCase())
-                    || ss.get(i).toLowerCase().contains(search.toLowerCase())) {
+            if (String.valueOf(i).toLowerCase().contains(search.toLowerCase()) || ss.get(i).toLowerCase().contains(search.toLowerCase())) {
                 values.put(i, ss.get(i));
             }
         }
@@ -204,7 +197,7 @@ public class SearchGenerator {
                 for (Integer i : ss.keySet()) {
                     if (MapleItemInformationProvider.getInstance().itemExists(i)) {
                         ret.add("\r\n#L" + i + "##z" + i + "# (" + i + ")#l");
-                        // ret.add("\r\n#L" + i + "##i" + i + ":# #z" + i + "#(" + i + ")#l");
+                        //ret.add("\r\n#L" + i + "##i" + i + ":# #z" + i + "#(" + i + ")#l");
                     }
                 }
                 break;
@@ -241,8 +234,7 @@ public class SearchGenerator {
             case 服务器包头:
             case 用户端包头:
                 for (Map.Entry<Integer, String> i : ss.entrySet()) {
-                    ret.add("\r\n" + i.getValue() + " 值: " + i.getKey() + " 16进制: "
-                            + HexTool.getOpcodeToString(i.getKey()));
+                    ret.add("\r\n" + i.getValue() + " 值: " + i.getKey() + " 16进制: " + HexTool.getOpcodeToString(i.getKey()));
                 }
                 break;
             default:

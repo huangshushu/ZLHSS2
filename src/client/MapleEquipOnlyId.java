@@ -40,7 +40,9 @@ public class MapleEquipOnlyId {
     public long initOnlyId() {
         long ret = 0;
 
-        try (PreparedStatement ps = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT MAX(equipOnlyId) FROM inventoryitems WHERE equipOnlyId > 0"); ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = DBConPool.getInstance().getDataSource().getConnection()
+                .prepareStatement("SELECT MAX(equipOnlyId) FROM inventoryitems WHERE equipOnlyId > 0");
+                ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
                 ret = rs.getInt(1) + 1;
             }

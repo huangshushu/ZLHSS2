@@ -21,71 +21,55 @@
 package scripting;
 
 import java.awt.Point;
-import java.nio.charset.Charset;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.sql.*;
+import java.util.*;
 
+import client.inventory.*;
+import client.SkillFactory;
+import com.alibaba.druid.pool.DruidPooledConnection;
+import constants.GameConstants;
 import client.ISkill;
 import client.MapleCharacter;
 import client.MapleClient;
 import client.MapleQuestStatus;
 import client.MapleStat;
-import client.SkillFactory;
-import client.inventory.Equip;
-import client.inventory.IItem;
-import client.inventory.Item;
-import client.inventory.MapleInventory;
-import client.inventory.MapleInventoryIdentifier;
-import client.inventory.MapleInventoryType;
-import client.inventory.MaplePet;
-import client.inventory.MapleRing;
+import database.DBConPool;
+import handling.channel.ChannelServer;
+import handling.world.MapleParty;
+import handling.world.MaplePartyCharacter;
+import handling.world.guild.MapleGuild;
+import server.Randomizer;
+import server.MapleInventoryManipulator;
+import server.MapleItemInformationProvider;
+import server.customer.BossLogCopy.BossLogCopyManager;
+import server.maps.MapleMap;
+import server.maps.MapleReactor;
+import server.maps.MapleMapObject;
+import server.maps.SavedLocationType;
+import server.maps.Event_DojoAgent;
+import server.life.MapleMonster;
+import server.life.MapleLifeFactory;
+import server.quest.MapleQuest;
+import tools.MaplePacketCreator;
+import tools.packet.PetPacket;
+import tools.packet.UIPacket;
 import client.messages.CommandProcessor;
-import constants.GameConstants;
 import constants.ItemConstants;
 import constants.ItemConstants.类型;
 import constants.ServerConfig;
 import constants.ServerConstants;
-import database.DBConPool;
-import handling.channel.ChannelServer;
 import handling.channel.handler.InterServerHandler;
-import handling.world.MapleParty;
-import handling.world.MaplePartyCharacter;
 import handling.world.World;
-import handling.world.guild.MapleGuild;
-import server.MapleInventoryManipulator;
-import server.MapleItemInformationProvider;
+import java.nio.charset.Charset;
 import server.RandomRewards;
-import server.Randomizer;
 import server.custom.bossrank.BossRankInfo;
 import server.custom.bossrank.BossRankManager;
-import server.customer.BossLogCopy.BossLogCopyManager;
 import server.events.MapleEvent;
 import server.events.MapleEventType;
-import server.life.MapleLifeFactory;
-import server.life.MapleMonster;
 import server.life.OverrideMonsterStats;
-import server.maps.Event_DojoAgent;
-import server.maps.MapleMap;
 import server.maps.MapleMapFactory;
-import server.maps.MapleMapObject;
-import server.maps.MapleReactor;
-import server.maps.SavedLocationType;
-import server.quest.MapleQuest;
 import tools.FileoutputUtil;
-import tools.MaplePacketCreator;
-import tools.packet.PetPacket;
-import tools.packet.UIPacket;
+import tools.Pair;
 
 public abstract class AbstractPlayerInteraction {
 
@@ -655,6 +639,7 @@ public abstract class AbstractPlayerInteraction {
                 if (id / 10000 == 114 && name != null && name.length() > 0) { // medal
                     final String msg = "你已获得称号 <" + name + ">";
                     cg.getPlayer().dropMessage(5, msg);
+                    // cg.getPlayer().dropMessage(5, msg);
                 }
                 MapleInventoryManipulator.addbyItem(cg, item.copy());
             } else {
@@ -3283,7 +3268,7 @@ public abstract class AbstractPlayerInteraction {
         getPlayer().setBossLog(bossid);
     }
 
-    public final void 给团队每日(String bossid) {
+    public final void 给团队每日(String bossid) {// 给团队BOOSLOG？
         if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1) {
             setBossLog(bossid);
             return;

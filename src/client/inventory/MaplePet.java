@@ -20,15 +20,16 @@
  */
 package client.inventory;
 
-import database.DBConPool;
 import java.awt.Point;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import database.DBConPool;
 import server.MapleItemInformationProvider;
 import server.movement.LifeMovementFragment;
 import server.movement.StaticLifeMovement;
@@ -39,16 +40,16 @@ public class MaplePet implements Serializable {
 
     public static enum PetFlag {
 
-        ITEM_PICKUP(0x01, 5190000, 5191000), //捡道具技能
-        EXPAND_PICKUP(0x02, 5190002, 5191002), //扩大移动范围技能
-        AUTO_PICKUP(0x04, 5190003, 5191003), //范围自动捡起功能
-        UNPICKABLE(0x08, 5190005, -1), //勿捡特定道具技能
-        LEFTOVER_PICKUP(0x10, 5190004, 5191004), //捡起无所有权道具&枫币技能
-        HP_CHARGE(0x20, 5190001, 5191001), //自动服用HP药水技能
-        MP_CHARGE(0x40, 5190006, -1), //自动服用MP药水技能
-        PET_BUFF(0x80, -1, -1), //idk
-        PET_DRAW(0x100, 5190007, -1), //宠物召唤
-        PET_DIALOGUE(0x200, 5190008, -1); //自言自语
+        ITEM_PICKUP(0x01, 5190000, 5191000), // 捡道具技能
+        EXPAND_PICKUP(0x02, 5190002, 5191002), // 扩大移动范围技能
+        AUTO_PICKUP(0x04, 5190003, 5191003), // 范围自动捡起功能
+        UNPICKABLE(0x08, 5190005, -1), // 勿捡特定道具技能
+        LEFTOVER_PICKUP(0x10, 5190004, 5191004), // 捡起无所有权道具&枫币技能
+        HP_CHARGE(0x20, 5190001, 5191001), // 自动服用HP药水技能
+        MP_CHARGE(0x40, 5190006, -1), // 自动服用MP药水技能
+        PET_BUFF(0x80, -1, -1), // idk
+        PET_DRAW(0x100, 5190007, -1), // 宠物召唤
+        PET_DIALOGUE(0x200, 5190008, -1); // 自言自语
 
         private final int i, item, remove;
 
@@ -114,7 +115,8 @@ public class MaplePet implements Serializable {
 
     public static final MaplePet loadFromDb(final int itemid, final int petid, final short inventorypos) {
         final MaplePet ret = new MaplePet(itemid, petid, inventorypos);
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT * FROM pets WHERE petid = ?")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM pets WHERE petid = ?")) {
             ps.setInt(1, petid);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -150,7 +152,9 @@ public class MaplePet implements Serializable {
             return;
         }
 
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE pets SET name = ?, level = ?, closeness = ?, fullness = ?, seconds = ?, flags = ?, excluded = ?  WHERE petid = ?")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement(
+                        "UPDATE pets SET name = ?, level = ?, closeness = ?, fullness = ?, seconds = ?, flags = ?, excluded = ?  WHERE petid = ?")) {
             ps.setString(1, name); // Set name
             ps.setByte(2, level); // Set Level
             ps.setShort(3, closeness); // Set Closeness
@@ -176,24 +180,31 @@ public class MaplePet implements Serializable {
 
     public static final MaplePet createPet(final int itemid, final int uniqueid) {
         MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        return createPet(itemid, ii.getName(itemid), 1, 0, 100, uniqueid, ii.getPetLimitLife(itemid), ii.getPetFlagInfo(itemid));
+        return createPet(itemid, ii.getName(itemid), 1, 0, 100, uniqueid, ii.getPetLimitLife(itemid),
+                ii.getPetFlagInfo(itemid));
     }
 
-//    public static final MaplePet createPet(final int itemid, final int uniqueid) {
-//        return createPet(itemid, MapleItemInformationProvider.getInstance().getName(itemid), 1, 0, 100, uniqueid, itemid == 5000054 ? 18000 : 0);
-//    }
-    public static final MaplePet createPet(int itemid, String name, int level, int closeness, int fullness, int uniqueid, int limitedLife, short flag) {
-        if (uniqueid <= -1) { //wah
+    // public static final MaplePet createPet(final int itemid, final int uniqueid)
+    // {
+    // return createPet(itemid,
+    // MapleItemInformationProvider.getInstance().getName(itemid), 1, 0, 100,
+    // uniqueid, itemid == 5000054 ? 18000 : 0);
+    // }
+    public static final MaplePet createPet(int itemid, String name, int level, int closeness, int fullness,
+            int uniqueid, int limitedLife, short flag) {
+        if (uniqueid <= -1) { // wah
             uniqueid = MapleInventoryIdentifier.getInstance();
         }
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement pse = con.prepareStatement("INSERT INTO pets (petid, name, level, closeness, fullness, seconds, flags) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement pse = con.prepareStatement(
+                        "INSERT INTO pets (petid, name, level, closeness, fullness, seconds, flags) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
             pse.setInt(1, uniqueid);
             pse.setString(2, name);
             pse.setByte(3, (byte) level);
             pse.setShort(4, (short) closeness);
             pse.setByte(5, (byte) fullness);
             pse.setInt(6, limitedLife);
-            pse.setShort(7, (short) flag); //flags
+            pse.setShort(7, (short) flag); // flags
             pse.executeUpdate();
 
         } catch (final SQLException ex) {

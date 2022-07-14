@@ -5,8 +5,6 @@
  */
 package client.inventory;
 
-import database.DBConPool;
-import handling.world.World;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +15,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+
+import database.DBConPool;
+import handling.world.World;
 import server.MapleItemInformationProvider;
 import server.Timer;
 import tools.FileoutputUtil;
@@ -71,7 +72,7 @@ public class OnlyID {
         StringBuilder chrs = new StringBuilder();
         StringBuilder Sql = new StringBuilder();
         List<Quadra<Integer, Integer, Long, Integer>> equipOnlyIds = new ArrayList();
-        final Map checkItems = new HashMap();
+        Map checkItems = new HashMap();
         List<Integer> all = new LinkedList<>();
         List<Integer> gm = new LinkedList<>();
 

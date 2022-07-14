@@ -118,12 +118,10 @@ public class MapleLifeFactory {
             stats.setrareItemDropLevel((byte) MapleDataTool.getIntConvert("rareItemDropLevel", monsterInfoData, 0));
             stats.setFixedDamage(MapleDataTool.getIntConvert("fixedDamage", monsterInfoData, -1));
             stats.setOnlyNormalAttack(MapleDataTool.getIntConvert("onlyNormalAttack", monsterInfoData, 0) > 0);
-            stats.setBoss(MapleDataTool.getIntConvert("boss", monsterInfoData, 0) > 0 || mid == 8810018
-                    || mid == 9410066 || (mid >= 8810118 && mid <= 8810122));
+            stats.setBoss(MapleDataTool.getIntConvert("boss", monsterInfoData, 0) > 0 || mid == 8810018 || mid == 9410066 || (mid >= 8810118 && mid <= 8810122));
             stats.setExplosiveReward(MapleDataTool.getIntConvert("explosiveReward", monsterInfoData, 0) > 0);
             stats.setFfaLoot(MapleDataTool.getIntConvert("publicReward", monsterInfoData, 0) > 0);
-            stats.setUndead(MapleDataTool.getIntConvert("undead", monsterInfoData, 0) > 0 || mid == 9700004
-                    || mid == 9700009 || mid == 9700010);
+            stats.setUndead(MapleDataTool.getIntConvert("undead", monsterInfoData, 0) > 0 || mid == 9700004 || mid == 9700009 || mid == 9700010);
             stats.setName(MapleDataTool.getString(mid + "/name", mobStringData, "MISSINGNO"));
             stats.setBuffToGive(MapleDataTool.getIntConvert("buff", monsterInfoData, -1));
             stats.setFriendly(MapleDataTool.getIntConvert("damagedByMob", monsterInfoData, 0) > 0);
@@ -136,8 +134,7 @@ public class MapleLifeFactory {
             stats.setPhysicalDefense((short) MapleDataTool.getIntConvert("PDDamage", monsterInfoData, 0));
             stats.setMagicDefense((short) MapleDataTool.getIntConvert("MDDamage", monsterInfoData, 0));
             stats.setEva((short) MapleDataTool.getIntConvert("eva", monsterInfoData, 0));
-            final boolean hideHP = MapleDataTool.getIntConvert("HPgaugeHide", monsterInfoData, 0) > 0
-                    || MapleDataTool.getIntConvert("hideHP", monsterInfoData, 0) > 0;
+            final boolean hideHP = MapleDataTool.getIntConvert("HPgaugeHide", monsterInfoData, 0) > 0 || MapleDataTool.getIntConvert("hideHP", monsterInfoData, 0) > 0;
             final MapleData selfd = monsterInfoData.getChildByPath("selfDestruction");
             if (selfd != null) {
                 stats.setSelfDHP(MapleDataTool.getIntConvert("hp", selfd, 0));
@@ -154,8 +151,7 @@ public class MapleLifeFactory {
                 }
             }
             if (stats.isBoss() || isDmgSponge(mid)) {
-                if (hideHP || monsterInfoData.getChildByPath("hpTagColor") == null
-                        || monsterInfoData.getChildByPath("hpTagBgcolor") == null) {
+                if (hideHP || monsterInfoData.getChildByPath("hpTagColor") == null || monsterInfoData.getChildByPath("hpTagBgcolor") == null) {
                     stats.setTagColor(0);
                     stats.setTagBgColor(0);
                 } else {
@@ -186,8 +182,7 @@ public class MapleLifeFactory {
                 int i = 0;
                 List<Pair<Integer, Integer>> skills = new ArrayList<>();
                 while (monsterSkillData.getChildByPath(Integer.toString(i)) != null) {
-                    boolean add = skills.add(new Pair<>(MapleDataTool.getInt(i + "/skill", monsterSkillData, 0),
-                            MapleDataTool.getInt(i + "/level", monsterSkillData, 0)));
+                    boolean add = skills.add(new Pair<>(MapleDataTool.getInt(i + "/skill", monsterSkillData, 0), MapleDataTool.getInt(i + "/level", monsterSkillData, 0)));
                     i++;
                 }
                 stats.setSkills(skills);
@@ -201,7 +196,8 @@ public class MapleLifeFactory {
                 monsterData = data.getData(StringUtil.getLeftPaddedStr(link + ".img", '0', 11));
             }
 
-            OUTER: for (MapleData idata : monsterData) {
+            OUTER:
+            for (MapleData idata : monsterData) {
                 switch (idata.getName()) {
                     case "fly":
                         stats.setFly(true);

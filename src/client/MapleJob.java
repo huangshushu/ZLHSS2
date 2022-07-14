@@ -75,6 +75,7 @@ public enum MapleJob {
     狂狼勇士3转(2111),
     狂狼勇士4转(2112),
     未知(999999),;
+
     private final int jobid;
 
     private MapleJob(int id) {
@@ -250,7 +251,8 @@ public enum MapleJob {
 
     public static boolean is初心者(int jobid) {
         if (jobid <= 5000) {
-            if (jobid != 5000 && (jobid < 2001 || jobid > 2005 && (jobid <= 3000 || jobid > 3002 && (jobid <= 4000 || jobid > 4002)))) {
+            if (jobid != 5000 && (jobid < 2001
+                    || jobid > 2005 && (jobid <= 3000 || jobid > 3002 && (jobid <= 4000 || jobid > 4002)))) {
             } else {
                 return true;
             }
@@ -307,11 +309,11 @@ public enum MapleJob {
             } else {
                 v2 = v1 + 2;
             }
-          //  if (v2 >= 2 && (v2 <= 4 || v2 <= 10 && is龙魔导士(jobid))) {
-            //       result = v2;
-            //  } else {
+            // if (v2 >= 2 && (v2 <= 4 || v2 <= 10 && is龙魔导士(jobid))) {
+            // result = v2;
+            // } else {
             result = 0;
-            //  }
+            // }
         }
         return result;
     }
@@ -337,13 +339,13 @@ public enum MapleJob {
         if (MapleJob.is管理员(job) || MapleJob.is管理员(job)) {
             return MapleJob.is管理员(job2) && MapleJob.is管理员(job2);
         }
-//        } else if (MapleJob.is重砲指挥官(job) || MapleJob.is重砲指挥官(job)) {
-//            return MapleJob.is重砲指挥官(job2) && MapleJob.is重砲指挥官(job2);
-//        } else if (MapleJob.is苍龙侠客(job) || MapleJob.is苍龙侠客(job)) {
-//            return MapleJob.is苍龙侠客(job2) && MapleJob.is苍龙侠客(job2);
-//        } else if (MapleJob.is恶魔复仇者(job) || MapleJob.is恶魔复仇者(job)) {
-//            return MapleJob.is恶魔复仇者(job2) && MapleJob.is恶魔复仇者(job2);
-//        }
+        // } else if (MapleJob.is重砲指挥官(job) || MapleJob.is重砲指挥官(job)) {
+        // return MapleJob.is重砲指挥官(job2) && MapleJob.is重砲指挥官(job2);
+        // } else if (MapleJob.is苍龙侠客(job) || MapleJob.is苍龙侠客(job)) {
+        // return MapleJob.is苍龙侠客(job2) && MapleJob.is苍龙侠客(job2);
+        // } else if (MapleJob.is恶魔复仇者(job) || MapleJob.is恶魔复仇者(job)) {
+        // return MapleJob.is恶魔复仇者(job2) && MapleJob.is恶魔复仇者(job2);
+        // }
 
         // 对一转分支判断(如 剑士 跟 黑骑)
         if (jobNum == 1 || job2Num == 1) {
@@ -376,7 +378,7 @@ public enum MapleJob {
     public static int getJobGrade(int jobz) {
         int job = (jobz % 1000);
         if (job / 10 == 0) {
-            return 0; //beginner
+            return 0; // beginner
         } else if (job / 10 % 10 == 0) {
             return 1;
         } else {

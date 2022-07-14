@@ -53,24 +53,12 @@ public class MapleTrade {
             }
 
             if ((exchangeMeso - GameConstants.getTaxAmount(exchangeMeso)) >= 50000000) {
-                FileoutputUtil.logToFile("logs/Data/大额金币交易.txt",
-                        FileoutputUtil.NowTime() + "角色名字:" + chr.get().getName() + " 和 " + partner.chr.get().getName()
-                                + " 交易获得 金币" + (exchangeMeso - GameConstants.getTaxAmount(exchangeMeso)) + "\r\n");
-                World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6,
-                        "[GM密语] " + "大额金币交易 疑似卖游戏币 角色名字:" + chr.get().getName() + " 和 " + partner.chr.get().getName()
-                                + " 交易获得 金币" + (exchangeMeso - GameConstants.getTaxAmount(exchangeMeso))));
+                FileoutputUtil.logToFile("logs/Data/大额金币交易.txt", FileoutputUtil.NowTime() + "角色名字:" + chr.get().getName() + " 和 " + partner.chr.get().getName() + " 交易获得 金币" + (exchangeMeso - GameConstants.getTaxAmount(exchangeMeso)) + "\r\n");
+                World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + "大额金币交易 疑似卖游戏币 角色名字:" + chr.get().getName() + " 和 " + partner.chr.get().getName() + " 交易获得 金币" + (exchangeMeso - GameConstants.getTaxAmount(exchangeMeso))));
             }
 
-            FileoutputUtil.logToFile("logs/Data/交易记录.txt",
-                    FileoutputUtil.NowTime() + " 帐号角色名字:" + chr.get().getClient().getAccountName() + " "
-                            + chr.get().getName() + " 和 " + partner.chr.get().getClient().getAccountName() + " "
-                            + partner.chr.get().getName() + " 交易获得 金币"
-                            + (exchangeMeso - GameConstants.getTaxAmount(exchangeMeso)) + " 和 " + exchangeItems.size()
-                            + "件物品[" + output + "]\r\n");
-            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6,
-                    "[GM密语] " + "角色名字:" + chr.get().getName() + " 和 " + partner.chr.get().getName() + " 交易获得 金币"
-                            + (exchangeMeso - GameConstants.getTaxAmount(exchangeMeso)) + " 和 " + exchangeItems.size()
-                            + "件物品[" + output + "]"));
+            FileoutputUtil.logToFile("logs/Data/交易记录.txt", FileoutputUtil.NowTime() + " 帐号角色名字:" + chr.get().getClient().getAccountName() + " " + chr.get().getName() + " 和 " + partner.chr.get().getClient().getAccountName() + " " + partner.chr.get().getName() + " 交易获得 金币" + (exchangeMeso - GameConstants.getTaxAmount(exchangeMeso)) + " 和 " + exchangeItems.size() + "件物品[" + output + "]\r\n");
+            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + "角色名字:" + chr.get().getName() + " 和 " + partner.chr.get().getName() + " 交易获得 金币" + (exchangeMeso - GameConstants.getTaxAmount(exchangeMeso)) + " 和 " + exchangeItems.size() + "件物品[" + output + "]"));
             exchangeItems.clear();
         }
         if (exchangeMeso > 0) {
@@ -81,11 +69,7 @@ public class MapleTrade {
         try {
             chr.get().saveToDB(false, false);
         } catch (Exception ex) {
-            FileoutputUtil.logToFile("logs/交易存档保存数据异常.txt",
-                    "\r\n " + FileoutputUtil.NowTime() + " IP: "
-                            + chr.get().getClient().getSession().remoteAddress().toString().split(":")[0] + " 帐号 "
-                            + chr.get().getClient().getAccountName() + " 帐号ID " + chr.get().getClient().getAccID()
-                            + " 角色名 " + chr.get().getName() + " 角色ID " + chr.get().getId());
+            FileoutputUtil.logToFile("logs/交易存档保存数据异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + chr.get().getClient().getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + chr.get().getClient().getAccountName() + " 帐号ID " + chr.get().getClient().getAccID() + " 角色名 " + chr.get().getName() + " 角色ID " + chr.get().getId());
             FileoutputUtil.outError("logs/交易存档保存数据异常.txt", ex);
             System.err.println("封锁出现错误 " + ex);
             FileoutputUtil.outError("logs/交易异常.txt", ex);
@@ -156,12 +140,9 @@ public class MapleTrade {
                 chr.get().dropMessage(-2, chr.get().getName() + " : " + message);
             }
             if (ServerConfig.LOG_CHAT) {
-                FileoutputUtil.logToFile("logs/聊天/交易聊天.txt", " " + FileoutputUtil.NowTime() + " IP: "
-                        + chr.get().getClient().getSession().remoteAddress().toString().split(":")[0] + " 『"
-                        + chr.get().getName() + "』对『" + partner.getChr().getName() + "』的交易聊天：  " + message + "\r\n");
+                FileoutputUtil.logToFile("logs/聊天/交易聊天.txt", " " + FileoutputUtil.NowTime() + " IP: " + chr.get().getClient().getSession().remoteAddress().toString().split(":")[0] + " 『" + chr.get().getName() + "』对『" + partner.getChr().getName() + "』的交易聊天：  " + message + "\r\n");
             }
-            final StringBuilder sb = new StringBuilder(
-                    "[GM 密语] 『" + chr.get().getName() + "』对『" + partner.getChr().getName() + "』的交易聊天：  " + message);
+            final StringBuilder sb = new StringBuilder("[GM 密语] 『" + chr.get().getName() + "』对『" + partner.getChr().getName() + "』的交易聊天：  " + message);
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                 for (MapleCharacter chr_ : cserv.getPlayerStorage().getAllCharactersThreadSafe()) {
                     if (chr_.get_control_玩家私聊()) {
@@ -171,8 +152,7 @@ public class MapleTrade {
             }
             if (partner != null) {
                 if (chr.get().getCanTalk()) {
-                    partner.getChr().getClient()
-                            .sendPacket(PlayerShopPacket.shopChat(chr.get().getName() + " : " + message, 1));
+                    partner.getChr().getClient().sendPacket(PlayerShopPacket.shopChat(chr.get().getName() + " : " + message, 1));
                 }
             }
         }
@@ -197,7 +177,7 @@ public class MapleTrade {
         if (items.size() >= 9) {
             return -1;
         }
-        int ret = 1; // first slot
+        int ret = 1; //first slot
         for (IItem item : items) {
             if (item.getPosition() == ret) {
                 ret++;
@@ -209,9 +189,7 @@ public class MapleTrade {
     public final boolean setItems(final MapleClient c, final IItem item, byte targetSlot, final int quantity) {
         int target = getNextTargetSlot();
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        if (target == -1 || GameConstants.isPet(item.getItemId()) || isLocked()
-                || (GameConstants.getInventoryType(item.getItemId()) == MapleInventoryType.CASH && quantity != 1)
-                || (GameConstants.getInventoryType(item.getItemId()) == MapleInventoryType.EQUIP && quantity != 1)) {
+        if (target == -1 || GameConstants.isPet(item.getItemId()) || isLocked() || (GameConstants.getInventoryType(item.getItemId()) == MapleInventoryType.CASH && quantity != 1) || (GameConstants.getInventoryType(item.getItemId()) == MapleInventoryType.EQUIP && quantity != 1)) {
             return false;
         }
 
@@ -234,12 +212,10 @@ public class MapleTrade {
         IItem tradeItem = item.copy();
         if (GameConstants.isThrowingStar(item.getItemId()) || GameConstants.isBullet(item.getItemId())) {
             tradeItem.setQuantity(item.getQuantity());
-            MapleInventoryManipulator.removeFromSlot(c, GameConstants.getInventoryType(item.getItemId()),
-                    item.getPosition(), item.getQuantity(), true);
+            MapleInventoryManipulator.removeFromSlot(c, GameConstants.getInventoryType(item.getItemId()), item.getPosition(), item.getQuantity(), true);
         } else {
             tradeItem.setQuantity((short) quantity);
-            MapleInventoryManipulator.removeFromSlot(c, GameConstants.getInventoryType(item.getItemId()),
-                    item.getPosition(), (short) quantity, true);
+            MapleInventoryManipulator.removeFromSlot(c, GameConstants.getInventoryType(item.getItemId()), item.getPosition(), (short) quantity, true);
         }
         if (targetSlot < 0) {
             targetSlot = (byte) target;
@@ -256,7 +232,7 @@ public class MapleTrade {
         return true;
     }
 
-    private int check() { // 0 = fine, 1 = invent space not, 2 = pickupRestricted
+    private int check() { //0 = fine, 1 = invent space not, 2 = pickupRestricted
         if (chr.get().getMeso() + exchangeMeso < 0) {
             return 1;
         }
@@ -279,22 +255,14 @@ public class MapleTrade {
                 case CASH: // Not allowed, probably hacking
                     cash++;
                     break;
-                default:
-                    break;
             }
-            if (ii.isPickupRestricted(item.getItemId())
-                    && chr.get().getInventory(GameConstants.getInventoryType(item.getItemId()))
-                            .findById(item.getItemId()) != null) {
+            if (ii.isPickupRestricted(item.getItemId()) && chr.get().getInventory(GameConstants.getInventoryType(item.getItemId())).findById(item.getItemId()) != null) {
                 return 2;
             } else if (ii.isPickupRestricted(item.getItemId()) && chr.get().haveItem(item.getItemId(), 1, true, true)) {
                 return 2;
             }
         }
-        if (chr.get().getInventory(MapleInventoryType.EQUIP).getNumFreeSlot() < eq
-                || chr.get().getInventory(MapleInventoryType.USE).getNumFreeSlot() < use
-                || chr.get().getInventory(MapleInventoryType.SETUP).getNumFreeSlot() < setup
-                || chr.get().getInventory(MapleInventoryType.ETC).getNumFreeSlot() < etc
-                || chr.get().getInventory(MapleInventoryType.CASH).getNumFreeSlot() < cash) {
+        if (chr.get().getInventory(MapleInventoryType.EQUIP).getNumFreeSlot() < eq || chr.get().getInventory(MapleInventoryType.USE).getNumFreeSlot() < use || chr.get().getInventory(MapleInventoryType.SETUP).getNumFreeSlot() < setup || chr.get().getInventory(MapleInventoryType.ETC).getNumFreeSlot() < etc || chr.get().getInventory(MapleInventoryType.CASH).getNumFreeSlot() < cash) {
             return 1;
         }
         return 0;
@@ -328,10 +296,7 @@ public class MapleTrade {
             if (local.getChr().getClient().getAccID() == partner.getChr().getClient().getAccID()) {
                 local.getChr().ban("修改数据包 - 同帐号角色交易", true, true, false);
                 partner.getChr().ban("修改数据包 - 同帐号角色交易", true, true, false);
-                FileoutputUtil.logToFile("logs/Hack/ban/交易异常.txt",
-                        "时间: " + FileoutputUtil.NowTime() + " IP: " + local.getChr().getClient().getSessionIPAddress()
-                                + " MAC: " + local.getChr().getNowMacs() + " " + local.getChr().getName() + " 和 "
-                                + partner.getChr().getName() + " 为同个帐号的角色且进行交易\r\n");
+                FileoutputUtil.logToFile("logs/Hack/ban/交易异常.txt", "时间: " + FileoutputUtil.NowTime() + " IP: " + local.getChr().getClient().getSessionIPAddress() + " MAC: " + local.getChr().getNowMacs() + " " + local.getChr().getName() + " 和 " + partner.getChr().getName() + " 为同个帐号的角色且进行交易\r\n");
                 local.getChr().getClient().getSession().close();
                 partner.getChr().getClient().getSession().close();
             }
@@ -396,16 +361,12 @@ public class MapleTrade {
     }
 
     public static final void visitTrade(final MapleCharacter c1, final MapleCharacter c2) {
-        if (c1.getTrade() != null && c1.getTrade().getPartner() == c2.getTrade() && c2.getTrade() != null
-                && c2.getTrade().getPartner() == c1.getTrade()) {
-            // We don't need to check for map here as the user is found via
-            // MapleMap.getCharacterById()
+        if (c1.getTrade() != null && c1.getTrade().getPartner() == c2.getTrade() && c2.getTrade() != null && c2.getTrade().getPartner() == c1.getTrade()) {
+            // We don't need to check for map here as the user is found via MapleMap.getCharacterById()
             c2.getClient().sendPacket(MaplePacketCreator.getTradePartnerAdd(c1));
             c1.getClient().sendPacket(MaplePacketCreator.getTradeStart(c1.getClient(), c1.getTrade(), (byte) 1));
-            // c1.dropMessage(-2, "System : Use @tradehelp to see the list of trading
-            // commands");
-            // c2.dropMessage(-2, "System : Use @tradehelp to see the list of trading
-            // commands");
+//            c1.dropMessage(-2, "System : Use @tradehelp to see the list of trading commands");
+//            c2.dropMessage(-2, "System : Use @tradehelp to see the list of trading commands");
         } else {
             c1.getClient().sendPacket(MaplePacketCreator.serverNotice(5, "交易已经被关闭."));
         }

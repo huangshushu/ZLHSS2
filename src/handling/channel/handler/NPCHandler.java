@@ -1,30 +1,30 @@
 package handling.channel.handler;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import client.MapleCharacter;
-import client.MapleClient;
-import client.MapleQuestStatus;
 import client.inventory.Equip;
 import client.inventory.IItem;
-import client.inventory.ItemFlag;
 import client.inventory.MapleInventoryType;
+import client.MapleClient;
+import client.MapleCharacter;
 import constants.GameConstants;
+import client.MapleQuestStatus;
+import client.RockPaperScissors;
+import client.inventory.ItemFlag;
 import constants.WorldConstants;
 import handling.SendPacketOpcode;
 import handling.world.World;
-import scripting.NPCConversationManager;
-import scripting.NPCScriptManager;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import server.AutobanManager;
-import server.MapleInventoryManipulator;
-import server.MapleItemInformationProvider;
 import server.MapleShop;
+import server.MapleInventoryManipulator;
 import server.MapleStorage;
 import server.life.MapleNPC;
-import server.maps.MapleMap;
 import server.quest.MapleQuest;
+import scripting.NPCScriptManager;
+import scripting.NPCConversationManager;
+import server.MapleItemInformationProvider;
+import server.maps.MapleMap;
 import tools.ArrayMap;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
@@ -74,7 +74,7 @@ public class NPCHandler {
             return;
         }
 
-        // c.sendPacket(mplew.getPacket());
+        //c.sendPacket(mplew.getPacket());
     }
 
     public static final void handleNPCShop(final LittleEndianAccessor slea, final MapleClient c) {
@@ -121,39 +121,39 @@ public class NPCHandler {
         }
     }
 
-    public static final void handleNPCTalk(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+    public static final void handleNPCTalk(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {        
         if (c == null || chr == null || chr.getMap() == null) {
             return;
         }
-
+        
         final MapleNPC npc = chr.getMap().getNPCByOid(slea.readInt());
-
+        
+        
         if (npc == null) {
             return;
         }
-
+        
         if (chr.getAntiMacro().inProgress()) {
             chr.dropMessage(5, "被使用测谎仪时无法操作。");
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
         }
-
-        // slea.readInt();
+        
+        //slea.readInt();
         if (npc == null) {
             return;
         }
-
+        
         chr.setCurrenttime(System.currentTimeMillis());
         if (chr.getCurrenttime() - chr.getLasttime() < chr.getDeadtime()) {
             chr.dropMessage("悠着点!");
             c.getSession().write(MaplePacketCreator.enableActions());
             return;
-        }
+        }       
         if (chr.getConversation() != 0) {
             NPCScriptManager.getInstance().dispose(c);
             c.sendPacket(MaplePacketCreator.enableActions());
-            // chr.dropMessage(5, "你现在已经假死请使用@ea");
+            //  chr.dropMessage(5, "你现在已经假死请使用@ea");
             return;
         }
         c.getPlayer().updateTick(slea.readInt());// 暂时不检测点NPC的速度
@@ -166,15 +166,13 @@ public class NPCHandler {
         }
     }
 
-    public static final void QuestAction(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+    public static final void QuestAction(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         final byte action = slea.readByte();
-        // short quest = slea.readShort();
+        //short quest = slea.readShort();
         int quest = slea.readUShort();
-        // if (quest < 0) { //questid 50000 and above, WILL cast to negative, this was
-        // tested.
-        // quest += 65536; //probably not the best fix, but whatever
-        // }
+        //if (quest < 0) { //questid 50000 and above, WILL cast to negative, this was tested.
+        //   quest += 65536; //probably not the best fix, but whatever
+        //}
 
         if (chr == null) {
             return;
@@ -237,8 +235,7 @@ public class NPCHandler {
                     chr.dropMessage(6, "完成系统任务 NPC: " + npc + " Quest: " + quest);
                 }
                 // c.sendPacket(MaplePacketCreator.completeQuest(c.getPlayer(), quest));
-                // c.sendPacket(MaplePacketCreator.updateQuestInfo(c.getPlayer(), quest, npc,
-                // (byte)14));
+                //c.sendPacket(MaplePacketCreator.updateQuestInfo(c.getPlayer(), quest, npc, (byte)14));
                 // 6 = start quest
                 // 7 = unknown error
                 // 8 = equip is full
@@ -291,7 +288,7 @@ public class NPCHandler {
             return;
         }
 
-        if (chr.hasBlockedInventory2(true)) { // hack
+        if (chr.hasBlockedInventory2(true)) { //hack
             c.getPlayer().dropMessage(1, "系统错误，请联系管理员。");
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
@@ -305,8 +302,7 @@ public class NPCHandler {
                 final IItem item = storage.takeOut(slot);
                 if (c.getPlayer().CanStorage()) {
                     if (item != null) {
-                        if (!MapleInventoryManipulator.checkSpace(c, item.getItemId(), item.getQuantity(),
-                                item.getOwner())) {
+                        if (!MapleInventoryManipulator.checkSpace(c, item.getItemId(), item.getQuantity(), item.getOwner())) {
                             storage.store(item);
                             chr.saveToDB(false, false);
                             chr.dropMessage(1, "你的物品拦已经满了..");
@@ -324,21 +320,12 @@ public class NPCHandler {
                             MapleInventoryManipulator.addFromDrop(c, item, false);
                             storage.saveToDB();
                             storage.sendTakenOut(c, GameConstants.getInventoryType(item.getItemId()));
-                            FileoutputUtil.logToFile("logs/Data/仓库操作.txt",
-                                    "\r\n " + FileoutputUtil.NowTime() + " IP: "
-                                            + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: "
-                                            + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库操作拿出物品:"
-                                            + WorldConstants.getNameById(item.getItemId()) + "(" + item.getItemId()
-                                            + ") 数量：" + item.getQuantity());
-                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6,
-                                    "[GM密语] " + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName()
-                                            + " 使用了仓库操作拿出物品:" + WorldConstants.getNameById(item.getItemId()) + "("
-                                            + item.getItemId() + ") 数量：" + item.getQuantity()));
+                            FileoutputUtil.logToFile("logs/Data/仓库操作.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库操作拿出物品:" + WorldConstants.getNameById(item.getItemId())+ "("+item.getItemId() + ") 数量：" + item.getQuantity());
+                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库操作拿出物品:" + WorldConstants.getNameById(item.getItemId())+ "("+item.getItemId() + ") 数量：" + item.getQuantity()));
                         }
                     } else {
                         c.sendPacket(MaplePacketCreator.enableActions());
-                        // AutobanManager.getInstance().autoban(c, "Trying to take out item from storage
-                        // which does not exist.");
+                        //AutobanManager.getInstance().autoban(c, "Trying to take out item from storage which does not exist.");
                     }
                 } else {
                     c.getPlayer().dropMessage(1, "操作过快请稍后在尝试。");
@@ -391,8 +378,7 @@ public class NPCHandler {
                             c.sendPacket(MaplePacketCreator.enableActions());
                             return;
                         }
-                        if (item.getItemId() == itemId && (item.getQuantity() >= quantity
-                                || GameConstants.isThrowingStar(itemId) || GameConstants.isBullet(itemId))) {
+                        if (item.getItemId() == itemId && (item.getQuantity() >= quantity || GameConstants.isThrowingStar(itemId) || GameConstants.isBullet(itemId))) {
                             if (ii.isDropRestricted(item.getItemId())) {
                                 if (ItemFlag.KARMA_EQ.check(flag)) {
                                     item.setFlag((byte) (flag - ItemFlag.KARMA_EQ.getValue()));
@@ -419,22 +405,11 @@ public class NPCHandler {
                             item.setQuantity(quantity);
                             storage.store(item);
                             storage.sendStored(c, GameConstants.getInventoryType(itemId));
-                            // chr.saveToDB(false, false);
-                            FileoutputUtil.logToFile("logs/Data/仓库操作.txt",
-                                    "\r\n " + FileoutputUtil.NowTime() + " IP: "
-                                            + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: "
-                                            + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库操作存入物品:"
-                                            + WorldConstants.getNameById(item.getItemId()) + "(" + item.getItemId()
-                                            + ") 数量：" + item.getQuantity());
-                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6,
-                                    "[GM密语] " + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName()
-                                            + " 使用了仓库操作存入物品:" + WorldConstants.getNameById(item.getItemId()) + "("
-                                            + item.getItemId() + ") 数量：" + item.getQuantity()));
+                            //chr.saveToDB(false, false);
+                            FileoutputUtil.logToFile("logs/Data/仓库操作.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库操作存入物品:" + WorldConstants.getNameById(item.getItemId())+ "("+item.getItemId() + ") 数量：" + item.getQuantity());
+                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库操作存入物品:" + WorldConstants.getNameById(item.getItemId())+ "("+ item.getItemId() + ") 数量：" + item.getQuantity()));
                         } else {
-                            AutobanManager.getInstance().addPoints(c, 1000, 0,
-                                    "Trying to store non-matching itemid (" + itemId + "/" + item.getItemId()
-                                            + ") or quantity not in posession (" + quantity + "/" + item.getQuantity()
-                                            + ")");
+                            AutobanManager.getInstance().addPoints(c, 1000, 0, "Trying to store non-matching itemid (" + itemId + "/" + item.getItemId() + ") or quantity not in posession (" + quantity + "/" + item.getQuantity() + ")");
                             return;
                         }
                     }
@@ -470,27 +445,16 @@ public class NPCHandler {
                         storage.setMeso(storageMesos - meso);
                         storage.saveToDB();
                         chr.gainMeso(meso, false, true, false);
-                        FileoutputUtil.logToFile("logs/Data/仓库操作.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
-                                + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName()
-                                + " 玩家: " + c.getPlayer().getName() + " 使用了仓库操作金币数量:" + meso);
-                        World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + " 帐号: "
-                                + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库操作金币数量:" + meso));
+                        FileoutputUtil.logToFile("logs/Data/仓库操作.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库操作金币数量:" + meso);
+                        World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库操作金币数量:" + meso));
 
                         if (meso >= 50000000 || meso <= -50000000) {
-                            FileoutputUtil.logToFile("logs/Data/仓库大额金币操作.txt",
-                                    "\r\n " + FileoutputUtil.NowTime() + " IP: "
-                                            + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: "
-                                            + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库大额金币操作数量:"
-                                            + meso);
-                            World.Broadcast.broadcastGMMessage(
-                                    MaplePacketCreator.serverNotice(6, "[GM密语] " + " 帐号: " + c.getAccountName()
-                                            + " 玩家: " + c.getPlayer().getName() + " 使用了仓库大额金币操作数量:" + meso));
+                            FileoutputUtil.logToFile("logs/Data/仓库大额金币操作.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库大额金币操作数量:" + meso);
+                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + " 帐号: " + c.getAccountName() + " 玩家: " + c.getPlayer().getName() + " 使用了仓库大额金币操作数量:" + meso));
                         }
 
                     } else {
-                        AutobanManager.getInstance().addPoints(c, 1000, 0,
-                                "Trying to store or take out unavailable amount of mesos (" + meso + "/"
-                                        + storage.getMeso() + "/" + c.getPlayer().getMeso() + ")");
+                        AutobanManager.getInstance().addPoints(c, 1000, 0, "Trying to store or take out unavailable amount of mesos (" + meso + "/" + storage.getMeso() + "/" + c.getPlayer().getMeso() + ")");
                         return;
                     }
                     storage.sendMeso(c);
@@ -498,7 +462,7 @@ public class NPCHandler {
                     c.getPlayer().dropMessage(1, "操作过快请稍后在尝试。");
                     storage.sendMeso(c);
                 }
-                // chr.saveToDB(false, false);
+                //chr.saveToDB(false, false);
                 break;
             }
             case 8: {
@@ -518,8 +482,7 @@ public class NPCHandler {
 
         final NPCConversationManager cm = NPCScriptManager.getInstance().getCM(c);
 
-        if (c == null || c.getPlayer() == null || cm == null || c.getPlayer().getConversation() == 0
-                || cm.getLastMsg() != lastMsg) {
+        if (c == null || c.getPlayer() == null || cm == null || c.getPlayer().getConversation() == 0 || cm.getLastMsg() != lastMsg) {
             return;
         }
         cm.setLastMsg((byte) -1);
@@ -545,7 +508,7 @@ public class NPCHandler {
             }
             if (lastMsg == 4 && selection == -1) {
                 cm.dispose();
-                return;// h4x
+                return;//h4x
             }
             if (selection >= -1 && action != -1) {
                 switch (cm.getType()) {
@@ -575,19 +538,17 @@ public class NPCHandler {
         Map<String, Integer> eqStats;
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         final Map<Equip, Integer> eqs = new ArrayMap<>();
-        final MapleInventoryType[] types = { MapleInventoryType.EQUIP, MapleInventoryType.EQUIPPED };
+        final MapleInventoryType[] types = {MapleInventoryType.EQUIP, MapleInventoryType.EQUIPPED};
         for (MapleInventoryType type : types) {
             for (IItem item : c.getPlayer().getInventory(type)) {
-                if (item instanceof Equip) { // redundant
+                if (item instanceof Equip) { //redundant
                     eq = (Equip) item;
                     if (eq.getDurability() >= 0) {
                         eqStats = ii.getEquipStats(eq.getItemId());
                         if (eqStats.get("durability") > 0 && eq.getDurability() < eqStats.get("durability")) {
-                            rPercentage = (100.0
-                                    - Math.ceil((eq.getDurability() * 1000.0) / (eqStats.get("durability") * 10.0)));
+                            rPercentage = (100.0 - Math.ceil((eq.getDurability() * 1000.0) / (eqStats.get("durability") * 10.0)));
                             eqs.put(eq, eqStats.get("durability"));
-                            price += (int) Math.ceil(rPercentage * ii.getPrice(eq.getItemId())
-                                    / (ii.getReqLevel(eq.getItemId()) < 70 ? 100.0 : 1.0));
+                            price += (int) Math.ceil(rPercentage * ii.getPrice(eq.getItemId()) / (ii.getReqLevel(eq.getItemId()) < 70 ? 100.0 : 1.0));
                         }
                     }
                 }
@@ -601,16 +562,15 @@ public class NPCHandler {
         for (Entry<Equip, Integer> eqqz : eqs.entrySet()) {
             ez = eqqz.getKey();
             ez.setDurability(eqqz.getValue());
-            c.getPlayer().forceReAddItem(ez.copy(),
-                    ez.getPosition() < 0 ? MapleInventoryType.EQUIPPED : MapleInventoryType.EQUIP);
+            c.getPlayer().forceReAddItem(ez.copy(), ez.getPosition() < 0 ? MapleInventoryType.EQUIPPED : MapleInventoryType.EQUIP);
         }
     }
 
     public static final void repair(final LittleEndianAccessor slea, final MapleClient c) {
-        if (c.getPlayer().getMapId() != 240000000 || slea.available() < 4) { // leafre for now
+        if (c.getPlayer().getMapId() != 240000000 || slea.available() < 4) { //leafre for now
             return;
         }
-        final int position = slea.readInt(); // who knows why this is a int
+        final int position = slea.readInt(); //who knows why this is a int
         final MapleInventoryType type = position < 0 ? MapleInventoryType.EQUIPPED : MapleInventoryType.EQUIP;
         final IItem item = c.getPlayer().getInventory(type).getItem((byte) position);
         if (item == null) {
@@ -619,21 +579,14 @@ public class NPCHandler {
         final Equip eq = (Equip) item;
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         final Map<String, Integer> eqStats = ii.getEquipStats(item.getItemId());
-        if (eq.getDurability() < 0 || eqStats.get("durability") <= 0
-                || eq.getDurability() >= eqStats.get("durability")) {
+        if (eq.getDurability() < 0 || eqStats.get("durability") <= 0 || eq.getDurability() >= eqStats.get("durability")) {
             return;
         }
-        final double rPercentage = (100.0
-                - Math.ceil((eq.getDurability() * 1000.0) / (eqStats.get("durability") * 10.0)));
-        // drpq level 105 weapons - ~420k per %; 2k per durability point
-        // explorer level 30 weapons - ~10 mesos per %
-        final int price = (int) Math
-                .ceil(rPercentage * ii.getPrice(eq.getItemId()) / (ii.getReqLevel(eq.getItemId()) < 70 ? 100.0 : 1.0)); // /
-                                                                                                                        // 100
-                                                                                                                        // for
-                                                                                                                        // level
-                                                                                                                        // 30?
-        // TODO: need more data on calculating off client
+        final double rPercentage = (100.0 - Math.ceil((eq.getDurability() * 1000.0) / (eqStats.get("durability") * 10.0)));
+        //drpq level 105 weapons - ~420k per %; 2k per durability point
+        //explorer level 30 weapons - ~10 mesos per %
+        final int price = (int) Math.ceil(rPercentage * ii.getPrice(eq.getItemId()) / (ii.getReqLevel(eq.getItemId()) < 70 ? 100.0 : 1.0)); // / 100 for level 30?
+        //TODO: need more data on calculating off client
         if (c.getPlayer().getMeso() < price) {
             return;
         }
@@ -662,10 +615,9 @@ public class NPCHandler {
         for (IItem i : c.getPlayer().getInventory(MapleInventoryType.ETC)) {
             if (i.getItemId() / 10000 == 422) {
                 questItemInfo = ii.questItemInfo(i.getItemId());
-                if (questItemInfo != null && questItemInfo.getLeft() == qid
-                        && questItemInfo.getRight().contains(itemId)) {
+                if (questItemInfo != null && questItemInfo.getLeft() == qid && questItemInfo.getRight().contains(itemId)) {
                     found = true;
-                    break; // i believe it's any order
+                    break; //i believe it's any order
                 }
             }
         }
@@ -680,52 +632,48 @@ public class NPCHandler {
         }
     }
 
-    /*
-     * public static final void RPSGame(final LittleEndianAccessor slea, final
-     * MapleClient c) {
-     * if (slea.available() == 0 || !c.getPlayer().getMap().containsNPC(9209002)) {
-     * if (c.getPlayer().getRPS() != null) {
-     * c.getPlayer().getRPS().dispose(c);
-     * }
-     * return;
-     * }
-     * final byte mode = slea.readByte();
-     * switch (mode) {
-     * case 0: //start game
-     * case 5: //retry
-     * if (c.getPlayer().getRPS() != null) {
-     * c.getPlayer().getRPS().reward(c);
-     * }
-     * if (c.getPlayer().getMeso() >= 1000) {
-     * c.getPlayer().setRPS(new RockPaperScissors(c, mode));
-     * } else {
-     * c.sendPacket(MaplePacketCreator.getRPSMode((byte) 0x08, -1, -1, -1));
-     * }
-     * break;
-     * case 1: //answer
-     * if (c.getPlayer().getRPS() == null || !c.getPlayer().getRPS().answer(c,
-     * slea.readByte())) {
-     * c.sendPacket(MaplePacketCreator.getRPSMode((byte) 0x0D, -1, -1, -1));
-     * }
-     * break;
-     * case 2: //time over
-     * if (c.getPlayer().getRPS() == null || !c.getPlayer().getRPS().timeOut(c)) {
-     * c.sendPacket(MaplePacketCreator.getRPSMode((byte) 0x0D, -1, -1, -1));
-     * }
-     * break;
-     * case 3: //continue
-     * if (c.getPlayer().getRPS() == null || !c.getPlayer().getRPS().nextRound(c)) {
-     * c.sendPacket(MaplePacketCreator.getRPSMode((byte) 0x0D, -1, -1, -1));
-     * }
-     * break;
-     * case 4: //leave
-     * if (c.getPlayer().getRPS() != null) {
-     * c.getPlayer().getRPS().dispose(c);
-     * } else {
-     * c.sendPacket(MaplePacketCreator.getRPSMode((byte) 0x0D, -1, -1, -1));
-     * }
-     * break;
-     * }
-     * }
-     */
+    /*public static final void RPSGame(final LittleEndianAccessor slea, final MapleClient c) {
+        if (slea.available() == 0 || !c.getPlayer().getMap().containsNPC(9209002)) {
+            if (c.getPlayer().getRPS() != null) {
+                c.getPlayer().getRPS().dispose(c);
+            }
+            return;
+        }
+        final byte mode = slea.readByte();
+        switch (mode) {
+            case 0: //start game
+            case 5: //retry
+                if (c.getPlayer().getRPS() != null) {
+                    c.getPlayer().getRPS().reward(c);
+                }
+                if (c.getPlayer().getMeso() >= 1000) {
+                    c.getPlayer().setRPS(new RockPaperScissors(c, mode));
+                } else {
+                    c.sendPacket(MaplePacketCreator.getRPSMode((byte) 0x08, -1, -1, -1));
+                }
+                break;
+            case 1: //answer
+                if (c.getPlayer().getRPS() == null || !c.getPlayer().getRPS().answer(c, slea.readByte())) {
+                    c.sendPacket(MaplePacketCreator.getRPSMode((byte) 0x0D, -1, -1, -1));
+                }
+                break;
+            case 2: //time over
+                if (c.getPlayer().getRPS() == null || !c.getPlayer().getRPS().timeOut(c)) {
+                    c.sendPacket(MaplePacketCreator.getRPSMode((byte) 0x0D, -1, -1, -1));
+                }
+                break;
+            case 3: //continue
+                if (c.getPlayer().getRPS() == null || !c.getPlayer().getRPS().nextRound(c)) {
+                    c.sendPacket(MaplePacketCreator.getRPSMode((byte) 0x0D, -1, -1, -1));
+                }
+                break;
+            case 4: //leave
+                if (c.getPlayer().getRPS() != null) {
+                    c.getPlayer().getRPS().dispose(c);
+                } else {
+                    c.sendPacket(MaplePacketCreator.getRPSMode((byte) 0x0D, -1, -1, -1));
+                }
+                break;
+        }
+    }*/
 }

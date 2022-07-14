@@ -20,8 +20,9 @@
  */
 package client.inventory;
 
-import constants.GameConstants;
 import java.io.Serializable;
+
+import constants.GameConstants;
 import server.MapleItemInformationProvider;
 
 public class Item implements IItem, Serializable {
@@ -204,7 +205,7 @@ public class Item implements IItem, Serializable {
     }
 
     @Override
-    public final long getInventoryId() { //this doesn't need to be 100% accurate, just different
+    public final long getInventoryId() { // this doesn't need to be 100% accurate, just different
         return inventoryitemid;
     }
 
@@ -249,7 +250,8 @@ public class Item implements IItem, Serializable {
             return false;
         }
         final IItem ite = (IItem) obj;
-        return uniqueid == ite.getUniqueId() && id == ite.getItemId() && quantity == ite.getQuantity() && Math.abs(position) == Math.abs(ite.getPosition());
+        return uniqueid == ite.getUniqueId() && id == ite.getItemId() && quantity == ite.getQuantity()
+                && Math.abs(position) == Math.abs(ite.getPosition());
     }
 
     @Override

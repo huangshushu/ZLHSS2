@@ -5,13 +5,14 @@
  */
 package client.messages;
 
-import client.messages.commands.ConsoleCommandObject;
-import client.messages.commands.ConsoleCommand;
-import client.messages.commands.ConsoleCommandExecute;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+
+import client.messages.commands.ConsoleCommand;
+import client.messages.commands.ConsoleCommandExecute;
+import client.messages.commands.ConsoleCommandObject;
 import tools.FilePrinter;
 
 /**

@@ -139,8 +139,6 @@ public enum MapleDisease implements Serializable {
                 return 136;
             case FREEZE:
                 return 137;
-            default:
-                break;
         }
         return 0;
     }

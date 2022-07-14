@@ -49,8 +49,7 @@ public class SkillConstants {
         }
         if (skillId <= 4110012) { // 镖术精通
             // 镖术精通 || 战斗精通 || 灵魂复仇 || Null(没找到技能) || Null(没找到技能) || Null(没找到技能)
-            if (skillId == 4110012 || skillId == 1120012 || skillId == 1320011 || skillId == 2121009
-                    || skillId == 2221009 || skillId == 2321010) {
+            if (skillId == 4110012 || skillId == 1120012 || skillId == 1320011 || skillId == 2121009 || skillId == 2221009 || skillId == 2321010) {
                 return true;
             }
             // 射击术
@@ -62,7 +61,7 @@ public class SkillConstants {
             if (skillId <= 5120010) {
                 return false;
             }
-            // 双倍幸运骰子
+            // 双倍幸运骰子 
             if (skillId > 5120012) {
                 // 反击
                 return skillId == 5220012;
@@ -74,8 +73,7 @@ public class SkillConstants {
     public static boolean isNot4thNeedMasterLevel(int skillId) {
         if (skillId > 101100101) { // 进阶武器投掷
             // 进阶回旋之刃 || 进阶旋风 || 进阶旋风急转弯 || 进阶旋风落叶斩 || 进阶碎地猛击
-            if (skillId == 101100201 || skillId == 101110102 || skillId == 101110200 || skillId == 101110203
-                    || skillId == 101120104) {
+            if (skillId == 101100201 || skillId == 101110102 || skillId == 101110200 || skillId == 101110203 || skillId == 101120104) {
                 return true;
             }
             return skillId == 101120204; // 进阶暴风裂击
@@ -107,28 +105,27 @@ public class SkillConstants {
             return false;
         }
         int jobid = getJobBySkill(skillId);
-        if (MapleJob.is初心者(jobid) || MapleJob.isJob9500(skillId) || skillId == 42120024/* 影朋‧花狐 */) {// ||
-                                                                                                     // MapleJob.is幻兽师(jobid)
+        if (MapleJob.is初心者(jobid) || MapleJob.isJob9500(skillId) || skillId == 42120024/*影朋‧花狐*/) {// || MapleJob.is幻兽师(jobid)
             return false;
         }
         int jobTimes = MapleJob.get转数(jobid);
-        // if (MapleJob.is龙魔导士(jobid)) {
-        // if (skillId == 22171004) { // 枫叶净化
-        // return false;
-        // }
-        // if (jobTimes == 9) {
-        // return true;
-        // }
-        // return jobTimes == 10;
-        // } else {
+//        if (MapleJob.is龙魔导士(jobid)) {
+//            if (skillId == 22171004) { // 枫叶净化
+//                return false;
+//            }
+//            if (jobTimes == 9) {
+//                return true;
+//            }
+//            return jobTimes == 10;
+//        } else {
         if (isNot4thNeedMasterLevel(skillId)) {
             return true;
         }
         if (jobTimes != 4) {
             return false;
         }
-        return true;// !MapleJob.is神之子(jobid)
-        // }
+        return true;//!MapleJob.is神之子(jobid)
+        //    }
     }
 
     public static int get紫扇传授UnknownValue(int skillId) {
@@ -150,21 +147,17 @@ public class SkillConstants {
     }
 
     public static boolean isApplicableSkill(int skil) {
-        return ((skil < 80000000 || skil >= 100000000) && (skil % 10000 < 8000 || skil % 10000 > 8006)
-                && !isAngel(skil)) || skil >= 92000000 || (skil >= 80000000 && skil < 80010000); // no additional/decent
-                                                                                                 // skills
+        return ((skil < 80000000 || skil >= 100000000) && (skil % 10000 < 8000 || skil % 10000 > 8006) && !isAngel(skil)) || skil >= 92000000 || (skil >= 80000000 && skil < 80010000); //no additional/decent skills
     }
 
-    // public static boolean isApplicableSkill_(int skil) { //not applicable to
-    // saving but is more of temporary
-    // for (int i : PlayerStats.pvpSkills) {
-    // if (skil == i) {
-    // return true;
-    // }
-    // }
-    // return (skil >= 90000000 && skil < 92000000) || (skil % 10000 >= 8000 && skil
-    // % 10000 <= 8003) || isAngel(skil);
-    // }
+//    public static boolean isApplicableSkill_(int skil) { //not applicable to saving but is more of temporary
+//        for (int i : PlayerStats.pvpSkills) {
+//            if (skil == i) {
+//                return true;
+//            }
+//        }
+//        return (skil >= 90000000 && skil < 92000000) || (skil % 10000 >= 8000 && skil % 10000 <= 8003) || isAngel(skil);
+//    }
     public static boolean isRidingSKill(int skil) {
         return (skil >= 80001000 && skil < 80010000);
     }
@@ -295,7 +288,7 @@ public class SkillConstants {
                 return 41120044; // 神速无双-次数强化
             } else if (id > 21121013) { // 终极之矛
                 if (id == 22181002) { // 龙神之怒
-                    return 0;// ".img/SlideMenu/0/Recommend";
+                    return 0;//".img/SlideMenu/0/Recommend";
                 } else if (id == 25121005) { // 鬼斩
                     return 25120148; // 鬼斩-次数强化
                 } else if (id == 31111005) { // 恶魔布雷斯
@@ -324,7 +317,7 @@ public class SkillConstants {
                     return 15120048; // 霹雳-次数强化
                 }
                 if (id - (13121000 + 2) - 2000000 == 5999002 + 1) { // 终极之矛
-                    // LABEL_115:
+                    //LABEL_115:
                     return 21120047; // 终极之矛-加码攻击
                 } else if (id - (13121000 + 2) - 2000000 - (5999002 + 1) == 1) { // 极冰暴风
                     return 21120049; // 极冰暴风-加码攻击
@@ -378,7 +371,7 @@ public class SkillConstants {
                 }
                 return 5120048; // 闪．连杀-攻击加成
             }
-            if (id > 5721064) { // 穿心掌打
+            if (id > 5721064) { // 穿心掌打 
                 if (id == (11121101 + 2) || id - (11121101 + 2) == 100) { // 新月分裂 || 太阳穿刺
                     return 11120048; // 分裂与穿刺-次数强化
                 } else if (id - (11121101 + 2) == 878923 // 元素火焰
@@ -388,7 +381,7 @@ public class SkillConstants {
                     return 12120045; // 元素火焰-速发反击
                 }
             } else {
-                if (id == 5721064) { // 穿心掌打
+                if (id == 5721064) { // 穿心掌打 
                     return 5720048; // 穿心掌打-次数强化
                 }
                 if (id == 5121020) { // 闪‧瞬连杀
@@ -398,15 +391,15 @@ public class SkillConstants {
                     return 5220047; // 爆头射击-攻击加成
                 } else {
                     if (id - 5121020 == 198991) {
-                        // goto LABEL_116;
+                        //goto LABEL_116;
                     }
                     if (id - 5121020 == 199980) {// 加农砲火箭
                         return 5320048; // 加农砲火箭-攻击加成
                     }
                     if (id - 5121020 == 199984) { // 双胞胎猴子
-                        // LABEL_116:
+                        //LABEL_116:
                         return 5320043; // 双胞胎猴子-伤害分裂
-                    } else if (id - 5121020 == 600041) { // 龙袭乱舞
+                    } else if (id - 5121020 == 600041) { // 龙袭乱舞 
                         return 5720045; // 龙袭乱舞-次数强化
                     }
                 }
@@ -415,67 +408,66 @@ public class SkillConstants {
         return 0;
     }
 
-    // private static List<Integer> SoulSkills;
-    // public static List<Integer> getSoulSkills() {
-    // if (SoulSkills != null) {
-    // return SoulSkills;
-    // }
-    // SoulSkills = new LinkedList();
-    // final MapleItemInformationProvider ii =
-    // MapleItemInformationProvider.getInstance();
-    // for (ItemInformation itInfo : ii.getAllItems()) {
-    // if (ItemConstants.类型.灵魂宝珠(itInfo.itemId)) {
-    // SoulSkills.add(ii.getSoulSkill(itInfo.itemId));
-    // }
-    // }
-    // return SoulSkills;
-    // }
+//    private static List<Integer> SoulSkills;
+//    public static List<Integer> getSoulSkills() {
+//        if (SoulSkills != null) {
+//            return SoulSkills;
+//        }
+//        SoulSkills = new LinkedList();
+//        final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+//        for (ItemInformation itInfo : ii.getAllItems()) {
+//            if (ItemConstants.类型.灵魂宝珠(itInfo.itemId)) {
+//                SoulSkills.add(ii.getSoulSkill(itInfo.itemId));
+//            }
+//        }
+//        return SoulSkills;
+//    }
     public static int SkillIncreaseMobCount(int sk) {
         int inc = 0;
         switch (sk) {
-            case 112001008:// 鲜鱼龙卷风
-            case 112101009:// 电光石火
-            case 112111004:// 队伍轰炸
+            case 112001008://鲜鱼龙卷风
+            case 112101009://电光石火
+            case 112111004://队伍轰炸
             case 61111100:// 龙剑风
-            case 51121008:// 圣光爆发
-            case 42121000:// 破邪连击符
-            case 41121021:// 瞬杀斩
-            case 41121018:// 瞬杀斩
-            case 41121009:// 鹰爪闪
-            case 36121012:// 伪装扫荡：轰炸
-            case 36121011:// 伪装扫荡：砲击
-            case 36121000:// 疾风剑舞
-            case 35121015:// 巨型火炮：SPLASH-F
-            case 33121002:// 音爆
-            case 32121003:// 飓风
-            case 27121303:// 绝对击杀
-            case 27121202:// 暗黑烈焰
-            case 24121000:// 连犽突进
-            case 24121005:// 卡牌风暴
-            case 15121002:// 霹雳
-            case 13121002:// 破风之箭
-            case 12120011:// 极致炽烈
-            case 11121203:// 太阳穿刺
-            case 11121103:// 新月分裂
-            case 5721007:// 侠客突袭
-            case 5321000:// 加农砲火箭
-            case 5121016:// 蓄能冲击波
-            case 4341004:// 短刀护佑
-            case 4331000:// 血雨暴风狂斩
-            case 4221007:// 瞬步连击
-            case 4121017:// 挑衅契约
-            case 3221017:// 光速神孥
-            case 3121015:// 骤雨狂矢
-            case 2221012:// 冰锋刃
-            case 2221006:// 闪电连击
-            case 2211007:// 瞬间移动精通
-            case 1211008:// 雷鸣之剑
-            case 1121008:// 狂暴攻击
+            case 51121008://圣光爆发
+            case 42121000://破邪连击符
+            case 41121021://瞬杀斩
+            case 41121018://瞬杀斩
+            case 41121009://鹰爪闪
+            case 36121012://伪装扫荡：轰炸
+            case 36121011://伪装扫荡：砲击
+            case 36121000://疾风剑舞
+            case 35121015://巨型火炮：SPLASH-F
+            case 33121002://音爆
+            case 32121003://飓风
+            case 27121303://绝对击杀
+            case 27121202://暗黑烈焰
+            case 24121000://连犽突进
+            case 24121005://卡牌风暴
+            case 15121002://霹雳
+            case 13121002://破风之箭
+            case 12120011://极致炽烈
+            case 11121203://太阳穿刺
+            case 11121103://新月分裂
+            case 5721007://侠客突袭
+            case 5321000://加农砲火箭
+            case 5121016://蓄能冲击波
+            case 4341004://短刀护佑
+            case 4331000://血雨暴风狂斩
+            case 4221007://瞬步连击
+            case 4121017://挑衅契约
+            case 3221017://光速神孥
+            case 3121015://骤雨狂矢
+            case 2221012://冰锋刃
+            case 2221006://闪电连击
+            case 2211007://瞬间移动精通
+            case 1211008://雷鸣之剑
+            case 1121008://狂暴攻击
                 inc = 2;
                 break;
-            case 1221004:// 圣灵之剑
-            case 1201012:// 寒冰之剑
-            case 1201011:// 烈焰之剑
+            case 1221004://圣灵之剑
+            case 1201012://寒冰之剑
+            case 1201011://烈焰之剑
                 inc = 3;
                 break;
         }

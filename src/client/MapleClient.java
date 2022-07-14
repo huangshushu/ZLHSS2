@@ -20,32 +20,21 @@
  */
 package client;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import constants.ServerConfig;
+import constants.ServerConstants.PlayerGMRank;
+import database.DBConPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.script.ScriptEngine;
-
-import constants.ServerConstants.PlayerGMRank;
-import database.DBConPool;
 import database.DatabaseException;
 import handling.MapleServerHandler;
 import handling.cashshop.CashShopServer;
@@ -59,16 +48,32 @@ import handling.world.family.MapleFamilyCharacter;
 import handling.world.guild.MapleGuildCharacter;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
-import server.Timer.PingTimer;
+import java.io.UnsupportedEncodingException;
+import static java.lang.Thread.sleep;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import server.maps.MapleMap;
-import server.quest.MapleQuest;
 import server.shops.IMaplePlayerShop;
+import tools.MapleAESOFB;
+import tools.packet.LoginPacket;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import server.Timer.PingTimer;
+import server.quest.MapleQuest;
 import tools.FilePrinter;
 import tools.FileoutputUtil;
 import tools.HexTool;
-import tools.MapleAESOFB;
 import tools.MaplePacketCreator;
-import tools.packet.LoginPacket;
+import java.sql.Statement;
 
 public class MapleClient {
 

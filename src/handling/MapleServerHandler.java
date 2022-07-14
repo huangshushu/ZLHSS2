@@ -20,63 +20,43 @@
  */
 package handling;
 
-import java.util.ArrayList;
+import constants.ServerConstants;
 import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.RejectedExecutionException;
 
 import client.MapleClient;
+import constants.GameConstants;
 import constants.ServerConfig;
-import constants.ServerConstants;
 import constants.WorldConstants;
 import handling.cashshop.CashShopServer;
-import handling.cashshop.handler.CashShopOperation;
-import handling.cashshop.handler.MTSOperation;
 import handling.channel.ChannelServer;
-import handling.channel.handler.AllianceHandler;
-import handling.channel.handler.BBSHandler;
-import handling.channel.handler.BeanGame;
-import handling.channel.handler.BuddyListHandler;
-import handling.channel.handler.ChatHandler;
-import handling.channel.handler.DueyHandler;
-import handling.channel.handler.FamilyHandler;
-import handling.channel.handler.GuildHandler;
-import handling.channel.handler.HiredMerchantHandler;
-import handling.channel.handler.InterServerHandler;
-import handling.channel.handler.InventoryHandler;
-import handling.channel.handler.ItemMakerHandler;
-import handling.channel.handler.MobHandler;
-import handling.channel.handler.MonsterCarnivalHandler;
-import handling.channel.handler.NPCHandler;
-import handling.channel.handler.PartyHandler;
-import handling.channel.handler.PetHandler;
-import handling.channel.handler.PlayerHandler;
-import handling.channel.handler.PlayerInteractionHandler;
-import handling.channel.handler.PlayersHandler;
-import handling.channel.handler.StatsHandling;
-import handling.channel.handler.SummonHandler;
-import handling.channel.handler.UserInterfaceHandler;
+import handling.cashshop.handler.*;
+import handling.channel.handler.*;
 import handling.login.LoginServer;
-import handling.login.handler.CharLoginHandler;
+import handling.login.handler.*;
 import handling.mina.MaplePacketDecoder;
+import handling.world.MapleParty;
 import handling.world.World;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import java.util.EnumSet;
+import java.util.concurrent.RejectedExecutionException;
 import scripting.NPCScriptManager;
+import tools.MapleAESOFB;
+import tools.packet.LoginPacket;
+import tools.Pair;
+
 import server.MTSStorage;
 import server.Randomizer;
 import tools.FilePrinter;
 import tools.FileoutputUtil;
 import tools.HexTool;
-import tools.MapleAESOFB;
 import tools.MaplePacketCreator;
-import tools.Pair;
 import tools.data.ByteArrayByteStream;
 import tools.data.LittleEndianAccessor;
-import tools.packet.LoginPacket;
 
 public class MapleServerHandler extends ChannelInboundHandlerAdapter {
 
@@ -85,7 +65,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
     public final static int LOGIN_SERVER = 0;
     private final List<String> BlockedIP = new ArrayList<>();
     private final Map<String, Pair<Long, Byte>> tracker = new ConcurrentHashMap<>();
-    // private static final String nl = System.getProperty("line.separator");
+    //private static final String nl = System.getProperty("line.separator");
 
     public MapleServerHandler(int world, int channel) {
         this.world = world;
@@ -96,87 +76,68 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
 
     static {
 
-        RecvPacketOpcode[] block = new RecvPacketOpcode[] { RecvPacketOpcode.NPC_ACTION, RecvPacketOpcode.MOVE_PLAYER,
-                RecvPacketOpcode.MOVE_PET, RecvPacketOpcode.MOVE_SUMMON, RecvPacketOpcode.MOVE_LIFE,
-                RecvPacketOpcode.HEAL_OVER_TIME, RecvPacketOpcode.STRANGE_DATA };
+        RecvPacketOpcode[] block = new RecvPacketOpcode[]{RecvPacketOpcode.NPC_ACTION, RecvPacketOpcode.MOVE_PLAYER, RecvPacketOpcode.MOVE_PET, RecvPacketOpcode.MOVE_SUMMON, RecvPacketOpcode.MOVE_LIFE, RecvPacketOpcode.HEAL_OVER_TIME, RecvPacketOpcode.STRANGE_DATA};
         blocked.addAll(Arrays.asList(block));
     }
 
-    /*
-     * private static class LoggedPacket {
-     * 
-     * private static final String nl = System.getProperty("line.separator");
-     * private String ip, accName, accId, chrName;
-     * private LittleEndianAccessor packet;
-     * private long timestamp;
-     * private RecvPacketOpcode op;
-     * 
-     * public LoggedPacket(LittleEndianAccessor p, RecvPacketOpcode op, String ip,
-     * int id, String accName, String chrName) {
-     * setInfo(p, op, ip, id, accName, chrName);
-     * }
-     * 
-     * public final void setInfo(LittleEndianAccessor p, RecvPacketOpcode op, String
-     * ip, int id, String accName, String chrName) {
-     * this.ip = ip;
-     * this.op = op;
-     * packet = p;
-     * this.accName = accName;
-     * this.chrName = chrName;
-     * timestamp = System.currentTimeMillis();
-     * }
-     * 
-     * @Override
-     * public String toString() {
-     * StringBuilder sb = new StringBuilder();
-     * sb.append("[IP: ").append(ip).append("] [").append(accId).append('|').append(
-     * accName).append('|').append(chrName).append("] [Time: ").append(timestamp).
-     * append(']');
-     * sb.append(nl);
-     * sb.append("[Op: ").append(op.toString()).append(']');
-     * sb.append(" [Data: ").append(packet.toString()).append(']');
-     * return sb.toString();
-     * }
-     * }
-     */
+    /*private static class LoggedPacket {
+
+        private static final String nl = System.getProperty("line.separator");
+        private String ip, accName, accId, chrName;
+        private LittleEndianAccessor packet;
+        private long timestamp;
+        private RecvPacketOpcode op;
+
+        public LoggedPacket(LittleEndianAccessor p, RecvPacketOpcode op, String ip, int id, String accName, String chrName) {
+            setInfo(p, op, ip, id, accName, chrName);
+        }
+
+        public final void setInfo(LittleEndianAccessor p, RecvPacketOpcode op, String ip, int id, String accName, String chrName) {
+            this.ip = ip;
+            this.op = op;
+            packet = p;
+            this.accName = accName;
+            this.chrName = chrName;
+            timestamp = System.currentTimeMillis();
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("[IP: ").append(ip).append("] [").append(accId).append('|').append(accName).append('|').append(chrName).append("] [Time: ").append(timestamp).append(']');
+            sb.append(nl);
+            sb.append("[Op: ").append(op.toString()).append(']');
+            sb.append(" [Data: ").append(packet.toString()).append(']');
+            return sb.toString();
+        }
+    }*/
     @Override
     public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception {
 
-        /*
-         * try {
-         * if (cause.getMessage() != null) {
-         * System.err.println("[异常信息] " + cause.getMessage());
-         * }
-         * if ((!(cause instanceof IOException))) {
-         * MapleClient client = (MapleClient)
-         * ctx.channel().attr(MapleClient.CLIENT_KEY).get();
-         * if ((client != null) && (client.getPlayer() != null)) {
-         * try {
-         * client.getPlayer().saveToDB(false, channel ==
-         * MapleServerHandler.CASH_SHOP_SERVER);
-         * } catch (Exception eex) {
-         * FileoutputUtil.logToFile("logs/异常抛出保存数据异常.txt", "\r\n " +
-         * FileoutputUtil.NowTime() + " IP: " +
-         * client.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " +
-         * client.getAccountName() + " 帐号ID " + client.getAccID() + " 角色名 " +
-         * client.getPlayer().getName() + " 角色ID " + client.getPlayer().getId());
-         * FileoutputUtil.outError("logs/异常抛出保存数据异常.txt", eex);
-         * }
-         * FileoutputUtil.printError("logs/发现异常.txt", cause, "发现异常 by: 玩家:" +
-         * client.getPlayer().getName() + " 职业:" + client.getPlayer().getJob() + " 地图:"
-         * + client.getPlayer().getMap().getMapName() + " - " +
-         * client.getPlayer().getMapId());
-         * }
-         * }
-         * } catch (Exception e) {
-         * FileoutputUtil.outError("logs/异常扑捉.txt", e);
-         * }
-         */
+        /*try {
+            if (cause.getMessage() != null) {
+                System.err.println("[异常信息] " + cause.getMessage());
+            }
+            if ((!(cause instanceof IOException))) {
+                MapleClient client = (MapleClient) ctx.channel().attr(MapleClient.CLIENT_KEY).get();
+                if ((client != null) && (client.getPlayer() != null)) {
+                    try {
+                        client.getPlayer().saveToDB(false, channel == MapleServerHandler.CASH_SHOP_SERVER);
+                    } catch (Exception eex) {
+                        FileoutputUtil.logToFile("logs/异常抛出保存数据异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + client.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + client.getAccountName() + " 帐号ID " + client.getAccID() + " 角色名 " + client.getPlayer().getName() + " 角色ID " + client.getPlayer().getId());
+                        FileoutputUtil.outError("logs/异常抛出保存数据异常.txt", eex);
+                    }
+                    FileoutputUtil.printError("logs/发现异常.txt", cause, "发现异常 by: 玩家:" + client.getPlayer().getName() + " 职业:" + client.getPlayer().getJob() + " 地图:" + client.getPlayer().getMap().getMapName() + " - " + client.getPlayer().getMapId());
+                }
+            }
+        } catch (Exception e) {
+            FileoutputUtil.outError("logs/异常扑捉.txt", e);
+        }*/
     }
 
     @Override
     public void channelActive(final ChannelHandlerContext ctx) throws Exception {
-        // ctx.getConfig().setBothIdleTime(180);//set timeout seconds, must
+        //ctx.getConfig().setBothIdleTime(180);//set timeout seconds, must
         // Start of IP checking
         final String address = ctx.channel().remoteAddress().toString().split(":")[0];
         if (WorldConstants.ADMIN_ONLY) {
@@ -184,8 +145,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
         }
 
         if (BlockedIP.contains(address)) {
-            FileoutputUtil.logToFile("logs/Data/连接断线.txt",
-                    "\r\n " + FileoutputUtil.NowTime() + " IP: " + address + " 连接断线1");
+            FileoutputUtil.logToFile("logs/Data/连接断线.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + address + " 连接断线1");
             ctx.channel().close();
             return;
         }
@@ -206,8 +166,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
             if (count >= 10) {
                 BlockedIP.add(address);
                 tracker.remove(address); // Cleanup
-                FileoutputUtil.logToFile("logs/Data/连接断线.txt",
-                        "\r\n " + FileoutputUtil.NowTime() + " IP: " + address + " 连接断线2");
+                FileoutputUtil.logToFile("logs/Data/连接断线.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + address + " 连接断线2");
                 ctx.channel().close();
                 return;
             }
@@ -232,18 +191,15 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
             }
         } else {
             System.out.println("[连结错误] 未知类型: " + channel);
-            FileoutputUtil.logToFile("logs/Data/连接断线.txt",
-                    "\r\n " + FileoutputUtil.NowTime() + " IP: " + address + " 连接断线3");
+            FileoutputUtil.logToFile("logs/Data/连接断线.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + address + " 连接断线3");
             ctx.channel().close();
             return;
         }
 
         // IV used to decrypt packets from client.
-        final byte ivRecv[] = new byte[] { (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255),
-                (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255) };
+        final byte ivRecv[] = new byte[]{(byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255)};
         // IV used to encrypt packets for client.
-        final byte ivSend[] = new byte[] { (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255),
-                (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255) };
+        final byte ivSend[] = new byte[]{(byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255)};
 
         final MapleClient client = new MapleClient(
                 new MapleAESOFB(ivSend, (short) (0xFFFF - ServerConstants.MAPLE_VERSION)), // Sent Cypher
@@ -262,36 +218,30 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(final ChannelHandlerContext ctx) throws Exception {
-        /*
-         * try {
-         * MapleClient client = (MapleClient)
-         * ctx.channel().attr(MapleClient.CLIENT_KEY).get();
-         * 
-         * if (client != null) {
-         * if (client.getPlayer() != null) {
-         * client.getPlayer().saveToDB(true, channel ==
-         * MapleServerHandler.CASH_SHOP_SERVER);
-         * if (!(client.getLoginState() == MapleClient.CASH_SHOP_TRANSITION||
-         * client.getLoginState() == MapleClient.CHANGE_CHANNEL|| client.getLoginState()
-         * == MapleClient.LOGIN_SERVER_TRANSITION) && client.getPlayer() != null) {
-         * int ch = World.Find.findChannel(client.getPlayer().getId());
-         * ChannelServer.getInstance(ch).removePlayer(client.getPlayer());
-         * client.disconnect(true, channel == MapleServerHandler.CASH_SHOP_SERVER);
-         * }
-         * }
-         * if (channel == MapleServerHandler.LOGIN_SERVER) {
-         * LoginServer.removeClient(client);
-         * }
-         * }
-         * 
-         * if (client != null) {
-         * ctx.channel().attr(MapleClient.CLIENT_KEY).remove();
-         * }
-         * 
-         * } finally {
-         * super.channelInactive(ctx);
-         * }
-         */
+        /*try {
+            MapleClient client = (MapleClient) ctx.channel().attr(MapleClient.CLIENT_KEY).get();
+
+            if (client != null) {
+                if (client.getPlayer() != null) {
+                    client.getPlayer().saveToDB(true, channel == MapleServerHandler.CASH_SHOP_SERVER);
+                    if (!(client.getLoginState() == MapleClient.CASH_SHOP_TRANSITION|| client.getLoginState() == MapleClient.CHANGE_CHANNEL|| client.getLoginState() == MapleClient.LOGIN_SERVER_TRANSITION) && client.getPlayer() != null) {
+                        int ch = World.Find.findChannel(client.getPlayer().getId());
+                        ChannelServer.getInstance(ch).removePlayer(client.getPlayer());
+                        client.disconnect(true, channel == MapleServerHandler.CASH_SHOP_SERVER);
+                    }
+                }
+                if (channel == MapleServerHandler.LOGIN_SERVER) {
+                    LoginServer.removeClient(client);
+                }
+            }
+
+            if (client != null) {
+                ctx.channel().attr(MapleClient.CLIENT_KEY).remove();
+            }
+
+        } finally {
+            super.channelInactive(ctx);
+        }*/
         try {
             final MapleClient client = (MapleClient) ctx.channel().attr(MapleClient.CLIENT_KEY).get();
 
@@ -305,7 +255,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 } finally {
                     ctx.channel().close();
                     ctx.channel().attr(MapleClient.CLIENT_KEY).remove();
-                    // ctx.channel().attr(MaplePacketDecoder.DECODER_STATE_KEY).remove();
+                    //ctx.channel().attr(MaplePacketDecoder.DECODER_STATE_KEY).remove();
                 }
             }
         } catch (Exception e) {
@@ -325,16 +275,14 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
             return;
         }
         final short header_num = slea.readShort();
-        /*
-         * if (ServerConfig.Encoder) {
-         * if (!c.isLoggedIn()) {
-         * if (header_num > 0x100) {
-         * ctx.channel().close();
-         * return;
-         * }
-         * }
-         * }
-         */
+        /*if (ServerConfig.Encoder) {
+            if (!c.isLoggedIn()) {
+                if (header_num > 0x100) {
+                    ctx.channel().close();
+                    return;
+                }
+            }
+        }*/
 
         for (final RecvPacketOpcode recv : RecvPacketOpcode.values()) {
             if (recv.getValue() == header_num) {
@@ -345,8 +293,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 }
                 if (c.getPlayer() != null && c.isMonitored()) {
                     if (!blocked.contains(recv)) {
-                        FilePrinter.print("Monitored/" + c.getPlayer().getName() + ".txt", String.valueOf(recv) + " ("
-                                + Integer.toHexString(header_num) + ") Handled: \r\n" + slea.toString() + "\r\n");
+                        FilePrinter.print("Monitored/" + c.getPlayer().getName() + ".txt", String.valueOf(recv) + " (" + Integer.toHexString(header_num) + ") Handled: \r\n" + slea.toString() + "\r\n");
                     }
                 }
                 try {
@@ -354,13 +301,11 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 } catch (RejectedExecutionException RE) {
                 } catch (Exception e) {
                     if (c.getPlayer() != null && c.getPlayer().isShowErr()) {
-                        c.getPlayer().showInfo("数据包异常", true,
-                                "包头:" + recv.name() + "(0x" + Integer.toHexString(header_num).toUpperCase() + ")");
+                        c.getPlayer().showInfo("数据包异常", true, "包头:" + recv.name() + "(0x" + Integer.toHexString(header_num).toUpperCase() + ")");
                     }
                     FileoutputUtil.outputFileError(FileoutputUtil.CodeEx_Log, e, false);
                     FileoutputUtil.outputFileError(FileoutputUtil.PacketEx_Log, e);
-                    FileoutputUtil.log(FileoutputUtil.PacketEx_Log,
-                            "Packet: " + header_num + "\r\n" + slea.toString(true));
+                    FileoutputUtil.log(FileoutputUtil.PacketEx_Log, "Packet: " + header_num + "\r\n" + slea.toString(true));
                 }
                 return;
             }
@@ -369,8 +314,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
             final byte[] packet = slea.read((int) slea.available());
             final StringBuilder sb = new StringBuilder("发现未知用户端数据包 - (包头:0x" + Integer.toHexString(header_num) + ")");
             System.err.println(sb.toString());
-            sb.append(":\r\n").append(HexTool.toString(packet)).append("\r\n")
-                    .append(HexTool.toStringFromAscii(packet));
+            sb.append(":\r\n").append(HexTool.toString(packet)).append("\r\n").append(HexTool.toStringFromAscii(packet));
             FileoutputUtil.log(FileoutputUtil.UnknownPacket_Log, sb.toString());
         }
     }
@@ -388,11 +332,10 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
         super.userEventTriggered(ctx, status);
     }
 
-    public static final void handlePacket(final RecvPacketOpcode header, final LittleEndianAccessor slea,
-            final MapleClient c, final boolean cs) throws Exception {
+    public static final void handlePacket(final RecvPacketOpcode header, final LittleEndianAccessor slea, final MapleClient c, final boolean cs) throws Exception {
         switch (header) {
             case CLIENT_LOGOUT:
-                // PlayerHandler.handleLogout(slea, c);
+                //PlayerHandler.handleLogout(slea, c);
                 break;
             case PONG:
                 c.pongReceived();
@@ -406,13 +349,12 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                     if (c != null) {
                         debug += c.getAccountName() + "_";
                     }
-                    FilePrinter.print(debug + "38Logs.txt", HexTool.toStringFromAscii(slea.read(avaible.intValue())),
-                            true);
+                    FilePrinter.print(debug + "38Logs.txt", HexTool.toStringFromAscii(slea.read(avaible.intValue())), true);
                 }
                 break;
 
             case HELLO_CHANNEL:
-                // CharLoginHandler.handleWelcome(c);
+                //CharLoginHandler.handleWelcome(c);
                 break;
             case LOGIN_PASSWORD:
                 CharLoginHandler.handleLogin(slea, c);
@@ -486,7 +428,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                         & c.getPlayer().getMapId() != 980000602
                         & c.getPlayer().getMapId() != 980000603
                         & c.getPlayer().getMapId() != 980000604) {
-                    // InterServerHandler.EnterCashShop(c, c.getPlayer(), false);
+                    //InterServerHandler.EnterCashShop(c, c.getPlayer(), false);
                     c.getSession().writeAndFlush(tools.MaplePacketCreator.enableActions());
                     NPCScriptManager.getInstance().start(c, 9010000, "进入商城");
                 } else {
@@ -495,30 +437,28 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 break;
             case ENTER_MTS:
                 if (World.isShutDown) {
-                    c.getPlayer().dropMessage(1, "服务器正在关闭，现在无法使用拍卖！\r\n请立即下线，否则后果自负！");
-                    c.sendPacket(MaplePacketCreator.enableActions());
-                    return;
+                c.getPlayer().dropMessage(1, "服务器正在关闭，现在无法使用拍卖！\r\n请立即下线，否则后果自负！");
+                c.sendPacket(MaplePacketCreator.enableActions());
+                return;
                 }
-                if (c.getPlayer().getTrade() != null) {
-                    c.getPlayer().dropMessage(1, "交易中无法进行其他操作！");
-                    c.sendPacket(MaplePacketCreator.enableActions());
-                    return;
+                if(c.getPlayer().getTrade() != null) {
+                c.getPlayer().dropMessage(1, "交易中无法进行其他操作！");
+                c.sendPacket(MaplePacketCreator.enableActions());
+                return;
                 }
-                if (c.getPlayer().hasBlockedInventory(true) || c.getPlayer().getMap() == null
-                        || c.getPlayer().getEventInstance() != null || c.getChannelServer() == null) {
-                    c.sendPacket(MaplePacketCreator.serverBlocked(2));
-                    c.sendPacket(MaplePacketCreator.enableActions());
-                    return;
+                if (c.getPlayer().hasBlockedInventory(true) || c.getPlayer().getMap() == null || c.getPlayer().getEventInstance() != null || c.getChannelServer() == null) {
+                c.sendPacket(MaplePacketCreator.serverBlocked(2));
+                c.sendPacket(MaplePacketCreator.enableActions());
+                return;
                 }
                 NPCScriptManager.getInstance().dispose(c);
-                if (c.getPlayer().getMapId() == 910010300 || c.getPlayer().getMapId() == 910010100
-                        || ((c.getPlayer().getMapId() > 211060000) && (c.getPlayer().getMapId() <= 211061000))) {
+                if (c.getPlayer().getMapId() == 910010300 || c.getPlayer().getMapId() == 910010100 || ((c.getPlayer().getMapId() > 211060000) && (c.getPlayer().getMapId() <= 211061000))) {
                     c.getPlayer().dropMessage(5, "该地图无法使用拍卖功能。");
                 } else {
                     c.getSession().writeAndFlush(tools.MaplePacketCreator.enableActions());
                     NPCScriptManager.getInstance().start(c, 9010000, "拍卖");
                 }
-                // InterServerHandler.EnterCashShop(c, c.getPlayer(), true);
+                //InterServerHandler.EnterCashShop(c, c.getPlayer(), true);
                 break;
             case MOVE_PLAYER:
                 PlayerHandler.MovePlayer(slea, c, c.getPlayer());
@@ -526,7 +466,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
             case CHAR_INFO_REQUEST:
                 c.getPlayer().updateTick(slea.readInt());
                 PlayerHandler.CharInfoRequest(slea.readInt(), c, c.getPlayer());
-                // System.err.println("CHAR_INFO_REQUEST");
+                //System.err.println("CHAR_INFO_REQUEST");
                 break;
             case CLOSE_RANGE_ATTACK:
                 PlayerHandler.closeRangeAttack(slea, c, c.getPlayer(), false);
@@ -603,19 +543,19 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 PlayerHandler.TrockAddMap(slea, c, c.getPlayer());
                 break;
             case LIE_DETECTOR_SKILL:
-                // c.getPlayer().dropMessage(5, "服务器暂不开放测谎系统。");
+                //c.getPlayer().dropMessage(5, "服务器暂不开放测谎系统。");
                 PlayersHandler.LieDetector(slea, c, c.getPlayer(), false);
                 break;
             case LIE_DETECTOR:
-                // c.getPlayer().dropMessage(5, "服务器暂不开放测谎系统。");
+                //c.getPlayer().dropMessage(5, "服务器暂不开放测谎系统。");
                 PlayersHandler.LieDetector(slea, c, c.getPlayer(), true);
                 break;
             case LIE_DETECTOR_RESPONSE:
-                // c.getPlayer().dropMessage(5, "服务器暂不开放测谎系统。");
+                //c.getPlayer().dropMessage(5, "服务器暂不开放测谎系统。");
                 PlayersHandler.LieDetectorResponse(slea, c);
                 break;
             case LIE_DETECTOR_REFRESH:
-                // PlayersHandler.LieDetectorRefresh(slea, c);
+                //PlayersHandler.LieDetectorRefresh(slea, c);
                 break;
             case ARAN_COMBO:
                 PlayerHandler.AranCombo(c, c.getPlayer(), 1);
@@ -679,18 +619,15 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 break;
             case USE_UPGRADE_SCROLL:
                 c.getPlayer().updateTick(slea.readInt());
-                InventoryHandler.UseUpgradeScroll((byte) slea.readShort(), (byte) slea.readShort(),
-                        (byte) slea.readShort(), c, c.getPlayer());
+                InventoryHandler.UseUpgradeScroll((byte) slea.readShort(), (byte) slea.readShort(), (byte) slea.readShort(), c, c.getPlayer());
                 break;
             case USE_POTENTIAL_SCROLL:
                 c.getPlayer().updateTick(slea.readInt());
-                InventoryHandler.UseUpgradeScroll((byte) slea.readShort(), (byte) slea.readShort(), (byte) 0, c,
-                        c.getPlayer());
+                InventoryHandler.UseUpgradeScroll((byte) slea.readShort(), (byte) slea.readShort(), (byte) 0, c, c.getPlayer());
                 break;
             case USE_EQUIP_SCROLL:
                 c.getPlayer().updateTick(slea.readInt());
-                InventoryHandler.UseUpgradeScroll((byte) slea.readShort(), (byte) slea.readShort(), (byte) 0, c,
-                        c.getPlayer());
+                InventoryHandler.UseUpgradeScroll((byte) slea.readShort(), (byte) slea.readShort(), (byte) 0, c, c.getPlayer());
                 break;
             case USE_SUMMON_BAG:
                 InventoryHandler.UseSummonBag(slea, c, c.getPlayer());
@@ -699,7 +636,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 InventoryHandler.UseTreasureChest(slea, c, c.getPlayer());
                 break;
             case USE_SKILL_BOOK:
-                // c.getPlayer().updateTick(slea.readInt());
+//                c.getPlayer().updateTick(slea.readInt());
                 InventoryHandler.UseSkillBook(slea, c, c.getPlayer());
                 break;
             case USE_CATCH_ITEM:
@@ -878,7 +815,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 PlayerHandler.snowBall(slea, c);
                 break;
             case COCONUT:
-                // PlayersHandler.hitCoconut(slea, c);
+                //PlayersHandler.hitCoconut(slea, c);
                 break;
             case REPAIR:
                 NPCHandler.repair(slea, c);
@@ -898,9 +835,9 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
             case USE_OWL_MINERVA:
                 InventoryHandler.OwlMinerva(slea, c);
                 break;
-            // case RPS_GAME:
-            // NPCHandler.RPSGame(slea, c);
-            // break;
+            //case RPS_GAME:
+            //NPCHandler.RPSGame(slea, c);
+            //   break;
             case UPDATE_QUEST:
                 NPCHandler.UpdateQuest(slea, c);
                 break;
@@ -956,24 +893,22 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 FamilyHandler.AcceptFamily(slea, c);
                 break;
             case CLIENT_FEEDBACK:
-                /*
-                 * String debug = "";
-                 * String msg = "";
-                 * if (slea.available() > 2) {
-                 * msg = slea.readMapleAsciiString();
-                 * }
-                 * if (c != null) {
-                 * debug += "_" + c.getAccountName();
-                 * }
-                 * if (!"".equals(msg)) {
-                 * FilePrinter.print("ClientCrashFeedback" + debug + ".txt", msg, true);
-                 * }
-                 */
+                /*String debug = "";
+                String msg = "";
+                if (slea.available() > 2) {
+                    msg = slea.readMapleAsciiString();
+                }
+                if (c != null) {
+                    debug += "_" + c.getAccountName();
+                }
+                if (!"".equals(msg)) {
+                    FilePrinter.print("ClientCrashFeedback" + debug + ".txt", msg, true);
+                }*/
                 break;
             case CLIENT_ERROR:
-                // if (slea.available() < 8) {
+                //  if (slea.available() < 8) {
                 // System.out.println(slea.toString());
-                // return;
+                //     return;
                 // }
                 short type = slea.readShort();
                 String type_str = "Unknown?!";
@@ -985,21 +920,16 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                     type_str = "Exception";
                 }
                 int errortype = slea.readInt(); // example error 38
-                // if (errortype == 0) { // i don't wanna log error code 0 stuffs, (usually some
-                // bounceback to login)
-                // return;
-                // }
+//                if (errortype == 0) { // i don't wanna log error code 0 stuffs, (usually some bounceback to login)
+//                    return;
+//                }
                 short data_length = slea.readShort();
-                slea.skip(4); // ?B3 86 01 00 00 00 FF 00 00 00 00 00 9E 05 C8 FF 02 00 CD 05 C9 FF 7D 00 00
-                              // 00 3F 00 00 00 00 00 02 77 01 00 25 06 C9 FF 7D 00 00 00 40 00 00 00 00 00 02
-                              // C1 02
+                slea.skip(4); // ?B3 86 01 00 00 00 FF 00 00 00 00 00 9E 05 C8 FF 02 00 CD 05 C9 FF 7D 00 00 00 3F 00 00 00 00 00 02 77 01 00 25 06 C9 FF 7D 00 00 00 40 00 00 00 00 00 02 C1 02
                 short opcodeheader = slea.readShort();
                 byte[] opcode = slea.read((int) slea.available());
                 int packetLen = (int) slea.available() + 2;
                 if (errortype == 38) {
-                    // System.err.println("收到用户端的报错: (详细请看日志/用户端_报错.txt) " +
-                    // SendPacketOpcode.nameOf(opcodeheader) + "包头:" +
-                    // HexTool.getOpcodeToString(opcodeheader) + " [" + (data_length - 4) + "字元]");
+                    //System.err.println("收到用户端的报错: (详细请看日志/用户端_报错.txt) " + SendPacketOpcode.nameOf(opcodeheader) + "包头:" + HexTool.getOpcodeToString(opcodeheader) + " [" + (data_length - 4) + "字元]");
                 }
                 String AccountName = "null";
                 String charName = "null";
@@ -1033,49 +963,38 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 } catch (Throwable e) {
                 }
 
-                // System.err.println("[用户端 报错] 错误代码 " + errortype + " 类型 " + type_str +
-                // "\r\n\t[数据] 长度 " + data_length + " [" + SendPacketOpcode.nameOf(opcodeheader)
-                // + " | " + opcodeheader + "]\r\n" + HexTool.toString(slea.read((int)
-                // slea.available())));
+//                System.err.println("[用户端 报错] 错误代码 " + errortype + " 类型 " + type_str + "\r\n\t[数据] 长度 " + data_length + " [" + SendPacketOpcode.nameOf(opcodeheader) + " | " + opcodeheader + "]\r\n" + HexTool.toString(slea.read((int) slea.available())));
                 String tab = "";
                 for (int i = 4; i > SendPacketOpcode.nameOf(opcodeheader).length() / 8; i--) {
                     tab += "\t";
                 }
                 String t = packetLen >= 10 ? packetLen >= 100 ? packetLen >= 1000 ? "" : " " : "  " : "   ";
                 if (errortype == 38) {
-                    /*
-                     * FileoutputUtil.log(FileoutputUtil.Client_Error, "\r\n"
-                     * + "帐号:" + AccountName + "\r\n"
-                     * + "角色:" + charName + "(等级:" + charLevel + ") 编号: " + charId + "" + "\r\n"
-                     * + "职业:" + charJob + "\r\n"
-                     * + "地图:" + Map + "\r\n"
-                     * + "错误类型: " + type_str + "(" + errortype + ")\r\n"
-                     * + "\r\n"
-                     * + "[发送]\t" + SendPacketOpcode.nameOf(opcodeheader) + tab + " \t包头:" +
-                     * HexTool.getOpcodeToString(opcodeheader) + t + "[" + (data_length - 4) +
-                     * "字元]\r\n"
-                     * + "\r\n"
-                     * + (opcode.length < 1 ? "" : (HexTool.toString(opcode) + "\r\n"))
-                     * + (opcode.length < 1 ? "" : (HexTool.toStringFromAscii(opcode) + "\r\n"))
-                     * + "\r\n");
-                     */
+                    /*FileoutputUtil.log(FileoutputUtil.Client_Error, "\r\n"
+                            + "帐号:" + AccountName + "\r\n"
+                            + "角色:" + charName + "(等级:" + charLevel + ") 编号: " + charId + "" + "\r\n"
+                            + "职业:" + charJob + "\r\n"
+                            + "地图:" + Map + "\r\n"
+                            + "错误类型: " + type_str + "(" + errortype + ")\r\n"
+                            + "\r\n"
+                            + "[发送]\t" + SendPacketOpcode.nameOf(opcodeheader) + tab + " \t包头:" + HexTool.getOpcodeToString(opcodeheader) + t + "[" + (data_length - 4) + "字元]\r\n"
+                            + "\r\n"
+                            + (opcode.length < 1 ? "" : (HexTool.toString(opcode) + "\r\n"))
+                            + (opcode.length < 1 ? "" : (HexTool.toStringFromAscii(opcode) + "\r\n"))
+                            + "\r\n");*/
                 } else {
-                    /*
-                     * FileoutputUtil.log(FileoutputUtil.Client_Error_2, "\r\n"
-                     * + "帐号:" + AccountName + "\r\n"
-                     * + "角色:" + charName + "(等级:" + charLevel + ")" + "\r\n"
-                     * + "职业:" + charJob + "\r\n"
-                     * + "地图:" + Map + "\r\n"
-                     * + "错误类型: " + type_str + "(" + errortype + ")\r\n"
-                     * + "\r\n"
-                     * + "[发送]\t" + SendPacketOpcode.nameOf(opcodeheader) + tab + " \t包头:" +
-                     * HexTool.getOpcodeToString(opcodeheader) + t + "[" + (data_length - 4) +
-                     * "字元]\r\n"
-                     * + "\r\n"
-                     * + (opcode.length < 1 ? "" : (HexTool.toString(opcode) + "\r\n"))
-                     * + (opcode.length < 1 ? "" : (HexTool.toStringFromAscii(opcode) + "\r\n"))
-                     * + "\r\n");
-                     */
+                    /*FileoutputUtil.log(FileoutputUtil.Client_Error_2, "\r\n"
+                            + "帐号:" + AccountName + "\r\n"
+                            + "角色:" + charName + "(等级:" + charLevel + ")" + "\r\n"
+                            + "职业:" + charJob + "\r\n"
+                            + "地图:" + Map + "\r\n"
+                            + "错误类型: " + type_str + "(" + errortype + ")\r\n"
+                            + "\r\n"
+                            + "[发送]\t" + SendPacketOpcode.nameOf(opcodeheader) + tab + " \t包头:" + HexTool.getOpcodeToString(opcodeheader) + t + "[" + (data_length - 4) + "字元]\r\n"
+                            + "\r\n"
+                            + (opcode.length < 1 ? "" : (HexTool.toString(opcode) + "\r\n"))
+                            + (opcode.length < 1 ? "" : (HexTool.toStringFromAscii(opcode) + "\r\n"))
+                            + "\r\n");*/
                 }
                 break;
             case SPECIAL_ATTACK:
@@ -1091,7 +1010,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 CharLoginHandler.LicenseRequest(slea, c);
                 break;
             default:
-                // System.err.println("[发现未处理数据包] Recv [" + header.toString() + "]");
+                //System.err.println("[发现未处理数据包] Recv [" + header.toString() + "]");
                 break;
         }
     }

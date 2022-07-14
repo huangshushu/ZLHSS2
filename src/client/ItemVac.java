@@ -31,13 +31,19 @@ public class ItemVac extends Thread {
         final Lock lock = mapitem.getLock();
         lock.lock();
         try {
-            if (mapitem.isPickedUp() || mapitem.getQuest() > 0 && this.chr.getQuestStatus(mapitem.getQuest()) != 1 || mapitem.getOwner() != this.chr.getId() && ((!mapitem.isPlayerDrop() && mapitem.getDropType() == 0) || (mapitem.isPlayerDrop() && this.chr.getMap().getEverlast())) || !mapitem.isPlayerDrop() && mapitem.getDropType() == 1 && mapitem.getOwner() != this.chr.getId()) {
+            if (mapitem.isPickedUp() || mapitem.getQuest() > 0 && this.chr.getQuestStatus(mapitem.getQuest()) != 1
+                    || mapitem.getOwner() != this.chr.getId()
+                            && ((!mapitem.isPlayerDrop() && mapitem.getDropType() == 0)
+                                    || (mapitem.isPlayerDrop() && this.chr.getMap().getEverlast()))
+                    || !mapitem.isPlayerDrop() && mapitem.getDropType() == 1
+                            && mapitem.getOwner() != this.chr.getId()) {
                 return;
             }
             if (mapitem.getMeso() > 0) {
                 this.itemVacs.add(ob);
             } else {
-                if (!MapleItemInformationProvider.getInstance().isPickupBlocked(mapitem.getItemId()) && !(InventoryHandler.useItem(c, mapitem.getItemId())) && mapitem.getItemId() / 10000 != 291) {
+                if (!MapleItemInformationProvider.getInstance().isPickupBlocked(mapitem.getItemId())
+                        && !(InventoryHandler.useItem(c, mapitem.getItemId())) && mapitem.getItemId() / 10000 != 291) {
                     this.itemVacs.add(ob);
                 }
             }
@@ -72,11 +78,12 @@ public class ItemVac extends Thread {
                                 }
                             }
                             // for (final MapleCharacter m : toGive) {
-                            //m.gainMeso(splitMeso / toGive.size() + (m.getStat().hasPartyBonus ? (int) (this.item.getMeso() / 20.0) : 0), true);
-                            //   }
-                            //     this.chr.gainMeso(this.item.getMeso() - splitMeso, true);
-                            //} else {
-                            //    this.chr.gainMeso(this.item.getMeso(), true);
+                            // m.gainMeso(splitMeso / toGive.size() + (m.getStat().hasPartyBonus ? (int)
+                            // (this.item.getMeso() / 20.0) : 0), true);
+                            // }
+                            // this.chr.gainMeso(this.item.getMeso() - splitMeso, true);
+                            // } else {
+                            // this.chr.gainMeso(this.item.getMeso(), true);
 
                             if (!interrupted()) {
                                 InventoryHandler.removeItem(this.chr, this.item, this.object);
@@ -84,8 +91,11 @@ public class ItemVac extends Thread {
                             }
                         } else {
 
-                            if (MapleInventoryManipulator.checkSpace(c, this.item.getItemId(), this.item.getItem().getQuantity(), this.item.getItem().getOwner()) && !interrupted()) {
-                                MapleInventoryManipulator.addFromDrop(this.chr.getClient(), this.item.getItem(), true, this.item.getDropper() instanceof MapleMonster, false);
+                            if (MapleInventoryManipulator.checkSpace(c, this.item.getItemId(),
+                                    this.item.getItem().getQuantity(), this.item.getItem().getOwner())
+                                    && !interrupted()) {
+                                MapleInventoryManipulator.addFromDrop(this.chr.getClient(), this.item.getItem(), true,
+                                        this.item.getDropper() instanceof MapleMonster, false);
                                 InventoryHandler.removeItem(this.chr, this.item, this.object);
                                 this.wait(20);
                             }

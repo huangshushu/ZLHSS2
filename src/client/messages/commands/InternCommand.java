@@ -1,5 +1,11 @@
 package client.messages.commands;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
+
 import client.MapleCharacter;
 import client.MapleCharacterUtil;
 import client.MapleClient;
@@ -9,11 +15,6 @@ import database.DBConPool;
 import handling.channel.ChannelServer;
 import handling.world.CheaterData;
 import handling.world.World;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.List;
 import server.MaplePortal;
 import server.maps.MapleMap;
 import tools.FilePrinter;

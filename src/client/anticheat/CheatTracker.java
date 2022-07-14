@@ -487,8 +487,6 @@ public class CheatTracker {
                     gm_message = 100;
                 }
                 break;
-            default:
-                break;
         }
         CheatingOffensePersister.getInstance().persistEntry(entry);
     }

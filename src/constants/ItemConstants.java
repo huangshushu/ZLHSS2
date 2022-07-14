@@ -1,13 +1,14 @@
 package constants;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
+
 import client.MapleCharacter;
 import client.MapleClient;
 import client.inventory.Equip;
 import client.inventory.MapleInventoryType;
 import client.inventory.MapleWeaponType;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 import server.MapleItemInformationProvider;
 
 public class ItemConstants {

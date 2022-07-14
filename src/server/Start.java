@@ -1,9 +1,5 @@
 package server;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 import client.MapleCharacter;
 import client.SkillFactory;
 import client.inventory.OnlyID;
@@ -17,22 +13,19 @@ import handling.login.LoginInformationProvider;
 import handling.login.LoginServer;
 import handling.world.World;
 import handling.world.family.MapleFamilyBuff;
-import server.Timer.BuffTimer;
-import server.Timer.CheatTimer;
-import server.Timer.CloneTimer;
-import server.Timer.EtcTimer;
-import server.Timer.EventTimer;
-import server.Timer.MapTimer;
-import server.Timer.MobTimer;
-import server.Timer.PingTimer;
-import server.Timer.WorldTimer;
+import server.Timer.*;
 import server.events.MapleOxQuizFactory;
 import server.life.MapleLifeFactory;
 import server.life.PlayerNPC;
+import server.maps.MapleMap;
 import server.maps.MapleMapFactory;
 import server.quest.MapleQuest;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class Start {
 
@@ -40,86 +33,63 @@ public class Start {
         String name = null;
         int id = 0, vip = 0, size = 0;
 
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("UPDATE accounts SET loggedin = 0")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("UPDATE accounts SET loggedin = 0")) {
             ps.executeUpdate();
         } catch (SQLException ex) {
             FileoutputUtil.outError("logs/资料库异常.txt", ex);
             throw new RuntimeException("【错误】 请确认资料库是否正确连接");
         }
-        /*
-         * try (Connection con =
-         * DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps
-         * = con.prepareStatement("SELECT count(*) FROM characters WHERE gm = 100");
-         * ResultSet rs = ps.executeQuery()) {
-         * rs.beforeFirst();
-         * while (rs.next()) {
-         * size = rs.getInt(1);
-         * }
-         * } catch (SQLException ex) {
-         * FileoutputUtil.outError("logs/资料库异常.txt", ex);
-         * throw new RuntimeException("【错误】 请确认资料库是否正确连接");
-         * }
-         * if (size > 1) {
-         * System.out.println("警告：资料表内ＧＭ权限异常 ");
-         * }
-         */
+        /*try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT count(*) FROM characters WHERE gm = 100"); ResultSet rs = ps.executeQuery()) {
+            rs.beforeFirst();
+            while (rs.next()) {
+                size = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            FileoutputUtil.outError("logs/资料库异常.txt", ex);
+            throw new RuntimeException("【错误】 请确认资料库是否正确连接");
+        }
+        if (size > 1) {
+            System.out.println("警告：资料表内ＧＭ权限异常 ");
+        }*/
 
-        /*
-         * try (Connection con =
-         * DBConPool.getInstance().getDataSource().getConnection()) {
-         * try (PreparedStatement ps =
-         * con.prepareStatement("select id, name, vip FROM accounts where vip > 12");
-         * ResultSet rs = ps.executeQuery()) {
-         * rs.beforeFirst();
-         * while (rs.next()) {
-         * name = rs.getString("name");
-         * vip = rs.getInt("vip");
-         * id = rs.getInt("id");
-         * System.err.println("VIP权限异常: 帐号[" + name + "], 编号[" + id + "], VIP[" + vip +
-         * "]");
-         * }
-         * }
-         * } catch (SQLException ex) {
-         * FileoutputUtil.outError("logs/资料库异常.txt", ex);
-         * throw new RuntimeException("【错误】 请确认资料库是否正确连接");
-         * }
-         */
+        /*try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("select id, name, vip FROM accounts where vip > 12"); ResultSet rs = ps.executeQuery()) {
+                rs.beforeFirst();
+                while (rs.next()) {
+                    name = rs.getString("name");
+                    vip = rs.getInt("vip");
+                    id = rs.getInt("id");
+                    System.err.println("VIP权限异常: 帐号[" + name + "], 编号[" + id + "], VIP[" + vip + "]");
+                }
+            }
+        } catch (SQLException ex) {
+            FileoutputUtil.outError("logs/资料库异常.txt", ex);
+            throw new RuntimeException("【错误】 请确认资料库是否正确连接");
+        }*/
 
-        /*
-         * try (Connection con =
-         * DBConPool.getInstance().getDataSource().getConnection()) {
-         * try (PreparedStatement ps = con.
-         * prepareStatement("SELECT inventoryequipmentid FROM inventoryequipment WHERE inventoryequipmentid >= 9000000000 ORDER BY inventoryequipmentid DESC LIMIT 1"
-         * ); ResultSet rs = ps.executeQuery()) {
-         * rs.beforeFirst();
-         * while (rs.next()) {
-         * throw new
-         * RuntimeException("资料表[inventoryequipment] 栏位[inventoryequipmentid] 流水号已达 : "
-         * + rs.getLong("inventoryequipmentid"));
-         * }
-         * }
-         * } catch (SQLException ex) {
-         * FileoutputUtil.outError("logs/资料库异常.txt", ex);
-         * throw new RuntimeException("【错误】 请确认资料库是否正确连接");
-         * }
-         * 
-         * try (Connection con =
-         * DBConPool.getInstance().getDataSource().getConnection()) {
-         * try (PreparedStatement ps = con.
-         * prepareStatement("SELECT queststatusid FROM queststatus WHERE queststatusid >= 9000000000 ORDER BY queststatusid DESC LIMIT 1"
-         * ); ResultSet rs = ps.executeQuery()) {
-         * rs.beforeFirst();
-         * while (rs.next()) {
-         * throw new RuntimeException("资料表[queststatus] 栏位[queststatusid] 流水号已达 : " +
-         * rs.getLong("queststatusid"));
-         * }
-         * }
-         * } catch (SQLException ex) {
-         * FileoutputUtil.outError("logs/资料库异常.txt", ex);
-         * throw new RuntimeException("【错误】 请确认资料库是否正确连接");
-         * }
-         */
+ /*try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT inventoryequipmentid FROM inventoryequipment WHERE inventoryequipmentid >= 9000000000 ORDER BY inventoryequipmentid DESC LIMIT 1"); ResultSet rs = ps.executeQuery()) {
+                rs.beforeFirst();
+                while (rs.next()) {
+                    throw new RuntimeException("资料表[inventoryequipment] 栏位[inventoryequipmentid] 流水号已达 : " + rs.getLong("inventoryequipmentid"));
+                }
+            }
+        } catch (SQLException ex) {
+            FileoutputUtil.outError("logs/资料库异常.txt", ex);
+            throw new RuntimeException("【错误】 请确认资料库是否正确连接");
+        }
+
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT queststatusid FROM queststatus WHERE queststatusid >= 9000000000 ORDER BY queststatusid DESC LIMIT 1"); ResultSet rs = ps.executeQuery()) {
+                rs.beforeFirst();
+                while (rs.next()) {
+                    throw new RuntimeException("资料表[queststatus] 栏位[queststatusid] 流水号已达 : " + rs.getLong("queststatusid"));
+                }
+            }
+        } catch (SQLException ex) {
+            FileoutputUtil.outError("logs/资料库异常.txt", ex);
+            throw new RuntimeException("【错误】 请确认资料库是否正确连接");
+        }*/
     }
 
     public final static void main(final String args[]) {
@@ -164,13 +134,13 @@ public class Start {
         LoginInformationProvider.getInstance();
         /* 读取钓鱼 */
         FishingRewardFactory.getInstance();
-        /* 载入任务 */
+        /* 载入任务*/
         MapleQuest.initQuests();
         MapleLifeFactory.loadQuestCounts();
         MapleOxQuizFactory.getInstance().initialize();
         /* 载入物品资讯 */
         MapleItemInformationProvider.getInstance().load();
-        // MapleItemInformationProvider.loadFaceHair(); //载入脸型发型信息
+        //MapleItemInformationProvider.loadFaceHair(); //载入脸型发型信息
         PredictCardFactory.getInstance().initialize();
         MTSStorage.load();
         CashItemFactory.getInstance().initialize();
@@ -192,9 +162,9 @@ public class Start {
         MapleFamilyBuff.getBuffEntry();
         /* 载入登入服务器 */
         LoginServer.setup();
-        /* 载入频道服务器 */
+        /* 载入频道服务器*/
         ChannelServer.startAllChannels();
-        /* 载入商城服务器 */
+        /* 载入商城服务器*/
         CashShopServer.setup();
         /* 载入自动封锁系统 */
         CheatTimer.getInstance().register(AutobanManager.getInstance(), 60000);
@@ -208,22 +178,21 @@ public class Start {
         PlayerNPC.loadAll();// touch - so we see database problems early...
         /* 设定finishedShutdown为false */
         LoginServer.setOn();
-        /* 载入自订义NPC、怪物 */
+        /* 载入自订义NPC、怪物*/
         MapleMapFactory.loadCustomLife();
         /* 载入自订义功能 */
-        // World.GainNX(60);// 每六十分钟自动给点数
-        // World.GainGash(60);
-        // World.AutoSave(5);// 每五分钟自动存档
-        // World.ClearMemory(5 * 60);// 每小时清理记忆体
-        // WorldTimer.getInstance().register(CloseSQLConnections, 60 * 60 * 1000);//
-        // 定时清理MySql连接数
+        //World.GainNX(60);// 每六十分钟自动给点数
+        //World.GainGash(60);
+        //World.AutoSave(5);// 每五分钟自动存档
+        //   World.ClearMemory(5 * 60);// 每小时清理记忆体
+        //   WorldTimer.getInstance().register(CloseSQLConnections, 60 * 60 * 1000);// 定时清理MySql连接数
         World.isShutDown = false;
         OnlyID.getInstance();
-        // 自动泡点
+        //自动泡点
         AutoNx(1);
-        // 开启酷Q消息推送
-        // KQClient.runClient();
-        // System.out.println("【禁止玩家使用:启动 如果要开放请GM上线打:!禁止玩家使用】");
+        //开启酷Q消息推送
+//        KQClient.runClient();
+        //System.out.println("【禁止玩家使用:启动 如果要开放请GM上线打:!禁止玩家使用】");
         System.out.println("【服务器开启完毕】");
     }
 
@@ -238,13 +207,12 @@ public class Start {
                             if (chr == null) {
                                 continue;
                             }
-                            // 怪物回蓝
+                            //怪物回蓝
                             chr.getMap().monsterHealMp();
                             if (chr.getMapId() >= 910000000 && chr.getMapId() <= 910000022) {
                                 int cashdy = Randomizer.rand(1, 3);
                                 chr.modifyCSPoints(2, cashdy);
-                                chr.getClient().sendPacket(
-                                        MaplePacketCreator.serverNotice(5, "[系统奖励] 随机获得[" + cashdy + "] 抵用卷奖励!"));
+                                chr.getClient().sendPacket(MaplePacketCreator.serverNotice(5, "[系统奖励] 随机获得[" + cashdy + "] 抵用卷奖励!"));
                             }
                         }
                     }

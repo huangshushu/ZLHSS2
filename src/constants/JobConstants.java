@@ -13,7 +13,6 @@ public class JobConstants {
         冒险家(0),
         皇家骑士团(1),
         狂狼勇士(2),;
-
         private final int jobType;
         private final boolean enableCreate = true;
 
@@ -26,8 +25,7 @@ public class JobConstants {
         }
 
         public boolean enableCreate() {
-            return Boolean
-                    .valueOf(ServerProperties.getProperty("JobEnableCreate" + jobType, String.valueOf(enableCreate)));
+            return Boolean.valueOf(ServerProperties.getProperty("JobEnableCreate" + jobType, String.valueOf(enableCreate)));
         }
 
         public void setEnableCreate(boolean info) {

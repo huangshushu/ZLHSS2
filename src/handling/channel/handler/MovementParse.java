@@ -30,7 +30,7 @@ import tools.data.LittleEndianAccessor;
 
 public class MovementParse {
 
-    // 1 = player, 2 = mob, 3 = pet, 4 = summon, 5 = dragon
+    //1 = player, 2 = mob, 3 = pet, 4 = summon, 5 = dragon
     public static final List<LifeMovementFragment> parseMovement(final LittleEndianAccessor lea, int kind) {
         final List<LifeMovementFragment> res = new ArrayList<>();
         final byte numCommands = lea.readByte();
@@ -56,8 +56,7 @@ public class MovementParse {
                     }
                     byte newstate = lea.readByte();
                     short duration = lea.readShort();
-                    StaticLifeMovement mov = new StaticLifeMovement(command, new Point(xpos, ypos), duration, newstate,
-                            unk);
+                    StaticLifeMovement mov = new StaticLifeMovement(command, new Point(xpos, ypos), duration, newstate, unk);
                     mov.setUnk(unk);
                     mov.setFh(fh);
                     mov.setPixelsPerSecond(new Point(xwobble, ywobble));
@@ -139,8 +138,7 @@ public class MovementParse {
         return res;
     }
 
-    public static final void updatePosition(final List<LifeMovementFragment> movement,
-            final AnimatedMapleMapObject target, final int yoffset) {
+    public static final void updatePosition(final List<LifeMovementFragment> movement, final AnimatedMapleMapObject target, final int yoffset) {
         for (final LifeMovementFragment move : movement) {
             if (move instanceof LifeMovement) {
                 if (move instanceof StaticLifeMovement) {

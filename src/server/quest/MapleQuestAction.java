@@ -20,24 +20,26 @@
  */
 package server.quest;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.io.Serializable;
+
+import client.ISkill;
+import constants.GameConstants;
+import client.inventory.InventoryException;
+import client.MapleCharacter;
+import client.inventory.MapleInventoryType;
+import client.MapleQuestStatus;
+import client.MapleStat;
+import client.SkillFactory;
+import handling.world.World;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import client.ISkill;
-import client.MapleCharacter;
-import client.MapleQuestStatus;
-import client.MapleStat;
-import client.SkillFactory;
-import client.inventory.InventoryException;
-import client.inventory.MapleInventoryType;
-import constants.GameConstants;
-import handling.world.World;
+import provider.MapleData;
+import provider.MapleDataTool;
 import server.MapleInventoryManipulator;
 import server.MapleItemInformationProvider;
 import server.Randomizer;
@@ -60,8 +62,7 @@ public class MapleQuestAction implements Serializable {
     /**
      * Creates a new instance of MapleQuestAction
      */
-    public MapleQuestAction(MapleQuestActionType type, ResultSet rse, MapleQuest quest, PreparedStatement pss,
-            PreparedStatement psq, PreparedStatement psi) throws SQLException {
+    public MapleQuestAction(MapleQuestActionType type, ResultSet rse, MapleQuest quest, PreparedStatement pss, PreparedStatement psq, PreparedStatement psi) throws SQLException {
         this.type = type;
         this.quest = quest;
 
@@ -82,8 +83,7 @@ public class MapleQuestAction implements Serializable {
                 psi.setInt(1, rse.getInt("uniqueid"));
                 rs = psi.executeQuery();
                 while (rs.next()) {
-                    items.add(new QuestItem(rs.getInt("itemid"), rs.getInt("count"), rs.getInt("period"),
-                            rs.getInt("gender"), rs.getInt("job"), rs.getInt("jobEx"), rs.getInt("prop")));
+                    items.add(new QuestItem(rs.getInt("itemid"), rs.getInt("count"), rs.getInt("period"), rs.getInt("gender"), rs.getInt("job"), rs.getInt("jobEx"), rs.getInt("prop")));
                 }
                 rs.close();
                 break;
@@ -101,12 +101,9 @@ public class MapleQuestAction implements Serializable {
                 pss.setInt(1, rse.getInt("uniqueid"));
                 rs = pss.executeQuery();
                 while (rs.next()) {
-                    skill.add(new Triple<Integer, Integer, Integer>(rs.getInt("skillid"), rs.getInt("skillLevel"),
-                            rs.getInt("masterLevel")));
+                    skill.add(new Triple<Integer, Integer, Integer>(rs.getInt("skillid"), rs.getInt("skillLevel"), rs.getInt("masterLevel")));
                 }
                 rs.close();
-                break;
-            default:
                 break;
         }
     }
@@ -161,9 +158,7 @@ public class MapleQuestAction implements Serializable {
                 if (status.getForfeited() > 0) {
                     break;
                 }
-                // c.gainExp(intStore * GameConstants.getExpRate_Quest(c.getLevel()) *
-                // (c.getStat().questBonus) * ((c.getTrait(MapleTraitType.sense).getLevel() * 3
-                // / 10) + 100) / 100, true, true, true);
+                //c.gainExp(intStore * GameConstants.getExpRate_Quest(c.getLevel()) * (c.getStat().questBonus) * ((c.getTrait(MapleTraitType.sense).getLevel() * 3 / 10) + 100) / 100, true, true, true);
                 c.gainExp(intStore * GameConstants.getExpRate_Quest(c.getLevel()), true, true, true);
                 break;
             case item:
@@ -198,17 +193,16 @@ public class MapleQuestAction implements Serializable {
                     final short count = (short) item.count;
                     if (count < 0) { // remove items
                         try {
-                            MapleInventoryManipulator.removeById(c.getClient(), GameConstants.getInventoryType(id), id,
-                                    (count * -1), true, false);
+                            MapleInventoryManipulator.removeById(c.getClient(), GameConstants.getInventoryType(id), id, (count * -1), true, false);
                         } catch (InventoryException ie) {
                             // it's better to catch this here so we'll atleast try to remove the other items
                             System.err.println("[h4x] Completing a quest without meeting the requirements" + ie);
                         }
                         c.getClient().getSession().writeAndFlush(MaplePacketCreator.getShowItemGain(id, count, true));
                     } else { // add items
-                        final int period = item.period / 1440; // im guessing.
+                        final int period = item.period / 1440; //im guessing.
                         final String name = MapleItemInformationProvider.getInstance().getName(id);
-                        if (id / 10000 == 114 && name != null && name.length() > 0) { // medal
+                        if (id / 10000 == 114 && name != null && name.length() > 0) { //medal
                             final String msg = "你已获得称号 <" + name + ">";
                             c.dropMessage(-1, msg);
                             c.dropMessage(5, msg);
@@ -223,8 +217,7 @@ public class MapleQuestAction implements Serializable {
                 if (status.getForfeited() > 0) {
                     break;
                 }
-                c.getClient().getSession()
-                        .writeAndFlush(MaplePacketCreator.updateQuestFinish(quest.getId(), status.getNpc(), intStore));
+                c.getClient().getSession().writeAndFlush(MaplePacketCreator.updateQuestFinish(quest.getId(), status.getNpc(), intStore));
                 break;
             case money:
                 status = c.getQuest(quest);
@@ -252,8 +245,7 @@ public class MapleQuestAction implements Serializable {
                         }
                     }
                     if (skillObject.isBeginnerSkill() || found) {
-                        c.changeSkillLevel(skillObject, (byte) Math.max(skillLevel, c.getSkillLevel(skillObject)),
-                                (byte) Math.max(masterLevel, c.getMasterLevel(skillObject)));
+                        c.changeSkillLevel(skillObject, (byte) Math.max(skillLevel, c.getSkillLevel(skillObject)), (byte) Math.max(masterLevel, c.getMasterLevel(skillObject)));
                     }
                 }
                 break;
@@ -279,8 +271,8 @@ public class MapleQuestAction implements Serializable {
                 MapleItemInformationProvider.getInstance().getItemEffect(tobuff).applyTo(c);
                 break;
             case infoNumber: {
-                // System.out.println("quest : "+intStore+"");
-                // MapleQuest.getInstance(intStore).forceComplete(c, 0);
+//		System.out.println("quest : "+intStore+"");
+//		MapleQuest.getInstance(intStore).forceComplete(c, 0);
                 break;
             }
             case sp: {
@@ -306,21 +298,19 @@ public class MapleQuestAction implements Serializable {
                 }
                 break;
             }
-            /*
-             * case charmEXP:
-             * case charismaEXP:
-             * case craftEXP:
-             * case insightEXP:
-             * case senseEXP:
-             * case willEXP: {
-             * status = c.getQuest(quest);
-             * if (status.getForfeited() > 0) {
-             * break;
-             * }
-             * c.getTrait(MapleTraitType.getByQuestName(type.name())).addExp(intStore, c);
-             * break;
-             * }
-             */
+            /*case charmEXP:
+            case charismaEXP:
+            case craftEXP:
+            case insightEXP:
+            case senseEXP:
+            case willEXP: {
+                status = c.getQuest(quest);
+                if (status.getForfeited() > 0) {
+                    break;
+                }
+                c.getTrait(MapleTraitType.getByQuestName(type.name())).addExp(intStore, c);
+                break;
+            }*/
             default:
                 break;
         }
@@ -367,10 +357,8 @@ public class MapleQuestAction implements Serializable {
                             return false;
                         }
                     } else { // add items
-                        if (MapleItemInformationProvider.getInstance().isPickupRestricted(id)
-                                && c.haveItem(id, 1, true, false)) {
-                            c.dropMessage(1, "You have this item already: "
-                                    + MapleItemInformationProvider.getInstance().getName(id));
+                        if (MapleItemInformationProvider.getInstance().isPickupRestricted(id) && c.haveItem(id, 1, true, false)) {
+                            c.dropMessage(1, "You have this item already: " + MapleItemInformationProvider.getInstance().getName(id));
                             return false;
                         }
                         switch (GameConstants.getInventoryType(id)) {
@@ -388,8 +376,6 @@ public class MapleQuestAction implements Serializable {
                                 break;
                             case CASH:
                                 cash++;
-                                break;
-                            default:
                                 break;
                         }
                     }
@@ -417,14 +403,12 @@ public class MapleQuestAction implements Serializable {
                 if (c.getMeso() + meso < 0) { // Giving, overflow
                     c.dropMessage(1, "枫币不足。");
                     return false;
-                } else if (meso < 0 && c.getMeso() < Math.abs(meso)) { // remove meso
+                } else if (meso < 0 && c.getMeso() < Math.abs(meso)) { //remove meso
                     c.dropMessage(1, "枫币不足。");
                     return false;
                 }
                 return true;
             }
-            default:
-                break;
         }
         return true;
     }
@@ -432,9 +416,7 @@ public class MapleQuestAction implements Serializable {
     public void runEnd(MapleCharacter c, Integer extSelection, int qusetid) {
         switch (type) {
             case exp: {
-                // c.gainExp(intStore * GameConstants.getExpRate_Quest(c.getLevel()) *
-                // (c.getStat().questBonus) * ((c.getTrait(MapleTraitType.sense).getLevel() * 3
-                // / 10) + 100) / 100, true, true, true);
+                //c.gainExp(intStore * GameConstants.getExpRate_Quest(c.getLevel()) * (c.getStat().questBonus) * ((c.getTrait(MapleTraitType.sense).getLevel() * 3 / 10) + 100) / 100, true, true, true);
                 c.gainExp(intStore * GameConstants.getExpRate_Quest(c.getLevel()), true, true, true);
                 break;
             }
@@ -469,75 +451,43 @@ public class MapleQuestAction implements Serializable {
                     }
                     final short count = (short) item.count;
                     if (count < 0) { // remove items
-                        MapleInventoryManipulator.removeById(c.getClient(), GameConstants.getInventoryType(id), id,
-                                (count * -1), true, false);
+                        MapleInventoryManipulator.removeById(c.getClient(), GameConstants.getInventoryType(id), id, (count * -1), true, false);
                         c.getClient().getSession().writeAndFlush(MaplePacketCreator.getShowItemGain(id, count, true));
                     } else { // add items
-                        final int period = item.period / 1440; // im guessing.
+                        final int period = item.period / 1440; //im guessing.
                         final String name = MapleItemInformationProvider.getInstance().getName(id);
-                        if (id / 10000 == 114 && name != null && name.length() > 0) { // medal
+                        if (id / 10000 == 114 && name != null && name.length() > 0) { //medal
                             final String msg = "你已获得称号 <" + name + ">";
                             c.dropMessage(-1, msg);
                             c.dropMessage(5, msg);
                         }
                         if (qusetid == 8630) {
-                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:"
-                                    + qusetid + " 玩家:" + c.getName() + " 使用10张枫彩票兑换物品:" + name + "ID:" + id));
-                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt", "\r\n 时间　[" + FileoutputUtil.NowTime()
-                                    + "] IP: " + c.getClient().getSession().remoteAddress().toString().split(":")[0]
-                                    + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用10张枫彩票兑换物品:" + name + "ID:" + id);
+                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用10张枫彩票兑换物品:" + name + "ID:" + id));
+                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt", "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: " + c.getClient().getSession().remoteAddress().toString().split(":")[0] + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用10张枫彩票兑换物品:" + name + "ID:" + id);
                         }
                         if (qusetid == 8631) {
-                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:"
-                                    + qusetid + " 玩家:" + c.getName() + " 使用50张枫彩票兑换物品:" + name + "ID:" + id));
-                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt", "\r\n 时间　[" + FileoutputUtil.NowTime()
-                                    + "] IP: " + c.getClient().getSession().remoteAddress().toString().split(":")[0]
-                                    + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用50张枫彩票兑换物品:" + name + "ID:" + id);
+                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用50张枫彩票兑换物品:" + name + "ID:" + id));
+                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt", "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: " + c.getClient().getSession().remoteAddress().toString().split(":")[0] + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用50张枫彩票兑换物品:" + name + "ID:" + id);
                         }
                         if (qusetid == 8632) {
-                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:"
-                                    + qusetid + " 玩家:" + c.getName() + " 使用100张枫彩票兑换物品:" + name + "ID:" + id));
-                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt",
-                                    "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: "
-                                            + c.getClient().getSession().remoteAddress().toString().split(":")[0]
-                                            + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用100张枫彩票兑换物品:" + name
-                                            + "ID:" + id);
+                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用100张枫彩票兑换物品:" + name + "ID:" + id));
+                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt", "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: " + c.getClient().getSession().remoteAddress().toString().split(":")[0] + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用100张枫彩票兑换物品:" + name + "ID:" + id);
                         }
                         if (qusetid == 8633) {
-                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:"
-                                    + qusetid + " 玩家:" + c.getName() + " 使用200张枫彩票兑换物品:" + name + "ID:" + id));
-                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt",
-                                    "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: "
-                                            + c.getClient().getSession().remoteAddress().toString().split(":")[0]
-                                            + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用200张枫彩票兑换物品:" + name
-                                            + "ID:" + id);
+                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用200张枫彩票兑换物品:" + name + "ID:" + id));
+                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt", "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: " + c.getClient().getSession().remoteAddress().toString().split(":")[0] + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用200张枫彩票兑换物品:" + name + "ID:" + id);
                         }
                         if (qusetid == 8634) {
-                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:"
-                                    + qusetid + " 玩家:" + c.getName() + " 使用500张枫彩票兑换物品:" + name + "ID:" + id));
-                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt",
-                                    "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: "
-                                            + c.getClient().getSession().remoteAddress().toString().split(":")[0]
-                                            + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用500张枫彩票兑换物品:" + name
-                                            + "ID:" + id);
+                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用500张枫彩票兑换物品:" + name + "ID:" + id));
+                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt", "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: " + c.getClient().getSession().remoteAddress().toString().split(":")[0] + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用500张枫彩票兑换物品:" + name + "ID:" + id);
                         }
                         if (qusetid == 8635) {
-                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:"
-                                    + qusetid + " 玩家:" + c.getName() + " 使用1000张枫彩票兑换物品:" + name + "ID:" + id));
-                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt",
-                                    "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: "
-                                            + c.getClient().getSession().remoteAddress().toString().split(":")[0]
-                                            + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用1000张枫彩票兑换物品:" + name
-                                            + "ID:" + id);
+                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用1000张枫彩票兑换物品:" + name + "ID:" + id));
+                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt", "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: " + c.getClient().getSession().remoteAddress().toString().split(":")[0] + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用1000张枫彩票兑换物品:" + name + "ID:" + id);
                         }
                         if (qusetid == 8636) {
-                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:"
-                                    + qusetid + " 玩家:" + c.getName() + " 使用3000张枫彩票兑换物品:" + name + "ID:" + id));
-                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt",
-                                    "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: "
-                                            + c.getClient().getSession().remoteAddress().toString().split(":")[0]
-                                            + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用3000张枫彩票兑换物品:" + name
-                                            + "ID:" + id);
+                            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用3000张枫彩票兑换物品:" + name + "ID:" + id));
+                            FileoutputUtil.logToFile("logs/Data/枫彩票兑换.txt", "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: " + c.getClient().getSession().remoteAddress().toString().split(":")[0] + " 任务ID:" + qusetid + " 玩家:" + c.getName() + " 使用3000张枫彩票兑换物品:" + name + "ID:" + id);
                         }
                         MapleInventoryManipulator.addById(c.getClient(), id, count, "", null, period);
                         c.getClient().getSession().writeAndFlush(MaplePacketCreator.getShowItemGain(id, count, true));
@@ -546,8 +496,7 @@ public class MapleQuestAction implements Serializable {
                 break;
             }
             case nextQuest: {
-                c.getClient().getSession().writeAndFlush(
-                        MaplePacketCreator.updateQuestFinish(quest.getId(), c.getQuest(quest).getNpc(), intStore));
+                c.getClient().getSession().writeAndFlush(MaplePacketCreator.updateQuestFinish(quest.getId(), c.getQuest(quest).getNpc(), intStore));
                 break;
             }
             case money: {
@@ -574,8 +523,7 @@ public class MapleQuestAction implements Serializable {
                         }
                     }
                     if (skillObject.isBeginnerSkill() || found) {
-                        c.changeSkillLevel(skillObject, (byte) Math.max(skillLevel, c.getSkillLevel(skillObject)),
-                                (byte) Math.max(masterLevel, c.getMasterLevel(skillObject)));
+                        c.changeSkillLevel(skillObject, (byte) Math.max(skillLevel, c.getSkillLevel(skillObject)), (byte) Math.max(masterLevel, c.getMasterLevel(skillObject)));
                     }
                 }
                 break;
@@ -595,8 +543,8 @@ public class MapleQuestAction implements Serializable {
                 break;
             }
             case infoNumber: {
-                // System.out.println("quest : "+intStore+"");
-                // MapleQuest.getInstance(intStore).forceComplete(c, 0);
+//		System.out.println("quest : "+intStore+"");
+//		MapleQuest.getInstance(intStore).forceComplete(c, 0);
                 break;
             }
             case sp: {
@@ -618,17 +566,15 @@ public class MapleQuestAction implements Serializable {
                 }
                 break;
             }
-            /*
-             * case charmEXP:
-             * case charismaEXP:
-             * case craftEXP:
-             * case insightEXP:
-             * case senseEXP:
-             * case willEXP: {
-             * c.getTrait(MapleTraitType.getByQuestName(type.name())).addExp(intStore, c);
-             * break;
-             * }
-             */
+            /*case charmEXP:
+            case charismaEXP:
+            case craftEXP:
+            case insightEXP:
+            case senseEXP:
+            case willEXP: {
+                c.getTrait(MapleTraitType.getByQuestName(type.name())).addExp(intStore, c);
+                break;
+            }*/
             default:
                 break;
         }
@@ -673,22 +619,22 @@ public class MapleQuestAction implements Serializable {
             ret.add(1500);
         }
         if ((encoded & 0x20000) != 0) {
-            ret.add(2001); // im not sure of this one
+            ret.add(2001); //im not sure of this one
             ret.add(2200);
         }
         if ((encoded & 0x100000) != 0) {
             ret.add(2000);
-            ret.add(2001); // ?
+            ret.add(2001); //?
         }
         if ((encoded & 0x200000) != 0) {
             ret.add(2100);
         }
         if ((encoded & 0x400000) != 0) {
-            ret.add(2001); // ?
+            ret.add(2001); //?
             ret.add(2200);
         }
 
-        if ((encoded & 0x40000000) != 0) { // i haven't seen any higher than this o.o
+        if ((encoded & 0x40000000) != 0) { //i haven't seen any higher than this o.o
             ret.add(3000);
             ret.add(3200);
             ret.add(3300);

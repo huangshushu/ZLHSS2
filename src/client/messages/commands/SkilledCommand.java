@@ -75,7 +75,8 @@ public class SkilledCommand {
             PiPiConfig.setBlackList(accID, input);
             String msg = "[GM 密语] GM " + c.getPlayer().getName() + " 在回报系统黑单了 " + input;
             World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, msg));
-            FileoutputUtil.logToFile("Logs/Data/玩家回报黑单.txt", "\r\n  " + FileoutputUtil.NowTime() + " GM " + c.getPlayer().getName() + " 在回报系统黑单了 " + input);
+            FileoutputUtil.logToFile("Logs/Data/玩家回报黑单.txt",
+                    "\r\n  " + FileoutputUtil.NowTime() + " GM " + c.getPlayer().getName() + " 在回报系统黑单了 " + input);
             return true;
         }
 

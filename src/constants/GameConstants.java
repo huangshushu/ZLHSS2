@@ -2188,8 +2188,6 @@ public class GameConstants {
                 return -70;
             case SPEED:
                 return -50;
-            default:
-                break;
         }
         return 0;
     }
@@ -2200,8 +2198,6 @@ public class GameConstants {
                 return 3221006;
             case SPEED:
                 return 3121007;
-            default:
-                break;
         }
         return 0;
     }

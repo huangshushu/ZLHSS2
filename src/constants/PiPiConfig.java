@@ -16,7 +16,7 @@ public class PiPiConfig {
     public static boolean CommandLock = false;
     public static int 商店一次拍卖获得最大枫币 = 1500000;
     protected static String acc = "7c4a8d09ca3762af61e59520943dc26494f8941b";
-    public static String[] banText = { "干", "靠", "屎", "粪", "淦", "靠" };
+    public static String[] banText = {"干", "靠", "屎", "粪", "淦", "靠"};
     public static Map<Integer, String> BlackList = new HashMap() {
         {
             put(5307, "一朵花");
@@ -105,15 +105,12 @@ public class PiPiConfig {
                 || (message.contains("ㄋ") && message.contains("ㄠ") && message.contains("ˇ"))
                 || (message.contains("ㄍ") && message.contains("ˋ"))
                 //
-                // || (message.contains("0") && message.contains("8"))
-                // || (message.contains("7") && message.contains("8"))
+                //|| (message.contains("0") && message.contains("8"))
+                //|| (message.contains("7") && message.contains("8"))
                 //
-                || (message.contains("e") && message.contains("0") && message.contains("4")) // ||
-                                                                                             // (message.contains("m")
-                                                                                             // &&
-                                                                                             // message.contains("d"))
-        // || (message.contains("m") && message.contains("b"))
-        ) {
+                || (message.contains("e") && message.contains("0") && message.contains("4")) //|| (message.contains("m") && message.contains("d"))
+                // || (message.contains("m") && message.contains("b"))
+                ) {
             return false;
         }
         return true;

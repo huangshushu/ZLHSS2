@@ -20,80 +20,85 @@
  */
 package tools;
 
-import static client.MapleStat.AVAILABLEAP;
-import static client.MapleStat.AVAILABLESP;
-
 import java.awt.Point;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.alibaba.druid.sql.ast.statement.SQLIfStatement.Else;
-
+import client.inventory.MapleMount;
 import client.BuddyEntry;
 import client.MapleBeans;
 import client.MapleBuffStat;
+import client.inventory.IItem;
+import constants.GameConstants;
+
 import client.MapleCharacter;
 import client.MapleClient;
-import client.MapleDisease;
+import client.inventory.MapleInventoryType;
 import client.MapleKeyLayout;
+import client.inventory.MaplePet;
 import client.MapleQuestStatus;
 import client.MapleStat;
-import client.SkillMacro;
 import client.inventory.IEquip.ScrollResult;
-import client.inventory.IItem;
+import client.MapleDisease;
+import client.inventory.MapleRing;
+import client.SkillMacro;
 import client.inventory.Item;
 import client.inventory.MapleInventory;
-import client.inventory.MapleInventoryType;
-import client.inventory.MapleMount;
-import client.inventory.MaplePet;
-import client.inventory.MapleRing;
 import client.inventory.ModifyInventory;
-import constants.GameConstants;
 import constants.ServerConfig;
-import constants.ServerConstants;
 import handling.SendPacketOpcode;
+import constants.ServerConstants;
 import handling.channel.MapleGuildRanking;
-import handling.channel.MapleGuildRanking.GuildRankingInfo;
-import handling.channel.handler.InventoryHandler;
 import handling.world.MapleParty;
 import handling.world.MaplePartyCharacter;
 import handling.world.PartyOperation;
+import handling.world.guild.MapleGuild;
+import handling.world.guild.MapleGuildCharacter;
+import handling.channel.MapleGuildRanking.GuildRankingInfo;
+import handling.channel.handler.InventoryHandler;
 import handling.world.World;
 import handling.world.guild.MapleBBSThread;
 import handling.world.guild.MapleBBSThread.MapleBBSReply;
-import handling.world.guild.MapleGuild;
 import handling.world.guild.MapleGuildAlliance;
-import handling.world.guild.MapleGuildCharacter;
-import server.MapleDueyActions;
+import java.net.UnknownHostException;
+import java.util.EnumMap;
 import server.MapleItemInformationProvider;
 import server.MapleShopItem;
 import server.MapleStatEffect;
 import server.MapleTrade;
+import server.MapleDueyActions;
 import server.Randomizer;
-import server.events.MapleSnowball.MapleSnowballs;
-import server.life.MapleMonster;
+import server.life.SummonAttackEntry;
+import server.maps.MapleSummon;
 import server.life.MapleNPC;
 import server.life.PlayerNPC;
-import server.life.SummonAttackEntry;
 import server.maps.MapleMap;
-import server.maps.MapleMapItem;
+import server.maps.MapleReactor;
 import server.maps.MapleMist;
+import server.maps.MapleMapItem;
+import server.events.MapleSnowball.MapleSnowballs;
+import server.life.MapleMonster;
 import server.maps.MapleNodes.MapleNodeInfo;
 import server.maps.MapleNodes.MaplePlatform;
-import server.maps.MapleReactor;
-import server.maps.MapleSummon;
 import server.movement.LifeMovementFragment;
 import server.shops.HiredMerchant;
 import server.shops.MaplePlayerShopItem;
 import tools.data.MaplePacketLittleEndianWriter;
 import tools.packet.PacketHelper;
+
+import static client.MapleStat.*;
+import database.DBConPool;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MaplePacketCreator {
 
@@ -1084,21 +1089,21 @@ public class MaplePacketCreator {
         mplew.writeInt(chr.getId());
         mplew.write(chr.getLevel());
         mplew.writeMapleAsciiString(chr.getName());
-        String Prefix = chr.getNick();
+        // String Prefix = chr.getNick();
 
         if (chr.getGuildId() <= 0) {
-            mplew.writeMapleAsciiString(Prefix);
+            mplew.writeMapleAsciiString(/* Prefix */"");
             mplew.writeZeroBytes(6);
         } else {
             final MapleGuild gs = World.Guild.getGuild(chr.getGuildId());
             if (gs != null) {
-                mplew.writeMapleAsciiString(gs.getName() + Prefix);
+                mplew.writeMapleAsciiString(gs.getName() /* + Prefix */);
                 mplew.writeShort(gs.getLogoBG());
                 mplew.write(gs.getLogoBGColor());
                 mplew.writeShort(gs.getLogo());
                 mplew.write(gs.getLogoColor());
             } else {
-                mplew.writeMapleAsciiString(Prefix);
+                mplew.writeMapleAsciiString(/* Prefix */"");
                 mplew.writeZeroBytes(6);
             }
         }
@@ -1826,7 +1831,7 @@ public class MaplePacketCreator {
         }
         // mplew.write(isSelf ? 1 : 0);
         // mplew.writeMapleAsciiString(chr.getcharmessage()); // 角色讯息
-        // mplew.writeMapleAsciiString("大王"); // 角色讯息
+        // mplew.writeMapleAsciiString("安安"); // 角色讯息
         // mplew.write(chr.getexpression());// 表情
         // mplew.write(chr.getconstellation());// 星座
         // mplew.write(chr.getblood());// 血型
@@ -3327,21 +3332,16 @@ public class MaplePacketCreator {
         return startMapEffect(null, 0, false);
     }
 
-    public static byte[] fakeGuildInfo(MapleCharacter c) {
+    public static byte[] fuckGuildInfo(MapleCharacter c) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         mplew.writeShort(SendPacketOpcode.GUILD_OPERATION.getValue());
         mplew.write(0x1A); // signature for showing guild info
 
-        String Prefix = "";
+        // String Prefix = c.getNick();
         mplew.write(1); // bInGuild
         mplew.writeInt(0);
-        if (MapleCharacter.getOneTimeLog("关闭勋章显示") >= 1) {
-            Prefix = "";
-        } else {
-            Prefix = c.getNick();
-        }
-        mplew.writeMapleAsciiString(Prefix);
+        mplew.writeMapleAsciiString(""/* Prefix */);
         // mplew.writeMapleAsciiString("");
         mplew.write(0);// members.size()
         mplew.writeInt(0);// mgc.getId()
@@ -3388,14 +3388,9 @@ public class MaplePacketCreator {
     }
 
     public static void getGuildInfo(MaplePacketLittleEndianWriter mplew, MapleGuild guild, MapleCharacter c) {
-        String Prefix = "";
+        // String Prefix = c == null ? "" : c.getNick();
         mplew.writeInt(guild.getId());
-        if (MapleCharacter.getOneTimeLog("关闭勋章显示") >= 1) {
-            Prefix = "";
-        } else {
-            Prefix = "|" + c.getNick();
-        }
-        mplew.writeMapleAsciiString(guild.getName() + Prefix);
+        mplew.writeMapleAsciiString(guild.getName() /* + Prefix */);
         for (int i = 1; i <= 5; i++) {
             mplew.writeMapleAsciiString(guild.getRankTitle(i));
         }
@@ -3412,17 +3407,17 @@ public class MaplePacketCreator {
 
     public static byte[] 勋章(MapleCharacter chr) {
 
-        String Prefix = chr.getNick();
+        // String Prefix = chr.getNick();
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         mplew.writeShort(SendPacketOpcode.GUILD_OPERATION.getValue());
         mplew.write(0x1A); // signature for showing guild info
-        // if (chr == null) {
-        // mplew.write(0);
-        // return mplew.getPacket();
-        // }
+        if (chr == null) {
+            mplew.write(0);
+            return mplew.getPacket();
+        }
         mplew.write(1);
         mplew.writeInt(0);
-        mplew.writeMapleAsciiString(Prefix);
+        mplew.writeMapleAsciiString(/* Prefix */"");
         for (int i = 1; i <= 5; i++) {
             mplew.writeMapleAsciiString("");
         }

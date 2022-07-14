@@ -17,8 +17,7 @@ public class ExternalCodeTableGetter {
         props = properties;
     }
 
-    private static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> T valueOf(
-            final String name, T[] values) {
+    private static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> T valueOf(final String name, T[] values) {
         for (T val : values) {
             if (val.name().equals(name)) {
                 return val;
@@ -27,8 +26,7 @@ public class ExternalCodeTableGetter {
         return null;
     }
 
-    private <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> short getValue(
-            final String name, T[] values, final short def) {
+    private <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> short getValue(final String name, T[] values, final short def) {
         String prop = props.getProperty(name);
         if (prop != null && prop.length() > 0) {
             String trimmed = prop.trim();
@@ -53,8 +51,7 @@ public class ExternalCodeTableGetter {
         return def;
     }
 
-    public final static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> String getOpcodeTable(
-            T[] enumeration) {
+    public final static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> String getOpcodeTable(T[] enumeration) {
         StringBuilder enumVals = new StringBuilder();
         List<T> all = new ArrayList<>(); // need a mutable list plawks
         all.addAll(Arrays.asList(enumeration));
@@ -77,16 +74,14 @@ public class ExternalCodeTableGetter {
         return enumVals.toString();
     }
 
-    public final static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> void populateValues(
-            Properties properties, T[] values) {
+    public final static <T extends Enum<? extends WritableIntValueHolder> & WritableIntValueHolder> void populateValues(Properties properties, T[] values) {
         ExternalCodeTableGetter exc = new ExternalCodeTableGetter(properties);
         for (T code : values) {
             code.setValue(exc.getValue(code.name(), values, (short) -2));
         }
 
-        // if (log.isTraceEnabled()) { // generics - copy pasted between send and recv
-        // current?
-        // log.trace(getOpcodeTable(values));
-        // }
+//		if (log.isTraceEnabled()) { // generics - copy pasted between send and recv current?
+//			log.trace(getOpcodeTable(values));
+//		}
     }
 }

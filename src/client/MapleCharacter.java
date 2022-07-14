@@ -20,51 +20,42 @@
  */
 package client;
 
+import constants.GameConstants;
+import client.inventory.MapleInventoryType;
+import client.inventory.MapleInventory;
+import client.inventory.Item;
+import client.inventory.ItemLoader;
+import client.inventory.MapleInventoryIdentifier;
+import client.inventory.IItem;
+import client.inventory.MapleMount;
+import client.inventory.MaplePet;
+import client.inventory.ItemFlag;
+import client.inventory.MapleRing;
 import java.awt.Point;
-import java.io.Serializable;
-import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.Deque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Deque;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
-import java.util.concurrent.RejectedExecutionException;
+import java.util.Map.Entry;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.Serializable;
 
 import client.anticheat.CheatTracker;
-import client.inventory.IItem;
-import client.inventory.Item;
-import client.inventory.ItemFlag;
-import client.inventory.ItemLoader;
-import client.inventory.MapleInventory;
-import client.inventory.MapleInventoryIdentifier;
-import client.inventory.MapleInventoryType;
-import client.inventory.MapleMount;
-import client.inventory.MaplePet;
-import client.inventory.MapleRing;
 import client.inventory.ModifyInventory;
-import constants.GameConstants;
 import constants.ItemConstants;
 import constants.MapConstants;
 import constants.ServerConfig;
@@ -89,60 +80,67 @@ import handling.world.family.MapleFamilyBuff.MapleFamilyBuffEntry;
 import handling.world.family.MapleFamilyCharacter;
 import handling.world.guild.MapleGuild;
 import handling.world.guild.MapleGuildCharacter;
+import java.lang.ref.WeakReference;
+import java.sql.Statement;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import server.customer.BossLogCopy.BossLogCopyManager;
+import tools.*;
 import scripting.EventInstanceManager;
 import scripting.EventManager;
 import scripting.NPCScriptManager;
-import server.CashShop;
-import server.FishingRewardFactory;
-import server.FishingRewardFactory.FishingReward;
-import server.MapleCarnivalChallenge;
-import server.MapleCarnivalParty;
-import server.MapleInventoryManipulator;
-import server.MapleItemInformationProvider;
+import server.AutobanManager;
 import server.MaplePortal;
 import server.MapleShop;
 import server.MapleStatEffect;
 import server.MapleStorage;
 import server.MapleTrade;
 import server.Randomizer;
+import server.MapleCarnivalParty;
+import server.MapleItemInformationProvider;
+import server.life.MapleMonster;
+import server.maps.AbstractAnimatedMapleMapObject;
+import server.maps.MapleDoor;
+import server.maps.MapleMap;
+import server.maps.MapleMapFactory;
+import server.maps.MapleMapObject;
+import server.maps.MapleMapObjectType;
+import server.maps.MapleSummon;
+import server.maps.FieldLimitType;
+import server.maps.SavedLocationType;
+import server.quest.MapleQuest;
+import server.shops.IMaplePlayerShop;
+import server.CashShop;
+import server.FishingRewardFactory;
+import server.FishingRewardFactory.FishingReward;
+import tools.packet.MTSCSPacket;
+import tools.packet.MobPacket;
+import tools.packet.PetPacket;
+import tools.packet.MonsterCarnivalPacket;
+import tools.packet.UIPacket;
+import server.MapleCarnivalChallenge;
+import server.MapleInventoryManipulator;
 import server.Timer;
 import server.Timer.BuffTimer;
 import server.Timer.EtcTimer;
 import server.Timer.MapTimer;
 import server.custom.bossrank.BossRankManager;
-import server.customer.BossLogCopy.BossLogCopyManager;
-import server.life.MapleMonster;
 import server.life.MobSkill;
 import server.life.PlayerNPC;
-import server.maps.AbstractAnimatedMapleMapObject;
 import server.maps.Event_PyramidSubway;
-import server.maps.FieldLimitType;
-import server.maps.MapleDoor;
 import server.maps.MapleFoothold;
-import server.maps.MapleMap;
 import server.maps.MapleMapEffect;
-import server.maps.MapleMapFactory;
-import server.maps.MapleMapObject;
-import server.maps.MapleMapObjectType;
-import server.maps.MapleSummon;
-import server.maps.SavedLocationType;
 import server.movement.LifeMovementFragment;
-import server.quest.MapleQuest;
-import server.shops.IMaplePlayerShop;
-import tools.ConcurrentEnumMap;
-import tools.FilePrinter;
-import tools.FileoutputUtil;
-import tools.HexTool;
-import tools.MaplePacketCreator;
-import tools.MockIOSession;
-import tools.Pair;
+import static tools.FileoutputUtil.log;
+import static tools.FileoutputUtil.log;
 import tools.data.MaplePacketLittleEndianWriter;
-import tools.packet.MTSCSPacket;
-import tools.packet.MobPacket;
-import tools.packet.MonsterCarnivalPacket;
-import tools.packet.PetPacket;
 import tools.packet.PlayerShopPacket;
-import tools.packet.UIPacket;
 
 public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Serializable {
 
@@ -155,50 +153,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             fairyExp = 30, numClones, subcategory, fairyHour = 1; // Make this a quest record, TODO : Transfer it
                                                                   // somehow with the current data
     private short level, mulung_energy, availableCP, totalCP, fame, hpmpApUsed, job, remainingAp;
-    private int accountid;
-    private static int id;
-    private int meso;
-    private int exp;
-    private int hair;
-    private int face;
-    private int mapid;
-    private int bookCover;
-    private int dojo;
-    private int guildid = 0;
-    private int fallcounter = 0;
-    private int maplepoints;
-    private int chair;
-    private int itemEffect/* , points */;
-    private int vpoints;
-    private int rank = 1;
-    private int rankMove = 0;
-    private int jobRank = 1;
-    private int jobRankMove = 0;
-    private int marriageId;
-    private int marriageItemId = 0;
-    private int currentrep;
-    private int totalrep;
-    private int linkMid = 0;
-    private int coconutteam = 0;
-    private int followid = 0;
-    private int battleshipHP = 0;
-    private int expression;
-    private int constellation;
-    private int blood;
-    private int month;
-    private int day;
-    private int beans;
-    private int beansNum;
-    private int beansRange;
-    private int gachexp;
-    private int combo;
-    private int MSG = 0;
-    private int 打怪 = 0;
-    private int 吸怪 = 0;
-    private int FLY_吸怪 = 0;
-    private int vip;
-    private int CsMod = 0;
-    private int msgCount = 0;
+    private int accountid, id, meso, exp, hair, face, mapid, bookCover, dojo,
+            guildid = 0, fallcounter = 0, maplepoints, chair, itemEffect/* , points */, vpoints,
+            rank = 1, rankMove = 0, jobRank = 1, jobRankMove = 0, marriageId, marriageItemId = 0,
+            currentrep, totalrep, linkMid = 0, coconutteam = 0, followid = 0, battleshipHP = 0,
+            expression, constellation, blood, month, day, beans, beansNum, beansRange,
+            gachexp, combo, MSG = 0, 打怪 = 0, 吸怪 = 0, FLY_吸怪 = 0, vip, CsMod = 0, msgCount = 0;
     private Point old = new Point(0, 0);
     private boolean smega = true, gashponmega = true, hidden, hasSummon = false, 精灵商人购买开关 = false,
             玩家私聊开关 = false, 玩家密语开关 = false, 好友聊天开关 = false, 队伍聊天开关 = false, 公会聊天开关 = false,
@@ -5826,7 +5786,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
     }
 
-    public static int getOneTimeLog(String log) {
+    public int getOneTimeLog(String log) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             int ret_count = 0;
             PreparedStatement ps;
@@ -7776,23 +7736,24 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     public String getVipName() {
         String name = "";
-        if (getVip() > 0) {
-            name = ServerConfig.getVipMedalName(getVip());
+        if (/* getVip() */getVip() > 0) {
+            name = ServerConfig.getVipMedalName(/* getVip() */getVip());
         }
         return name;
     }
 
     public String getNick() {
         String name = "";
-
-        if (getVipMedal()) {
-            if (getVip() > 0) {
-                name += getVipName();
+        if (getOneTimeLog("关闭VIP星星数显示") < 1) {
+            if (getVipMedal()) {
+                if (/* getVip() */getVip() > 0) {
+                    name += getVipName();
+                }
             }
         }
 
         if (getGMLevel() > 0) {
-            name += "GM";
+            name += "";
         }
         return name;
     }

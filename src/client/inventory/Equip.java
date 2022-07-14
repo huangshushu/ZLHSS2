@@ -20,8 +20,9 @@
  */
 package client.inventory;
 
-import constants.GameConstants;
 import java.io.Serializable;
+
+import constants.GameConstants;
 import server.Randomizer;
 
 public class Equip extends Item implements IEquip, Serializable {

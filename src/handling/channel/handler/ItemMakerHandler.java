@@ -20,44 +20,42 @@
  */
 package handling.channel.handler;
 
-import static constants.GameConstants.迷之蛋随机物品;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import client.MapleCharacter;
-import client.MapleClient;
+import client.inventory.*;
 import client.SkillFactory;
-import client.inventory.Equip;
-import client.inventory.IItem;
-import client.inventory.MapleInventoryIdentifier;
-import client.inventory.MapleInventoryType;
-import client.inventory.MaplePet;
+import client.MapleClient;
 import constants.GameConstants;
 import constants.ItemConstants;
 import server.ItemMakerFactory;
 import server.ItemMakerFactory.GemCreateEntry;
 import server.ItemMakerFactory.ItemMakerCreateEntry;
-import server.MapleInventoryManipulator;
-import server.MapleItemInformationProvider;
 import server.Randomizer;
-import tools.MaplePacketCreator;
+import server.MapleItemInformationProvider;
+import server.MapleInventoryManipulator;
 import tools.Pair;
+import tools.MaplePacketCreator;
 import tools.data.ByteArrayByteStream;
 import tools.data.LittleEndianAccessor;
+
+import static constants.GameConstants.永恒装备;
+import static constants.GameConstants.迷之蛋随机物品;
+import static constants.GameConstants.重生装备;
 
 public class ItemMakerHandler {
 
     public static final void ItemMaker(final LittleEndianAccessor slea, final MapleClient c) {
-        // System.out.println(slea.toString()); //change?
-        // 处理永恒和重生迷之蛋
+        //System.out.println(slea.toString()); //change?
+        //处理永恒和重生迷之蛋
         ByteArrayByteStream bs = slea.getBs();
         ByteArrayByteStream bs2 = new ByteArrayByteStream(bs.getArr());
         bs2.readByte();
         bs2.readByte();
         LittleEndianAccessor slea2 = new LittleEndianAccessor(bs2);
-        // 是否是永恒/重生迷之蛋
+        //是否是永恒/重生迷之蛋
         boolean b = true;
         final int makerType = slea.readInt();
 
@@ -87,17 +85,13 @@ public class ItemMakerHandler {
                         return; // We'll do handling for this later
                     }
                     c.getPlayer().gainMeso(-gem.getCost(), false);
-                    MapleInventoryManipulator.addById(c, randGemGiven, (byte) (taken == randGemGiven ? 9 : 1)); // Gem
-                                                                                                                // is
-                                                                                                                // always
-                                                                                                                // 1
+                    MapleInventoryManipulator.addById(c, randGemGiven, (byte) (taken == randGemGiven ? 9 : 1)); // Gem is always 1
 
                     c.sendPacket(MaplePacketCreator.ItemMaker_Success());
-                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(),
-                            MaplePacketCreator.ItemMaker_Success_3rdParty(c.getPlayer().getId()), false);
+                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(), MaplePacketCreator.ItemMaker_Success_3rdParty(c.getPlayer().getId()), false);
                 } else if (GameConstants.isOtherGem(toCreate)) {
-                    // non-gems that are gems
-                    // stim and numEnchanter always 0
+                    //non-gems that are gems
+                    //stim and numEnchanter always 0
                     final GemCreateEntry gem = ItemMakerFactory.getInstance().getGemInfo(toCreate);
                     if (gem == null) {
                         return;
@@ -117,15 +111,13 @@ public class ItemMakerHandler {
                     }
                     c.getPlayer().gainMeso(-gem.getCost(), false);
                     if (GameConstants.getInventoryType(toCreate) == MapleInventoryType.EQUIP) {
-                        MapleInventoryManipulator.addbyItem(c,
-                                MapleItemInformationProvider.getInstance().getEquipById(toCreate));
+                        MapleInventoryManipulator.addbyItem(c, MapleItemInformationProvider.getInstance().getEquipById(toCreate));
                     } else {
                         MapleInventoryManipulator.addById(c, toCreate, (byte) 1); // Gem is always 1
                     }
 
                     c.sendPacket(MaplePacketCreator.ItemMaker_Success());
-                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(),
-                            MaplePacketCreator.ItemMaker_Success_3rdParty(c.getPlayer().getId()), false);
+                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(), MaplePacketCreator.ItemMaker_Success_3rdParty(c.getPlayer().getId()), false);
                 } else {
                     final boolean stimulator = slea.readByte() > 0;
                     final int numEnchanter = slea.readInt();
@@ -157,8 +149,7 @@ public class ItemMakerHandler {
                     if (stimulator || numEnchanter > 0) {
                         if (c.getPlayer().haveItem(create.getStimulator(), 1, false, true)) {
                             ii.randomizeStats(toGive);
-                            MapleInventoryManipulator.removeById(c, MapleInventoryType.ETC, create.getStimulator(), 1,
-                                    false, false);
+                            MapleInventoryManipulator.removeById(c, MapleInventoryType.ETC, create.getStimulator(), 1, false, false);
                         }
                         for (int i = 0; i < numEnchanter; i++) {
                             final int enchant = slea.readInt();
@@ -166,16 +157,14 @@ public class ItemMakerHandler {
                                 final Map<String, Byte> stats = ii.getItemMakeStats(enchant);
                                 if (stats != null) {
                                     addEnchantStats(stats, toGive);
-                                    MapleInventoryManipulator.removeById(c, MapleInventoryType.ETC, enchant, 1, false,
-                                            false);
+                                    MapleInventoryManipulator.removeById(c, MapleInventoryType.ETC, enchant, 1, false, false);
                                 }
                             }
                         }
                     }
                     MapleInventoryManipulator.addbyItem(c, toGive);
                     c.sendPacket(MaplePacketCreator.ItemMaker_Success());
-                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(),
-                            MaplePacketCreator.ItemMaker_Success_3rdParty(c.getPlayer().getId()), false);
+                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(), MaplePacketCreator.ItemMaker_Success_3rdParty(c.getPlayer().getId()), false);
                 }
                 break;
             }
@@ -187,8 +176,7 @@ public class ItemMakerHandler {
                     MapleInventoryManipulator.removeById(c, MapleInventoryType.ETC, etc, 100, false, false);
 
                     c.sendPacket(MaplePacketCreator.ItemMaker_Success());
-                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(),
-                            MaplePacketCreator.ItemMaker_Success_3rdParty(c.getPlayer().getId()), false);
+                    c.getPlayer().getMap().broadcastMessage(c.getPlayer(), MaplePacketCreator.ItemMaker_Success_3rdParty(c.getPlayer().getId()), false);
                 }
                 break;
             }
@@ -210,19 +198,18 @@ public class ItemMakerHandler {
                     MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.EQUIP, slot, (byte) 1, false);
                 }
                 c.sendPacket(MaplePacketCreator.ItemMaker_Success());
-                c.getPlayer().getMap().broadcastMessage(c.getPlayer(),
-                        MaplePacketCreator.ItemMaker_Success_3rdParty(c.getPlayer().getId()), false);
+                c.getPlayer().getMap().broadcastMessage(c.getPlayer(), MaplePacketCreator.ItemMaker_Success_3rdParty(c.getPlayer().getId()), false);
                 break;
             }
         }
         if (b) {
-            // 是永恒/重生迷之蛋
+            //是永恒/重生迷之蛋
             short i = slea2.readShort();
             if (i < 1 || i > 96) {
                 c.getPlayer().dropMessage(5, "使用迷之蛋错误");
                 return;
             } else {
-                // 蛋的id
+                //蛋的id
                 int itemid = slea2.readInt();
                 MapleCharacter player = c.getPlayer();
                 if (!player.canHold()) {
@@ -231,16 +218,16 @@ public class ItemMakerHandler {
                 }
 
                 if (itemid == 4280000) {
-                    // 永恒
+                    //永恒
                     if (player.haveItem(5490000, 1)) {
                         player.removeItem(itemid, -1);
                         player.removeItem(5490000, -1);
                         int ran = Randomizer.nextInt(1000);
                         /*
-                         * if (ran < 300) {
-                         * addById(永恒装备, c);
-                         * }
-                         */
+                        if (ran < 300) {
+                            addById(永恒装备, c);
+                        }
+                        */
                         addById(迷之蛋随机物品, c);
                         player.dropMessage(1, "使用成功");
                     } else {
@@ -248,16 +235,16 @@ public class ItemMakerHandler {
                         return;
                     }
                 } else if (itemid == 4280001) {
-                    // 重生
+                    //重生
                     if (player.haveItem(5490001, 1)) {
                         player.removeItem(itemid, -1);
                         player.removeItem(5490001, -1);
                         int ran = Randomizer.nextInt(1000);
                         /*
-                         * if (ran < 300) {
-                         * addById(重生装备, c);
-                         * }
-                         */
+                        if (ran < 300) {
+                            addById(重生装备, c);
+                        }
+                        */
                         addById(迷之蛋随机物品, c);
                         player.dropMessage(1, "使用成功");
                     } else {
@@ -271,7 +258,7 @@ public class ItemMakerHandler {
 
     public static void main(String[] args) {
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        for (int itemid : 迷之蛋随机物品) {
+        for (int itemid:迷之蛋随机物品) {
             if (!ii.itemExists(itemid)) {
                 System.out.println(itemid);
             }
@@ -458,8 +445,7 @@ public class ItemMakerHandler {
         }
         for (final Pair<Integer, Integer> p : recipe) {
             itemid = p.getLeft();
-            MapleInventoryManipulator.removeById(c, GameConstants.getInventoryType(itemid), itemid, p.getRight(), false,
-                    false);
+            MapleInventoryManipulator.removeById(c, GameConstants.getInventoryType(itemid), itemid, p.getRight(), false, false);
         }
         return itemid;
     }

@@ -29,7 +29,7 @@ public class PlayerRandomStream {
     private transient long seed1_, seed2_, seed3_;
     private transient long seed1__, seed2__, seed3__;
     private transient long seed1___, seed2___, seed3___;
-//    private transient int past_s1 = -1, past_s2 = -1, past_s3 = -1;
+    // private transient int past_s1 = -1, past_s2 = -1, past_s3 = -1;
 
     public PlayerRandomStream() {
         final int v4 = 5;

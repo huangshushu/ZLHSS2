@@ -4,13 +4,12 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public final class ConcurrentEnumMap<K extends Enum<K>, V> extends EnumMap<K, V> implements Serializable { // TODO:
-                                                                                                           // Implement
-                                                                                                           // Externalizable.
+public final class ConcurrentEnumMap<K extends Enum<K>, V> extends EnumMap<K, V> implements Serializable { //TODO: Implement Externalizable.
 
     private static final long serialVersionUID = 11920818021L;
     private ReentrantReadWriteLock reentlock = new ReentrantReadWriteLock();

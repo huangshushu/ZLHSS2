@@ -21,14 +21,15 @@
  */
 package client.inventory;
 
-import database.DBConPool;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.io.Serializable;
+
+import database.DBConPool;
 import tools.FileoutputUtil;
 
 public class MapleInventoryIdentifier implements Serializable {
@@ -59,7 +60,7 @@ public class MapleInventoryIdentifier implements Serializable {
     public int grabRunningUID() {
         readLock.lock();
         try {
-            return runningUID.get(); //maybe we should really synchronize/do more here..
+            return runningUID.get(); // maybe we should really synchronize/do more here..
         } finally {
             readLock.unlock();
         }
@@ -70,12 +71,12 @@ public class MapleInventoryIdentifier implements Serializable {
     }
 
     public void setRunningUID(int rUID) {
-        if (rUID < grabRunningUID()) { //dont go backwards.
+        if (rUID < grabRunningUID()) { // dont go backwards.
             return;
         }
         writeLock.lock();
         try {
-            runningUID.set(rUID); //maybe we should really synchronize/do more here..
+            runningUID.set(rUID); // maybe we should really synchronize/do more here..
         } finally {
             writeLock.unlock();
         }
@@ -115,7 +116,7 @@ public class MapleInventoryIdentifier implements Serializable {
             ps = con.prepareStatement("SELECT MAX(partnerringid) FROM rings");
             rs = ps.executeQuery();
             if (rs.next()) {
-                ids[3] = rs.getInt(1) + 1; //biggest pl0x. but if this happens -> o_O
+                ids[3] = rs.getInt(1) + 1; // biggest pl0x. but if this happens -> o_O
             }
             rs.close();
             ps.close();
