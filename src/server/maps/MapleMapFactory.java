@@ -67,7 +67,7 @@ public class MapleMapFactory {
         return getMap(mapid, true, true, true);
     }
 
-    //backwards-compatible
+    // backwards-compatible
     public final MapleMap getMap(final int mapid, final boolean respawns, final boolean npcs) {
         return getMap(mapid, respawns, npcs, true);
     }
@@ -118,8 +118,12 @@ public class MapleMapFactory {
                     for (MapleData footCat : footRoot) {
                         for (MapleData footHold : footCat) {
                             fh = new MapleFoothold(new Point(
-                                    MapleDataTool.getInt(footHold.getChildByPath("x1")), MapleDataTool.getInt(footHold.getChildByPath("y1"))), new Point(
-                                    MapleDataTool.getInt(footHold.getChildByPath("x2")), MapleDataTool.getInt(footHold.getChildByPath("y2"))), Integer.parseInt(footHold.getName()));
+                                    MapleDataTool.getInt(footHold.getChildByPath("x1")),
+                                    MapleDataTool.getInt(footHold.getChildByPath("y1"))),
+                                    new Point(
+                                            MapleDataTool.getInt(footHold.getChildByPath("x2")),
+                                            MapleDataTool.getInt(footHold.getChildByPath("y2"))),
+                                    Integer.parseInt(footHold.getName()));
                             fh.setPrev((short) MapleDataTool.getInt(footHold.getChildByPath("prev")));
                             fh.setNext((short) MapleDataTool.getInt(footHold.getChildByPath("next")));
 
@@ -172,13 +176,15 @@ public class MapleMapFactory {
                 for (MapleData life : mapData.getChildByPath("life")) {
                     type = MapleDataTool.getString(life.getChildByPath("type"));
                     limited = MapleDataTool.getString("limitedname", life, "");
-                    if ((npcs || !type.equals("n")) && !limited.equals("Stage0")) { //alien pq stuff
+                    if ((npcs || !type.equals("n")) && !limited.equals("Stage0")) { // alien pq stuff
                         myLife = loadLife(life, MapleDataTool.getString(life.getChildByPath("id")), type);
 
                         if (myLife instanceof MapleMonster && !GameConstants.isNoSpawn(mapid)) {
                             final MapleMonster mob = (MapleMonster) myLife;
 
-                            herbRocks.add(map.addMonsterSpawn(mob, MapleDataTool.getInt("mobTime", life, 0), (byte) MapleDataTool.getInt("team", life, -1), mob.getId() == bossid ? msg : null).getPosition());
+                            herbRocks.add(map.addMonsterSpawn(mob, MapleDataTool.getInt("mobTime", life, 0),
+                                    (byte) MapleDataTool.getInt("team", life, -1), mob.getId() == bossid ? msg : null)
+                                    .getPosition());
                             if (mob.getStats().getLevel() > highestLevel && !mob.getStats().isBoss()) {
                                 highestLevel = mob.getStats().getLevel();
                             }
@@ -192,49 +198,54 @@ public class MapleMapFactory {
                                     spawn = false;
                                 }
                             }
-                            /*for (int id : GameConstants.unusedNpcs) {
-                             if (myLife.getId() == id) {
-                             spawn = false;
-                             }
-                             }*/
+                            /*
+                             * for (int id : GameConstants.unusedNpcs) {
+                             * if (myLife.getId() == id) {
+                             * spawn = false;
+                             * }
+                             * }
+                             */
                             if (spawn) {
                                 map.addMapObject(myLife);
                             }
                         }
-                        
+
                     }
-                    
+
                 }
-//                try {
-//                    java.sql.Connection con = DBConPool.getInstance().getDataSource().getConnection();
-//                    java.sql.PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_customlife WHERE mid = ?");
-//                    ps.setInt(1, omapid);
-//                    ResultSet rs = ps.executeQuery();
-//                    while (rs.next()) {
-//                        int id = rs.getInt("dataid");
-//                        int f = rs.getInt("f");
-//                        boolean hide = false;
-//                        String types = rs.getString("type");
-//                        int fhs = rs.getInt("fh");
-//                        int cy = rs.getInt("cy");
-//                        int rx0 = rs.getInt("rx0");
-//                        int rx1 = rs.getInt("rx1");
-//                        int x = rs.getInt("x");
-//                        int y = rs.getInt("y");
-//                        int mobTime = rs.getInt("mobtime");
-//                        AbstractLoadedMapleLife myLife2 = loadLife(id, f, hide, fhs, cy, rx0, rx1, x, y, types, mobTime);
-//                        if (types.equals("n")) {
-//                            map.addMapObject(myLife2);
-//                        } else if (types.equals("m")) {
-//                            MapleMonster monster = (MapleMonster) myLife2;
-//                            map.addMonsterSpawn(monster, mobTime, (byte) -1, null);
-//                        }
-//                    }
-//                    ps.close();
-//                    rs.close();
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
+                // try {
+                // java.sql.Connection con =
+                // DBConPool.getInstance().getDataSource().getConnection();
+                // java.sql.PreparedStatement ps = con.prepareStatement("SELECT * FROM
+                // wz_customlife WHERE mid = ?");
+                // ps.setInt(1, omapid);
+                // ResultSet rs = ps.executeQuery();
+                // while (rs.next()) {
+                // int id = rs.getInt("dataid");
+                // int f = rs.getInt("f");
+                // boolean hide = false;
+                // String types = rs.getString("type");
+                // int fhs = rs.getInt("fh");
+                // int cy = rs.getInt("cy");
+                // int rx0 = rs.getInt("rx0");
+                // int rx1 = rs.getInt("rx1");
+                // int x = rs.getInt("x");
+                // int y = rs.getInt("y");
+                // int mobTime = rs.getInt("mobtime");
+                // AbstractLoadedMapleLife myLife2 = loadLife(id, f, hide, fhs, cy, rx0, rx1, x,
+                // y, types, mobTime);
+                // if (types.equals("n")) {
+                // map.addMapObject(myLife2);
+                // } else if (types.equals("m")) {
+                // MapleMonster monster = (MapleMonster) myLife2;
+                // map.addMonsterSpawn(monster, mobTime, (byte) -1, null);
+                // }
+                // }
+                // ps.close();
+                // rs.close();
+                // } catch (SQLException e) {
+                // e.printStackTrace();
+                // }
                 final List<AbstractLoadedMapleLife> custom = customLife.get(mapid);
                 if (custom != null) {
                     for (AbstractLoadedMapleLife n : custom) {
@@ -242,37 +253,42 @@ public class MapleMapFactory {
                             case "n":
                                 map.addMapObject(n);
                                 break;
-                            //case "m":
-                            //       final MapleMonster monster = (MapleMonster) n;
-                            //      map.addMonsterSpawn(monster, n.getMTime(), (byte) -1, null);
-                            //     break;
+                            // case "m":
+                            // final MapleMonster monster = (MapleMonster) n;
+                            // map.addMonsterSpawn(monster, n.getMTime(), (byte) -1, null);
+                            // break;
                         }
                     }
                 }
                 addAreaBossSpawn(map);
-                map.setCreateMobInterval((short) MapleDataTool.getInt(mapData.getChildByPath("info/createMobInterval"), 9000));
+                map.setCreateMobInterval(
+                        (short) MapleDataTool.getInt(mapData.getChildByPath("info/createMobInterval"), 9000));
                 map.loadMonsterRate(true);
                 map.setNodes(loadNodes(mapid, mapData));
 
-                //load reactor data
+                // load reactor data
                 String id;
                 if (reactors && mapData.getChildByPath("reactor") != null) {
                     for (MapleData reactor : mapData.getChildByPath("reactor")) {
                         id = MapleDataTool.getString(reactor.getChildByPath("id"));
                         if (id != null) {
-                            map.spawnReactor(loadReactor(reactor, id, (byte) MapleDataTool.getInt(reactor.getChildByPath("f"), 0)));
+                            map.spawnReactor(loadReactor(reactor, id,
+                                    (byte) MapleDataTool.getInt(reactor.getChildByPath("f"), 0)));
                         }
                     }
                 }
 
                 try {
-                    map.setMapName(MapleDataTool.getString("mapName", nameData.getChildByPath(getMapStringName(omapid)), ""));
-                    map.setStreetName(MapleDataTool.getString("streetName", nameData.getChildByPath(getMapStringName(omapid)), ""));
+                    map.setMapName(
+                            MapleDataTool.getString("mapName", nameData.getChildByPath(getMapStringName(omapid)), ""));
+                    map.setStreetName(MapleDataTool.getString("streetName",
+                            nameData.getChildByPath(getMapStringName(omapid)), ""));
                 } catch (Exception e) {
                     map.setMapName("");
                     map.setStreetName("");
                 }
-                map.setClock(mapData.getChildByPath("clock") != null); //clock was changed in wz to have x,y,width,height
+                map.setClock(mapData.getChildByPath("clock") != null); // clock was changed in wz to have
+                                                                       // x,y,width,height
                 map.setEverlast(MapleDataTool.getInt(mapData.getChildByPath("info/everlast"), 0) > 0);
                 map.setTown(MapleDataTool.getInt(mapData.getChildByPath("info/town"), 0) > 0);
                 map.setSoaring(MapleDataTool.getInt(mapData.getChildByPath("info/needSkillForFly"), 0) > 0);
@@ -303,10 +319,10 @@ public class MapleMapFactory {
                         case "n":
                             map.addMapObject(n);
                             break;
-                        //  case "m":
-                        //      final MapleMonster monster = (MapleMonster) n;
-                        //       map.addMonsterSpawn(monster, n.getMTime(), (byte) -1, null);
-                        //       break;
+                        // case "m":
+                        // final MapleMonster monster = (MapleMonster) n;
+                        // map.addMonsterSpawn(monster, n.getMTime(), (byte) -1, null);
+                        // break;
                     }
                 }
             }
@@ -367,8 +383,12 @@ public class MapleMapFactory {
             for (MapleData footCat : footRoot) {
                 for (MapleData footHold : footCat) {
                     MapleFoothold fh = new MapleFoothold(new Point(
-                            MapleDataTool.getInt(footHold.getChildByPath("x1")), MapleDataTool.getInt(footHold.getChildByPath("y1"))), new Point(
-                            MapleDataTool.getInt(footHold.getChildByPath("x2")), MapleDataTool.getInt(footHold.getChildByPath("y2"))), Integer.parseInt(footHold.getName()));
+                            MapleDataTool.getInt(footHold.getChildByPath("x1")),
+                            MapleDataTool.getInt(footHold.getChildByPath("y1"))),
+                            new Point(
+                                    MapleDataTool.getInt(footHold.getChildByPath("x2")),
+                                    MapleDataTool.getInt(footHold.getChildByPath("y2"))),
+                            Integer.parseInt(footHold.getName()));
                     fh.setPrev((short) MapleDataTool.getInt(footHold.getChildByPath("prev")));
                     fh.setNext((short) MapleDataTool.getInt(footHold.getChildByPath("next")));
 
@@ -412,7 +432,8 @@ public class MapleMapFactory {
                 if (myLife instanceof MapleMonster) {
                     final MapleMonster mob = (MapleMonster) myLife;
 
-                    map.addMonsterSpawn(mob, MapleDataTool.getInt("mobTime", life, 0), (byte) MapleDataTool.getInt("team", life, -1), mob.getId() == bossid ? msg : null);
+                    map.addMonsterSpawn(mob, MapleDataTool.getInt("mobTime", life, 0),
+                            (byte) MapleDataTool.getInt("team", life, -1), mob.getId() == bossid ? msg : null);
 
                 } else {
                     map.addMapObject(myLife);
@@ -424,19 +445,21 @@ public class MapleMapFactory {
         map.loadMonsterRate(true);
         map.setNodes(loadNodes(mapid, mapData));
 
-        //load reactor data
+        // load reactor data
         String id;
         if (reactors && mapData.getChildByPath("reactor") != null) {
             for (MapleData reactor : mapData.getChildByPath("reactor")) {
                 id = MapleDataTool.getString(reactor.getChildByPath("id"));
                 if (id != null) {
-                    map.spawnReactor(loadReactor(reactor, id, (byte) MapleDataTool.getInt(reactor.getChildByPath("f"), 0)));
+                    map.spawnReactor(
+                            loadReactor(reactor, id, (byte) MapleDataTool.getInt(reactor.getChildByPath("f"), 0)));
                 }
             }
         }
         try {
             map.setMapName(MapleDataTool.getString("mapName", nameData.getChildByPath(getMapStringName(mapid)), ""));
-            map.setStreetName(MapleDataTool.getString("streetName", nameData.getChildByPath(getMapStringName(mapid)), ""));
+            map.setStreetName(
+                    MapleDataTool.getString("streetName", nameData.getChildByPath(getMapStringName(mapid)), ""));
         } catch (Exception e) {
             map.setMapName("");
             map.setStreetName("");
@@ -505,7 +528,8 @@ public class MapleMapFactory {
         myLife.setFh(MapleDataTool.getInt(life.getChildByPath("fh")));
         myLife.setRx0(MapleDataTool.getInt(life.getChildByPath("rx0")));
         myLife.setRx1(MapleDataTool.getInt(life.getChildByPath("rx1")));
-        myLife.setPosition(new Point(MapleDataTool.getInt(life.getChildByPath("x")), MapleDataTool.getInt(life.getChildByPath("y"))));
+        myLife.setPosition(new Point(MapleDataTool.getInt(life.getChildByPath("x")),
+                MapleDataTool.getInt(life.getChildByPath("y"))));
 
         if (MapleDataTool.getInt("hide", life, 0) == 1 && myLife instanceof MapleNPC) {
             myLife.setHide(true);
@@ -518,7 +542,8 @@ public class MapleMapFactory {
         final MapleReactor myReactor = new MapleReactor(stats, Integer.parseInt(id));
 
         stats.setFacingDirection(FacingDirection);
-        myReactor.setPosition(new Point(MapleDataTool.getInt(reactor.getChildByPath("x")), MapleDataTool.getInt(reactor.getChildByPath("y"))));
+        myReactor.setPosition(new Point(MapleDataTool.getInt(reactor.getChildByPath("x")),
+                MapleDataTool.getInt(reactor.getChildByPath("y"))));
         myReactor.setDelay(MapleDataTool.getInt(reactor.getChildByPath("reactorTime")) * 1000);
         myReactor.setState((byte) 0);
         myReactor.setName(MapleDataTool.getString(reactor.getChildByPath("name"), ""));
@@ -678,7 +703,7 @@ public class MapleMapFactory {
                 pos2 = new Point(-4283, 776);
                 pos3 = new Point(-3292, 776);
                 break;
-            case 240040401: // Lev
+            case 240040401: // 大海兽
                 mobtime = 7200;
                 monsterid = 8220003;
                 msg = "寒霜冰龙出现了！";
@@ -710,11 +735,27 @@ public class MapleMapFactory {
                 pos2 = new Point(-272, -500);
                 pos3 = new Point(-462, 640);
                 break;
+            case 240020101: // 天鹰
+                mobtime = 2700;
+                monsterid = 8180001;
+                msg = "天鹰出现了！";
+                pos1 = new Point(-291, -20);
+                pos2 = new Point(-272, -500);
+                pos3 = new Point(-462, 640);
+                break;
+            case 240020401: // 火焰龙
+                mobtime = 2700;
+                monsterid = 8180000;
+                msg = "火焰龙出现了！";
+                pos1 = new Point(-291, -20);
+                pos2 = new Point(-272, -500);
+                pos3 = new Point(-462, 640);
+                break;
             default:
                 return;
         }
         if (monsterid > 0) {
-            map.addAreaMonsterSpawn(MapleLifeFactory.getMonster(monsterid),pos1, pos2, pos3,mobtime,msg);
+            map.addAreaMonsterSpawn(MapleLifeFactory.getMonster(monsterid), pos1, pos2, pos3, mobtime, msg);
         }
     }
 
@@ -747,7 +788,7 @@ public class MapleMapFactory {
                                 MapleDataTool.getIntConvert("attr", node, 0), edges);
                         nodeInfo.addNode(mni);
                     } catch (NumberFormatException e) {
-                    } //start, end, edgeInfo = we dont need it
+                    } // start, end, edgeInfo = we dont need it
                 }
                 nodeInfo.sortNodes();
             }
@@ -801,12 +842,16 @@ public class MapleMapFactory {
                 }
                 if (mc.getChildByPath("mob") != null) {
                     for (MapleData area : mc.getChildByPath("mob")) {
-                        nodeInfo.addMobSpawn(MapleDataTool.getInt(area.getChildByPath("id")), MapleDataTool.getInt(area.getChildByPath("spendCP")));
+                        nodeInfo.addMobSpawn(MapleDataTool.getInt(area.getChildByPath("id")),
+                                MapleDataTool.getInt(area.getChildByPath("spendCP")));
                     }
                 }
                 if (mc.getChildByPath("guardianGenPos") != null) {
                     for (MapleData area : mc.getChildByPath("guardianGenPos")) {
-                        nodeInfo.addGuardianSpawn(new Point(MapleDataTool.getInt(area.getChildByPath("x")), MapleDataTool.getInt(area.getChildByPath("y"))), MapleDataTool.getInt("team", area, -1));
+                        nodeInfo.addGuardianSpawn(
+                                new Point(MapleDataTool.getInt(area.getChildByPath("x")),
+                                        MapleDataTool.getInt(area.getChildByPath("y"))),
+                                MapleDataTool.getInt("team", area, -1));
                     }
                 }
                 if (mc.getChildByPath("skill") != null) {
@@ -840,14 +885,18 @@ public class MapleMapFactory {
             customLife.clear(); // init
             changed = true;
         }
-//        if (!customLife.isEmpty()) {
-//            return customLife.size();
-//        }
+        // if (!customLife.isEmpty()) {
+        // return customLife.size();
+        // }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            try (java.sql.PreparedStatement ps = con.prepareStatement("SELECT * FROM `wz_customlife`"); ResultSet rs = ps.executeQuery()) {
+            try (java.sql.PreparedStatement ps = con.prepareStatement("SELECT * FROM `wz_customlife`");
+                    ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     final int mapid = rs.getInt("mid");
-                    final AbstractLoadedMapleLife myLife = loadLife(rs.getInt("dataid"), rs.getInt("f"), rs.getByte("hide") > 0, rs.getInt("fh"), rs.getInt("cy"), rs.getInt("rx0"), rs.getInt("rx1"), rs.getInt("x"), rs.getInt("y"), rs.getString("type"), rs.getInt("mobtime"));
+                    final AbstractLoadedMapleLife myLife = loadLife(rs.getInt("dataid"), rs.getInt("f"),
+                            rs.getByte("hide") > 0, rs.getInt("fh"), rs.getInt("cy"), rs.getInt("rx0"),
+                            rs.getInt("rx1"), rs.getInt("x"), rs.getInt("y"), rs.getString("type"),
+                            rs.getInt("mobtime"));
                     if (myLife == null) {
                         continue;
                     }
@@ -858,7 +907,7 @@ public class MapleMapFactory {
                         RemovecustomLife.put(mapid, collections);
                         customLife.put(mapid, collections);
                     } else {
-                        collections.addAll(entries); //re-add
+                        collections.addAll(entries); // re-add
                         collections.add(myLife);
                         RemovecustomLife.put(mapid, collections);
                         customLife.put(mapid, collections);
@@ -873,7 +922,8 @@ public class MapleMapFactory {
         return -1;
     }
 
-    private static AbstractLoadedMapleLife loadLife(int id, int f, boolean hide, int fh, int cy, int rx0, int rx1, int x, int y, String type, int mtime) {
+    private static AbstractLoadedMapleLife loadLife(int id, int f, boolean hide, int fh, int cy, int rx0, int rx1,
+            int x, int y, String type, int mtime) {
         final AbstractLoadedMapleLife myLife = MapleLifeFactory.getLife(id, type);
         if (myLife == null) {
             System.err.println("自订 npc " + id + " 异常...");
