@@ -7,10 +7,6 @@ package tools;
 
 import java.io.Serializable;
 
-/**
- *
- * @author XiaoMaDengDengWo
- */
 public class Quadra<F, S, T, Fo> implements Serializable {
 
     private static final long serialVersionUID = 9179541993413739999L;
@@ -102,4 +98,3 @@ public class Quadra<F, S, T, Fo> implements Serializable {
         return true;
     }
 }
-

@@ -58,10 +58,10 @@ public class MapleCoconut extends MapleEvent {
     }
 
     public MapleCoconuts getCoconut(int id) {
-        //    if (coconuts.size() > id) {
+        // if (coconuts.size() > id) {
         return coconuts.get(id);
-        //   }
-        //    return null;
+        // }
+        // return null;
     }
 
     public List<MapleCoconuts> getAllCoconuts() {
@@ -218,7 +218,8 @@ public class MapleCoconut extends MapleEvent {
             @Override
             public void run() {
                 for (MapleCharacter chr : getMap(0).getCharactersThreadsafe()) {
-                    if ((getMapleScore() > getStoryScore() && chr.getCoconutTeam() == 0) || (getStoryScore() > getMapleScore() && chr.getCoconutTeam() == 1)) {
+                    if ((getMapleScore() > getStoryScore() && chr.getCoconutTeam() == 0)
+                            || (getStoryScore() > getMapleScore() && chr.getCoconutTeam() == 1)) {
                         givePrize(chr);
                     }
                     warpBack(chr);

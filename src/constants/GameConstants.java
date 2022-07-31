@@ -618,7 +618,7 @@ public class GameConstants {
             case 5211005: // Ice Splitter
             case 4201005: // Savage blow
                 return 480;
-            case 0: // Normal Attack, TODO delay for each weapon type
+            case 0: // Normal Attack
             case 5111002: // Energy Blast
             case 15101005: // Energy Blast
             case 1001004: // Power Strike
@@ -743,7 +743,7 @@ public class GameConstants {
             case 10001011: // Meteo Shower
                 return 3060;
         }
-        // TODO delay for final attack, weapon type, swing,stab etc
+
         return 330; // Default usually
     }
 
@@ -2073,7 +2073,7 @@ public class GameConstants {
         return false;
     }
 
-    public static int Equipment_Bonus_EXP(final int itemid) { // TODO : Add Time for more exp increase
+    public static int Equipment_Bonus_EXP(final int itemid) {
         switch (itemid) {
             case 1122017:
             case 1122086:

@@ -1,18 +1,11 @@
 package scripting;
 
-import client.MapleClient;
-import client.Skill;
-import client.SkillEntry;
-import client.SkillFactory;
-import client.inventory.IItem;
-import client.inventory.Item;
-import client.inventory.MapleInventoryType;
-import constants.GameConstants;
-import java.util.Map;
 import javax.script.Invocable;
-import scripting.NPCConversationManager;
+
+import client.MapleClient;
+import client.inventory.IItem;
+import client.inventory.MapleInventoryType;
 import server.MapleInventoryManipulator;
-import tools.MaplePacketCreator;
 
 public class ItemActionManager extends NPCConversationManager {
 

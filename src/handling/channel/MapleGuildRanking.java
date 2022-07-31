@@ -75,7 +75,8 @@ public class MapleGuildRanking {
     private void reload() {
         ranks.clear();
         ResultSet rs;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT * FROM guilds ORDER BY `GP` DESC LIMIT 50")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM guilds ORDER BY `GP` DESC LIMIT 50")) {
             rs = ps.executeQuery();
             while (rs.next()) {
                 final GuildRankingInfo rank = new GuildRankingInfo(
@@ -99,7 +100,8 @@ public class MapleGuildRanking {
     private void showLevelRank() {
         ranks1.clear();
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM characters WHERE gm < 1 ORDER BY `level` DESC LIMIT 100");
+            PreparedStatement ps = con
+                    .prepareStatement("SELECT * FROM characters WHERE gm < 1 ORDER BY `level` DESC LIMIT 100");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -123,7 +125,9 @@ public class MapleGuildRanking {
     private void showMesoRank() {
         ranks2.clear();
         ResultSet rs;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT *, ( chr.meso + s.meso ) as money FROM `characters` as chr , `storages` as s WHERE chr.gm < 1  AND s.accountid = chr.accountid ORDER BY money DESC LIMIT 20")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con.prepareStatement(
+                        "SELECT *, ( chr.meso + s.meso ) as money FROM `characters` as chr , `storages` as s WHERE chr.gm < 1  AND s.accountid = chr.accountid ORDER BY money DESC LIMIT 20")) {
             rs = ps.executeQuery();
             while (rs.next()) {
                 final mesoRankingInfo rank2 = new mesoRankingInfo(
@@ -164,9 +168,10 @@ public class MapleGuildRanking {
         }
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM characters WHERE gm = 0 " + jobRange + " and accountid in (select id from accounts where banned= '0') ORDER BY `level` DESC LIMIT 10");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM characters WHERE gm = 0 " + jobRange
+                    + " and accountid in (select id from accounts where banned= '0') ORDER BY `level` DESC LIMIT 10");
             ResultSet rs = ps.executeQuery();
-            LinkedList<JobRankingInfo> JobRankList = new LinkedList();
+            final LinkedList<JobRankingInfo> JobRankList = new LinkedList();
             while (rs.next()) {
                 final JobRankingInfo JobRank = new JobRankingInfo(
                         rs.getString("name"),

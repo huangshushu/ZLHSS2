@@ -1,14 +1,12 @@
 package handling.world;
 
-import client.BuddyList;
-import client.BuddyList.BuddyAddResult;
-import client.BuddyList.BuddyOperation;
 import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -16,12 +14,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import client.BuddyEntry;
+import client.BuddyList;
+import client.BuddyList.BuddyAddResult;
+import client.BuddyList.BuddyOperation;
 import client.MapleBuffStat;
-
 import client.MapleCharacter;
-import client.MapleClient;
-
 import client.MapleCoolDownValueHolder;
 import client.MapleDiseaseValueHolder;
 import client.inventory.MapleInventoryType;
@@ -29,7 +28,6 @@ import client.inventory.MaplePet;
 import client.inventory.PetDataFactory;
 import client.status.MonsterStatusEffect;
 import constants.GameConstants;
-import constants.WorldConstants;
 import database.DBConPool;
 import handling.cashshop.CashShopServer;
 import handling.channel.ChannelServer;
@@ -41,7 +39,6 @@ import handling.world.guild.MapleGuild;
 import handling.world.guild.MapleGuildAlliance;
 import handling.world.guild.MapleGuildCharacter;
 import handling.world.guild.MapleGuildSummary;
-import java.util.Collection;
 import scripting.ReactorScriptManager;
 import server.Randomizer;
 import server.Timer;
@@ -187,8 +184,9 @@ public class World {
             for (MaplePartyCharacter partychar : party.getMembers()) {
                 int ch = Find.findChannel(partychar.getName());
                 if (ch > 0) {
-                    MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(partychar.getName());
-                    if (chr != null && !chr.getName().equalsIgnoreCase(namefrom)) { //Extra check just in case
+                    MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage()
+                            .getCharacterByName(partychar.getName());
+                    if (chr != null && !chr.getName().equalsIgnoreCase(namefrom)) { // Extra check just in case
                         chr.getClient().sendPacket(MaplePacketCreator.multiChat(namefrom, chattext, 1));
                     }
                 }
@@ -198,8 +196,9 @@ public class World {
         public static void updateParty(int partyid, PartyOperation operation, MaplePartyCharacter target) {
             MapleParty party = getParty(partyid);
             if (party == null) {
-                return; //Don't update, just return. And definitely don't throw a damn exception.
-                //throw new IllegalArgumentException("no party with the specified partyid exists");
+                return; // Don't update, just return. And definitely don't throw a damn exception.
+                // throw new IllegalArgumentException("no party with the specified partyid
+                // exists");
             }
             switch (operation) {
                 case JOIN:
@@ -227,14 +226,16 @@ public class World {
             for (MaplePartyCharacter partychar : party.getMembers()) {
                 int ch = Find.findChannel(partychar.getName());
                 if (ch > 0) {
-                    MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(partychar.getName());
+                    MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage()
+                            .getCharacterByName(partychar.getName());
                     if (chr != null) {
                         if (operation == PartyOperation.DISBAND) {
                             chr.setParty(null);
                         } else {
                             chr.setParty(party);
                         }
-                        chr.getClient().sendPacket(MaplePacketCreator.updateParty(chr.getClient().getChannel(), party, operation, target));
+                        chr.getClient().sendPacket(
+                                MaplePacketCreator.updateParty(chr.getClient().getChannel(), party, operation, target));
                     }
                 }
             }
@@ -243,9 +244,11 @@ public class World {
                 case EXPEL:
                     int ch = Find.findChannel(target.getName());
                     if (ch > 0) {
-                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(target.getName());
+                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage()
+                                .getCharacterByName(target.getName());
                         if (chr != null) {
-                            chr.getClient().sendPacket(MaplePacketCreator.updateParty(chr.getClient().getChannel(), party, operation, target));
+                            chr.getClient().sendPacket(MaplePacketCreator.updateParty(chr.getClient().getChannel(),
+                                    party, operation, target));
                             chr.setParty(null);
                         }
                     }
@@ -282,7 +285,8 @@ public class World {
             }
         }
 
-        private static void updateBuddies(int characterId, int channel, Collection<Integer> buddies, boolean offline, int gmLevel, boolean isHidden) {
+        private static void updateBuddies(int characterId, int channel, Collection<Integer> buddies, boolean offline,
+                int gmLevel, boolean isHidden) {
             for (Integer buddy : buddies) {
                 int ch = Find.findChannel(buddy);
                 if (ch > 0) {
@@ -299,14 +303,16 @@ public class World {
                                 mcChannel = channel - 1;
                             }
                             chr.getBuddylist().put(ble);
-                            chr.getClient().sendPacket(MaplePacketCreator.updateBuddyChannel(ble.getCharacterId(), mcChannel));
+                            chr.getClient()
+                                    .sendPacket(MaplePacketCreator.updateBuddyChannel(ble.getCharacterId(), mcChannel));
                         }
                     }
                 }
             }
         }
 
-        public static void buddyChanged(int cid, int cidFrom, String name, int channel, BuddyOperation operation, int level, int job, String group) {
+        public static void buddyChanged(int cid, int cidFrom, String name, int channel, BuddyOperation operation,
+                int level, int job, String group) {
             int ch = Find.findChannel(cid);
             if (ch > 0) {
                 final MapleCharacter addChar = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterById(cid);
@@ -316,12 +322,14 @@ public class World {
                         case ADDED:
                             if (buddylist.contains(cidFrom)) {
                                 buddylist.put(new BuddyEntry(name, cidFrom, group, channel, true, level, job));
-                                addChar.getClient().sendPacket(MaplePacketCreator.updateBuddyChannel(cidFrom, channel - 1));
+                                addChar.getClient()
+                                        .sendPacket(MaplePacketCreator.updateBuddyChannel(cidFrom, channel - 1));
                             }
                             break;
                         case DELETED:
                             if (buddylist.contains(cidFrom)) {
-                                buddylist.put(new BuddyEntry(name, cidFrom, group, -1, buddylist.get(cidFrom).isVisible(), level, job));
+                                buddylist.put(new BuddyEntry(name, cidFrom, group, -1,
+                                        buddylist.get(cidFrom).isVisible(), level, job));
                                 addChar.getClient().sendPacket(MaplePacketCreator.updateBuddyChannel(cidFrom, -1));
                             }
                             break;
@@ -330,18 +338,21 @@ public class World {
             }
         }
 
-        public static BuddyAddResult requestBuddyAdd(String addName, int channelFrom, int cidFrom, String nameFrom, int levelFrom, int jobFrom) {
-            //int ch = Find.findChannel(cidFrom);
+        public static BuddyAddResult requestBuddyAdd(String addName, int channelFrom, int cidFrom, String nameFrom,
+                int levelFrom, int jobFrom) {
+            // int ch = Find.findChannel(cidFrom);
             int ch = World.Find.findChannel(addName);
             if (ch > 0) {
-                final MapleCharacter addChar = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(addName);
+                final MapleCharacter addChar = ChannelServer.getInstance(ch).getPlayerStorage()
+                        .getCharacterByName(addName);
                 if (addChar != null) {
                     final BuddyList buddylist = addChar.getBuddylist();
                     if (buddylist.isFull()) {
                         return BuddyAddResult.BUDDYLIST_FULL;
                     }
                     if (!buddylist.contains(cidFrom)) {
-                        buddylist.addBuddyRequest(addChar.getClient(), cidFrom, nameFrom, channelFrom, levelFrom, jobFrom);
+                        buddylist.addBuddyRequest(addChar.getClient(), cidFrom, nameFrom, channelFrom, levelFrom,
+                                jobFrom);
                     } else if (buddylist.containsVisible(cidFrom)) {
                         return BuddyAddResult.ALREADY_ON_LIST;
                     }
@@ -350,11 +361,13 @@ public class World {
             return BuddyAddResult.OK;
         }
 
-        public static void loggedOn(String name, int characterId, int channel, Collection<Integer> buddies, int gmLevel, boolean isHidden) {
+        public static void loggedOn(String name, int characterId, int channel, Collection<Integer> buddies, int gmLevel,
+                boolean isHidden) {
             updateBuddies(characterId, channel, buddies, false, gmLevel, isHidden);
         }
 
-        public static void loggedOff(String name, int characterId, int channel, Collection<Integer> buddies, int gmLevel, boolean isHidden) {
+        public static void loggedOff(String name, int characterId, int channel, Collection<Integer> buddies,
+                int gmLevel, boolean isHidden) {
             updateBuddies(characterId, channel, buddies, true, gmLevel, isHidden);
         }
     }
@@ -405,7 +418,8 @@ public class World {
                 if (mmc != null) {
                     int ch = Find.findChannel(mmc.getId());
                     if (ch > 0) {
-                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(mmc.getName());
+                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage()
+                                .getCharacterByName(mmc.getName());
                         if (chr != null) {
                             chr.getClient().sendPacket(MaplePacketCreator.removeMessengerPlayer(position));
                         }
@@ -438,17 +452,21 @@ public class World {
                 if (messengerchar != null && !messengerchar.getName().equals(namefrom)) {
                     int ch = Find.findChannel(messengerchar.getName());
                     if (ch > 0) {
-                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(messengerchar.getName());
+                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage()
+                                .getCharacterByName(messengerchar.getName());
                         if (chr != null) {
-                            MapleCharacter from = ChannelServer.getInstance(fromchannel).getPlayerStorage().getCharacterByName(namefrom);
-                            chr.getClient().sendPacket(MaplePacketCreator.updateMessengerPlayer(namefrom, from, position, fromchannel - 1));
+                            MapleCharacter from = ChannelServer.getInstance(fromchannel).getPlayerStorage()
+                                    .getCharacterByName(namefrom);
+                            chr.getClient().sendPacket(MaplePacketCreator.updateMessengerPlayer(namefrom, from,
+                                    position, fromchannel - 1));
                         }
                     }
                 }
             }
         }
 
-        public static void joinMessenger(int messengerid, MapleMessengerCharacter target, String from, int fromchannel) {
+        public static void joinMessenger(int messengerid, MapleMessengerCharacter target, String from,
+                int fromchannel) {
             MapleMessenger messenger = getMessenger(messengerid);
             if (messenger == null) {
                 throw new IllegalArgumentException("No messenger with the specified messengerid exists");
@@ -460,12 +478,16 @@ public class World {
                     int mposition = messenger.getPositionByName(messengerchar.getName());
                     int ch = Find.findChannel(messengerchar.getName());
                     if (ch > 0) {
-                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(messengerchar.getName());
+                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage()
+                                .getCharacterByName(messengerchar.getName());
                         if (chr != null) {
                             if (!messengerchar.getName().equals(from)) {
-                                MapleCharacter fromCh = ChannelServer.getInstance(fromchannel).getPlayerStorage().getCharacterByName(from);
-                                chr.getClient().sendPacket(MaplePacketCreator.addMessengerPlayer(from, fromCh, position, fromchannel - 1));
-                                fromCh.getClient().sendPacket(MaplePacketCreator.addMessengerPlayer(chr.getName(), chr, mposition, messengerchar.getChannel() - 1));
+                                MapleCharacter fromCh = ChannelServer.getInstance(fromchannel).getPlayerStorage()
+                                        .getCharacterByName(from);
+                                chr.getClient().sendPacket(
+                                        MaplePacketCreator.addMessengerPlayer(from, fromCh, position, fromchannel - 1));
+                                fromCh.getClient().sendPacket(MaplePacketCreator.addMessengerPlayer(chr.getName(), chr,
+                                        mposition, messengerchar.getChannel() - 1));
                             } else {
                                 chr.getClient().sendPacket(MaplePacketCreator.joinMessenger(mposition));
                             }
@@ -485,17 +507,19 @@ public class World {
                 if (messengerchar != null && !messengerchar.getName().equals(namefrom)) {
                     int ch = Find.findChannel(messengerchar.getName());
                     if (ch > 0) {
-                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(messengerchar.getName());
+                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage()
+                                .getCharacterByName(messengerchar.getName());
                         if (chr != null) {
 
                             chr.getClient().sendPacket(MaplePacketCreator.messengerChat(chattext));
                         }
                     }
-                } //Whisp Monitor Code
+                } // Whisp Monitor Code
                 else if (messengerchar != null) {
                     int ch = Find.findChannel(messengerchar.getName());
                     if (ch > 0) {
-                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(messengerchar.getName());
+                        MapleCharacter chr = ChannelServer.getInstance(ch).getPlayerStorage()
+                                .getCharacterByName(messengerchar.getName());
                     }
                 }
                 //
@@ -508,18 +532,22 @@ public class World {
 
                 int ch = Find.findChannel(target);
                 if (ch > 0) {
-                    MapleCharacter from = ChannelServer.getInstance(fromchannel).getPlayerStorage().getCharacterByName(sender);
-                    MapleCharacter targeter = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(target);
+                    MapleCharacter from = ChannelServer.getInstance(fromchannel).getPlayerStorage()
+                            .getCharacterByName(sender);
+                    MapleCharacter targeter = ChannelServer.getInstance(ch).getPlayerStorage()
+                            .getCharacterByName(target);
                     if (from != null) {
                         if (targeter != null && targeter.getMessenger() == null) {
                             if (!targeter.isGM() || gm) {
-                                targeter.getClient().sendPacket(MaplePacketCreator.messengerInvite(sender, messengerid));
+                                targeter.getClient()
+                                        .sendPacket(MaplePacketCreator.messengerInvite(sender, messengerid));
                                 from.getClient().sendPacket(MaplePacketCreator.messengerNote(target, 4, 1));
                             } else {
                                 from.getClient().sendPacket(MaplePacketCreator.messengerNote(target, 4, 0));
                             }
                         } else {
-                            from.getClient().sendPacket(MaplePacketCreator.messengerChat(sender + " : " + target + " is already using Maple Messenger"));
+                            from.getClient().sendPacket(MaplePacketCreator
+                                    .messengerChat(sender + " : " + target + " is already using Maple Messenger"));
                         }
                     }
                 }
@@ -559,7 +587,7 @@ public class World {
                 lock.writeLock().lock();
                 try {
                     ret = new MapleGuild(id);
-                    if (ret == null || ret.getId() <= 0 || !ret.isProper()) { //failed to load
+                    if (ret == null || ret.getId() <= 0 || !ret.isProper()) { // failed to load
                         return null;
                     }
                     guilds.put(id, ret);
@@ -567,7 +595,7 @@ public class World {
                     lock.writeLock().unlock();
                 }
             }
-            return ret; //Guild doesn't exist?
+            return ret; // Guild doesn't exist?
         }
 
         public static MapleGuild getGuildByName(String guildName) {
@@ -685,13 +713,13 @@ public class World {
 
         public static void deleteGuildCharacter(int guildid, int charid) {
 
-            //ensure it's loaded on world server
-            //setGuildMemberOnline(mc, false, -1);
+            // ensure it's loaded on world server
+            // setGuildMemberOnline(mc, false, -1);
             MapleGuild g = getGuild(guildid);
             if (g != null) {
                 MapleGuildCharacter mc = g.getMGC(charid);
                 if (mc != null) {
-                    if (mc.getGuildRank() > 1) //not leader
+                    if (mc.getGuildRank() > 1) // not leader
                     {
                         g.leaveGuild(mc);
                     } else {
@@ -767,7 +795,8 @@ public class World {
             return null;
         }
 
-        public static int addBBSThread(final int guildid, final String title, final String text, final int icon, final boolean bNotice, final int posterID) {
+        public static int addBBSThread(final int guildid, final String title, final String text, final int icon,
+                final boolean bNotice, final int posterID) {
             final MapleGuild g = getGuild(guildid);
             if (g != null) {
                 return g.addBBSThread(title, text, icon, bNotice, posterID);
@@ -775,28 +804,32 @@ public class World {
             return -1;
         }
 
-        public static final void editBBSThread(final int guildid, final int localthreadid, final String title, final String text, final int icon, final int posterID, final int guildRank) {
+        public static final void editBBSThread(final int guildid, final int localthreadid, final String title,
+                final String text, final int icon, final int posterID, final int guildRank) {
             final MapleGuild g = getGuild(guildid);
             if (g != null) {
                 g.editBBSThread(localthreadid, title, text, icon, posterID, guildRank);
             }
         }
 
-        public static final void deleteBBSThread(final int guildid, final int localthreadid, final int posterID, final int guildRank) {
+        public static final void deleteBBSThread(final int guildid, final int localthreadid, final int posterID,
+                final int guildRank) {
             final MapleGuild g = getGuild(guildid);
             if (g != null) {
                 g.deleteBBSThread(localthreadid, posterID, guildRank);
             }
         }
 
-        public static final void addBBSReply(final int guildid, final int localthreadid, final String text, final int posterID) {
+        public static final void addBBSReply(final int guildid, final int localthreadid, final String text,
+                final int posterID) {
             final MapleGuild g = getGuild(guildid);
             if (g != null) {
                 g.addBBSReply(localthreadid, text, posterID);
             }
         }
 
-        public static final void deleteBBSReply(final int guildid, final int localthreadid, final int replyid, final int posterID, final int guildRank) {
+        public static final void deleteBBSReply(final int guildid, final int localthreadid, final int replyid,
+                final int posterID, final int guildRank) {
             final MapleGuild g = getGuild(guildid);
             if (g != null) {
                 g.deleteBBSReply(localthreadid, replyid, posterID, guildRank);
@@ -804,8 +837,9 @@ public class World {
         }
 
         public static void changeEmblem(int gid, int affectedPlayers, MapleGuildSummary mgs) {
-            Broadcast.sendGuildPacket(affectedPlayers, MaplePacketCreator.guildEmblemChange(gid, mgs.getLogoBG(), mgs.getLogoBGColor(), mgs.getLogo(), mgs.getLogoColor()), -1, gid);
-            setGuildAndRank(affectedPlayers, -1, -1, -1);	//respawn player
+            Broadcast.sendGuildPacket(affectedPlayers, MaplePacketCreator.guildEmblemChange(gid, mgs.getLogoBG(),
+                    mgs.getLogoBGColor(), mgs.getLogo(), mgs.getLogoColor()), -1, gid);
+            setGuildAndRank(affectedPlayers, -1, -1, -1); // respawn player
         }
 
         public static void setGuildAndRank(int cid, int guildid, int rank, int alliancerank) {
@@ -818,7 +852,7 @@ public class World {
                 return;
             }
             boolean bDifferentGuild;
-            if (guildid == -1 && rank == -1) { //just need a respawn
+            if (guildid == -1 && rank == -1) { // just need a respawn
                 bDifferentGuild = true;
             } else {
                 bDifferentGuild = guildid != mc.getGuildId();
@@ -916,13 +950,14 @@ public class World {
 
         private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
         private static final HashMap<Integer, Integer> idToChannel = new HashMap<>();
-        //private static final HashMap<String, Integer> nameToChannel = new HashMap<>();
+        // private static final HashMap<String, Integer> nameToChannel = new
+        // HashMap<>();
 
         public static void register(int id, String name, int channel) {
             lock.writeLock().lock();
             try {
                 idToChannel.put(id, channel);
-                //nameToChannel.put(name.toLowerCase(), channel);
+                // nameToChannel.put(name.toLowerCase(), channel);
             } finally {
                 lock.writeLock().unlock();
             }
@@ -940,7 +975,7 @@ public class World {
         public static void forceDeregister(String id) {
             lock.writeLock().lock();
             try {
-                //nameToChannel.remove(id.toLowerCase());
+                // nameToChannel.remove(id.toLowerCase());
             } finally {
                 lock.writeLock().unlock();
             }
@@ -950,7 +985,7 @@ public class World {
             lock.writeLock().lock();
             try {
                 idToChannel.remove(id);
-                //nameToChannel.remove(name.toLowerCase());
+                // nameToChannel.remove(name.toLowerCase());
             } finally {
                 lock.writeLock().unlock();
             }
@@ -965,7 +1000,7 @@ public class World {
                 lock.readLock().unlock();
             }
             if (ret != null) {
-                if (ret != -10 && ret != -20 && ChannelServer.getInstance(ret) == null) { //wha
+                if (ret != -10 && ret != -20 && ChannelServer.getInstance(ret) == null) { // wha
                     forceDeregister(id);
                     return -1;
                 }
@@ -986,12 +1021,12 @@ public class World {
                         ret = ch.getChannel();
                     }
                 }
-                //ret = nameToChannel.get(st.toLowerCase());
+                // ret = nameToChannel.get(st.toLowerCase());
             } finally {
                 lock.readLock().unlock();
             }
             if (ret != null) {
-                if (ret != -10 && ret != -20 && ChannelServer.getInstance(ret) == null) { //wha
+                if (ret != -10 && ret != -20 && ChannelServer.getInstance(ret) == null) { // wha
                     forceDeregister(st);
                     return -1;
                 }
@@ -1038,7 +1073,7 @@ public class World {
                 lock.writeLock().lock();
                 try {
                     ret = new MapleGuildAlliance(allianceid);
-                    if (ret.getId() <= 0) { //failed to load
+                    if (ret.getId() <= 0) { // failed to load
                         return null;
                     }
                     alliances.put(allianceid, ret);
@@ -1147,7 +1182,8 @@ public class World {
             }
         }
 
-        public static boolean createAlliance(final String alliancename, final int cid, final int cid2, final int gid, final int gid2) {
+        public static boolean createAlliance(final String alliancename, final int cid, final int cid2, final int gid,
+                final int gid2) {
             final int allianceid = MapleGuildAlliance.createToDb(cid, alliancename, gid, gid2);
             if (allianceid <= 0) {
                 return false;
@@ -1215,14 +1251,15 @@ public class World {
                         if (gid != alliance.getGuildId(i)) {
                             alliance.removeGuild(gid, false);
                         }
-                        continue; //just skip
+                        continue; // just skip
                     }
                     if (g_ == null || gid == alliance.getGuildId(i)) {
                         guild.changeARank(5);
                         guild.setAllianceId(0);
                         guild.broadcast(MaplePacketCreator.disbandAlliance(allianceid));
                     } else {
-                        guild.broadcast(MaplePacketCreator.serverNotice(5, "[" + g_.getName() + "] Guild has left the alliance."));
+                        guild.broadcast(MaplePacketCreator.serverNotice(5,
+                                "[" + g_.getName() + "] Guild has left the alliance."));
                         guild.broadcast(MaplePacketCreator.changeGuildInAlliance(alliance, g_, false));
                         guild.broadcast(MaplePacketCreator.removeGuildFromAlliance(alliance, g_, expelled));
                     }
@@ -1293,7 +1330,7 @@ public class World {
                 lock.writeLock().lock();
                 try {
                     ret = new MapleFamily(id);
-                    if (ret.getId() <= 0 || !ret.isProper()) { //failed to load
+                    if (ret.getId() <= 0 || !ret.isProper()) { // failed to load
                         return null;
                     }
                     families.put(id, ret);
@@ -1338,7 +1375,8 @@ public class World {
             }
         }
 
-        public static void setFamily(int familyid, int seniorid, int junior1, int junior2, int currentrep, int totalrep, int cid) {
+        public static void setFamily(int familyid, int seniorid, int junior1, int junior2, int currentrep, int totalrep,
+                int cid) {
             int ch = Find.findChannel(cid);
             if (ch == -1) {
                 // System.out.println("ERROR: cannot find player in given channel");
@@ -1348,7 +1386,8 @@ public class World {
             if (mc == null) {
                 return;
             }
-            boolean bDifferent = mc.getFamilyId() != familyid || mc.getSeniorId() != seniorid || mc.getJunior1() != junior1 || mc.getJunior2() != junior2;
+            boolean bDifferent = mc.getFamilyId() != familyid || mc.getSeniorId() != seniorid
+                    || mc.getJunior1() != junior1 || mc.getJunior2() != junior2;
             mc.setFamily(familyid, seniorid, junior1, junior2);
             mc.setCurrentRep(currentrep);
             mc.setTotalRep(totalrep);
@@ -1379,12 +1418,12 @@ public class World {
     }
 
     public static void registerRespawn() {
-        WorldTimer.getInstance().register(new Respawn(), 3000); //divisible by 9000 if possible.
-        //3000 good or bad? ive no idea >_>
-        //buffs can also be done, but eh
+        WorldTimer.getInstance().register(new Respawn(), 3000); // divisible by 9000 if possible.
+        // 3000 good or bad? ive no idea >_>
+        // buffs can also be done, but eh
     }
 
-    public static class Respawn implements Runnable { //is putting it here a good idea?
+    public static class Respawn implements Runnable { // is putting it here a good idea?
 
         private int numTimes = 0;
 
@@ -1393,7 +1432,7 @@ public class World {
             numTimes++;
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                 Collection<MapleMap> maps = cserv.getMapFactory().getAllMapThreadSafe();
-                for (MapleMap map : maps) { //iterating through each map o_x
+                for (MapleMap map : maps) { // iterating through each map o_x
                     handleMap(map, numTimes, map.getCharactersSize());
                 }
                 maps = cserv.getMapFactory().getAllInstanceMaps();
@@ -1440,7 +1479,10 @@ public class World {
         }
     }
 
-    public static void handleCooldowns(final MapleCharacter chr, final int numTimes, final boolean hurt) { //is putting it here a good idea? expensive?
+    public static void handleCooldowns(final MapleCharacter chr, final int numTimes, final boolean hurt) { // is putting
+                                                                                                           // it here a
+                                                                                                           // good idea?
+                                                                                                           // expensive?
         final long now = System.currentTimeMillis();
         for (MapleCoolDownValueHolder m : chr.getCooldowns()) {
             if (m.startTime + m.length < now) {
@@ -1450,14 +1492,18 @@ public class World {
             }
         }
 
-        /*if (chr.getCheatTracker().canSaveDB()) {
-            boolean LandersLogin = MapleClient.landersLogin(chr.getClient().getSession().remoteAddress().toString());
-            if (!ServerConfig.LOCALHOST) {
-                if (!LandersLogin) {
-                    chr.getClient().getSession().close();
-                }
-            }
-        }*/
+        /*
+         * if (chr.getCheatTracker().canSaveDB()) {
+         * boolean LandersLogin =
+         * MapleClient.landersLogin(chr.getClient().getSession().remoteAddress().
+         * toString());
+         * if (!ServerConfig.LOCALHOST) {
+         * if (!LandersLogin) {
+         * chr.getClient().getSession().close();
+         * }
+         * }
+         * }
+         */
         if (chr.getDiseaseSize() > 0) {
             for (MapleDiseaseValueHolder m : chr.getAllDiseases()) {
                 if (m != null && m.startTime + m.length < now) {
@@ -1470,7 +1516,7 @@ public class World {
                 chr.dispelDebuff(m.disease);
             }
         }
-        if (numTimes % 100 == 0) { //we're parsing through the characters anyway (:
+        if (numTimes % 100 == 0) { // we're parsing through the characters anyway (:
             for (MaplePet pet : chr.getSummonedPets()) {
                 if (pet.getSummoned()) {
                     if (pet.getPetItemId() == 5000054 && pet.getSecondsLeft() > 0) {
@@ -1481,7 +1527,7 @@ public class World {
                         }
                     }
                     int newFullness = pet.getFullness() - PetDataFactory.getHunger(pet.getPetItemId());
-                    //宠物自动吃食物
+                    // 宠物自动吃食物
                     if (chr.isPetAutoFood()) {
                         if (newFullness <= 70) {
                             boolean gainCloseness = false;
@@ -1508,7 +1554,7 @@ public class World {
                                     }
                                 }
                                 if (chr.haveItem(2120000, 1)) {
-                                    //优先使用 2120000	宠物食品
+                                    // 优先使用 2120000 宠物食品
                                     chr.removeItem(2120000, -1);
                                 } else {
                                     chr.removeItem(2120008, -1);
@@ -1523,7 +1569,8 @@ public class World {
                         chr.unequipPet(pet, true);
                     } else {
                         pet.setFullness(newFullness);
-                        chr.getClient().sendPacket(PetPacket.updatePet(pet, chr.getInventory(MapleInventoryType.CASH).getItem(pet.getInventoryPosition())));
+                        chr.getClient().sendPacket(PetPacket.updatePet(pet,
+                                chr.getInventory(MapleInventoryType.CASH).getItem(pet.getInventoryPosition())));
                     }
                 }
             }
@@ -1535,11 +1582,14 @@ public class World {
             }
             if (hurt) {
                 if (chr.getInventory(MapleInventoryType.EQUIPPED).findById(chr.getMap().getHPDecProtect()) == null) {
-                    if (chr.getMapId() == 749040100 && chr.getInventory(MapleInventoryType.CASH).findById(5451000) == null) { //minidungeon
+                    if (chr.getMapId() == 749040100
+                            && chr.getInventory(MapleInventoryType.CASH).findById(5451000) == null) { // minidungeon
                         chr.addHP(-chr.getMap().getHPDec());
                     } else if (chr.getMapId() != 749040100) {
-                        //chr.addHP(-chr.getMap().getHPDec());
-                        chr.addHP(-(chr.getMap().getHPDec() - (chr.getBuffedValue(MapleBuffStat.HP_LOSS_GUARD) == null ? 0 : chr.getBuffedValue(MapleBuffStat.HP_LOSS_GUARD))));
+                        // chr.addHP(-chr.getMap().getHPDec());
+                        chr.addHP(
+                                -(chr.getMap().getHPDec() - (chr.getBuffedValue(MapleBuffStat.HP_LOSS_GUARD) == null ? 0
+                                        : chr.getBuffedValue(MapleBuffStat.HP_LOSS_GUARD))));
                     }
                 }
             }
@@ -1560,33 +1610,44 @@ public class World {
         }, 10 * 60 * 1000, 10 * 60 * 1000);
     }
 
-    /*public static void AutoSave(int min) {
-
-        Timer.EventTimer.getInstance().register(new Runnable() {
-            @Override
-            public void run() {
-                for (ChannelServer cs : ChannelServer.getAllInstances()) {
-                    for (MapleCharacter chr : cs.getPlayerStorage().getAllCharactersThreadSafe()) {
-
-                        // ??
-                        if (chr == null) {
-                            break;
-                        }
-                        //存档
-                        if (chr.getClient().getLoginState() != 5 && chr.getTrade() == null && chr.getConversation() <= 0 && chr.getPlayerShop() == null && chr.getMap() != null) {
-                            try {
-                                chr.saveToDB(false, false);
-                            } catch (Exception e) {
-                                FileoutputUtil.logToFile("logs/AutoSave保存数据异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + chr.getClient().getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + chr.getClient().getAccountName() + " 帐号ID " + chr.getClient().getAccID() + " 角色名 " + chr.getName() + " 角色ID " + chr.getId());
-                                FileoutputUtil.outError("logs/AutoSave保存数据异常.txt", e);
-
-                            }
-                        }
-                    }
-                }
-            }
-        }, min * 60 * 1000, min * 60 * 1000);
-    }*/
+    /*
+     * public static void AutoSave(int min) {
+     * 
+     * Timer.EventTimer.getInstance().register(new Runnable() {
+     * 
+     * @Override
+     * public void run() {
+     * for (ChannelServer cs : ChannelServer.getAllInstances()) {
+     * for (MapleCharacter chr : cs.getPlayerStorage().getAllCharactersThreadSafe())
+     * {
+     * 
+     * // ??
+     * if (chr == null) {
+     * break;
+     * }
+     * //存档
+     * if (chr.getClient().getLoginState() != 5 && chr.getTrade() == null &&
+     * chr.getConversation() <= 0 && chr.getPlayerShop() == null && chr.getMap() !=
+     * null) {
+     * try {
+     * chr.saveToDB(false, false);
+     * } catch (Exception e) {
+     * FileoutputUtil.logToFile("logs/AutoSave保存数据异常.txt", "\r\n " +
+     * FileoutputUtil.NowTime() + " IP: " +
+     * chr.getClient().getSession().remoteAddress().toString().split(":")[0] +
+     * " 帐号 " + chr.getClient().getAccountName() + " 帐号ID " +
+     * chr.getClient().getAccID() + " 角色名 " + chr.getName() + " 角色ID " +
+     * chr.getId());
+     * FileoutputUtil.outError("logs/AutoSave保存数据异常.txt", e);
+     * 
+     * }
+     * }
+     * }
+     * }
+     * }
+     * }, min * 60 * 1000, min * 60 * 1000);
+     * }
+     */
     public static void GainGash(int min) {
 
         Timer.EventTimer.getInstance().register(new Runnable() {
@@ -1618,18 +1679,20 @@ public class World {
             public void run() {
                 Map<MapleCharacter, Integer> GiveList = new HashMap();
                 int quantity = Randomizer.rand(15, 35);
-                /*int quantity = Randomizer.rand(1, 5);
-                int quantity1 = Randomizer.rand(5, 15);
-                int quantity2 = Randomizer.rand(9, 20);
-                int quantity3 = Randomizer.rand(13, 25);
-                int quantity4 = Randomizer.rand(17, 30);
-                int quantity5 = Randomizer.rand(21, 35);
-                int quantity6 = Randomizer.rand(25, 40);
-                int quantity7 = Randomizer.rand(29, 45);
-                int quantity8 = Randomizer.rand(33, 50);
-                int quantity9 = Randomizer.rand(37, 55);
-                int quantity10 = Randomizer.rand(41, 60);
-                int quantity11 = Randomizer.rand(41, 60);*/
+                /*
+                 * int quantity = Randomizer.rand(1, 5);
+                 * int quantity1 = Randomizer.rand(5, 15);
+                 * int quantity2 = Randomizer.rand(9, 20);
+                 * int quantity3 = Randomizer.rand(13, 25);
+                 * int quantity4 = Randomizer.rand(17, 30);
+                 * int quantity5 = Randomizer.rand(21, 35);
+                 * int quantity6 = Randomizer.rand(25, 40);
+                 * int quantity7 = Randomizer.rand(29, 45);
+                 * int quantity8 = Randomizer.rand(33, 50);
+                 * int quantity9 = Randomizer.rand(37, 55);
+                 * int quantity10 = Randomizer.rand(41, 60);
+                 * int quantity11 = Randomizer.rand(41, 60);
+                 */
                 for (ChannelServer cs : ChannelServer.getAllInstances()) {
                     for (MapleCharacter chr : cs.getPlayerStorage().getAllCharactersThreadSafe()) {
                         // ??
@@ -1641,41 +1704,43 @@ public class World {
                             break;
                         }
                         int gain = quantity;
-                        /*switch (chr.getVip(chr.getClient().getAccID())) {
-                            case 1:
-                                gain = quantity1;
-                                break;
-                            case 2:
-                                gain = quantity2;
-                                break;
-                            case 3:
-                                gain = quantity3;
-                                break;
-                            case 4:
-                                gain = quantity4;
-                                break;
-                            case 5:
-                                gain = quantity5;
-                                break;
-                            case 6:
-                                gain = quantity6;
-                                break;
-                            case 7:
-                                gain = quantity7;
-                                break;
-                            case 8:
-                                gain = quantity8;
-                                break;
-                            case 9:
-                                gain = quantity9;
-                                break;
-                            case 10:
-                                gain = quantity10;
-                                break;
-                            case 11:
-                                gain = quantity11;
-                                break;
-                        }*/
+                        /*
+                         * switch (chr.getVip(chr.getClient().getAccID())) {
+                         * case 1:
+                         * gain = quantity1;
+                         * break;
+                         * case 2:
+                         * gain = quantity2;
+                         * break;
+                         * case 3:
+                         * gain = quantity3;
+                         * break;
+                         * case 4:
+                         * gain = quantity4;
+                         * break;
+                         * case 5:
+                         * gain = quantity5;
+                         * break;
+                         * case 6:
+                         * gain = quantity6;
+                         * break;
+                         * case 7:
+                         * gain = quantity7;
+                         * break;
+                         * case 8:
+                         * gain = quantity8;
+                         * break;
+                         * case 9:
+                         * gain = quantity9;
+                         * break;
+                         * case 10:
+                         * gain = quantity10;
+                         * break;
+                         * case 11:
+                         * gain = quantity11;
+                         * break;
+                         * }
+                         */
                         GiveList.put(chr, gain);
                     }
                 }
@@ -1686,15 +1751,18 @@ public class World {
         }, min * 60 * 1000, min * 60 * 1000);
     }
 
-    /*public static void ClearMemory(int min) {
-        Timer.EventTimer.getInstance().register(new Runnable() {
-            @Override
-            public void run() {
-                System.gc();
-                System.out.println("系统自动释放记忆体 ---- " + FileoutputUtil.NowTime());
-            }
-        }, min * 60 * 1000, min * 60 * 1000);
-    }*/
+    /*
+     * public static void ClearMemory(int min) {
+     * Timer.EventTimer.getInstance().register(new Runnable() {
+     * 
+     * @Override
+     * public void run() {
+     * System.gc();
+     * System.out.println("系统自动释放记忆体 ---- " + FileoutputUtil.NowTime());
+     * }
+     * }, min * 60 * 1000, min * 60 * 1000);
+     * }
+     */
     public static void clearChannelChangeDataByAccountId(int accountid) {
         try {
             for (ChannelServer cs : ChannelServer.getAllInstances()) {

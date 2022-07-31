@@ -20,13 +20,6 @@
  */
 package tools;
 
-/**
- * Provides MapleStory's custom encryption routines.
- *
- * @author Frz
- * @since Revision 211
- * @version 1.0
- */
 public class MapleCustomEncryption {
 
     /**
@@ -67,7 +60,8 @@ public class MapleCustomEncryption {
                     data[i] = cur;
                 }
             }
-            //System.out.println("enc after iteration " + j + ": " + HexTool.toString(data) + " al: " + al);
+            // System.out.println("enc after iteration " + j + ": " + HexTool.toString(data)
+            // + " al: " + al);
         }
         return data;
     }
@@ -112,7 +106,8 @@ public class MapleCustomEncryption {
                     dataLength--;
                 }
             }
-            //System.out.println("dec after iteration " + j + ": " + HexTool.toString(data));
+            // System.out.println("dec after iteration " + j + ": " +
+            // HexTool.toString(data));
         }
         return data;
     }

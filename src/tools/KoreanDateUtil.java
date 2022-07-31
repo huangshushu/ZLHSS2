@@ -23,13 +23,6 @@ package tools;
 import java.util.Date;
 import java.util.SimpleTimeZone;
 
-/**
- * Provides a suite of tools for manipulating Korean Timestamps.
- *
- * @author Frz
- * @since Revision 746
- * @version 1.0
- */
 public class KoreanDateUtil {
 
     private final static int ITEM_YEAR2000 = -1085019342;

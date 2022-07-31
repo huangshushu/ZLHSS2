@@ -20,17 +20,20 @@
  */
 package handling.login.handler;
 
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
 
-import client.inventory.IItem;
-import client.inventory.Item;
-import client.MapleClient;
 import client.MapleCharacter;
 import client.MapleCharacterUtil;
+import client.MapleClient;
+import client.inventory.IItem;
+import client.inventory.Item;
 import client.inventory.MapleInventory;
 import client.inventory.MapleInventoryType;
-import constants.ServerConfig;
 import constants.WorldConstants;
 import database.DBConPool;
 import handling.cashshop.CashShopServer;
@@ -38,20 +41,14 @@ import handling.channel.ChannelServer;
 import handling.login.LoginInformationProvider;
 import handling.login.LoginServer;
 import handling.login.LoginWorker;
-import handling.world.World;
-import java.net.InetAddress;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Random;
 import server.MapleItemInformationProvider;
 import server.quest.MapleQuest;
 import tools.FileoutputUtil;
-import tools.MaplePacketCreator;
-import tools.packet.LoginPacket;
 import tools.KoreanDateUtil;
+import tools.MaplePacketCreator;
 import tools.StringUtil;
 import tools.data.LittleEndianAccessor;
+import tools.packet.LoginPacket;
 
 public class CharLoginHandler {
 
@@ -73,15 +70,18 @@ public class CharLoginHandler {
         }
     }
 
-    public static String RandomString(/*int length*/) {
-        /*String str = "abcdefghijklmnopqrstuvwsyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        Random random = new Random();
-        StringBuilder buf = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            int num = random.nextInt(62);
-            buf.append(str.charAt(num));
-        }
-        return buf.toString();*/
+    public static String RandomString(/* int length */) {
+        /*
+         * String str =
+         * "abcdefghijklmnopqrstuvwsyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+         * Random random = new Random();
+         * StringBuilder buf = new StringBuilder();
+         * for (int i = 0; i < length; i++) {
+         * int num = random.nextInt(62);
+         * buf.append(str.charAt(num));
+         * }
+         * return buf.toString();
+         */
         Random random = new Random();
         String sRand = "";
 
@@ -96,7 +96,7 @@ public class CharLoginHandler {
     public static final void handleLogin(final LittleEndianAccessor slea, final MapleClient c) {
         String account = slea.readMapleAsciiString();
         String password = slea.readMapleAsciiString();
-        String loginkey = RandomString(/*10*/);
+        String loginkey = RandomString(/* 10 */);
         int loginkeya = (int) ((Math.random() * 9 + 1) * 100000);
         c.setAccountName(account);
 
@@ -111,14 +111,14 @@ public class CharLoginHandler {
         }
         String macData = sps.toString();
         macData = macData.substring(0, macData.length() - 1);
-        //if (!"00-00-00-00-00-00".equals(macData)) {
-        //    int MacsCout = c.getMacsCout((byte) 0, macData);
-        //    if (MacsCout >= 2) {
-        //       c.sendPacket(MaplePacketCreator.serverNotice(1, "一台电脑只允许开启两个客户端。"));
-        //        c.sendPacket(LoginPacket.getLoginFailed(1));
-        //       return;
-        //    }
-        //}
+        // if (!"00-00-00-00-00-00".equals(macData)) {
+        // int MacsCout = c.getMacsCout((byte) 0, macData);
+        // if (MacsCout >= 2) {
+        // c.sendPacket(MaplePacketCreator.serverNotice(1, "一台电脑只允许开启两个客户端。"));
+        // c.sendPacket(LoginPacket.getLoginFailed(1));
+        // return;
+        // }
+        // }
         final boolean ipBan = c.hasBannedIP();
         final boolean macBan = c.hasBannedMac();
         final boolean ban = ipBan || macBan;
@@ -130,20 +130,26 @@ public class CharLoginHandler {
             errorInfo = "您登入的速度过快!\r\n请重新输入.";
             loginok = 1;
         } else if (loginok == 0 && ban && !c.isGm()) {
-            //被封锁IP或MAC的非GM角色成功登入处理
+            // 被封锁IP或MAC的非GM角色成功登入处理
             loginok = 3;
-            //if (macBan) {
-            FileoutputUtil.logToFile("logs/data/" + (macBan ? "MAC" : "IP") + "封锁_登入帐号.txt", "\r\n 时间　[" + FileoutputUtil.NowTime() + "] " + " 所有MAC位址: " + c.getMacs() + " IP地址: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号：　" + account + " 密码：" + password);
-            // this is only an ipban o.O" - maybe we should refactor this a bit so it's more readable
-            // MapleCharacter.ban(c.getSessionIPAddress(), c.getSession().remoteAddress().toString().split(":")[0], "Enforcing account ban, account " + account, false, 4, false);
-            //}
+            // if (macBan) {
+            FileoutputUtil.logToFile("logs/data/" + (macBan ? "MAC" : "IP") + "封锁_登入帐号.txt",
+                    "\r\n 时间　[" + FileoutputUtil.NowTime() + "] " + " 所有MAC位址: " + c.getMacs() + " IP地址: "
+                            + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号：　" + account + " 密码："
+                            + password);
+            // this is only an ipban o.O" - maybe we should refactor this a bit so it's more
+            // readable
+            // MapleCharacter.ban(c.getSessionIPAddress(),
+            // c.getSession().remoteAddress().toString().split(":")[0], "Enforcing account
+            // ban, account " + account, false, 4, false);
+            // }
         } else if (loginok == 0 && (c.getGender() == 10 || c.getSecondPassword() == null)) {
-            //选择性别并设置第二组密码
-//            c.updateLoginState(MapleClient.CHOOSE_GENDER, c.getSessionIPAddress());
+            // 选择性别并设置第二组密码
+            // c.updateLoginState(MapleClient.CHOOSE_GENDER, c.getSessionIPAddress());
             c.sendPacket(LoginPacket.getGenderNeeded(c));
             return;
         } else if (loginok == 5) {
-            //帐号不存在
+            // 帐号不存在
             if (LoginServer.getAutoReg()) {
                 if (password.equalsIgnoreCase("fixlogged")) {
                     errorInfo = "这个密码是解卡密码，请换其他密码。";
@@ -153,7 +159,10 @@ public class CharLoginHandler {
                     AutoRegister.createAccount(account, password, c.getSession().remoteAddress().toString(), macData);
                     if (AutoRegister.success && AutoRegister.mac) {
                         errorInfo = "帐号创建成功,请重新登入!";
-                        FileoutputUtil.logToFile("logs/data/创建帐号.txt", "\r\n 时间　[" + FileoutputUtil.NowTime() + "]" + " IP 地址 : " + c.getSession().remoteAddress().toString().split(":")[0] + " MAC: " + macData + " 帐号：　" + account + " 密码：" + password);
+                        FileoutputUtil.logToFile("logs/data/创建帐号.txt",
+                                "\r\n 时间　[" + FileoutputUtil.NowTime() + "]" + " IP 地址 : "
+                                        + c.getSession().remoteAddress().toString().split(":")[0] + " MAC: " + macData
+                                        + " 帐号：　" + account + " 密码：" + password);
                     } else if (!AutoRegister.mac) {
                         errorInfo = "账号创建失败，你已经注册过账号，一个机器码只能注册一个账号!";
                         AutoRegister.success = false;
@@ -163,12 +172,14 @@ public class CharLoginHandler {
                 loginok = 1;
             }
         } else if (!LoginServer.canLoginAgain(c.getAccID())) {// 换频后
-            int sec = (int) (((LoginServer.getLoginAgainTime(c.getAccID()) + 50 * 1000) - System.currentTimeMillis()) / 1000);
+            int sec = (int) (((LoginServer.getLoginAgainTime(c.getAccID()) + 50 * 1000) - System.currentTimeMillis())
+                    / 1000);
             c.loginAttempt = 0;
             errorInfo = "游戏帐号将于" + sec + "秒后可以登入， 请耐心等候。";
             loginok = 1;
         } else if (!LoginServer.canEnterGameAgain(c.getAccID())) {// 选择角色后
-            int sec = (int) (((LoginServer.getEnterGameAgainTime(c.getAccID()) + 60 * 1000) - System.currentTimeMillis()) / 1000);
+            int sec = (int) (((LoginServer.getEnterGameAgainTime(c.getAccID()) + 60 * 1000)
+                    - System.currentTimeMillis()) / 1000);
             c.loginAttempt = 0;
             errorInfo = "游戏帐号将于" + sec + "秒后可以登入， 请耐心等候。";
             loginok = 1;
@@ -184,7 +195,8 @@ public class CharLoginHandler {
             }
         } else if (tempbannedTill.getTimeInMillis() != 0) {
             if (!loginFailCount(c)) {
-                c.sendPacket(LoginPacket.getTempBan(KoreanDateUtil.getTempBanTimestamp(tempbannedTill.getTimeInMillis()), c.getBanReason()));
+                c.sendPacket(LoginPacket.getTempBan(
+                        KoreanDateUtil.getTempBanTimestamp(tempbannedTill.getTimeInMillis()), c.getBanReason()));
             } else {
                 c.getSession().close();
             }
@@ -195,7 +207,10 @@ public class CharLoginHandler {
             c.setLoginKey(loginkey);
             c.updateLoginKey(loginkey);
             LoginServer.addLoginKey(loginkey, c.getAccID());
-            FileoutputUtil.logToFile("logs/data/登入帐号.txt", "\r\n 时间　[" + FileoutputUtil.NowTime() + "]" + " IP 地址 : " + c.getSession().remoteAddress().toString().split(":")[0] + " MAC: " + macData + " 帐号：　" + account + " 密码：" + password);
+            FileoutputUtil.logToFile("logs/data/登入帐号.txt",
+                    "\r\n 时间　[" + FileoutputUtil.NowTime() + "]" + " IP 地址 : "
+                            + c.getSession().remoteAddress().toString().split(":")[0] + " MAC: " + macData + " 帐号：　"
+                            + account + " 密码：" + password);
             c.setLoginKeya(loginkeya);
             LoginWorker.registerClient(c);
         }
@@ -275,9 +290,12 @@ public class CharLoginHandler {
         }
         ChannelServer.forceRemovePlayerByCharNameFromDataBase(c, c.loadCharacterNamesByAccId(c.getAccID()));
         LoginServer.forceRemoveClient(c, false);
-        String serverkey = RandomString(/*10*/);
-        if (!LoginServer.CanLoginKey(c.getLoginKey(), c.getAccID()) || (LoginServer.getLoginKey(c.getAccID()) == null && !c.getLoginKey().isEmpty())) {
-            FileoutputUtil.logToFile("logs/Data/客户端登录KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName() + " 客户端key：" + LoginServer.getLoginKey(c.getAccID()) + " 伺服端key：" + c.getLoginKey() + " 角色列表");
+        String serverkey = RandomString(/* 10 */);
+        if (!LoginServer.CanLoginKey(c.getLoginKey(), c.getAccID())
+                || (LoginServer.getLoginKey(c.getAccID()) == null && !c.getLoginKey().isEmpty())) {
+            FileoutputUtil.logToFile("logs/Data/客户端登录KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                    + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName()
+                    + " 客户端key：" + LoginServer.getLoginKey(c.getAccID()) + " 伺服端key：" + c.getLoginKey() + " 角色列表");
             return;
         }
         final int server = slea.readByte();
@@ -288,7 +306,9 @@ public class CharLoginHandler {
         c.updateServerKey(serverkey);
         LoginServer.addServerKey(serverkey, c.getAccID());
         c.setWorld(server2 + 1);
-        //System.out.println("Client " + c.getSession().getRemoteAddress().toString().split(":")[0] + " is connecting to server " + server + " channel " + channel + "");
+        // System.out.println("Client " +
+        // c.getSession().getRemoteAddress().toString().split(":")[0] + " is connecting
+        // to server " + server + " channel " + channel + "");
         c.setChannel(channel);
         final List<MapleCharacter> chars = c.loadCharacters(server2);
         if (chars != null) {
@@ -300,18 +320,22 @@ public class CharLoginHandler {
 
     public static final void checkCharName(final String name, final MapleClient c) {
         c.sendPacket(LoginPacket.charNameResponse(name,
-                !MapleCharacterUtil.canCreateChar(name) || LoginInformationProvider.getInstance().isForbiddenName(name)));
+                !MapleCharacterUtil.canCreateChar(name)
+                        || LoginInformationProvider.getInstance().isForbiddenName(name)));
     }
 
     public static final void handleCreateCharacter(final LittleEndianAccessor slea, final MapleClient c) {
         final String name = slea.readMapleAsciiString();
         final int JobType = slea.readInt(); // 1 = Adventurer, 0 = Cygnus, 2 = Aran
-        /*if (JobType == 0 && !c.isGm()) {
-            c.sendPacket(MaplePacketCreator.serverNotice(1, "很抱歉\r\n皇家骑士团还未开放\r\n日后如果BUG差不多会开放其他职业。"));
-            //    c.sendPacket(MaplePacketCreator.enableActions());
-            return;
-        }*/
-        final short db = 0; //whether dual blade = 1 or adventurer = 0
+        /*
+         * if (JobType == 0 && !c.isGm()) {
+         * c.sendPacket(MaplePacketCreator.serverNotice(1,
+         * "很抱歉\r\n皇家骑士团还未开放\r\n日后如果BUG差不多会开放其他职业。"));
+         * // c.sendPacket(MaplePacketCreator.enableActions());
+         * return;
+         * }
+         */
+        final short db = 0; // whether dual blade = 1 or adventurer = 0
         final int face = slea.readInt();
         final int hair = slea.readInt();
         final int hairColor = 0;
@@ -324,19 +348,24 @@ public class CharLoginHandler {
         final byte gender = c.getGender();
         final List<MapleCharacter> chars = c.loadCharacters(0);
         if (chars.size() > c.getCharacterSlots()) {
-            FileoutputUtil.logToFile("logs/Hack/Ban/角色数量异常.txt", "\r\n " + FileoutputUtil.NowTime() + " 帐号 " + c.getAccountName());
+            FileoutputUtil.logToFile("logs/Hack/Ban/角色数量异常.txt",
+                    "\r\n " + FileoutputUtil.NowTime() + " 帐号 " + c.getAccountName());
             c.getSession().close();
             return;
         }
 
         if (gender != 0 && gender != 1) {
-            FileoutputUtil.logToFile("logs/Hack/Ban/修改封包.txt", "\r\n " + FileoutputUtil.NowTime() + " 帐号 " + c.getAccountName() + " 性别类型 " + gender);
+            FileoutputUtil.logToFile("logs/Hack/Ban/修改封包.txt",
+                    "\r\n " + FileoutputUtil.NowTime() + " 帐号 " + c.getAccountName() + " 性别类型 " + gender);
             c.getSession().close();
             return;
         }
 
         if (JobType != 0 && JobType != 1 && JobType != 2) {
-            FileoutputUtil.logToFile("logs/Data/非法创建.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + " 职业类型 " + JobType);
+            FileoutputUtil.logToFile("logs/Data/非法创建.txt",
+                    "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                            + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName()
+                            + " 职业类型 " + JobType);
             return;
         }
         if (gender == 0 && (JobType == 1 || JobType == 0)) {
@@ -410,13 +439,30 @@ public class CharLoginHandler {
             }
         }
 
-        /*boolean dangerousIp = c.dangerousIp(c.getSession().remoteAddress().toString());
-        if (dangerousIp) {
-            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密语系统] 危险IP创建角色 帐号 " + c.getAccountName() + " 名字 " + name + " 职业类型 " + JobType + " 脸型 " + face + " 发型 " + hair + " 衣服 " + top + " 裤子 " + bottom + " 鞋子 " + shoes + " 武器 " + weapon + " 性别 " + gender));
-            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密语系统] 危险IP创建角色 帐号 " + c.getAccountName() + " 名字 " + name + " 职业类型 " + JobType + " 脸型 " + face + " 发型 " + hair + " 衣服 " + top + " 裤子 " + bottom + " 鞋子 " + shoes + " 武器 " + weapon + " 性别 " + gender));
-            World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM 密语系统] 危险IP创建角色 帐号 " + c.getAccountName() + " 名字 " + name + " 职业类型 " + JobType + " 脸型 " + face + " 发型 " + hair + " 衣服 " + top + " 裤子 " + bottom + " 鞋子 " + shoes + " 武器 " + weapon + " 性别 " + gender));
-            FileoutputUtil.logToFile("logs/Data/危险IP创建角色.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + " 名字 " + name + " 职业类型 " + JobType + " 脸型 " + face + " 发型 " + hair + " 衣服 " + top + " 裤子 " + bottom + " 鞋子 " + shoes + " 武器 " + weapon + " 性别 " + gender);
-        }*/
+        /*
+         * boolean dangerousIp =
+         * c.dangerousIp(c.getSession().remoteAddress().toString());
+         * if (dangerousIp) {
+         * World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6,
+         * "[GM 密语系统] 危险IP创建角色 帐号 " + c.getAccountName() + " 名字 " + name + " 职业类型 " +
+         * JobType + " 脸型 " + face + " 发型 " + hair + " 衣服 " + top + " 裤子 " + bottom +
+         * " 鞋子 " + shoes + " 武器 " + weapon + " 性别 " + gender));
+         * World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6,
+         * "[GM 密语系统] 危险IP创建角色 帐号 " + c.getAccountName() + " 名字 " + name + " 职业类型 " +
+         * JobType + " 脸型 " + face + " 发型 " + hair + " 衣服 " + top + " 裤子 " + bottom +
+         * " 鞋子 " + shoes + " 武器 " + weapon + " 性别 " + gender));
+         * World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6,
+         * "[GM 密语系统] 危险IP创建角色 帐号 " + c.getAccountName() + " 名字 " + name + " 职业类型 " +
+         * JobType + " 脸型 " + face + " 发型 " + hair + " 衣服 " + top + " 裤子 " + bottom +
+         * " 鞋子 " + shoes + " 武器 " + weapon + " 性别 " + gender));
+         * FileoutputUtil.logToFile("logs/Data/危险IP创建角色.txt", "\r\n " +
+         * FileoutputUtil.NowTime() + " IP: " +
+         * c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " +
+         * c.getAccountName() + " 名字 " + name + " 职业类型 " + JobType + " 脸型 " + face +
+         * " 发型 " + hair + " 衣服 " + top + " 裤子 " + bottom + " 鞋子 " + shoes + " 武器 " +
+         * weapon + " 性别 " + gender);
+         * }
+         */
         MapleCharacter newchar = MapleCharacter.getDefault(c, JobType);
         newchar.setWorld((byte) (c.getWorld() - 1));
         newchar.setFace(face);
@@ -444,119 +490,191 @@ public class CharLoginHandler {
         item.setPosition((byte) -11);
         equip.addFromDB(item);
         MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-        //IItem gift = ii.getEquipById(gender == 0 ? 1000090 : 1001112);
-        //IItem gift2 = ii.getEquipById(gender == 0 ? 1053098 : 1053097);
-        //IItem gift3 = ii.getEquipById(gender == 0 ? 1080009 : 1081015);
-        //IItem gift4 = ii.getEquipById(1004540);
-        //IItem gift5 = ii.getEquipById(1052948);
-        //blue/red pots
+        // IItem gift = ii.getEquipById(gender == 0 ? 1000090 : 1001112);
+        // IItem gift2 = ii.getEquipById(gender == 0 ? 1053098 : 1053097);
+        // IItem gift3 = ii.getEquipById(gender == 0 ? 1080009 : 1081015);
+        // IItem gift4 = ii.getEquipById(1004540);
+        // IItem gift5 = ii.getEquipById(1052948);
+        // blue/red pots
         switch (JobType) {
             case 0: // Cygnus
                 newchar.setQuestAdd(MapleQuest.getInstance(20022), (byte) 1, "1");
-                newchar.setQuestAdd(MapleQuest.getInstance(20010), (byte) 1, null); //>_>_>_> ugh
+                newchar.setQuestAdd(MapleQuest.getInstance(20010), (byte) 1, null); // >_>_>_> ugh
 
-                newchar.setQuestAdd(MapleQuest.getInstance(20000), (byte) 1, null); //>_>_>_> ugh
-                newchar.setQuestAdd(MapleQuest.getInstance(20015), (byte) 1, null); //>_>_>_> ugh
-                newchar.setQuestAdd(MapleQuest.getInstance(20020), (byte) 1, null); //>_>_>_> ugh
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift, 1);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift2, 2);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift3, 3);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift4, 4);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift5, 5);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 1);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 2);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 3);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 4);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 5);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 6);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 7);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 8);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 9);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 10);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 11);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 12);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 13);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 14);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 15);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 16);
-                newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161047, (byte) 0, (short) 1, (byte) 0), 1);
-                newchar.getInventory(MapleInventoryType.CASH).addItem(new Item(5370000, (byte) 0, (short) 1, (byte) 0), 1);
+                newchar.setQuestAdd(MapleQuest.getInstance(20000), (byte) 1, null); // >_>_>_> ugh
+                newchar.setQuestAdd(MapleQuest.getInstance(20015), (byte) 1, null); // >_>_>_> ugh
+                newchar.setQuestAdd(MapleQuest.getInstance(20020), (byte) 1, null); // >_>_>_> ugh
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift, 1);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift2, 2);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift3, 3);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift4, 4);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift5, 5);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        1);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        2);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        3);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        4);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        5);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        6);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        7);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        8);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        9);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        10);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        11);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        12);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        13);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        14);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        15);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        16);
+                newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161047, (byte) 0, (short) 1, (byte) 0),
+                        1);
+                newchar.getInventory(MapleInventoryType.CASH).addItem(new Item(5370000, (byte) 0, (short) 1, (byte) 0),
+                        1);
                 break;
             case 1: // Adventurer
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift, 1);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift2, 2);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift3, 3);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift4, 4);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift5, 5);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 1);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 2);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 3);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 4);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 5);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 6);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 7);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 8);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 9);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 10);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 11);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 12);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 13);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 14);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 15);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 16);
-                newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161001, (byte) 0, (short) 1, (byte) 0), 1);
-                newchar.getInventory(MapleInventoryType.CASH).addItem(new Item(5370000, (byte) 0, (short) 1, (byte) 0), 1);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift, 1);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift2, 2);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift3, 3);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift4, 4);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift5, 5);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        1);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        2);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        3);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        4);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        5);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        6);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        7);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        8);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        9);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        10);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        11);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        12);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        13);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        14);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        15);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        16);
+                newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161001, (byte) 0, (short) 1, (byte) 0),
+                        1);
+                newchar.getInventory(MapleInventoryType.CASH).addItem(new Item(5370000, (byte) 0, (short) 1, (byte) 0),
+                        1);
                 break;
             case 2: // Aran
                 newchar.setSkinColor((byte) 11);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift, 1);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift2, 2);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift3, 3);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift4, 4);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift5, 5);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 1);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 2);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 3);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 4);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 5);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 6);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 7);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 8);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 9);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 10);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 11);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 12);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 13);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 14);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 15);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 16);
-                newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161048, (byte) 0, (short) 1, (byte) 0), 1);
-                newchar.getInventory(MapleInventoryType.CASH).addItem(new Item(5370000, (byte) 0, (short) 1, (byte) 0), 1);
-                break;
-            case 3: //Evan
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift, 1);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift2, 2);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift3, 3);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift, 1);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift2, 2);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift3, 3);
                 // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift4, 4);
-                //newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift5, 5);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 1);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 2);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 3);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 4);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 5);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 6);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 7);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 8);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 9);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 10);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 11);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 12);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 13);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 14);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0), 15);
-                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0), 16);
-                newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161052, (byte) 0, (short) 1, (byte) 0), 1);
-                newchar.getInventory(MapleInventoryType.CASH).addItem(new Item(5370000, (byte) 0, (short) 1, (byte) 0), 1);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift5, 5);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        1);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        2);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        3);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        4);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        5);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        6);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        7);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        8);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        9);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        10);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        11);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        12);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        13);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        14);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        15);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        16);
+                newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161048, (byte) 0, (short) 1, (byte) 0),
+                        1);
+                newchar.getInventory(MapleInventoryType.CASH).addItem(new Item(5370000, (byte) 0, (short) 1, (byte) 0),
+                        1);
+                break;
+            case 3: // Evan
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift, 1);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift2, 2);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift3, 3);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift4, 4);
+                // newchar.getInventory(MapleInventoryType.EQUIP).addItem(gift5, 5);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        1);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        2);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        3);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        4);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        5);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        6);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        7);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        8);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        9);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        10);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        11);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        12);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        13);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        14);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000016, (byte) 0, (short) 300, (byte) 0),
+                        15);
+                newchar.getInventory(MapleInventoryType.USE).addItem(new Item(2000018, (byte) 0, (short) 300, (byte) 0),
+                        16);
+                newchar.getInventory(MapleInventoryType.ETC).addItem(new Item(4161052, (byte) 0, (short) 1, (byte) 0),
+                        1);
+                newchar.getInventory(MapleInventoryType.CASH).addItem(new Item(5370000, (byte) 0, (short) 1, (byte) 0),
+                        1);
                 break;
         }
 
@@ -570,12 +688,18 @@ public class CharLoginHandler {
     }
 
     public static final void handleDeleteCharacter(final LittleEndianAccessor slea, final MapleClient c) {
-        if (!LoginServer.CanLoginKey(c.getLoginKey(), c.getAccID()) || (LoginServer.getLoginKey(c.getAccID()) == null && !c.getLoginKey().isEmpty())) {
-            FileoutputUtil.logToFile("logs/Data/客户端登录KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName() + " 客户端key：" + LoginServer.getLoginKey(c.getAccID()) + " 伺服端key：" + c.getLoginKey() + " 删除角色");
+        if (!LoginServer.CanLoginKey(c.getLoginKey(), c.getAccID())
+                || (LoginServer.getLoginKey(c.getAccID()) == null && !c.getLoginKey().isEmpty())) {
+            FileoutputUtil.logToFile("logs/Data/客户端登录KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                    + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName()
+                    + " 客户端key：" + LoginServer.getLoginKey(c.getAccID()) + " 伺服端key：" + c.getLoginKey() + " 删除角色");
             return;
         }
-        if (!LoginServer.CanServerKey(c.getServerKey(), c.getAccID()) || (LoginServer.getServerKey(c.getAccID()) == null && !c.getServerKey().isEmpty())) {
-            FileoutputUtil.logToFile("logs/Data/客户端频道KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName() + " 客户端key：" + LoginServer.getServerKey(c.getAccID()) + " 伺服端key：" + c.getServerKey() + " 删除角色");
+        if (!LoginServer.CanServerKey(c.getServerKey(), c.getAccID())
+                || (LoginServer.getServerKey(c.getAccID()) == null && !c.getServerKey().isEmpty())) {
+            FileoutputUtil.logToFile("logs/Data/客户端频道KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                    + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName()
+                    + " 客户端key：" + LoginServer.getServerKey(c.getAccID()) + " 伺服端key：" + c.getServerKey() + " 删除角色");
             return;
         }
         if (slea.available() < 7) {
@@ -588,31 +712,40 @@ public class CharLoginHandler {
 
         final int characterId = slea.readInt();
 
-        /*List<String> charNamesa = c.loadCharacterNamesByCharId(characterId);
-        for (ChannelServer cs : ChannelServer.getAllInstances()) {
-            for (final String name : charNamesa) {
-                if (cs.getPlayerStorage().getCharacterByName(name) != null) {
-                    FileoutputUtil.logToFile("logs/Data/非法删除角色.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName()");
-                    c.getSession().close();
-                    return;
-                }
-            }
-        }
-        for (final String name : charNamesa) {
-            if (CashShopServer.getPlayerStorage().getCharacterByName(name) != null) {
-                FileoutputUtil.logToFile("logs/Data/非法删除角色.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName()");
-                c.getSession().close();
-                return;
-            }
-        }*/
+        /*
+         * List<String> charNamesa = c.loadCharacterNamesByCharId(characterId);
+         * for (ChannelServer cs : ChannelServer.getAllInstances()) {
+         * for (final String name : charNamesa) {
+         * if (cs.getPlayerStorage().getCharacterByName(name) != null) {
+         * FileoutputUtil.logToFile("logs/Data/非法删除角色.txt", "\r\n " +
+         * FileoutputUtil.NowTime() + " IP: " +
+         * c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " +
+         * c.getAccountName()");
+         * c.getSession().close();
+         * return;
+         * }
+         * }
+         * }
+         * for (final String name : charNamesa) {
+         * if (CashShopServer.getPlayerStorage().getCharacterByName(name) != null) {
+         * FileoutputUtil.logToFile("logs/Data/非法删除角色.txt", "\r\n " +
+         * FileoutputUtil.NowTime() + " IP: " +
+         * c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " +
+         * c.getAccountName()");
+         * c.getSession().close();
+         * return;
+         * }
+         * }
+         */
         List<String> charNames = c.loadCharacterNamesByCharId(characterId);
         for (ChannelServer cs : ChannelServer.getAllInstances()) {
             for (final String name : charNames) {
                 MapleCharacter character = cs.getPlayerStorage().getCharacterByName(name);
                 if (character != null) {
-                    //cs.getPlayerStorage().deregisterPlayer(character);
-                    //character.getClient().disconnect(false, false, true);
-                    FileoutputUtil.logToFile("logs/Data/非法删除角色.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName());
+                    // cs.getPlayerStorage().deregisterPlayer(character);
+                    // character.getClient().disconnect(false, false, true);
+                    FileoutputUtil.logToFile("logs/Data/非法删除角色.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                            + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName());
                     c.getSession().close();
                     character.getClient().getSession().close();
                 }
@@ -621,9 +754,10 @@ public class CharLoginHandler {
         for (final String name : charNames) {
             MapleCharacter charactercs = CashShopServer.getPlayerStorage().getCharacterByName(name);
             if (charactercs != null) {
-                //CashShopServer.getPlayerStorage().deregisterPlayer(charactercs);
-                //charactercs.getClient().disconnect(false, true, true);
-                FileoutputUtil.logToFile("logs/Data/非法删除角色.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName());
+                // CashShopServer.getPlayerStorage().deregisterPlayer(charactercs);
+                // charactercs.getClient().disconnect(false, true, true);
+                FileoutputUtil.logToFile("logs/Data/非法删除角色.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                        + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName());
                 c.getSession().close();
                 charactercs.getClient().getSession().close();
             }
@@ -638,8 +772,8 @@ public class CharLoginHandler {
             if (_2ndPassword == null) { // Client's hacking
                 c.getSession().close();
                 return;
-            } else if (!c.getCheckSecondPassword/*check2ndPassword*/(_2ndPassword)) { // Wrong Password
-                //state = 12;
+            } else if (!c.getCheckSecondPassword/* check2ndPassword */(_2ndPassword)) { // Wrong Password
+                // state = 12;
                 state = 16;
             }
         }
@@ -656,43 +790,52 @@ public class CharLoginHandler {
             return;
         }
         if (c.getLoginKeya() == 0) {
-            //c.sendPacket(MaplePacketCreator.serverNotice(1, "请不要通过非法手段\r\n进入游戏。"));
+            // c.sendPacket(MaplePacketCreator.serverNotice(1, "请不要通过非法手段\r\n进入游戏。"));
             return;
         }
         if (!c.isCanloginpw()) {// 登入口验证
-            //c.getSession().close();
+            // c.getSession().close();
             return;
         }
-        //if(c.getLoginKey() == null){
-        //    c.loadLoginKey();
-        //}
-        if (!LoginServer.CanLoginKey(c.getLoginKey(), c.getAccID()) || (LoginServer.getLoginKey(c.getAccID()) == null && !c.getLoginKey().isEmpty())) {
-            FileoutputUtil.logToFile("logs/Data/客户端登录KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName() + " 客户端key：" + LoginServer.getLoginKey(c.getAccID()) + " 伺服端key：" + c.getLoginKey() + " 开始游戏");
+        // if(c.getLoginKey() == null){
+        // c.loadLoginKey();
+        // }
+        if (!LoginServer.CanLoginKey(c.getLoginKey(), c.getAccID())
+                || (LoginServer.getLoginKey(c.getAccID()) == null && !c.getLoginKey().isEmpty())) {
+            FileoutputUtil.logToFile("logs/Data/客户端登录KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                    + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName()
+                    + " 客户端key：" + LoginServer.getLoginKey(c.getAccID()) + " 伺服端key：" + c.getLoginKey() + " 开始游戏");
             return;
         }
-        //if(c.getLoginKey() == null){
-        //    c.loadLoginKey();
-        //}
-        if (!LoginServer.CanServerKey(c.getServerKey(), c.getAccID()) || (LoginServer.getServerKey(c.getAccID()) == null && !c.getServerKey().isEmpty())) {
-            FileoutputUtil.logToFile("logs/Data/客户端频道KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName() + " 客户端key：" + LoginServer.getServerKey(c.getAccID()) + " 伺服端key：" + c.getServerKey() + " 开始游戏");
+        // if(c.getLoginKey() == null){
+        // c.loadLoginKey();
+        // }
+        if (!LoginServer.CanServerKey(c.getServerKey(), c.getAccID())
+                || (LoginServer.getServerKey(c.getAccID()) == null && !c.getServerKey().isEmpty())) {
+            FileoutputUtil.logToFile("logs/Data/客户端频道KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                    + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + c.getAccountName()
+                    + " 客户端key：" + LoginServer.getServerKey(c.getAccID()) + " 伺服端key：" + c.getServerKey() + " 开始游戏");
             return;
         }
         LoginServer.RemoveClientKey(c.getAccID());
-        String clientkey = RandomString(/*10*/);
+        String clientkey = RandomString(/* 10 */);
         c.updateClientKey(clientkey);
         LoginServer.addClientKey(clientkey, c.getAccID());
 
         final int charId = slea.readInt();
-        //if (c.loadLogGedin(c.getAccID()) == 1 || c.loadLogGedin(c.getAccID()) > 2) {
-        //    c.getSession().close();
-        //    return;
-        //}
+        // if (c.loadLogGedin(c.getAccID()) == 1 || c.loadLogGedin(c.getAccID()) > 2) {
+        // c.getSession().close();
+        // return;
+        // }
 
         List<String> charNamesa = c.loadCharacterNamesByCharId(charId);
         for (ChannelServer cs : ChannelServer.getAllInstances()) {
             for (final String name : charNamesa) {
                 if (cs.getPlayerStorage().getCharacterByName(name) != null) {
-                    FileoutputUtil.logToFile("logs/Data/非法登录.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + "开始游戏1");
+                    FileoutputUtil.logToFile("logs/Data/非法登录.txt",
+                            "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                                    + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 "
+                                    + c.getAccountName() + "开始游戏1");
                     c.getSession().close();
                     return;
                 }
@@ -702,7 +845,10 @@ public class CharLoginHandler {
             if (CashShopServer.getPlayerStorage().getCharacterByName(name) != null) {
                 MapleCharacter victim = CashShopServer.getPlayerStorage().getCharacterByName(name);
                 CashShopServer.getPlayerStorage().deregisterPlayer(victim.getId(), victim.getName());
-                FileoutputUtil.logToFile("logs/Data/非法登录.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + "开始游戏2");
+                FileoutputUtil.logToFile("logs/Data/非法登录.txt",
+                        "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                                + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName()
+                                + "开始游戏2");
                 c.getSession().close();
                 return;
             }
@@ -713,9 +859,12 @@ public class CharLoginHandler {
             for (final String name : charNames) {
                 MapleCharacter character = cs.getPlayerStorage().getCharacterByName(name);
                 if (character != null) {
-                    //cs.getPlayerStorage().deregisterPlayer(character);
-                    //character.getClient().disconnect(false, false, true);
-                    FileoutputUtil.logToFile("logs/Data/非法登录.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + "开始游戏3");
+                    // cs.getPlayerStorage().deregisterPlayer(character);
+                    // character.getClient().disconnect(false, false, true);
+                    FileoutputUtil.logToFile("logs/Data/非法登录.txt",
+                            "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                                    + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 "
+                                    + c.getAccountName() + "开始游戏3");
                     c.getSession().close();
                     character.getClient().getSession().close();
                 }
@@ -724,9 +873,12 @@ public class CharLoginHandler {
         for (final String name : charNames) {
             MapleCharacter charactercs = CashShopServer.getPlayerStorage().getCharacterByName(name);
             if (charactercs != null) {
-                //CashShopServer.getPlayerStorage().deregisterPlayer(charactercs);
-                //charactercs.getClient().disconnect(false, true, true);
-                FileoutputUtil.logToFile("logs/Data/非法登录.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + "开始游戏4");
+                // CashShopServer.getPlayerStorage().deregisterPlayer(charactercs);
+                // charactercs.getClient().disconnect(false, true, true);
+                FileoutputUtil.logToFile("logs/Data/非法登录.txt",
+                        "\r\n " + FileoutputUtil.NowTime() + " IP: "
+                                + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName()
+                                + "开始游戏4");
                 c.getSession().close();
                 charactercs.getClient().getSession().close();
             }
@@ -753,7 +905,8 @@ public class CharLoginHandler {
         }
 
         c.updateLoginState(MapleClient.LOGIN_SERVER_TRANSITION, c.getSessionIPAddress());
-        c.sendPacket(MaplePacketCreator.getServerIP(c, Integer.parseInt(ChannelServer.getInstance(c.getChannel()).getSocket().split(":")[1]), charId));
+        c.sendPacket(MaplePacketCreator.getServerIP(c,
+                Integer.parseInt(ChannelServer.getInstance(c.getChannel()).getSocket().split(":")[1]), charId));
         System.setProperty(String.valueOf(charId), "1");
     }
 

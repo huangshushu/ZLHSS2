@@ -1,5 +1,9 @@
 package server;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -7,24 +11,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import client.MapleCharacter;
+import client.MapleClient;
 import client.inventory.Equip;
 import client.inventory.IItem;
 import client.inventory.ItemFlag;
-import constants.GameConstants;
-import client.MapleCharacter;
-import client.MapleClient;
 import client.inventory.MapleInventoryIdentifier;
 import client.inventory.MapleInventoryType;
 import client.inventory.MaplePet;
 import client.inventory.MapleWeaponType;
+import constants.GameConstants;
 import database.DBConPool;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import provider.*;
-import server.StructSetItem.SetItem;
+import provider.MapleData;
+import provider.MapleDataDirectoryEntry;
+import provider.MapleDataEntry;
+import provider.MapleDataFileEntry;
+import provider.MapleDataProvider;
+import provider.MapleDataProviderFactory;
+import provider.MapleDataTool;
 import tools.FileoutputUtil;
 import tools.Pair;
 import tools.StringUtil;
@@ -97,108 +101,119 @@ public class MapleItemInformationProvider {
         }
         getAllItems();
         loadStringData();
-       /* final MapleData setsData = etcData.getData("SetItemInfo.img");
-        StructSetItem itemz;
-        SetItem itez;
-        for (MapleData dat : setsData) {
-            itemz = new StructSetItem();
-            itemz.setItemID = Byte.parseByte(dat.getName());
-            itemz.completeCount = (byte) MapleDataTool.getIntConvert("completeCount", dat, 0);
-            for (MapleData level : dat.getChildByPath("ItemID")) {
-                itemz.itemIDs.add(MapleDataTool.getIntConvert(level));
-            }
-            for (MapleData level : dat.getChildByPath("Effect")) {
-                itez = new SetItem();
-                itez.incPDD = MapleDataTool.getIntConvert("incPDD", level, 0);
-                itez.incMDD = MapleDataTool.getIntConvert("incMDD", level, 0);
-                itez.incSTR = MapleDataTool.getIntConvert("incSTR", level, 0);
-                itez.incDEX = MapleDataTool.getIntConvert("incDEX", level, 0);
-                itez.incINT = MapleDataTool.getIntConvert("incINT", level, 0);
-                itez.incLUK = MapleDataTool.getIntConvert("incLUK", level, 0);
-                itez.incACC = MapleDataTool.getIntConvert("incACC", level, 0);
-                itez.incPAD = MapleDataTool.getIntConvert("incPAD", level, 0);
-                itez.incMAD = MapleDataTool.getIntConvert("incMAD", level, 0);
-                itez.incSpeed = MapleDataTool.getIntConvert("incSpeed", level, 0);
-                itez.incMHP = MapleDataTool.getIntConvert("incMHP", level, 0);
-                itez.incMMP = MapleDataTool.getIntConvert("incMMP", level, 0);
-                itemz.items.put(Integer.parseInt(level.getName()), itez);
-            }
-            setItems.put(itemz.setItemID, itemz);
-        }*/
-        /*        final MapleData potsData = itemData.getData("ItemOption.img");
-         StructPotentialItem item;
-         List<StructPotentialItem> items;
-         for (MapleData dat : potsData) {
-         items = new LinkedList<StructPotentialItem>();
-         for (MapleData level : dat.getChildByPath("level")) {
-         item = new StructPotentialItem();
-         item.optionType = MapleDataTool.getIntConvert("info/optionType", dat, 0);
-         item.reqLevel = MapleDataTool.getIntConvert("info/reqLevel", dat, 0);
-         item.face = MapleDataTool.getString("face", level, "");
-         item.boss = MapleDataTool.getIntConvert("boss", level, 0) > 0;
-         item.potentialID = Short.parseShort(dat.getName());
-         item.attackType = (short) MapleDataTool.getIntConvert("attackType", level, 0);
-         item.incMHP = (short) MapleDataTool.getIntConvert("incMHP", level, 0);
-         item.incMMP = (short) MapleDataTool.getIntConvert("incMMP", level, 0);
-
-         item.incSTR = (byte) MapleDataTool.getIntConvert("incSTR", level, 0);
-         item.incDEX = (byte) MapleDataTool.getIntConvert("incDEX", level, 0);
-         item.incINT = (byte) MapleDataTool.getIntConvert("incINT", level, 0);
-         item.incLUK = (byte) MapleDataTool.getIntConvert("incLUK", level, 0);
-         item.incACC = (byte) MapleDataTool.getIntConvert("incACC", level, 0);
-         item.incEVA = (byte) MapleDataTool.getIntConvert("incEVA", level, 0);
-         item.incSpeed = (byte) MapleDataTool.getIntConvert("incSpeed", level, 0);
-         item.incJump = (byte) MapleDataTool.getIntConvert("incJump", level, 0);
-         item.incPAD = (byte) MapleDataTool.getIntConvert("incPAD", level, 0);
-         item.incMAD = (byte) MapleDataTool.getIntConvert("incMAD", level, 0);
-         item.incPDD = (byte) MapleDataTool.getIntConvert("incPDD", level, 0);
-         item.incMDD = (byte) MapleDataTool.getIntConvert("incMDD", level, 0);
-         item.prop = (byte) MapleDataTool.getIntConvert("prop", level, 0);
-         item.time = (byte) MapleDataTool.getIntConvert("time", level, 0);
-         item.incSTRr = (byte) MapleDataTool.getIntConvert("incSTRr", level, 0);
-         item.incDEXr = (byte) MapleDataTool.getIntConvert("incDEXr", level, 0);
-         item.incINTr = (byte) MapleDataTool.getIntConvert("incINTr", level, 0);
-         item.incLUKr = (byte) MapleDataTool.getIntConvert("incLUKr", level, 0);
-         item.incMHPr = (byte) MapleDataTool.getIntConvert("incMHPr", level, 0);
-         item.incMMPr = (byte) MapleDataTool.getIntConvert("incMMPr", level, 0);
-         item.incACCr = (byte) MapleDataTool.getIntConvert("incACCr", level, 0);
-         item.incEVAr = (byte) MapleDataTool.getIntConvert("incEVAr", level, 0);
-         item.incPADr = (byte) MapleDataTool.getIntConvert("incPADr", level, 0);
-         item.incMADr = (byte) MapleDataTool.getIntConvert("incMADr", level, 0);
-         item.incPDDr = (byte) MapleDataTool.getIntConvert("incPDDr", level, 0);
-         item.incMDDr = (byte) MapleDataTool.getIntConvert("incMDDr", level, 0);
-         item.incCr = (byte) MapleDataTool.getIntConvert("incCr", level, 0);
-         item.incDAMr = (byte) MapleDataTool.getIntConvert("incDAMr", level, 0);
-         item.RecoveryHP = (byte) MapleDataTool.getIntConvert("RecoveryHP", level, 0);
-         item.RecoveryMP = (byte) MapleDataTool.getIntConvert("RecoveryMP", level, 0);
-         item.HP = (byte) MapleDataTool.getIntConvert("HP", level, 0);
-         item.MP = (byte) MapleDataTool.getIntConvert("MP", level, 0);
-         item.level = (byte) MapleDataTool.getIntConvert("level", level, 0);
-         item.ignoreTargetDEF = (byte) MapleDataTool.getIntConvert("ignoreTargetDEF", level, 0);
-         item.ignoreDAM = (byte) MapleDataTool.getIntConvert("ignoreDAM", level, 0);
-         item.DAMreflect = (byte) MapleDataTool.getIntConvert("DAMreflect", level, 0);
-         item.mpconReduce = (byte) MapleDataTool.getIntConvert("mpconReduce", level, 0);
-         item.mpRestore = (byte) MapleDataTool.getIntConvert("mpRestore", level, 0);
-         item.incMesoProp = (byte) MapleDataTool.getIntConvert("incMesoProp", level, 0);
-         item.incRewardProp = (byte) MapleDataTool.getIntConvert("incRewardProp", level, 0);
-         item.incAllskill = (byte) MapleDataTool.getIntConvert("incAllskill", level, 0);
-         item.ignoreDAMr = (byte) MapleDataTool.getIntConvert("ignoreDAMr", level, 0);
-         item.RecoveryUP = (byte) MapleDataTool.getIntConvert("RecoveryUP", level, 0);
-         switch (item.potentialID) {
-         case 31001:
-         case 31002:
-         case 31003:
-         case 31004:
-         item.skillID = (short) (item.potentialID - 23001);
-         break;
-         default:
-         item.skillID = 0;
-         break;
-         }
-         items.add(item);
-         }
-         potentialCache.put(Integer.parseInt(dat.getName()), items);
-         }*/
+        /*
+         * final MapleData setsData = etcData.getData("SetItemInfo.img");
+         * StructSetItem itemz;
+         * SetItem itez;
+         * for (MapleData dat : setsData) {
+         * itemz = new StructSetItem();
+         * itemz.setItemID = Byte.parseByte(dat.getName());
+         * itemz.completeCount = (byte) MapleDataTool.getIntConvert("completeCount",
+         * dat, 0);
+         * for (MapleData level : dat.getChildByPath("ItemID")) {
+         * itemz.itemIDs.add(MapleDataTool.getIntConvert(level));
+         * }
+         * for (MapleData level : dat.getChildByPath("Effect")) {
+         * itez = new SetItem();
+         * itez.incPDD = MapleDataTool.getIntConvert("incPDD", level, 0);
+         * itez.incMDD = MapleDataTool.getIntConvert("incMDD", level, 0);
+         * itez.incSTR = MapleDataTool.getIntConvert("incSTR", level, 0);
+         * itez.incDEX = MapleDataTool.getIntConvert("incDEX", level, 0);
+         * itez.incINT = MapleDataTool.getIntConvert("incINT", level, 0);
+         * itez.incLUK = MapleDataTool.getIntConvert("incLUK", level, 0);
+         * itez.incACC = MapleDataTool.getIntConvert("incACC", level, 0);
+         * itez.incPAD = MapleDataTool.getIntConvert("incPAD", level, 0);
+         * itez.incMAD = MapleDataTool.getIntConvert("incMAD", level, 0);
+         * itez.incSpeed = MapleDataTool.getIntConvert("incSpeed", level, 0);
+         * itez.incMHP = MapleDataTool.getIntConvert("incMHP", level, 0);
+         * itez.incMMP = MapleDataTool.getIntConvert("incMMP", level, 0);
+         * itemz.items.put(Integer.parseInt(level.getName()), itez);
+         * }
+         * setItems.put(itemz.setItemID, itemz);
+         * }
+         */
+        /*
+         * final MapleData potsData = itemData.getData("ItemOption.img");
+         * StructPotentialItem item;
+         * List<StructPotentialItem> items;
+         * for (MapleData dat : potsData) {
+         * items = new LinkedList<StructPotentialItem>();
+         * for (MapleData level : dat.getChildByPath("level")) {
+         * item = new StructPotentialItem();
+         * item.optionType = MapleDataTool.getIntConvert("info/optionType", dat, 0);
+         * item.reqLevel = MapleDataTool.getIntConvert("info/reqLevel", dat, 0);
+         * item.face = MapleDataTool.getString("face", level, "");
+         * item.boss = MapleDataTool.getIntConvert("boss", level, 0) > 0;
+         * item.potentialID = Short.parseShort(dat.getName());
+         * item.attackType = (short) MapleDataTool.getIntConvert("attackType", level,
+         * 0);
+         * item.incMHP = (short) MapleDataTool.getIntConvert("incMHP", level, 0);
+         * item.incMMP = (short) MapleDataTool.getIntConvert("incMMP", level, 0);
+         * 
+         * item.incSTR = (byte) MapleDataTool.getIntConvert("incSTR", level, 0);
+         * item.incDEX = (byte) MapleDataTool.getIntConvert("incDEX", level, 0);
+         * item.incINT = (byte) MapleDataTool.getIntConvert("incINT", level, 0);
+         * item.incLUK = (byte) MapleDataTool.getIntConvert("incLUK", level, 0);
+         * item.incACC = (byte) MapleDataTool.getIntConvert("incACC", level, 0);
+         * item.incEVA = (byte) MapleDataTool.getIntConvert("incEVA", level, 0);
+         * item.incSpeed = (byte) MapleDataTool.getIntConvert("incSpeed", level, 0);
+         * item.incJump = (byte) MapleDataTool.getIntConvert("incJump", level, 0);
+         * item.incPAD = (byte) MapleDataTool.getIntConvert("incPAD", level, 0);
+         * item.incMAD = (byte) MapleDataTool.getIntConvert("incMAD", level, 0);
+         * item.incPDD = (byte) MapleDataTool.getIntConvert("incPDD", level, 0);
+         * item.incMDD = (byte) MapleDataTool.getIntConvert("incMDD", level, 0);
+         * item.prop = (byte) MapleDataTool.getIntConvert("prop", level, 0);
+         * item.time = (byte) MapleDataTool.getIntConvert("time", level, 0);
+         * item.incSTRr = (byte) MapleDataTool.getIntConvert("incSTRr", level, 0);
+         * item.incDEXr = (byte) MapleDataTool.getIntConvert("incDEXr", level, 0);
+         * item.incINTr = (byte) MapleDataTool.getIntConvert("incINTr", level, 0);
+         * item.incLUKr = (byte) MapleDataTool.getIntConvert("incLUKr", level, 0);
+         * item.incMHPr = (byte) MapleDataTool.getIntConvert("incMHPr", level, 0);
+         * item.incMMPr = (byte) MapleDataTool.getIntConvert("incMMPr", level, 0);
+         * item.incACCr = (byte) MapleDataTool.getIntConvert("incACCr", level, 0);
+         * item.incEVAr = (byte) MapleDataTool.getIntConvert("incEVAr", level, 0);
+         * item.incPADr = (byte) MapleDataTool.getIntConvert("incPADr", level, 0);
+         * item.incMADr = (byte) MapleDataTool.getIntConvert("incMADr", level, 0);
+         * item.incPDDr = (byte) MapleDataTool.getIntConvert("incPDDr", level, 0);
+         * item.incMDDr = (byte) MapleDataTool.getIntConvert("incMDDr", level, 0);
+         * item.incCr = (byte) MapleDataTool.getIntConvert("incCr", level, 0);
+         * item.incDAMr = (byte) MapleDataTool.getIntConvert("incDAMr", level, 0);
+         * item.RecoveryHP = (byte) MapleDataTool.getIntConvert("RecoveryHP", level, 0);
+         * item.RecoveryMP = (byte) MapleDataTool.getIntConvert("RecoveryMP", level, 0);
+         * item.HP = (byte) MapleDataTool.getIntConvert("HP", level, 0);
+         * item.MP = (byte) MapleDataTool.getIntConvert("MP", level, 0);
+         * item.level = (byte) MapleDataTool.getIntConvert("level", level, 0);
+         * item.ignoreTargetDEF = (byte) MapleDataTool.getIntConvert("ignoreTargetDEF",
+         * level, 0);
+         * item.ignoreDAM = (byte) MapleDataTool.getIntConvert("ignoreDAM", level, 0);
+         * item.DAMreflect = (byte) MapleDataTool.getIntConvert("DAMreflect", level, 0);
+         * item.mpconReduce = (byte) MapleDataTool.getIntConvert("mpconReduce", level,
+         * 0);
+         * item.mpRestore = (byte) MapleDataTool.getIntConvert("mpRestore", level, 0);
+         * item.incMesoProp = (byte) MapleDataTool.getIntConvert("incMesoProp", level,
+         * 0);
+         * item.incRewardProp = (byte) MapleDataTool.getIntConvert("incRewardProp",
+         * level, 0);
+         * item.incAllskill = (byte) MapleDataTool.getIntConvert("incAllskill", level,
+         * 0);
+         * item.ignoreDAMr = (byte) MapleDataTool.getIntConvert("ignoreDAMr", level, 0);
+         * item.RecoveryUP = (byte) MapleDataTool.getIntConvert("RecoveryUP", level, 0);
+         * switch (item.potentialID) {
+         * case 31001:
+         * case 31002:
+         * case 31003:
+         * case 31004:
+         * item.skillID = (short) (item.potentialID - 23001);
+         * break;
+         * default:
+         * item.skillID = 0;
+         * break;
+         * }
+         * items.add(item);
+         * }
+         * potentialCache.put(Integer.parseInt(dat.getName()), items);
+         * }
+         */
     }
 
     public final List<StructPotentialItem> getPotentialInfo(final int potId) {
@@ -222,19 +237,22 @@ public class MapleItemInformationProvider {
 
         itemsData = stringData.getData("Cash.img");
         for (final MapleData itemFolder : itemsData.getChildren()) {
-            itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()), MapleDataTool.getString("name", itemFolder, "NO-NAME")));
+            itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()),
+                    MapleDataTool.getString("name", itemFolder, "NO-NAME")));
         }
 
         itemsData = stringData.getData("Consume.img");
         for (final MapleData itemFolder : itemsData.getChildren()) {
-            itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()), MapleDataTool.getString("name", itemFolder, "NO-NAME")));
+            itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()),
+                    MapleDataTool.getString("name", itemFolder, "NO-NAME")));
         }
 
         itemsData = stringData.getData("Eqp.img").getChildByPath("Eqp");
         for (final MapleData eqpType : itemsData.getChildren()) {
             for (final MapleData itemFolder : eqpType.getChildren()) {
                 try {
-                    itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()), MapleDataTool.getString("name", itemFolder, "NO-NAME")));
+                    itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()),
+                            MapleDataTool.getString("name", itemFolder, "NO-NAME")));
                 } catch (Exception Ex) {
                     System.out.println("错误：" + itemFolder.getName());
                 }
@@ -243,17 +261,20 @@ public class MapleItemInformationProvider {
 
         itemsData = stringData.getData("Etc.img").getChildByPath("Etc");
         for (final MapleData itemFolder : itemsData.getChildren()) {
-            itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()), MapleDataTool.getString("name", itemFolder, "NO-NAME")));
+            itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()),
+                    MapleDataTool.getString("name", itemFolder, "NO-NAME")));
         }
 
         itemsData = stringData.getData("Ins.img");
         for (final MapleData itemFolder : itemsData.getChildren()) {
-            itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()), MapleDataTool.getString("name", itemFolder, "NO-NAME")));
+            itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()),
+                    MapleDataTool.getString("name", itemFolder, "NO-NAME")));
         }
 
         itemsData = stringData.getData("Pet.img");
         for (final MapleData itemFolder : itemsData.getChildren()) {
-            itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()), MapleDataTool.getString("name", itemFolder, "NO-NAME")));
+            itemPairs.add(new Pair<>(Integer.parseInt(itemFolder.getName()),
+                    MapleDataTool.getString("name", itemFolder, "NO-NAME")));
         }
         return itemPairs;
     }
@@ -287,7 +308,11 @@ public class MapleItemInformationProvider {
 
     public MapleWeaponType getWeaponType(int itemId) {
         int cat = (itemId / 10000) % 100;
-        MapleWeaponType[] type = {MapleWeaponType.单手剑, MapleWeaponType.单手斧, MapleWeaponType.单手棍, MapleWeaponType.短剑, MapleWeaponType.没有武器, MapleWeaponType.没有武器, MapleWeaponType.没有武器, MapleWeaponType.长杖, MapleWeaponType.短杖, MapleWeaponType.没有武器, MapleWeaponType.双手剑, MapleWeaponType.双手斧, MapleWeaponType.双手棍, MapleWeaponType.矛, MapleWeaponType.枪, MapleWeaponType.弓, MapleWeaponType.弩, MapleWeaponType.拳套, MapleWeaponType.指虎, MapleWeaponType.火枪};
+        MapleWeaponType[] type = { MapleWeaponType.单手剑, MapleWeaponType.单手斧, MapleWeaponType.单手棍, MapleWeaponType.短剑,
+                MapleWeaponType.没有武器, MapleWeaponType.没有武器, MapleWeaponType.没有武器, MapleWeaponType.长杖,
+                MapleWeaponType.短杖, MapleWeaponType.没有武器, MapleWeaponType.双手剑, MapleWeaponType.双手斧, MapleWeaponType.双手棍,
+                MapleWeaponType.矛, MapleWeaponType.枪, MapleWeaponType.弓, MapleWeaponType.弩, MapleWeaponType.拳套,
+                MapleWeaponType.指虎, MapleWeaponType.火枪 };
         if (cat < 30 || cat > 49) {
             return MapleWeaponType.没有武器;
         }
@@ -302,7 +327,8 @@ public class MapleItemInformationProvider {
             data = cashStringData;
         } else if (itemId >= 2000000 && itemId < 3000000) {
             data = consumeStringData;
-        } else if ((itemId >= 1142000 && itemId < 1143200) || (itemId >= 1010000 && itemId < 1040000) || (itemId >= 1122000 && itemId < 1123000)) {
+        } else if ((itemId >= 1142000 && itemId < 1143200) || (itemId >= 1010000 && itemId < 1040000)
+                || (itemId >= 1122000 && itemId < 1123000)) {
             data = eqpStringData;
             cat = "Accessory";
         } else if (itemId >= 1000000 && itemId < 1010000) {
@@ -421,7 +447,7 @@ public class MapleItemInformationProvider {
                     ret = 9999;
                 }
             } else {
-//                ret = (short) MapleDataTool.getInt(smEntry);
+                // ret = (short) MapleDataTool.getInt(smEntry);
                 if (GameConstants.getSlotMax(itemId) > 0) {
                     ret = GameConstants.getSlotMax(itemId);
                 } else if (itemId / 10000 == 433) {
@@ -513,7 +539,7 @@ public class MapleItemInformationProvider {
         ret.put("incINT", (byte) MapleDataTool.getInt("incINT", info, 0)); // INT
         ret.put("incLUK", (byte) MapleDataTool.getInt("incLUK", info, 0)); // LUK
         ret.put("incDEX", (byte) MapleDataTool.getInt("incDEX", info, 0)); // DEX
-//	ret.put("incReqLevel", MapleDataTool.getInt("incReqLevel", info, 0)); // IDK!
+        // ret.put("incReqLevel", MapleDataTool.getInt("incReqLevel", info, 0)); // IDK!
         ret.put("randOption", (byte) MapleDataTool.getInt("randOption", info, 0)); // Black Crystal Wa/MA
         ret.put("randStat", (byte) MapleDataTool.getInt("randStat", info, 0)); // Dark Crystal - Str/Dex/int/Luk
 
@@ -527,7 +553,7 @@ public class MapleItemInformationProvider {
 
     public Equip levelUpEquip(Equip equip, Map<String, Integer> sta) {
         Equip nEquip = (Equip) equip.copy();
-        //is this all the stats?
+        // is this all the stats?
         try {
             for (Entry<String, Integer> stat : sta.entrySet()) {
                 switch (stat.getKey()) {
@@ -602,7 +628,7 @@ public class MapleItemInformationProvider {
         }
         for (MapleData dat : info.getChildren()) {
             Map<String, Integer> incs = new HashMap<>();
-            for (MapleData data : dat.getChildren()) { //why we have to do this? check if number has skills or not
+            for (MapleData data : dat.getChildren()) { // why we have to do this? check if number has skills or not
                 if (data.getName().length() > 3) {
                     incs.put(data.getName().substring(3), MapleDataTool.getIntConvert(data.getName(), dat, 0));
                 }
@@ -627,8 +653,9 @@ public class MapleItemInformationProvider {
             return null;
         }
         for (MapleData dat : info.getChildren()) {
-            for (MapleData data : dat.getChildren()) { //why we have to do this? check if number has skills or not
-                if (data.getName().length() == 1) { //the numbers all them are one digit. everything else isnt so we're lucky here..
+            for (MapleData data : dat.getChildren()) { // why we have to do this? check if number has skills or not
+                if (data.getName().length() == 1) { // the numbers all them are one digit. everything else isnt so we're
+                                                    // lucky here..
                     List<Integer> adds = new ArrayList<>();
                     for (MapleData skil : data.getChildByPath("Skill").getChildren()) {
                         adds.add(MapleDataTool.getIntConvert("id", skil, 0));
@@ -694,8 +721,10 @@ public class MapleItemInformationProvider {
         return getEquipStats(itemId).get("cash") == 1;
     }
 
-    public final boolean canEquip(final Map<String, Integer> stats, final int itemid, final int level, final int job, final int fame, final int str, final int dex, final int luk, final int int_, final int supremacy) {
-        if ((level + supremacy) >= stats.get("reqLevel") && str >= stats.get("reqSTR") && dex >= stats.get("reqDEX") && luk >= stats.get("reqLUK") && int_ >= stats.get("reqINT")) {
+    public final boolean canEquip(final Map<String, Integer> stats, final int itemid, final int level, final int job,
+            final int fame, final int str, final int dex, final int luk, final int int_, final int supremacy) {
+        if ((level + supremacy) >= stats.get("reqLevel") && str >= stats.get("reqSTR") && dex >= stats.get("reqDEX")
+                && luk >= stats.get("reqLUK") && int_ >= stats.get("reqINT")) {
             final int fameReq = stats.get("reqPOP");
             return !(fameReq != 0 && fame < fameReq);
         }
@@ -744,15 +773,27 @@ public class MapleItemInformationProvider {
         return ret;
     }
 
-    public final IItem scrollEquipWithId(final IItem equip, final IItem scrollId, final boolean ws, final MapleCharacter chr, final int vegas) {
+    public final IItem scrollEquipWithId(final IItem equip, final IItem scrollId, final boolean ws,
+            final MapleCharacter chr, final int vegas) {
         if (equip.getType() == 1) { // See IItem.java
             final Equip nEquip = (Equip) equip;
             final Map<String, Integer> stats = getEquipStats(scrollId.getItemId());
             final Map<String, Integer> eqstats = getEquipStats(equip.getItemId());
-            final int succ = (GameConstants.isTablet(scrollId.getItemId()) ? GameConstants.getSuccessTablet(scrollId.getItemId(), nEquip.getLevel()) : ((GameConstants.isEquipScroll(scrollId.getItemId()) || GameConstants.isPotentialScroll(scrollId.getItemId()) ? 0 : stats.get("success"))));
-            final int curse = (GameConstants.isTablet(scrollId.getItemId()) ? GameConstants.getCurseTablet(scrollId.getItemId(), nEquip.getLevel()) : ((GameConstants.isEquipScroll(scrollId.getItemId()) || GameConstants.isPotentialScroll(scrollId.getItemId()) ? 0 : stats.get("cursed"))));
+            final int succ = (GameConstants
+                    .isTablet(scrollId.getItemId())
+                            ? GameConstants.getSuccessTablet(scrollId.getItemId(), nEquip.getLevel())
+                            : ((GameConstants.isEquipScroll(scrollId.getItemId())
+                                    || GameConstants.isPotentialScroll(scrollId.getItemId()) ? 0
+                                            : stats.get("success"))));
+            final int curse = (GameConstants
+                    .isTablet(scrollId.getItemId())
+                            ? GameConstants.getCurseTablet(scrollId.getItemId(), nEquip.getLevel())
+                            : ((GameConstants.isEquipScroll(scrollId.getItemId())
+                                    || GameConstants.isPotentialScroll(scrollId.getItemId()) ? 0
+                                            : stats.get("cursed"))));
             int success = succ + (vegas == 5610000 && succ == 10 ? 20 : (vegas == 5610001 && succ == 60 ? 30 : 0));
-            if (GameConstants.isPotentialScroll(scrollId.getItemId()) || GameConstants.isEquipScroll(scrollId.getItemId()) || Randomizer.nextInt(100) <= success) {
+            if (GameConstants.isPotentialScroll(scrollId.getItemId())
+                    || GameConstants.isEquipScroll(scrollId.getItemId()) || Randomizer.nextInt(100) <= success) {
                 switch (scrollId.getItemId()) {
                     case 2049000:
                     case 2049001:
@@ -791,93 +832,108 @@ public class MapleItemInformationProvider {
                         if (GameConstants.isChaosScroll(scrollId.getItemId())) {
                             final int z = GameConstants.getChaosNumber(scrollId.getItemId());
                             if (nEquip.getStr() > 0) {
-                                nEquip.setStr((short) (nEquip.getStr() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setStr((short) (nEquip.getStr()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getDex() > 0) {
-                                nEquip.setDex((short) (nEquip.getDex() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setDex((short) (nEquip.getDex()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getInt() > 0) {
-                                nEquip.setInt((short) (nEquip.getInt() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setInt((short) (nEquip.getInt()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getLuk() > 0) {
-                                nEquip.setLuk((short) (nEquip.getLuk() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setLuk((short) (nEquip.getLuk()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getWatk() > 0) {
-                                nEquip.setWatk((short) (nEquip.getWatk() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setWatk((short) (nEquip.getWatk()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getWdef() > 0) {
-                                nEquip.setWdef((short) (nEquip.getWdef() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setWdef((short) (nEquip.getWdef()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getMatk() > 0) {
-                                nEquip.setMatk((short) (nEquip.getMatk() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setMatk((short) (nEquip.getMatk()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getMdef() > 0) {
-                                nEquip.setMdef((short) (nEquip.getMdef() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setMdef((short) (nEquip.getMdef()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getAcc() > 0) {
-                                nEquip.setAcc((short) (nEquip.getAcc() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setAcc((short) (nEquip.getAcc()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getAvoid() > 0) {
-                                nEquip.setAvoid((short) (nEquip.getAvoid() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setAvoid((short) (nEquip.getAvoid()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getSpeed() > 0) {
-                                nEquip.setSpeed((short) (nEquip.getSpeed() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setSpeed((short) (nEquip.getSpeed()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getJump() > 0) {
-                                nEquip.setJump((short) (nEquip.getJump() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setJump((short) (nEquip.getJump()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getHp() > 0) {
-                                nEquip.setHp((short) (nEquip.getHp() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setHp((short) (nEquip.getHp()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             if (nEquip.getMp() > 0) {
-                                nEquip.setMp((short) (nEquip.getMp() + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
+                                nEquip.setMp((short) (nEquip.getMp()
+                                        + Randomizer.nextInt(z) * (Randomizer.nextBoolean() ? 1 : -1)));
                             }
                             break;
                         } else if (GameConstants.isEquipScroll(scrollId.getItemId())) {
-                            final int chanc = Math.max((scrollId.getItemId() == 2049300 ? 100 : 80) - (nEquip.getEnhance() * 10), 10);
+                            final int chanc = Math
+                                    .max((scrollId.getItemId() == 2049300 ? 100 : 80) - (nEquip.getEnhance() * 10), 10);
                             if (Randomizer.nextInt(100) > chanc) {
-                                return null; //destroyed, nib
+                                return null; // destroyed, nib
                             }
-                            if (nEquip.getStr() > 0 || Randomizer.nextInt(50) == 1) { //1/50
+                            if (nEquip.getStr() > 0 || Randomizer.nextInt(50) == 1) { // 1/50
                                 nEquip.setStr((short) (nEquip.getStr() + Randomizer.nextInt(5)));
                             }
-                            if (nEquip.getDex() > 0 || Randomizer.nextInt(50) == 1) { //1/50
+                            if (nEquip.getDex() > 0 || Randomizer.nextInt(50) == 1) { // 1/50
                                 nEquip.setDex((short) (nEquip.getDex() + Randomizer.nextInt(5)));
                             }
-                            if (nEquip.getInt() > 0 || Randomizer.nextInt(50) == 1) { //1/50
+                            if (nEquip.getInt() > 0 || Randomizer.nextInt(50) == 1) { // 1/50
                                 nEquip.setInt((short) (nEquip.getInt() + Randomizer.nextInt(5)));
                             }
-                            if (nEquip.getLuk() > 0 || Randomizer.nextInt(50) == 1) { //1/50
+                            if (nEquip.getLuk() > 0 || Randomizer.nextInt(50) == 1) { // 1/50
                                 nEquip.setLuk((short) (nEquip.getLuk() + Randomizer.nextInt(5)));
                             }
                             if (nEquip.getWatk() > 0 && GameConstants.isWeapon(nEquip.getItemId())) {
                                 nEquip.setWatk((short) (nEquip.getWatk() + Randomizer.nextInt(5)));
                             }
-                            if (nEquip.getWdef() > 0 || Randomizer.nextInt(40) == 1) { //1/40
+                            if (nEquip.getWdef() > 0 || Randomizer.nextInt(40) == 1) { // 1/40
                                 nEquip.setWdef((short) (nEquip.getWdef() + Randomizer.nextInt(5)));
                             }
                             if (nEquip.getMatk() > 0 && GameConstants.isWeapon(nEquip.getItemId())) {
                                 nEquip.setMatk((short) (nEquip.getMatk() + Randomizer.nextInt(5)));
                             }
-                            if (nEquip.getMdef() > 0 || Randomizer.nextInt(40) == 1) { //1/40
+                            if (nEquip.getMdef() > 0 || Randomizer.nextInt(40) == 1) { // 1/40
                                 nEquip.setMdef((short) (nEquip.getMdef() + Randomizer.nextInt(5)));
                             }
-                            if (nEquip.getAcc() > 0 || Randomizer.nextInt(20) == 1) { //1/20
+                            if (nEquip.getAcc() > 0 || Randomizer.nextInt(20) == 1) { // 1/20
                                 nEquip.setAcc((short) (nEquip.getAcc() + Randomizer.nextInt(5)));
                             }
-                            if (nEquip.getAvoid() > 0 || Randomizer.nextInt(20) == 1) { //1/20
+                            if (nEquip.getAvoid() > 0 || Randomizer.nextInt(20) == 1) { // 1/20
                                 nEquip.setAvoid((short) (nEquip.getAvoid() + Randomizer.nextInt(5)));
                             }
-                            if (nEquip.getSpeed() > 0 || Randomizer.nextInt(10) == 1) { //1/10
+                            if (nEquip.getSpeed() > 0 || Randomizer.nextInt(10) == 1) { // 1/10
                                 nEquip.setSpeed((short) (nEquip.getSpeed() + Randomizer.nextInt(5)));
                             }
-                            if (nEquip.getJump() > 0 || Randomizer.nextInt(10) == 1) { //1/10
+                            if (nEquip.getJump() > 0 || Randomizer.nextInt(10) == 1) { // 1/10
                                 nEquip.setJump((short) (nEquip.getJump() + Randomizer.nextInt(5)));
                             }
-                            if (nEquip.getHp() > 0 || Randomizer.nextInt(5) == 1) { //1/5
+                            if (nEquip.getHp() > 0 || Randomizer.nextInt(5) == 1) { // 1/5
                                 nEquip.setHp((short) (nEquip.getHp() + Randomizer.nextInt(5)));
                             }
-                            if (nEquip.getMp() > 0 || Randomizer.nextInt(5) == 1) { //1/5
+                            if (nEquip.getMp() > 0 || Randomizer.nextInt(5) == 1) { // 1/5
                                 nEquip.setMp((short) (nEquip.getMp() + Randomizer.nextInt(5)));
                             }
                             nEquip.setEnhance((byte) (nEquip.getEnhance() + 1));
@@ -886,7 +942,7 @@ public class MapleItemInformationProvider {
                             if (nEquip.getState() == 0) {
                                 final int chanc = scrollId.getItemId() == 2049400 ? 90 : 70;
                                 if (Randomizer.nextInt(100) > chanc) {
-                                    return null; //destroyed, nib
+                                    return null; // destroyed, nib
                                 }
                                 nEquip.resetPotential();
                             }
@@ -949,12 +1005,18 @@ public class MapleItemInformationProvider {
                         }
                     }
                 }
-                if (!GameConstants.isCleanSlate(scrollId.getItemId()) && !GameConstants.isSpecialScroll(scrollId.getItemId()) && !GameConstants.isEquipScroll(scrollId.getItemId()) && !GameConstants.isPotentialScroll(scrollId.getItemId())) {
+                if (!GameConstants.isCleanSlate(scrollId.getItemId())
+                        && !GameConstants.isSpecialScroll(scrollId.getItemId())
+                        && !GameConstants.isEquipScroll(scrollId.getItemId())
+                        && !GameConstants.isPotentialScroll(scrollId.getItemId())) {
                     nEquip.setUpgradeSlots((byte) (nEquip.getUpgradeSlots() - 1));
                     nEquip.setLevel((byte) (nEquip.getLevel() + 1));
                 }
             } else {
-                if (!ws && !GameConstants.isCleanSlate(scrollId.getItemId()) && !GameConstants.isSpecialScroll(scrollId.getItemId()) && !GameConstants.isEquipScroll(scrollId.getItemId()) && !GameConstants.isPotentialScroll(scrollId.getItemId())) {
+                if (!ws && !GameConstants.isCleanSlate(scrollId.getItemId())
+                        && !GameConstants.isSpecialScroll(scrollId.getItemId())
+                        && !GameConstants.isEquipScroll(scrollId.getItemId())
+                        && !GameConstants.isPotentialScroll(scrollId.getItemId())) {
                     if (scrollId.getItemId() != 2040739) {
                         nEquip.setUpgradeSlots((byte) (nEquip.getUpgradeSlots() - 1));
                     }
@@ -1036,7 +1098,7 @@ public class MapleItemInformationProvider {
                         break;
                     case "durability":
                         nEquip.setDurability(stat.getValue());
-//                } else if (key.equals("afterImage")) {
+                        // } else if (key.equals("afterImage")) {
                         break;
                 }
             }
@@ -1271,7 +1333,8 @@ public class MapleItemInformationProvider {
         final MapleData data = getItemData(itemId);
 
         boolean trade = false;
-        if (MapleDataTool.getIntConvert("info/tradeBlock", data, 0) == 1 || MapleDataTool.getIntConvert("info/quest", data, 0) == 1) {
+        if (MapleDataTool.getIntConvert("info/tradeBlock", data, 0) == 1
+                || MapleDataTool.getIntConvert("info/quest", data, 0) == 1) {
             trade = true;
         }
         dropRestrictionCache.put(itemId, trade);
@@ -1356,7 +1419,7 @@ public class MapleItemInformationProvider {
         return iRestricted;
     }
 
-    public final boolean cantSell(final int itemId) { //true = cant sell, false = can sell
+    public final boolean cantSell(final int itemId) { // true = cant sell, false = can sell
         if (notSaleCache.containsKey(itemId)) {
             return notSaleCache.get(itemId);
         }
@@ -1373,10 +1436,11 @@ public class MapleItemInformationProvider {
         if (!faceList.isEmpty()) {
             return;
         }
-        String[] types = {"Face"};
+        String[] types = { "Face" };
         for (String type : types) {
             for (MapleData c : stringData.getData("Eqp.img").getChildByPath("Eqp/" + type)) {
-                if (equipData.getData(type + "/" + StringUtil.getLeftPaddedStr(c.getName() + ".img", '0', 12)) != null) {
+                if (equipData
+                        .getData(type + "/" + StringUtil.getLeftPaddedStr(c.getName() + ".img", '0', 12)) != null) {
                     int dataid = Integer.parseInt(c.getName());
                     String name = MapleDataTool.getString("name", c, "无名称");
                     if (type.equals("Face")) {
@@ -1409,7 +1473,8 @@ public class MapleItemInformationProvider {
         if (rewards == null) {
             return null;
         }
-        int totalprob = 0; // As there are some rewards with prob above 2000, we can't assume it's always 100
+        int totalprob = 0; // As there are some rewards with prob above 2000, we can't assume it's always
+                           // 100
         List<StructRewardItem> all = new ArrayList<>();
 
         for (final MapleData reward : rewards) {
@@ -1515,7 +1580,8 @@ public class MapleItemInformationProvider {
         for (MapleData consume : itemD.getChildByPath("consumeItem")) {
             consumeItems.add(MapleDataTool.getInt(consume, 0));
         }
-        final Pair<Integer, List<Integer>> questItem = new Pair<>(MapleDataTool.getIntConvert("questId", itemD, 0), consumeItems);
+        final Pair<Integer, List<Integer>> questItem = new Pair<>(MapleDataTool.getIntConvert("questId", itemD, 0),
+                consumeItems);
         questItems.put(itemId, questItem);
         return questItem;
     }
@@ -1531,7 +1597,8 @@ public class MapleItemInformationProvider {
         if (getEquipStats(itemId) == null) {
             return GameConstants.getInventoryType(itemId) == MapleInventoryType.CASH;
         }
-        return GameConstants.getInventoryType(itemId) == MapleInventoryType.CASH || getEquipStats(itemId).get("cash") > 0;
+        return GameConstants.getInventoryType(itemId) == MapleInventoryType.CASH
+                || getEquipStats(itemId).get("cash") > 0;
     }
 
     public int getPetLimitLife(int itemid) {
@@ -1606,7 +1673,8 @@ public class MapleItemInformationProvider {
     public static void loadFaceHair() {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             try {
-                try (PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_hairdata ORDER BY `hairid`"); ResultSet rs = ps.executeQuery()) {
+                try (PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_hairdata ORDER BY `hairid`");
+                        ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
                         hairList.put(rs.getInt("hairid"), rs.getString("name"));
                     }
@@ -1617,7 +1685,8 @@ public class MapleItemInformationProvider {
                 FileoutputUtil.outError("logs/资料库异常.txt", ex);
             }
             try {
-                try (PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_facedata ORDER BY `faceid`"); ResultSet rs = ps.executeQuery()) {
+                try (PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_facedata ORDER BY `faceid`");
+                        ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
                         faceLists.put(rs.getInt("faceid"), rs.getString("name"));
                     }
@@ -1676,8 +1745,9 @@ public class MapleItemInformationProvider {
             } else {
                 uniqueid = MapleInventoryIdentifier.getInstance();
             }
-        } else if (GameConstants.getInventoryType(itemId) == MapleInventoryType.CASH || MapleItemInformationProvider.getInstance().isCash(itemId)) { //less work to do
-            uniqueid = MapleInventoryIdentifier.getInstance(); //shouldnt be generated yet, so put it here
+        } else if (GameConstants.getInventoryType(itemId) == MapleInventoryType.CASH
+                || MapleItemInformationProvider.getInstance().isCash(itemId)) { // less work to do
+            uniqueid = MapleInventoryIdentifier.getInstance(); // shouldnt be generated yet, so put it here
         }
         return uniqueid;
     }
@@ -1707,7 +1777,7 @@ public class MapleItemInformationProvider {
         } else if ("Hair".equals(node)) {
             div = 10;
         }
-        //记录出现次数
+        // 记录出现次数
         Map<Integer, Integer> map = new HashMap<>();
         List<Integer> list = new ArrayList<>();
         for (final MapleDataDirectoryEntry topDir : equipData.getRoot().getSubdirectories()) {
@@ -1717,31 +1787,32 @@ public class MapleItemInformationProvider {
                     try {
                         i = Integer.parseInt(entry.getName().substring(0, entry.getName().indexOf(".")));
                     } catch (Exception e) {
-//                        e.printStackTrace();
+                        // e.printStackTrace();
                     }
                     if (i == 0) {
                         continue;
                     }
                     if (div == 10) {
-                        if (map.get((i/div) * div) == null) {
-                            //一次都没有
-                            map.put((i/div) * div, 1);
+                        if (map.get((i / div) * div) == null) {
+                            // 一次都没有
+                            map.put((i / div) * div, 1);
                         } else {
-                            map.put((i/div) * div, map.get((i/div) * div) + 1);
+                            map.put((i / div) * div, map.get((i / div) * div) + 1);
                         }
                     } else if (div == 100) {
-                        if (map.get((i/(div*10)) * (div*10) + (i % div)) == null) {
-                            //一次都没有
-                            map.put((i/(div*10)) * (div*10) + (i % div), 1);
+                        if (map.get((i / (div * 10)) * (div * 10) + (i % div)) == null) {
+                            // 一次都没有
+                            map.put((i / (div * 10)) * (div * 10) + (i % div), 1);
                         } else {
-                            map.put((i/(div*10)) * (div*10) + (i % div), map.get((i/(div*10)) * (div*10) + (i % div)) + 1);
+                            map.put((i / (div * 10)) * (div * 10) + (i % div),
+                                    map.get((i / (div * 10)) * (div * 10) + (i % div)) + 1);
                         }
                     }
 
                 }
             }
         }
-        for (Integer key:map.keySet()) {
+        for (Integer key : map.keySet()) {
             list.add(key);
         }
         return list;
@@ -1779,27 +1850,26 @@ public class MapleItemInformationProvider {
             mapleData = mapleData.getChildByPath("Eqp/" + cat + "/");
         }
         List<MapleData> children = mapleData.getChildren();
-        for (MapleData data:children) {
+        for (MapleData data : children) {
             int itemId = Integer.parseInt(data.getName());
             final String ret = MapleDataTool.getString("name", data, "(null)");
             nameCache.put(itemId, ret);
         }
     }
-    
-    	/*
-	 * 武器突破极限的攻击上限
-	 */
-	public int getLimitBreak(int itemId) {
-		if (getEquipStats(itemId) == null)
-			return 2100000000;
-		if (getEquipStats(itemId).containsKey("limitBreak")) {
-			return getEquipStats(itemId).get("limitBreak");
-		}
-		if (getEquipStats(itemId).containsKey("inclimitBreak")) {
-			return getEquipStats(itemId).get("inclimitBreak");
-		}
-		return 2100000000;
-	}
-        
-        
+
+    /*
+     * 武器突破极限的攻击上限
+     */
+    public int getLimitBreak(int itemId) {
+        if (getEquipStats(itemId) == null)
+            return 2100000000;
+        if (getEquipStats(itemId).containsKey("limitBreak")) {
+            return getEquipStats(itemId).get("limitBreak");
+        }
+        if (getEquipStats(itemId).containsKey("inclimitBreak")) {
+            return getEquipStats(itemId).get("inclimitBreak");
+        }
+        return 2100000000;
+    }
+
 }

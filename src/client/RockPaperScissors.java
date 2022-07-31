@@ -20,11 +20,6 @@
  */
 package client;
 
-import handling.world.World;
-import server.MapleInventoryManipulator;
-import server.Randomizer;
-import tools.MaplePacketCreator;
-
 public class RockPaperScissors {
 
     /*

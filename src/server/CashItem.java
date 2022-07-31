@@ -11,7 +11,6 @@ public class CashItem {
     private int Class;
     private boolean OnSale;
 
-    // TODO 商城商品::添加新的商品属性
     public CashItem(int sn, int itemId, int count, int price, int period, int gender, int Class, boolean sale) {
         this.SN = sn;
         this.ItemId = itemId;

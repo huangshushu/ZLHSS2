@@ -20,13 +20,6 @@
  */
 package tools;
 
-/**
- * Provides static methods for working with raw byte sequences.
- *
- * @author Frz
- * @since Revision 206
- * @version 1.0
- */
 public class BitTools {
 
     /**
@@ -47,8 +40,8 @@ public class BitTools {
      * Reads a string from <code>array</code> at <code>index</code>
      * <code>length</code> in length.
      *
-     * @param array The array to read the string from.
-     * @param index Where reading begins.
+     * @param array  The array to read the string from.
+     * @param index  Where reading begins.
      * @param length The number of bytes to read.
      * @return The string read.
      */
@@ -77,7 +70,7 @@ public class BitTools {
      * Rotates the bits of <code>in</code> <code>count</code> places to the
      * left.
      *
-     * @param in The byte to rotate the bits
+     * @param in    The byte to rotate the bits
      * @param count Number of times to rotate.
      * @return The rotated byte.
      */
@@ -95,7 +88,7 @@ public class BitTools {
      * Rotates the bits of <code>in</code> <code>count</code> places to the
      * right.
      *
-     * @param in The byte to rotate the bits
+     * @param in    The byte to rotate the bits
      * @param count Number of times to rotate.
      * @return The rotated byte.
      */
@@ -116,9 +109,9 @@ public class BitTools {
      * Repeats <code>count</code> bytes of <code>in</code> <code>mul</code>
      * times.
      *
-     * @param in The array of bytes containing the bytes to multiply.
+     * @param in    The array of bytes containing the bytes to multiply.
      * @param count The number of bytes to repeat.
-     * @param mul The number of times to repeat.
+     * @param mul   The number of times to repeat.
      * @return The repeated bytes.
      */
     public static final byte[] multiplyBytes(final byte[] in, final int count, final int mul) {

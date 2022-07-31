@@ -8,10 +8,6 @@ package server.movement;
 import java.awt.Point;
 import tools.data.MaplePacketLittleEndianWriter;
 
-/**
- *
- * @author user
- */
 public class StaticLifeMovement extends AbstractLifeMovement {
 
     private Point pixelsPerSecond;

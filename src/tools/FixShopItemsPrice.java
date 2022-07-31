@@ -14,10 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import server.MapleItemInformationProvider;
 
-/**
- *
- * @author Pungin
- */
 public class FixShopItemsPrice {
 
     private List<Integer> loadFromDB() {
@@ -29,7 +25,7 @@ public class FixShopItemsPrice {
             while (rs.next()) {
                 if (itemId != rs.getInt("itemid")) {
                     itemId = rs.getInt("itemid");
-                    //   System.out.println("商品道具ID:" + itemId);
+                    // System.out.println("商品道具ID:" + itemId);
                     shopItemsId.add(itemId);
                 }
             }
@@ -45,14 +41,18 @@ public class FixShopItemsPrice {
     private void changePrice(int itemId) {
         MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT shopid, price FROM shopitems WHERE itemid = ? ORDER BY price");
+            PreparedStatement ps = con
+                    .prepareStatement("SELECT shopid, price FROM shopitems WHERE itemid = ? ORDER BY price");
             ps.setInt(1, itemId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                //     double a = ii.getPrice(itemId);
+                // double a = ii.getPrice(itemId);
                 if (ii.getPrice(itemId) != rs.getLong("price") && rs.getLong("price") != 0 && ii.getPrice(itemId) > 1) {
-                    System.out.println("道具: " + MapleItemInformationProvider.getInstance().getName(itemId) + "道具ID: " + itemId + " 商店: " + rs.getInt("shopid") + " 原价格: " + rs.getLong("price") + " 新价格:" + (long) ii.getPrice(itemId));
-                    PreparedStatement pp = con.prepareStatement("UPDATE shopitems SET price = ? WHERE itemid = ? AND shopid = ?");
+                    System.out.println("道具: " + MapleItemInformationProvider.getInstance().getName(itemId) + "道具ID: "
+                            + itemId + " 商店: " + rs.getInt("shopid") + " 原价格: " + rs.getLong("price") + " 新价格:"
+                            + (long) ii.getPrice(itemId));
+                    PreparedStatement pp = con
+                            .prepareStatement("UPDATE shopitems SET price = ? WHERE itemid = ? AND shopid = ?");
                     pp.setLong(1, (long) ii.getPrice(itemId));
                     pp.setInt(2, itemId);
                     pp.setInt(3, rs.getInt("shopid"));

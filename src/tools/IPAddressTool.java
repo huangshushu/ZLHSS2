@@ -20,14 +20,6 @@
  */
 package tools;
 
-/**
- * Provides a class with tools for working with IP addresses, in both strings
- * and as long integers.
- *
- * @author Nol888
- * @version 0.1
- * @since Revision 890
- */
 public class IPAddressTool {
 
     /**

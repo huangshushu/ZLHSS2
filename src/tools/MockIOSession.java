@@ -20,6 +20,8 @@
  */
 package tools;
 
+import java.net.SocketAddress;
+
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelConfig;
@@ -34,20 +36,7 @@ import io.netty.channel.EventLoop;
 import io.netty.channel.RecvByteBufAllocator;
 import io.netty.util.Attribute;
 import io.netty.util.AttributeKey;
-import java.net.SocketAddress;
 
-/**
- * Represents a mock version of an IOSession to use a MapleClient instance
- * without an active connection (faekchar, etc).
- *
- * Most methods return void, or when they return something, null. Therefore,
- * this class is mostly undocumented, due to the fact that each and every
- * function does squat.
- *
- * @author Frz
- * @since Revision 518
- * @version 1.0
- */
 public class MockIOSession implements Channel {
 
     @Override

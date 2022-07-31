@@ -34,7 +34,7 @@ import tools.packet.PlayerShopPacket;
 
 public class MapleMiniGame extends AbstractPlayerStore {
 
-    private final static int slots = 2; //change?!
+    private final static int slots = 2; // change?!
     private boolean[] exitAfter;
     private boolean[] ready;
     private int[] points;
@@ -49,7 +49,7 @@ public class MapleMiniGame extends AbstractPlayerStore {
     int REDO = -1;
 
     public MapleMiniGame(MapleCharacter owner, int itemId, String description, String pass, int GameType) {
-        super(owner, itemId, description, pass, slots - 1); //?
+        super(owner, itemId, description, pass, slots - 1); // ?
         this.GameType = GameType;
         this.points = new int[slots];
         this.exitAfter = new boolean[slots];
@@ -124,7 +124,7 @@ public class MapleMiniGame extends AbstractPlayerStore {
     }
 
     public void setGameType() {
-        if (GameType == 2) { //omok = 1
+        if (GameType == 2) { // omok = 1
             matchcards.clear();
             for (int i = 0; i < getMatchesToWin(); i++) {
                 matchcards.add(i);
@@ -193,7 +193,7 @@ public class MapleMiniGame extends AbstractPlayerStore {
         }
     }
 
-    public void nextLoser() { //lol
+    public void nextLoser() { // lol
         loser++;
         if (loser > slots - 1) {
             loser = 0;
@@ -277,7 +277,6 @@ public class MapleMiniGame extends AbstractPlayerStore {
     }
 
     public int getScore(MapleCharacter chr) {
-        //TODO: Fix formula
         int score = 2000;
         int wins = getWins(chr);
         int ties = getTies(chr);
@@ -295,10 +294,10 @@ public class MapleMiniGame extends AbstractPlayerStore {
         return GameType == 1 ? IMaplePlayerShop.OMOK : IMaplePlayerShop.MATCH_CARD;
     }
 
-    //questids:
-    //omok - win = 122200
-    //matchcard - win = 122210
-    //TODO: record points
+    // questids:
+    // omok - win = 122200
+    // matchcard - win = 122210
+    // TODO: record points
     public int getWins(MapleCharacter chr) {
         return Integer.parseInt(getData(chr).split(",")[2]);
     }
@@ -311,7 +310,7 @@ public class MapleMiniGame extends AbstractPlayerStore {
         return Integer.parseInt(getData(chr).split(",")[0]);
     }
 
-    public void setPoints(int i, int type) { //lose = 0, tie = 1, win = 2
+    public void setPoints(int i, int type) { // lose = 0, tie = 1, win = 2
         MapleCharacter z;
         if (i == 0) {
             z = getMCOwner();
@@ -327,7 +326,8 @@ public class MapleMiniGame extends AbstractPlayerStore {
                 newData.append(",");
             }
             String newDat = newData.toString();
-            z.getQuestNAdd(MapleQuest.getInstance(GameType == 1 ? GameConstants.OMOK_SCORE : GameConstants.MATCH_SCORE)).setCustomData(newDat.substring(0, newDat.length() - 1));
+            z.getQuestNAdd(MapleQuest.getInstance(GameType == 1 ? GameConstants.OMOK_SCORE : GameConstants.MATCH_SCORE))
+                    .setCustomData(newDat.substring(0, newDat.length() - 1));
         }
     }
 
@@ -339,8 +339,9 @@ public class MapleMiniGame extends AbstractPlayerStore {
             record.setCustomData("0,0,0");
         } else {
             record = chr.getQuestNoAdd(quest);
-            if (record.getCustomData() == null || record.getCustomData().length() < 5 || record.getCustomData().indexOf(",") == -1) {
-                record.setCustomData("0,0,0"); //refresh
+            if (record.getCustomData() == null || record.getCustomData().length() < 5
+                    || record.getCustomData().indexOf(",") == -1) {
+                record.setCustomData("0,0,0"); // refresh
             }
         }
         return record.getCustomData();

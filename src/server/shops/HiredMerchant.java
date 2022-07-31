@@ -20,17 +20,17 @@
  */
 package server.shops;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ScheduledFuture;
+
+import client.MapleCharacter;
+import client.MapleClient;
 import client.inventory.IItem;
 import client.inventory.ItemFlag;
 import constants.GameConstants;
-import client.MapleCharacter;
-import client.MapleClient;
 import constants.ServerConfig;
 import handling.channel.ChannelServer;
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 import server.MapleInventoryManipulator;
 import server.MapleItemInformationProvider;
 import server.Timer.EtcTimer;
@@ -117,20 +117,30 @@ public class HiredMerchant extends AbstractPlayerStore {
         }
         if (MapleInventoryManipulator.addFromDrop(c, newItem, false)) {
             pItem.bundles -= quantity; // Number remaining in the store
-            final int gainmeso = getMeso() + (pItem.price * quantity) - GameConstants.EntrustedStoreTax(pItem.price * quantity);
+            final int gainmeso = getMeso() + (pItem.price * quantity)
+                    - GameConstants.EntrustedStoreTax(pItem.price * quantity);
             setMeso(gainmeso);
-            //final int gainmeso = getMeso() + (pItem.price * quantity);
-            //setMeso(gainmeso - GameConstants.EntrustedStoreTax(gainmeso));
+            // final int gainmeso = getMeso() + (pItem.price * quantity);
+            // setMeso(gainmeso - GameConstants.EntrustedStoreTax(gainmeso));
             c.getPlayer().gainMeso(-pItem.price * quantity, false);
             MapleCharacter Owner = getMCOwnerWorld();
             if (Owner != null) {
-                Owner.dropMessage(5, "道具 " + MapleItemInformationProvider.getInstance().getName(newItem.getItemId()) + " (" + perbundle + ") × " + quantity + " 已被其他玩家购买，还剩下：" + pItem.bundles + " 个");
+                Owner.dropMessage(5, "道具 " + MapleItemInformationProvider.getInstance().getName(newItem.getItemId())
+                        + " (" + perbundle + ") × " + quantity + " 已被其他玩家购买，还剩下：" + pItem.bundles + " 个");
             }
-            newItem.setGMLog(c.getPlayer().getName() + " Buy from  " + getOwnerName() + "'s Merchant " + newItem.getItemId() + "x" + quantity + " Prize : " + pItem.price);
+            newItem.setGMLog(c.getPlayer().getName() + " Buy from  " + getOwnerName() + "'s Merchant "
+                    + newItem.getItemId() + "x" + quantity + " Prize : " + pItem.price);
             if (ServerConfig.LOG_MRECHANT) {
-                FileoutputUtil.logToFile("logs/Data/精灵商人.txt", "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 玩家 " + c.getAccountName() + " " + c.getPlayer().getName() + " 从  " + getOwnerName() + " 的精灵商人购买了" + MapleItemInformationProvider.getInstance().getName(newItem.getItemId()) + " (" + newItem.getItemId() + ") x" + quantity + " 单个价钱为 : " + pItem.price);
+                FileoutputUtil.logToFile("logs/Data/精灵商人.txt",
+                        "\r\n 时间　[" + FileoutputUtil.NowTime() + "] IP: "
+                                + c.getSession().remoteAddress().toString().split(":")[0] + " 玩家 " + c.getAccountName()
+                                + " " + c.getPlayer().getName() + " 从  " + getOwnerName() + " 的精灵商人购买了"
+                                + MapleItemInformationProvider.getInstance().getName(newItem.getItemId()) + " ("
+                                + newItem.getItemId() + ") x" + quantity + " 单个价钱为 : " + pItem.price);
             }
-            final StringBuilder sb = new StringBuilder("[GM 密语] 玩家 " + c.getPlayer().getName() + " 从  " + getOwnerName() + " 的精灵商人购买了 " + MapleItemInformationProvider.getInstance().getName(newItem.getItemId()) + "(" + newItem.getItemId() + ") x" + quantity + " 单个价钱为 : " + pItem.price);
+            final StringBuilder sb = new StringBuilder("[GM 密语] 玩家 " + c.getPlayer().getName() + " 从  " + getOwnerName()
+                    + " 的精灵商人购买了 " + MapleItemInformationProvider.getInstance().getName(newItem.getItemId()) + "("
+                    + newItem.getItemId() + ") x" + quantity + " 单个价钱为 : " + pItem.price);
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                 for (MapleCharacter chr : cserv.getPlayerStorage().getAllCharactersThreadSafe()) {
                     if (chr.get_control_精灵商人()) {

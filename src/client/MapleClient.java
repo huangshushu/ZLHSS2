@@ -20,21 +20,32 @@
  */
 package client;
 
-import constants.ServerConfig;
-import constants.ServerConstants.PlayerGMRank;
-import database.DBConPool;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.script.ScriptEngine;
+
+import constants.ServerConstants.PlayerGMRank;
+import database.DBConPool;
 import database.DatabaseException;
 import handling.MapleServerHandler;
 import handling.cashshop.CashShopServer;
@@ -48,32 +59,16 @@ import handling.world.family.MapleFamilyCharacter;
 import handling.world.guild.MapleGuildCharacter;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
-import java.io.UnsupportedEncodingException;
-import static java.lang.Thread.sleep;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import server.maps.MapleMap;
-import server.shops.IMaplePlayerShop;
-import tools.MapleAESOFB;
-import tools.packet.LoginPacket;
-
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import server.Timer.PingTimer;
+import server.maps.MapleMap;
 import server.quest.MapleQuest;
+import server.shops.IMaplePlayerShop;
 import tools.FilePrinter;
 import tools.FileoutputUtil;
 import tools.HexTool;
+import tools.MapleAESOFB;
 import tools.MaplePacketCreator;
-import java.sql.Statement;
+import tools.packet.LoginPacket;
 
 public class MapleClient {
 
@@ -159,7 +154,7 @@ public class MapleClient {
         return allowedChar.contains(id);
     }
 
-    public final List<MapleCharacter> loadCharacters(final int serverId) { // TODO make this less costly zZz
+    public final List<MapleCharacter> loadCharacters(final int serverId) {
         final List<MapleCharacter> chars = new LinkedList<>();
 
         for (final CharNameAndId cni : loadCharactersInternal(serverId)) {
@@ -464,7 +459,7 @@ public class MapleClient {
         return this.accountId;
     }
 
-    public final void updateLoginState(final int newstate, final String SessionID) { // TODO hide?
+    public final void updateLoginState(final int newstate, final String SessionID) {
         // System.out.println(("UPDATE:" + String.valueOf(newstate)));
         loginMutex.lock();
         try {
@@ -522,7 +517,7 @@ public class MapleClient {
         }
     }
 
-    public final byte getLoginState() { // TODO hide?
+    public final byte getLoginState() {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps;
             ps = con.prepareStatement(

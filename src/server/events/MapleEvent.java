@@ -102,18 +102,18 @@ public abstract class MapleEvent {
                 chr.gainMeso(100000, true, false, false);
                 chr.dropMessage(5, "参加奖 100000 枫币");
             }
-            //5062000 = 1-3
-            //5220000 = 1-25
-            //5050000 = 1-5
-            //2022121 = 1-10
-            //4031307 = 1-5
+            // 5062000 = 1-3
+            // 5220000 = 1-25
+            // 5050000 = 1-5
+            // 2022121 = 1-10
+            // 4031307 = 1-5
         }
     }
 
-    public void finished(MapleCharacter chr) { //most dont do shit here
+    public void finished(MapleCharacter chr) { // most dont do shit here
     }
 
-    public void onMapLoad(MapleCharacter chr) { //most dont do shit here
+    public void onMapLoad(MapleCharacter chr) { // most dont do shit here
     }
 
     public void startEvent() {
@@ -164,11 +164,11 @@ public abstract class MapleEvent {
     public static final void mapLoad(final MapleCharacter chr, final int channel) {
         if (chr == null) {
             return;
-        } //o_o
+        } // o_o
         for (MapleEventType t : MapleEventType.values()) {
             final MapleEvent e = ChannelServer.getInstance(channel).getEvent(t);
             if (e.isRunning) {
-                if (chr.getMapId() == 109050000) { //finished map
+                if (chr.getMapId() == 109050000) { // finished map
                     e.finished(chr);
                 }
                 for (int i : e.mapid) {
@@ -205,7 +205,8 @@ public abstract class MapleEvent {
         }
         cserv.setEvent(cserv.getEvent(event).mapid[0]);
         cserv.getEvent(event).reset();
-        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "活动 " + String.valueOf(event) + " 即将在频道 " + cserv.getChannel() + " 举行 , 参加指令@event 要参加的玩家请到频道 " + cserv.getChannel()));
+        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "活动 " + String.valueOf(event) + " 即将在频道 "
+                + cserv.getChannel() + " 举行 , 参加指令@event 要参加的玩家请到频道 " + cserv.getChannel()));
         return "";
     }
 }

@@ -22,16 +22,6 @@ package tools;
 
 import java.io.Serializable;
 
-/**
- * Represents a pair of values.
- *
- * @author Frz
- * @since Revision 333
- * @version 1.0
- *
- * @param <E> The type of the left value.
- * @param <F> The type of the right value.
- */
 public class Pair<E, F> implements Serializable {
 
     private static final long serialVersionUID = 9179541993413738569L;
@@ -41,7 +31,7 @@ public class Pair<E, F> implements Serializable {
     /**
      * Class constructor - pairs two objects together.
      *
-     * @param left The left object.
+     * @param left  The left object.
      * @param right The right object.
      */
     public Pair(E left, F right) {

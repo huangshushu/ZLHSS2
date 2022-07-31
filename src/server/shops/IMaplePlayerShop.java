@@ -41,7 +41,7 @@ public interface IMaplePlayerShop {
     public List<Pair<Byte, MapleCharacter>> getVisitors();
 
     public List<MaplePlayerShopItem> getItems();
-    
+
     public List<Pair<String, Byte>> getMessages();
 
     public boolean isOpen();

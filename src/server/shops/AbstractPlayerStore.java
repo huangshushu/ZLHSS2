@@ -20,25 +20,26 @@
  */
 package server.shops;
 
-import constants.GameConstants;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
+import java.lang.ref.WeakReference;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.lang.ref.WeakReference;
-import handling.world.World;
-import client.inventory.IItem;
-import client.inventory.ItemLoader;
+
 import client.MapleCharacter;
 import client.MapleClient;
+import client.inventory.IItem;
+import client.inventory.ItemLoader;
 import client.inventory.MapleInventoryType;
+import constants.GameConstants;
 import database.DBConPool;
 import handling.channel.ChannelServer;
-import java.sql.Statement;
-import java.util.ArrayList;
+import handling.world.World;
 import server.maps.AbstractMapleMapObject;
 import server.maps.MapleMap;
 import server.maps.MapleMapObjectType;
@@ -112,7 +113,8 @@ public abstract class AbstractPlayerStore extends AbstractMapleMapObject impleme
                 chr.get().getClient().sendPacket(packet);
             }
         }
-        if (getShopType() != IMaplePlayerShop.HIRED_MERCHANT && getShopType() != IMaplePlayerShop.PLAYER_SHOP && getMCOwner() != null) {
+        if (getShopType() != IMaplePlayerShop.HIRED_MERCHANT && getShopType() != IMaplePlayerShop.PLAYER_SHOP
+                && getMCOwner() != null) {
             getMCOwner().getClient().sendPacket(packet);
         } else if (getShopType() == IMaplePlayerShop.PLAYER_SHOP && getMCOwner() != null) {
             getMCOwner().getClient().sendPacket(packet);
@@ -156,18 +158,21 @@ public abstract class AbstractPlayerStore extends AbstractMapleMapObject impleme
      */
     public boolean saveItems() {
 
-        if (getShopType() != IMaplePlayerShop.HIRED_MERCHANT) { //hired merch only
+        if (getShopType() != IMaplePlayerShop.HIRED_MERCHANT) { // hired merch only
             return false;
         }
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
 
-            PreparedStatement ps = con.prepareStatement("DELETE FROM hiredmerch WHERE accountid = ? OR characterid = ?");
+            PreparedStatement ps = con
+                    .prepareStatement("DELETE FROM hiredmerch WHERE accountid = ? OR characterid = ?");
             ps.setInt(1, ownerAccount);
             ps.setInt(2, ownerId);
             ps.execute();
             ps.close();
-            ps = con.prepareStatement("INSERT INTO hiredmerch (characterid, accountid, Mesos, time) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            ps = con.prepareStatement(
+                    "INSERT INTO hiredmerch (characterid, accountid, Mesos, time) VALUES (?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, ownerId);
             ps.setInt(2, ownerAccount);
             ps.setInt(3, meso.get());
@@ -281,7 +286,7 @@ public abstract class AbstractPlayerStore extends AbstractMapleMapObject impleme
                 return (byte) (i + 1);
             }
         }
-        if (visitor.getId() == ownerId) { //can visit own store in merch, otherwise not.
+        if (visitor.getId() == ownerId) { // can visit own store in merch, otherwise not.
             return 0;
         }
         return -1;
@@ -295,7 +300,8 @@ public abstract class AbstractPlayerStore extends AbstractMapleMapObject impleme
                 if (type != -1) {
                     visitor.getClient().sendPacket(PlayerShopPacket.shopErrorMessage(error, type));
                 }
-                broadcastToVisitors(PlayerShopPacket.shopVisitorLeave(getVisitorSlot(visitor)), getVisitorSlot(visitor));
+                broadcastToVisitors(PlayerShopPacket.shopVisitorLeave(getVisitorSlot(visitor)),
+                        getVisitorSlot(visitor));
                 visitor.setPlayerShop(null);
                 chrs[i] = new WeakReference<>(null);
                 type++;
@@ -330,7 +336,7 @@ public abstract class AbstractPlayerStore extends AbstractMapleMapObject impleme
     @Override
     public List<Pair<Byte, MapleCharacter>> getVisitors() {
         List<Pair<Byte, MapleCharacter>> chrz = new LinkedList<>();
-        for (byte i = 0; i < chrs.length; i++) { //include owner or no
+        for (byte i = 0; i < chrs.length; i++) { // include owner or no
             if (chrs[i] != null && chrs[i].get() != null) {
                 chrz.add(new Pair<>((byte) (i + 1), chrs[i].get()));
             }
@@ -345,7 +351,7 @@ public abstract class AbstractPlayerStore extends AbstractMapleMapObject impleme
 
     @Override
     public void addItem(MaplePlayerShopItem item) {
-        //System.out.println("Adding item ... 2");
+        // System.out.println("Adding item ... 2");
         items.add(item);
     }
 
@@ -418,13 +424,13 @@ public abstract class AbstractPlayerStore extends AbstractMapleMapObject impleme
 
     @Override
     public int getGameType() {
-        if (getShopType() == IMaplePlayerShop.HIRED_MERCHANT) { //hiredmerch
+        if (getShopType() == IMaplePlayerShop.HIRED_MERCHANT) { // hiredmerch
             return 5;
-        } else if (getShopType() == IMaplePlayerShop.PLAYER_SHOP) { //shop lol
+        } else if (getShopType() == IMaplePlayerShop.PLAYER_SHOP) { // shop lol
             return 4;
-        } else if (getShopType() == IMaplePlayerShop.OMOK) { //omok
+        } else if (getShopType() == IMaplePlayerShop.OMOK) { // omok
             return 1;
-        } else if (getShopType() == IMaplePlayerShop.MATCH_CARD) { //matchcard
+        } else if (getShopType() == IMaplePlayerShop.MATCH_CARD) { // matchcard
             return 2;
         }
         return 0;
@@ -454,7 +460,7 @@ public abstract class AbstractPlayerStore extends AbstractMapleMapObject impleme
     public void setCanShop(boolean CanShop) {
         canShop = CanShop;
     }
-    
+
     public final List<Pair<String, Byte>> getMessages() {
         return messages;
     }

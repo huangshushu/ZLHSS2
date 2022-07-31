@@ -1,9 +1,5 @@
 package server.custom.bossrank;
 
-/**
- *
- * @author ZEV1
- */
 public class BossRankInfo {
     private int cid;
     private String cname;
@@ -12,8 +8,8 @@ public class BossRankInfo {
     private int count;
     private int type;
     private int bossid;
-    private int num;//需要的数量
-    private int alnum;//已完成数量
+    private int num;// 需要的数量
+    private int alnum;// 已完成数量
 
     public int getAlnum() {
         return alnum;
@@ -86,5 +82,5 @@ public class BossRankInfo {
     public void setCount(int count) {
         this.count = count;
     }
-    
+
 }

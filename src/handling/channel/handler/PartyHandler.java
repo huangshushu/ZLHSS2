@@ -38,7 +38,7 @@ public class PartyHandler {
         if (c.getPlayer().getParty() == null) {
             MapleParty party = World.Party.getParty(partyid);
             if (party != null) {
-                if (action == 0x1B) { //accept
+                if (action == 0x1B) { // accept
                     if (party.getMembers().size() < 6) {
                         World.Party.updateParty(partyid, PartyOperation.JOIN, new MaplePartyCharacter(c.getPlayer()));
                         c.getPlayer().receivePartyMemberHP();
@@ -47,9 +47,11 @@ public class PartyHandler {
                         c.sendPacket(MaplePacketCreator.partyStatusMessage(17));
                     }
                 } else if (action != 0x16) {
-                    final MapleCharacter cfrom = c.getChannelServer().getPlayerStorage().getCharacterById(party.getLeader().getId());
+                    final MapleCharacter cfrom = c.getChannelServer().getPlayerStorage()
+                            .getCharacterById(party.getLeader().getId());
                     if (cfrom != null) {
-                        cfrom.getClient().sendPacket(MaplePacketCreator.partyStatusMessage(23, c.getPlayer().getName()));
+                        cfrom.getClient()
+                                .sendPacket(MaplePacketCreator.partyStatusMessage(23, c.getPlayer().getName()));
                     }
                 }
             } else {
@@ -76,14 +78,15 @@ public class PartyHandler {
                     } else {
                         c.sendPacket(MaplePacketCreator.partyStatusMessage(10));
                     }
-                } else if (partyplayer.equals(party.getLeader()) && party.getMembers().size() == 1) { //only one, reupdate
+                } else if (partyplayer.equals(party.getLeader()) && party.getMembers().size() == 1) { // only one,
+                                                                                                      // reupdate
                     c.sendPacket(MaplePacketCreator.partyCreated(party.getId()));
                 } else {
                     c.getPlayer().dropMessage(5, "不能创建组队，因为已经有组队了。");
                 }
                 break;
             case 2: // leave
-                if (party != null) { //are we in a party? o.O"
+                if (party != null) { // are we in a party? o.O"
                     if (partyplayer.equals(party.getLeader())) { // disband
                         World.Party.updateParty(party.getId(), PartyOperation.DISBAND, partyplayer);
                         if (c.getPlayer().getEventInstance() != null) {
@@ -106,7 +109,9 @@ public class PartyHandler {
                 break;
             case 3: // accept invitation
                 final int partyid = slea.readInt();
-                if (c.getPlayer().getMapId() != 914000300 || c.getPlayer().getMapId() != 914000220 || c.getPlayer().getMapId() != 914000210 || c.getPlayer().getMapId() != 914000200 || c.getPlayer().getMapId() != 914000100 || c.getPlayer().getMapId() != 914000000) {
+                if (c.getPlayer().getMapId() != 914000300 || c.getPlayer().getMapId() != 914000220
+                        || c.getPlayer().getMapId() != 914000210 || c.getPlayer().getMapId() != 914000200
+                        || c.getPlayer().getMapId() != 914000100 || c.getPlayer().getMapId() != 914000000) {
                     if (c.getPlayer().getParty() == null) {
                         party = World.Party.getParty(partyid);
                         if (party != null) {
@@ -123,13 +128,13 @@ public class PartyHandler {
                     } else {
                         c.getPlayer().dropMessage(5, "不能加入组队，因为已经有组队了。");
                     }
-                }  else {
+                } else {
                     c.getPlayer().dropMessage(5, "该地图不能加入组队。");
                 }
                 break;
             case 4: // invite
-                // TODO store pending invitations and check against them
-                final MapleCharacter invited = c.getChannelServer().getPlayerStorage().getCharacterByName(slea.readMapleAsciiString());
+                final MapleCharacter invited = c.getChannelServer().getPlayerStorage()
+                        .getCharacterByName(slea.readMapleAsciiString());
                 if (invited != null) {
                     if (invited.getParty() == null && party != null) {
                         if (party.getMembers().size() < 6) {
@@ -150,9 +155,7 @@ public class PartyHandler {
                     if (expelled != null) {
                         World.Party.updateParty(party.getId(), PartyOperation.EXPEL, expelled);
                         if (c.getPlayer().getEventInstance() != null) {
-                            /*if leader wants to boot someone, then the whole party gets expelled
-                             TODO: Find an easier way to get the character behind a MaplePartyCharacter
-                             possibly remove just the expellee.*/
+
                             if (expelled.isOnline()) {
                                 c.getPlayer().getEventInstance().disbandParty();
                             }

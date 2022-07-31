@@ -56,16 +56,20 @@ public class SpeedRunner {
         StringBuilder ret;
         Map<Integer, String> rett;
         boolean changed;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps = con.prepareStatement("SELECT * FROM speedruns WHERE type = ? ORDER BY time LIMIT 25")) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
+                PreparedStatement ps = con
+                        .prepareStatement("SELECT * FROM speedruns WHERE type = ? ORDER BY time LIMIT 25")) {
             ps.setString(1, type.name());
-            ret = new StringBuilder("#rThese are the speedrun times for " + StringUtil.makeEnumHumanReadable(type.name()) + ".#k\r\n\r\n");
+            ret = new StringBuilder("#rThese are the speedrun times for "
+                    + StringUtil.makeEnumHumanReadable(type.name()) + ".#k\r\n\r\n");
             rett = new LinkedHashMap<>();
             try (ResultSet rs = ps.executeQuery()) {
                 int rank = 1;
                 boolean cont = rs.first();
                 changed = cont;
                 while (cont) {
-                    addSpeedRunData(ret, rett, rs.getString("members"), rs.getString("leader"), rank, rs.getString("timestring"));
+                    addSpeedRunData(ret, rett, rs.getString("members"), rs.getString("leader"), rank,
+                            rs.getString("timestring"));
                     rank++;
                     cont = rs.next();
                 }
@@ -78,7 +82,8 @@ public class SpeedRunner {
         }
     }
 
-    public final Pair<StringBuilder, Map<Integer, String>> addSpeedRunData(StringBuilder ret, Map<Integer, String> rett, String members, String leader, int rank, String timestring) {
+    public final Pair<StringBuilder, Map<Integer, String>> addSpeedRunData(StringBuilder ret, Map<Integer, String> rett,
+            String members, String leader, int rank, String timestring) {
         StringBuilder rettt = new StringBuilder();
 
         String[] membrz = members.split(",");

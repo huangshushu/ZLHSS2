@@ -25,10 +25,6 @@ import tools.MaplePacketCreator;
 import tools.Quadra;
 import tools.Triple;
 
-/**
- *
- * @author XiaoMaDengDengWo
- */
 public class OnlyID {
 
     private final static OnlyID instance = new OnlyID();

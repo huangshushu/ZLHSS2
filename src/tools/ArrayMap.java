@@ -28,16 +28,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Provides a strongly-typed map of keys to values.
- *
- * @author Frz
- * @since Revision 589
- * @version 1.0
- *
- * @param <K> The type of the keys.
- * @param <V> The type of the values.
- */
 public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
 
     public static final long serialVersionUID = 9179541993413738569L;
@@ -61,7 +51,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
         /**
          * Class constructor
          *
-         * @param key Name of the key
+         * @param key   Name of the key
          * @param value The value.
          */
         public Entry(K key, V value) {
@@ -102,7 +92,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
          * Compares two Entries for equality.
          *
          * @return <code>True</code> if the two Entries are equal,
-         * <code>False</code> otherwise.
+         *         <code>False</code> otherwise.
          */
         @Override
         @SuppressWarnings("unchecked")
@@ -133,6 +123,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
             return key + "=" + value;
         }
     }
+
     private transient Set<? extends java.util.Map.Entry<K, V>> entries = null;
     private ArrayList<Entry<K, V>> list;
 
@@ -147,7 +138,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
      * Class constructor.
      *
      * @param map The <code>java.util.Map</code> containing keys and values to
-     * import.
+     *            import.
      */
     public ArrayMap(Map<K, V> map) {
         list = new ArrayList<>();
@@ -196,10 +187,10 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
     /**
      * Puts a key/value pair into the ArrayMap.
      *
-     * @param key The key of <code>value</code>
+     * @param key   The key of <code>value</code>
      * @param value The value to insert into the ArrayMap.
      * @return <code>null</code> if no entry was replaced, the value replaced
-     * otherwise.
+     *         otherwise.
      */
     @Override
     public V put(K key, V value) {

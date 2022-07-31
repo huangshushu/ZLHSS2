@@ -59,7 +59,8 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     ITEM_MOVE,
     USE_ITEM,
     CANCEL_ITEM_EFFECT,
-    //USE_FISHING, // Some unknown value sent by client after fishing for 30 sec, ignored
+    // USE_FISHING, // Some unknown value sent by client after fishing for 30 sec,
+    // ignored
     USE_SUMMON_BAG,
     PET_FOOD,
     USE_MOUNT_FOOD,
@@ -160,11 +161,11 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     GAME_POLL,
     OWL,
     OWL_WARP,
-    //XMAS_SURPRISE, //header -> uniqueid(long) is entire structure
+    // XMAS_SURPRISE, //header -> uniqueid(long) is entire structure
     USE_OWL_MINERVA,
     RPS_GAME,
     UPDATE_QUEST,
-    //QUEST_ITEM, //header -> questid(int) -> 1/0(byte, open or close)
+    // QUEST_ITEM, //header -> questid(int) -> 1/0(byte, open or close)
     USE_ITEM_QUEST,
     FOLLOW_REQUEST,
     FOLLOW_REPLY,
@@ -178,6 +179,7 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     BEANS_OPERATION,
     LICENSE_REQUEST,
     BEANS_UPDATE;
+
     private short code = -2;
 
     @Override
@@ -189,6 +191,7 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     public final short getValue() {
         return code;
     }
+
     private boolean CheckState;
 
     private RecvPacketOpcode() {
@@ -226,37 +229,37 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
         switch (header.name()) {
             case "PONG":
             case "NPC_ACTION":
-//            case "ENTER"":
-//            case "CRASH_INFO":
-//            case "AUTH_REQUEST":
-//            case "SPECIAL_MOVE":
-//            case "MOVE_LIFE":
-//            case "MOVE_PLAYER":
-//            case "MOVE_ANDROID":
-//            case "MOVE_DRAGON":
-//            case "MOVE_SUMMON":
-//            case "MOVE_FAMILIAR":
-//            case "MOVE_PET":
-//            case "AUTO_AGGRO":
-//            case "CLOSE_RANGE_ATTACK":
-//            case "QUEST_ACTION":
-//            case "HEAL_OVER_TIME":
-//            case "CHANGE_KEYMAP":
-//            case "USE_INNER_PORTAL":
-//            case "MOVE_HAKU":
-//            case "FRIENDLY_DAMAGE":
-//            case "CLOSE_RANGE_ATTACK":
-//            case "RANGED_ATTACK":
-//            case "ARAN_COMBO":
-//           case "SPECIAL_STAT":
-//            case "UPDATE_HYPER":
-//            case "RESET_HYPER":
-//            case "ANGELIC_CHANGE":
-//            case "DRESSUP_TIME":
-//            case "BUTTON_PRESSED":
-//            case "STRANGE_DATA":
-//            case "SYSTEM_PROCESS_LIST":
-//            case "PINKBEAN_YOYO_REQUEST":
+                // case "ENTER"":
+                // case "CRASH_INFO":
+                // case "AUTH_REQUEST":
+                // case "SPECIAL_MOVE":
+                // case "MOVE_LIFE":
+                // case "MOVE_PLAYER":
+                // case "MOVE_ANDROID":
+                // case "MOVE_DRAGON":
+                // case "MOVE_SUMMON":
+                // case "MOVE_FAMILIAR":
+                // case "MOVE_PET":
+                // case "AUTO_AGGRO":
+                // case "CLOSE_RANGE_ATTACK":
+                // case "QUEST_ACTION":
+                // case "HEAL_OVER_TIME":
+                // case "CHANGE_KEYMAP":
+                // case "USE_INNER_PORTAL":
+                // case "MOVE_HAKU":
+                // case "FRIENDLY_DAMAGE":
+                // case "CLOSE_RANGE_ATTACK":
+                // case "RANGED_ATTACK":
+                // case "ARAN_COMBO":
+                // case "SPECIAL_STAT":
+                // case "UPDATE_HYPER":
+                // case "RESET_HYPER":
+                // case "ANGELIC_CHANGE":
+                // case "DRESSUP_TIME":
+                // case "BUTTON_PRESSED":
+                // case "STRANGE_DATA":
+                // case "SYSTEM_PROCESS_LIST":
+                // case "PINKBEAN_YOYO_REQUEST":
                 return true;
             default:
                 return false;
@@ -266,7 +269,9 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
     public static final void reloadValues() {
         String fileName = "recv.ini";
         Properties props = new Properties();
-        try (FileInputStream fileInputStream = new FileInputStream(fileName); BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream, StringUtil.codeString(fileName)))) {
+        try (FileInputStream fileInputStream = new FileInputStream(fileName);
+                BufferedReader br = new BufferedReader(
+                        new InputStreamReader(fileInputStream, StringUtil.codeString(fileName)))) {
             props.load(br);
         } catch (IOException ex) {
             InputStream in = RecvPacketOpcode.class.getClassLoader().getResourceAsStream("properties/" + fileName);

@@ -29,8 +29,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 public class CPUSampler {
 
@@ -134,7 +134,8 @@ public class CPUSampler {
                 }
             }
         }
-        if (firstIncluded >= 0 && trace[firstIncluded].getClassName().equals("net.sf.odinms.tools.performance.CPUSampler$SamplerThread")) { // don't sample us
+        if (firstIncluded >= 0 && trace[firstIncluded].getClassName()
+                .equals("net.sf.odinms.tools.performance.CPUSampler$SamplerThread")) { // don't sample us
             return -1;
         }
         return firstIncluded;

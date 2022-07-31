@@ -86,7 +86,6 @@ public class PlayerStats implements Serializable {
     public PlayerStats(final MapleCharacter chr) {
         this.setHandling = new HashMap<>();
         this.durabilityHandling = new ArrayList<>();
-        // TODO, move str/dex/int etc here -_-
         this.chr = new WeakReference<>(chr);
     }
 
@@ -1151,7 +1150,7 @@ public class PlayerStats implements Serializable {
                 break;
             }
             case 2111:
-            case 2112: { // Aran, TODO : only applies when there's > 10 combo
+            case 2112: { // Aran
                 final ISkill critSkill = SkillFactory.getSkill(21110000);
                 final int critlevel = player.getSkillLevel(critSkill);
                 if (critlevel > 0) {

@@ -10,10 +10,6 @@ import java.io.InputStreamReader;
 import java.util.Properties;
 import tools.data.MaplePacketLittleEndianWriter;
 
-/**
- *
- * @author Itzik
- */
 public class LoadPacket {
 
     public static byte[] getPacket() {

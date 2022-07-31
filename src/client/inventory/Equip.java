@@ -20,12 +20,10 @@
  */
 package client.inventory;
 
-import java.io.Serializable;
-
 import constants.GameConstants;
 import server.Randomizer;
 
-public class Equip extends Item implements IEquip, Serializable {
+public class Equip extends Item implements IEquip {
 
     private byte upgradeSlots = 0;
     private byte level = 0, vicioushammer = 0, enhance = 0;

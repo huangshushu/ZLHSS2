@@ -1,21 +1,17 @@
 package server;
 
-import constants.WorldConstants;
-import database.DBConPool;
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Properties;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+
+import constants.WorldConstants;
 import tools.FileoutputUtil;
 import tools.StringUtil;
 
@@ -61,10 +57,12 @@ public class ServerProperties {
         for (Map.Entry i : props.entrySet()) {
             String info = i.getKey() + " = " + i.getValue().toString().replace("\\", "\\\\") + "\r\n";
             if (((String) i.getKey()).contains("World")) {
-                int worldId = Integer.parseInt(((String) i.getKey()).substring(((String) i.getKey()).lastIndexOf('d') + 1));
+                int worldId = Integer
+                        .parseInt(((String) i.getKey()).substring(((String) i.getKey()).lastIndexOf('d') + 1));
                 world.get(WorldConstants.getNameById(worldId)).add(info);
             } else if (((String) i.getKey()).contains("Worldt")) {
-                int worldId = Integer.parseInt(((String) i.getKey()).substring(((String) i.getKey()).lastIndexOf('t') + 1));
+                int worldId = Integer
+                        .parseInt(((String) i.getKey()).substring(((String) i.getKey()).lastIndexOf('t') + 1));
                 tespia.get(WorldConstants.getNameById(worldId)).add(info);
             } else if (((String) i.getKey()).contains("Job")) {
                 job.add(info);
@@ -180,19 +178,24 @@ public class ServerProperties {
 
     static {
         loadProperties();
-        /*try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM auth_server_channel_ip");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                props.put(rs.getString("name") + rs.getInt("channelid"), rs.getString("value"));
-            }
-            rs.close();
-            ps.close();
-        } catch (SQLException ex) {
-            FileoutputUtil.outError("logs/资料库异常.txt", ex);
-            ex.printStackTrace();
-            System.exit(0); //Big ass error.
-        }*/
+        /*
+         * try (Connection con =
+         * DBConPool.getInstance().getDataSource().getConnection()) {
+         * PreparedStatement ps =
+         * con.prepareStatement("SELECT * FROM auth_server_channel_ip");
+         * ResultSet rs = ps.executeQuery();
+         * while (rs.next()) {
+         * props.put(rs.getString("name") + rs.getInt("channelid"),
+         * rs.getString("value"));
+         * }
+         * rs.close();
+         * ps.close();
+         * } catch (SQLException ex) {
+         * FileoutputUtil.outError("logs/资料库异常.txt", ex);
+         * ex.printStackTrace();
+         * System.exit(0); //Big ass error.
+         * }
+         */
 
     }
 }

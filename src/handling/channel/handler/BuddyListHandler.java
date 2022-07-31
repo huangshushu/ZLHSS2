@@ -40,7 +40,8 @@ public class BuddyListHandler {
     private static void nextPendingRequest(final MapleClient c) {
         BuddyEntry pendingBuddyRequest = c.getPlayer().getBuddylist().pollPendingRequest();
         if (pendingBuddyRequest != null) {
-            c.sendPacket(MaplePacketCreator.requestBuddylistAdd(pendingBuddyRequest.getCharacterId(), pendingBuddyRequest.getName(), pendingBuddyRequest.getLevel(), pendingBuddyRequest.getJob()));
+            c.sendPacket(MaplePacketCreator.requestBuddylistAdd(pendingBuddyRequest.getCharacterId(),
+                    pendingBuddyRequest.getName(), pendingBuddyRequest.getLevel(), pendingBuddyRequest.getJob()));
         }
     }
 
@@ -78,7 +79,7 @@ public class BuddyListHandler {
                     return;
                 }
 
-                /* 如果存在，群组不一样则改群组*/
+                /* 如果存在，群组不一样则改群组 */
                 if (oldBuddy != null) {
                     oldBuddy.setGroup(buddyGroup);
                     client.sendPacket(MaplePacketCreator.updateBuddylist(buddyList.getBuddies()));
@@ -98,7 +99,8 @@ public class BuddyListHandler {
                 BuddyAddResult reqRes = null;
 
                 if (buddyChannel > 0) {
-                    buddyChar = ChannelServer.getInstance(buddyChannel).getPlayerStorage().getCharacterByName(buddyName);
+                    buddyChar = ChannelServer.getInstance(buddyChannel).getPlayerStorage()
+                            .getCharacterByName(buddyName);
                     /* 如果是GM则无法被普通玩家加入 */
                     if (!buddyChar.isGM() || player.isGM()) {
                         buddy = new BuddyEntry(buddyChar.getName(),
@@ -113,16 +115,17 @@ public class BuddyListHandler {
                     buddy = BuddyEntry.getByNameFromDB(buddyName);
                 }
 
-                /* 无此角色*/
+                /* 无此角色 */
                 if (buddy == null) {
                     client.sendPacket(MaplePacketCreator.buddylistMessage((byte) 15));
                     nextPendingRequest(client);
                     return;
                 }
 
-                /* 如果好友在线上 直接传封包过去囉*/
+                /* 如果好友在线上 直接传封包过去囉 */
                 if (buddyChannel > 0) {
-                    reqRes = World.Buddy.requestBuddyAdd(buddyName, client.getChannel(), client.getPlayer().getId(), client.getPlayer().getName(), client.getPlayer().getLevel(), client.getPlayer().getJob());
+                    reqRes = World.Buddy.requestBuddyAdd(buddyName, client.getChannel(), client.getPlayer().getId(),
+                            client.getPlayer().getName(), client.getPlayer().getLevel(), client.getPlayer().getJob());
                 } else {
 
                     final int buddyCount = BuddyList.getBuddyCount(buddy.getCharacterId(), 0);
@@ -147,9 +150,11 @@ public class BuddyListHandler {
                 } else {
                     if (reqRes == BuddyAddResult.ALREADY_ON_LIST && buddyChannel > 0) {
                         MapleCharacter buddyChara;
-                        buddyChara = ChannelServer.getInstance(buddyChannel).getPlayerStorage().getCharacterByName(buddyName);
+                        buddyChara = ChannelServer.getInstance(buddyChannel).getPlayerStorage()
+                                .getCharacterByName(buddyName);
                         notifyRemoteChannel(client, buddyChannel, buddy.getCharacterId(), buddyGroup, ADDED);
-                        buddyList.put(new BuddyEntry(buddyName, buddyChara.getId(), buddyGroup, buddyChannel, true, buddyChara.getLevel(), buddyChara.getJob()));
+                        buddyList.put(new BuddyEntry(buddyName, buddyChara.getId(), buddyGroup, buddyChannel, true,
+                                buddyChara.getLevel(), buddyChara.getJob()));
                         client.sendPacket(MaplePacketCreator.updateBuddylist(buddyList.getBuddies()));
                         client.sendPacket(MaplePacketCreator.updateBuddyChannel(buddyChara.getId(), buddyChannel - 1));
                         break;
@@ -179,7 +184,8 @@ public class BuddyListHandler {
                 if (buddyChannel < 0) {
                     buddy = BuddyEntry.getByIdfFromDB(buddyCharId);
                 } else {
-                    final MapleCharacter buddyChar = ChannelServer.getInstance(buddyChannel).getPlayerStorage().getCharacterById(buddyCharId);
+                    final MapleCharacter buddyChar = ChannelServer.getInstance(buddyChannel).getPlayerStorage()
+                            .getCharacterById(buddyCharId);
                     buddy = new BuddyEntry(
                             buddyChar.getName(),
                             buddyChar.getId(),
@@ -187,8 +193,7 @@ public class BuddyListHandler {
                             buddyChannel,
                             true,
                             buddyChar.getLevel(),
-                            buddyChar.getJob()
-                    );
+                            buddyChar.getJob());
 
                 }
 
@@ -207,7 +212,8 @@ public class BuddyListHandler {
                 final int buddyCharId = slea.readInt();
                 final BuddyEntry buddy = buddyList.get(buddyCharId);
                 if (buddy != null && buddy.isVisible()) {
-                    notifyRemoteChannel(client, World.Find.findChannel(buddyCharId), buddyCharId, buddy.getGroup(), DELETED);
+                    notifyRemoteChannel(client, World.Find.findChannel(buddyCharId), buddyCharId, buddy.getGroup(),
+                            DELETED);
 
                 }
                 buddyList.remove(buddyCharId);
@@ -221,23 +227,27 @@ public class BuddyListHandler {
                 client.sendPacket(MaplePacketCreator.updateBuddylist(player.getBuddylist().getBuddies()));
                 break;
             }
-            case 125: {// TODO
-                //5A 05 00 00 00 00 00 C6 01 CB FD 02 00 C2 01 CB FD 83 FF 00 00 47 00 03 21 00 00 86 01 CB FD 83 FF 00 00 4C 00 03 DD 01 00 86 01 CB FD C6 01 CB FD
+            case 125: {
+                // 5A 05 00 00 00 00 00 C6 01 CB FD 02 00 C2 01 CB FD 83 FF 00 00 47 00 03 21 00
+                // 00 86 01 CB FD 83 FF 00 00 4C 00 03 DD 01 00 86 01 CB FD C6 01 CB FD
                 break;
             }
             default: {
-                FilePrinter.printError("BuddyListHandler.txt", "Unknown Buddylist Operation " + String.valueOf(mode) + " " + slea.toString());
+                FilePrinter.printError("BuddyListHandler.txt",
+                        "Unknown Buddylist Operation " + String.valueOf(mode) + " " + slea.toString());
                 break;
             }
         }
 
     }
 
-    private static void notifyRemoteChannel(final MapleClient c, final int remoteChannel, final int otherCid, final String group, final BuddyOperation operation) {
+    private static void notifyRemoteChannel(final MapleClient c, final int remoteChannel, final int otherCid,
+            final String group, final BuddyOperation operation) {
         final MapleCharacter player = c.getPlayer();
 
         if (remoteChannel > 0) {
-            World.Buddy.buddyChanged(otherCid, player.getId(), player.getName(), c.getChannel(), operation, player.getLevel(), player.getJob(), group);
+            World.Buddy.buddyChanged(otherCid, player.getId(), player.getName(), c.getChannel(), operation,
+                    player.getLevel(), player.getJob(), group);
         }
     }
 }

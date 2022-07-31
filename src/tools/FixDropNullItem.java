@@ -19,10 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import server.MapleItemInformationProvider;
 
-/**
- *
- * @author Pungin
- */
 public class FixDropNullItem {
 
     private List<Integer> loadFromDB(int type) {
@@ -69,7 +65,8 @@ public class FixDropNullItem {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 if (!ii.itemExists(itemId)) {
-                    System.out.println("道具: " + MapleItemInformationProvider.getInstance().getName(itemId) + " 道具ID: " + itemId + " 怪物ID: " + rs.getInt("dropperid") + " 不存在，已从资料库移除");
+                    System.out.println("道具: " + MapleItemInformationProvider.getInstance().getName(itemId) + " 道具ID: "
+                            + itemId + " 怪物ID: " + rs.getInt("dropperid") + " 不存在，已从资料库移除");
                     try {
                         PreparedStatement pp = con.prepareStatement("Delete From drop_data WHERE itemid = ?");
                         pp.setInt(1, itemId);
@@ -100,7 +97,7 @@ public class FixDropNullItem {
         if (type > 1 || type < 0) {
             type = 0;
         }
-        //System.setProperty("wzpath", System.getProperty("wzpath"));
+        // System.setProperty("wzpath", System.getProperty("wzpath"));
         FixDropNullItem i = new FixDropNullItem();
         System.out.println("正在加载道具数据......");
         MapleItemInformationProvider.getInstance().load();

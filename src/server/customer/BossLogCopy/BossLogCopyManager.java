@@ -116,16 +116,20 @@ public class BossLogCopyManager {
                     if (bossTime != null) {
                         sqlcal.setTimeInMillis(bossTime.getTime());
                     }
-                    if (sqlcal.get(Calendar.DAY_OF_MONTH) + 1 <= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) || sqlcal.get(Calendar.MONTH) + 1 <= Calendar.getInstance().get(Calendar.MONTH) || sqlcal.get(Calendar.YEAR) + 1 <= Calendar.getInstance().get(Calendar.YEAR)) {
+                    if (sqlcal.get(Calendar.DAY_OF_MONTH) + 1 <= Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+                            || sqlcal.get(Calendar.MONTH) + 1 <= Calendar.getInstance().get(Calendar.MONTH)
+                            || sqlcal.get(Calendar.YEAR) + 1 <= Calendar.getInstance().get(Calendar.YEAR)) {
                         count = 0;
-                        ps = con.prepareStatement("UPDATE bosslog_copy SET count = 0, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
+                        ps = con.prepareStatement(
+                                "UPDATE bosslog_copy SET count = 0, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
                         ps.setInt(1, chr.getId());
                         ps.setString(2, boss);
                         ps.executeUpdate();
                     }
                 }
             } else {
-                PreparedStatement psu = con.prepareStatement("INSERT INTO bosslog_copy (characterid, bossid, count, type) VALUES (?, ?, ?, ?)");
+                PreparedStatement psu = con.prepareStatement(
+                        "INSERT INTO bosslog_copy (characterid, bossid, count, type) VALUES (?, ?, ?, ?)");
                 psu.setInt(1, chr.getId());
                 psu.setString(2, boss);
                 psu.setInt(3, 0);
@@ -142,12 +146,13 @@ public class BossLogCopyManager {
         }
     }
 
-//    查当天的记录
+    // 查当天的记录
     public int getBossLog2(int cid, String boss, int type) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             int count = 0;
             PreparedStatement ps;
-            ps = con.prepareStatement("SELECT * FROM bosslog_copy WHERE characterid = ? AND bossid = ? AND DATE_FORMAT(time, '%Y-%m-%d') = ?");
+            ps = con.prepareStatement(
+                    "SELECT * FROM bosslog_copy WHERE characterid = ? AND bossid = ? AND DATE_FORMAT(time, '%Y-%m-%d') = ?");
             ps.setInt(1, cid);
             ps.setString(2, boss);
             ps.setString(3, sdf.format(new Date()));
@@ -171,16 +176,20 @@ public class BossLogCopyManager {
                     if (bossTime != null) {
                         sqlcal.setTimeInMillis(bossTime.getTime());
                     }
-                    if (sqlcal.get(Calendar.DAY_OF_MONTH) + 1 <= Calendar.getInstance().get(Calendar.DAY_OF_MONTH) || sqlcal.get(Calendar.MONTH) + 1 <= Calendar.getInstance().get(Calendar.MONTH) || sqlcal.get(Calendar.YEAR) + 1 <= Calendar.getInstance().get(Calendar.YEAR)) {
+                    if (sqlcal.get(Calendar.DAY_OF_MONTH) + 1 <= Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+                            || sqlcal.get(Calendar.MONTH) + 1 <= Calendar.getInstance().get(Calendar.MONTH)
+                            || sqlcal.get(Calendar.YEAR) + 1 <= Calendar.getInstance().get(Calendar.YEAR)) {
                         count = 0;
-                        ps = con.prepareStatement("UPDATE bosslog_copy SET count = 0, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
+                        ps = con.prepareStatement(
+                                "UPDATE bosslog_copy SET count = 0, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
                         ps.setInt(1, cid);
                         ps.setString(2, boss);
                         ps.executeUpdate();
                     }
                 }
             } else {
-                PreparedStatement psu = con.prepareStatement("INSERT INTO bosslog_copy (characterid, bossid, count, type) VALUES (?, ?, ?, ?)");
+                PreparedStatement psu = con.prepareStatement(
+                        "INSERT INTO bosslog_copy (characterid, bossid, count, type) VALUES (?, ?, ?, ?)");
                 psu.setInt(1, cid);
                 psu.setString(2, boss);
                 psu.setInt(3, 0);
@@ -211,7 +220,8 @@ public class BossLogCopyManager {
     public void setBossLog(String boss, int type, int count, MapleCharacter chr) {
         int bossCount = getBossLog(boss, type, chr);
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE bosslog_copy SET count = ?, type = ?, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE bosslog_copy SET count = ?, type = ?, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
             ps.setInt(1, bossCount + count);
             ps.setInt(2, type);
             ps.setInt(3, chr.getId());
@@ -226,7 +236,8 @@ public class BossLogCopyManager {
     public void setBossLog2(int cid, String boss, int type, int count) {
         int bossCount = getBossLog2(cid, boss, type);
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = con.prepareStatement("UPDATE bosslog_copy SET count = ?, type = ?, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ? AND DATE_FORMAT(time, '%Y-%m-%d') >= ?");
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE bosslog_copy SET count = ?, type = ?, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ? AND DATE_FORMAT(time, '%Y-%m-%d') >= ?");
             ps.setInt(1, bossCount + count);
             ps.setInt(2, type);
             ps.setInt(3, cid);
@@ -246,8 +257,8 @@ public class BossLogCopyManager {
     public void resetBossLog(String boss, int type, MapleCharacter chr) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
 
-
-            PreparedStatement ps = con.prepareStatement("UPDATE bosslog_copy SET count = ?, type = ?, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE bosslog_copy SET count = ?, type = ?, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
             ps.setInt(1, 0);
             ps.setInt(2, type);
             ps.setInt(3, chr.getId());
@@ -262,8 +273,8 @@ public class BossLogCopyManager {
     public void resetBossLog(String boss, int type, int count, MapleCharacter chr) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
 
-
-            PreparedStatement ps = con.prepareStatement("UPDATE bosslog_copy SET count = ?, type = ?, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
+            PreparedStatement ps = con.prepareStatement(
+                    "UPDATE bosslog_copy SET count = ?, type = ?, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
             ps.setInt(1, count);
             ps.setInt(2, type);
             ps.setInt(3, chr.getId());
@@ -274,11 +285,13 @@ public class BossLogCopyManager {
             System.err.println("Error while reset bosslog_copy." + Ex);
         }
     }
+
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
     /**
      * @Author: weich
      * @Description:根据当前日期获得所在周的日期区间（本周一和下周一日期）
-     * @Params:  * @param null
+     * @Params: * @param null
      * @Date: 2019/6/3 21:03
      */
     public List<String> getTimeInterval(java.util.Date date) {
@@ -308,7 +321,7 @@ public class BossLogCopyManager {
     /**
      * @Author: Wei Chunlai
      * @Description: 按每周计数
-     * @Params:  * @param null
+     * @Params: * @param null
      * @Date: 2019/11/24 13:35
      */
     public int getBossLogW(String bossid, int type, MapleCharacter chr) {
@@ -316,7 +329,8 @@ public class BossLogCopyManager {
 
             int ret_count;
             PreparedStatement ps;
-            ps = con.prepareStatement("select SUM(count) from bosslog_copy where characterid = ? and bossid = ? and type = ? and time >= ? and time < ?");
+            ps = con.prepareStatement(
+                    "select SUM(count) from bosslog_copy where characterid = ? and bossid = ? and type = ? and time >= ? and time < ?");
             ps.setInt(1, chr.getId());
             ps.setString(2, bossid);
             ps.setInt(3, type);
@@ -337,4 +351,4 @@ public class BossLogCopyManager {
         }
     }
 
-} 
+}

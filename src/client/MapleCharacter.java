@@ -20,42 +20,51 @@
  */
 package client;
 
-import constants.GameConstants;
-import client.inventory.MapleInventoryType;
-import client.inventory.MapleInventory;
-import client.inventory.Item;
-import client.inventory.ItemLoader;
-import client.inventory.MapleInventoryIdentifier;
-import client.inventory.IItem;
-import client.inventory.MapleMount;
-import client.inventory.MaplePet;
-import client.inventory.ItemFlag;
-import client.inventory.MapleRing;
 import java.awt.Point;
+import java.io.Serializable;
+import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
-import java.util.Deque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.io.Serializable;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import client.anticheat.CheatTracker;
+import client.inventory.IItem;
+import client.inventory.Item;
+import client.inventory.ItemFlag;
+import client.inventory.ItemLoader;
+import client.inventory.MapleInventory;
+import client.inventory.MapleInventoryIdentifier;
+import client.inventory.MapleInventoryType;
+import client.inventory.MapleMount;
+import client.inventory.MaplePet;
+import client.inventory.MapleRing;
 import client.inventory.ModifyInventory;
+import constants.GameConstants;
 import constants.ItemConstants;
 import constants.MapConstants;
 import constants.ServerConfig;
@@ -80,67 +89,60 @@ import handling.world.family.MapleFamilyBuff.MapleFamilyBuffEntry;
 import handling.world.family.MapleFamilyCharacter;
 import handling.world.guild.MapleGuild;
 import handling.world.guild.MapleGuildCharacter;
-import java.lang.ref.WeakReference;
-import java.sql.Statement;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.concurrent.RejectedExecutionException;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import server.customer.BossLogCopy.BossLogCopyManager;
-import tools.*;
 import scripting.EventInstanceManager;
 import scripting.EventManager;
 import scripting.NPCScriptManager;
-import server.AutobanManager;
+import server.CashShop;
+import server.FishingRewardFactory;
+import server.FishingRewardFactory.FishingReward;
+import server.MapleCarnivalChallenge;
+import server.MapleCarnivalParty;
+import server.MapleInventoryManipulator;
+import server.MapleItemInformationProvider;
 import server.MaplePortal;
 import server.MapleShop;
 import server.MapleStatEffect;
 import server.MapleStorage;
 import server.MapleTrade;
 import server.Randomizer;
-import server.MapleCarnivalParty;
-import server.MapleItemInformationProvider;
-import server.life.MapleMonster;
-import server.maps.AbstractAnimatedMapleMapObject;
-import server.maps.MapleDoor;
-import server.maps.MapleMap;
-import server.maps.MapleMapFactory;
-import server.maps.MapleMapObject;
-import server.maps.MapleMapObjectType;
-import server.maps.MapleSummon;
-import server.maps.FieldLimitType;
-import server.maps.SavedLocationType;
-import server.quest.MapleQuest;
-import server.shops.IMaplePlayerShop;
-import server.CashShop;
-import server.FishingRewardFactory;
-import server.FishingRewardFactory.FishingReward;
-import tools.packet.MTSCSPacket;
-import tools.packet.MobPacket;
-import tools.packet.PetPacket;
-import tools.packet.MonsterCarnivalPacket;
-import tools.packet.UIPacket;
-import server.MapleCarnivalChallenge;
-import server.MapleInventoryManipulator;
 import server.Timer;
 import server.Timer.BuffTimer;
 import server.Timer.EtcTimer;
 import server.Timer.MapTimer;
 import server.custom.bossrank.BossRankManager;
+import server.customer.BossLogCopy.BossLogCopyManager;
+import server.life.MapleMonster;
 import server.life.MobSkill;
 import server.life.PlayerNPC;
+import server.maps.AbstractAnimatedMapleMapObject;
 import server.maps.Event_PyramidSubway;
+import server.maps.FieldLimitType;
+import server.maps.MapleDoor;
 import server.maps.MapleFoothold;
+import server.maps.MapleMap;
 import server.maps.MapleMapEffect;
+import server.maps.MapleMapFactory;
+import server.maps.MapleMapObject;
+import server.maps.MapleMapObjectType;
+import server.maps.MapleSummon;
+import server.maps.SavedLocationType;
 import server.movement.LifeMovementFragment;
-import static tools.FileoutputUtil.log;
-import static tools.FileoutputUtil.log;
+import server.quest.MapleQuest;
+import server.shops.IMaplePlayerShop;
+import tools.ConcurrentEnumMap;
+import tools.FilePrinter;
+import tools.FileoutputUtil;
+import tools.HexTool;
+import tools.MaplePacketCreator;
+import tools.MockIOSession;
+import tools.Pair;
 import tools.data.MaplePacketLittleEndianWriter;
+import tools.packet.MTSCSPacket;
+import tools.packet.MobPacket;
+import tools.packet.MonsterCarnivalPacket;
+import tools.packet.PetPacket;
 import tools.packet.PlayerShopPacket;
+import tools.packet.UIPacket;
 
 public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Serializable {
 
@@ -150,7 +152,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     private long lastCombo, lastfametime, keydown_skill, lastRecoveryTime, nextConsume = 0, pqStartTime = 0, lastHPTime,
             lastMPTime, lastMDTime, lastStorageTime, mapChangeTime, mrqdTime;
     private byte dojoRecord, gmLevel, gender, initialSpawnPoint, skinColor, guildrank = 5, allianceRank = 5, world,
-            fairyExp = 30, numClones, subcategory, fairyHour = 1; // Make this a quest record, TODO : Transfer it
+            fairyExp = 30, numClones, subcategory, fairyHour = 1; // Make this a quest record
                                                                   // somehow with the current data
     private short level, mulung_energy, availableCP, totalCP, fame, hpmpApUsed, job, remainingAp;
     private int accountid, id, meso, exp, hair, face, mapid, bookCover, dojo,
@@ -2331,7 +2333,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                     echeff.applyEnergyBuff(this, true); // Infinity time
                 } else {
                     Integer energyLevel = getBuffedValue(MapleBuffStat.ENERGY_CHARGE);
-                    // TODO: bar going down
                     if (energyLevel < 10000) {
                         energyLevel += (echeff.getX() * targets);
 
@@ -6218,7 +6219,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         return null;
     }
 
-    // TODO: more than one crush/friendship ring at a time
     public Pair<List<MapleRing>, List<MapleRing>> getRings(boolean equip) {
         MapleInventory iv = getInventory(MapleInventoryType.EQUIPPED);
         Collection<IItem> equippedC = iv.list();
@@ -7172,7 +7172,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         return this.gmLevel > ServerConstants.PlayerGMRank.普通玩家.getLevel();
     }
 
-    // TODO: gvup, vic, lose, draw, VR
     public boolean startPartyQuest(final int questid) {
         boolean ret = false;
         if (!quests.containsKey(MapleQuest.getInstance(questid)) || !questinfo.containsKey(questid)) {
@@ -10772,6 +10771,29 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             stat.setCustomData("0");
         }
         return Integer.parseInt(stat.getCustomData());
+    }
+
+    public int getmoneyb() {
+        int moneyb = 0;
+        try (final Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            final int cid = this.getAccountID();
+            ResultSet rs;
+            try (final PreparedStatement limitCheck = con
+                    .prepareStatement("SELECT * FROM accounts WHERE id=" + cid + "")) {
+                rs = limitCheck.executeQuery();
+                if (rs.next()) {
+                    moneyb = rs.getInt("moneyb");
+                }
+                limitCheck.close();
+            }
+            rs.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.err.println("getmoneyb" + (Object) ex);
+            FileoutputUtil.outputFileError("logs/数据库异常.txt", (Throwable) ex);
+            ex.getStackTrace();
+        }
+        return moneyb;
     }
 
 }

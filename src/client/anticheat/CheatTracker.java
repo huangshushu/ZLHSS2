@@ -137,7 +137,7 @@ public class CheatTracker {
             }
         }
         final long STime_TC = System.currentTimeMillis() - tickcount; // hack = - more
-        if (Server_ClientAtkTickDiff - STime_TC > 1000) { // 250 is the ping, TODO
+        if (Server_ClientAtkTickDiff - STime_TC > 1000) {
             if (GameConstants.getWuYanChi(skillId)) {
                 // registerOffense(CheatingOffense.快速攻击2);
                 if (WorldConstants.WUYANCHI) {
@@ -486,6 +486,8 @@ public class CheatTracker {
                             StringUtil.makeEnumHumanReadable(offense.name()));
                     gm_message = 100;
                 }
+                break;
+            default:
                 break;
         }
         CheatingOffensePersister.getInstance().persistEntry(entry);
