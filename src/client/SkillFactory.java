@@ -37,7 +37,6 @@ import tools.StringUtil;
 /**
  * 技能工厂
  *
- * @author user
  */
 public class SkillFactory {
 

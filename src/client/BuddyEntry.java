@@ -30,7 +30,6 @@ import tools.FileoutputUtil;
 /**
  * 储存好友个别的单位
  *
- * @author Flower
  */
 public class BuddyEntry {
 

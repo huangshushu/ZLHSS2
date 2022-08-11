@@ -12,10 +12,7 @@ import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicLong;
 import tools.FileoutputUtil;
 
-/**
- *
- * @author XiaoMaDengDengWo
- */
+
 public class MapleEquipOnlyId {
 
     private final AtomicLong runningId;

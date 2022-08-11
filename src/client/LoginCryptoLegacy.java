@@ -33,7 +33,6 @@ import java.security.NoSuchAlgorithmException;
  * and overly complicated. Will go away when/if official oms has no more users
  * with legacy passhashes.
  *
- * @author Nol888
  * @version 0.1
  */
 public class LoginCryptoLegacy {

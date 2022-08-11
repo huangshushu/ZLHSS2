@@ -20,10 +20,6 @@
  */
 package client.inventory;
 
-/**
- *
- * @author Danny (Leifde)
- */
 public class PetCommand {
 
     private final int petId;

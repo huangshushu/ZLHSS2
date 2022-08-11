@@ -79,10 +79,7 @@ import tools.Pair;
 import tools.StringUtil;
 import tools.Triple;
 
-/**
- *
- * @author Emilyx3
- */
+
 public class GMCommand {
 
     public static PlayerGMRank getPlayerLevelRequired() {

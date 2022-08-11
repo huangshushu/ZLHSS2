@@ -7,7 +7,6 @@ package client;
 
 /**
  *
- * @author wubin
  */
 public class MapleBeans {
 

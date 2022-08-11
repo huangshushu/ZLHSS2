@@ -15,10 +15,7 @@ import client.messages.commands.ConsoleCommandExecute;
 import client.messages.commands.ConsoleCommandObject;
 import tools.FilePrinter;
 
-/**
- *
- * @author Flower
- */
+
 public class ConsoleCommandProcessor {
 
     private final static HashMap<String, ConsoleCommandObject> commands = new HashMap<>();

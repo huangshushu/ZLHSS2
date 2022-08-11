@@ -89,6 +89,7 @@ import handling.world.family.MapleFamilyBuff.MapleFamilyBuffEntry;
 import handling.world.family.MapleFamilyCharacter;
 import handling.world.guild.MapleGuild;
 import handling.world.guild.MapleGuildCharacter;
+import java.util.StringTokenizer;
 import scripting.EventInstanceManager;
 import scripting.EventManager;
 import scripting.NPCScriptManager;
@@ -132,6 +133,8 @@ import server.shops.IMaplePlayerShop;
 import tools.ConcurrentEnumMap;
 import tools.FilePrinter;
 import tools.FileoutputUtil;
+import static tools.FileoutputUtil.log;
+import static tools.FileoutputUtil.log;
 import tools.HexTool;
 import tools.MaplePacketCreator;
 import tools.MockIOSession;
@@ -10795,5 +10798,550 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
         return moneyb;
     }
+    
+    public final int[] StringtoInt(final String str) {
+        int ret[] = new int[100]; //最大支持100个前置条件参数
+        StringTokenizer toKenizer = new StringTokenizer(str, ",");
+        String[] strx = new String[toKenizer.countTokens()];
+        for (int i = 0; i < toKenizer.countTokens(); i++) {
+            strx[i] = toKenizer.nextToken();
+            ret[i] = Integer.valueOf(strx[i]);
+        }
+        return ret;
+    }
+    
+        //高级任务系统 - 检查基础条件是否符合所有任务前置条件
+    public final boolean MissionCanMake(final int missionid) {
+        boolean ret = true;
+        for (int i = 1; i < 5; i++) {
+            if (!MissionCanMake(missionid, i)) { //检查每一个任务条件是否满足
+                ret = false;
+            }
+        }
+        return ret;
+    }
+
+    //高级任务系统 - 检查基础条件是否符合指定任务前置条件
+    public final boolean MissionCanMake(final int missionid, final int checktype) {
+        //checktype
+        //1 检查等级范围
+        //2 检查职业
+        //3 检查物品
+        //4 检查前置任务
+        boolean ret = false;
+        int minlevel = -1, maxlevel = -1; //默认不限制接任务的等级范围
+        String joblist = "all", itemlist = "none", prelist = "none"; //默认所有职业可以接，默认不需要任何前置物品和任务
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT minlevel,maxlevel,joblist,itemlist,prelist FROM missionlist WHERE missionid = ?")) {
+                ps.setInt(1, missionid);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        minlevel = rs.getInt("minlevel");
+                        maxlevel = rs.getInt("maxlevel");
+                        joblist = rs.getString("joblist");
+                        itemlist = rs.getString("itemlist");
+                        prelist = rs.getString("prelist");
+                    }
+                }
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionCanMake:" + ex);
+        }
+        //判断检查条件是否吻合
+        switch (checktype) {
+            case 1: //判断级别是否符合要求
+                if (minlevel > -1 && maxlevel > -1) { //双范围检查
+                    if (this.getLevel() >= minlevel && this.getLevel() <= maxlevel) {
+                        ret = true;
+                    }
+                } else if (minlevel > -1 && maxlevel == -1) { //只有最小限制
+                    if (this.getLevel() >= minlevel) {
+                        ret = true;
+                    }
+                } else if (minlevel == -1 && maxlevel > -1) { //只有最大限制
+                    if (this.getLevel() <= maxlevel) {
+                        ret = true;
+                    }
+                } else if (minlevel == -1 && maxlevel == -1) { //如果是默认值-1，表示任何等级都可以接
+                    ret = true;
+                }
+                break;
+            case 2: //检查职业是否符合要求
+                if (joblist.equals("all")) { //所有职业多可以接
+                    ret = true;
+                } else {
+                    for (int i : StringtoInt(joblist)) {
+                        if (this.getJob() == i) { //只要自己的职业ID在这个清单里，就是符合要求，立即跳出检查
+                            ret = true;
+                            break;
+                        }
+                    }
+                }
+                break;
+            case 3: //检查前置物品是否有
+                if (itemlist.equals("none")) { //没有前置物品要求
+                    ret = true;
+                } else {
+                    for (int i : StringtoInt(itemlist)) {
+                        if (!this.haveItem(i)) { //如果没有清单里要求的物品，立即跳出检查
+                            ret = false;
+                            break;
+                        }
+                    }
+                }
+                break;
+            case 4: //检查前置任务是否有完成
+                if (prelist.equals("none")) { //前置任务是否完成
+                    ret = true;
+                } else {
+                    for (int i : StringtoInt(prelist)) {
+                        if (!MissionStatus(this.getId(), i, 0, 1)) { //如果要求的前置任务没完成或从来没接过，立即跳出检查
+                            ret = false;
+                            break;
+                        }
+                    }
+                }
+                break;
+        }
+        return ret;
+    }
+
+    //高级任务函数 - 得到任务的等级数据
+    public final int MissionGetIntData(final int missionid, final int checktype) {
+        //checktype
+        //1 最小等级
+        //2 最大等级
+        int ret = -1;
+        int minlevel = -1, maxlevel = -1;
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT minlevel,maxlevel FROM missionlist WHERE missionid = ?")) {
+                ps.setInt(1, missionid);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        minlevel = rs.getInt("minlevel");
+                        maxlevel = rs.getInt("maxlevel");
+                    }
+                }
+            }
+            //判断检查条件是否吻合
+            switch (checktype) {
+                case 1:
+                    ret = minlevel;
+                    break;
+                case 2:
+                    ret = maxlevel;
+                    break;
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionGetIntData:"+ ex);
+        }
+        return ret;
+    }
+
+    //高级任务函数 - 得到任务的的字符串型数据
+    public final String MissionGetStrData(final int missionid, final int checktype) {
+        //checktype
+        //1 任务名称
+        //2 职业列表
+        //3 物品列表
+        //4 前置任务列表
+        String ret = "";
+        String missionname = "", joblist = "all", itemlist = "none", prelist = "none"; //默认所有职业可以接，默认不需要任何前置物品和任务
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT missionname,joblist,itemlist,prelist FROM missionlist WHERE missionid = ?")) {
+                ps.setInt(1, missionid);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        missionname = rs.getString("missionname");
+                        joblist = rs.getString("joblist");
+                        itemlist = rs.getString("itemlist");
+                        prelist = rs.getString("prelist");
+                    }
+                }
+            }
+            //判断检查条件是否吻合
+            switch (checktype) {
+                case 1:
+                    ret = missionname;
+                    break;
+                case 2:
+                    ret = joblist;
+                    break;
+                case 3:
+                    ret = itemlist;
+                    break;
+                case 4:
+                    ret = prelist;
+                    break;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error MissionCanMake:"+ ex);
+        }
+        return ret;
+    }
+
+    //高级任务函数 - 直接输出需要的职业列表串
+    public final String MissionGetJoblist(final String joblist) {
+        StringBuilder ret = new StringBuilder();
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            for (int i : StringtoInt(joblist)) {
+                try (PreparedStatement ps = con.prepareStatement("SELECT * FROM joblist WHERE id = ?")) {
+                    ps.setInt(1, i);
+
+                    try (ResultSet rs = ps.executeQuery()) {
+                        if (rs.next()) {
+                            ret.append(",").append(rs.getString("jobname"));
+                        }
+                    }
+                }
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionGetJoblist:"+ ex);
+        }
+        return ret.toString();
+    }
+
+    //高级任务系统 - 任务创建
+    public final void MissionMake(final int charid, final int missionid, final int repeat, final long repeattime, final int lockmap, final int mobid) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("INSERT INTO missionstatus VALUES (DEFAULT, ?, ?, ?, ?, ?, 0, DEFAULT, 0, 0, ?, 0, 0)")) {
+                ps.setInt(1, missionid);
+                ps.setInt(2, charid);
+                ps.setInt(3, repeat);
+                ps.setLong(4, repeattime);
+                ps.setInt(5, lockmap);
+                ps.setInt(6, mobid);
+                ps.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionMake:"+ ex);
+        }
+    }
+
+    //高级任务系统 - 重新做同一个任务
+    public final void MissionReMake(final int charid, final int missionid, final int repeat, final long repeattime, final int lockmap) {
+        int finish = 0;
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE missionstatus SET `repeat` = ?, repeattime = ?, lockmap = ?, finish = ?, minnum = 0 WHERE missionid = ? AND charid = ?")) {
+                ps.setInt(1, repeat);
+                ps.setLong(2, repeattime);
+                ps.setInt(3, lockmap);
+                ps.setInt(4, finish);
+                ps.setInt(5, missionid);
+                ps.setInt(6, charid);
+                ps.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionFinish:"+ ex);
+        }
+    }
+
+    //高级任务系统 - 任务完成
+    public final void MissionFinish(final int charid, final int missionid) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE missionstatus SET finish = 1, lastdate = CURRENT_TIMESTAMP(), times = times+1, lockmap = 0 WHERE missionid = ? AND charid = ?")) {
+                ps.setInt(1, missionid);
+                ps.setInt(2, charid);
+                ps.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            //log.error("Error MissionFinish:", ex);
+        }
+    }
+
+    // 高级任务系统 - 获得任务完成次数
+    public final int MissionGetFinish(final int charid, final int missionid) {
+        int ret = 0;
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT times FROM missionstatus WHERE missionid = ? AND charid = ?")) {
+                ps.setInt(1, missionid);
+                ps.setInt(2, charid);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        ret = rs.getInt(1);
+                    }
+                }
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionFinish:"+ ex);
+        }
+        return ret;
+    }
+
+    //高级任务系统 - 放弃任务
+    public final void MissionDelete(final int charid, final int missionid) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("DELETE FROM missionstatus WHERE missionid = ? AND charid = ?")) {
+                ps.setInt(1, missionid);
+                ps.setInt(2, charid);
+                ps.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionDelete:"+ ex);
+        }
+    }
+
+    //高级任务系统 - 增加指定任务的打怪数量
+    public final void MissionSetMinNum(final int charid, final int missionid, final int num) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE missionstatus SET `minnum` = ? WHERE missionid = ? AND charid = ?")) {
+                ps.setInt(1, num);
+                ps.setInt(2, missionid);
+                ps.setInt(3, charid);
+                ps.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionAddNum:"+ ex);
+        }
+    }
+
+    //高级任务系统 - 增加指定任务的打怪数量
+    public final void MissionAddMinNum(final int charid, final int missionid, final int num) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE missionstatus SET `minnum` = `minnum` + ? WHERE missionid = ? AND charid = ?")) {
+                ps.setInt(1, num);
+                ps.setInt(2, missionid);
+                ps.setInt(3, charid);
+                ps.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionAddNum:"+ ex);
+        }
+    }
+
+    // 高级任务系统 - 获取任务已经完成的怪物数量
+    public final int MissionGetMinNum(final int charid, final int missionid, final int mobid) {
+        int ret = 0;
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            String sql;
+            if (mobid == 0) {
+                sql = "SELECT minnum FROM missionstatus WHERE charid = ? AND missionid = ?";
+            } else {
+                sql = "SELECT minnum FROM missionstatus WHERE charid = ? AND missionid = ? AND mobid = ?";
+            }
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                if (mobid == 0) {
+                    ps.setInt(1, charid);
+                    ps.setInt(2, missionid);
+                } else {
+                    ps.setInt(1, charid);
+                    ps.setInt(2, missionid);
+                    ps.setInt(3, mobid);
+                }
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        ret = rs.getInt("minnum");
+                        break;
+                    }
+                }
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionMob:"+ ex);
+        }
+        return ret;
+    }
+
+    // 高级任务系统 - 获取任务需要消灭的怪物数量
+    public final int MissionGetMaxNum(final int charid, final int missionid, final int mobid) {
+        int ret = 0;
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            String sql;
+            if (mobid == 0) {
+                sql = "SELECT maxnum FROM missionstatus WHERE charid = ? AND missionid = ?";
+            } else {
+                sql = "SELECT maxnum FROM missionstatus WHERE charid = ? AND missionid = ? AND mobid = ?";
+            }
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                if (mobid == 0) {
+                    ps.setInt(1, charid);
+                    ps.setInt(2, missionid);
+                } else {
+                    ps.setInt(1, charid);
+                    ps.setInt(2, missionid);
+                    ps.setInt(3, mobid);
+                }
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        ret = rs.getInt("maxnum");
+                        break;
+                    }
+                }
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionMob:"+ ex);
+        }
+        return ret;
+    }
+
+    // 高级任务系统 - 获取任务需要消灭的怪物ID
+    public final int MissionGetMobId(final int charid, final int missionid) {
+        int ret = 0;
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT mobid FROM missionstatus WHERE charid = ? AND missionid = ?")) {
+                ps.setInt(1, charid);
+                ps.setInt(2, missionid);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        ret = rs.getInt("mobid");
+                        break;
+                    }
+                }
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionMob:"+ ex);
+        }
+        return ret;
+    }
+
+    //高级任务系统 - 增加指定任务的打怪数量
+    public final void MissionSetMobId(final int charid, final int missionid, final int mobid) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE missionstatus SET `mobid` = ? WHERE missionid = ? AND charid = ?")) {
+                ps.setInt(1, mobid);
+                ps.setInt(2, missionid);
+                ps.setInt(3, charid);
+                ps.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionAddNum:"+ ex);
+        }
+    }
+
+    //高级任务系统 - 指定任务的需要最大打怪数量
+    public final void MissionMaxNum(final int missionid, final int maxnum) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("UPDATE missionstatus SET `maxnum` = ? WHERE missionid = ? AND charid = ?")) {
+                ps.setInt(1, maxnum);
+                ps.setInt(2, missionid);
+                ps.setInt(3, this.getId());
+                ps.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionMaxNum:"+ ex);
+        }
+    }
+
+    //高级任务系统 - 获取repeattime
+    public final long MissionGetRepeattime(final int charid, final int missionid) {
+        long ret = 0;
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("SELECT repeattime FROM missionstatus WHERE charid = ? AND missionid = ?")) {
+                ps.setInt(1, charid);
+                ps.setInt(2, missionid);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        ret = rs.getLong("repeattime");
+                        break;
+                    }
+                }
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionMob:"+ ex);
+        }
+        return ret;
+    }
+
+    //高级任务系统 - 放弃所有未完成任务
+    public final void MissionDeleteNotFinish(final int charid) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement("DELETE FROM missionstatus WHERE finish = 0 AND charid = ?")) {
+
+                ps.setInt(1, charid);
+                ps.executeUpdate();
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionDeleteNotFinish:"+ ex);
+        }
+    }
+
+    /* 高级任务系统 - 获得任务是否可以做
+     * checktype
+     * 0 检查此任务是否被完成了
+     * 1 检查此任务是否允许重复做
+     * 2 检查此任务重复做的时间间隔是否到
+     * 3 检查此任务是否到达最大的任务次数
+     * 4 检查是否接过此任务，即是否第一次做这个任务
+     * 5 检查是否接了锁地图传送的任务
+     */
+    public final boolean MissionStatus(final int charid, final int missionid, final int maxtimes, final int checktype) {
+        boolean ret = false; //默认是可以做
+        int MissionMake = 0; //默认是没有接过此任务
+        long now = 0;
+        long t = 0;
+        Timestamp lastdate;
+        int repeat = 0;
+        int repeattime = 0;
+        int finish = 0;
+        int times = 0;
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            String sql;
+            if (checktype == 5) {
+                sql = "SELECT * FROM missionstatus WHERE lockmap = 1 AND charid = ?";
+            } else {
+                sql = "SELECT * FROM missionstatus WHERE missionid = ? AND charid = ?";
+            }
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                if (checktype == 5) {
+                    ps.setInt(1, charid);
+                } else {
+                    ps.setInt(1, missionid);
+                    ps.setInt(2, charid);
+                }
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        lastdate = rs.getTimestamp("lastdate");
+                        repeat = rs.getInt("repeat");
+                        repeattime = rs.getInt("repeattime");
+                        finish = rs.getInt("finish");
+                        times = rs.getInt("times");
+                        t = lastdate.getTime();
+                        now = System.currentTimeMillis();
+                        MissionMake = 1; //标明这个任务已经接过了
+                    }
+                }
+            }
+        } catch (final SQLException ex) {
+            System.err.println("Error MissionStatus:"+ ex);
+        }
+        //判断检查状态类型
+        switch (checktype) {
+            case 0:
+                if (finish == 1) {
+                    ret = true;
+                }
+                break;
+            case 1:
+                if (repeat == 1) {
+                    ret = true;
+                }
+                break;
+            case 2:
+                if (now - t > repeattime) { // 判断如果有没有到指定的重复做任务间隔时间
+                    //已经到了间隔时间
+                    ret = true;
+                }
+                break;
+            case 3:
+                if (times >= maxtimes) {
+                    //任务到达最大次数
+                    ret = true;
+                }
+                break;
+            case 4:
+                if (MissionMake == 1) {
+                    //此任务已经接过了
+                    ret = true;
+                }
+                break;
+            case 5:
+                if (MissionMake == 1) {
+                    //已经接了锁地图的任务
+                    ret = true;
+                }
+        }
+        return ret;
+    }
+    
+    
 
 }

@@ -5,10 +5,6 @@
  */
 package client.messages.commands;
 
-/**
- *
- * @author Flower
- */
 public class ConsoleCommandObject {
 
     /**
