@@ -11343,5 +11343,26 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
     
     
-
+    public int getBattlePowerPoint() {
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            int ret_count = 0;
+            PreparedStatement ps;
+            ps = con.prepareStatement("select total_score from equip_score where character_id = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ret_count = rs.getInt(1);
+            } else {
+                ret_count = -1;
+            }
+            rs.close();
+            ps.close();
+            return ret_count;
+        } catch (SQLException Ex) {
+            // log.error("Error while read bosslog.", Ex);
+            return -1;
+        }
+    }
+    
 }

@@ -22,6 +22,7 @@ public class WorldConstants {
     public static String WORLD_TIP = "请享受枫之谷的冒险之旅吧!";
     public static String SCROLL_MESSAGE = "";
     public static boolean AVAILABLE = true;
+    public static boolean ShowBattlePower = false;
     public static final int gmserver = -1; // -1 = no gm server
     public static final byte recommended = (byte) -1; // -1 = no recommended
     public static final String recommendedmsg = recommended < 0 ? ""
@@ -131,6 +132,7 @@ public class WorldConstants {
         MAX_CHAR_VIEW = ServerProperties.getProperty("server.settings.maxCharView", MAX_CHAR_VIEW);
         GMITEMS = ServerProperties.getProperty("server.settings.gmitems", GMITEMS);
         CS_ENABLE = ServerProperties.getProperty("server.settings.cashshop.enable", CS_ENABLE);
+        ShowBattlePower = ServerProperties.getProperty("server.settings.ShowBattlePower", ShowBattlePower);
     }
 
     static {

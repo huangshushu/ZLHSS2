@@ -56,6 +56,7 @@ import client.inventory.ModifyInventory;
 import constants.GameConstants;
 import constants.ServerConfig;
 import constants.ServerConstants;
+import constants.WorldConstants;
 import handling.SendPacketOpcode;
 import handling.channel.MapleGuildRanking;
 import handling.channel.MapleGuildRanking.GuildRankingInfo;
@@ -3381,9 +3382,13 @@ public class MaplePacketCreator {
     }
 
     public static void getGuildInfo(MaplePacketLittleEndianWriter mplew, MapleGuild guild, MapleCharacter c) {
-        // String Prefix = c == null ? "" : c.getNick();
+        String BattlePowerPoint = c.getBattlePowerPoint() >=1 ?  String.valueOf(c.getBattlePowerPoint()) : "";
         mplew.writeInt(guild.getId());
-        mplew.writeMapleAsciiString(guild.getName() /* + Prefix */);
+        if(WorldConstants.ShowBattlePower){
+        mplew.writeMapleAsciiString(guild.getName()  + "||战斗力"+BattlePowerPoint);    
+        }else{
+            mplew.writeMapleAsciiString(guild.getName());
+        }
         for (int i = 1; i <= 5; i++) {
             mplew.writeMapleAsciiString(guild.getRankTitle(i));
         }
@@ -3400,7 +3405,7 @@ public class MaplePacketCreator {
 
     public static byte[] 勋章(MapleCharacter chr) {
 
-        // String Prefix = chr.getNick();
+        String BattlePowerPoint = chr.getBattlePowerPoint() >=1 ?  String.valueOf(chr.getBattlePowerPoint()) : "";
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         mplew.writeShort(SendPacketOpcode.GUILD_OPERATION.getValue());
         mplew.write(0x1A); // signature for showing guild info
@@ -3410,7 +3415,7 @@ public class MaplePacketCreator {
         }
         mplew.write(1);
         mplew.writeInt(0);
-        mplew.writeMapleAsciiString(/* Prefix */"");
+        mplew.writeMapleAsciiString("战斗力"+BattlePowerPoint);
         for (int i = 1; i <= 5; i++) {
             mplew.writeMapleAsciiString("");
         }
