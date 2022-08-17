@@ -529,6 +529,9 @@ public class InterServerHandler {
         }
 
         NPCScriptManager.getInstance().start(c, 9010000, 0, "重返");
+        if(WorldConstants.ShowBattlePower){
+            NPCScriptManager.getInstance().start(c, 9900001, 0, "战斗力信息上传");
+        }
 
         if (player.getBossLog("离线挂机") > 0 && player.getMapId() == 910000007) {
             long nowTimestamp = System.currentTimeMillis();

@@ -23,6 +23,7 @@ public class WorldConstants {
     public static String SCROLL_MESSAGE = "";
     public static boolean AVAILABLE = true;
     public static boolean ShowBattlePower = false;
+    public static boolean AutoRegisterMonsterCard = true;
     public static final int gmserver = -1; // -1 = no gm server
     public static final byte recommended = (byte) -1; // -1 = no recommended
     public static final String recommendedmsg = recommended < 0 ? ""
@@ -133,6 +134,7 @@ public class WorldConstants {
         GMITEMS = ServerProperties.getProperty("server.settings.gmitems", GMITEMS);
         CS_ENABLE = ServerProperties.getProperty("server.settings.cashshop.enable", CS_ENABLE);
         ShowBattlePower = ServerProperties.getProperty("server.settings.ShowBattlePower", ShowBattlePower);
+        AutoRegisterMonsterCard = ServerProperties.getProperty("server.settings.AutoRegisterMonsterCard", AutoRegisterMonsterCard);
     }
 
     static {

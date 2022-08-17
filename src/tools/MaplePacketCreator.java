@@ -3382,7 +3382,7 @@ public class MaplePacketCreator {
     }
 
     public static void getGuildInfo(MaplePacketLittleEndianWriter mplew, MapleGuild guild, MapleCharacter c) {
-        String BattlePowerPoint = c.getBattlePowerPoint() >=1 ?  String.valueOf(c.getBattlePowerPoint()) : "";
+        String BattlePowerPoint = c.getBattlePowerPoint() >=1 ?  String.valueOf(c.getBattlePowerPoint()) : "未上传";
         mplew.writeInt(guild.getId());
         if(WorldConstants.ShowBattlePower){
         mplew.writeMapleAsciiString(guild.getName()  + "||战斗力"+BattlePowerPoint);    
@@ -3405,7 +3405,7 @@ public class MaplePacketCreator {
 
     public static byte[] 勋章(MapleCharacter chr) {
 
-        String BattlePowerPoint = chr.getBattlePowerPoint() >=1 ?  String.valueOf(chr.getBattlePowerPoint()) : "";
+        String BattlePowerPoint = chr.getBattlePowerPoint() >=1 ?  String.valueOf(chr.getBattlePowerPoint()) : "未上传";
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         mplew.writeShort(SendPacketOpcode.GUILD_OPERATION.getValue());
         mplew.write(0x1A); // signature for showing guild info

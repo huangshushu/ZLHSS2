@@ -864,6 +864,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         c.sendPacket(MaplePacketCreator.genericGuildMessage((byte) code));
     }
 
+    //解散家族
     public void disbandGuild() {
         final int gid = c.getPlayer().getGuildId();
         if (gid <= 0 || c.getPlayer().getGuildRank() != 1) {

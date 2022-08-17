@@ -52,6 +52,7 @@ import client.inventory.MaplePet.PetFlag;
 import client.inventory.ModifyInventory;
 import constants.GameConstants;
 import constants.ServerConfig;
+import constants.WorldConstants;
 import handling.world.MaplePartyCharacter;
 import handling.world.World;
 import scripting.ItemScriptManager;
@@ -2916,6 +2917,10 @@ public class InventoryHandler {
     }
 
     public static final boolean useItem(final MapleClient c, final int id) {
+        //怪物卡自动注册
+        if(WorldConstants.AutoRegisterMonsterCard == false && GameConstants.isMonsterCard(id)){
+            return false;
+        }
         if (GameConstants.isUse(id)) { // TO prevent caching of everything, waste of mem
             final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
             final byte consumeval = ii.isConsumeOnPickup(id);

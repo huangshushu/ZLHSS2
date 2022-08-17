@@ -1,0 +1,29 @@
+[Party Quest]
+Dragon's Call (Lv. 60 - 200)
+
+Survive as long as you can for better rewards!
+
+The ancient dragon Hyperius wants to test your strength
+and sends you to a place where you must survive.
+Go to the {place name}, where Hyperius waits for you.
+
+1. Talk to Shadow Knight Rene to enter the {place name}.
+
+2. Talk to him again to obtain bombs and useful tools.
+
+3. Make sure you don't lost all of your Fire Soul Rocks.
+
+4. Talk back to Shadow Knight Rene to receive your gift.
+
+-Time Limit: 10 min
+
+-Number of Participants: 3 - 18 players
+
+-Getting There: Dimensional Mirror in each town
+
+-Special Reward(s): 
+
+#1102207# Goldensoul Cape - Special Stat: 9% ATT, 9% MAGIC, 30% Boss Damage
+#1122080# Dragon Lord Necklace - Special Stat: 12% All Stat
+#2041213# Dragon Lord Ruby - Special Scroll for the Dragon Lord Necklace
+#2022704# Blessing of the Dragon Lord - Increase Weapon ATT +20 and Magic ATT +30 for 15 minutes

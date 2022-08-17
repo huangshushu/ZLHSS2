@@ -1,0 +1,26 @@
+starting quest 1800 at level 100
+quest 1801 showing how orchid was betrayed by gelimer
+quest 1802 allows you to see evolution lab on the dimensional door and requests you to enter it map 957000000
+quests 72xx and 12xx are info quests which contain data about evolution system
+1216: [count=3;quest=0;date= 2 9]
+7286: [normal=0;hard=0;rank=0]
+7278: [A=0;B=0;SS=0;S=0]
+7281: [item=3;time=18850;chk=0;cNum=0;sec=515;stage=20;lBonus=3;bonus=6900]
+1803 is starting the evolution system
+1804 is guide quest
+after 1804 is entering quest that opens ui 0x64/100 (OPEN_UI)
+when pressing enter on ui it starts quest 1805 and sends info quest 1840 with string "off"
+1805 is another guide quest
+1806 is training quest to kill 10 monsters when you finish it gives you core and asks you to use it
+
+link quest [1816] contains data [linkOpen6=0;linkOpen7=0;linkOpen8=0;linkOpen9=0;coreSlot1=0;coreSlot2=0]
+another info quest [1818] contains data [q1833=0;q1834=0;q1835=0;q1836=0;q1837=0;q1838=0]
+
+core packets:
+0xF6 [02 01 00 00 00 00 00 31 F3 36 00 01 00 00 00]
+31 F3 36 00 is core id its a setup item.
+01 00 00 00 is probably quantity
+
+show_status_info [1E 16 31 F3 36 00 01 00 00 00]
+
+getShowItemGain [05 01 31 F3 36 00 01 00 00 00]

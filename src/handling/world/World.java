@@ -698,6 +698,7 @@ public class World {
             }
         }
 
+        //解散家族
         public static void disbandGuild(int gid) {
             MapleGuild g = getGuild(gid);
             lock.writeLock().lock();

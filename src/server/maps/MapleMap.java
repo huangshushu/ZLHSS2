@@ -536,6 +536,7 @@ public final class MapleMap {
                     if (de.questid > 0 && chr.getQuestStatus(de.questid) != 1) {
                         continue;
                     }
+                    //怪物卡
                     if (de.itemId / 10000 == 238 && !mob.getStats().isBoss()
                             && chr.getMonsterBook().getLevelByCard(ii.getCardMobId(de.itemId)) >= 2) {
                         continue;
