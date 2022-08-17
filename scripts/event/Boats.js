@@ -1,16 +1,11 @@
-/*
- M7MS服务端
- 魔法密林码头去天空之城
- */
-
 importPackage(Packages.client);
 importPackage(Packages.tools);
 importPackage(Packages.server.life);
 
-var closeTime = 10 * 60 * 1000; //搭乘的時間
-var beginTime = 15 * 60 * 1000; //船啟航的时间
-var rideTime = 10 * 60 * 1000; //搭船所需要的时间
-var invasionTime = 2 * 60 * 1000; //確認蝙蝠魔召唤的时间
+var closeTime = 1 * 60 * 1000; //搭乘的時間
+var beginTime = 2 * 60 * 1000; //船啟航的时间
+var rideTime = 1 * 60 * 1000; //搭船所需要的时间
+var invasionTime = 1 * 60 * 500; //確認蝙蝠魔召唤的时间
 var Orbis_btf;
 var Boat_to_Orbis;
 var Orbis_Boat_Cabin;
@@ -105,9 +100,9 @@ function invasion() {
     var numspawn;
     var chance = Math.floor(Math.random() * 10);
     if (chance <= 4)
-        numspawn = 0;
-    else if (chance == 5)
-        numspawn = 1;
+        numspawn = 2;
+    else if (chance == 2)
+        numspawn = 2;
     else
         numspawn = 2;
     if (numspawn == 2) {

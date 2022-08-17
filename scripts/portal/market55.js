@@ -1,3 +1,4 @@
 function enter(pi) {
-	pi.inFreeMarket();
+	pi.openNpc(2007,1);
+	return true;
 }

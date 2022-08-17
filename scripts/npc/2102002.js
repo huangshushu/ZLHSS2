@@ -1,54 +1,44 @@
 /*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ 
+ */
 var cost = 6000;
 var status = 0;
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if(mode == -1) {
-        cm.dispose();
-    } else {
-        if(mode == 1) {
-            status++;
-        }
-        if(mode == 0) {
-            cm.sendNext("ä½ æœ‰ä¸€äº›ç»æµçš„è´Ÿæ‹…è€Œæ— æ³•æ­èˆ¹å¯¹å§?");
-            cm.dispose();
-            return;
-        }
-        if(status == 0) {
-    cm.sendYesNo("ä½ å¥½,æˆ‘æ˜¯è¥¿æ‹‰æ–¯ã€‚ä½ æƒ³ç¦»å¼€çº³å¸Œæ²™æ¼ åˆ°å¤©ç©ºä¹‹åŸå—? ä»è¿™ç«™åˆ°è‰¾çº³æ–¯å¤§é™†çš„#bå¤©ç©ºä¹‹åŸ#kçš„èˆ¹åª\réœ€è¦èŠ±è´¹#b"+cost+" æ«å¸#k è´­ä¹°#b#t4031045##k æ‰å¯ä»¥å¯èˆª.");
-        } else if(status == 1) {
-            if(cm.getMeso() >= cost && cm.canHold(4031045)) {
-                cm.gainItem(4031045,1);
-                cm.gainMeso(-cost);
-            } else {
-                cm.sendOk("è¯·é—®ä½ æœ‰ #b"+cost+" æ«å¸#k? å¦‚æœæœ‰çš„è¯,æˆ‘åŠæ‚¨æ£€æŸ¥ä¸‹èº«ä¸Šå…¶ä»–æ ä½çœ‹æ˜¯å¦æœ‰æ²¡æœ‰æ»¡äº†.");
-            }
-            cm.dispose();
-        }
+  if (mode == -1) {
+    cm.dispose();
+  } else {
+    if (mode == 1) {
+      status++;
     }
+    if (mode == 0) {
+      cm.sendNext("ÄãÓĞÒ»Ğ©¾­¼ÃµÄ¸ºµ£¶øÎŞ·¨´î´¬¶Ô°É?");
+      cm.dispose();
+      return;
+    }
+    if (status == 0) {
+      cm.sendYesNo(
+        "		ÄãºÃ,ÎÒÊÇÎ÷À­Ë¹¡£ÄãÏëÀë¿ªÄÉÏ£É³Ä®µ½Ìì¿ÕÖ®³ÇÂğ? ĞèÒª»¨·Ñ#b " +
+          cost +
+          " #k½ğ±Ò ¹ºÂò#b#t4031045##k ²Å¿ÉÒÔÆôº½¡£"
+      );
+    } else if (status == 1) {
+      if (cm.getMeso() >= cost && cm.canHold(4031045)) {
+        cm.gainItem(4031045, 1);
+        cm.gainMeso(-cost);
+      } else {
+        cm.sendOk(
+          "ÇëÎÊÄãÓĞ #b" +
+            cost +
+            " ½ğ±Ò#k? Èç¹ûÓĞµÄ»°,ÎÒÈ°Äú¼ì²éÏÂÉíÉÏÆäËûÀ¸Î»¿´ÊÇ·ñÓĞÃ»ÓĞÂúÁË."
+        );
+      }
+      cm.dispose();
+    }
+  }
 }

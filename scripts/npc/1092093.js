@@ -4,10 +4,10 @@ function start() {
 		cm.removeAll(4031848);
 		cm.removeAll(4031849);
 		cm.removeAll(4031850);
-		cm.sendOk("鎰熻阿渚涘簲鐗涘ザ");
+		cm.sendOk("感谢供应牛奶");
 		cm.dispose();
 	} else {
-		cm.sendOk("鎴戦渶瑕佸ソ鍠濈殑鐗涘ザ...");
+		cm.sendOk("我需要好喝的牛奶...");
 		cm.dispose();
 }
 }

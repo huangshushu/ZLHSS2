@@ -1,5 +1,3 @@
-load('nashorn:mozilla_compat.js');
-importPackage(Packages.server.maps);
 
 function enter(pi) {
     var eim = pi.getPlayer().getEventInstance();

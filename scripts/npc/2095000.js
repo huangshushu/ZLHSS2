@@ -1,22 +1,112 @@
-ï»¿function action(mode, type, selection) {
-    if (cm.getQuestStatus(6410) == 1) {
-        var ddz = cm.getEventManager("ProtectRichard");
-		if (cm.getParty() == null) {
-			cm.sendOk("è¯·ç»„é˜Ÿã€‚");
-		} else {
-        if (ddz == null) {
-            cm.sendOk("æœªçŸ¥çš„é”™è¯¯");
-        } else {
-            var prop = ddz.getProperty("state");
-            if (prop == null || prop.equals("0")) {
-                ddz.startInstance(cm.getParty(), cm.getMap());
-            } else {
-                cm.sendOk("åˆ«äººæŒ‘æˆ˜äº†ï¼Œè¯·ç¨åé‡è¯•äº†ä¸€ä¸‹.");
-            }
+importPackage(java.lang);
+importPackage(Packages.tools);
+importPackage(Packages.client);
+importPackage(Packages.server);
+importPackage(Packages.database);
+
+var myDate = new Date();
+var year = myDate.getFullYear();
+var month = myDate.getMonth() + 1;
+var days = myDate.getDate();
+var status = 0;
+var ºÚË®¾§ = 4021008;
+var À¶É«¼ıÍ· = "#fUI/UIWindow/Quest/icon2/7#";
+var ºìÉ«¼ıÍ· = "#fUI/UIWindow/Quest/icon6/7#";
+var Ô²ĞÎ = "#fUI/UIWindow/Quest/icon3/6#";
+var ÃÀ»¯new = "#fUI/UIWindow/Quest/icon5/1#";
+var ¸ĞÌ¾ºÅ = "#fUI/UIWindow/Quest/icon0#";
+var Õı·½¼ıÍ· = "#fUI/Basic/BtHide3/mouseOver/0#";
+var ÖÒ¸æ = "#kÎÂÜ°ÌáÊ¾£ºÈÎºÎ·Ç·¨³ÌĞòºÍÍâ¹Ò·âºÅ´¦Àí.·âÉ±½ÄĞÒĞÄÀí.";
+function start() {
+    status = -1;
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+    if (mode == -1) {
+        cm.dispose();
+    } else {
+        if (status >= 0 && mode == 0) {
+            cm.dispose();
+            return;
         }
-		}
-    } else if (cm.getMapId() == 925010400) {
-		cm.warp(120000104,0);
-	}
-    cm.dispose();
+        if (mode == 1)
+            status++;
+        else
+            status--;
+        if (status == 0) {
+        	var strlen = "Ç×°®µÄ#b#e#h ##n#k£¬ÕâÀïÊÇµÈ¼¶Ã¿ÈÕ½±ÀøÖĞĞÄ\r\n";
+        	strlen += ÃÀ»¯new + "#bµÈ¼¶½±ÀøÄÚÈİ£º\r\n			0-9 ÎŞ\r\n";
+			strlen += "			10-29 Ã°ÏÕ±Ò10w\r\n";
+			strlen += "			30-69 Ã°ÏÕ±Ò20w\r\n";
+			strlen += "			70-119 µãÈ¯200 ³é½±Ïä×Óx2 Ã°ÏÕ±Ò30w\r\n";
+			strlen += "			120ÒÔÉÏ µãÈ¯500 ³é½±Ïä×Óx4 Ã°ÏÕ±Ò50w\r\n";
+			strlen +=" "+¸ĞÌ¾ºÅ+"#L1##r×¢ÒâºÃµÈ¼¶Çø¼ä£¬È·¶¨ÒªÁìÈ¡Ã´£¿Ã¿ÌìÖ»ÄÜÁìÈ¡Ò»´ÎÅ¶#l\r\n";
+			cm.sendSimple(strlen);
+		}else if(status == 1){
+			var id = cm.getPlayer().getId();
+        	var time = getBossLog("meirijiangli",id);
+        	if(time >= 1){
+        		cm.sendOk("Ã¿ÌìÖ»¿ÉÒÔÁìÈ¡Ò»´ÎÅ¶");
+        		cm.dispose();
+        		return;
+        	}
+		if (cm.getInventory(1).isFull() || cm.getInventory(2).isFull() || cm.getInventory(3).isFull() || cm.getInventory(4).isFull() || cm.getInventory(5).isFull()) {
+                cm.sendSimple("ÄúµÄ±³°ü¿Õ¼ä²»×ã£¬¸÷¸öÀ¸Ä¿ÆğÂëÁô³öÒ»¸ö¿ÕÎ»¡£");
+		cm.dispose();
+        		return;
+        	}
+        	var level = cm.getLevel();
+        	if(level < 10){
+        		cm.sendOk("Ã»µ½Ê®¼¶²»ÄÜÁìÈ¡½±ÀøÅ¶");
+        		cm.dispose();
+        	}else if(level < 30){
+        		cm.getPlayer().gainMeso(100000, true);
+			cm.setBossLog("meirijiangli");
+        		cm.sendOk("¹§Ï²Äã»ñµÃ10-29¼¶½±Àø");
+        		cm.dispose();
+        	}else if(level < 70){
+        		cm.getPlayer().gainMeso(200000, true);
+			cm.setBossLog("meirijiangli");
+        		cm.sendOk("¹§Ï²Äã»ñµÃ30-69¼¶½±Àø");
+        		cm.dispose();
+        	}else if(level < 120){
+        		cm.gainItem(2022336,2);
+        		cm.gainNX(200);
+        		cm.getPlayer().gainMeso(300000, true);
+			cm.setBossLog("meirijiangli");
+        		cm.sendOk("¹§Ï²Äã»ñµÃ70-119¼¶½±Àø");
+        		cm.dispose();
+        	}else{
+        		cm.gainItem(2022336,4);
+        		cm.gainNX(500);
+        		cm.getPlayer().gainMeso(500000, true);
+			cm.setBossLog("meirijiangli");
+        		cm.sendOk("¹§Ï²Äã»ñµÃ120¼¶½±Àø");
+        		cm.dispose();
+        	}
+        }
+            
+    }
+}
+
+function getBossLog(boss,id) {
+        var con = DatabaseConnection.getConnection();
+        var count = 0;
+        var ps;
+        //ps = con.prepareStatement("SELECT COUNT(*) FROM bosslog WHERE characterid = ? AND bossid = ? AND lastattempt >= subtime(CURRENT_TIMESTAMP, '23:0:0.0')");
+		var day = ""+year+"-"+month+"-"+days+"";
+		ps = con.prepareStatement("SELECT COUNT(*) FROM bosslog WHERE characterid = ? AND bossid = ? AND lastattempt >= ?");
+        ps.setInt(1, id);
+        ps.setString(2, boss);
+		ps.setString(3,day);
+        var rs = ps.executeQuery();
+        if (rs.next()) {
+            count = rs.getInt(1);
+        } else {
+            count = -1;
+        }
+        rs.close();
+        ps.close();
+        return count;
 }

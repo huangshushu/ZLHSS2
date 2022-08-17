@@ -1,6 +1,6 @@
-ï»¿var status = -1;
+var status = -1;
 
 function action(mode, type, selection) {
-	cm.sendSimple("æœ¬äººæˆ‘ç°åœ¨ä¼‘å‡ä¸­ï¼Œè¯·æ‰¾æˆ‘æ—è¾¹çš„åŠ©ç†å¤„ç†ã€‚");
+	cm.sendSimple("±¾ÈËÎÒÏÖÔÚĞİ¼ÙÖĞ£¬ÇëÕÒÎÒÅÔ±ßµÄÖúÀí´¦Àí¡£");
 	cm.dispose();
 }

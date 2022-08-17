@@ -1,36 +1,63 @@
-ï»¿/*
-	Mu Lung Training Center entrance
-*/
+/*
+ 
+ ½Å±¾£ºÎäÁêËş
+ */
 var status = -1;
 var sel;
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-	status++;
-    } else {
-	cm.sendNext("#b(æ‡¦å¤«!ä¸æ•¢æ¥è·Ÿæˆ‘PK....)");
-	cm.dispose();
-	return;
-    }
+  if (mode == 1) {
+    status++;
+  } else {
+    cm.sendNext("Äã»¹ÊÇÃ»ÓĞµ¨Á¿¡£");
+    cm.dispose();
+    return;
+  }
 
-    if (status == 0) {
-	cm.sendSimple("#e< å…¬å‘Š >#n \r\nå‡¡æ˜¯æœ‰å‹‡æ°”æŒ‘æˆ˜æ­¦é™µé“åœºè€…ï¼Œæ¬¢è¿ä½ å‰æ¥æ­¦é™µé“åœºï¼. \r\n - æ­¦å…¬ - \r\n#b#L0#æˆ‘è¦æŒ‘æˆ˜æ­¦é™µé“åœº50æ¥¼!!#l\r\n#b#L1#ä»”ç»†é˜…è¯»è§„åˆ™...#l")
-    } else if (status == 1) {
-	sel = selection;
-	if (sel == 1) {
-	    cm.sendNext("#e<å…¬å‘Š: å‘è¡ŒæŒ‘æˆ˜! >#n\r\næˆ‘æ˜¯æ­¦é™µé“åœºçš„ä¸»äººåå«æ­¦å…¬ã€‚å¾ˆä¹…ä»¥å‰æˆ‘æ˜¯åœ¨æ­¦é™µå±±å¼€å§‹ä¿®ç»ƒä»™æœ¯ï¼Œç°åœ¨æˆ‘çš„å†…åŠŸå·²è¾¾åˆ°å¿«è¶…è¶Šæé™çš„é˜¶æ®µã€‚ä»¥å‰æ­¦é™µé“åœºçš„ä¸»äººæ‡¦å¼±åˆ°ä¸åƒæ ·çš„ç¨‹åº¦ã€‚æ‰€ä»¥ä»Šå¤©å¼€å§‹ä»¥æˆ‘æ¥ç®¡æ­¦é™µé“åœºã€‚åªæœ‰å¼ºè€…å¯ä»¥æ‹¥æœ‰æ­¦é™µé“åœºçš„èµ„æ ¼ã€‚æƒ³è¦å¾—åˆ°æ­¦æœ¯æŒ‡ç‚¹çš„äººå°½ç®¡æ¥æŒ‘æˆ˜ï¼æˆ–è‘—æƒ³è¦æŒ‘æˆ˜æˆ‘çš„äººä¹Ÿæ— å¦¨ã€‚æˆ‘ä¼šè®©ä½ çŸ¥é“ä½ çš„æ— çŸ¥ï¼ï¼");
-	} else {
-	    cm.sendYesNo("#b(ä½ çœŸçš„æƒ³è¦å‚åŠ æ­¦å…¬æŒ‘æˆ˜å¡”å—ï¼Ÿï¼Ÿ)");
-	}
-    } else if (status == 2) {
-	if (sel == 1) {
-	    cm.sendNextPrev("æ¬¢è¿ä½ æ¥æŒ‘æˆ˜ã€‚å¦‚æœæ²¡æœ‰å‹‡æ°”çš„è¯ï¼Œæ‰¾å…¶ä»–ä¼™ä¼´ä¸€èµ·ä¹Ÿæ— å¦¨ã€‚");
-	} else {
-	    cm.saveLocation("MULUNG_TC");
-	    cm.warp(925020000, 0);
-	    cm.dispose();
-	}
-    } else if (status == 3) {
-	cm.dispose();
+  if (status == 0) {
+    cm.sendSimple(
+      "\r\n   Hi~ #b#h ##k ·²ÊÇÓĞÓÂÆøÌôÕ½ÎäÁêµÀ³¡Õß£¬»¶Ó­ÄãÇ°À´ÎäÁêµÀ³¡£¬ÈÃÎÒ¼ûÖ¤Ò»ÏÂÄãµÄÇ¿´ó¡£\r\n\r\n#b#L0#½øÈëÎäÁêµÀ³¡#l\r\n#b#L1#µÀ³¡ÅÅĞĞ°ñ#l"
+    );
+  } else if (status == 1) {
+    sel = selection;
+    if (sel == 1) {
+      var text = "   ©¤©¤©¤©¤©¤©¤©¤©¤©¤< #e#rÎäÁê°ñ#k#n >©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤ #n\r\n\r\n";
+      text += "    ÅÅÃû        \tÍæ¼Ò         \t\t\tĞŞÁ¶µã\r\n";
+      var rankinfo_list = cm.getBossRankCountTop("ÎäÁêËşÀÛ¼ÆµÄĞŞÁ¶µã");
+      if (rankinfo_list != null) {
+        for (var i = 0; i < rankinfo_list.size(); i++) {
+          if (i == 20) {
+            break;
+          }
+          var info = rankinfo_list.get(i);
+
+          text += i == 0 ? "#r" : i == 1 ? "#b" : i == 2 ? "#b" : "";
+          text += "\t" + (i + 1) + "\t\t\t\t";
+          text += info.getCname();
+          for (var j = 16 - info.getCname().getBytes().length; j > 0; j--) {
+            text += " ";
+          }
+          text += "\t\t#k#n#r" + info.getCount();
+          text += "#k#n \t\t#k";
+          text += "";
+        }
+      }
+      text += "\r\n\r\n";
+      cm.sendOkS(text, 3);
+      cm.dispose();
+    } else {
+      cm.sendYesNo("  ºÜºÃ£¬ÄãÈ·¶¨Äã¹»µ¨Á¿Âğ£¿");
     }
+  } else if (status == 2) {
+    if (sel == 1) {
+      cm.sendNextPrev("»¶Ó­ÄãÀ´ÌôÕ½¡£Èç¹ûÃ»ÓĞÓÂÆøµÄ»°£¬ÕÒÆäËû»ï°éÒ»ÆğÒ²ÎŞ·Á¡£");
+    } else {
+      //cm.saveLocation("MULUNG_TC");
+      //cm.warp(925020000, 0);
+      cm.´ò¿ªNPC(2007, 5);
+      cm.dispose();
+    }
+  } else if (status == 3) {
+    cm.dispose();
+  }
 }

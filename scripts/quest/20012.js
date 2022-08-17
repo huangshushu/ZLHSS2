@@ -1,7 +1,9 @@
-/*
-	NPC Name: 		Kinu
-	Description: 		Quest - Cygnus tutorial helper
-*/
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 
 var status = -1;
 
@@ -24,7 +26,7 @@ function start(mode, type, selection) {
 	qm.askAcceptDecline("时间过得真快，忘了你是要练习了... 接下来你会发现很多的 #o100121# 在这张地图。你需要打倒 #r3只 #o100121##k 使用你的 #b攻击#b 技能 然后给我 1 #b#t4000483##k 作为证明OK？ 我会在这里等你的。");
     } else if (status == 3) {
 	qm.forceStartQuest();
-	qm.summonMsg(8);
+//	qm.summonMsg(8);
 	qm.dispose();
     }
 }

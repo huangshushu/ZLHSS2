@@ -1,12 +1,13 @@
-ï»¿/*
- å°‘æ—å¦–åƒ§ -- å…¥å£NPC
+/*
+ ÉÙÁÖÑıÉ® -- Èë¿ÚNPC
  */
 
-var shaoling = 5;
+var shaoling = 2;
 function start() {
     status = -1;
     action(1, 0, 0);
 }
+
 
 function action(mode, type, selection) {
     if (mode == -1) {
@@ -16,32 +17,34 @@ function action(mode, type, selection) {
             cm.dispose();
             return;
         }
+		if (cm.getPlayer().getClient().getChannel() == 6) {
+			cm.sendOk("ÑıÉ®Ö»ÓĞÔÚÆµµÀ #r6#k ¿ÉÒÔÌôÕ½");
+			cm.dispose();
+			return;
+	    }
         if (mode == 1)
             status++;
         else
             status--;
         if (status == 0) {
-            if (cm.getPlayer().getClient().getChannel() != 3) {
-                cm.sendOk("æ­¦é™µå¦–åƒ§åªèƒ½åœ¨é¢‘é“3èƒ½æ‰“è€Œå·²ã€‚");
-                cm.dispose();
-                return;
-            } else {
-                cm.sendSimple("#bäº²çˆ±çš„ #k#h  ##e\r\n#bæ˜¯å¦è¦æŒ‘æˆ˜æ­¦é™µå¦–åƒ§å‰¯æœ¬??#k \r\n#L0##ræˆ‘è¦æŒ‘æˆ˜æ­¦é™µå¦–åƒ§#k#l");
-            }
+            cm.sendSimple("#bÇ×°®µÄ #k#h  ##e\r\n#bÊÇ·ñÒªÌôÕ½ÎäÁêÑıÉ®¸±±¾£¿#k \r\n\r\n\r\n  #L0##rÎÒÒªÌôÕ½ÎäÁêÑıÉ®#k#l\r\n\r\n\r\n ");//#L0##rÎÒÒªÌôÕ½ÎäÁêÑıÉ®#k#l
         } else if (status == 1) {
             if (selection == 0) {
                 var pt = cm.getPlayer().getParty();
-                if (cm.getQuestStatus(8534) != 2) {
-                    cm.sendOk("ä½ ä¼¼ä¹ä¸å¤Ÿèµ„æ ¼æŒ‘æˆ˜æ­¦é™µå¦–åƒ§ï¼");
+                if ( cm.getQuestStatus(8534) != 0 ) {
+                    cm.sendOk("ÑıÉ®ÔİÊ±¹Ø±ÕÎ¬ĞŞ£¡");
+                    cm.dispose();
+                } else if (!ÅĞ¶ÏÍÅ¶ÓÃ¿ÈÕa('shaoling', 2)) {
+                    cm.sendOk("Ã¿ÌìÖ»ÄÜ´ò2´ÎÑıÉ®£¡");
                     cm.dispose();
                 } else if (cm.getParty() == null) {
-                    cm.sendOk("è¯·ç»„é˜Ÿå†æ¥æ‰¾æˆ‘....");
+                    cm.sendOk("Çë×é¶ÓÔÙÀ´ÕÒÎÒ....");
                     cm.dispose();
                 } else if (!cm.isLeader()) {
-                    cm.sendOk("è¯·å«ä½ çš„é˜Ÿé•¿æ¥æ‰¾æˆ‘!");
+                    cm.sendOk("Çë½ĞÄãµÄ¶Ó³¤À´ÕÒÎÒ!");
                     cm.dispose();
-                } else if (cm.checkPartyBossLogCopy('shaoling', 2) > 0) {
-                    cm.sendOk("æ¯å¤©åªèƒ½æ‰“2æ¬¡å¦–åƒ§ï¼Œé˜Ÿä¼ä¸­æœ‰äººå·²ç»è¶…è¿‡æ¬¡æ•°äº†ï¼");
+                } else if (pt.getMembers().size() < 1) {
+                    cm.sendOk("ĞèÒª 1 ÈËÒÔÉÏµÄ×é¶Ó²ÅÄÜ½øÈë£¡!");
                     cm.dispose();
                 } else {
                     var party = cm.getParty().getMembers();
@@ -53,47 +56,86 @@ function action(mode, type, selection) {
                     var it = party.iterator();
                     while (it.hasNext()) {
                         var cPlayer = it.next();
-                        if ((cPlayer.getLevel() >= 50 && cPlayer.getLevel() <= 200) || cPlayer.getJobId() == 900) {
+                        if (cPlayer.getLevel() >= 129 || cPlayer.getJobId() == 000) {
                             levelValid += 1;
                         } else {
                             next = false;
                         }
-                        if ((cPlayer.getMapid() == mapId) && (!cPlayer.isCs()) && (cPlayer.isOnline()) && (!cPlayer.isHp0())) {
-                            inMap += (cPlayer.getJobId() == 900 ? 1 : 1);
+                        if (cPlayer.getMapid() == mapId) {
+                            inMap += (cPlayer.getJobId() == 900 ? 3 : 1);
                         }
                     }
-                    if (inMap < 1) {
+                    if ( inMap < 1) {
                         next = false;
-                    }  
+                    }
                     if (next) {
                         var em = cm.getEventManager("shaoling");
                         if (em == null) {
-                            cm.sendOk("å½“å‰å‰¯æœ¬æœ‰é—®é¢˜ï¼Œè¯·è”ç»œç®¡ç†å‘˜....");
+                            cm.sendOk("µ±Ç°¸±±¾ÓĞÎÊÌâ£¬ÇëÁªÂç¹ÜÀíÔ±....");
                         } else {
-
-                            var check1 = cm.getMapFactory().getMap(702060000);
-                            if (check1.playerCount() != 0) {
-                                cm.sendNext("å…¶å®ƒè¿œå¾é˜Ÿï¼Œæ­£åœ¨å¯¹æˆ˜ä¸­ã€‚");
-                                cm.dispose();
-                                return;
-                            }
-
                             var prop = em.getProperty("state");
                             if (prop.equals("0") || prop == null) {
                                 em.startInstance(cm.getParty(), cm.getMap());
-                                cm.setPartyBossLogCopy("shaoling");
+								var map = cm.getMap(702060000);
+								map.clearOwnerList();
+								map.addOwner(cm.getParty());
+								map.¸øÊ±ÖÓ(15, true, true);
+                                ¸øÍÅ¶ÓÃ¿ÈÕa("shaoling");
                                 cm.dispose();
                                 return;
                             } else {
-                                cm.sendOk("é‡Œé¢å·²ç»æœ‰äººåœ¨æŒ‘æˆ˜...");
+                                cm.sendOk("ÀïÃæÒÑ¾­ÓĞÈËÔÚÌôÕ½ÁË£¬Äã¿ÉÒÔÅÅ¶ÓµÈºòÒ»ÏÂ¡£...");
                             }
                         }
                     } else {
-                        cm.sendOk("ä½ çš„é˜Ÿä¼è²Œä¼¼æ²¡æœ‰è¾¾åˆ°è¦æ±‚...éœ€è¦ 6 äººä»¥ä¸Šä¸”è¾¾åˆ° 50 ç­‰åˆ° 200 ç­‰ã€‚");
+                        cm.sendOk("µÈ¼¶ÉĞÎ´´ïµ½ #r130#k");
                     }
                 }
                 cm.dispose();
             }
         }
     }
+}
+
+function ¸øÍÅ¶ÓÃ¿ÈÕa(name){
+	if(cm.getPlayer().getParty() != null && cm.getPlayer().getParty().getMembers().size() > 1){
+		var chrs = cm.getPlayer().getParty().getMembers();
+		var it = chrs.iterator();
+		while(it.hasNext()){
+			var chr = it.next();
+			var curChar = cm.getPlayer().getMap().getCharacterById(chr.getId());
+			if (curChar != null) {
+				curChar.setBossLoga(name);
+			}
+		}
+	}else{
+		cm.setBossLoga(name);
+	}
+	
+}
+
+function ÅĞ¶ÏÍÅ¶ÓÃ¿ÈÕa(name, count){
+	var a = false;
+	var c = 0;
+	if(cm.getPlayer().getParty() == null){
+		return cm.getBossLoga(name) < count;
+	}else{
+		var chrs = cm.getPlayer().getParty().getMembers();
+		var it = chrs.iterator();
+		while(it.hasNext()){
+			var chr = it.next();
+			var curChar = cm.getPlayer().getMap().getCharacterById(chr.getId());
+			if (curChar != null) {
+				c = curChar.getBossLoga(name);
+				if (c < count) {
+					a = true;
+				} else {
+					a = false;
+					return a;
+				}
+			}
+		}
+		return a;
+	}
+	
 }

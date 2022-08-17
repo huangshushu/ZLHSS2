@@ -1,7 +1,13 @@
-var status = -1;
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
+ var status = -1;
 
 function start(mode, type, selection) {
-	qm.sendNext("Please come see me, I am in the Chief's Residence of Elnath.");
+	qm.sendNext("请来看我，我在雪域-长老公馆.");
     	qm.forceStartQuest();
 	qm.dispose();
 }

@@ -47,8 +47,8 @@ if (mode == -1) {
 	} else if (status == 7) {
 	    qm.sendNextPrevS("Everyone, please stay quiet for a minute. I'm going to turn it on.",4,1500000);
 	} else if (status == 8) {
-	    qm.introEnableUI(1);
-		qm.introDisableUI(true);
+	    qm.EnableUI(1);
+		qm.DisableUI(true);
 		qm.sendNextS("......",4,1500000);
 	} else if (status == 9) {
         qm.sendNextS("Wow, I can hear the whole forest!",4,1500000);
@@ -72,8 +72,8 @@ if (mode == -1) {
 	} else if (status == 17) {
 	    qm.sendNextS("Everyone, please wait!",4);
 	} else if (status == 18) {
-	    qm.introEnableUI(0);
-		qm.introDisableUI(false);
+	    qm.EnableUI(0);
+		qm.DisableUI(false);
 	    qm.forceCompleteQuest();
 	    qm.dispose();		
 	}

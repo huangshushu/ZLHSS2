@@ -1,4 +1,4 @@
-ï»¿/* Everton
+/* Everton
 	Ludibrium Random Eye Change.
 */
 var status = -1;
@@ -20,9 +20,9 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendNext("å—¨ï¼Œæˆ‘å¥½æ— èŠå–” å¦‚æœä½ æœ‰ä¸€å¼  #b#t5152006##k, æˆ‘å¯ä»¥éšæœºå¸®ä½ æå®šä¸€å¼ è„¸");
+	cm.sendNext("àË£¬ÎÒºÃÎŞÁÄà¸ Èç¹ûÄãÓĞÒ»ÕÅ #b#t5152006##k, ÎÒ¿ÉÒÔËæ»ú°ïÄã¸ã¶¨Ò»ÕÅÁ³");
     } else if (status == 1) {
-	cm.sendYesNo("æ˜¯å¦æƒ³ç”¨ #b#t5152006##k?");
+	cm.sendYesNo("ÊÇ·ñÏëÓÃ #b#t5152006##k?");
     } else if (status == 2){
 	var face = cm.getPlayerStat("FACE");
 	var facetype;
@@ -37,9 +37,9 @@ function action(mode, type, selection) {
 	}
 	
 	if (cm.setRandomAvatar(5152006, facetype) == 1) {
-	    cm.sendOk("äº«å—!");
+	    cm.sendOk("ÏíÊÜ!");
 	} else {
-	    cm.sendOk("ç–´..è²Œä¼¼æ²¡æœ‰#t5152006#");
+	    cm.sendOk("¯z..Ã²ËÆÃ»ÓĞ#t5152006#");
 	}
 	cm.dispose();
     }

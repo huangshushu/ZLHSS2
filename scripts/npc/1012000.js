@@ -1,4 +1,4 @@
-﻿/* 
+/* Author: Xterminator
 	NPC Name: 		Regular Cab
 	Map(s): 		Victoria Road : Henesys (100000000)
 	Description: 		Henesys Cab
@@ -23,7 +23,7 @@ function action(mode, type, selection) {
 	cm.dispose();
 	return;
     } else if (status >= 2 && mode == 0) {
-	cm.sendNext("这里还有很多地方可以逛。当你想要去不同的城镇的时候，欢迎随时来找我吧。");
+	cm.sendNext("���ﻹ�кܶ�ط����Թ䡣������Ҫȥ��ͬ�ĳ����ʱ�򣬻�ӭ��ʱ�����Ұɡ�");
 	cm.dispose();
 	return;
     }
@@ -32,18 +32,18 @@ function action(mode, type, selection) {
     else
 	status--;
     if (status == 0) {
-	cm.sendNext("您好~! 弓箭手村计程车. 想要往其他村庄安全又快速的移动吗? 如果是这样 为了优先考量满足顾客, 请使用 #b#p1012000##k 亲切的送你到想要到达的地方！");
+	cm.sendNext("����~! ���ִ�Ƴ̳�. ��Ҫ��������ׯ��ȫ�ֿ��ٵ��ƶ���? ��������� Ϊ�����ȿ�������˿�, ��ʹ�� #b#p1012000##k ���е����㵽��Ҫ����ĵط���");
     } else if (status == 1) {
 	var job = cm.getJob();
 	if (job == 0 || job == 1000 || job == 2000) {
-	    var selStr = "我们有特殊90%折扣，对于新手选择你的目的地#b";
+	    var selStr = "����������90%�ۿۣ���������ѡ�����Ŀ�ĵ�#b";
 	    for (var i = 0; i < maps.length; i++) {
-		selStr += "\r\n#L" + i + "##m" + maps[i] + "# (" + costBeginner[i] + " 枫币)#l";
+		selStr += "\r\n#L" + i + "##m" + maps[i] + "# (" + costBeginner[i] + " ���)#l";
 	    }
 	} else {
-	    var selStr = "请选择目的地.#b";
+	    var selStr = "��ѡ��Ŀ�ĵ�.#b";
 	    for (var i = 0; i < maps.length; i++) {
-		selStr += "\r\n#L" + i + "##m" + maps[i] + "# (" + cost[i] + " 枫币)#l";
+		selStr += "\r\n#L" + i + "##m" + maps[i] + "# (" + cost[i] + " ���)#l";
 	    }
 	}
 	cm.sendSimple(selStr);
@@ -56,11 +56,11 @@ function action(mode, type, selection) {
 	    sCost = rCost[selection];
 	    show = cost[selection];
 	}
-	cm.sendYesNo("你在这里没有任何事情做，是吧? #b#m" + maps[selection] + "##k 他将花费你的 #b" + show + " 枫币#k.");
+	cm.sendYesNo("��������û���κ����������ǰ�? #b#m" + maps[selection] + "##k ����������� #b" + show + " ���#k.");
 	selectedMap = selection;
     } else if (status == 3) {
 	if (cm.getMeso() < sCost) {
-	    cm.sendNext("很抱歉由于你没有足够的枫币 所以你将无法乘坐出租车!");
+	    cm.sendNext("�ܱ�Ǹ������û���㹻�Ľ�� �����㽫�޷��������⳵!");
 	} else {
 	    cm.gainMeso(-sCost);
 	    cm.warp(maps[selectedMap]);

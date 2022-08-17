@@ -1,53 +1,62 @@
-ï»¿/*
-	Sky-Blue Balloon - LudiPQ 7th stage NPC
-**/
+/*
+ 
+ ½Å±¾£ºÍæ¾ßËşµÚÆß¹Ø
+ */
+var ÊÕ¼¯¿¨Æ¬ÊıÁ¿ = 3;
+var µÚÆß¹Ø¾­Ñé = 7500;
 
 var status;
-var exp = 10000 * 2;
-			
+
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    var eim = cm.getEventInstance();
-    var stage7status = eim.getProperty("stage7status");
+  var eim = cm.getEventInstance();
+  var stage7status = eim.getProperty("stage7status");
 
-    if (stage7status == null) {
-	if (cm.isLeader()) { // Leader
-	    var stage7leader = eim.getProperty("stage7leader");
-	    if (stage7leader == "done") {
-
-		if (cm.haveItem(4001022,3)) { // Clear stage
-		    cm.sendNext("æ­å–œï¼ä½ å·²ç»é€šè¿‡äº†ç¬¬ä¸ƒé˜¶æ®µã€‚å¿«ç‚¹ç°åœ¨ï¼Œåˆ°ç¬¬8é˜¶æ®µã€‚");
-		    cm.removeAll(4001022);
-		    clear(7, eim, cm);
-		    cm.givePartyExp(exp, eim.getPlayers());
-		    cm.dispose();
-		} else { // Not done yet
-		    cm.sendNext("ä½ ç¡®å®šä½ æœ‰æ”¶é›†äº† #r3å¼  #t4001022##kï¼Ÿï¼Ÿ");
-		}
-		cm.dispose();
-	    } else {
-		cm.sendOk("æ¬¢è¿æ¥åˆ°ç¬¬ä¸ƒé˜¶æ®µã€‚#bé—å¼ƒä¹‹å¡”PQ#k è¯·æ”¶é›†#r#t4001022##k æ¥æ‰¾æˆ‘å³å¯å®Œæˆä»»åŠ¡ã€‚");
-		eim.setProperty("stage7leader","done");
-		cm.dispose();
-	    }
-	} else { // Members
-	    cm.sendNext("æ¬¢è¿æ¥åˆ°ç¬¬ä¸ƒé˜¶æ®µã€‚#bé—å¼ƒä¹‹å¡”PQ#k è¯·æ”¶é›†#r#t4001022##k ç»™ä½ çš„é˜Ÿé•¿ï¼Œç„¶åå«é˜Ÿé•¿æ¥æ‰¾æˆ‘å³å¯å®Œæˆä»»åŠ¡ã€‚");
-	    cm.dispose();
-	}
+  if (stage7status == null) {
+    if (cm.isLeader()) {
+      var stage7leader = eim.getProperty("stage7leader");
+      if (stage7leader == "done") {
+        if (cm.haveItem(4001022, ÊÕ¼¯¿¨Æ¬ÊıÁ¿)) {
+          cm.gainItem(4001022, -3);
+          cm.sendNext("¹§Ï²£¡ÄãÒÑ¾­Í¨¹ıÁËµÚÆß½×¶Î¡£¿ìµãÏÖÔÚ£¬µ½µÚ8½×¶Î¡£");
+          //cm.removeAll(4001022);
+          clear(7, eim, cm);
+          cm.givePartyExp(µÚÆß¹Ø¾­Ñé, eim.getPlayers());
+          cm.dispose();
+        } else {
+          cm.sendNext(
+            "ÄãÈ·¶¨ÄãÓĞÊÕ¼¯ÁË #r" + ÊÕ¼¯¿¨Æ¬ÊıÁ¿ + "#k ÕÅ #v4001022# £¿£¿"
+          );
+        }
+        cm.dispose();
+      } else {
+        cm.sendOk(
+          "»¶Ó­À´µ½µÚÆß½×¶Î¡£#r" +
+            ÊÕ¼¯¿¨Æ¬ÊıÁ¿ +
+            "#k ÕÅ#v4001022#  À´ÕÒÎÒ¼´¿ÉÍê³ÉÈÎÎñ¡£"
+        );
+        eim.setProperty("stage7leader", "done");
+        cm.dispose();
+      }
     } else {
-	cm.sendNext("æ­å–œï¼ä½ å·²ç»é€šè¿‡äº†ç¬¬ä¸ƒé˜¶æ®µã€‚å¿«ç‚¹ç°åœ¨ï¼Œåˆ°ç¬¬8é˜¶æ®µã€‚");
-	cm.dispose();
+      cm.sendNext(
+        "»¶Ó­À´µ½µÚÆß½×¶Î¡£ÇëÊÕ¼¯#v4001022# ½»¸ø¶Ó³¤£¬È»ºó½Ğ¶Ó³¤À´ÕÒÎÒ¼´¿ÉÍê³ÉÈÎÎñ¡£"
+      );
+      cm.dispose();
     }
+  } else {
+    cm.sendNext("¹§Ï²£¡ÄãÒÑ¾­Í¨¹ıÁËµÚÆß½×¶Î¡£¿ìµãÏÖÔÚ£¬µ½µÚ8½×¶Î¡£");
+    cm.dispose();
+  }
 }
 
 function clear(stage, eim, cm) {
-    eim.setProperty("stage" + stage.toString() + "status","clear");
-    
-    cm.showEffect(true, "quest/party/clear");
-    cm.playSound(true, "Party1/Clear");
-    cm.environmentChange(true, "gate");
+  eim.setProperty("stage" + stage.toString() + "status", "clear");
+  cm.showEffect(true, "quest/party/clear");
+  cm.playSound(true, "Party1/Clear");
+  cm.environmentChange(true, "gate");
 }

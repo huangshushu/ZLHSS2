@@ -1,10 +1,17 @@
+/*
+ 
+ ½Å±¾£ºòÚò¼
+ */
 function start() {
-	if (cm.getQuestStatus(4100) == 2 && cm.getQuestStatus(4103) == 1) {
-		cm.warp(701010321);
-		cm.dispose();
-	} else {
-		//cm.forceStartQuest(8512);
-		cm.sendOk("ä½ æ²¡æœ‰å®Œæˆå†œæ°‘çš„æ‹œæ‰˜ä»»åŠ¡æˆ–è€…æ²¡æœ‰èµ„æ ¼æŒ‘æˆ˜å¤§ç‹èœˆèš£!");
-		cm.dispose();
-	}
+  if (
+    (cm.getQuestStatus(4103) == 1 && cm.haveItem(4031289, 1)) ||
+    cm.getQuestStatus(8510) == 2 ||
+    cm.getPlayer().isGM()
+  ) {
+    cm.warp(701010321);
+    cm.dispose();
+  } else {
+    cm.sendOk("ÄãÃ»ÓĞÍê³ÉÅ©ÃñµÄ#b°İÍĞÈÎÎñ#k¡£");
+    cm.dispose();
+  }
 }

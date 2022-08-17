@@ -3,12 +3,16 @@
  */
 
 function start() {
-    cm.sendYesNo("如果你现在离开，你将不得不重新开始。你确定要离开这里到外面去吗？");
+	// cm.getMap().spawnChaosZakum( -38, -230);
+	cm.sendYesNo("����Ҫ�뿪���ﵽ����ȥ��");
 }
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-	cm.warp(211042200);
-    }
-    cm.dispose();
+	if (mode == 1) {
+		cm.warp(211042300);
+		if (cm.getPlayerCount(280030000) == 1) {
+		cm.getMap(211042300).resetReactors();
+	}
+	}
+	cm.dispose();
 }

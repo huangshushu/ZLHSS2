@@ -1,14 +1,8 @@
-load('nashorn:mozilla_compat.js');
-importPackage(Packages.client);
-
 function enter(pi) {
-    if (pi.getMap().getAllMonstersThreadsafe().size() == 0) {
-        //pi.resetMap(pi.getPlayer().getMapId() + 100);
-        pi.warp(pi.getPlayer().getMapId() + 100, 0);
-        return true;
+    if(pi.getPlayer().getParty() != null && pi.getMap().getAllMonster().size() == 0 && pi.isLeader()){
+        pi.warpParty(pi.getPlayer().getMapId() + 100);
+        pi.playPortalSE();
     } else {
-        pi.playerMessage(5, "Please eliminate all the monsters, to get your reward!");
-        return false;
+        pi.playerMessage(5, "请确认当前地图是否还存在怪物！");
     }
-    return true;
 }

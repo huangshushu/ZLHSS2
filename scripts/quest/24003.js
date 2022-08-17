@@ -1,12 +1,18 @@
-var status = -1;
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
+ var status = -1;
 
 function start(mode, type, selection) {
-	qm.sendNext("Serene music fills the town.");
+	qm.sendNext("宁静的音乐充满了城市.");
 	qm.forceCompleteQuest();
 	qm.dispose();
 }
 function end(mode, type, selection) {
-	qm.sendNext("Serene music fills the town.");
+	qm.sendNext("宁静的音乐充满了城市.");
 	qm.forceCompleteQuest();
 	qm.dispose();
 }

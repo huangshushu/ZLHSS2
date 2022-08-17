@@ -6,7 +6,7 @@ function start() {
 	cm.dispose();
 	return;
     }
-    cm.sendYesNo("Would you like to go back to the Monster Park?");
+    cm.sendYesNo("你想提前退出怪物公园吗？");
 }
 
 function action(mode, type, selection) {

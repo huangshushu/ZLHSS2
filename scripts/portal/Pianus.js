@@ -1,5 +1,4 @@
 function enter(pi) {
-    pi.playPortalSE();
-    pi.warp(230040420, "out00");
+    pi.openNpc(9000058,0)
     return true;
 }

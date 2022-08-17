@@ -4,7 +4,7 @@
 */
 function enter(pi) {
     if (pi.getQuestStatus(32205)==1){
-    pi.ShowWZEffect("UI/tutorial.img/21");
-	return true;
+		pi.TutInstructionalBalloon("UI/tutorial.img/20");
+		return true;
 	}
 }

@@ -1,56 +1,51 @@
-/* ===========================================================
-			Resonance
-	NPC Name: 		Scarrs
-	Map(s): 		Mushroom Castle: Corner of Mushroom Forest(106020000)
-	Description: 	Quest -  A Friendship with Bruce
-=============================================================
-Version 1.0 - Script Done.(18/7/2010)
-=============================================================
-*/
-
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 importPackage(Packages.client);
 
 var status = -1;
 
 function start(mode, type, selection) {
     status++;
-	if (mode != 1) {
-	    if(type == 1 && mode == 0)
-		    status -= 2;
-		else{
-			qm.sendOk("I wanted you to personally give this piece of good news to #bBruce#k, but I understand if you're busy.");
-			qm.dispose();
-			return;
-		}
-	}
-	if (status == 0)
-		qm.sendAcceptDecline("I have just one more request for you. Would you like to take a listen?");
-	if (status == 1){
-		qm.forceStartQuest();
-		qm.gainItem(4032389, 1);
-		qm.sendOk("To be honest, these #bKiller Mushroom Spores#k are not completely out of my own work. Do you remember #bBruce#k from #bHenesys#k? I have been friends with him since childhood, and #bKiller Mushroom Spores#k was completed after he shared the results of his studies with me. This was all thanks to him, so I'd like for you to give this to him for me.");
-		qm.dispose();
-	}
+    if (mode != 1) {
+        if (type == 1 && mode == 0) {
+            status -= 2;
+        } else {
+            qm.sendOk("我想让你亲自给这块好消息#b布鲁斯#k, 但我明白，如果你很忙.");
+            qm.dispose();
+            return;
+        }
+    }
+    if (status == 0) {
+        qm.sendAcceptDecline("我对你只有一个要求更多。你想坐听?");
+    } else if (status == 1) {
+        qm.forceStartQuest();
+        qm.gainItem(4032389, 1);
+        qm.sendOk("说实话，这些#b杀手孢菇#k不完全出我自己的工作。 你还记得吗#b布鲁斯#k 从#bHenesys#k? 从小我一直和他交朋友，和 #b杀手孢菇#k完成后，他分享了他的研究结果和我在一起。这一切都归功于他，所以我想你把这个交给他我.");
+        qm.dispose();
+    }
 }
 
 function end(mode, type, selection) {
     status++;
-	if (mode != 1) {
-	    if(type == 1 && mode == 0)
-		    status -= 2;
-		else{
-			qm.dispose();
-			return;
-		}
-	}
-	if (status == 0)
-		qm.sendOk("Oh! You're here on behalf of #bScarrs#k? \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#fUI/UIWindow.img/QuestIcon/8/0# 8800 exp");
-	if (status == 1){
-		qm.gainExp(8800);
-		qm.gainItem(4032389, -1);
-		qm.sendOk("Ahh, so this is the #bKiller Mushroom Spores#k that I was working on in the past. I had a tough time gathering up the ingredients, so I left it in theory only, but he was able to complete it, with a sample to show for as well. Please tell him I appreciate his good work.");
-		qm.forceCompleteQuest();
-		qm.dispose();
-	}
+    if (mode != 1) {
+        if (type == 1 && mode == 0) {
+            status -= 2;
+        } else {
+            qm.dispose();
+            return;
+        }
+    }
+    if (status == 0) {
+        qm.sendOk("哦!你在这里代表#bScarrs#k? \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#fUI/UIWindow.img/QuestIcon/8/0# 8800 exp");
+    } else if (status == 1) {
+        qm.gainExp(8800);
+        qm.gainItem(4032389, -1);
+        qm.sendOk("啊，所以这是#b杀手孢菇#k我在过去的工作。我有一个艰难的时间收拾的成分，所以我把它只有理论，但他能够完成它，用样本显示为好。请告诉他，我很欣赏他的出色工作.");
+        qm.forceCompleteQuest();
+        qm.dispose();
+    }
 }
-	

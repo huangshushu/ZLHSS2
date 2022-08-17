@@ -1,5 +1,15 @@
 function enter(pi) {
-    pi.playPortalSE();
-    pi.showInstruction("#eI feel so guilty for not helping #b\r\nThe Azwam Community.#k\r\nI should go help defeat the rest of Hilla's Army.", 290, 10);
-	return true;
+    var returnMap = pi.getSavedLocation("MULUNG_TC");
+    pi.clearSavedLocation("MULUNG_TC");
+    if (returnMap == 950000100) {
+	returnMap = 211000000;
+    }
+    var target = pi.getMap(returnMap);
+    var portal = target.getPortal("unityPortal2");
+    if (portal == null) {
+	portal = target.getPortal(0);
+    }
+    if (pi.getMapId() != target) {
+	pi.getPlayer().changeMap(target, portal);
+    }
 }

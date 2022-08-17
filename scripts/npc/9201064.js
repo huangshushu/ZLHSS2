@@ -1,4 +1,4 @@
-ï»¿/* Mani
+/* Mani
 	NLC VIP Hair/Hair Color Change.
 */
 var status = -1;
@@ -18,7 +18,7 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendSimple("å—¨ï¼Œæˆ‘æ˜¯#p9201064# å¦‚æœæ‚¨æœ‰ #b#t5150031##k æˆ–è€…æœ‰ #b#t5151026##k æˆ‘å°±å¯ä»¥å¸®åŠ©æ‚¨~ é€‰æ‹©æ‚¨æƒ³è¦çš„æœåŠ¡ \r\n#L0#ä½¿ç”¨: #i5150031##t5150031##l\r\n#L1#ä½¿ç”¨: #i5151026##t5151026##l");
+	cm.sendSimple("àË£¬ÎÒÊÇ#p9201064# Èç¹ûÄúÓĞ #b#t5150031##k »òÕßÓĞ #b#t5151026##k ÎÒ¾Í¿ÉÒÔ°ïÖúÄú~ Ñ¡ÔñÄúÏëÒªµÄ·şÎñ \r\n#L0#Ê¹ÓÃ: #i5150031##t5150031##l\r\n#L1#Ê¹ÓÃ: #i5151026##t5151026##l");
     } else if (status == 1) {
 	if (selection == 0) {
 	    var hair = cm.getPlayerStat("HAIR");
@@ -33,7 +33,7 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < hair_Colo_new.length; i++) {
 		hair_Colo_new[i] = hair_Colo_new[i] + (hair % 10);
 	    }
-	    cm.askAvatar("é€‰æ‹©ä¸€ä¸ªå–œæ¬¢çš„", hair_Colo_new);
+	    cm.askAvatar("Ñ¡ÔñÒ»¸öÏ²»¶µÄ", hair_Colo_new);
 	} else if (selection == 1) {
 	    var currenthaircolo = Math.floor((cm.getPlayerStat("HAIR") / 10)) * 10;
 	    hair_Colo_new = [];
@@ -42,20 +42,20 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < 8; i++) {
 		hair_Colo_new[i] = currenthaircolo + i;
 	    }
-	    cm.askAvatar("é€‰æ‹©ä¸€ä¸ªå–œæ¬¢çš„", hair_Colo_new);
+	    cm.askAvatar("Ñ¡ÔñÒ»¸öÏ²»¶µÄ", hair_Colo_new);
 	}
     } else if (status == 2){
 	if (beauty == 1) {
 	    if (cm.setAvatar(5150031, hair_Colo_new[selection]) == 1) {
-		cm.sendOk("äº«å—ï¼");
+		cm.sendOk("ÏíÊÜ£¡");
 	    } else {
-		cm.sendOk("ç–´...è²Œä¼¼æ²¡æœ‰#b#t5150031##k");
+		cm.sendOk("¯z...Ã²ËÆÃ»ÓĞ#b#t5150031##k");
 	    }
 	} else {
 	    if (cm.setAvatar(5151026, hair_Colo_new[selection]) == 1) {
-		cm.sendOk("äº«å—ï¼");
+		cm.sendOk("ÏíÊÜ£¡");
 	    } else {
-		cm.sendOk("ç–´...è²Œä¼¼æ²¡æœ‰#b#t5151026##k");
+		cm.sendOk("¯z...Ã²ËÆÃ»ÓĞ#b#t5151026##k");
 	    }
 	}
 	cm.dispose();

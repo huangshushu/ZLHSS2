@@ -1,4 +1,4 @@
-/* Cygnus revamp
+﻿/* Cygnus revamp
 	Noblesse tutorial
 	Cygnus
     Made by Daenerys
@@ -11,19 +11,19 @@ function start(mode, type, selection) {
 	 else
 	    status--;
 	if (status == 0) {
-		qm.sendNext("Ah, you must be one of my new recruits.");
+		qm.sendNext("你好。是為了成為騎士而來的那位啊");
 	} else if (status == 1) {
-	    qm.sendNextPrevS("My name's #h #. I love Ereve. It's so pretty here.");
+	    qm.sendNextPrevS("是，我叫做#h0#。是第一次來到這個庭園。看來耶雷弗有很多美麗的地方啊。");
 	} else if (status == 2) {
-      qm.sendNextPrev("Oh, yes. Ereve is lovely, and so peaceful. Has your training been difficult?");
+      qm.sendNextPrev("耶雷弗可是個和平又美麗的地方呢。訓練太困難了，你不用做嗎？");
 	} else if (status == 3) {
-	    qm.sendNextPrevS("Nothing I can't handle. Maple World better get ready, because I'm about to save it so hard.");
+	    qm.sendNextPrevS("是，雖然還有很多不足的地方，但是即使面臨到怎樣的困難，我也會堅定的！好！我會戰勝這些，成為一個了不起的騎士的。所以，楓之谷的和平就由我來守護了。應該…");
 	} else if (status == 4) {
-        qm.sendNextPrev("(She smiles.) Your enthusiasm is reassuring. The suffering of so many weighs heavily upon me... I hope you can help me ease their pain.");
+        qm.sendNextPrev("(淺淺的微笑) 即使是再怎麼堅困的道路也是必然要走的道路啊。現在是大家要加把勁的時候了。");
 	} else if (status == 5) {
-	    qm.sendNextPrevS("Yeah, um, I'm sorry. Who are you again? You don't look like much of a knight...");
+	    qm.sendNextPrevS("但是，是誰呢？照這個打扮看來應該不是皇家騎士團…");
 	} else if (status == 6) {
-        qm.sendNextPrev("My name is...");
+        qm.sendNextPrev("是，我是…");
 	} else if (status == 7) {	
         qm.forceStartQuest();    
 		qm.dispose();

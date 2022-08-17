@@ -1,16 +1,19 @@
-ï»¿function start() {
-    var status = cm.getQuestStatus(20706);
-    
-    if (status == 0) {
-        cm.sendNext("å®ƒçœ‹èµ·æ¥åƒæœ‰ä»€ä¹ˆå¯ç–‘çš„åœ°æ–¹.");
-    } else if (status == 1) {
-        cm.forceCompleteQuest(20706);
-        cm.sendNext("ä½ å·²ç»å‘ç°çš„å½±å­ï¼æœ€å¥½æ˜¯æŠ¥å‘Šç»™ #p1103001#.");
-    } else if (status == 2) {
-        cm.sendNext("é˜´å½±å·²ç»è¢«å‘ç°ã€‚æœ€å¥½æ˜¯æŠ¥å‘Šç»™ #p1103001#.");
-    }
-    cm.dispose();
+/*
+ 
+ */
+function start() {
+  var status = cm.getQuestStatus(20706);
+
+  if (status == 0) {
+    cm.sendNext("Ëü¿´ÆğÀ´ÏñÓĞÊ²Ã´¿ÉÒÉµÄµØ·½.");
+  } else if (status == 1) {
+    cm.forceCompleteQuest(20706);
+    cm.sendNext("ÄãÒÑ¾­·¢ÏÖµÄÓ°×Ó£¡×îºÃÊÇ±¨¸æ¸ø #p1103001#.");
+  } else if (status == 2) {
+    cm.sendNext("ÒõÓ°ÒÑ¾­±»·¢ÏÖ¡£×îºÃÊÇ±¨¸æ¸ø #p1103001#.");
+  }
+  cm.dispose();
 }
 function action(mode, type, selection) {
-    cm.dispose();
+  cm.dispose();
 }

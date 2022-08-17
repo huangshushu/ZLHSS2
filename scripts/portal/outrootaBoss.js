@@ -1,4 +1,4 @@
 function enter(pi) {
-    pi.openNpc(1064002,1);
-    return true;
+        pi.openNpc(1064024);
+        pi.playPortalSE();
 }

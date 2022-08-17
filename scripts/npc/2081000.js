@@ -1,4 +1,3 @@
-ï»¿
 /**
 	Chief Tatamo - Leafre(240000000)
 **/
@@ -16,107 +15,89 @@ function action(mode, type, selection) {
         status++;
     } else {
         if (status == 0) {
-            cm.dispose();
-        }
+	    cm.dispose();
+	}
         if (status > 2) {
             if (section == 0) {
-                cm.sendOk("è¯·æ…é‡è€ƒè™‘ã€‚ä¸€æ—¦ä½ åšå‡ºäº†å†³å®šï¼Œè®©æˆ‘çŸ¥é“ã€‚");
+                cm.sendOk("ÇëÉ÷ÖØ¿¼ÂÇ¡£Ò»µ©Äã×ö³öÁË¾ö¶¨£¬ÈÃÎÒÖªµÀ¡£");
             } else {
-                cm.sendOk("æƒ³æƒ³å§ï¼Œç„¶åè®©æˆ‘çŸ¥é“ä½ çš„å†³å®šã€‚");
+                cm.sendOk("ÏëÏë°É£¬È»ºóÈÃÎÒÖªµÀÄãµÄ¾ö¶¨¡£");
             }
             cm.safeDispose();
         }
         status--;
     }
     if (status == 0) {
-        cm.sendSimple("ä½ æ‰¾æˆ‘æœ‰äº‹å—ï¼Ÿ\r\n#L0##bé­”æ³•ç§å­#k#l\r\n#L1##bä¸ºäº†ç¥æœ¨æ‘çš„è¡ŒåŠ¨#k#l\r\n#L2##båšå››è½¬ææ–™");
+        cm.sendSimple("ÄãÕÒÎÒÓĞÊÂÂğ£¿\r\n#L0##bÄ§·¨ÖÖ×Ó#k#l\r\n#L1##bÎªÁËÉñÄ¾´åµÄĞĞ¶¯#k#l");
     } else if (status == 1) {
         section = selection;
         if (section == 0) {
-            cm.sendSimple("éœ€è¦æˆ‘å¸®åŠ©ä½ ï¼Ÿï¼Ÿ\r\n#L0##bæˆ‘æƒ³è·Ÿä½ ä¹°ä¸€äº› #t4031346#.#k#l");
+            cm.sendSimple("ĞèÒªÎÒ°ïÖúÄã£¿£¿\r\n#L0##bÎÒÏë¸úÄãÂòÒ»Ğ© #t4031346#.#k#l");
         } else if (section == 1) {
-            cm.sendNext("æ›´å¥½çš„å»ºè®¾æ‘è½æ˜¯æ‘é•¿çš„èŒè´£ã€‚æ‰€ä»¥éœ€è¦æ›´å¤šæ›´å¥½çš„é“å…·ã€‚ä½ èƒ½ä¸ºäº†æ‘è½æçŒ®å‡ºåœ¨ç¥æœ¨æ‘é™„è¿‘æ”¶é›†åˆ°çš„é“å…·å—ï¼Ÿ");
-		} else if (section == 2) {
-			cm.sendNext("æ‚¨éœ€è¦ä¸ºæ‚¨çš„å››è½¬åšå‡†å¤‡å—?? æˆ‘éœ€è¦#t4031348#ã€‚");
+            cm.sendNext("¸üºÃµÄ½¨Éè´åÂäÊÇ´å³¤µÄÖ°Ôğ¡£ËùÒÔĞèÒª¸ü¶à¸üºÃµÄµÀ¾ß¡£ÄãÄÜÎªÁË´åÂä¾èÏ×³öÔÚÉñÄ¾´å¸½½üÊÕ¼¯µ½µÄµÀ¾ßÂğ£¿");
+        } else {
+            if (cm.isQuestActive(3759)) {
+                if (cm.haveItem(4032531)) {
+                    cm.sendNext("Dragon Moss Extract...? I already gave you that!");
+                } else {
+                    cm.sendNext("Dragon Moss Extract...Ah, I see. I will give it to you in this situation.");
+                    cm.gainItem(4032531, 1);
+                }
+            } else {
+                cm.sendNext("¿¼ÂÇºÃÔÙÀ´ÕÒÎÒ¡£");
+            }
+            cm.dispose();
         }
     } else if (status == 2) {
         if (section == 0) {
-            cm.sendGetNumber("#b#t4031346##k éœ€è¦ä¹°å¤šå°‘ä¸ªï¼Ÿï¼Ÿ", 1, 1, 99);
-		} else if (section == 2) {
-			if (cm.canHold()) {
-			if (cm.haveItem(4031348)) {
-				status = 3;
-				cm.sendNext("ä½ å·²ç»æœ‰äº†#t4031348#ï¼Œé‚£ä¹ˆç°åœ¨æˆ‘è¦ç”¨æˆ‘çš„ç¥å¥‡é­”æ³•æŠŠ#t4031348#å˜æˆå››è½¬æ‰€éœ€çš„é“å…·ã€‚");
-			} else {
-				cm.sendNext("è¯·åˆ°ç©å…·åŸ44Fæ‰¾NPCè´­ä¹°#t4031348#ã€‚");
-				cm.safeDispose();
-			}
-			} else {
-				cm.sendNext("è¯·æ£€æŸ¥ä½ çš„è£…å¤‡æ ã€‚");
-				cm.safeDispose();
-			}
+            cm.sendGetNumber("#b#t4031346##k ĞèÒªÂò¶àÉÙ¸ö£¿£¿", 1, 1, 99);
         } else {
             for (var i = 0; i < itemID.length; i++) {
                 menu += "\r\n#L" + i + "##b#t" + itemID[i] + "##k#l";
             }
-            cm.sendNext("ä½ æƒ³æçŒ®å‡ºé‚£ç§é“å…·å‘¢ï¼Ÿ" + menu);
+            cm.sendNext("ÄãÏë¾èÏ×³öÄÇÖÖµÀ¾ßÄØ£¿" + menu);
             //cm.safeDispose();
         }
     } else if (status == 3) {
         if (section == 0) {
             if (selection == 0) {
-                cm.sendOk("æˆ‘ä¸èƒ½å–ä½ 0ä¸ªã€‚");
+                cm.sendOk("ÎÒ²»ÄÜÂôÄã0¸ö¡£");
                 cm.safeDispose();
             } else {
                 temp = selection;
                 cost = temp * 30000;
-                cm.sendYesNo("ä½ è¦ä¹° #b" + temp + " #t4031346##k å®ƒå°†èŠ±è´¹ä½  #b" + cost + " æ«å¸#k. ä½ ç¡®å®šè¦è´­ä¹°ï¼Ÿï¼Ÿ?");
+                cm.sendYesNo("ÄãÒªÂò #b" + temp + " #t4031346##k Ëü½«»¨·ÑÄã #b" + cost + " ·ã±Ò#k. ÄãÈ·¶¨Òª¹ºÂò£¿£¿?");
             }
         } else {
             temp = selection;
-            if (cm.haveItem(itemID[temp])) {
-                //cm.sendGetNumber("How many #b#t" + itemID[temp] + "#k's would you like to donate?\r\n#b< Owned : #c" + itemID[temp] + "# >#k", 0, 0, "#c" + itemID[temp] + "#");
-                cm.sendGetNumber("ä½ è¦æå¤šå°‘ä¸ª #b#t" + itemID[temp] + "#k'æˆ‘ä¼šç»™ä½ å¾ˆå¥½çš„é…¬åŠ³çš„ï¼", 1, 1, 999);
+            if(cm.haveItem(itemID[temp])) {
+				//cm.sendGetNumber("How many #b#t" + itemID[temp] + "#k's would you like to donate?\r\n#b< Owned : #c" + itemID[temp] + "# >#k", 0, 0, "#c" + itemID[temp] + "#");
+				cm.sendGetNumber("ÄãÒª¾è¶àÉÙ¸ö #b#t" + itemID[temp] + "#k'ÎÒ»á¸øÄãºÜºÃµÄ³êÀÍµÄ£¡", 1, 1, 999);
             } else {
-                cm.sendNext("æˆ‘ä¸è®¤ä¸ºä½ æœ‰è¿™é“å…·ã€‚");
+                cm.sendNext("ÎÒ²»ÈÏÎªÄãÓĞÕâµÀ¾ß¡£");
                 cm.safeDispose();
             }
         }
     } else if (status == 4) {
         if (section == 0) {
             if (cm.getMeso() < cost || !cm.canHold(4031346)) {
-                cm.sendOk("è¯·ç¡®è®¤æ˜¯å¦æœ‰è¶³å¤Ÿçš„æ«å¸å’Œé“å…·æ ä½ã€‚");
+                cm.sendOk("ÇëÈ·ÈÏÊÇ·ñÓĞ×ã¹»µÄ·ã±ÒºÍµÀ¾ßÀ¸Î»¡£");
             } else {
-                cm.sendOk("å†ä¼š~");
+                cm.sendOk("ÔÙ»á~");
                 cm.gainItem(4031346, temp);
-                cm.gainMeso(-cost);
+                cm.gainMeso( - cost);
             }
             cm.safeDispose();
-		} else if (section == 2) {
-			if(!cm.canHold(4031860,2) || !cm.canHold(4031861,2)){
-				cm.sendNext("The space doesnt enough .");
-				cm.dispose();
-				return;
-			}
-			if (cm.haveItem(4031348)) { //2nd check need item
-				cm.gainItem(4031348,-1);
-				cm.gainItem(4031860,1);
-				cm.gainItem(4031861,1);
-				cm.sendOk("æ­å–œä½ å·²ç»è·å¾—#t4031860# x1 #t4031861# x1");
-			} else {
-				cm.sendOk("æ‚¨è²Œä¼¼æ²¡æœ‰#t4031348# 0.0");
-			}
-			cm.safeDispose();
         } else {
             count = selection;
-            cm.sendYesNo("ä½ ç¡®å®šä½ æƒ³èµåŠ© #b" + count + " #t" + itemID[temp] + "##k?");
+            cm.sendYesNo("ÄãÈ·¶¨ÄãÏëÔŞÖú #b" + count + " #t" + itemID[temp] + "##k?");
         }
     } else if (status == 5) {
         if (count == 0 || !cm.haveItem(itemID[temp], count)) {
-            cm.sendNext("è¯·ç¡®è®¤èµåŠ©é¡¹ç›®æ˜¯å¦è¶³å¤Ÿã€‚");
+            cm.sendNext("ÇëÈ·ÈÏÔŞÖúÏîÄ¿ÊÇ·ñ×ã¹»¡£");
         } else {
             cm.gainItem(itemID[temp], -count);
-            cm.sendNext("æ„Ÿè°¢ä½ èµåŠ©ã€‚");
+            cm.sendNext("¸ĞĞ»ÄãÔŞÖú¡£");
         }
         cm.safeDispose();
     }

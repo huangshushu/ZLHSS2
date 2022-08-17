@@ -1,10 +1,10 @@
-ï»¿/* Author: aaroncsn(MapleSea Like)
+/* Author: aaroncsn(MapleSea Like)
 	NPC Name: 		Vikoon
 	Map(s): 		Hidden Street: Leaving the Event(109050001)
 	Description: 		Some random pirate
 */
 
 function start(){
-	cm.sendOk("å–‚...å–‚..å¿«æŠŠ è—å®å›¾ç»™æˆ‘æ‰¾å‡ºæ¥...å› ä¸ºæŠŠåœ°å›¾ç»™ä¸¢äº†ï¼Œå®³ç°åœ¨éƒ½æ²¡åŠæ³•èˆªæµ·ã€‚");
+	cm.sendOk("Î¹...Î¹..¿ì°Ñ ²Ø±¦Í¼¸øÎÒÕÒ³öÀ´...ÒòÎª°ÑµØÍ¼¸ø¶ªÁË£¬º¦ÏÖÔÚ¶¼Ã»°ì·¨º½º£¡£");
 	cm.dispose();
 }

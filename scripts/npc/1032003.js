@@ -1,67 +1,57 @@
-ï»¿/**
--- Odin JavaScript --------------------------------------------------------------------------------
-	Shane - Ellinia (101000000)
--- By ---------------------------------------------------------------------------------------------
-	Unknown
--- Version Info -----------------------------------------------------------------------------------
-	1.1 - Statement fix [Information]
-	1.0 - First Version by Unknown
----------------------------------------------------------------------------------------------------
-**/
+/*
+ 
+ */
 
 var status = 0;
 var check = 0;
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == 0) {
-	cm.sendOk("éœ€è¦çš„æ—¶å€™å†æ¥æ‰¾æˆ‘å§ã€‚");
-	cm.dispose();
-	return;
+  if (mode == 0) {
+    cm.sendOk("ĞèÒªµÄÊ±ºòÔÙÀ´ÕÒÎÒ°É¡£");
+    cm.dispose();
+    return;
+  }
+  if (mode == 1) {
+    status++;
+  } else {
+    status--;
+  }
+  if (status == 0) {
+    if (cm.getPlayerStat("LVL") < 25) {
+      cm.sendOk("ÄãµÄµÈ¼¶ºÃÏñ²»¹»¸ß¡£");
+      cm.dispose();
+      check = 1;
+    } else {
+      cm.sendYesNo(
+        "àË~ÎÒÊÇÈü¶÷£¬ÎÒ¿ÉÈÃÄã½øÈë#m101000100# ·ÑÓÃÊÇ #b5000#k ½ğ±Ò ÄãÊÇ·ñÏë½øÈ¥£¿£¿"
+      );
     }
-    if (mode == 1) {
-	status++;
+  } else if (status == 1) {
+    if (check != 1) {
+      if (cm.getMeso() < 5000) {
+        cm.sendOk("±§Ç¸£¬ÄãºÃÏñÃ»ÓĞ×ã¹»½ğ±Ò£¬ÎÒ²»ÄÜÈÃÄã½øÈ¥£¡£¡");
+        cm.dispose();
+      } else {
+        if (cm.getQuestStatus(2050) == 1) {
+          cm.warp(101000100, 0);
+        } else if (cm.getQuestStatus(2051) == 1) {
+          cm.warp(101000102, 0);
+        } else if (
+          cm.getPlayerStat("LVL") >= 25 &&
+          cm.getPlayerStat("LVL") < 50
+        ) {
+          cm.warp(101000100, 0);
+        } else if (cm.getPlayerStat("LVL") >= 50) {
+          cm.warp(101000102, 0);
+        }
+        cm.gainMeso(-5000);
+        cm.dispose();
+      }
     }
-    else {
-	status--;
-    }
-    if (status == 0) {
-	if (cm.getPlayerStat("LVL") < 25) {
-	    cm.sendOk("ä½ çš„ç­‰çº§å¥½åƒä¸å¤Ÿé«˜ã€‚");
-	    cm.dispose();
-	    check = 1;
-	}
-	else {
-	    cm.sendYesNo("å—¨~æˆ‘æ˜¯èµ›æ©ï¼Œæˆ‘å¯è®©ä½ è¿›å…¥#m101000100# è´¹ç”¨æ˜¯ #b5000#k æ«å¸ ä½ æ˜¯å¦æƒ³è¿›å»ï¼Ÿï¼Ÿ");
-	}
-    } else if (status == 1) {
-	if (check != 1) {
-	    if (cm.getMeso() < 5000) {
-		cm.sendOk("æŠ±æ­‰ï¼Œä½ å¥½åƒæ²¡æœ‰è¶³å¤Ÿæ«å¸ï¼Œæˆ‘ä¸èƒ½è®©ä½ è¿›å»ï¼ï¼")
-		cm.dispose();
-	    }
-	    else {
-		if (cm.getQuestStatus(2050) == 1) {
-		    cm.warp(101000100, 0);
-		}
-		else if (cm.getQuestStatus(2051) == 1) {
-		    cm.warp(101000102, 0);
-		}
-		else if (cm.getPlayerStat("LVL") >= 25 && cm.getPlayerStat("LVL") < 50) {
-		    cm.warp(101000100, 0);
-		}
-		else if (cm.getPlayerStat("LVL") >= 50) {
-		    cm.warp(101000102, 0);
-		}
-		cm.gainMeso(-5000);
-		cm.dispose();
-	    }
-	}
-    }
-}	
-
-
+  }
+}

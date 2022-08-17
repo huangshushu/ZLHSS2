@@ -1,7 +1,12 @@
-var status = -1;
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
+ var status = -1;
 //this quest is SECRET ORGANIZATION 3
 function start(mode, type, selection) {
-	qm.sendNext("Talk to Hiver in Ludibrium Village.");
 	qm.forceStartQuest();
 	qm.dispose();
 }

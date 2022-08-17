@@ -1,7 +1,7 @@
 function enter(pi) {
     if (pi.getMap().getAllMonstersThreadsafe().size() == 0) {
-	pi.warp(925100300,0); //next
+	pi.warpParty(925100300,0); //next
     } else {
-	pi.playerMessage(5, "The portal is not opened yet.");
+	pi.playerMessage(5, "请清光这里的怪物.");
     }
 }

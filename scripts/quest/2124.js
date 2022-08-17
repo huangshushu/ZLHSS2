@@ -1,14 +1,19 @@
-ï»¿/*
- ZEVMSå†’é™©å²›(079)æ¸¸æˆæœåŠ¡ç«¯
+/* ==================
+ ½Å±¾ÀàĞÍ:  ÈÎÎñ	    
+ ½Å±¾°æÈ¨£ºÓÎÏ·ºĞÍÅ¶Ó
+ ÁªÏµ¿Û¿Û£º297870163    609654666
+ =====================
  */
-var status = -1;
+ var status = -1;
 
 function start(mode, type, selection) {
-	qm.sendNext("æ²¡æœ‰åç»­äº†ï¼Ÿæœ‰é—®é¢˜è¯·è”ç³»æ«å¶é˜");
-	qm.dispose();
+    qm.forceStartQuest();
+    qm.dispose();
 }
 
 function end(mode, type, selection) {
-	qm.dispose();
-	qm.openNPC(2007,2124);
+	qm.gainExp(1000);
+	qm.removeAll(4031619);
+    qm.forceCompleteQuest();
+    qm.dispose();
 }

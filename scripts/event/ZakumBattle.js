@@ -5,12 +5,12 @@ function init() {
 
 function setup(eim, leaderid) {
 	em.setProperty("leader", "true");
-    var eim = em.newInstance("Zakumbattle");
+    var eim = em.newInstance("ZakumBattle");
     var map = eim.setInstanceMap(280030000);
     map.resetFully();
     em.setProperty("state", "1");
 
-    eim.startEventTimer(3600000); // 1 hr
+    eim.startEventTimer(10800000); // 限制时间，单位毫秒
     return eim;
 }
 

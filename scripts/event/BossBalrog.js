@@ -178,7 +178,7 @@ function checkHP(eim) {
 		map.spawnMonsterOnGroundBelow(mob3, new java.awt.Point(416, 258));
 em.setProperty("balrogState", "1");
 	} else {
-		eim.broadcastPlayerMsg(6, "扎昆太强，消灭了你.");
+		eim.broadcastPlayerMsg(6, "巨魔太强，消灭了你.");
 		end(eim);
 	}
 }

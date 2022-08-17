@@ -24,7 +24,7 @@ function start() {
             size++;
         }
     }
-    if (next && size >= 1) {
+    if (next && size >= 2) {
         var em = cm.getEventManager("Dragon_Nest");
         if (em == null) {
             cm.sendOk("This event is currently not available.");

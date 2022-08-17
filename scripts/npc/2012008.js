@@ -1,4 +1,4 @@
-ï»¿/* Romi
+/* Romi
 	Orbis Skin Change.
 */
 var status = -1;
@@ -13,14 +13,14 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendNext("å—¨, æˆ‘æ˜¯#p2012008# å¦‚æœä½ æœ‰ä¸€å¼  #b#t5153001##k, æˆ‘å¯ä»¥å¸®ä½ ç¾å®¹çš®è‚¤ï¼");
+	cm.sendNext("àË, ÎÒÊÇ#p2012008# Èç¹ûÄãÓĞÒ»ÕÅ #b#t5153001##k, ÎÒ¿ÉÒÔ°ïÄãÃÀÈİÆ¤·ô£¡");
     } else if (status == 1) {
-	cm.askAvatar("é€‰æ‹©ä¸€ä¸ªä½ æƒ³è¦ç¾å®¹çš„çš®è‚¤~", skin);
+	cm.askAvatar("Ñ¡ÔñÒ»¸öÄãÏëÒªÃÀÈİµÄÆ¤·ô~",5153001, skin);
     } else if (status == 2){
 	if (cm.setAvatar(5153001, skin[selection]) == 1) {
-	    cm.sendOk("äº«å—!");
+	    cm.sendOk("ÏíÊÜ!");
 	} else {
-	    cm.sendOk("æ‚¨è²Œä¼¼æ²¡æœ‰#b#t5153001##k..");
+	    cm.sendOk("ÄúÃ²ËÆÃ»ÓĞ#b#t5153001##k..");
 	}
 	cm.safeDispose();
     }

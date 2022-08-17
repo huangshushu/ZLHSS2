@@ -1,6 +1,6 @@
-﻿/* Konpei
- Showa - Nightmarish Last Days
- */
+/* Konpei
+	Showa - Nightmarish Last Days
+*/
 
 var flash;
 
@@ -8,22 +8,22 @@ function start() {
     flash = cm.haveItem(4000141);
 
     if (!flash) {
-        cm.sendNext("一旦您打死老板的话，您必须拿著老大的道具来做为证据，什么?您要离开这个房间吗??");
+	cm.sendNext("Once you eliminate the boss, you'll have to show me the boss's flashlight as evidence. I won't believe it until you show me the flashlight! What? You want to leave this room?");
     } else {
-        cm.sendNext("嘿，嘿！这里是很危险的您还是赶快离开吧！")
+	cm.sendNext("Hey, hey! It's dangerous to carry around a flashlight like that! It's going to cause a fire! I'll take care of it. cant' be too careful around here...")
     }
 }
 
 function action(mode, type, selection) {
     if (mode == 1) {
-        if (!flash) {
-            cm.warp(801040000, 0);
-            cm.dispose();
-        } else {
-            cm.warp(801040101, 0);
-            cm.dispose();
-        }
+	if (!flash) {
+	    cm.warp(801040000, 0);
+	    cm.dispose();
+	} else {
+	    cm.warp(801040101, 0);
+	    cm.dispose();
+	}
     } else {
-        cm.sendOk("我真的很佩服你的任性!好吧，如果你想要回到昭和村的时候再让我知道吧！");
+	cm.sendOk("I really admire your toughness! Well, if you decide to return to Showa Town, let me know~!");
     }
 }

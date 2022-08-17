@@ -1,4 +1,4 @@
 function enter(pi) {
-    //pi.playerMessage("不在活动期间。");
-	pi.openNpc(0,"JinHillh_enter");
+    pi.openNpc(3003744,"觉醒希腊");
+    return true;
 }

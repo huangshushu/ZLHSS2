@@ -1,44 +1,42 @@
-ï»¿/* ===========================================================
-			Resonance
-	NPC Name: 		SELF
-	Map(s): 		Mushroom Castle: Deep inside Mushroom Forest(106020300)
-	Description: 	Upon reaching the magic barrier.
-=============================================================
-Version 1.0 - Script Done.(18/7/2010)
-=============================================================
-*/
+/*
+ 
+ */
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == -1) {
-        cm.dispose();
+  if (mode == -1) {
+    cm.dispose();
+  } else {
+    if (mode == 1) status++;
+    else status--;
+  }
+  if (status == 0) {
+    if (cm.isQuestActive(2314)) {
+      cm.PlayerToNpc("ÕâÊÇÒ»¸ö#b¾Ş´óµÄÄ§·¨ÆÁÕÏ#k ...");
+    } else if (cm.isQuestActive(2322)) {
+      cm.PlayerToNpc("Õâ¸öµØ·½»¹ÊÇÏÈ±¨¸æ¸ø #b#p1300003##k ÖªµÀ°É£¡");
     } else {
-		if (mode == 1)
-            status++;
-        else
-            status--;
-		}
-	if(status == 0){
-		if(cm.isQuestActive(2314))
-			cm.PlayerToNpc("è¿™æ˜¯ä¸€ä¸ª#bå·¨å¤§çš„é­”æ³•å±éšœ#k ...");
-		else if(cm.isQuestActive(2322))
-			cm.PlayerToNpc("è¿™ä¸ªåœ°æ–¹è¿˜æ˜¯å…ˆæŠ¥å‘Šç»™ #b#p1300003##k çŸ¥é“å§ï¼");
-		else {
-			cm.PlayerToNpc("æˆ‘æ˜¯å¦è¯¥ä½¿ç”¨ #t2430014#ï¼Ÿï¼Ÿ");
-			cm.dispose();
-		}
-	}if(status == 1){
-		if(cm.isQuestActive(2314)){
-			cm.ShowWZEffect("Effect/OnUserEff.img/normalEffect/mushroomcastle/chatBalloon1");
-			cm.forceCompleteQuest(2314);
-			cm.dispose();
-		} else {
-			cm.playerMessage("è¯·å…ˆå›å»æŠ¥å‘Šå§ã€‚");
-		}
-	}
+      cm.PlayerToNpc("ÎÒÊÇ·ñ¸ÃÊ¹ÓÃ #b#v2430014# #t2430014#£¿£¿");
+    }
+  } else if (status == 1) {
+    if (cm.isQuestActive(2314)) {
+      cm.forceCompleteQuest(2314);
+      cm.dispose();
+    } else {
+      if (cm.haveItem(2430014, 1)) {
+        cm.gainItem(2430014, -1);
+        cm.¿ªÊ¼ÈÎÎñ(2314);
+        cm.playerMessage("Äã¿ÉÒÔ½øÈ¥ÁË¡£");
+      } else {
+        cm.sendOk(
+          "ÄãÃ»ÓĞ#v2430014##r#z2430014##k£¬ÎŞ·¨½øÈë£¬²»ÖªµÀÔÚÄÄÀï»ñµÃµÄ»°£¬¿ÉÒÔÍ¨¹ı¿ì½İÉÌµê¹ºÂò"
+        );
+        cm.dispose();
+      }
+    }
+  }
 }
-			

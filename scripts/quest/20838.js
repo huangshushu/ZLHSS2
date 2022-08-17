@@ -1,4 +1,4 @@
-/* Cygnus revamp
+﻿/* Cygnus revamp
 	Noblesse tutorial
 	Kia
     Made by Daenerys
@@ -11,16 +11,16 @@ function start(mode, type, selection) {
 	 else
 	    status--;
 	if (status == 0) {
-		qm.sendNext("*#btap, tap, whirrr, bang, bang*");
+		qm.sendNext("#b(撲通撲通…)#k");
 	} else if (status == 1) {
-	    qm.sendNextPrev("EEEEEEEK! Don't sneak up on me like that. I almost sliced my tail off. Anyway, I'm Kia! You ready to begin the test?");	
+	    qm.sendNextPrev("…啊！嚇我一跳！精神不好，誰來了也不知道。你就是#p1102006#說的那個貴族嗎？很高興見到你！我是#p1102007#。那麼要進行考驗了嗎？這不會很難的。只要記得到目前為止所學過的東西就沒問題了。");	
 	} else if (status == 2) {
-	    qm.sendNextPrev("Its easy, easy, easy! See those boxes? Break them! Then defeat the monsters that pop out! You'll get some Proof of Exam item if you do! Whee!");
+	    qm.sendNextPrev("考試很簡單。看到那?的箱子了嗎？破壞箱子的話怪物就會跑出來，擊敗怪物的話就可以得到考試的證書了。");
 	} else if (status == 3) {
-	    qm.sendNextPrev("Just use #bregular attacks to break the boxes#k! Then use #bskills to defeat the monsters#k! I need 3 Proof of Exam items!");	
+	    qm.sendNextPrev("嗯？破壞箱子的方法是？啊，用一般攻擊就可以破壞箱子了。..#b以一般攻擊#k破壞箱子， #b對付怪物則是用技能攻擊#k比較好的樣子？那麼就蒐集5個試煉的印記吧。");	
 	} else if (status == 4) {	
         qm.forceStartQuest();
-		qm.AranTutInstructionalBubble("Effect/OnUserEff.img/guideEffect/cygnusTutorial/9");		
+		qm.TutInstructionalBalloon("Effect/OnUserEff.img/guideEffect/cygnusTutorial/9");		
 		qm.dispose();
 	}
 }
@@ -33,9 +33,9 @@ if (mode == -1) {
 	else
 	    status--;
 	if (status == 0) {
-	    qm.sendNext("Do you have the Proof of Exam items?");
+	    qm.sendNext("你拿了3個試煉的印記來嗎");
 	} else if (status == 1) {
-	    qm.sendNextPrev("Yay! I'm so happy! You're every bit as amazing as I knew you'd be! Here, take this chair. I made it for you! Sit on it when you're tired, and you'll get your HP back faster! I slipped it into your Set-up inventory!");
+	    qm.sendNextPrev("呵呵?我聽說了。考試合格了。我現在要給你的東西，是我親手打造的椅子。好好使用吧。疲勞的時候坐著休息是最好的了。HP會快速恢復。放在道具欄的裝飾欄裡，去確認一下吧。");
 	} else if (status == 2) {
       qm.gainItem(3010060,1);
 	  qm.removeAll(4033670);

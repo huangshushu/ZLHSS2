@@ -1,13 +1,7 @@
-/* ===========================================================
-			Resonance
-	NPC Name: 		Piglet
-	Map(s): 		Hidden Street: Lush Forest(900020110)
-	Description: 	Obtain Piglet
-=============================================================
-Version 1.0 - Script Done.(4/6/2010)
-=============================================================
-*/
-load('nashorn:mozilla_compat.js');
+/*
+ ZEVMS冒险岛(079)游戏服务端
+ */
+
 importPackage(Packages.client);
 
 var status = 0;

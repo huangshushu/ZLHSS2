@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 Lord Jonathan - Nautilus' Port
 */
 
@@ -8,7 +8,7 @@ function start() {
 	    cm.teachSkill(5221003, 0, 10);
 	}
     }
-    cm.sendOk("ä½ æ˜¯è°ä½ åœ¨è·Ÿæˆ‘è¯´è¯ï¼Ÿå¦‚æœä½ åªæ˜¯æ— èŠï¼Œå»æ‰¾åˆ«äººï¼ï¼");
+    cm.sendOk("ÄãÊÇË­ÄãÔÚ¸úÎÒËµ»°£¿Èç¹ûÄãÖ»ÊÇÎŞÁÄ£¬È¥ÕÒ±ğÈË£¡£¡");
 }
 
 function action(mode, type, selection) {

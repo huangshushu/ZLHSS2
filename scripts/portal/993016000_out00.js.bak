@@ -1,0 +1,4 @@
+﻿function enter(pi) {
+    pi.openNpc(9001043, 1);
+    pi.dispose();
+}

@@ -1,4 +1,4 @@
-ï»¿var minlv = 140;
+var minlv = 140;
 
 function start() {
 	var level = cm.getPlayerStat("LVL");
@@ -13,11 +13,11 @@ function start() {
 		} else if (cm.haveItem(4032202)) {
 			cm.warp(802000311,0);
 		} else {
-			cm.sendOk("ä½ è²Œä¼¼ç­‰çº§ä¸å¤Ÿ...")
+			cm.sendOk("ÄãÃ²ËÆµÈ¼¶²»¹»...")
 		}
-		cm.sendOk("èµ°å›‰!");
+		cm.sendOk("×ß†ª!");
 	} else {
-		cm.sendOk("è¯·æ£€æŸ¥ä½ çš„è£…å¤‡æ‹¦....");
+		cm.sendOk("Çë¼ì²éÄãµÄ×°±¸À¹....");
 	}
 		cm.dispose();
 }

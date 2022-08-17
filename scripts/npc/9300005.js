@@ -14,7 +14,7 @@ function action(mode, type ,selection){//1050122 1051130
 		return;
 	}
 	if(status == 1){
-		cm.openShop(9300005);
+		cm.openShop(102);
 		cm.dispose();
 	} else {
 		cm.dispose();

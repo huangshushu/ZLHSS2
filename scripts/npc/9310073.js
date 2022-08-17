@@ -1,49 +1,170 @@
-var status = -1;
-var itemss;
-var slot = Array();
-var sel_0 = 0;
+/*
+ 
+ ½Å±¾£ºÇåÀí±³°ü
+ */
+var Í¼±ê1 = "#fUI/UIWindow.img/FadeYesNo/icon7#";
+var Í¼±ê2 = "#fUI/StatusBar.img/BtClaim/mouseOver/0#";
+var ¹Ø±Õ = "#fUI/UIWindow.img/CashGachapon/BtOpen/mouseOver/0#";
+var ´ò¿ª = "#fUI/UIWindow.img/CashGachapon/BtOpen/disabled/0#";
+var JD = "#fUI/Basic/BtHide3/mouseOver/0#";
+var ĞÄ = "#fUI/GuildMark.img/Mark/Etc/00009001/14#";
+var ×°±¸2 = "#fUI/CashShop.img/Base/Tab2/Enable/0#";
+var ÏûºÄ2 = "#fUI/CashShop.img/Base/Tab2/Enable/1#";
+var ÉèÖÃ2 = "#fUI/CashShop.img/Base/Tab2/Enable/2#";
+var ÆäËû2 = "#fUI/CashShop.img/Base/Tab2/Enable/3#";
+var ÌØÊâ2 = "#fUI/CashShop.img/Base/Tab2/Enable/4#";
+var a = "#fEffect/CharacterEff.img/1112926/0/1#";
 function start() {
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-	
-    if (mode == 1) {
-        status++;
-    } else if (mode == 0 && status != 0) {
-        status--;
-    } else {
-        cm.dispose();
-        return;
+  if (status <= 0 && mode <= 0) {
+    cm.¶Ô»°½áÊø();
+    return;
+  }
+  if (mode == 1) {
+    status++;
+  } else {
+    status--;
+  }
+  if (status <= 0) {
+    var selStr =
+      "\r\n   " +
+      ĞÄ +
+      " " +
+      ĞÄ +
+      "  " +
+      ĞÄ +
+      "  " +
+      ĞÄ +
+      " #r#e < ÇåÀí±³°ü > #k#n " +
+      ĞÄ +
+      "  " +
+      ĞÄ +
+      "  " +
+      ĞÄ +
+      " " +
+      ĞÄ +
+      "\r\n\r\n";
+
+    selStr +=
+      "		Hi~#b#h ##k£¬Ñ¡ÔñÄãÒªÇåÀíµÄÎïÆ·ÀàĞÍ°É£¬ÎÒ¿ÉÒÔ°ïÄãÇå³ıµô±³°üµÄÎïÆ·Å¶£¬±ÈÈçÄÇĞ©¶ªÆú²»µôµÄÎïÆ·¡£#k\r\n\r\n";
+    selStr += "#L0##b·µ»Ø#l\r\n\r\n";
+    selStr += "#d#eµ¥¼şÑ¡ÔñÉ¾³ı(Í¼±ê);#k#n\r\n";
+    selStr +=
+      "#L1#" +
+      ×°±¸2 +
+      "#l\t#L2#" +
+      ÏûºÄ2 +
+      "#l\t#L3#" +
+      ÉèÖÃ2 +
+      "#l\t#L4#" +
+      ÆäËû2 +
+      "#l\t#L5#" +
+      ÌØÊâ2 +
+      "#l\r\n\r\n";
+    selStr += "#d#eµ¥¼şÑ¡ÔñÉ¾³ı(ÎÄ×Ö);#k#n\r\n";
+    selStr +=
+      "#L11#" +
+      ×°±¸2 +
+      "#l\t#L12#" +
+      ÏûºÄ2 +
+      "#l\t#L13#" +
+      ÉèÖÃ2 +
+      "#l\t#L14#" +
+      ÆäËû2 +
+      "#l\t#L15#" +
+      ÌØÊâ2 +
+      "#l\r\n\r\n";
+    selStr += "#d#eÖ¸¶¨±³°üÈ«²¿É¾³ı;#k#n\r\n";
+    selStr +=
+      "#L21#" +
+      ×°±¸2 +
+      "#l\t#L22#" +
+      ÏûºÄ2 +
+      "#l\t#L23#" +
+      ÉèÖÃ2 +
+      "#l\t#L24#" +
+      ÆäËû2 +
+      "#l\t#L25#" +
+      ÌØÊâ2 +
+      "#l\r\n\r\n";
+    selStr += "#d#eÖ¸¶¨±³°üÎ»ÖÃÉ¾³ı;#k#n\r\n";
+    selStr += "#L20##bÊäÈëÎ»ÖÃÉ¾³ı#l#k\r\n";
+
+    cm.sendSimple(selStr);
+  } else if (status == 1) {
+    switch (selection) {
+      case 25:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 66);
+        break;
+      case 24:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 65);
+        break;
+      case 23:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 64);
+        break;
+      case 22:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 63);
+        break;
+      case 21:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 62);
+        break;
+      case 20:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 61);
+        break;
+      case 0:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 0);
+        break;
+      case 1:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 51);
+        break;
+      case 2:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 52);
+        break;
+      case 3:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 53);
+        break;
+      case 4:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 54);
+        break;
+      case 5:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 55);
+        break;
+      case 11:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 56);
+        break;
+      case 12:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 57);
+        break;
+      case 13:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 58);
+        break;
+      case 14:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 59);
+        break;
+      case 15:
+        cm.¶Ô»°½áÊø();
+        cm.openNpc(9900004, 60);
+        break;
     }
-
-	if (status == 0) {
-		cm.sendSimple("æˆ‘å¯ä»¥å¸®ä½ åˆ é™¤èƒŒåŒ…é‡Œçš„é“å…·,è¯·é€‰æ‹©èƒŒåŒ…ç±»å‹:\r\n#e#b#L1#è£…å¤‡#l #L2#æ¶ˆè€—#l #L3#è®¾ç½®#l #L4#å…¶å®ƒ#l #L5#ç‰¹æ®Š#l ");
-	}else if (status == 1) {
-		sel_0 = selection;
-		var avail = "";
-		for (var i = 0; i < 96; i++) {
-			if (cm.getInventory(selection).getItem(i) != null) {
-				avail += "#L" + i + "##i" + cm.getInventory(selection).getItem(i).getItemId() + ":##l";
-			}
-		}
-		
-		cm.sendSimple("è¯·é€‰æ‹©ä½ éœ€è¦æ¸…é™¤çš„ç‰©å“:\r\n#b" + avail);
-	 
-    } else if (status == 2) {
-        itemss = cm.getInventory(sel_0).getItem(selection);
-		var shul = itemss.getQuantity();
-		cm.removeSlot(sel_0, selection, shul);
-		Ok("æˆ‘å·²ç»å°†ä½ èƒŒåŒ…é‡Œçš„ #d#i" + itemss.getItemId() + "# #t" + itemss.getItemId() + "# æ•°é‡ï¼š#e#r" + shul + "#n#b\r\nä»ä½ çš„èƒŒåŒ…åˆ é™¤ï¼");
-		cm.dispose();
-    } else {
-        cm.dispose();
-    }//status
-}// function
-
-function Ok(text) {
-    cm.sendOk(text);
+  }
 }
-
-
-

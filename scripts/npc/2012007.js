@@ -17,7 +17,7 @@ function action(mode, type, selection) {
 	status++;
     }
     if (status == 0) {
-	cm.sendSimple("æˆ‘æ˜¯åˆ©çº³æ–¯åŠ©æ‰‹. è¯·é—®ä½ æœ‰ #b#t5150004##k or #b#t5151004##k å˜›? å¦‚æœæ˜¯è¿™æ ·ï¼Œæ‚¨è€ƒè™‘è®©æˆ‘å¦‚ä½•æŠŠä½ çš„å¤´å‘æŠ¤ç†ï¼Ÿ ä½ æƒ³è¦æ€æ ·æŠ¤ç†ä½ çš„å¤´å‘? \r\n#L0#ä½¿ç”¨: #i5150004##t5150004##l \r\n#L1#ä½¿ç”¨: #i5151004##t5151004##l");
+	cm.sendSimple("ÎÒÊÇÀûÄÉË¹ÖúÊÖ. ÇëÎÊÄãÓĞ #b#t5150004##k or #b#t5151004##k Âï? Èç¹ûÊÇÕâÑù£¬Äú¿¼ÂÇÈÃÎÒÈçºÎ°ÑÄãµÄÍ··¢»¤Àí£¿ ÄãÏëÒªÔõÑù»¤ÀíÄãµÄÍ··¢? \r\n#L0#Ê¹ÓÃ: #i5150004##t5150004##l \r\n#L1#Ê¹ÓÃ: #i5151004##t5151004##l");
     } else if (status == 1) {
 	if (selection == 0) {
 	    var hair = cm.getPlayerStat("HAIR");
@@ -32,7 +32,7 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < hair_Colo_new.length; i++) {
 		hair_Colo_new[i] = hair_Colo_new[i] + (hair % 10);
 	    }
-	    cm.sendYesNo("è¿™æ˜¯éšæœºæ˜¯å¦è¦ä½¿ç”¨ #b#t5150004##k ï¼Ÿï¼Ÿ");
+	    cm.sendYesNo("ÕâÊÇËæ»úÊÇ·ñÒªÊ¹ÓÃ #b#t5150004##k £¿£¿");
 	} else if (selection == 1) {
 	    var currenthaircolo = Math.floor((cm.getPlayerStat("HAIR") / 10)) * 10;
 	    hair_Colo_new = [];
@@ -41,20 +41,20 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < 8; i++) {
 		hair_Colo_new[i] = currenthaircolo + i;
 	    }
-	    cm.sendYesNo("è¿™æ˜¯éšæœºæ˜¯å¦è¦ä½¿ç”¨ #b#t5151004##k ï¼Ÿï¼Ÿ");
+	    cm.sendYesNo("ÕâÊÇËæ»úÊÇ·ñÒªÊ¹ÓÃ #b#t5151004##k £¿£¿");
 	}
     } else if (status == 2){
 	if (beauty == 1) {
 	    if (cm.setRandomAvatar(5150004, hair_Colo_new) == 1) {
-		cm.sendOk("äº«å—!");
+		cm.sendOk("ÏíÊÜ!");
 	    } else {
-		cm.sendOk("æ‚¨è²Œä¼¼æ²¡æœ‰#b#t5150004##k..");
+		cm.sendOk("ÄúÃ²ËÆÃ»ÓĞ#b#t5150004##k..");
 	    }
 	} else {
 	    if (cm.setRandomAvatar(5151004, hair_Colo_new) == 1) {
-		cm.sendOk("äº«å—!");
+		cm.sendOk("ÏíÊÜ!");
 	    } else {
-		cm.sendOk("æ‚¨è²Œä¼¼æ²¡æœ‰#b#t5151004##k..");
+		cm.sendOk("ÄúÃ²ËÆÃ»ÓĞ#b#t5151004##k..");
 	    }
 	}
 	cm.dispose();

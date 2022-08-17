@@ -1,4 +1,4 @@
-ï»¿
+
         /* Neve
          Orbis: Orbis Park (200000200)
          
@@ -25,59 +25,49 @@ function action(mode, type, selection) {
     else
         cm.dispose();
     if (status == 0 && mode == 1) {
-        var selStr = "å—¨ï¼Œæˆ‘æ˜¯å¥ˆå¤« æœ‰ä»€ä¹ˆæˆ‘å¯ä»¥å¸®åŠ©ä½ çš„ï¼Ÿï¼Ÿ#b"
-        var options = new Array("åšä¸€åŒ/å‡çº§å‰‘å£«æ‰‹å¥—", "åšä¸€åŒ/å‡çº§å¼“ç®­æ‰‹æ‰‹å¥—", "åšä¸€åŒ/å‡çº§æ³•å¸ˆæ‰‹å¥—", "åšä¸€åŒ/å‡çº§ç›—è´¼æ‰‹å¥—");
+        var selStr = "àË£¬ÎÒÊÇÄÎ·ò ÓĞÊ²Ã´ÎÒ¿ÉÒÔ°ïÖúÄãµÄ£¿£¿#b"
+        var options = new Array("×öÒ»Ë«/Éı¼¶½£Ê¿ÊÖÌ×", "×öÒ»Ë«/Éı¼¶¹­¼ıÊÖÊÖÌ×", "×öÒ»Ë«/Éı¼¶·¨Ê¦ÊÖÌ×", "×öÒ»Ë«/Éı¼¶µÁÔôÊÖÌ×");
         for (var i = 0; i < options.length; i++) {
             selStr += "\r\n#L" + i + "# " + options[i] + "#l";
         }
 
         cm.sendSimple(selStr);
     } else if (status == 1 && mode == 1) {
-        if (selection < 0) {
-            cm.sendOk("è„šæœ¬å‡ºé”™ï¼Œè¯·è”ç³»ç®¡ç†å‘˜...");
-            cm.dispose();
-            return;
-        }
         selectedType = selection;
         if (selectedType == 0) { //warrior glove
-            var selStr = "éœ€è¦ä»€ä¹ˆå—ï¼Ÿï¼Ÿ#b";
-            var gloves = new Array("#t1082103##k - å‰‘å£« ç­‰çº§. 70#b", "#t1082104##k - å‰‘å£« ç­‰çº§. 70#b", "#t1082105##k - å‰‘å£« ç­‰çº§. 70#b",
-                    "#t1082114##k - å‰‘å£« ç­‰çº§. 80#b", "#t1082115##k - å‰‘å£« ç­‰çº§. 80#b", "#t1082116##k - å‰‘å£« ç­‰çº§. 80#b", "#t1082117##k - å‰‘å£« ç­‰çº§. 80#b");
+            var selStr = "ĞèÒªÊ²Ã´Âğ£¿£¿#b";
+            var gloves = new Array("#t1082103##k - ½£Ê¿ µÈ¼¶. 70#b", "#t1082104##k - ½£Ê¿ µÈ¼¶. 70#b", "#t1082105##k - ½£Ê¿ µÈ¼¶. 70#b",
+                    "#t1082114##k - ½£Ê¿ µÈ¼¶. 80#b", "#t1082115##k - ½£Ê¿ µÈ¼¶. 80#b", "#t1082116##k - ½£Ê¿ µÈ¼¶. 80#b", "#t1082117##k - ½£Ê¿ µÈ¼¶. 80#b");
             for (var i = 0; i < gloves.length; i++) {
                 selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
             }
             cm.sendSimple(selStr);
         } else if (selectedType == 1) { //bowman glove
-            var selStr = "éœ€è¦ä»€ä¹ˆå—ï¼Ÿï¼Ÿ#b";
-            var gloves = new Array("#t1082106##k - å¼“ç®­æ‰‹ ç­‰çº§. 70#b", "#t1082107##k - å¼“ç®­æ‰‹ ç­‰çº§. 70#b", "#t1082108##k - å¼“ç®­æ‰‹ ç­‰çº§. 70#b",
-                    "#t1082109##k - å¼“ç®­æ‰‹ ç­‰çº§. 80#b", "#t1082110##k - å¼“ç®­æ‰‹ ç­‰çº§. 80#b", "#t1082111##k - å¼“ç®­æ‰‹ ç­‰çº§. 80#b", "#t1082112##k - å¼“ç®­æ‰‹ ç­‰çº§. 80#b");
+            var selStr = "ĞèÒªÊ²Ã´Âğ£¿£¿#b";
+            var gloves = new Array("#t1082106##k - ¹­¼ıÊÖ µÈ¼¶. 70#b", "#t1082107##k - ¹­¼ıÊÖ µÈ¼¶. 70#b", "#t1082108##k - ¹­¼ıÊÖ µÈ¼¶. 70#b",
+                    "#t1082109##k - ¹­¼ıÊÖ µÈ¼¶. 80#b", "#t1082110##k - ¹­¼ıÊÖ µÈ¼¶. 80#b", "#t1082111##k - ¹­¼ıÊÖ µÈ¼¶. 80#b", "#t1082112##k - ¹­¼ıÊÖ µÈ¼¶. 80#b");
             for (var i = 0; i < gloves.length; i++) {
                 selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
             }
             cm.sendSimple(selStr);
         } else if (selectedType == 2) { //mage glove
-            var selStr = "éœ€è¦ä»€ä¹ˆå—ï¼Ÿï¼Ÿ#b";
-            var gloves = new Array("#t1082098##k - æ³•å¸ˆ ç­‰çº§. 70#b", "#t1082099##k - æ³•å¸ˆ ç­‰çº§. 70#b", "#t1082100##k - æ³•å¸ˆ ç­‰çº§. 70#b",
-                    "#t1082121##k - æ³•å¸ˆ ç­‰çº§. 80#b", "#t1082122##k - æ³•å¸ˆ ç­‰çº§. 80#b", "#t1082123##k - æ³•å¸ˆ ç­‰çº§. 80#b");
+            var selStr = "ĞèÒªÊ²Ã´Âğ£¿£¿#b";
+            var gloves = new Array("#t1082098##k - ·¨Ê¦ µÈ¼¶. 70#b", "#t1082099##k - ·¨Ê¦ µÈ¼¶. 70#b", "#t1082100##k - ·¨Ê¦ µÈ¼¶. 70#b",
+                    "#t1082121##k - ·¨Ê¦ µÈ¼¶. 80#b", "#t1082122##k - ·¨Ê¦ µÈ¼¶. 80#b", "#t1082123##k - ·¨Ê¦ µÈ¼¶. 80#b");
             for (var i = 0; i < gloves.length; i++) {
                 selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
             }
             cm.sendSimple(selStr);
         } else if (selectedType == 3) { //thief glove
-            var selStr = "éœ€è¦ä»€ä¹ˆå—ï¼Ÿï¼Ÿ#b";
-            var gloves = new Array("#t1082095##k - ç›—è´¼ ç­‰çº§. 70#b", "#t1082096##k - ç›—è´¼ ç­‰çº§. 70#b", "#t1082097##k - ç›—è´¼ ç­‰çº§. 70#b",
-                    "#t1082118##k - ç›—è´¼ ç­‰çº§. 80#b", "#t1082119##k - ç›—è´¼ ç­‰çº§. 80#b", "#t1082120##k - ç›—è´¼ ç­‰çº§. 80#b");
+            var selStr = "ĞèÒªÊ²Ã´Âğ£¿£¿#b";
+            var gloves = new Array("#t1082095##k - µÁÔô µÈ¼¶. 70#b", "#t1082096##k - µÁÔô µÈ¼¶. 70#b", "#t1082097##k - µÁÔô µÈ¼¶. 70#b",
+                    "#t1082118##k - µÁÔô µÈ¼¶. 80#b", "#t1082119##k - µÁÔô µÈ¼¶. 80#b", "#t1082120##k - µÁÔô µÈ¼¶. 80#b");
             for (var i = 0; i < gloves.length; i++) {
                 selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
             }
             cm.sendSimple(selStr);
         }
     } else if (status == 2 && mode == 1) {
-        if (selection < 0) {
-            cm.sendOk("è„šæœ¬å‡ºé”™ï¼Œè¯·è”ç³»ç®¡ç†å‘˜...");
-            cm.dispose();
-            return;
-        }
         selectedItem = selection;
 
         if (selectedType == 0) { //warrior glove
@@ -118,7 +108,7 @@ function action(mode, type, selection) {
             cost = costSet[selectedItem];
         }
 
-        var prompt = "ä½ æƒ³è¦åšä¸€åŒ #t" + item + "#? åœ¨è¿™ç§æƒ…å†µä¸‹, æˆ‘ä¸ºäº†è¦åšå‡ºæœ€æ£’çš„å“è´¨ï¼Œæˆ‘å»ºè®®ä½ ç¡®ä¿è£…å¤‡æ ç©ºé—´è¶³å¤Ÿã€‚#b";
+        var prompt = "ÄãÏëÒª×öÒ»Ë« #t" + item + "#? ÔÚÕâÖÖÇé¿öÏÂ, ÎÒÎªÁËÒª×ö³ö×î°ôµÄÆ·ÖÊ£¬ÎÒ½¨ÒéÄãÈ·±£×°±¸À¸¿Õ¼ä×ã¹»¡£#b";
 
         if (mats instanceof Array) {
             for (var i = 0; i < mats.length; i++) {
@@ -129,14 +119,14 @@ function action(mode, type, selection) {
         }
 
         if (cost > 0)
-            prompt += "\r\n#i4031138# " + cost + " æ«å¸";
+            prompt += "\r\n#i4031138# " + cost + " ·ã±Ò";
 
         cm.sendYesNo(prompt);
     } else if (status == 3 && mode == 1) {
         var complete = true;
 
         if (cm.getMeso() < (cost)) {
-            cm.sendOk("æˆ‘åªæ¥å—æ«å¸ã€‚");
+            cm.sendOk("ÎÒÖ»½ÓÊÜ·ã±Ò¡£");
             cm.dispose();
             return;
         } else {
@@ -158,7 +148,7 @@ function action(mode, type, selection) {
         }
 
         if (!complete)
-            cm.sendOk("å¾ˆæŠ±æ­‰ç”±äºä½ çš„ææ–™ä¸è¶³ï¼Œæ‰€ä»¥æˆ‘ä¸æƒ³å¸®ä½ åšäº†ã€‚");
+            cm.sendOk("ºÜ±§Ç¸ÓÉÓÚÄãµÄ²ÄÁÏ²»×ã£¬ËùÒÔÎÒ²»Ïë°ïÄã×öÁË¡£");
         else {
             if (mats instanceof Array) {
                 for (var i = 0; i < mats.length; i++) {
@@ -169,7 +159,7 @@ function action(mode, type, selection) {
 
             cm.gainMeso(-cost);
             cm.gainItem(item, 1);
-            cm.sendOk("åˆ¶ä½œå®Œæ¯•ã€‚");
+            cm.sendOk("ÖÆ×÷Íê±Ï¡£");
         }
         cm.dispose();
     }

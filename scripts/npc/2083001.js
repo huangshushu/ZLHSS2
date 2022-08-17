@@ -5,84 +5,83 @@
 var status = -1;
 var minLevel = 80; // 35
 var maxLevel = 200; // 65
+
 var minPartySize = 1;
 var maxPartySize = 6;
 
 function action(mode, type, selection) {
     if (mode == 1) {
-        status++;
+	status++;
     } else {
-        if (status == 0) {
-            cm.dispose();
-            return;
-        }
-        status--;
+	if (status == 0) {
+	    cm.dispose();
+	    return;
+	}
+	status--;
     }
 
-    //    if (cm.getMapId() == 240050400) {
+//    if (cm.getMapId() == 240050400) {
     if (status == 0) {
-        if (cm.getParty() == null) { // No Party
-            cm.sendOk("å¾ˆæŠ±æ­‰ï¼Œä½ å¥½åƒæ²¡æœ‰ç»„é˜Ÿã€‚ã€‚ã€‚");
-            cm.dispose();
-        } else if (!cm.isLeader()) { // Not Party Leader
-            cm.sendOk("å¦‚æžœä½ æƒ³å°è¯•ä»»åŠ¡è¯·æ‰¾ä½ çš„ #bé˜Ÿé•¿#k æ¥å’Œæˆ‘è¯´è¯ã€‚#b");
-            cm.dispose();
-        } else {
-            // Check if all party members are within PQ levels
-            var party = cm.getParty().getMembers();
-            var mapId = cm.getMapId();
-            var next = true;
-            var levelValid = 0;
-            var inMap = 0;
-            var it = party.iterator();
+	if (cm.getParty() == null) { // No Party
+	    cm.sendOk("ºÜ±§Ç¸£¬ÄãºÃÏñÃ»ÓÐ×é¶Ó¡£¡£¡£");
+	} else if (!cm.isLeader()) { // Not Party Leader
+	    cm.sendOk("Èç¹ûÄãÏë³¢ÊÔÈÎÎñÇëÕÒÄãµÄ #b¶Ó³¤#k À´ºÍÎÒËµ»°¡£#b");
+	} else {
+	    // Check if all party members are within PQ levels
+	    var party = cm.getParty().getMembers();
+	    var mapId = cm.getMapId();
+	    var next = true;
+	    var levelValid = 0;
+	    var inMap = 0;
+	    var it = party.iterator();
 
-            while (it.hasNext()) {
-                var cPlayer = it.next();
-                if ((cPlayer.getLevel() >= minLevel) && (cPlayer.getLevel() <= maxLevel)) {
-                    levelValid += 1;
-                } else {
-                    next = false;
-                }
-                if (cPlayer.getMapid() == mapId) {
-                    inMap += (cPlayer.getJobId() == 900 ? 6 : 1);
-                }
-            }
-            if (party.size() > maxPartySize || inMap < minPartySize) {
-                next = false;
-            }
-            if (next) {
-                var em = cm.getEventManager("HontalePQ");
-                if (em == null) {
-                    cm.sendSimple("æ‰¾ä¸åˆ°è„šæœ¬ï¼Œè¯·è”ç³»GMï¼ï¼#b");
-                } else {
-                    var prop = em.getProperty("state");
-                    if (prop.equals("0") || prop == null) {
-                        em.startInstance(cm.getParty(), cm.getMap());
-                        cm.removeAll(4001022);
-                        cm.removeAll(4001023);
-                        cm.dispose();
-                        return;
-                    } else if (cm.getMapId() == 240050300) {
-                        if (cm.isLeader() && cm.haveItem(4001093, 6)) {
-                            cm.showEffect(true, "quest/party/clear");
-                            cm.playSound(true, "Party1/Clear");
-                            cm.gainItem(4001093, -6);
-                            cm.warpParty(240050400);
-                            cm.dispose();
-                        } else {
-                            cm.sendOk("è¯·å«ä½ çš„é˜Ÿé•¿å¸¦è‘—6ä¸ªè“è‰²é’¥åŒ™æ¥æ‰¾æˆ‘");
-                            cm.dispose();
-                        }
-
-                    } else {
-                        cm.sendSimple("#b(ä¸€åº§çŸ³ç¢‘ï¼Œä¸Šé¢å†™è‘—çœ‹ä¸æ‡‚çš„æ–‡å­—â€¦â€¦ã€‚)#b");
-                        cm.dispose();
-                    }
-                }
-            } else {
-                cm.sendOk("å¾ˆæŠ±æ­‰ï¼Œä½ çš„ç»„é˜Ÿå¥½åƒæ²¡æœ‰ç¬¦åˆéœ€æ±‚:\r\n\r\n#réœ€æ±‚: " + minPartySize + " éœ€è¦å…­ä¸ªäººä¸”ç­‰çº§éƒ½å¿…é¡»åœ¨ " + minLevel + " åˆ° " + maxLevel + ".#b");
-                cm.dispose();
-            }
+	    while (it.hasNext()) {
+		var cPlayer = it.next();
+		if ((cPlayer.getLevel() >= minLevel) && (cPlayer.getLevel() <= maxLevel)) {
+		    levelValid += 1;
+		} else {
+		    next = false;
+		}
+		if (cPlayer.getMapid() == mapId) {
+		    inMap += (cPlayer.getJobId() == 900 ? 6 : 1);
+		}
+	    }
+	    if (party.size() > maxPartySize || inMap < minPartySize) {
+		next = false;
+	    }
+	    if (next) {
+		var em = cm.getEventManager("HontalePQ");
+		if (em == null) {
+		    cm.sendSimple("ÕÒ²»µ½½Å±¾£¬ÇëÁªÏµGM£¡£¡#b");
+		} else {
+		    var prop = em.getProperty("state");
+		    if (prop.equals("0") || prop == null) {
+			em.startInstance(cm.getParty(), cm.getMap());
+			cm.removeAll(4001022);
+			cm.removeAll(4001023);
+			cm.dispose();
+			return;
+		    } else {
+			cm.sendSimple("#b(Ò»×ùÊ¯±®£¬ÉÏÃæÐ´×Å¿´²»¶®µÄÎÄ×Ö¡­¡­¡£)#b");
+			cm.dispose();
+		    }
+		}
+	    } else {
+		cm.sendOk("ºÜ±§Ç¸£¬ÄãµÄ×é¶ÓºÃÏñÃ»ÓÐ·ûºÏÐèÇó:\r\n\r\n#rÐèÇó: " + minPartySize + " ÐèÒªÁù¸öÈËÇÒµÈ¼¶¶¼±ØÐëÔÚ " + minLevel + " µ½ " + maxLevel + ".#b");
+		cm.dispose();
+	    }
+	}
+	} else {
+	if (cm.getMapId() == 240050300) {
+        if (cm.isLeader() && cm.haveItem(4001093, 6)) {
+             cm.showEffect(true, "quest/party/clear");
+             cm.playSound(true, "Party1/Clear");
+             cm.gainItem(4001093, -6);
+             cm.warpParty(240050400);
+			} else {
+             cm.sendOk("Çë½ÐÄãµÄ¶Ó³¤´ø×Å6¸öÀ¶É«Ô¿³×À´ÕÒÎÒ");
+			 cm.dispose();
+              }
         }
-    }
+        }
 }

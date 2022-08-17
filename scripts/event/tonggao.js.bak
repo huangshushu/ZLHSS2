@@ -1,0 +1,51 @@
+var setupTask;
+
+function init() {
+    scheduleNew();
+}
+
+function scheduleNew() {
+    var cal = java.util.Calendar.getInstance();
+    cal.set(java.util.Calendar.HOUR, 0);
+    cal.set(java.util.Calendar.MINUTE, 50);
+    cal.set(java.util.Calendar.SECOND, 0);
+
+    var nextTime = cal.getTimeInMillis();
+
+    while (nextTime <= java.lang.System.currentTimeMillis()) {
+        nextTime += 1000 * 60;
+    }
+    setupTask = em.scheduleAtTimestamp("start", nextTime);
+}
+
+function cancelSchedule() {
+    if (setupTask != null)
+        setupTask.cancel(true);
+}
+
+function start() {
+    var cal = java.util.Calendar.getInstance();
+    var hour = cal.get(java.util.Calendar.HOUR);
+    var min = cal.get(java.util.Calendar.MINUTE);
+    var sec = cal.get(java.util.Calendar.SECOND);
+    var weekday = cal.get(java.util.Calendar.DAY_OF_WEEK);
+    weekday -= 1;
+    scheduleNew();
+    if (hour % 12 == 00 && min == 00){
+        em.broadcastServerMsg(5121040, " 皮皮瓶冒险岛，欢迎您的加入！我们将会把游戏做到最完美！！！", true);
+    }
+    if (min == 10) {
+        em.broadcastServerMsg(5120079, " 皮皮瓶冒险岛，欢迎您的加入！我们将会把游戏做到最完美！！！", true);
+    }
+    if (min == 25) {
+        em.broadcastServerMsg(5121001, " 皮皮瓶冒险岛，欢迎您的加入！我们将会把游戏做到最完美！！！", true);
+    }
+    if (min == 45) {
+        em.broadcastServerMsg(5121051, " 皮皮瓶冒险岛，欢迎您的加入！我们将会把游戏做到最完美！！！", true);
+    }
+    if (min == 50) {
+        em.broadcastServerMsg(5120006, "每小时50分时的 < 答题 > 在市场诸葛孔明处开放了,小伙伴们抓紧时间做作业吧..", true);
+    } else if (min == 56) {
+        em.broadcastServerMsg(5121040, " < 皮皮瓶冒险岛，欢迎您的加入！我们将会把游戏做到最完美！！！", true);
+    }
+}

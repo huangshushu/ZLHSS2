@@ -19,7 +19,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-load('nashorn:mozilla_compat.js');
 importPackage(org.rise.server.maps);
 importPackage(org.rise.net.channel);
 importPackage(org.rise.tools);
@@ -37,7 +36,7 @@ function enter(pi) {
 	var avail = eim.getProperty("2stageclear");
 	if (avail == null) {
 		// do nothing; send message to player
-		pi.getClient().getSession().write(MaplePacketCreator.serverNotice(6, "This door is closed."));
+		pi.getClient().getSession().write(MaplePacketCreator.serverNotice(6, "这门关上了."));
 		return false;	}
 	else {
 		pi.getPlayer().changeMap(target, targetPortal);

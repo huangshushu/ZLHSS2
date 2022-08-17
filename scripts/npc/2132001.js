@@ -1,4 +1,4 @@
-ï»¿function action(mode, type, selection) {
-    cm.sendNext("å«æˆ‘é»‘é­”çŽ‹ã€‚çœ‹åœ¨å‡ å¹´......æˆ‘ä¼šç»™ç›—è´¼çš„ç¤¾ä¼šåœ°ä½ï¼");
+function action(mode, type, selection) {
+    cm.sendNext("½ÐÎÒºÚÄ§Íõ¡£¿´ÔÚ¼¸Äê......ÎÒ»á¸øµÁÔôµÄÉç»áµØÎ»£¡");
     cm.dispose();
 }

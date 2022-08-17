@@ -1,7 +1,6 @@
 function enter(pi) {
-try {
     var map = pi.getMapId();
-    var shortval = ((map / 100) | 0) - 9800400;
+    var shortval = (map / 100) - 9800400;
     
     // Checking
     var time = 0;
@@ -32,9 +31,6 @@ try {
 	    instance = "WitchTower_Hard";
 	    time = 460000;
 	    break;
-	default:
-	    pi.playerMessage("Error: Invalid mapid " + pi.getPlayer().getMapId());
-	    return;
     }
     var eventinstance = pi.getEventManager(instance).getInstance(pi.getName());
     if (eventinstance != null) {
@@ -54,6 +50,7 @@ try {
     //980042100
     for (var i = 0; i < 10; i++) {
 	var mapto = map + 100 + i;
+	pi.getMap(mapto);
 	if (pi.getPlayerCount(mapto) == 0) {
 	    pi.warp(mapto, 0);
 	    return true;
@@ -61,7 +58,4 @@ try {
     }
     pi.playerMessage(5, "All of the maps are currently in use.");
     return false;
-} catch (e) {
-    pi.playerMessage(5, "Error: " + e);
-}
 }

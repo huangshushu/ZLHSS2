@@ -6,7 +6,7 @@
 
 function start() {
     cm.useItem(2022458);
-    cm.sendOk("ä¸è¦åœæ­¢è®­ç»ƒï¼Œè¿™ä¸ªä¸–ç•Œéœ€è¦ä½ æ¥å®ˆæŠ¤ã€‚");
+    cm.sendOk("²»ÒªÍ£Ö¹ÑµÁ·£¬Õâ¸öÊÀ½çĞèÒªÄãÀ´ÊØ»¤¡£");
 }
 
 function action(mode, type, selection) {

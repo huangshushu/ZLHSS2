@@ -1,4 +1,4 @@
-ï»¿/* 
+/* Author: aaroncsn (MapleSea Like)
 	NPC Name: 		Mazra
 	Map(s): 		The Burning Road: Ariant(2600000000)
 	Description: 	Hair Salon Owner
@@ -30,7 +30,7 @@ function action(mode, type, selection) {
 		else
 			status--;
 		if (status == 0) {
-			cm.sendSimple("å—¨ï¼Œæˆ‘æ˜¯#p2100006# å¦‚æœä½ æœ‰ #b#t5150027##k æˆ–è€… #b#t5151022##k, å¯ä»¥æ‰¾æˆ‘è°ˆè°ˆã€‚ \r\n#L0#ä½¿ç”¨:#b#t5150027##k#l \r\n#L1#ä½¿ç”¨:#b#t5151022##k#l");
+			cm.sendSimple("àË£¬ÎÒÊÇ#p2100006# Èç¹ûÄãÓĞ #b#t5150027##k »òÕß #b#t5151022##k, ¿ÉÒÔÕÒÎÒÌ¸Ì¸¡£ \r\n#L0#Ê¹ÓÃ:#b#t5150027##k#l \r\n#L1#Ê¹ÓÃ:#b#t5151022##k#l");
 		} else if (status == 1) {
 			if (selection == 0) {
 				beauty = 1;
@@ -45,7 +45,7 @@ function action(mode, type, selection) {
 						hairnew.push(fhair[i] + parseInt(cm.getChar().getHair() % 10));
 					}
 				}
-				cm.sendStyle("é€‰æ‹©ä¸€ä¸ªä½ æƒ³è¦çš„ã€‚", hairnew);
+				cm.sendStyle("Ñ¡ÔñÒ»¸öÄãÏëÒªµÄ¡£", hairnew);
 			} else if (selection == 1) {
 				beauty = 2;
 				haircolor = Array();
@@ -53,7 +53,7 @@ function action(mode, type, selection) {
 				for(var i = 0; i < 8; i++) {
 					haircolor.push(current + i);
 				}
-				cm.sendStyle("é€‰æ‹©ä¸€ä¸ªä½ æƒ³è¦çš„ã€‚", haircolor);
+				cm.sendStyle("Ñ¡ÔñÒ»¸öÄãÏëÒªµÄ¡£", haircolor);
 			}
 		}
 		else if (status == 2){
@@ -62,18 +62,18 @@ function action(mode, type, selection) {
 				if (cm.haveItem(5150027) == true){
 					cm.gainItem(5150027, -1);
 					cm.setHair(hairnew[selection]);
-					cm.sendOk("äº«å—ï¼");
+					cm.sendOk("ÏíÊÜ£¡");
 				} else {
-					cm.sendNext("ç–´.... è²Œä¼¼æ²¡æœ‰#t5150027#ã€‚");
+					cm.sendNext("¯z.... Ã²ËÆÃ»ÓĞ#t5150027#¡£");
 				}
 			}
 			if (beauty == 2){
 				if (cm.haveItem(5151022) == true){
 					cm.gainItem(5151022, -1);
 					cm.setHair(haircolor[selection]);
-					cm.sendOk("äº«å—ï¼");
+					cm.sendOk("ÏíÊÜ£¡");
 				} else {
-					cm.sendNext("ç–´.... è²Œä¼¼æ²¡æœ‰#t5151022#ã€‚");
+					cm.sendNext("¯z.... Ã²ËÆÃ»ÓĞ#t5151022#¡£");
 				}
 			}
 		}

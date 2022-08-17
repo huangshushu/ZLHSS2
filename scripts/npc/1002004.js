@@ -1,69 +1,56 @@
 /*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-/**
--- Odin JavaScript --------------------------------------------------------------------------------
-	VIP Cab - Victoria Road : Lith Harbor (104000000)
--- By ---------------------------------------------------------------------------------------------
-	Xterminator
--- Version Info -----------------------------------------------------------------------------------
-	1.0 - First Version by Xterminator
----------------------------------------------------------------------------------------------------
-**/
+ 
+ */
 var status = 0;
 var cost;
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (status >= 1 && mode == 0){
-	cm.sendNext("è¿™ä¸ªé•‡ä¹Ÿæœ‰å¾ˆå¤šæä¾›ã€‚æ‰¾åˆ°æˆ‘ä»¬å¦‚æœå½“ä½ è§‰å¾—æœ‰å¿…è¦å»åˆ°èš‚èšéš§é“");
-	cm.dispose();
-	return;	
+  if (status >= 1 && mode == 0) {
+    cm.sendNext("Õâ¸öÕòÒ²ÓĞºÜ¶àÌá¹©¡£ÕÒµ½ÎÒÃÇÈç¹ûµ±Äã¾õµÃÓĞ±ØÒªÈ¥µ½ÂìÒÏ¹ã³¡");
+    cm.dispose();
+    return;
+  }
+  if (mode == 1) status++;
+  else status--;
+  if (status == 0) {
+    if (
+      Packages.snail.Marathon.isBegain() &&
+      cm.haveItem(Packages.snail.Marathon.getItemId())
+    ) {
+      cm.sendOk(
+        "#rÂíÀ­ËÉ±ÈÈüÕıÔÚ½øĞĞÖĞ£¬¼ì²âµ½Äã³ÖÓĞ #v" +
+          Packages.snail.Marathon.getItemId() +
+          "#£¬ÎŞ·¨½øĞĞ´«ËÍ£¡\r\n"
+      );
+      cm.dispose();
+      return;
     }
-    if (mode == 1)
-	status++;
-    else
-	status--;
-    if (status == 0) {
-	cm.sendNext("ä½ å¥½ï¼è¿™æ˜¯å‡ºç§Ÿè½¦åªæœ‰VIPå®¢æˆ·ã€‚è€Œä¸æ˜¯åªå¸¦ä½ åˆ°ä¸åŒçš„åŸé•‡ï¼Œå¦‚æ­£è§„å‡ºç§Ÿè½¦ï¼Œæˆ‘ä»¬æä¾›ä¸€ä¸ªæ›´å¥½çš„æœåŠ¡å€¼å¾—è´µå®¾çº§çš„ã€‚è¿™æ˜¯ä¸€ä¸ªæœ‰ç‚¹è´µï¼Œä½†æ˜¯å¯¹äº......åªæœ‰10,000 æ«å¸ï¼Œæˆ‘ä»¬ä¼šå¸¦ä½ å®‰å…¨åœ°é€åˆ°\n #bèš‚èšçŸ¿å‘#k.");
-    } else if (status == 1) {
-	var job = cm.getJob();
-	if (job == 0 || job == 2000 || job == 1000) {
-	    cm.sendYesNo("æˆ‘ä»¬æœ‰å¯¹æ–°æ‰‹90%çš„æ‰“æŠ˜ æ‰€ä»¥ä½ åªéœ€è¦èŠ± #b1,000 æ«å¸#k æ˜¯å¦è¦å»äº†å‘¢??");
-	    cost = 1000;
-	} else {
-	    cm.sendYesNo("åˆ°äº†é‚£è¾¹æœ‰ä¸ª24å°æ—¶çš„æ’æ¡£å¯ä»¥è´­ä¹°è¡¥å“ #b10,000 æ«å¸#k?");
-	    cost = 10000;
-	}
-    } else if (status == 2) {
-	if (cm.getMeso() < cost) {
-	    cm.sendNext("è¯·ç¡®è®¤ä½ æ˜¯å¦æœ‰è¶³å¤Ÿçš„æ«å¸!")
-	} else {
-	    cm.gainMeso(-cost);
-	    cm.warp(105070001, 0);
-	}
-	cm.dispose();
+    cm.sendNext(
+      "ÄãºÃ£¡ÕâÊÇ³ö×â³µÖ»ÓĞVIP¿Í»§¡£¶ø²»ÊÇÖ»´øÄãµ½²»Í¬µÄ³ÇÕò£¬ÈçÕı¹æ³ö×â³µ£¬ÎÒÃÇÌá¹©Ò»¸ö¸üºÃµÄ·şÎñÖµµÃ¹ó±ö¼¶µÄ¡£ÕâÊÇÒ»¸öÓĞµã¹ó£¬µ«ÊÇ¶ÔÓÚ......Ö»ÓĞ10,000 ½ğ±Ò£¬ÎÒÃÇ»á´øÄã°²È«µØËÍµ½\n #bÂìÒÏ¹ã³¡#k."
+    );
+  } else if (status == 1) {
+    var job = cm.getJob();
+    if (job == 0 || job == 2000 || job == 1000) {
+      cm.sendYesNo(
+        "ÎÒÃÇÓĞ¶ÔĞÂÊÖ90%µÄ´òÕÛ ËùÒÔÄãÖ»ĞèÒª»¨ #b1,000 ½ğ±Ò#k ÊÇ·ñÒªÈ¥ÁËÄØ??"
+      );
+      cost = 1000;
+    } else {
+      cm.sendYesNo("µ½ÁËÄÇ±ßÓĞ¸ö24Ğ¡Ê±µÄÅÅµµ¿ÉÒÔ¹ºÂò²¹Æ· #b10,000 ½ğ±Ò#k?");
+      cost = 10000;
     }
+  } else if (status == 2) {
+    if (cm.getMeso() < cost) {
+      cm.sendNext("ÇëÈ·ÈÏÄãÊÇ·ñÓĞ×ã¹»µÄ½ğ±Ò!");
+    } else {
+      cm.gainMeso(-cost);
+      cm.warp(105070001, 0);
+    }
+    cm.dispose();
+  }
 }

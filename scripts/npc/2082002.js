@@ -1,4 +1,4 @@
-ï»¿function start() {
+function start() {
     status = -1;
     action(1, 0, 0);
 }
@@ -6,12 +6,12 @@
 function action(mode, type, selection) {
     status++;
     if(mode == 0) {
-	cm.sendOk("å¾ˆæ£’å”·ï¼Œä¸ç¦»å¼€ï¼");
+	cm.sendOk("ºÜ°ôà¡£¬²»Àë¿ª£¡");
 	cm.dispose();
 	return;
     }
     if(status == 0) {
-	cm.sendYesNo("ä½ è¦ç¦»å¼€èˆ¹ä¸Šï¼Ÿ");
+	cm.sendYesNo("ÄãÒªÀë¿ª´¬ÉÏ£¿");
     } else if(status == 1) {
 	cm.warp(240000110, 0);
 	cm.dispose();

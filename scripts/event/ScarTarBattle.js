@@ -6,15 +6,15 @@ function init() {
 function setup(eim, leaderid) {
     em.setProperty("leader", "true");
     var eim = em.newInstance("ScarTarBattle");
-    var map = eim.setInstanceMap(551030200);
+    var map = eim.setInstanceMap(280030000);
     map.resetFully();
     em.setProperty("state", "1");
-    eim.startEventTimer(10800000); // 3 hr
+    eim.startEventTimer(3600000); // 3 hr
     return eim;
 }
 
 function playerEntry(eim, player) {
-    var map = eim.getMapFactory().getMap(551030200);
+    var map = eim.getMapFactory().getMap(280030000);
     player.changeMap(map, map.getPortal(0));
 }
 
@@ -23,13 +23,13 @@ function playerRevive(eim, player) {
 }
 
 function scheduledTimeout(eim) {
-    eim.disposeIfPlayerBelow(100, 551030100);
+    eim.disposeIfPlayerBelow(100, 211042300);
     em.setProperty("state", "0");
     em.setProperty("leader", "true");
 }
 
 function changedMap(eim, player, mapid) {
-    if (mapid != 551030200) {
+    if (mapid != 280030000) {
         eim.unregisterPlayer(player);
         if (eim.disposeIfPlayerBelow(0, 0)) {
             em.setProperty("state", "0");
@@ -60,7 +60,7 @@ function playerExit(eim, player) {
 }
 
 function end(eim) {
-    if (eim.disposeIfPlayerBelow(100, 551030100)) {
+    if (eim.disposeIfPlayerBelow(100, 211042300)) {
         em.setProperty("state", "0");
         em.setProperty("leader", "true");
     }

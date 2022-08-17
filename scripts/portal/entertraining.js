@@ -8,6 +8,6 @@ function enter(pi) {
     } else if (pi.getQuestStatus(1044) == 1) {
 	pi.warp(1010400, 4);
     } else {
-	pi.playerMessage(5, "Only the adventurers that have been trained by Mai may enter.");
+	pi.playerMessage(5, "只有接受麦加的训练才能进入。");
     }
 }

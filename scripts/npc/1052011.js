@@ -1,4 +1,4 @@
-ï»¿/**
+/**
 -- Odin JavaScript --------------------------------------------------------------------------------
 	Exit - All Line 3 Construction Site
 -- By ---------------------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ function action(mode, type, selection) {
     else
 	status--;
     if (status == 0) {
-	cm.sendYesNo("æ˜¯å¦æƒ³ç¦»å¼€è¿™é‡Œï¼Ÿï¼Ÿ");
+	cm.sendYesNo("ÊÇ·ñÏëÀë¿ªÕâÀï£¿£¿");
     } else if (status == 1) {
 	cm.warp(103000100, 0);
 	cm.dispose();

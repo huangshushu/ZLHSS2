@@ -1,4 +1,3 @@
-ï»¿/* guild creation npc */
 var status = -1;
 var sel;
 
@@ -16,26 +15,28 @@ function action(mode, type, selection) {
 
   if (status == 0)
     cm.sendSimple(
-      "ä½ æƒ³è¦åšä»€ä¹ˆï¼Ÿ\r\n#b#L0#åˆ›å»ºå…¬ä¼š#l\r\n#L1#è§£æ•£å…¬ä¼š#l\r\n#L2#æ‰©å……å…¬ä¼šäººæ•°#l#k"
+      "  Hi~#b#h ##k£¬ÄãÒª´´½¨Ò»¸ö¼Ò×åÂğ£¿¸öÈËµÄÁ¦Á¿Ê¼ÖÕÊÇÈõĞ¡µÄ£¬Ö»ÓĞÒ»ÈºÈËÍÅ½áÆğÀ´£¬²ÅÄÜ±äµÃÇ¿´ó¡£\r\n\r\n#b#L0#´´½¨¼Ò×å#l\r\n#L1#½âÉ¢¼Ò×å#l\r\n#L2#À©³ä¼Ò×å#l#k"
     );
   else if (status == 1) {
     sel = selection;
     if (selection == 0) {
       if (cm.getPlayerStat("GID") > 0) {
-        cm.sendOk("ä½ ä¸èƒ½åˆ›å»ºä¸€ä¸ªæ–°çš„å·¥ä¼š.");
+        cm.sendOk("Äã²»ÄÜ´´½¨Ò»¸öĞÂµÄ¹¤»á.");
         cm.dispose();
-      } else cm.sendYesNo("åˆ›å»ºå…¬ä¼šéœ€è¦ #b500,000 æ«å¸#k, ä½ ç¡®å®šè¦åˆ›å»ºå…¬ä¼šå—?");
+      } else {
+        cm.sendYesNo("¿ªÊ¼ÊãĞ´Ò»¶Î´«Ææ°É¡£");
+      }
     } else if (selection == 1) {
       if (cm.getPlayerStat("GID") <= 0 || cm.getPlayerStat("GRANK") != 1) {
-        cm.sendOk("ä½ ä¸æ˜¯å…¬ä¼šä¼šé•¿æ‰€ä»¥ä¸èƒ½è§£æ•£å…¬ä¼š");
+        cm.sendOk("Äã²»ÊÇ¹«»á»á³¤ËùÒÔ²»ÄÜ½âÉ¢¹«»á");
         cm.dispose();
-      } else cm.sendYesNo("ä½ ç¡®å®šè¦è§£æ•£ä½ çš„å…¬ä¼š?ä½ å°†æ— æ³•æ¢å¤å¹¶ä¸”GPæ¶ˆå¤±.");
+      } else cm.sendYesNo("ÄãÈ·¶¨Òª½âÉ¢ÄãµÄ¹«»á?Äã½«ÎŞ·¨»Ö¸´²¢ÇÒGPÏûÊ§.");
     } else if (selection == 2) {
       if (cm.getPlayerStat("GID") <= 0 || cm.getPlayerStat("GRANK") != 1) {
-        cm.sendOk("ä½ ä¸æ˜¯å…¬ä¼šä¼šé•¿æ‰€ä»¥ä¸èƒ½æ‰©å……äººæ•°");
+        cm.sendOk("Äã²»ÊÇ¹«»á»á³¤ËùÒÔ²»ÄÜÀ©³äÈËÊı");
         cm.dispose();
       } else
-        cm.sendYesNo("æ‰©å……å…¬ä¼šäººæ•° #b5#k è¦ #b250,000 æ«å¸#k, ä½ ç¡®å®šè¦æ‰©å……å—?");
+        cm.sendYesNo("À©³ä¹«»áÈËÊı #b5#k Òª #b2500000 ½ğ±Ò#k, ÄãÈ·¶¨ÒªÀ©³äÂğ?");
     }
   } else if (status == 2) {
     if (sel == 0 && cm.getPlayerStat("GID") <= 0) {

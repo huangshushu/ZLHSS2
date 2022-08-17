@@ -1,44 +1,28 @@
 /*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ 
+ */
 var status = -1;
 var sel;
 
 function start() {
-    cm.sendNext("#wäº²çˆ±çš„ #h #, æˆ‘æ˜¯ #p2012006#.\r\nè¯·é—®ä½ æ˜¯å¦æœ‰è®°å¾—è´­ä¹°èˆ¹ç¥¨?");
+  cm.sendNext("ÇëÎÊÄãÊÇ·ñÓĞ¼ÇµÃ¹ºÂò´¬Æ±?");
 }
 
 function action(mode, type, selection) {
-    if (mode < 1) {
-        cm.dispose();
-        return;
-    }
-    status++;
-    if (status == 0)
-        cm.sendSimple("#wè¯·é—®æœ‰ç¥ä¹ˆå¯ä»¥æœåŠ¡çš„??\r\n\r\n#L0#å»é­”æ³•æ£®æ—#l\r\n#L1#å»ç©å…·åŸ#l\r\n#L2#å»ç¥æœ¨æ‘#l\r\n#L3#å»æ¡ƒèŠ±ä»™å¢ƒ#l\r\n#L4#å»çº³å¸Œæ²™æ¼ #l\r\n#L5#å»è€¶é›·å¼—#l");
-    else if (status == 1) {
-        sel = selection;
-        cm.sendNext("å¥½ #h #, æˆ‘å°†å¸¦ä½ åˆ° #m" + (200000110 + (sel * 10)) + "#");
-    } else if(status == 2){
-        cm.warp(200000110 + (sel * 10));
-        cm.dispose();
-    }
+  if (mode < 1) {
+    cm.dispose();
+    return;
+  }
+  status++;
+  if (status == 0)
+    cm.sendSimple(
+      "ÇëÎÊÄãÒªÈ¥ÄÄ¸öÕ¾Ì¨£º#b\r\n\r\n#L0#È¥Ä§·¨É­ÁÖ#l\r\n#L1#È¥Íæ¾ß³Ç#l\r\n#L2#È¥ÉñÄ¾´å#l\r\n#L3#È¥ÌÒ»¨ÏÉ¾³#l\r\n#L4#È¥ÄÉÏ£É³Ä®#l\r\n#L5#È¥Ò®À×¸¥#l"
+    );
+  else if (status == 1) {
+    sel = selection;
+    cm.sendNext("ÎÒ½«´øÄãµ½ #m" + (200000110 + sel * 10) + "#");
+  } else if (status == 2) {
+    cm.warp(200000110 + sel * 10);
+    cm.dispose();
+  }
 }

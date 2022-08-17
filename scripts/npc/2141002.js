@@ -5,7 +5,7 @@
  */
 
 function start() {
-    cm.sendYesNo("Do you want to get out now?");
+    cm.sendYesNo("你要离开吗?好的,我送你离开!!!");
 }
 
 function action(mode, type, selection) {

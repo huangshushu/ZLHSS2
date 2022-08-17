@@ -1,37 +1,648 @@
-ï»¿var status = -1;
+var Z = "#fUI/GuildMark.img/Mark/Letter/00005025/1#";
+var Y = "#fUI/GuildMark.img/Mark/Letter/00005024/3#";
+var X = "#fUI/GuildMark.img/Mark/Letter/00005023/1#";
+var D = "#fUI/GuildMark.img/Mark/Letter/00005003/1#";
+var M = "#fUI/GuildMark.img/Mark/Letter/00005012/1#";
+var A = "#fUI/GuildMark.img/Mark/Letter/00005000/1#";
+var P = "#fUI/GuildMark.img/Mark/Letter/00005015/1#";
+var Z = "#fUI/GuildMark.img/Mark/Letter/00005025/9#";
+var ¼ıÍ· = "#fUI/Basic/BtHide3/mouseOver/0#";
+var ĞÄ = "#fUI/GuildMark.img/Mark/Etc/00009001/13#";
+var ĞÄ1 = "#fUI/GuildMark.img/Mark/Etc/00009001/8#";
+var Ä¢¹½ = "#fUI/UIWindow.img/Minigame/Common/mark#";
+var ºìÉ«¼ıÍ· = "#fEffect/CharacterEff/1112908/0/1#"; //²Ê¹â3
+var Õ½¶·Á¦ = "#fUI/GuildMark/Mark/Etc/00009003/15#";
+var ÎäÆ÷ÉñÃØÁ¦Á¿ = "#fUI/GuildMark/Mark/Etc/00009023/1#";
+var ±¦Ê¯ÉñÃØÁ¦Á¿ = "#fUI/GuildMark/Mark/Etc/00009023/13#";
+var µã¾í = "#fUI/GuildMark/Mark/Pattern/00004014/1#";
+var µÖÓÃ = "#fUI/GuildMark/Mark/Pattern/00004014/5#";
+var Ã°ÏÕ±Ò = "#fUI/GuildMark/Mark/Pattern/00004014/2#";
+var ÒøĞĞ´æ¿î = "#fUI/GuildMark/Mark/Pattern/00004014/3#";
+var Ïû·ÑÓà¶î = "#fUI/GuildMark/Mark/Pattern/00004014/4#";
+var »éÒöÇé¿ö = "#fUI/GuildMark/Mark/Plant/00003004/1#";
+var ÌåÁ¦Öµ = "#fUI/GuildMark/Mark/Etc/00009001/14#";
+var Ã¿ÈÕ³äÖµ = "#fUI/GuildMark/Mark/Etc/00009022/10#";
+var ÀÛ¼Æ³äÖµ = "#fUI/GuildMark/Mark/Etc/00009022/1#";
+var ºÚ¹û = "#fUI/GuildMark.img/Mark/Etc/00009013/16#";
+var ºìÈ¦ = "#fUI/Gateway.img/WorldSelect/select/3#";
+var ºÚ¹Ú = "#fUI/GuildMark.img/Mark/Etc/00009004/16#";
+var ºì¹Ú = "#fUI/GuildMark.img/Mark/Etc/00009023/14#";
+var ºÚ±ê = "#fUI/GuildMark.img/Mark/Pattern/00004020/16#";
+var ºÚ»ğ = "#fUI/GuildMark.img/Mark/Etc/00009018/16#";
+var ºÚµã = "#fUI/GuildMark.img/Mark/Etc/00009016/16#";
+var ºìÈ¦ = "#fUI/Gateway.img/WorldSelect/select/3#";
+var ºÚ¹Ú = "#fUI/GuildMark.img/Mark/Etc/00009004/16#";
+var ºì¹Ú = "#fUI/GuildMark.img/Mark/Etc/00009023/14#";
+var ·ãÒ¶ = "#fUI/ITC.img/Base/Tab/Enable/0#";
+var ½ğ±Ò = "#fUI/Basic.img/BtCoin/normal/0#";
+var ĞÇĞÇ = "#fUI/CN_Chat.img/roomList/Vip#";
+var Í¼±ê = "#fUI/Login.img/WorldSelect/world/t1#";
+var ·Ö¸îÏß = "#fUI/Login.img/WorldSelect/channel/chgauge#";
+var ½ğ¹Ú = "#fUI/UIWindow.img/UserInfo/bossPetCrown#";
+var Ğ¡ĞÇĞÇ = "#fUI/UIWindow.img/UserList/Party/icon0#";
+var »Ê¹Ú = "#fUI/UIWindow.img/UserList/Guild/GuildRank/icon0#";
+var ½±Àø = "#fUI/UIWindow.img/Quest/reward#";
+var À¶°ü = "#fUI/UIWindow.img/MonsterCarnival/icon2#";
+var ÂÌQ±ê = "#fUI/UIWindow.img/QuestAlarm/BtQ/ani/0#";
+var À¶¼ıÍ· = "#fUI/UIWindow.img/itemSearch/BtRight/normal/0#";
+var À¶R = "#fUI/UIWindow.img/Minigame/Common/readyOn#";
+var Ïä×Ó = "#fUI/UIWindow.img/Delivery/icon4#";
+var Ñ«ÕÂ = "#fUI/UIWindow.img/MonsterBook/fullMark#";
+var ºì·½ = "#fUI/UIWindow.img/AriantMatch/characterIcon/0#";
+var À¶·½ = "#fUI/UIWindow.img/AriantMatch/characterIcon/1#";
+var ÂÌ·½ = "#fUI/UIWindow.img/AriantMatch/characterIcon/2#";
+var »Æ·½ = "#fUI/UIWindow.img/AriantMatch/characterIcon/3#";
+var ×Ï·½ = "#fUI/UIWindow.img/AriantMatch/characterIcon/4#";
+var ³È·½ = "#fUI/UIWindow.img/AriantMatch/characterIcon/5#";
+var ½øĞĞÖĞ = "#fUI/UIWindow.img/counsel/Loading/3#";
+var Îå×ÓÆå = "#fUI/ChatBalloon.img/miniroom/Omok#";
+var Ğ±½ğ±Ò = "#fUI/ChatBalloon.img/miniroom/PersonalShop#";
+var ĞÜÃ¨ = "#fUI/ChatBalloon.img/pet/1/nw#";
+var Ã«Çò = "#fUI/ChatBalloon.img/pet/12/nw#";
+var À¶Ìõ = "#fUI/ChatBalloon.img/pet/19/head#";
+var À¶ÌõÌõ = "#fUI/ChatBalloon.img/pet/28/head#";
+var À¶×óÍ· = "#fUI/ChatBalloon.img/pet/19/nw#";
+var À¶ÓÒÍ· = "#fUI/ChatBalloon.img/pet/19/ne#";
+var À¶×óÏÂ = "#fUI/ChatBalloon.img/pet/28/nw#";
+var À¶ÓÒÏÂ = "#fUI/ChatBalloon.img/pet/28/ne#";
+var À¶ÏÂÌõ = "#fUI/ChatBalloon.img/pet/28/arrow#";
+var À¶ÓÒÏÂÍ· = "#fUI/ChatBalloon.img/pet/28/se#";
+var À¶×óÏÂÍ· = "#fUI/ChatBalloon.img/pet/28/sw#";
+var ÓÊÏä = "#fUI/Basic.img/VScr6/enabled/thumb0#";
+var ºìV = "#fUI/Login.img/Title/check2/1#";
+var À¶Éı¼¶ = "#fUI/Login.img/CharSelect/icon/up#";
+var »ÆN = "#fUI/Login.img/CharSelect/icon/new#";
+var À¶ĞÇ = "#fUI/GuildMark.img/Mark/Pattern/00004001/11#";
+var °®ÇÙ = "#fUI/GuildMark.img/Mark/Pattern/00004007/14#";
+var À¶ïÚ = "#fUI/GuildMark.img/Mark/Pattern/00004014/11#";
 
 function start() {
-    action(1, 0, 0)
+  status = -1;
+  action(1, 0, 0);
 }
-
 function action(mode, type, selection) {
-    if (mode == 1) {
-        status++;
-    } else if (mode == 0) {
-        status--;
+  if (status == 0 && mode == 0) {
+    cm.dispose();
+    return;
+  }
+  if (mode == 1) {
+    status++;
+  } else {
+    status--;
+  }
+  cm.¸öÈË´æµµ();
+  var MC = cm.getServerName();
+  var ÃûÈË°ñ¿ª¹Ø = cm.GetPiot("ÃûÈË°ñ¿ª¹Ø", "1");
+
+  if (status == 0) {
+    var selStr =
+      "\t\t\t#e#r< " + ĞÇĞÇ + " ÈÙ Ò« ÅÅ ĞĞ °ñ " + ĞÇĞÇ + " >#k#n\r\n\r\n";
+    selStr +=
+      "\r\n" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºÚ¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºÚ¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "" +
+      ºì¹Ú +
+      "\r\n";
+
+    if (cm.GetPiot("ÃûÈË°ñ¿ª¹Ø", "1") <= 0) {
+      selStr += "\t\t\t #L27##b" + »Ê¹Ú + "Õ½Á¦ÅÅĞĞ°ñ" + »Ê¹Ú + "#l\r\n";
+      //selStr += "#L5##b"+»Ê¹Ú+"Íæ¼ÒµÈ¼¶ÅÅĞĞ°ñ"+»Ê¹Ú+"#l";
+      //selStr += "#L2##b"+»Ê¹Ú+"Íæ¼Ò²Æ¸»ÅÅĞĞ°ñ"+»Ê¹Ú+"#l\r\n";
+      //selStr += "#L101##b"+»Ê¹Ú+"Íæ¼ÒÁ¦Á¿ÅÅĞĞ°ñ"+»Ê¹Ú+"#l";
+      //selStr += "#L102##b"+»Ê¹Ú+"Íæ¼ÒÃô½İÅÅĞĞ°ñ"+»Ê¹Ú+"#l\r\n";
+      //selStr += "#L103##b"+»Ê¹Ú+"Íæ¼ÒÖÇÁ¦ÅÅĞĞ°ñ"+»Ê¹Ú+"#l";
+      //selStr += "#L104##b"+»Ê¹Ú+"Íæ¼ÒÔËÆøÅÅĞĞ°ñ"+»Ê¹Ú+"#l\r\n";
+      //
+      //selStr += "#L19##b"+»Ê¹Ú+"ÈËÆøÃ÷ĞÇÅÅĞĞ°ñ"+»Ê¹Ú+"#l";
+      //selStr += "#L13##b"+»Ê¹Ú+"ÔÚÏßÊ±³¤ÅÅĞĞ°ñ"+»Ê¹Ú+"#l\r\n";
+
+      // selStr += "#L19##b"+»Ê¹Ú+"ÈËÆøÃ÷ĞÇÅÅĞĞ°ñ"+»Ê¹Ú+"#l";
+      //selStr += "\t\t\t\t#L25##bÓéÀÖ¶¹¶¹ÅÅĞĞ°ñ#l\r\n";
+      // selStr += "#L13##b"+»Ê¹Ú+"ÔÚÏßÊ±³£ÅÅĞĞ°ñ"+»Ê¹Ú+"#l\r\n";
+
+      //selStr += "\t\t\t#L26##b"+»Ê¹Ú+"É±¹ÖÊıÁ¿ÅÅĞĞ°ñ"+»Ê¹Ú+"#l\r\n";
+      //selStr += "\t\t\t\t#L29##b×é¶ÓÈÎÎñÅÅĞĞ°ñ#l\r\n";
+      //selStr += "\t\t\t\t#L52##bµöÓã»ı·ÖÅÅĞĞ°ñ#l\r\n";
+      //selStr += "\t\t\t\t#L21##bÎå×ÓÆå»ı·ÖÅÅĞĞ#l\r\n";
+      //selStr += "\t\t\t\t#L22##b¼ÇÒä´ó¿¼ÑéÅÅĞĞ#l\r\n\r\n";
+
+      selStr +=
+        "\r\n\r\n" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºÚ¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºÚ¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "" +
+        ºì¹Ú +
+        "\r\n";
     } else {
-        cm.dispose();
-        return;
+      selStr += "\r\nÎ¬»¤ÖĞ¡¤¡¤¡¤";
+      selStr += "\t\t\t\t#L666666##b·µ»Ø½çÃæ#l";
     }
-    if (status == 0) {
-        cm.sendSimple("#bä½ å¥½ #k#h  ##e  #bæˆ‘æ˜¯æ’åç³»ç»Ÿ.#k\r\n#L0##rå…¬ä¼šæ’å\n\#l\r\n#L1##dç©å®¶æ’å#l\r\n#L3##bèŒä¸šæ’å#l");
-    } else if (status == 1) {
-        if (selection == 0) {
-            cm.displayGuildRanks();
-            cm.dispose();
-        } else if (selection == 1) {
-            cm.showlvl();
-            cm.dispose();
-        } else if (selection == 2) {
-            cm.showmeso();
-            cm.dispose();
-        } else if (selection == 3) {
-            cm.sendSimple("#L1##då‰‘å£«#kæ’å\r\n#L2##dæ³•å¸ˆ#kæ’å\r\n#L3##bå¼“ç®­æ‰‹#kæ’å\r\n#L4##bç›—è´¼#kæ’å\r\n#L5##ræµ·ç›—#kæ’å\r\n#L6##rç‹‚ç‹¼å‹‡å£«#kæ’å\r\n#L7##rçš‡å®¶éª‘å£«å›¢#kæ’å\r\n#L8##råæŠ—å†›#kæ’å\r\n#L8##ré¾™ç¥æ³•å¸ˆ#kæ’å\r\n");
+    if (cm.getPlayer().getGMLevel() == 6) {
+      if (cm.GetPiot("ÃûÈË°ñ¿ª¹Ø", "1") <= 0) {
+        selStr += "\r\n\t\t\t\t#L1000##bÃûÈË°ñ#g[¿ªÆôÖĞ]#r[GM]#k#l";
+      }
+      if (cm.GetPiot("ÃûÈË°ñ¿ª¹Ø", "1") >= 1) {
+        selStr += "\r\n\t\t\t\t#L1001##bÃûÈË°ñ#r[¹Ø±ÕÖĞ]#r[GM]#k#l";
+      }
+    }
+    cm.sendSimple(selStr);
+  } else if (status == 1) {
+    switch (selection) {
+      //Íæ¼ÒµÈ¼¶ÅÅĞĞ°ñ
+      case 5111:
+        var text = " ©°©¤©¤©¤©¤©¤©¤©¤©¤©¤< #e#rµÈ  ¼¶#k#n >©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©´#n\r\n";
+        text +=
+          "   #rÌáÊ¾£º#bÃ¿ÈÕÁè³¿(Î¬»¤)1:00,Ë¢ĞÂµÈ¼¶Ç°20ÃûµÄÍæ¼Ò¡£#k\r\n\r\n";
+        var rankinfo_list = cm.getBossRankCountTop10("µÈ¼¶ÅÅĞĞ");
+        if (rankinfo_list != null) {
+          for (var i = 0; i < rankinfo_list.size(); i++) {
+            if (i == 20) {
+              break;
+            }
+            var info = rankinfo_list.get(i);
+            //ÏÔÊ¾Ãû´Î
+            text += i == 0 ? "#r" : i == 1 ? "#b" : i == 2 ? "#d" : "";
+            text += "  \t\t\t\t#eTop." + (i + 1) + "#k#n\r\n";
+            //tÍæ¼ÒÃû×Ö
+            text +=
+              "  \t\t\t\tÍæ¼ÒÃû×Ö:#b" +
+              cm.½ÇÉ«IDÈ¡Ãû×Ö(info.getCid()) +
+              "#k\r\n";
+            //tÍæ¼ÒµÈ¼¶
+            text += "  \t\t\t\tÍæ¼ÒµÈ¼¶:#b" + info.getCount() + "#k\r\n";
+            //tÍæ¼ÒÖ°Òµ
+            text +=
+              "  \t\t\t\tÍæ¼ÒÖ°Òµ:#b" + cm.Ö°Òµ(info.getPoints()) + "#k\r\n";
+            //tËùÊô¼Ò×å
+            if (info.getCname() == 0) {
+              text += "  \t\t\t\tËùÊô¼Ò×å:#bÃ»ÓĞ¼ÓÈë¼Ò×å#k\r\n";
+            } else {
+              text +=
+                "  \t\t\t\tËùÊô¼Ò×å:#b" +
+                cm.»ñÈ¡¼Ò×åÃû³Æ(info.getCname()) +
+                "#k\r\n";
+            }
+            text += "\r\n";
+          }
         }
-    } else if (status == 2) {
-        cm.sendNext(cm.ShowJobRank(selection));
+        text += " ©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼#n\r\n\r\n";
+        cm.sendOkS(text, 3);
         cm.dispose();
-    } else {
+        break;
+
+      //Ã¿ÈÕÇ©µ½ÅÅĞĞ
+      case 1:
+        var text = " ©°©¤©¤©¤©¤©¤©¤©¤©¤©¤< #e#rÇ©  µ½#k#n >©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©´#n\r\n";
+        text += "   #rÌáÊ¾£º#bÃ¿ÈÕÔÚĞ¡zÇ©µ½µÄ¼ÇÂ¼ÅÅĞĞ°ñ¡£#k\r\n\r\n";
+        var rankinfo_list = cm.getBossRankCountTop("Ç©µ½");
+        if (rankinfo_list != null) {
+          for (var i = 0; i < rankinfo_list.size(); i++) {
+            if (i == 20) {
+              break;
+            }
+            var info = rankinfo_list.get(i);
+
+            text += i == 0 ? "#r" : i == 1 ? "#b" : i == 2 ? "#b" : "";
+            text += "\tTop." + (i + 1) + "\t\t";
+            // Ìî³äÃû×Ö¿Õ¸ñ
+            text += info.getCname();
+            for (var j = 16 - info.getCname().getBytes().length; j > 0; j--) {
+              text += " ";
+            }
+            text += "\t\t#k#nÇ©µ½#r #e" + info.getCount();
+            text += "#k#n Ìì\t\t#k";
+            text += "";
+          }
+        }
+        text += "\r\n\r\n\r\n\r\n ©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼#n\r\n\r\n";
+        cm.sendOkS(text, 3);
         cm.dispose();
+        break;
+      //Õ½¶·Á¦ÅÅĞĞ
+      case 20:
+        var text = " ©°©¤©¤©¤©¤©¤©¤©¤©¤©¤< #e#rÕ½¶·Á¦#k#n >©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©´#n\r\n";
+        text += "   #rÌáÊ¾£º#bÕ½¶·Á¦ÊÇ¸ù¾İÍæ¼Ò×ÔÉíÊôĞÔµÄ×ÛºÏ¼ÆËãµÄ¡£#k\r\n\r\n";
+        var rankinfo_list = cm.getBossRankCountTop("Õ½¶·Á¦Í³¼Æ");
+        if (rankinfo_list != null) {
+          for (var i = 0; i < rankinfo_list.size(); i++) {
+            if (i == 20) {
+              break;
+            }
+            var info = rankinfo_list.get(i);
+            text += i == 0 ? "#r" : i == 1 ? "#b" : i == 2 ? "#b" : "";
+            text += "\tTop." + (i + 1) + ".\t\t";
+            // Ìî³äÃû×Ö¿Õ¸ñ
+            text += info.getCname();
+            for (var j = 16 - info.getCname().getBytes().length; j > 0; j--) {
+              text += " ";
+            }
+            text += "\t\tÕ½¶·Á¦:" + info.getCount();
+            text += "\t#k";
+            text += "";
+          }
+        }
+        text += "\r\n\r\n\r\n\r\n ©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼#n\r\n\r\n";
+        cm.sendOkS(text, 3);
+        cm.dispose();
+        break;
+
+      case 51:
+        this.db = Packages.database.DatabaseConnection.getConnection();
+        //Êı¾İ¿â½ÇÉ«±íÉ±¹ÖÊıÁ¿×Ö¶Î SG
+        var sql =
+          "select name,SG,gender from characters where gm<=0 order by SG desc limit 10;";
+        var pstmt = db.prepareStatement(sql);
+        var list = pstmt.executeQuery();
+        var text = "\t\t\t\t#e#d¡ï É±¹ÖÊıÁ¿ÅÅĞĞ°ñ ¡ï#k#n\r\n\r\n";
+        text += "\t#eÃû´Î#n\t#eÍæ¼ÒêÇ³Æ#n\t\t  #eÊıÁ¿#n\t\t#eÈÙÓş³ÆºÅ#n\r\n";
+        for (var i = 1; i <= 10; i++) {
+          if (!list.next()) {
+            break;
+          }
+          if (i == 1) {
+            text += "#r";
+          } else if (i == 2) {
+            text += "#g";
+          } else if (i == 3) {
+            text += "#b";
+          }
+          text += "\t " + i + "\t\t ";
+
+          // Ìî³äÃû×Ö¿Õ¸ñ
+          text += list.getString("name");
+          for (
+            var j = 16 - list.getString("name").getBytes().length;
+            j > 0;
+            j--
+          ) {
+            text += " ";
+          }
+
+          // Ìî³ä½ÇÉ«±íÉ±¹ÖÊıÁ¿×Ö¶Î
+          text += "\t " + list.getInt("SG");
+          var famevalues = list.getInt("SG");
+          var famelength = 0;
+          while (famevalues > 0) {
+            famevalues = Math.floor(famevalues / 10);
+            famelength += 1;
+          }
+          for (var j = 8 - famelength; j > 0; j--) {
+            text += " ";
+          }
+
+          if (i == 1) {
+            if (list.getInt("gender") == 0) {
+              text += " ¡ïÊÀ½çÅ¼Ïñ¡ï#k";
+            } else {
+              text += " ¡ïÉ±¹ÖÄ§»Ê¡ï#k";
+            }
+          } else if (i == 2) {
+            text += " ¡ïÉ±¹ÖÄ§½«¡ï#k";
+          } else if (i == 3) {
+            text += "¡ïÉ±¹ÖÄ§±ø¡ï#k";
+          }
+          text += "\r\n";
+        }
+        list.close();
+        pstmt.close();
+        cm.sendOkS(text, 3);
+        cm.dispose();
+
+        break;
+
+      case 52:
+        this.db = Packages.database.DatabaseConnection.getConnection();
+        //Êı¾İ¿â½ÇÉ«±íÉ±¹ÖÊıÁ¿×Ö¶Î SG
+        var sql =
+          "select name,µöÓãÅÅÃû,gender from characters where gm<=0 order by µöÓãÅÅÃû desc limit 10;";
+        var pstmt = db.prepareStatement(sql);
+        var list = pstmt.executeQuery();
+        var text = "\t\t\t\t\t#e#d¡ï µöÓãÅÅĞĞ°ñ ¡ï#k#n\r\n\r\n";
+        text += "\t#eÃû´Î#n\t#eÍæ¼ÒêÇ³Æ#n\t\t  #eÊıÁ¿#n\t\t#eÈÙÓş³ÆºÅ#n\r\n";
+        for (var i = 1; i <= 10; i++) {
+          if (!list.next()) {
+            break;
+          }
+          if (i == 1) {
+            text += "#r";
+          } else if (i == 2) {
+            text += "#r";
+          } else if (i == 3) {
+            text += "#r";
+          } else if (i >= 4) {
+            text += "#b";
+          }
+          text += "\t " + i + "\t\t ";
+
+          // Ìî³äÃû×Ö¿Õ¸ñ
+          text += list.getString("name");
+          for (
+            var j = 16 - list.getString("name").getBytes().length;
+            j > 0;
+            j--
+          ) {
+            text += " ";
+          }
+
+          // Ìî³ä½ÇÉ«±íÉ±¹ÖÊıÁ¿×Ö¶Î
+          text += "\t " + list.getInt("µöÓãÅÅÃû");
+          var famevalues = list.getInt("µöÓãÅÅÃû");
+          var famelength = 0;
+          while (famevalues > 0) {
+            famevalues = Math.floor(famevalues / 10);
+            famelength += 1;
+          }
+          for (var j = 8 - famelength; j > 0; j--) {
+            text += " ";
+          }
+
+          if (i == 1) {
+            if (list.getInt("gender") == 0) {
+              text += " ¡ïÊÀ½çÅ¼Ïñ¡ï#k";
+            } else {
+              text += "¡ïÊÀ½ç¹Ú¾ü¡ï#k";
+            }
+          } else if (i == 2) {
+            text += "¡ïµöÓã´ïÈË¡ï#k";
+          } else if (i == 3) {
+            text += "¡ïµöÓãĞ¡°×¡ï#k";
+          } else if (i >= 4) {
+            text += "¡ïµöÓã°×³Õ¡ï#k";
+          }
+          text += "\r\n";
+        }
+        list.close();
+        pstmt.close();
+        cm.sendOkS(text, 3);
+        cm.dispose();
+
+        break;
+
+      case 53:
+        this.db = Packages.database.DatabaseConnection.getConnection();
+        //Êı¾İ¿â½ÇÉ«±íÉ±¹ÖÊıÁ¿×Ö¶Î SG
+        var sql =
+          "select name,×é¶ÓÅÅÃû,gender from characters where gm<=0 order by ×é¶ÓÅÅÃû desc limit 10;";
+        var pstmt = db.prepareStatement(sql);
+        var list = pstmt.executeQuery();
+        var text = "\t\t\t\t\t#e#d¡ï ×é¶ÓÈÎÎñÅÅĞĞ°ñ ¡ï#k#n\r\n\r\n";
+        text += "\t#eÃû´Î#n\t#eÍæ¼ÒêÇ³Æ#n\t\t  #eÊıÁ¿#n\t\t#eÈÙÓş³ÆºÅ#n\r\n";
+        for (var i = 1; i <= 10; i++) {
+          if (!list.next()) {
+            break;
+          }
+          if (i == 1) {
+            text += "#r";
+          } else if (i == 2) {
+            text += "#r";
+          } else if (i == 3) {
+            text += "#r";
+          } else if (i >= 4) {
+            text += "#b";
+          }
+          text += "\t " + i + "\t\t ";
+
+          // Ìî³äÃû×Ö¿Õ¸ñ
+          text += list.getString("name");
+          for (
+            var j = 16 - list.getString("name").getBytes().length;
+            j > 0;
+            j--
+          ) {
+            text += " ";
+          }
+
+          // Ìî³ä½ÇÉ«±íÉ±¹ÖÊıÁ¿×Ö¶Î
+          text += "\t " + list.getInt("×é¶ÓÅÅÃû");
+          var famevalues = list.getInt("×é¶ÓÅÅÃû");
+          var famelength = 0;
+          while (famevalues > 0) {
+            famevalues = Math.floor(famevalues / 10);
+            famelength += 1;
+          }
+          for (var j = 8 - famelength; j > 0; j--) {
+            text += " ";
+          }
+
+          if (i == 1) {
+            if (list.getInt("gender") == 0) {
+              text += " ¡ïÊÀ½çÅ¼Ïñ¡ï#k";
+            } else {
+              text += "¡ïÈÎÎñÅ¼Ïñ¡ï#k";
+            }
+          } else if (i == 2) {
+            text += "¡ïÈÎÎñ´ïÈË¡ï#k";
+          } else if (i == 3) {
+            text += "¡ïÈÎÎñĞÂÊÖ¡ï#k";
+          } else if (i >= 4) {
+            text += "¡ïÈÎÎñ°×³Õ¡ï#k";
+          }
+          text += "\r\n";
+        }
+        list.close();
+        pstmt.close();
+        cm.sendOkS(text, 3);
+        cm.dispose();
+
+        break;
+
+      case 4:
+        selStr = "\t\t\t#e#r< ÖØ Éú ÓÀ ºã ÅÅ ĞĞ °ñ >#k#n\r\n\r\n";
+        selStr += "" + cm.ÓÀºãÖØÉúÅÅĞĞ°ñ() + "#k\r\n\r\n";
+        cm.sendOkS(selStr, 3);
+        cm.dispose();
+        break;
+
+      case 6:
+        selStr = "\t\t\t\t#e#r< Âú ¼¶ ÅÅ ĞĞ °ñ >#k#n\r\n\r\n";
+        selStr +=
+          "   ÕâÀïÊÇáÛ·åÍõÕßÅÅĞĞ°ñ£¬¶¼ÊÇµºÉÏ¾ßÓĞ³¬·²ÊµÁ¦µÄÈË¡£#k\r\n\r\n";
+        selStr += "" + cm.Âú¼¶ÅÅĞĞ°ñ() + "\r\n";
+        cm.sendOkS(selStr, 3);
+        cm.dispose();
+        break;
+
+      case 1000:
+        cm.GainPiot("ÃûÈË°ñ¿ª¹Ø", "1", -ÃûÈË°ñ¿ª¹Ø);
+        cm.GainPiot("ÃûÈË°ñ¿ª¹Ø", "1", 1);
+        cm.sendOkS("ÃûÈË°ñ¹Ø±Õ³É¹¦", 3);
+        cm.dispose();
+        break;
+      case 1001:
+        cm.GainPiot("ÃûÈË°ñ¿ª¹Ø", "1", -ÃûÈË°ñ¿ª¹Ø);
+        cm.sendOkS("ÃûÈË°ñ´ò¿ª³É¹¦", 3);
+        cm.dispose();
+        break;
+      case 21:
+        cm.dispose();
+        cm.openNpc(9040004, 1);
+        break;
+      case 22:
+        cm.dispose();
+        cm.openNpc(9040004, 2);
+      case 29:
+        cm.dispose();
+        cm.openNpc(9040004, 7008);
+        break;
+      case 666666:
+        cm.dispose();
+        cm.openNpc(9900004, 0);
+        break;
+      case 0:
+        cm.displayGuildRanks();
+        cm.dispose();
+        break;
+      case 9:
+        cm.MapleMSpvpdeaths();
+        cm.dispose();
+        break;
+      case 25:
+        cm.ÉùÍûÅÅĞĞ°ñ();
+        cm.dispose();
+        break;
+      case 26:
+        cm.É±¹ÖÅÅĞĞ°ñ();
+        cm.dispose();
+        break;
+      case 27:
+        cm.dispose();
+        cm.openNpc(9900004, "È«·şÕ½Á¦ÅÅĞĞ°ñ");
+        break;
+      case 101:
+        cm.Á¦Á¿ÅÅĞĞ°ñ_snail();
+        cm.dispose();
+        break;
+      case 102:
+        cm.Ãô½İÅÅĞĞ°ñ_snail();
+        cm.dispose();
+        break;
+      case 103:
+        cm.ÖÇÁ¦ÅÅĞĞ°ñ_snail();
+        cm.dispose();
+        break;
+      case 104:
+        cm.ÔËÆøÅÅĞĞ°ñ_snail();
+        cm.dispose();
+        break;
+      case 28:
+        cm.µöÓã»ı·ÖÅÅĞĞ°ñ();
+        cm.dispose();
+        break;
+      case 19:
+        cm.ÈËÆøÅÅĞĞ°ñ();
+        cm.dispose();
+        break;
+      case 23:
+        cm.¶¹¶¹ÅÅĞĞ°ñ();
+        cm.dispose();
+        break;
+      case 13:
+        cm.×ÜÔÚÏßÊ±¼äÅÅĞĞ°ñ();
+        cm.dispose();
+        break;
+      case 10:
+        cm.MapleMSpvpkills();
+        cm.dispose();
+        break;
+      case 5:
+        cm.showlvl_s();
+        cm.dispose();
+        break;
+
+      case 2:
+        cm.showmeso_s();
+        cm.dispose();
+        break;
     }
+  }
+}
+function getname(id) {
+  var con1 = DatabaseConnection.getConnection();
+  ps1 = con1.prepareStatement("SELECT name FROM characters WHERE id = ?");
+  ps1.setInt(1, id);
+  var rs1 = ps1.executeQuery();
+  var name;
+  if (rs1.next()) {
+    name = rs1.getString("name");
+  } else {
+    name = "ÎŞÃû";
+  }
+  rs1.close();
+  ps1.close();
+  return name;
 }

@@ -1,3 +1,3 @@
 function enter(pi) {
-    pi.playerMessage("It seems to be locked.");
+    pi.warp(682000900,6);
 }

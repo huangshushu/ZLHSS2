@@ -1,4 +1,4 @@
-ï»¿/* 
+/* 
  * 
  * Adobis's Mission I: Unknown Dead Mine (280010000)
  * 
@@ -16,50 +16,46 @@ function action(mode, type, selection) {
         status--;
     }
     if (status == 0) {
-        cm.sendSimple("æ€ä¹ˆæ ·ï¼Ÿéƒ½æœé›†å¥½äº†å—ï¼Ÿ#b\r\n#L0#å‘Šè¯‰æˆ‘åº”è¯¥åšä»€ä¹ˆï¼Ÿ#l\r\n#L1#å·²ç»æœé›†å¥½äº†ç‰©å“ï¼#l\r\n#L2#æˆ‘è¦ç¦»å¼€è¿™é‡Œï¼#l");
+        cm.sendSimple("ÔõÃ´Ñù£¿¶¼ËÑ¼¯ºÃÁËÂğ£¿#b\r\n#L0#¸æËßÎÒÓ¦¸Ã×öÊ²Ã´£¿#l\r\n#L1#ÒÑ¾­ËÑ¼¯ºÃÁËÎïÆ·£¡#l\r\n#L2#ÎÒÒªÀë¿ªÕâÀï£¡#l");
     } else if (status == 1) {
         selectedType = selection;
         if (selection == 0) {
-            cm.sendNext("ä¸ºäº†è§£é™¤æ®‹æš´ç‚é­”çš„å‰ç½®ï¼Œä½ å¿…é¡»æ”¶é›†æˆ‘éœ€è¦çš„æ ¸å¿ƒææ–™ã€‚")
+            cm.sendNext("ÎªÁË½â³ıÔúÀ¥µÄÇ°ÖÃ£¬Äã±ØĞëÊÕ¼¯ÎÒĞèÒªµÄºËĞÄ²ÄÁÏ¡£")
             cm.safeDispose();
         } else if (selection == 1) {
             if (!cm.haveItem(4001018)) { //documents
-                cm.sendNext("è¯·ç»™æˆ‘#b#t4001018##kè°¢è°¢ã€‚")
+                cm.sendNext("Çë¸øÎÒ#b#t4001018##kĞ»Ğ»¡£")
                 cm.safeDispose();
             } else {
                 if (!cm.haveItem(4001015, 30)) { //documents
-                    cm.sendYesNo("å¸¦æ¥äº†æ˜¯å˜›??\r\nä¸ºäº†ç¡®ä¿æ‚¨èƒ½æ‹¿åˆ°é…¬åŠ³è¯·å…ˆç©ºå‡ºç©ºé—´");
+                    cm.sendYesNo("´øÀ´ÁËÊÇÂï??\r\nÎªÁËÈ·±£ÄúÄÜÄÃµ½³êÀÍÇëÏÈ¿Õ³ö¿Õ¼ä");
                     scrolls = false;
                 } else {
-                    cm.sendYesNo("å¸¦æ¥äº†æ˜¯å˜›??\r\nä¸ºäº†ç¡®ä¿æ‚¨èƒ½æ‹¿åˆ°é…¬åŠ³è¯·å…ˆç©ºå‡ºç©ºé—´");
+                    cm.sendYesNo("´øÀ´ÁËÊÇÂï??\r\nÎªÁËÈ·±£ÄúÄÜÄÃµ½³êÀÍÇëÏÈ¿Õ³ö¿Õ¼ä");
                     scrolls = true;
                 }
             }
         } else if (selection == 2) {
-            cm.sendYesNo("ä½ ç¡®å®šè¦é€€å‡ºï¼Ÿå¦‚æœä½ æ˜¯ç»„é˜Ÿé•¿ï¼Œä¸€æ—¦ä½ ç¦»å¼€ç»„é˜Ÿï¼Œé‚£ä¹ˆè¿™é¡¹ä»»åŠ¡å°±æ— æ³•ç»§ç»­ä¸‹å»ã€‚æ˜¯å¦å†³å®šé€€å‡ºï¼Ÿ")
+            cm.sendYesNo("ÄãÈ·¶¨ÒªÍË³ö£¿Èç¹ûÄãÊÇ×é¶Ó³¤£¬Ò»µ©ÄãÀë¿ª×é¶Ó£¬ÄÇÃ´ÕâÏîÈÎÎñ¾ÍÎŞ·¨¼ÌĞøÏÂÈ¥¡£ÊÇ·ñ¾ö¶¨ÍË³ö£¿")
         }
     } else if (status == 2) {
         var eim = cm.getEventInstance();
         if (selectedType == 1) {
-            if (cm.canPartyHold()) {
-                cm.gainItem(4001018, -1);
-                if (scrolls) {
-                    cm.gainItem(4001015, -30);
-                }
-                //give items/exp
-                cm.givePartyItems(4031061, 1);
-                if (scrolls) {
-                    cm.givePartyItems(2030007, 5);
-                    cm.givePartyExp(20000);
-                } else {
-                    cm.givePartyExp(12000);
-                }
-                //clear PQ
-                if (eim != null) {
-                    eim.finishPQ();
-                }
+            cm.gainItem(4001018, -1);
+            if (scrolls) {
+                cm.gainItem(4001015, -30);
+            }
+            //give items/exp
+            cm.givePartyItems(4031061, 1);
+            if (scrolls) {
+                cm.givePartyItems(2030007, 5);
+                cm.givePartyExp(20000);
             } else {
-                cm.sendOk("ä½ æˆ–ä½ çš„é˜Ÿå‹çš„èƒŒåŒ…æ²¡æœ‰å¤šä½™çš„ç©ºæ ¼ã€‚");
+                cm.givePartyExp(12000);
+            }
+            //clear PQ
+            if (eim != null) {
+                eim.finishPQ();
             }
             cm.dispose();
         } else if (selectedType == 2) {

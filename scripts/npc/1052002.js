@@ -1,12 +1,5 @@
-/* JM from tha Streetz
- Victoria Road: Kerning City (103000000)
+/*
  
- Refining NPC: 
- * Gloves
- * Glove Upgrade
- * Claw
- * Claw Upgrade
- * Processed Wood/Screws
  */
 
 var status = 0;
@@ -20,212 +13,433 @@ var qty;
 var equip;
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == 1)
-        status++;
-    else
-        cm.dispose();
-    if (status == 0 && mode == 1) {
-        var selStr = "å­©å­...å¦‚æœä½ æœ‰ä¸€äº›é€‚åˆçš„ä¸œè¥¿ï¼Œæˆ‘å¯ä»¥æŠŠå®ƒå˜æˆä»€ä¹ˆ...#b"
-        var options = new Array("åˆ¶ä½œæ‰‹å¥—", "å‡çº§æ‰‹å¥—", "åˆ¶ä½œæ‹³å¥—", "å‡çº§æ‹³å¥—", "æœ¨æä¸èºä¸é’‰åˆ¶ä½œ");
-        for (var i = 0; i < options.length; i++) {
-            selStr += "\r\n#L" + i + "# " + options[i] + "#l";
-        }
-
-        cm.sendSimple(selStr);
-    } else if (status == 1 && mode == 1) {
-        if (selection < 0) {
-            cm.sendOk("è„šæœ¬å‡ºé”™ï¼Œè¯·è”ç³»ç®¡ç†å‘˜...");
-            cm.dispose();
-            return;
-        }
-        selectedType = selection;
-        if (selectedType == 0) { //glove refine
-            var selStr = "é‚£ä¹ˆï¼Œä½ æƒ³è¦æˆ‘åˆ¶ä½œä»€ä¹ˆæ ·çš„æ‰‹å¥—?#b";
-            var gloves = new Array("å·¥ä½œæ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 10#b", "è¤çŸ­æŒ‡æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 15#b", "è“çŸ­æŒ‡æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 15#b", "é»‘çŸ­æŒ‡æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 15#b", "é’é“œç›—è´¼æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 20#b", "é’é“œç²¾ç¥æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 25#b", "é’¢é“æš´é£æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 30#b",
-                    "é’¢é“è¿½å‡»æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 35#b", "çº¢ç›—è´¼æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 40#b", "é’æœˆæ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 50#b", "é’é“œæŸ”ä¸æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 60#b");
-            for (var i = 0; i < gloves.length; i++) {
-                selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
-            }
-            equip = true;
-            cm.sendSimple(selStr);
-        } else if (selectedType == 1) { //glove upgrade
-            var selStr = "è¦å‡çº§æ‰‹å¥—?å½“ç„¶å¯ä»¥, ä½†è¦æ³¨æ„ï¼Œå‡çº§åå°†ä¸ä¼šå»¶ç»­åˆ°æ–°çš„é¡¹ç›®... #b";
-            var gloves = new Array("é”‚çŸ¿ç›—è´¼æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 20#b", "é»‘è‰²ç›—è´¼æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 20#b", "é”‚çŸ¿ç²¾ç¥æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 25#b",
-                    "é»‘ç²¾ç¥æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 25#b", "é“¶æš´é£æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 30#b", "é»„é‡‘æš´é£æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 30#b", "ç´«çŸ¿è¿½å‡»æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 35#b", "é»„é‡‘è¿½å‡»æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 35#b", "é»„é‡‘ç›—è´¼æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 40#b",
-                    "é»‘ç›—è´¼æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 40#b", "èµ¤æœˆæ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 50#b", "é»„æœˆæ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 50#b", "é’¢é“æŸ”ä¸æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 60#b", "é»„é‡‘æŸ”ä¸æ‰‹å¥—#k - éœ€è¦ç­‰çº§ Lv. 60#b");
-            for (var i = 0; i < gloves.length; i++) {
-                selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
-            }
-            equip = true;
-            cm.sendSimple(selStr);
-        } else if (selectedType == 2) { //claw refine
-            var selStr = "é‚£ä¹ˆï¼Œä½ æƒ³è¦æˆ‘åˆ¶ä½œä»€ä¹ˆæ ·çš„æ‹³å¥—å‘¢?#b";
-            var claws = new Array("é’¢é“æ‹³å¥—#k - éœ€è¦ç­‰çº§ Lv. 15#b", "é’é“œæŒ‡è™#k - éœ€è¦ç­‰çº§ Lv. 20#b", "ç‹¼ç‰™#k - éœ€è¦ç­‰çº§ Lv. 25#b",
-                    "é’¢é“æ–—æ‹³#k - éœ€è¦ç­‰çº§ Lv. 30#b", "é’é“œå®ˆæŠ¤æŒ‡å¥—#k - éœ€è¦ç­‰çº§ Lv. 35#b", "é’¢é“æŠ¤è…•#k - éœ€è¦ç­‰çº§ Lv. 40#b", "é’¢é“æ‰‹ç”²#k - éœ€è¦ç­‰çº§ Lv. 50#b");
-            for (var i = 0; i < claws.length; i++) {
-                selStr += "\r\n#L" + i + "# " + claws[i] + "#l";
-            }
-            equip = true;
-            cm.sendSimple(selStr);
-        } else if (selectedType == 3) { //claw upgrade
-            var selStr = "è¦å‡çº§æ‹³å¥—?å½“ç„¶å¯ä»¥, ä½†è¦æ³¨æ„ï¼Œå‡çº§åå°†ä¸ä¼šå»¶ç»­åˆ°æ–°çš„é¡¹ç›®...#b";
-            var claws = new Array("é”‚çŸ¿æ‹³å¥—#k - éœ€è¦ç­‰çº§ Lv. 15#b", "é»„é‡‘æ‹³å¥—#k - éœ€è¦ç­‰çº§ Lv. 15#b", "é’¢é“æŒ‡è™#k - éœ€è¦ç­‰çº§ Lv. 20#b", "æœ±çŸ¿æŒ‡è™#k - éœ€è¦ç­‰çº§ Lv. 20#b", "é”‚çŸ¿æ–—æ‹³#k - éœ€è¦ç­‰çº§ Lv. 30#b", "æœ±çŸ¿æ–—æ‹³#k - éœ€è¦ç­‰çº§ Lv. 30#b", "é“¶å®ˆæŠ¤æ‹³å¥—#k - éœ€è¦ç­‰çº§ Lv. 35#b", "é»‘å®ˆæŠ¤æ‹³å¥—#k - éœ€è¦ç­‰çº§ Lv. 35#b", "èµ¤çº¢æŠ¤è…•#k - éœ€è¦ç­‰çº§ Lv. 40#b", "æœ±çŸ¿æŠ¤è…•#k - éœ€è¦ç­‰çº§ Lv. 40#b", "é»‘æŠ¤è…•#k - éœ€è¦ç­‰çº§ Lv. 40#b", "èµ¤çº¢æ‰‹ç”²#k - éœ€è¦ç­‰çº§ Lv. 50#b", "è“å®æ‰‹ç”²#k - éœ€è¦ç­‰çº§ Lv. 50#b");
-            for (var i = 0; i < claws.length; i++) {
-                selStr += "\r\n#L" + i + "# " + claws[i] + "#l";
-            }
-            equip = true;
-            cm.sendSimple(selStr);
-        } else if (selectedType == 4) { //material refine
-            var selStr = "ææ–™ï¼Ÿæˆ‘çŸ¥é“ä¸€äº›ææ–™ï¼Œæˆ‘å¯ä»¥å¸®ä½ ...?#b";
-            var materials = new Array("ç”¨10ä¸ªæ ‘æåˆ¶ä½œ1ä¸ªæœ¨æ", "ç”¨5ä¸ªæœ¨æŸ´åˆ¶ä½œ1ä¸ªæœ¨æ", "åˆ¶ä½œèºä¸é’‰(1æ¬¡15ä¸ª)");
-            for (var i = 0; i < materials.length; i++) {
-                selStr += "\r\n#L" + i + "# " + materials[i] + "#l";
-            }
-            equip = false;
-            cm.sendSimple(selStr);
-        }
-        if (equip)
-            status++;
-    } else if (status == 2 && mode == 1) {
-        if (selection < 0) {
-            cm.sendOk("è„šæœ¬å‡ºé”™ï¼Œè¯·è”ç³»ç®¡ç†å‘˜...");
-            cm.dispose();
-            return;
-        }
-        selectedItem = selection;
-        if (selectedType == 4) { //material refine
-            var itemSet = new Array(4003001, 4003001, 4003000);
-            var matSet = new Array(4000003, 4000018, new Array(4011000, 4011001));
-            var matQtySet = new Array(10, 5, new Array(1, 1));
-            var costSet = new Array(0, 0, 0);
-            item = itemSet[selectedItem];
-            mats = matSet[selectedItem];
-            matQty = matQtySet[selectedItem];
-            cost = costSet[selectedItem];
-        }
-
-        var prompt = "æ‰€ä»¥ä½ éœ€è¦æˆ‘å¸®ä½ åšä¸€äº›#t" + item + "#? é‚£ä½ æƒ³è¦æˆ‘åšå¤šå°‘ä¸ªå‘¢?";
-
-        cm.sendGetNumber(prompt, 1, 1, 100)
-    } else if (status == 3 && mode == 1) {
-        if (selection < 0) {
-            cm.sendOk("è„šæœ¬å‡ºé”™ï¼Œè¯·è”ç³»ç®¡ç†å‘˜...");
-            cm.dispose();
-            return;
-        }
-        if (equip) {
-            selectedItem = selection;
-            qty = 1;
-        } else
-            qty = selection;
-
-        if (selectedType == 0) { //glove refine
-            var itemSet = new Array(1082002, 1082029, 1082030, 1082031, 1082032, 1082037, 1082042, 1082046, 1082075, 1082065, 1082092);
-            var matSet = new Array(4000021, new Array(4000021, 4000018), new Array(4000021, 4000015), new Array(4000021, 4000020), new Array(4011000, 4000021), new Array(4011000, 4011001, 4000021), new Array(4011001, 4000021, 4003000), new Array(4011001, 4011000, 4000021, 4003000), new Array(4021000, 4000014, 4000021, 4003000), new Array(4021005, 4021008, 4000030, 4003000), new Array(4011007, 4011000, 4021007, 4000030, 4003000));
-            var matQtySet = new Array(15, new Array(30, 20), new Array(30, 20), new Array(30, 20), new Array(2, 40), new Array(2, 1, 10), new Array(2, 50, 10), new Array(3, 1, 60, 15), new Array(3, 200, 80, 30), new Array(3, 1, 40, 30), new Array(1, 8, 1, 50, 50));
-            var costSet = new Array(1000, 7000, 7000, 7000, 10000, 15000, 25000, 30000, 40000, 50000, 70000);
-            item = itemSet[selectedItem];
-            mats = matSet[selectedItem];
-            matQty = matQtySet[selectedItem];
-            cost = costSet[selectedItem];
-        } else if (selectedType == 1) { //glove upgrade
-            var itemSet = new Array(1082033, 1082034, 1082038, 1082039, 1082043, 1082044, 1082047, 1082045, 1082076, 1082074, 1082067, 1082066, 1082093, 1082094);
-            var matSet = new Array(new Array(1082032, 4011002), new Array(1082032, 4021004), new Array(1082037, 4011002), new Array(1082037, 4021004), new Array(1082042, 4011004), new Array(1082042, 4011006), new Array(1082046, 4011005), new Array(1082046, 4011006), new Array(1082075, 4011006), new Array(1082075, 4021008), new Array(1082065, 4021000), new Array(1082065, 4011006, 4021008), new Array(1082092, 4011001, 4000014), new Array(1082092, 4011006, 4000027));
-            var matQtySet = new Array(new Array(1, 1), new Array(1, 1), new Array(1, 2), new Array(1, 2), new Array(1, 2), new Array(1, 1), new Array(1, 3), new Array(1, 2), new Array(1, 4), new Array(1, 2), new Array(1, 5), new Array(1, 2, 1), new Array(1, 7, 200), new Array(1, 7, 150));
-            var costSet = new Array(5000, 7000, 10000, 12000, 15000, 20000, 22000, 25000, 40000, 50000, 55000, 60000, 70000, 80000);
-            item = itemSet[selectedItem];
-            mats = matSet[selectedItem];
-            matQty = matQtySet[selectedItem];
-            cost = costSet[selectedItem];
-        } else if (selectedType == 2) { //claw refine
-            var itemSet = new Array(1472001, 1472004, 1472007, 1472008, 1472011, 1472014, 1472018);
-            var matSet = new Array(new Array(4011001, 4000021, 4003000), new Array(4011000, 4011001, 4000021, 4003000), new Array(1472000, 4011001, 4000021, 4003001), new Array(4011000, 4011001, 4000021, 4003000), new Array(4011000, 4011001, 4000021, 4003000), new Array(4011000, 4011001, 4000021, 4003000), new Array(4011000, 4011001, 4000030, 4003000));
-            var matQtySet = new Array(new Array(1, 20, 5), new Array(2, 1, 30, 10), new Array(1, 3, 20, 30), new Array(3, 2, 50, 20), new Array(4, 2, 80, 25), new Array(3, 2, 100, 30), new Array(4, 2, 40, 35));
-            var costSet = new Array(2000, 3000, 5000, 15000, 30000, 40000, 50000);
-            item = itemSet[selectedItem];
-            mats = matSet[selectedItem];
-            matQty = matQtySet[selectedItem];
-            cost = costSet[selectedItem];
-        } else if (selectedType == 3) { //claw upgrade
-            var itemSet = new Array(1472002, 1472003, 1472005, 1472006, 1472009, 1472010, 1472012, 1472013, 1472015, 1472016, 1472017, 1472019, 1472020);
-            var matSet = new Array(new Array(1472001, 4011002), new Array(1472001, 4011006), new Array(1472004, 4011001), new Array(1472004, 4011003), new Array(1472008, 4011002), new Array(1472008, 4011003), new Array(1472011, 4011004), new Array(1472011, 4021008), new Array(1472014, 4021000), new Array(1472014, 4011003), new Array(1472014, 4021008), new Array(1472018, 4021000), new Array(1472018, 4021005));
-            var matQtySet = new Array(new Array(1, 1), new Array(1, 1), new Array(1, 2), new Array(1, 2), new Array(1, 3), new Array(1, 3), new Array(1, 4), new Array(1, 1), new Array(1, 5), new Array(1, 5), new Array(1, 2), new Array(1, 6), new Array(1, 6));
-            var costSet = new Array(1000, 2000, 3000, 5000, 10000, 15000, 20000, 25000, 30000, 30000, 35000, 40000, 40000);
-            item = itemSet[selectedItem];
-            mats = matSet[selectedItem];
-            matQty = matQtySet[selectedItem];
-            cost = costSet[selectedItem];
-        }
-
-        var prompt = "ä½ éœ€è¦æˆ‘å¸®ä½ åš";
-        if (qty == 1)
-            prompt += "#t" + item + "#?";
-        else
-            prompt += qty + "ä¸ª#t" + item + "#?";
-
-        prompt += " å¥½çš„æˆ‘ä¼šå¸®ä½ å®Œæˆçš„,ä½†è¯·ä½ ç¡®è®¤ä½ çš„èƒŒåŒ…æ˜¯å¦æœ‰è¶³å¤Ÿçš„ç©ºé—´å“¦#b";
-
-        if (mats instanceof Array) {
-            for (var i = 0; i < mats.length; i++) {
-                prompt += "\r\n#i" + mats[i] + "# " + matQty[i] * qty + " #t" + mats[i] + "#";
-            }
-        } else {
-            prompt += "\r\n#i" + mats + "# " + matQty * qty + " #t" + mats + "#";
-        }
-
-        if (cost > 0)
-            prompt += "\r\n#i4031138# " + cost * qty + " meso";
-
-        cm.sendYesNo(prompt);
-    } else if (status == 4 && mode == 1) {
-        var complete = true;
-
-        if (cm.getMeso() < cost * qty) {
-            cm.sendOk("ç³Ÿç³•...ä½ çš„é’±å¥½åƒä¸å¤Ÿå“¦...")
-            cm.dispose();
-            return;
-        } else {
-            if (mats instanceof Array) {
-
-                for (var i = 0; complete && i < mats.length; i++)
-                {
-                    if (!cm.haveItem(mats[i], matQty[i] * qty))
-                    {
-                        complete = false;
-                    }
-                }
-            } else {
-                if (!cm.haveItem(mats, matQty * qty))
-                {
-                    complete = false;
-                }
-            }
-        }
-        if (!complete) {
-            cm.sendOk("ä¸è¦ä»¥ä¸ºæˆ‘æ˜¯å¤–å›½äººå°±æƒ³éª—æˆ‘å•Š...å†ç¡®è®¤ä½ çš„åŒ…åŒ…æ˜¯å¦æœ‰ææ–™å§");
-        } else {
-            if (mats instanceof Array) {
-                for (var i = 0; i < mats.length; i++) {
-                    cm.gainItem(mats[i], -matQty[i] * qty);
-                }
-            } else {
-                cm.gainItem(mats, -matQty * qty);
-            }
-            if (cost > 0) {
-                cm.gainMeso(-cost * qty);
-            }
-            if (item == 4003000) {//screws
-                cm.gainItem(4003000, 15 * qty);
-            } else {
-                cm.gainItem(item, qty);
-            }
-            cm.sendOk("å¾ˆæ£’å§?æˆ‘çš„æ‰‹è‰º,å¦‚æœè¿˜æœ‰éœ€è¦æ¬¢è¿æ¥æ‰¾æˆ‘,æˆ‘å“ªéƒ½ä¸ä¼šå»çš„.");
-        }
-        cm.dispose();
+  if (mode == 1) status++;
+  else cm.dispose();
+  if (status == 0 && mode == 1) {
+    var selStr =
+      "   Hi #b#h ##k£¬Èç¹ûÄãÓĞÒ»Ğ©ÊÊºÏµÄ¶«Î÷£¬ÎÒ¿ÉÒÔ°ÑËü×ö³ÉÄãÏëÒªµÄ¶«Î÷¡£#b";
+    var options = new Array(
+      "ÖÆ×÷ÊÖÌ×",
+      "Éı¼¶ÊÖÌ×",
+      "ÖÆ×÷È­Ì×",
+      "Éı¼¶È­Ì×",
+      "Ä¾²ÄÓëÂİË¿¶¤ÖÆ×÷"
+    );
+    for (var i = 0; i < options.length; i++) {
+      selStr += "\r\n#L" + i + "# " + options[i] + "#l";
     }
+
+    cm.sendSimple(selStr);
+  } else if (status == 1 && mode == 1) {
+    selectedType = selection;
+    if (selectedType == 0) {
+      var selStr = "ÄÇÃ´£¬ÄãÏëÒªÎÒÖÆ×÷Ê²Ã´ÑùµÄÊÖÌ×?#b";
+      var gloves = new Array(
+        "¹¤×÷ÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 10#b",
+        "ºÖ¶ÌÖ¸ÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 15#b",
+        "À¶¶ÌÖ¸ÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 15#b",
+        "ºÚ¶ÌÖ¸ÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 15#b",
+        "ÇàÍ­µÁÔôÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 20#b",
+        "ÇàÍ­¾«ÉñÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 25#b",
+        "¸ÖÌú±©·çÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 30#b",
+        "¸ÖÌú×·»÷ÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 35#b",
+        "ºìµÁÔôÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 40#b",
+        "ÇàÔÂÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 50#b",
+        "ÇàÍ­ÈáË¿ÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 60#b"
+      );
+      for (var i = 0; i < gloves.length; i++) {
+        selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
+      }
+      equip = true;
+      cm.sendSimple(selStr);
+    } else if (selectedType == 1) {
+      var selStr =
+        "ÒªÉı¼¶ÊÖÌ×?µ±È»¿ÉÒÔ, µ«Òª×¢Òâ£¬Éı¼¶ºó½«²»»áÑÓĞøµ½ĞÂµÄÏîÄ¿... #b";
+      var gloves = new Array(
+        "ï®¿óµÁÔôÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 20#b",
+        "ºÚÉ«µÁÔôÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 20#b",
+        "ï®¿ó¾«ÉñÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 25#b",
+        "ºÚ¾«ÉñÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 25#b",
+        "Òø±©·çÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 30#b",
+        "»Æ½ğ±©·çÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 30#b",
+        "×Ï¿ó×·»÷ÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 35#b",
+        "»Æ½ğ×·»÷ÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 35#b",
+        "»Æ½ğµÁÔôÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 40#b",
+        "ºÚµÁÔôÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 40#b",
+        "³àÔÂÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 50#b",
+        "»ÆÔÂÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 50#b",
+        "¸ÖÌúÈáË¿ÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 60#b",
+        "»Æ½ğÈáË¿ÊÖÌ×#k - ĞèÒªµÈ¼¶ Lv. 60#b"
+      );
+      for (var i = 0; i < gloves.length; i++) {
+        selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
+      }
+      equip = true;
+      cm.sendSimple(selStr);
+    } else if (selectedType == 2) {
+      var selStr = "ÄÇÃ´£¬ÄãÏëÒªÎÒÖÆ×÷Ê²Ã´ÑùµÄÈ­Ì×ÄØ?#b";
+      var claws = new Array(
+        "¸ÖÌúÈ­Ì×#k - ĞèÒªµÈ¼¶ Lv. 15#b",
+        "ÇàÍ­Ö¸»¢#k - ĞèÒªµÈ¼¶ Lv. 20#b",
+        "ÀÇÑÀ#k - ĞèÒªµÈ¼¶ Lv. 25#b",
+        "¸ÖÌú¶·È­#k - ĞèÒªµÈ¼¶ Lv. 30#b",
+        "ÇàÍ­ÊØ»¤Ö¸Ì×#k - ĞèÒªµÈ¼¶ Lv. 35#b",
+        "¸ÖÌú»¤Íó#k - ĞèÒªµÈ¼¶ Lv. 40#b",
+        "¸ÖÌúÊÖ¼×#k - ĞèÒªµÈ¼¶ Lv. 50#b"
+      );
+      for (var i = 0; i < claws.length; i++) {
+        selStr += "\r\n#L" + i + "# " + claws[i] + "#l";
+      }
+      equip = true;
+      cm.sendSimple(selStr);
+    } else if (selectedType == 3) {
+      var selStr =
+        "ÒªÉı¼¶È­Ì×?µ±È»¿ÉÒÔ, µ«Òª×¢Òâ£¬Éı¼¶ºó½«²»»áÑÓĞøµ½ĞÂµÄÏîÄ¿...#b";
+      var claws = new Array(
+        "ï®¿óÈ­Ì×#k - ĞèÒªµÈ¼¶ Lv. 15#b",
+        "»Æ½ğÈ­Ì×#k - ĞèÒªµÈ¼¶ Lv. 15#b",
+        "¸ÖÌúÖ¸»¢#k - ĞèÒªµÈ¼¶ Lv. 20#b",
+        "Öì¿óÖ¸»¢#k - ĞèÒªµÈ¼¶ Lv. 20#b",
+        "ï®¿ó¶·È­#k - ĞèÒªµÈ¼¶ Lv. 30#b",
+        "Öì¿ó¶·È­#k - ĞèÒªµÈ¼¶ Lv. 30#b",
+        "ÒøÊØ»¤È­Ì×#k - ĞèÒªµÈ¼¶ Lv. 35#b",
+        "ºÚÊØ»¤È­Ì×#k - ĞèÒªµÈ¼¶ Lv. 35#b",
+        "³àºì»¤Íó#k - ĞèÒªµÈ¼¶ Lv. 40#b",
+        "Öì¿ó»¤Íó#k - ĞèÒªµÈ¼¶ Lv. 40#b",
+        "ºÚ»¤Íó#k - ĞèÒªµÈ¼¶ Lv. 40#b",
+        "³àºìÊÖ¼×#k - ĞèÒªµÈ¼¶ Lv. 50#b",
+        "À¶±¦ÊÖ¼×#k - ĞèÒªµÈ¼¶ Lv. 50#b"
+      );
+      for (var i = 0; i < claws.length; i++) {
+        selStr += "\r\n#L" + i + "# " + claws[i] + "#l";
+      }
+      equip = true;
+      cm.sendSimple(selStr);
+    } else if (selectedType == 4) {
+      var selStr = "²ÄÁÏ£¿ÎÒÖªµÀÒ»Ğ©²ÄÁÏ£¬ÎÒ¿ÉÒÔ°ïÄã...?#b";
+      var materials = new Array(
+        "ÓÃ10¸öÊ÷Ö¦ÖÆ×÷1¸öÄ¾²Ä",
+        "ÓÃ5¸öÄ¾²ñÖÆ×÷1¸öÄ¾²Ä",
+        "ÖÆ×÷ÂİË¿¶¤(1´Î15¸ö)"
+      );
+      for (var i = 0; i < materials.length; i++) {
+        selStr += "\r\n#L" + i + "# " + materials[i] + "#l";
+      }
+      equip = false;
+      cm.sendSimple(selStr);
+    }
+    if (equip) status++;
+  } else if (status == 2 && mode == 1) {
+    selectedItem = selection;
+    if (selectedType == 4) {
+      var itemSet = new Array(4003001, 4003001, 4003000);
+      var matSet = new Array(4000003, 4000018, new Array(4011000, 4011001));
+      var matQtySet = new Array(10, 5, new Array(1, 1));
+      var costSet = new Array(0, 0, 0);
+      item = itemSet[selectedItem];
+      mats = matSet[selectedItem];
+      matQty = matQtySet[selectedItem];
+      cost = costSet[selectedItem];
+    }
+
+    var prompt = "ËùÒÔÄãĞèÒªÎÒ°ïÄã×öÒ»Ğ©#t" + item + "#? ÄÇÄãÏëÒªÎÒ×ö¶àÉÙ¸öÄØ?";
+
+    cm.sendGetNumber(prompt, 1, 1, 100);
+  } else if (status == 3 && mode == 1) {
+    if (equip) {
+      selectedItem = selection;
+      qty = 1;
+    } else qty = selection;
+
+    if (selectedType == 0) {
+      var itemSet = new Array(
+        1082002,
+        1082029,
+        1082030,
+        1082031,
+        1082032,
+        1082037,
+        1082042,
+        1082046,
+        1082075,
+        1082065,
+        1082092
+      );
+      var matSet = new Array(
+        4000021,
+        new Array(4000021, 4000018),
+        new Array(4000021, 4000015),
+        new Array(4000021, 4000020),
+        new Array(4011000, 4000021),
+        new Array(4011000, 4011001, 4000021),
+        new Array(4011001, 4000021, 4003000),
+        new Array(4011001, 4011000, 4000021, 4003000),
+        new Array(4021000, 4000014, 4000021, 4003000),
+        new Array(4021005, 4021008, 4000030, 4003000),
+        new Array(4011007, 4011000, 4021007, 4000030, 4003000)
+      );
+      var matQtySet = new Array(
+        15,
+        new Array(30, 20),
+        new Array(30, 20),
+        new Array(30, 20),
+        new Array(2, 40),
+        new Array(2, 1, 10),
+        new Array(2, 50, 10),
+        new Array(3, 1, 60, 15),
+        new Array(3, 200, 80, 30),
+        new Array(3, 1, 40, 30),
+        new Array(1, 8, 1, 50, 50)
+      );
+      var costSet = new Array(
+        1000,
+        7000,
+        7000,
+        7000,
+        10000,
+        15000,
+        25000,
+        30000,
+        40000,
+        50000,
+        70000
+      );
+      item = itemSet[selectedItem];
+      mats = matSet[selectedItem];
+      matQty = matQtySet[selectedItem];
+      cost = costSet[selectedItem];
+    } else if (selectedType == 1) {
+      var itemSet = new Array(
+        1082033,
+        1082034,
+        1082038,
+        1082039,
+        1082043,
+        1082044,
+        1082047,
+        1082045,
+        1082076,
+        1082074,
+        1082067,
+        1082066,
+        1082093,
+        1082094
+      );
+      var matSet = new Array(
+        new Array(1082032, 4011002),
+        new Array(1082032, 4021004),
+        new Array(1082037, 4011002),
+        new Array(1082037, 4021004),
+        new Array(1082042, 4011004),
+        new Array(1082042, 4011006),
+        new Array(1082046, 4011005),
+        new Array(1082046, 4011006),
+        new Array(1082075, 4011006),
+        new Array(1082075, 4021008),
+        new Array(1082065, 4021000),
+        new Array(1082065, 4011006, 4021008),
+        new Array(1082092, 4011001, 4000014),
+        new Array(1082092, 4011006, 4000027)
+      );
+      var matQtySet = new Array(
+        new Array(1, 1),
+        new Array(1, 1),
+        new Array(1, 2),
+        new Array(1, 2),
+        new Array(1, 2),
+        new Array(1, 1),
+        new Array(1, 3),
+        new Array(1, 2),
+        new Array(1, 4),
+        new Array(1, 2),
+        new Array(1, 5),
+        new Array(1, 2, 1),
+        new Array(1, 7, 200),
+        new Array(1, 7, 150)
+      );
+      var costSet = new Array(
+        5000,
+        7000,
+        10000,
+        12000,
+        15000,
+        20000,
+        22000,
+        25000,
+        40000,
+        50000,
+        55000,
+        60000,
+        70000,
+        80000
+      );
+      item = itemSet[selectedItem];
+      mats = matSet[selectedItem];
+      matQty = matQtySet[selectedItem];
+      cost = costSet[selectedItem];
+    } else if (selectedType == 2) {
+      var itemSet = new Array(
+        1472001,
+        1472004,
+        1472007,
+        1472008,
+        1472011,
+        1472014,
+        1472018
+      );
+      var matSet = new Array(
+        new Array(4011001, 4000021, 4003000),
+        new Array(4011000, 4011001, 4000021, 4003000),
+        new Array(1472000, 4011001, 4000021, 4003001),
+        new Array(4011000, 4011001, 4000021, 4003000),
+        new Array(4011000, 4011001, 4000021, 4003000),
+        new Array(4011000, 4011001, 4000021, 4003000),
+        new Array(4011000, 4011001, 4000030, 4003000)
+      );
+      var matQtySet = new Array(
+        new Array(1, 20, 5),
+        new Array(2, 1, 30, 10),
+        new Array(1, 3, 20, 30),
+        new Array(3, 2, 50, 20),
+        new Array(4, 2, 80, 25),
+        new Array(3, 2, 100, 30),
+        new Array(4, 2, 40, 35)
+      );
+      var costSet = new Array(2000, 3000, 5000, 15000, 30000, 40000, 50000);
+      item = itemSet[selectedItem];
+      mats = matSet[selectedItem];
+      matQty = matQtySet[selectedItem];
+      cost = costSet[selectedItem];
+    } else if (selectedType == 3) {
+      var itemSet = new Array(
+        1472002,
+        1472003,
+        1472005,
+        1472006,
+        1472009,
+        1472010,
+        1472012,
+        1472013,
+        1472015,
+        1472016,
+        1472017,
+        1472019,
+        1472020
+      );
+      var matSet = new Array(
+        new Array(1472001, 4011002),
+        new Array(1472001, 4011006),
+        new Array(1472004, 4011001),
+        new Array(1472004, 4011003),
+        new Array(1472008, 4011002),
+        new Array(1472008, 4011003),
+        new Array(1472011, 4011004),
+        new Array(1472011, 4021008),
+        new Array(1472014, 4021000),
+        new Array(1472014, 4011003),
+        new Array(1472014, 4021008),
+        new Array(1472018, 4021000),
+        new Array(1472018, 4021005)
+      );
+      var matQtySet = new Array(
+        new Array(1, 1),
+        new Array(1, 1),
+        new Array(1, 2),
+        new Array(1, 2),
+        new Array(1, 3),
+        new Array(1, 3),
+        new Array(1, 4),
+        new Array(1, 1),
+        new Array(1, 5),
+        new Array(1, 5),
+        new Array(1, 2),
+        new Array(1, 6),
+        new Array(1, 6)
+      );
+      var costSet = new Array(
+        1000,
+        2000,
+        3000,
+        5000,
+        10000,
+        15000,
+        20000,
+        25000,
+        30000,
+        30000,
+        35000,
+        40000,
+        40000
+      );
+      item = itemSet[selectedItem];
+      mats = matSet[selectedItem];
+      matQty = matQtySet[selectedItem];
+      cost = costSet[selectedItem];
+    }
+
+    var prompt = "ÄãĞèÒªÎÒ°ïÄã×ö";
+    if (qty == 1) prompt += "#t" + item + "#?";
+    else prompt += qty + "¸ö#t" + item + "#?";
+
+    prompt += " ºÃµÄÎÒ»á°ïÄãÍê³ÉµÄ,µ«ÇëÄãÈ·ÈÏÄãµÄ±³°üÊÇ·ñÓĞ×ã¹»µÄ¿Õ¼äÅ¶#b";
+
+    if (mats instanceof Array) {
+      for (var i = 0; i < mats.length; i++) {
+        prompt +=
+          "\r\n#i" + mats[i] + "# " + matQty[i] * qty + " #t" + mats[i] + "#";
+      }
+    } else {
+      prompt += "\r\n#i" + mats + "# " + matQty * qty + " #t" + mats + "#";
+    }
+
+    if (cost > 0) prompt += "\r\n#i4031138# " + cost * qty + " ½ğ±Ò";
+
+    cm.sendYesNo(prompt);
+  } else if (status == 4 && mode == 1) {
+    var complete = true;
+
+    if (cm.getMeso() < cost * qty) {
+      cm.sendOk("Ôã¸â...ÄãµÄÇ®ºÃÏñ²»¹»Å¶...");
+      cm.dispose();
+      return;
+    } else {
+      if (mats instanceof Array) {
+        for (var i = 0; complete && i < mats.length; i++) {
+          if (!cm.haveItem(mats[i], matQty[i] * qty)) {
+            complete = false;
+          }
+        }
+      } else {
+        if (!cm.haveItem(mats, matQty * qty)) {
+          complete = false;
+        }
+      }
+    }
+    if (!complete) {
+      cm.sendOk("È·ÈÏÄãµÄ±³°üÊÇ·ñÓĞ²ÄÁÏ°É¡£");
+    } else {
+      if (mats instanceof Array) {
+        for (var i = 0; i < mats.length; i++) {
+          cm.gainItem(mats[i], -matQty[i] * qty);
+        }
+      } else {
+        cm.gainItem(mats, -matQty * qty);
+      }
+      if (cost > 0) {
+        cm.gainMeso(-cost * qty);
+      }
+      if (item == 4003000) {
+        cm.gainItem(4003000, 15 * qty);
+      } else {
+        cm.gainItem(item, qty);
+      }
+      cm.sendOk("ºÜ°ô°É?ÎÒµÄÊÖÒÕ,Èç¹û»¹ÓĞĞèÒª»¶Ó­À´ÕÒÎÒ,ÎÒÄÄ¶¼²»»áÈ¥µÄ.");
+    }
+    cm.dispose();
+  }
 }

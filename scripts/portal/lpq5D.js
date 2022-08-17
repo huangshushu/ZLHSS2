@@ -19,8 +19,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-
+importPackage(net.sf.cherry.server.maps);
+importPackage(net.sf.cherry.net.channel);
 
 /*
 Ludi PQ: 4th stage to 4th stage portal

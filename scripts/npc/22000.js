@@ -1,59 +1,37 @@
-﻿/* 
-	NPC Name: 		Shanks
-	Map(s): 		Maple Road : Southperry (60000)
-	Description: 		Brings you to Victoria Island
-*/
+/*
+ 
+ �ű����ʺ絺ȥ�����
+ */
+
+var ��� = 150;
 var status = 0;
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (status >= 0 && mode == 0) {
-    cm.sendOk("恩... 我猜你还有想在这做的事？");
-	cm.dispose();
-	return;
+  if (status >= 1 && mode == 0) {
+    cm.sendNext("���Ƿ�Ҫ���͵��������");
+    cm.dispose();
+    return;
+  }
+  if (mode == 1) status++;
+  else status--;
+  if (status == 0) {
+    cm.sendNext("��ã�����Ҫȥ#b�����#k��");
+  } else if (status == 1) {
+    var job = cm.getJob();
+    cm.sendYesNo("֧���� #v5200000# #b150#k ����Ҿ������ȥ��");
+    ��� = 150;
+  } else if (status == 2) {
+    if (cm.getMeso() < ���) {
+      cm.sendNext("���Ҳ�����!");
+    } else {
+      cm.gainMeso(-���);
+      cm.warp(2010000, 0);
     }
-    if (mode == 1)
-	status++;
-    else
-	status--;
-
-    if (status == 0) {
-    cm.sendYesNo("搭上了这艘船，你可以前往更大的大陆冒险。 只要给我 #e150 枫币#n，我会带你去 #b维多利亚岛#k。 不过，一旦离开了这里，就不能再回来囉。 你想要去维多利亚岛吗？");
-    } else if (status == 1) {
-	if (cm.haveItem(4031801)) {
-    cm.sendNextPrev("既然你有推荐信，我不会收你任何的费用。收起来，我们将前往维多利亚岛，坐好，旅途中可能会有点动荡！");
-	} else {
-	    cm.sendNext("真的只要 #e150 枫币#n 就能搭船!!");
-	}
-    } else if (status == 2) {
-	if (cm.haveItem(4031801)) {
-	    cm.sendNextPrev("既然你有推荐信，我不会收你任何的费用。收起来，我们将前往维多利亚岛，坐好，旅途中可能会有点动荡！");
-	} else {
-	    if (cm.getPlayerStat("LVL") >= 7) {
-		if (cm.getMeso() < 150) {
-		    cm.sendOk("什么？你说你想搭免费的船？ 你真是个怪人！");
-		    cm.dispose();
-		} else {
-		    cm.sendNext("哇! #e150#n 枫币我收到了！ 好，准备出发去维多利亚港囉！");
-		}
-	    } else {
-		cm.sendOk("让我看看... 我觉得你还不够强壮。 你至少要达到7等我才能让你到维多利亚港囉。");
-		cm.dispose();
-	    }
-	}
-    } else if (status == 3) {
-	if (cm.haveItem(4031801)) {
-	    cm.gainItem(4031801, -1);
-	    cm.warp(2010000,0);
-	    cm.dispose();
-	} else {
-	    cm.gainMeso(-150);
-	    cm.warp(2010000,0);
-	    cm.dispose();
-	}
-    }
+    cm.dispose();
+  }
 }

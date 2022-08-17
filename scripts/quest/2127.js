@@ -1,7 +1,10 @@
-/*
- ZEVMS冒险岛(079)游戏服务端
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
  */
-var status = -1;
+ var status = -1;
 
 function start(mode, type, selection) {
 	if (mode == -1) {
@@ -35,13 +38,12 @@ function end(mode, type, selection) {
 				qm.sendNext("我看你好像还没准备好，准备好在来找我吧。");
 				qm.dispose();
 			} else {
-				qm.sendNext("是否已经准备好前进沙漠了??");
+				qm.sendNext("是否已经准备好自己走路前进沙漠了??");
 			}
 		
 		} else if (status == 1) {
 			qm.sendNextPrev("我已经警告过你.");
 		} else if (status == 2) {
-			qm.warp(260000000);
 			qm.forceCompleteQuest();
 			qm.dispose();
 		}

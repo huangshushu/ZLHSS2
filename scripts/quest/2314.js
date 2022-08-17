@@ -1,12 +1,9 @@
-/* ===========================================================
-			Resonance
-	NPC Name: 		Minister of Home Affairs
-	Map(s): 		Mushroom Castle: Corner of Mushroom Forest(106020000)
-	Description: 	Quest -  Exploring Mushroom Forest(1)
-=============================================================
-Version 1.0 - Script Done.(18/7/2010)
-=============================================================
-*/
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 
 importPackage(Packages.client);
 
@@ -18,20 +15,20 @@ function start(mode, type, selection) {
 	    if(type == 1 && mode == 0)
 		    status -= 2;
 		else{
-			qm.sendNext("Please do not lose faith in our Kingdom of Mushroom.");
+			qm.sendNext("请不要失去对我们的信心 蘑菇王国.");
 			qm.dispose();
 			return;
 		}
 	}
 	if (status == 0)
-		qm.sendYesNo("In order to rescue the princess, you must first navigate the Mushroom Forest. King Pepe set up a powerful barrier forbidding anyone from entering the castle. Please investigate this matter for us.");
+		qm.sendYesNo("为了拯救公主，你必须先导航蘑菇森林。 皮佩国王设立了一个强大的障碍，禁止任何人进入城堡。 请为我们调查此事.");
 	if (status == 1)
-		qm.sendNext("You'll run into the barrier at the Mushroom Forest by heading east of where you are standing right now. Please be careful. I hear that the area is infested with crazy, fear-inducing monsters.");
+		qm.sendNext("你会跑到蘑菇森林的障碍，在你现在站在你的东边。 请小心。 我听说这个地区感染了疯狂的恐惧诱导的怪物.");
 	if(status == 2){
 		//qm.forceStartQuest();
 		//qm.forceStartQuest(2314,"1");
 		qm.gainExp(8300);
-		qm.sendOk("I see, so it was indeed not a regular barrier by any means. Great work there. If not for you help, we wouldn't have had a clue as to what that was all about.");
+		qm.sendOk("我看到，所以它确实不是一个常规的障碍以任何手段。 伟大的工作有。 如果不是为了你的帮助，我们不会有一个线索，这是关于什么.");
 		qm.forceCompleteQuest(); 
 		qm.dispose();
 	}
@@ -48,10 +45,10 @@ function end(mode, type, selection) {
 		}
 	}
 	if (status == 0)
-		qm.sendOk("I see that you have thoroughly investigated the barrier at the Mushroom Forest. What was it like?");
+		qm.sendOk("我看到你已经彻底调查了蘑菇森林的屏障。 它是什么样子?");
 	if (status == 1){
 		qm.gainExp(8300);
-		qm.sendOk("I see, so it was indeed not a regular barrier by any means. Great work there. If not for you help, we wouldn't have had a clue as to what that was all about.");
+		qm.sendOk("我看到，所以它确实不是一个常规的障碍以任何手段。 伟大的工作有。 如果不是为了你的帮助，我们不会有一个线索，这是关于什么.");
 		qm.forceCompleteQuest(); 
 		qm.dispose();
 		}

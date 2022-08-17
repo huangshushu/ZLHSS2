@@ -2,18 +2,18 @@ function enter(pi) {
     if (pi.getQuestStatus(6132) == 1) {
 	var em = pi.getEventManager("s4resurrection");
 	if (em == null) {
-	    pi.playerMessage("未加载事件，请联系管理员。" );
+	    pi.playerMessage("You're not allowed to enter with unknown reason. Try again." );
 	} else { // 923000100
 	    var prop = em.getProperty("started");
 	    if (prop == null || prop.equals("false")) {
 		em.startInstance(pi.getPlayer());
 		return true;
 	    } else {
-		pi.playerMessage("已经有人在挑战此任务，请稍后在尝试。");
+		pi.playerMessage("Someone is already attempting on the quest.");
 	    }
 	}
     } else {
-	pi.playerMessage("你不能进入封闭的地方。");
+	pi.playerMessage("You can't enter sealed place.");
     }
     return false;
 }

@@ -1,5 +1,4 @@
-
-/*
+﻿/*
 Kerning PQ: 3rd stage to 4th stage portal
 */
 
@@ -8,9 +7,8 @@ function enter(pi) {
 
     // only let people through if the eim is ready
     if (eim.getProperty("3stageclear") == null) { // do nothing; send message to player
-        pi.playerMessage(5, "您还没有通过任务。");
+	pi.playerMessage(5, "該洞口目前無法進入。");
     } else {
-        pi.warp(103000803, "st00");
-		pi.removeAll(4001008);
+	pi.warpParty(103000803, "st00");
     }
 }

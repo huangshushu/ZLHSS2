@@ -30,39 +30,46 @@ function action(mode, type, selection) {
 	    if (dd != null) {
 		dd.startInstance(cm.getPlayer());
 	    } else {
-                cm.sendOk("未知的错误。");
+		cm.sendOk("An unknown error occured.");
 	    }
 	    cm.dispose();
 	} else {
-            var prompt = "\r\n#b#L0#威廉的古堡是什么地方?#l\r\n#b#L1##t4001024#?#l\r\n#b#L2#公会战守护战?#l\r\n#b#L3#已经没有问题了。#l";
+	    var prompt = "\r\n#b#L0# What's Sharenian?#l\r\n#b#L1# #t4001024#? What's that?#l\r\n#b#L2# Guild Quest?#l\r\n#b#L3# No, I'm fine now.#l";
 	    if (selectedOption == -1) {
-                prompt = "\r\n我们公会联盟是从很久以前就开始，一直在努力解读古代的遗迹'祖母绿碑'。得到结果是发现祖母绿碑记载者这里其实就是枫之谷古文明的发源处'威廉的古堡'。而且还了解到传说中的宝石鲁碧安就在'威廉的古堡'的遗迹中，但由于宝石鲁碧安拥有神秘的力量﹐因此被'恶灵13'所霸占了。为了夺回鲁碧安公会联盟开始了公会守护战。" + prompt;
+		prompt = "We, the Union of Guilds, have been trying to decipher 'Emerald Tablet,' a treasured old relic, for a long time. As a result, we have found out that Sharenian, the mysterious country from the past, lay asleep here. We also found out that clues of #t4001024#, a legendary, mythical jewelry, may be here at the remains of Sharenian. This is why the Union of Guilds have opened Guild Quest to ultimately find #t4001024#." + prompt;
 	    } else {
-                prompt = "还有要问的嘛?" + prompt;
+		prompt = "Do you have any other questions?" + prompt;
 	    }
 	    cm.sendSimple(prompt);
 	}
     } else if (status == 1) {
 	selectedOption = selection;
 	if (selectedOption == 0) {
-            cm.sendNext("'威廉的古堡'是曾经统治维多利亚岛全境的古代文明发源地。在石人寺院或森林深处的神殿之类的古代建筑物都是'威廉的古堡'的遗址。");
-        } else if (selectedOption == 1) {
-            cm.sendNext("#t4001024#是传说中的能够使人永远年轻的宝石。听说拥有#t4001024#的人都灭亡了﹐也许'威廉的古堡'的灭亡也于此有关。");
+	    cm.sendNext("Sharenian was a literate civilization from the past that had control over every area of the Victoria Island. The Temple of Golem, the Shrine in the deep part of the Dungeon, and other old architectural constructions where no one knows who built it are indeed made during the Sharenian times.");
+	}
+	else if (selectedOption == 1) {
+	    cm.sendNext("#t4001024# is a legendary jewel that brings eternal youth to the one that possesses it. Ironically, it seems like everyone that had #t4001024# ended up downtrodden, which should explain the downfall of Sharenian.");
 	    status = -1;
-        } else if (selectedOption == 2) {
-            cm.sendNext("过去多次派勘到'威廉的古堡'。但是无人归还。所以我们这次决定集结众人之力展开公会守护战。我相信你们这些一直在努力增强力量的公会。");
-        } else if (selectedOption == 3) {
-            cm.sendOk("是吗？若有什么问题，请随时提出。");
-	    cm.dispose();
-        } else {
+	}
+	else if (selectedOption == 2) {
+	    cm.sendNext("I've sent groups of explorers to Sharenian before, but none of them ever came back, which prompted us to start the Guild Quest. We've been waiting for guilds that are strong enough to take on tough challenges, guilds like yours.");
+	}
+	else if (selectedOption == 3) {
+	    cm.sendOk("Really? If you have anything else to ask, please feel free to talk to me.");
 	    cm.dispose();
 	}
-    } else if (status == 2) {
+	else {
+	    cm.dispose();
+	}
+    }
+    else if (status == 2) { //should only be available for options 0 and 2
 	if (selectedOption == 0) {
-            cm.sendNextPrev("'威廉的古堡'最后的王室威廉公爵﹐据说他非常聪明而又仁慈。但是在某一天突然灭亡了﹐其原因还没弄清楚。");
-        } else if (selectedOption == 2) {
-            cm.sendNextPrev("这次公会守护战的目的是到'威廉的古堡'探险﹐并夺回#t4001024#。这个任务并不是靠强大的力量就能完成的。最重要的是要与同伴合作。");
-        } else {
+	    cm.sendNextPrev("The last king of Sharenian was a gentleman named Sharen III, and apparently he was a very wise and compassionate king. But one day, the whole kingdom collapsed, and there was no explanation made for it.");
+	}
+	else if (selectedOption == 2) {
+	    cm.sendNextPrev("The ultimate goal of this Guild Quest is to explore Sharenian and find #t4001024#. This is not a task where power solves everything. Teamwork is more important here.");
+	}
+	else {
 	    cm.dispose();
 	}
     }

@@ -1,10 +1,7 @@
-/* Cygnus revamp
-	Tyrant's Throne(Heliseum)
-    Made by Daenerys
-*/
 
 function enter(pi) {
-    pi.playPortalSE();
-    pi.warp(401060100,1);
+pi.playPortalSE();
+pi.openNpc(3001020);
+
     return true;
 }

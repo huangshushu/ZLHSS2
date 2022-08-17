@@ -1,8 +1,4 @@
-/*
- M7MS服务端
- 月妙副本事件
- M7MS服务端
- */
+
 var minPlayers = 3;
 
 function init() {

@@ -1,15 +1,14 @@
+/*
+ 
+òùòğ¹ÖÏµÁĞ
+ */
 function start() {
-	if (cm.getMap().getAllMonstersThreadsafe().size() == 0) {
-		cm.warpPlayer(105100300, 105100301);
-		cm.dispose();
-	} else {
-    	cm.sendYesNo("ä½ ç¡®å®šè¦ç¦»å¼€è¿™ä¸ªåœ°å›¾å˜›ï¼Ÿï¼Ÿ");
-	}
+  cm.sendYesNo("ÄãÈ·¶¨ÒªÀë¿ªÕâ¸öµØÍ¼Âï£¿£¿");
 }
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-		cm.warpPlayer(105100300, 105100100);
-    }
-    cm.dispose();
+  if (mode == 1) {
+    cm.warp(105100100, 5);
+  }
+  cm.dispose();
 }

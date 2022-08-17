@@ -6,7 +6,7 @@ function enter(pi) {
 		pi.warp(670010600, 4);
 		return true;
 	} else {
-		pi.getClient().getSession().write(org.rise.tools.MaplePacketCreator.serverNotice(5, "The gate is closed."));
+		pi.getClient().getSession().write(org.rise.tools.MaplePacketCreator.serverNotice(5, "门被关上了."));
 		return false;
 	}
 }

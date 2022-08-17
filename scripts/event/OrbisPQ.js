@@ -143,7 +143,7 @@ function changedMap(eim, player, mapid) {
         }
     } else if (mapid == 920011100 && em.getProperty("done").equals("0")) { //bonus
         em.setProperty("done", "1");
-        eim.restartEventTimer(60000); //minute
+        eim.restartEventTimer(6000); //minute
     }
 }
 

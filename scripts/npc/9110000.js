@@ -1,20 +1,20 @@
 var status = 0;
 var cost = 3000;
 function start() {
-    cm.sendYesNo("璇烽棶鏄惁鎯冲幓鏃ユ湰绁炵ぞ?? 3000鏋竵涓�娆~~~");
+    cm.sendYesNo("请问是否想去日本神社?? 3000枫币一次~~~~");
 }
 
 function action(mode, type, selection) {
     if (mode != 1) {
         if (mode == 0)
-        cm.sendOk("鏃㈢劧浣犱笉瑕侀偅灏辩畻浜唦~~");
+        cm.sendOk("既然你不要那就算了~~~");
         cm.dispose();
         return;
     }
     status++;
     if (status == 1) {
 		if(cm.getMeso() < cost) {
-		cm.sendOk("骞叉病閽辫繕鏁㈠幓鏃ユ湰绁炵ぞ!!");
+		cm.sendOk("干没钱还敢去日本神社!!");
 		cm.dispose();
 		} else {
 		cm.gainMeso(-cost);

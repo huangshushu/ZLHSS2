@@ -1,10 +1,19 @@
-ï»¿/*
+/*
 Lakelis - Victoria Road: Kerning City (103000000)
  **/
 
 var status = -1;
-var minMember = 3;
+var minMember = 1;
 var maxMember = 7;
+var ´ÎÊıÏŞÖÆ = 10;
+var ½±ÀøÔ¤ÀÀ = [
+
+	[4031997, 1, 100],
+	[2022468, 1, 100]
+];
+
+
+var eventMaps = Array(103000800, 103000801, 103000802, 103000803, 103000804, 103000805);
 
 function start() {
 	action(1, 0, 0);
@@ -23,69 +32,77 @@ function action(mode, type, selection) {
 	cm.removeAll(4001007);
 	cm.removeAll(4001008);
 	if (status == 0) {
-		cm.sendOk("#e<ç»„é˜Ÿå‰¯æœ¬: ç¬¬ä¸€æ¬¡åŒè¡Œ>#n \r\næ±‡é›†å¤§å®¶çš„åŠ›é‡å’Œæ™ºæ…§,æŠŠå¼ºå¤§çš„#bç»¿æ°´çµç‹#kæ‰“è´¥å§!â€œè·å–é€šè¡Œè¯â€â€œçŒœçŒœæ­£ç¡®ç­”æ¡ˆçš„ä½ç½®â€ç­‰é¢˜ç›®çš„æ­£ç¡®å›ç­”æ•°è¾¾åˆ°ä¸€å®šé‡çš„è¯,ç»¿æ°´çµç‹å°±ä¼šç™»åœº!\r\næ‚¨å½“å‰ç´¯è®¡é€šå…³ï¼š#r"+cm.getBossRankCount('åºŸå¼ƒå‰¯æœ¬æ€»æ¬¡æ•°')+"#kæ¬¡\r\næ‚¨å½“å‰å¸¦æ–°é€šå…³ï¼š#r"+cm.getBossRankCount('è¶Šçº§åºŸå¼ƒå‰¯æœ¬æ€»æ¬¡æ•°')+
-            "#kæ¬¡\r\næ‚¨å½“å‰ç´¯è®¡é€šå…³ç‚¹æ•°ï¼š#r"+cm.getBossRankPoints('åºŸå¼ƒå‰¯æœ¬æ€»ç‚¹æ•°')+"#kç‚¹\r\n" +
-			"#b\r\n\r\n#L0#æŒ‘æˆ˜å‰¯æœ¬\r\n"
-            // + "#b#L1#å‡çº§ç»¿é»æ¶²é‹å­"
-        );
+		var ÎÄ±¾ĞÅÏ¢ = "";
+		ÎÄ±¾ĞÅÏ¢ += "        #bÀï³Ìx1#k\r\n"
+        for (var i = 0; i < ½±ÀøÔ¤ÀÀ.length; i++) {
+            ÎÄ±¾ĞÅÏ¢ += "   " + cm.ÏÔÊ¾ÎïÆ·(½±ÀøÔ¤ÀÀ[i][0]) + "x" + ½±ÀøÔ¤ÀÀ[i][1] +" " + ½±ÀøÔ¤ÀÀ[i][2] +" % #k\r\n";
+        }
+		cm.sendOk("<×é¶Ó¸±±¾: µÚÒ»´ÎÍ¬ĞĞ>#n \r\n»ã¼¯´ó¼ÒµÄÁ¦Á¿ºÍÖÇ»Û,°ÑÇ¿´óµÄ#bÂÌË®ÁéÍõ#k´ò°Ü°É!¡°»ñÈ¡Í¨ĞĞÖ¤¡±¡°²Â²ÂÕıÈ·´ğ°¸µÄÎ»ÖÃ¡±µÈÌâÄ¿µÄÕıÈ·»Ø´ğÊı´ïµ½Ò»¶¨Á¿µÄ»°,ÂÌË®ÁéÍõ¾Í»áµÇ³¡!\r\nÍ¨¹Ø»ñµÃ:	" + ÎÄ±¾ĞÅÏ¢ + " \r\n#r½ñÈÕÒÑÍê³É" + cm.ÅĞ¶ÏÃ¿ÈÕÖµ("·ÏÆú¶¼ÊĞ") + "´Î\r\n#b#L0#ÌôÕ½¸±±¾ ");
 	} else if (status == 1) {
-		sel_0 = selection;
-		if (sel_0 == 1) {//å‡çº§ç»¿é»æ¶²é‹å­
-            cm.dispose();
-            cm.openNpc(9020000,1);
+		if (cm.getParty() == null) { // No Party
+			cm.sendOk("Çë´´½¨¶ÓÎé£¡");
+		} else if (!cm.isLeader()) { // Not Party Leader
+			cm.sendOk("Çë½ĞÄãµÄ¶Ó³¤À´ÕÒÎÒ!");
 		} else {
-            if (cm.getParty() == null) { // No Party
-                cm.sendOk("è¯·åˆ›å»ºé˜Ÿä¼ï¼");
-            } else if (!cm.isLeader()) { // Not Party Leader
-                cm.sendOk("è¯·å«ä½ çš„é˜Ÿé•¿æ¥æ‰¾æˆ‘!");
-            } else {
-                // Check if all party members are within Levels 21-30
-                var party = cm.getParty().getMembers();
-                var mapId = cm.getMapId();
-                var next = true;
-                var levelValid = 0;
-                var inMap = 0;
+			// Check if all party members are within Levels 21-30
+			var party = cm.getParty().getMembers();
+			var mapId = cm.getMapId();
+			var next = true;
+			var levelValid = 0;
+			var inMap = 0;
 
-                var it = party.iterator();
-                while (it.hasNext()) {
-                    var cPlayer = it.next();
-                    if ((cPlayer.getLevel() >= 21 && cPlayer.getLevel() <= 200) || cPlayer.getJobId() == 900) {
-                        levelValid += 1;
-                    } else {
-                        next = false;
-                    }
-                    if (cPlayer.getMapid() == mapId) {
-                        inMap += (cPlayer.getJobId() == 900 ? 4 : 1);
-                    }
-                }
-                if (party.size() >= maxMember || inMap < minMember) {
-                    next = false;
-                }
-                if (next) {
-                    var em = cm.getEventManager("KerningPQ");
-                    if (em == null) {
-                        cm.sendOk("æ‰¾ä¸åˆ°è„šæœ¬ï¼Œè¯·è”ç³»GMï¼");
-                        cm.dispose();
-                        return;
-                    } else {
-                        var prop = em.getProperty("state");
-                        if (prop == null || prop.equals("0")) {
-                            cm.savePartyLocation("DUTY_JOIN");
-                            em.startInstance(cm.getParty(), cm.getMap());
-                        } else {
-                            cm.sendOk("å·²ç»æœ‰é˜Ÿä¼åœ¨é‡Œé¢æŒ‘æˆ˜äº†ã€‚");
-                            cm.dispose();
-                            return;
-                        }
-                        cm.removeAll(4001008);
-                        cm.removeAll(4001007);
-                    }
-                } else {
-                    cm.sendOk("ä½ çš„é˜Ÿä¼æœ€å°‘éœ€è¦3ä¸ªäºº,ç­‰çº§å¿…é¡»åœ¨21-200ä¹‹é—´,è¯·ç¡®è®¤ä½ çš„é˜Ÿå‹æœ‰æ²¡æœ‰éƒ½åœ¨è¿™é‡Œ,æˆ–æ˜¯é‡Œé¢å·²ç»æœ‰äººäº†!");
-                }
-            }
-            cm.dispose();
+			var it = party.iterator();
+			while (it.hasNext()) {
+				var cPlayer = it.next();
+				if ((cPlayer.getLevel() >= 20 && cPlayer.getLevel() <= 256) || cPlayer.getJobId() == 900) {
+					levelValid += 1;
+				} else {
+					next = false;
+				}
+				if (cPlayer.getMapid() == mapId) {
+					inMap += (cPlayer.getJobId() == 900 ? 4 : 1);
+				}
+			}
+			if (party.size() >= maxMember || inMap < minMember) {
+				next = false;
+			}
+			// if(cm.ÅĞ¶ÏÍÅ¶ÓÃ¿ÈÕ("·ÏÆú¶¼ÊĞ", ´ÎÊıÏŞÖÆ) == 0){
+				// cm.sendOk("±§Ç¸£¬½ñÌìÄãµÄ¶ÓÎéÀïÓĞÈËÒÑ¾­×öÂú " + ´ÎÊıÏŞÖÆ + " ´ÎÁË£¡");
+				// cm.dispose();
+				// return;
+			// }
+			if (next) {
+				var em = cm.getEventManager("KerningPQ");
+				if (em == null) {
+					cm.sendOk("ÕÒ²»µ½½Å±¾£¬ÇëÁªÏµGM£¡");
+					cm.dispose();
+					return;
+				} else {
+					var prop = em.getProperty("state");
+					var chrInMap = false;
+					for(var i = 0; i < eventMaps.length; i++){
+						if(cm.getPlayer().isGM()){
+							cm.playerMessage(6, "µØÍ¼ " + eventMaps[i] + "  Íæ¼ÒÊıÁ¿£º" + cm.getC().getChannelServer().getMapFactory().getMap(eventMaps[i]).getCharactersSize());//²âÊÔ
+						}
+						if(cm.getC().getChannelServer().getMapFactory().getMap(eventMaps[i]).getCharactersSize() > 0){
+							chrInMap = true;
+							break;
+						}
+					}
+					if (prop == null || prop.equals("0") || !chrInMap) {
+						em.startInstance(cm.getParty(), cm.getMap());
+					} else {
+						cm.sendOk("ÒÑ¾­ÓĞ¶ÓÎéÔÚÀïÃæÌôÕ½ÁË¡£");
+						cm.dispose();
+						return;
+					}
+					cm.removeAll(4001008);
+					cm.removeAll(4001007);
+				}
+			} else {
+				cm.sendOk("ÄãµÄ¶ÓÎéĞèÒª¸öÈË,µÈ¼¶±ØĞëÔÚ21-255Ö®¼ä,ÇëÈ·ÈÏÄãµÄ¶ÓÓÑÓĞÃ»ÓĞ¶¼ÔÚÕâÀï,»òÊÇÀïÃæÒÑ¾­ÓĞÈËÁË!");
+			}
 		}
-
+		cm.dispose();
 	}
 }

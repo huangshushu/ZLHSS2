@@ -1,7 +1,9 @@
-/*
- * Cygnus 3rd Job advancement - Striker
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
  */
-
 var status = -1;
 
 function start(mode, type, selection) {
@@ -25,9 +27,10 @@ function start(mode, type, selection) {
 	} else {
 	    if (qm.canHold(1142068)) {
 		qm.gainItem(1142068, 1);
+		qm.removeAll(4032179);
 		qm.changeJob(1511);
 		qm.gainAp(5);
-		qm.sendOk("因为这一刻，你现在的骑士警长。从这一刻起，你应随身携带自己以尊严和尊重你的相称新标题天鹅骑士的骑士警长。");
+		qm.sendOk("因为这一刻，你现在是奇袭者。从这一刻起，你是受万人尊严和尊重的奇袭者。");
 	    } else {
 		qm.sendOk("请先把道具栏空出一些空间哦。");
 	    }

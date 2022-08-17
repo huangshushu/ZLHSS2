@@ -1,9 +1,4 @@
 function start() {
-	if (cm.haveMonster(5090001)) {
-		cm.getMap().killMonster(5090001);
-		cm.mapMessage("鐪嬭捣鏉ヤ綘闈炲父鐨勭敤蹇冩潵鍏崇湅浣犵殑鎴愮哗鍛紒");
-	} else {
-		cm.sendNext("浣犱篃浼氭潵鍏冲績浣犵殑鎴愮哗鍟婏紵");
-	}
+	cm.sendNext("你也会来关心你的成绩啊？");
 	cm.dispose();
 }

@@ -4,7 +4,7 @@
  */
  
  function start() {
-	cm.sendNext("此功能已关闭。");
+	cm.sendNext("�˹����ѹرա�");
 	cm.dispose();
 }
 /*
@@ -28,7 +28,7 @@ function action(mode, type, selection) {
 	status++;
 	if (status == 1) {
 		var bbb = false;
-		var selStr = "请不要拿来交换枫币之类的 避免发生争执\r\n你要丢哪个点装 丢出来会丢在地上 丢宠物的话会直接消失\r\n请不要拿来交换枫币之类的 避免发生争执\r\n\r\n#b";
+		var selStr = "�벻Ҫ�����������֮��� ���ⷢ����ִ\r\n��Ҫ���ĸ���װ �������ᶪ�ڵ��� ������Ļ���ֱ����ʧ\r\n�벻Ҫ�����������֮��� ���ⷢ����ִ\r\n\r\n#b";
 		for (var x = 0; x < invs.length; x++) {
 			var inv = cm.getInventory(invs[x]);
 			for (var i = 0; i <= inv.getSlotLimit(); i++) {
@@ -50,7 +50,7 @@ function action(mode, type, selection) {
 			}
 		}
 		if (!bbb) {
-			cm.sendOk("你没有任何的点装.");
+			cm.sendOk("��û���κεĵ�װ.");
 			cm.dispose();
 			return;
 		}
@@ -65,14 +65,14 @@ function action(mode, type, selection) {
 			statsSel = inzz.getItem(slot_2[selected]);
 		}
 		if (statsSel == null) {
-			cm.sendOk("错误, 请再尝试一次.");
+			cm.sendOk("����, ���ٳ���һ��.");
 			cm.dispose();
 			return;
 		}
-		cm.sendGetNumber("你想要丢掉 #v" + statsSel.getItemId() + "##t" + statsSel.getItemId() + "#吗?\r\n请输入数量", 1, 1, statsSel.getQuantity());
+		cm.sendGetNumber("����Ҫ���� #v" + statsSel.getItemId() + "##t" + statsSel.getItemId() + "#��?\r\n����������", 1, 1, statsSel.getQuantity());
 	} else if (status == 3) {
 		if (!cm.dropItem(selected, invv, selection)) {
-			cm.sendOk("错误, 请再尝试一次.");
+			cm.sendOk("����, ���ٳ���һ��.");
 			cm.dispose();
 		} else {
 			status = 0;

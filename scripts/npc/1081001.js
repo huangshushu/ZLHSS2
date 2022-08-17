@@ -1,34 +1,44 @@
-ï»¿/**
-	Pison - Florina Beach(110000000)
-**/
+/*
+ 
+ */
 var status = -1;
 var returnmap = -1;
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-	status++;
+  if (mode == 1) {
+    status++;
+  } else {
+    cm.sendNext(
+      "Äã²»»ØÈ¥ #m" +
+        returnmap +
+        "# ÄÇÕæÊÇÌ«°ôÁË!\r\n¿´¿´ÎÒÔÚÕâ±ß»¹²»ÊÇ¹ıµÃºÃºÃ£¬ºÍÄã½²»°·Â·ğ»Øµ½ÁËÒÔÇ°ÄØ!"
+    );
+    cm.safeDispose();
+    return;
+  }
+  if (status == 0) {
+    returnmap = cm.getSavedLocation("FLORINA");
+    cm.sendSimple(
+      "ËùÒÔÄãÏëÀë¿ª #b#m110000000##k? Èç¹ûÄãÏëÎÒ¿ÉÒÔ°ïÖúÄã»Øµ½ #b#m" +
+        returnmap +
+        "##k. µ«ÊÇĞèÒª1500½ğ±Ò r\n\r\n#L0##b ÎÒÔ¸Òâ¸¶ 1500 ½ğ±Ò.#l"
+    );
+  } else if (status == 1) {
+    cm.sendYesNo(
+      "ÄãÈ·¶¨ÄãÏë»Øµ½ #b#m" + returnmap + "##k? ºÃ°É£¬ÎÒÃÇµÃ×ß¿ìµãÁË"
+    );
+  } else if (status == 2) {
+    if (cm.getMeso() < 1500) {
+      cm.sendOk("ºÃÏñ½ğ±Ò²»×ãÒ®!");
+      cm.dispose();
     } else {
-	cm.sendNext("ä½ ä¸å›å» #m"+returnmap+"# é‚£çœŸæ˜¯å¤ªæ£’äº†!\r\nçœ‹çœ‹æˆ‘åœ¨è¿™è¾¹è¿˜ä¸æ˜¯è¿‡å¾—å¥½å¥½ï¼Œå’Œä½ è®²è¯å½·å½¿å›åˆ°äº†ä»¥å‰å‘¢!");
-	cm.safeDispose();
-	return;
+      if (returnmap < 0) {
+        returnmap = 104000000;
+      }
+      cm.gainMeso(-1500);
+      cm.warp(returnmap, 0);
+      cm.clearSavedLocation("FLORINA");
+      cm.dispose();
     }
-    if (status == 0) {
-	returnmap = cm.getSavedLocation("FLORINA");
-	cm.sendSimple("æ‰€ä»¥ä½ æƒ³ç¦»å¼€ #b#m110000000##k? å¦‚æœä½ æƒ³æˆ‘å¯ä»¥å¸®åŠ©ä½ å›åˆ° #b#m"+returnmap+"##k. ä½†æ˜¯éœ€è¦1500æ«å¸ r\n\r\n#L0##b æˆ‘æ„¿æ„ä»˜ 1500 æ«å¸.#l");
-    } else if (status == 1) {
-	cm.sendYesNo("ä½ ç¡®å®šä½ æƒ³å›åˆ° #b#m"+returnmap+"##k? å¥½å§ï¼Œæˆ‘ä»¬å¾—èµ°å¿«ç‚¹äº†");
-    } else if (status == 2) {
-	if (cm.getMeso() < 1500) {
-		cm.sendOk("å¥½åƒæ«å¸ä¸è¶³è€¶!");
-		cm.dispose();
-	} else {
-	if (returnmap < 0) {
-		returnmap = 104000000;
-	}
-	cm.gainMeso(-1500);
-	cm.warp(returnmap, 0);
-	cm.clearSavedLocation("FLORINA");
-	cm.dispose();
-    }
-}
+  }
 }

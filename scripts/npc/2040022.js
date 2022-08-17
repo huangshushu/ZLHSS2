@@ -35,11 +35,6 @@ function action(mode, type, selection) {
 
         cm.sendSimple(selStr);
     } else if (status == 1 && mode == 1) {
-        if (selection < 0) {
-            cm.sendOk("脚本出错，请联系管理员...");
-            cm.dispose();
-            return;
-        }
         selectedType = selection;
         var selStr;
         var weapon;
@@ -83,11 +78,6 @@ function action(mode, type, selection) {
             cm.sendSimple(selStr);
         }
     } else if (status == 2 && mode == 1) {
-        if (selection < 0) {
-            cm.sendOk("脚本出错，请联系管理员...");
-            cm.dispose();
-            return;
-        }
         selectedItem = selection;
         if (selectedType == 1) { //warrior weapon
             var itemSet = new Array(1302008, 1302004, 1302009, 1302010, 1312005, 1312006, 1312007, 1312008, 1322014, 1322015, 1322016, 1322017, 1402002, 1402006, 1402007, 1402003, 1412006, 1412004, 1412005, 1412003, 1422001, 1422008, 1422007, 1422005, 1432002, 1432003, 1432005, 1432004, 1442001, 1442003, 1442009, 1442005);

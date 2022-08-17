@@ -1,7 +1,4 @@
 function enter(pi) {
-	if (pi.isQuestActive(1031)){
-		pi.ShowWZEffect("UI/tutorial.img/25");
-		return true;
-	}
-return false;
+	pi.showInstruction("开始踏上旅途吧~", 120, 1);
+	
 }

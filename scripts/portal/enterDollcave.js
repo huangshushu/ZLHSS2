@@ -1,7 +1,12 @@
+/*
+ ZEVMS冒险岛(079)游戏服务端
+ */
 function enter(pi) {
-    if (pi.getQuestStatus(21720) == 1) {
-	pi.warp(910050200,0);
+    if (pi.getQuestStatus(21728) > 0) {
+        pi.打开NPC(2007,21728);
+        return true;
     } else {
-    	pi.warp(910050300,0);
+        pi.playerMessage(5, "因不明的力量，你无法进入。");
+        return false;
     }
 }

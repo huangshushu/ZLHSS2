@@ -1,8 +1,10 @@
-锘縡unction start() {
-	if (cm.getQuestStatus(6410) == 1) {
-		cm.warp(925010000,0);
-	} else {
-		cm.sendOk("鍦ㄤ笘鐣屼笂浠�涔堬紝浣犺浠�涔堬紵");
+/* Author: aaroncsn (MapleSea Like)
+	NPC Name: 		Shulinch
+	Map(s): 		Nautilus: PRactice Grounds(120000104)
+	Description: 		Unknown
+*/
+
+function start(){
+	cm.sendOk("在世界上什么，你说什么？");
+	cm.dispose();
 	}
-    cm.dispose();
-}

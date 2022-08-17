@@ -1,8 +1,6 @@
 /*
-	NPC Name: 		Mr. Kim
-	Map(s): 		Victoria Road : Lith Harbor (104000000)
-	Description: 		Storage
-*/
+ ZEVMS冒险岛(079)游戏服务端
+ */
 function action(mode, type, selection) {
     cm.sendStorage();
     cm.dispose();

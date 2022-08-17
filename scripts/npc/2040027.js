@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 	Fourth Eos Rock - Ludibrium : Eos Tower 1st Floor (221020000)
 */
 
@@ -20,9 +20,9 @@ function action(mode, type, selection) {
 	status--;
     if (status == 0) {
 	if (cm.haveItem(4001020)) {
-	    cm.sendYesNo("ä½ æ˜¯å¦è¦ä½¿ç”¨#t4001020# ä¼ é€åˆ°#m221021700# å‘¢ï¼Ÿï¼Ÿ");
+	    cm.sendYesNo("ÄãÊÇ·ñÒªÊ¹ÓÃ#t4001020# ´«ËÍµ½#m221021700# ÄØ£¿£¿");
 	} else {
-	    cm.sendOk("ä½ éœ€è¦æœ‰#t4001020# æ‰å¯ä»¥å¯åŠ¨ã€‚");
+	    cm.sendOk("ÄãĞèÒªÓĞ#t4001020# ²Å¿ÉÒÔÆô¶¯¡£");
 	    cm.dispose();
 	}
     } else if (status == 1) {

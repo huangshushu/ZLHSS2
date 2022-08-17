@@ -1,3 +1,4 @@
-function enter(pi) {
-    pi.playerMessage("不在活动期间。");
+﻿function enter(pi) {
+ //  pi.warp(921174000,0);
+	pi.openNpc(9000386,"变态boss");
 }

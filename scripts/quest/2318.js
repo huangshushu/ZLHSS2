@@ -1,13 +1,9 @@
-/* ===========================================================
-			Resonance
-	NPC Name: 		Scarrs
-	Map(s): 		Mushroom Castle: Corner of Mushroom Forest(106020000)
-	Description: 	Quest -  Killer Mushroom Spores(2)
-=============================================================
-Version 1.0 - Script Done.(18/7/2010)
-=============================================================
-*/
-
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 importPackage(Packages.client);
 
 var status = -1;
@@ -18,16 +14,16 @@ function start(mode, type, selection) {
 	    if(type == 1 && mode == 0)
 		    status -= 2;
 		else{
-			qm.sendOk("I understand it's not an easy task, but I can't make #bKiller Mushroom Spores#k without them. Please reconsider.");
+			qm.sendOk("我明白这不是一个容易的任务，但我不能做 #b杀手孢菇#k 没有他们。 请重新考虑.");
 			qm.dispose();
 			return;
 		}
 	}
 	if (status == 0)
-		qm.sendAcceptDecline("Hmmm... I looked into the making of the Spores while you were gathering up the Poison Mushroom Caps, and realised that we'll need more materials for it. I want you to gather up one more set of items. Can you do it?");
+		qm.sendAcceptDecline("嗯......我看着你的孢子的制作，而你正在聚集 毒蘑菇帽, 并意识到我们需要更多的材料。 我想让你再收集一组项目。 你可以做到吗?");
 	if (status == 1){
 		qm.forceStartQuest();
-		qm.sendOk("Okay, I want you to defeat the Regenade Spores and bring back #b50 Mutated Spores#k in return.");
+		qm.sendOk("好吧，我要你打败叛徒孢子 并带回 #b50 突变孢子#k 回报.");
 		qm.dispose();
 	}
 }
@@ -43,14 +39,14 @@ function end(mode, type, selection) {
 		}
 	}
 	if (status == 0)
-		qm.sendOk("Did you gather up all the necessary ingredients for it?")
+		qm.sendOk("你收集了它的所有必要的成分?")
 	if (status == 1){
 		qm.gainExp(11500);
 		qm.gainItem(4000499, -50);
-		qm.sendNext("Okay, these should be enough for me to make the #bKiller Mushroom Spores.#k Please hold on for a bit.");
+		qm.sendNext("好吧，这些应该足够让我做 #b杀手孢菇.#k 请持续一会儿.");
 		qm.forceCompleteQuest();
 	} if(status == 2){
-		qm.sendPrev("Okay, here are the Killer Mushroom Spores. Hopefully this will be enough for you to save our princess and help regain our kingdom. Good luck!");
+		qm.sendPrev("好吧，这里是 杀手孢菇. 希望这将是足够你救救我们的公主，帮助重新获得我们的王国。 祝你好运!");
 		qm.gainItem(2430014, 1);
 		qm.dispose();
 	}

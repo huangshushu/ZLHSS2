@@ -1,4 +1,4 @@
 function enter(pi) {
-	pi.openNPC(2007,2);
+	pi.打开NPC(2007,2);
 	return true;
 }

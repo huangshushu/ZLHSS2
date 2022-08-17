@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 	Weaver - Ludibrium : Ludibrium Pet Walkway (220000006)
 **/
 
@@ -14,7 +14,7 @@ function action(mode, type, selection) {
 	cm.dispose();
 	return;
     } else if (status >= 1 && mode == 0) {
-	cm.sendNext("éœ€è¦çš„æ—¶å€™å¯ä»¥æ¥æ‰¾æˆ‘ã€‚");
+	cm.sendNext("ÐèÒªµÄÊ±ºò¿ÉÒÔÀ´ÕÒÎÒ¡£");
 	cm.dispose();
 	return;
     }
@@ -23,14 +23,14 @@ function action(mode, type, selection) {
     else
 	status--;
     if (status == 0) {
-	cm.sendYesNo("è¿™æ˜¯åœ¨è·¯ä¸Šï¼Œä½ å¯ä»¥åŽ»ä¸Žä½ çš„å® ç‰©æ•£æ­¥ã€‚ä½ å¯ä»¥èµ°åŠ¨çš„ï¼Œæˆ–è€…ä½ å¯ä»¥è®­ç»ƒä½ çš„å® ç‰©è¦ç»è¿‡è¿™é‡Œçš„éšœç¢ã€‚å¦‚æžœä½ ä¸æ˜¯å¤ªå¯†åˆ‡çš„ä¸Žæ‚¨çš„å® ç‰©ç„¶è€Œï¼Œè¿™å¯èƒ½ä¼šå‡ºçŽ°é—®é¢˜ï¼Œä»–ä¸ä¼šå¬ä»Žä½ çš„å‘½ä»¤ä¸€æ ·å¤š......é‚£ä¹ˆï¼Œä½ æœ‰ä»€ä¹ˆæ„Ÿæƒ³ï¼Ÿæƒ³åŸ¹å…»ä½ çš„å® ç‰©ï¼Ÿ");
+	cm.sendYesNo("ÕâÊÇÔÚÂ·ÉÏ£¬Äã¿ÉÒÔÈ¥ÓëÄãµÄ³èÎïÉ¢²½¡£Äã¿ÉÒÔ×ß¶¯µÄ£¬»òÕßÄã¿ÉÒÔÑµÁ·ÄãµÄ³èÎïÒª¾­¹ýÕâÀïµÄÕÏ°­¡£Èç¹ûÄã²»ÊÇÌ«ÃÜÇÐµÄÓëÄúµÄ³èÎïÈ»¶ø£¬Õâ¿ÉÄÜ»á³öÏÖÎÊÌâ£¬Ëû²»»áÌý´ÓÄãµÄÃüÁîÒ»Ñù¶à......ÄÇÃ´£¬ÄãÓÐÊ²Ã´¸ÐÏë£¿ÏëÅàÑøÄãµÄ³èÎï£¿");
     } else if (status == 1) {
 	if (cm.haveItem(4031128)) {
-	    cm.sendNext("æ‹¿åˆ°è¿™ä¸€å°ä¿¡ï¼Œè·³è·ƒè¿‡é‚£äº›éšœç¢æŠŠè¿™å°ä¿¡ç»™æˆ‘å¼Ÿå¼Ÿä»–ä¼šç»™ä½ å¥–åŠ±...");
+	    cm.sendNext("ÄÃµ½ÕâÒ»·âÐÅ£¬ÌøÔ¾¹ýÄÇÐ©ÕÏ°­°ÑÕâ·âÐÅ¸øÎÒµÜµÜËû»á¸øÄã½±Àø...");
 	    cm.dispose();
 	} else {
 	    cm.gainItem(4031128, 1);
-	    cm.sendOk("å¥½è¿!");
+	    cm.sendOk("ºÃÔË!");
 	    cm.dispose();
 	}
     }

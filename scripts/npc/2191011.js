@@ -1,4 +1,4 @@
-/* 
+/* Author: Xterminator
 	NPC Name: 		Peter
 	Map(s): 		Maple Road: Entrance - Mushroom Town Training Camp (3)
 	Description: 	Takes you out of Entrace of Mushroom Town Training Camp

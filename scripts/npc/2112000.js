@@ -1,22 +1,26 @@
+/*
+ ZEVMS冒险岛(079)游戏服务端
+ 脚本：罗密欧与朱丽叶
+ */
+ 
 var status = -1;
 
 function action(mode, type, selection) {
     var em = cm.getEventManager("Romeo");
     if (em == null) {
-	cm.sendOk("...");
-	cm.dispose();
-	return;
+        cm.sendOk("继续下去吧？");
+        cm.dispose();
+        return;
     }
     if (em.getProperty("stage").equals("1") && em.getProperty("stage5").equals("0")) {
-	//advance to angry!
-	cm.sendOk("What... a suspicious conspiracy? This can't be...");
-	em.setProperty("stage", "2");
+        cm.sendOk("什么。。。可疑的阴谋？这不可能…");
+        em.setProperty("stage", "2");
     } else if (em.getProperty("stage5").equals("1") && cm.getMap().getAllMonstersThreadsafe().size() == 0) {
-	cm.sendOk("Continue.");	
-	em.setProperty("stage5", "2");
-	cm.getMap().setReactorState();
+        cm.sendOk("继续.");
+        em.setProperty("stage5", "2");
+        cm.getMap().setReactorState();
     } else {
-	cm.sendOk("...");
+        cm.sendOk("...");
     }
     cm.dispose();
 }

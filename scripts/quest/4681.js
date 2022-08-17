@@ -1,8 +1,9 @@
-/*
-	任务: 通往未来之门
-	描述: 与阿夕亚的相遇
-*/
-
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 var status = -1;
 
 function start(mode, type, selection) {
@@ -22,7 +23,7 @@ function start(mode, type, selection) {
     switch (status) {
     case 0:
         if (qm.getQuestCustomData() != null) { // if (qm.getQuestCustomData().equals("readHistory")) {
-            qm.sendSimple("枫之谷世界的居民，接受考验的结果如何？#b \n\r #L0#获得了时间旅行者沙漏！#l \n\r #L1#找到了逆奥之流。（商城道具）#l");
+            qm.sendSimple("冒险岛世界的居民，接受考验的结果如何？#b \n\r #L0#获得了时间旅行者沙漏！#l \n\r #L1#找到了逆奥之流。（商城道具）#l");
             status = 99;
         } else {
             qm.sendNext("我是#p9120025#，来自#m802000101#为逆奥之城感到惋惜的人。");
@@ -35,10 +36,10 @@ function start(mode, type, selection) {
         qm.sendNextPrev("你真的长大了。\r\n<格里特你说的是正确的…>");
         break;
     case 3:
-        qm.sendNextPrev("我来到枫之谷的时候，当时你还小，现在已成长为一位堂堂正正的战士了。对一直以来守护着你的我而言…没有比这个更令人高兴的事了…\r\n（#p9120025#的眼眶泛红）");
+        qm.sendNextPrev("我来到冒险岛的时候，当时你还小，现在已成长为一位堂堂正正的战士了。对一直以来守护着你的我而言…没有比这个更令人高兴的事了…\r\n（#p9120025#的眼眶泛红）");
         break;
     case 4:
-        qm.sendNextPrev("…\r\n你不断的磨练必杀技术，以坚强意志造就出不屈不挠的精神，又是力量的求道者，也曾经和枫之谷世界黑暗军队交战过，这样的你一定可以…");
+        qm.sendNextPrev("…\r\n你不断的磨练必杀技术，以坚强意志造就出不屈不挠的精神，又是力量的求道者，也曾经和冒险岛世界黑暗军队交战过，这样的你一定可以…");
         break;
     case 5:
         qm.sendNextPrev("─ 对不起，我刚才说话的口气太没礼貌了。");

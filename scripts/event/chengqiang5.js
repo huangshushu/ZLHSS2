@@ -17,7 +17,7 @@ function setup() {
 
     var map = eim.setInstanceMap(211060900);
     map.resetFully();
-    eim.startEventTimer(1800000); //30 ï¿½ï¿½
+    eim.startEventTimer(1800000); //30 ·Ö
 
     return eim;
 }

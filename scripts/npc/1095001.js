@@ -14,19 +14,19 @@ function action(mode, type, selection) {
 	status--;
     }
     if (status == 0) {
-		var selStr = "é€‰æ‹©ä¸€ä¸ªä½ æƒ³è¦å»çš„åŸ¹è‚²ä¸­å¿ƒ.";
+		var selStr = "Ñ¡ÔñÒ»¸öÄãÏëÒªÈ¥µÄÅàÓıÖĞĞÄ.";
 		for (var i = 0; i < num; i++) {
-			selStr += "\r\n#b#L" + i + "#åŸ¹è®­ä¸­å¿ƒ " + i + " (" + cm.getPlayerCount(map + i) + "/" + maxp + ")#l#k";
+			selStr += "\r\n#b#L" + i + "#ÅàÑµÖĞĞÄ " + i + " (" + cm.getPlayerCount(map + i) + "/" + maxp + ")#l#k";
 		}
 		cm.sendSimple(selStr);
     } else if (status == 1) {
 		if (selection < 0 || selection >= num) {
 			cm.dispose();
 		} else if (cm.getPlayer().getLevel() >= 20) {
-            cm.sendNext("äºŒåç­‰ä»¥åæ— æ³•ä½¿ç”¨å”·ã€‚");
+            cm.sendNext("¶şÊ®µÈÒÔºóÎŞ·¨Ê¹ÓÃà¡¡£");
             cm.dispose();
 		} else if (cm.getPlayerCount(map + selection) >= maxp) {
-			cm.sendNext("è¿™ä¸ªåŸ¹è‚²ä¸­å¿ƒå·²ç»æ»¡äººï¼Œè¯·ç¨åå†å°è¯•!");
+			cm.sendNext("Õâ¸öÅàÓıÖĞĞÄÒÑ¾­ÂúÈË£¬ÇëÉÔºóÔÙ³¢ÊÔ!");
 			status = -1;
 		} else {
 			cm.warp(map + selection, 0);

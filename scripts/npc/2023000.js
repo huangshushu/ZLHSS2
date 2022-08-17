@@ -8,7 +8,7 @@ function action(mode, type, selection) {
     if (mode == 1) {
 	status++;
     } else {
-	cm.sendNext("å—¯......æƒ³æƒ³å§ã€‚è¿™æ˜¯å‡ºç§Ÿè½¦å…¬å¸ä»·å€¼çš„æœåŠ¡ï¼ä½ æ°¸è¿œä¸ä¼šåæ‚”ï¼");
+	cm.sendNext("àÅ......ÏëÏë°É¡£ÕâÊÇ³ö×â³µ¹«Ë¾¼ÛÖµµÄ·şÎñ£¡ÄãÓÀÔ¶²»»áºó»Ú£¡");
 	cm.dispose();
 	return;
     }
@@ -18,35 +18,35 @@ function action(mode, type, selection) {
 	    case 540000000: // CBD
 		map = 541020000;
 		cost = 30000;
-		mapname = "ä¹Œé²åŸ";
+		mapname = "ÎÚÂ³³Ç";
 		break;
 	    case 240000000: // Leafre
 		map = 240030000;
 		cost = 55000;
-		mapname = "ç¥æœ¨æ‘-é¾™æ£®æ—è·¯å£";
+		mapname = "ÉñÄ¾´å-ÁúÉ­ÁÖÂ·¿Ú";
 		break;
 	    case 220000000: // Ludi
 		map = 220050300;
 		cost = 45000;
-		mapname = "æ—¶é—´é€šé“";
+		mapname = "Ê±¼äÍ¨µÀ";
 		break;
 	    case 211000000: // El Nath
 		map = 211040200;
 		cost = 45000;
-		mapname = "å†°é›ªå³¡è°·II";
+		mapname = "±ùÑ©Ï¿¹ÈII";
 		break;
 	    default:
 		map = 211040200;
 		cost = 45000;
-		mapname = "å†°é›ªå³¡è°·II";
+		mapname = "±ùÑ©Ï¿¹ÈII";
 		break;
 	}
-	cm.sendNext("ä½ å¥½ï¼è¿™ç§å­å¼¹å‡ºç§Ÿè½¦å°†å¸¦ä½ ä»ä»»ä½•å±é™©åŒºåŸŸ #m"+cm.getMapId()+"# åˆ° #b#m"+map+"##k å† "+mapname+"! è¿è¾“è´¹ç”¨ #b"+cost+" æ«å¸#k å¯èƒ½çœ‹èµ·æ¥å¾ˆè´µï¼Œä½†å¹¶ä¸å¤šï¼Œå½“ä½ æƒ³æ–¹ä¾¿åœ°é€šè¿‡å±é™©åŒºåŸŸè¿è¾“!");
+	cm.sendNext("ÄãºÃ£¡ÕâÖÖ×Óµ¯³ö×â³µ½«´øÄã´ÓÈÎºÎÎ£ÏÕÇøÓò #m"+cm.getMapId()+"# µ½ #b#m"+map+"##k ÔÙ "+mapname+"! ÔËÊä·ÑÓÃ #b"+cost+" ·ã±Ò#k ¿ÉÄÜ¿´ÆğÀ´ºÜ¹ó£¬µ«²¢²»¶à£¬µ±ÄãÏë·½±ãµØÍ¨¹ıÎ£ÏÕÇøÓòÔËÊä!");
     } else if (status == 1) {
-	cm.sendYesNo("#bä½ éœ€è¦æ”¯ä»˜æ«å¸#k ä¼ é€åˆ° #b#m"+map+"##k?");
+	cm.sendYesNo("#bÄãĞèÒªÖ§¸¶·ã±Ò#k ´«ËÍµ½ #b#m"+map+"##k?");
     } else if (status == 2) {
 	if (cm.getMeso() < cost) {
-	    cm.sendNext("ä½ çœ‹èµ·æ¥æ²¡å•¥é’±å¯ä»¥æ”¯ä»˜,å¾ˆæŠ±æ­‰æˆ‘ä»¬ä¸æ”¶ä¹ä¸æ­è½¦çš„,æ»šå§!!!");
+	    cm.sendNext("Äã¿´ÆğÀ´Ã»É¶Ç®¿ÉÒÔÖ§¸¶,ºÜ±§Ç¸ÎÒÃÇ²»ÊÕÆòØ¤´î³µµÄ,¹ö°É!!!");
 	    cm.dispose();
 	} else {
 	    cm.gainMeso(-cost);

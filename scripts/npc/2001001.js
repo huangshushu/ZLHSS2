@@ -1,14 +1,16 @@
 /*
- *  Branch Bucket Snowman - Happy Ville NPC
+ 
  */
 
 function start() {
-    cm.sendSimple("å®‰å®‰ æˆ‘æ˜¯ #p2001001# ä½ è¦å»å“ªä¸ªå°æˆ¿é—´? PSå¯ç»“ä¼´åŒè¡Œ \n\r #b#L0#æœˆå…‰æ£®æ—1#l \n\r #L1#æœˆå…‰æ£®æ—2#l \n\r #L2#æœˆå…‰æ£®æ—3#l \n\r #L3#æœˆå…‰æ£®æ—4#l \n\r #L4#æœˆå…‰æ£®æ—5#l");
+  cm.sendSimple(
+    "    Hi~#b#h ##kÄãÒªÈ¥ÄÄ¸öĞ¡·¿¼ä£¿ÄãÏë²»ÏëÈ¥¿´ÕâÀïµÄ·çÑ©ÄØ£¿ÕâÀïµÄÑ©ÊÇÃ°ÏÕµºÊÀ½çÀï×î´¿¾»µÄÑ©Å¶£¬»¹¿ÉÒÔÍÆÑ©ÈË¡£\r\n\r\n#b#L0#ÔÂ¹âÉ­ÁÖ1#l \n\r #L1#ÔÂ¹âÉ­ÁÖ2#l \n\r #L2#ÔÂ¹âÉ­ÁÖ3#l \n\r #L3#ÔÂ¹âÉ­ÁÖ4#l \n\r #L4#ÔÂ¹âÉ­ÁÖ5#l"
+  );
 }
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-	cm.warp(209000001 + selection, 0);
-    }
-    cm.dispose();
+  if (mode == 1) {
+    cm.warp(209000001 + selection, 0);
+  }
+  cm.dispose();
 }

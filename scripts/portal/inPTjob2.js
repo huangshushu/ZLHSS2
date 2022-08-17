@@ -1,6 +1,3 @@
-load('nashorn:mozilla_compat.js');
-importPackage(Packages.server.quest);
-
 function enter(pi) {
     if (pi.isQuestActive(25100) || pi.isQuestActive(25101)) {
         if (pi.isQuestActive(25101)) {

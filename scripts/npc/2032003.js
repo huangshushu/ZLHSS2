@@ -1,44 +1,46 @@
-ï»¿/* Lira
+/* Lira
  * 
  * Adobis's Mission I : Breath of Lava <Level 2> (280020001)
  * Zakum Quest NPC 
  * Custom Quest 100202 -> Done this stage once
  */
-
+ 
 var status;
-
+ 
 function start() {
     status = -1;
     action(1, 0, 0);
 }
-
+ 
 function action(mode, type, selection) {
     if (mode == 0 && status == 0) {
-        cm.dispose();
-        return;
+	cm.dispose();
+	return;
     }
     if (mode == 1)
-        status++;
+	status++;
     else
-        status--;
+	status--;
     if (status == 0) {
-        cm.sendNext("æ­å–œæ¥åˆ°è¿™é‡Œï¼Œå¥½å§æˆ‘æƒ³æˆ‘å¿…é¡»ç»™æ‚¨ä¸€ç‚¹å¥–åŠ±æ¥ä½œä¸ºä»£ä»·ã€‚");
-    } else if (status == 1) {
-        cm.sendNextPrev("æ¥ï¼Œè¿™æ˜¯æˆ‘ç»™ä½ çš„å¥–åŠ±#b#t4031062##kã€‚");
-    } else if (status == 2) {
-        if (cm.canHold()) {
-            cm.gainItem(4031062, 1);
-            cm.warp(211042300);
-            // if this is their first time, exp gain
-            if (cm.getQuestStatus(100202) != 2) {
-                cm.startQuest(100202);
-                cm.completeQuest(100202);
-                cm.gainExp(10000);
-            }
-        } else {
-            cm.sendOk("ä½ çš„èƒŒåŒ…æ²¡æœ‰å¤šä½™çš„ç©ºæ ¼ã€‚");
-        }
-
-        cm.dispose();
+	cm.sendNext("¹§Ï²À´µ½ÕâÀï£¬ºÃ°ÉÎÒÏëÎÒ±ØĞë¸øÄúÒ»µã½±ÀøÀ´×÷Îª´ú¼Û¡£");
+    }
+    else if (status == 1) {
+	cm.sendNextPrev("À´£¬ÕâÊÇÎÒ¸øÄãµÄ½±Àø#b#t4031062##k¡£");
+    }
+    else if (status == 2) {
+	if(cm.ÅĞ¶Ï±³°üÆäËûÀ¸().isFull()){
+		cm.sendOk("ÄãµÄÆäËûÀ¸ÒÑ¾­ÂúÁË£¡ÇëÏÈÌÚ³ö¿Õ¼äÀ´¡£");
+		cm.dispose();
+		return;
+	}
+	cm.gainItem(4031062,1);
+	cm.warp(211042300);
+	cm.worldMessage(6,"Íæ¼Ò£º["+cm.getName()+"]Íê³ÉÁËÔú2ÌøÌøÈÎÎñ£¬¹§Ï²¹§Ï²£¡");
+	if (cm.getQuestStatus(100202) != 2) {
+	    cm.startQuest(100202);
+	    cm.completeQuest(100202);
+	    cm.gainExp(10000);
+	}
+	cm.dispose();
     }
 }

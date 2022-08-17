@@ -4,19 +4,19 @@
     Made by Daenerys
 */
 function start() {
-    cm.sendYesNo("ä½ æƒ³è¦å»ç»´å¤šåˆ©äºšæ¸¯å¿…é¡»æ”¯ä»˜#b 500 æ«å¸#k åˆ°é‚£è¾¹çº¦ä¸€åˆ†é’Ÿ.");
+    cm.sendYesNo("ÄãÏëÒªÈ¥Î¬¶àÀûÑÇ¸Û±ØĞëÖ§¸¶#b 500 ·ã±Ò#k µ½ÄÇ±ßÔ¼Ò»·ÖÖÓ.");
 }
 
 function action(mode, type, selection) {
     if (mode == 0) {
-        cm.sendOk("ç­‰ä½ è€ƒè™‘å¥½å†æ¥æ‰¾æˆ‘å§!");
+        cm.sendOk("µÈÄã¿¼ÂÇºÃÔÙÀ´ÕÒÎÒ°É!");
         cm.dispose();
     } else {
         if(cm.getPlayer().getMeso() >= 500) {
             cm.gainMeso(-500);
             cm.warpBack(200090051,101000400,80);
         } else {
-            cm.sendSimple("ä½ çš„é’±å¥½åƒä¸å¤Ÿ");
+            cm.sendSimple("ÄãµÄÇ®ºÃÏñ²»¹»");
         }
         cm.dispose();
     }

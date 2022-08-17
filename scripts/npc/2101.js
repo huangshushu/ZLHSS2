@@ -1,26 +1,27 @@
+/*
+ 
+ */
 var status = 0;
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (status >= 0 && mode == 0) {
-	cm.sendOk("æ²¡å®Œæˆæ–°æ‰‹è®­éªŒå˜›? å¦‚æœæƒ³è¦ç¦»å¼€è¿™é‡Œ, è¯·ä¸è¦åå•¬çš„å‘Šè¯‰æˆ‘ã€‚.");
-	cm.dispose();
-	return;
-    }
-    if (mode == 1)
-	status++;
-    else
-	status--;
-    if (status == 0) {
-	cm.sendYesNo("ä½ å®Œæˆä½ çš„è®­ç»ƒäº†å˜›? å¦‚æœä½ æƒ³è¦ç¦»å¼€çš„è¯ï¼Œæˆ‘å¯ä»¥å¸¦ä½ ç¦»å¼€ã€‚");
-    } else if (status == 1) {
-	cm.sendNext("é‚£æˆ‘è¦å¸¦ä½ ç¦»å¼€è¿™é‡Œï¼Œ åŠ æ²¹ï¼");
-    } else if (status == 2) {
-	cm.warp(3, 0);
-	cm.dispose();
-    }
+  if (status >= 0 && mode == 0) {
+    cm.sendOk("Ã»Íê³ÉĞÂÊÖÑµÑéÂï? Èç¹ûÏëÒªÀë¿ªÕâÀï, Çë²»ÒªÁßØÄµÄ¸æËßÎÒ¡£.");
+    cm.dispose();
+    return;
+  }
+  if (mode == 1) status++;
+  else status--;
+  if (status == 0) {
+    cm.sendYesNo("ÄãÍê³ÉÄãµÄÑµÁ·ÁËÂï? Èç¹ûÄãÏëÒªÀë¿ªµÄ»°£¬ÎÒ¿ÉÒÔ´øÄãÀë¿ª¡£");
+  } else if (status == 1) {
+    cm.sendNext("ÄÇÎÒÒª´øÄãÀë¿ªÕâÀï£¬ ¼ÓÓÍ£¡");
+  } else if (status == 2) {
+    cm.warp(3, 0);
+    cm.dispose();
+  }
 }

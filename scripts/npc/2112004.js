@@ -1,83 +1,90 @@
+var ´ÎÊıÏŞÖÆ = 10;
+
 function action(mode, type, selection) {
     var em = cm.getEventManager("Romeo");
     if (em == null) {
-	cm.sendOk("æ‰¾ä¸åˆ°è„šæœ¬ï¼Œè¯·è”ç³»GMï¼");
-	cm.dispose();
-	return;
+        cm.sendOk("Please try again later.");
+        cm.dispose();
+        return;
     }
-    switch(cm.getPlayer().getMapId()) {
-	case 261000011:
-	    cm.removeAll(4001130);
-	    cm.removeAll(4001131);
-	    cm.removeAll(4001132);
-	    cm.removeAll(4001133);
-	    cm.removeAll(4001134);
-	    cm.removeAll(4001135);
-	    if (cm.getPlayer().getParty() == null || !cm.isLeader()) {
-		cm.sendOk("è¯·æ‰¾é˜Ÿé•¿æ¥å’Œæˆ‘è°ˆã€‚\r\næ‚¨å½“å‰ç´¯è®¡é€šå…³ï¼š#r"+cm.getBossRankCount('ç”·å¥³å‰¯æœ¬æ€»æ¬¡æ•°')+"#kæ¬¡\r\næ‚¨å½“å‰å¸¦æ–°é€šå…³ï¼š#r"+cm.getBossRankCount('è¶Šçº§ç”·å¥³å‰¯æœ¬æ€»æ¬¡æ•°')+"#kæ¬¡");
-	    } else {
-		var party = cm.getPlayer().getParty().getMembers();
-		var mapId = cm.getPlayer().getMapId();
-		var next = true;
-		var size = 0;
-		var it = party.iterator();
-		while (it.hasNext()) {
-			var cPlayer = it.next();
-			var ccPlayer = cm.getPlayer().getMap().getCharacterById(cPlayer.getId());
-			if (ccPlayer == null || ccPlayer.getLevel() < 71 || ccPlayer.getLevel() > 255) {
-				next = false;
-				break;
-			}
-			size += (ccPlayer.isGM() ? 4 : 1);
-		}	
-		if (next && (cm.getPlayer().isGM() || size >= 4)) {
-			var prop = em.getProperty("state");
-			if (prop == null || prop.equals("0")) {
-				em.startInstance(cm.getPlayer().getParty(), cm.getPlayer().getMap());
-			} else {
-				cm.sendOk("å…¶ä»–é˜Ÿä¼æ­£åœ¨æŒ‘æˆ˜ï¼Œè¯·ä½¿ç”¨å…¶ä»–é¢‘é“!");
-                   }
-		} else {
-			cm.sendOk("è¯·ä½ çš„é˜Ÿå‘˜å¤§äº4ä¸ªäºº(å«)éƒ½è¦50ç­‰ä»¥ä¸Š(å«)255ç­‰ä»¥ä¸‹(255ä¹Ÿå¯)éƒ½è¦åœ¨è¿™å¼ åœ°å›¾å†æ¥æ‰¾æˆ‘");
-		}
-	    }
-	    break;
-	case 926100000:
-	    cm.sendOk("ä½ åº”è¯¥å°è¯•åœ¨è¿™é‡Œè°ƒæŸ¥å„åœ°ã€‚çœ‹çœ‹åº“ä¸­çš„æ–‡ä»¶ï¼Œç›´åˆ°ä½ å¯ä»¥æ‰¾åˆ°å…¥å£å®éªŒå®¤.");
-	    break;
-	case 926100001:
-	    cm.sendOk("è¯·æ¶ˆé™¤æ‰€æœ‰çš„æ€ªç‰©ã€‚");
-	    break;
-	case 926100100:
-	    cm.sendOk("è¯·æŠŠçƒ§æ¯é‡Œçš„æº¢ä½“è£…æ»¡ã€‚");
-	    break;
-	case 926100200:
-	    if (cm.haveItem(4001130,1)) {
-		cm.sendOk("å“¦ï¼Œæˆ‘çš„ä¿¡æ‰¾åˆ°äº†ï¼Œè°¢è°¢ï¼");
-		cm.gainItem(4001130,-1);
-		em.setProperty("stage", "1");
-	    } else if (cm.haveItem(4001134,1)) {
-		cm.gainItem(4001134,-1);
-		cm.sendOk("è°¢è°¢ä½ ï¼Œç°åœ¨å¸®æˆ‘æ‰¾#t4001135#.");
-		em.setProperty("stage4", "1");
-	    } else if (cm.haveItem(4001135,1)) {
-		cm.gainItem(4001135,-1);
-		cm.sendOk("è°¢è°¢ä½ ï¼Œå·²ç»è¿‡å…³äº†ã€‚.");
-		em.setProperty("stage4", "2");
-		cm.getMap().getReactorByName("rnj3_out3").hitReactor(cm.getClient());
-	    } else {
-	    	cm.sendOk("ç°åœ¨æˆ‘ä»¬å¿…é¡»åœæ­¢å†²çªï¼Œè¯·å¸®æˆ‘æ‰¾å‡º#t4001134# å’Œ #t4001135#ã€‚");
-	    }
-	    break;
-	case 926100300:
-	    cm.sendOk("æˆ‘ä»¬ä¸€å®šè¦åˆ°å®éªŒå®¤çš„é¡¶éƒ¨.");
-	    break;
-	case 926100400:
-	    cm.sendOk("å½“ä½ å‡†å¤‡å¥½äº†ï¼Œæˆ‘ä»¬è¦å¿«å»æ•‘æ•‘æˆ‘çš„çˆ±äºº.");
-	    break;
-	case 926100401:
-	    cm.warpParty(926100500); //urete
-	    break;
+    switch (cm.getPlayer().getMapId()) {
+    case 261000011:
+        cm.removeAll(4001130);
+        cm.removeAll(4001131);
+        cm.removeAll(4001132);
+        cm.removeAll(4001133);
+        cm.removeAll(4001134);
+        cm.removeAll(4001135);
+        if (cm.getPlayer().getParty() == null || !cm.isLeader()) {
+            cm.sendOk("¶Ó³¤±ØĞëÔÚÕâÀï£¬ÇëÈÃËûºÍÎÒËµ»°.");
+        } else {
+            var party = cm.getPlayer().getParty().getMembers();
+            var mapId = cm.getPlayer().getMapId();
+            var next = true;
+            var size = 0;
+            var it = party.iterator();
+            while (it.hasNext()) {
+                var cPlayer = it.next();
+                var ccPlayer = cm.getPlayer().getMap().getCharacterById(cPlayer.getId());
+                if (ccPlayer == null || ccPlayer.getLevel() < 49 || ccPlayer.getLevel() > 255) {
+                    next = false;
+                    break;
+                }
+                size += (1);
+            }
+			// if(cm.ÅĞ¶ÏÍÅ¶ÓÃ¿ÈÕ("ÂŞÃÜÅ·ÓëÖìÀöÒ¶", ´ÎÊıÏŞÖÆ) == 0){
+				// cm.sendOk("±§Ç¸£¬½ñÌìÄãµÄ¶ÓÎéÀïÓĞÈËÒÑ¾­×öÂú " + ´ÎÊıÏŞÖÆ + " ´ÎÁË£¡");
+				// cm.dispose();
+				// return;
+			// }
+            if (next && (size >= 1)) {
+                var prop = em.getProperty("state");
+                if (prop.equals("0") || prop == null) {
+                    em.startInstance(cm.getPlayer().getParty(), cm.getPlayer().getMap());
+                } else {
+                    cm.sendOk("ÒÑ¾­ÓĞÒ»¸ö¶ÓÎé½øÈë¸Ã¸±±¾£¡ÇëÑ¡ÔñÆäËûÆµµÀ£¡");
+                }
+            } else {
+                cm.sendOk("ÄãµÄ¶ÓÎé±ØĞë3ÈËÒÔÉÏ¡£µÈ¼¶±ØĞëÔÚ49¼¶ÒÔÉÏ²ÅÄÜ½øÈë£¡");
+            }
+        }
+        break;
+    case 926100000:
+        cm.sendOk("ÄãÓ¦¸ÃÊÔ×ÅÔÚÕâÀïµãµã¿´Ã¿Ò»±¾Êé¡£¿´¿´Í¼Êé¹İµÄµµ°¸£¬Ö±µ½ÄãÕÒµ½ÁËÕâ¸öÊµÑéÊÒµÄÈë¿Ú¡£");
+        break;
+    case 926100001:
+        cm.sendOk("ÇëÏûÃğËùÓĞµÄ¹ÖÎï£¡Ñ°ÕÒÓÒ±ßÒş²ØµÄÃÅ¡£");
+        break;
+    case 926100100:
+        cm.sendOk("Çë°ÑÕâĞ©ÉÕ±­ÌîÂú£¬¾ÍÄÜ¹ı¹ØÁË£¡¡£");
+        break;
+    case 926100200:
+        if (cm.haveItem(4001130, 1)) {
+            cm.sendOk("Å¶£¬ÎÒĞ´µÄĞÅ£¡Ğ»Ğ»Äã£¡");
+            cm.gainItem(4001130, -1);
+            em.setProperty("stage", "1");
+        } else if (cm.haveItem(4001134, 1)) {
+            cm.gainItem(4001134, -1);
+            cm.sendOk("Ğ»Ğ»Äã£¡ÏÖÔÚÇë¿´zenumistÎÄ¼ş¡£");
+            em.setProperty("stage4", "1");
+        } else if (cm.haveItem(4001135, 1)) {
+            cm.gainItem(4001135, -1);
+            cm.sendOk("Ğ»Ğ»Äã£¡ÏÖÔÚÇë¼ÌĞø¡£");
+            em.setProperty("stage4", "2");
+            cm.getMap().getReactorByName("rnj3_out3").hitReactor(cm.getClient());
+        } else {
+            cm.sendOk("ÎÒÃÇ±ØĞëÍ£Ö¹alcadnoºÍzenumistÖ®¼äµÄ³åÍ»£¡ÎÒÕÒalcadnoÎÄ¼ş£¬È»ºózenumist£¡");
+        }
+        break;
+    case 926100300:
+        cm.sendOk("ÎÒÃÇ±ØĞëµ½´ïÊµÑéÊÒµÄ¶¥²¿£¬ÄãµÄÃ¿¸ö³ÉÔ±¡£");
+        break;
+    case 926100400:
+        cm.sendOk("Ö»ÒªÄã×¼±¸ºÃÁË£¬ÎÒÃÇ¾ÍÈ¥Õü¾ÈÎÒµÄ°®ÈË¡£");
+        break;
+    case 926100401:
+        cm.warpParty(926100500); //urete
+        break;
     }
     cm.dispose();
 }

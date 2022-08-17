@@ -3,11 +3,11 @@
 
 /*
 
-	Ç»¾î ¿Â¶óÀÎ ¼Ò½º ½ºÅ©¸³Æ® ÀÔ´Ï´Ù.
+	è…”ç»¢ æŸ¯æ‰¼ç‰¢ å®¶èƒ¶ èƒ¶å†œèµ‹é£˜ æ¶èªä¿ƒ.
 
-	Æ÷Å»ÀÌ ÀÖ´Â ¸Ê : ¼±ÀÎÀå »ç¸· 1
+	å™¨å‘•æ ä¹ç»° ç”˜ : æ€¥ç‰¢å˜ è¤é˜œ 1
 
-	Æ÷Å» ¼³¸í : ¹Ì´Ï´øÀü ÀÔÀå
+	å™¨å‘• æ±²ç–™ : å›ºèªå¸¦å‚ˆ æ¶å˜
 
 
 */
@@ -24,27 +24,27 @@ function enter(pi) {
         }
         eim.removePlayer(pi.getPlayer());
         pi.warp(exit);
-        pi.getPlayer().message(5, "¹Ì´Ï´øÀü ÀÎ½ºÅÏ½º¿¡¼­ ÅğÀåÇß½À´Ï´Ù.");
+        pi.getPlayer().message(5, "å›ºèªå¸¦å‚ˆ ç‰¢èƒ¶ç•”èƒ¶ä¿Šè¾‘ ç¡¼å˜æ²åš¼èªä¿ƒ.");
         return true;
     } else {
         var em = pi.getEventManager("MiniDungeon");
         if (em == null) {
-            pi.getPlayer().message(5, "¹Ì´Ï´øÀü ½ºÅ©¸³Æ®¿¡ ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù. GM¿¡°Ô ¹®ÀÇÇØ ÁÖ¼¼¿ä.");
+            pi.getPlayer().message(5, "å›ºèªå¸¦å‚ˆ èƒ¶å†œèµ‹é£˜ä¿Š å·å¹…å•Š æƒ¯ç§¯æ²åš¼èªä¿ƒ. GMä¿Šéœ¸ å·©ç‹¼ç§¦ æ—æŠ€å¤¸.");
             return false;
         }
         if (pi.getPlayer().getParty() != null) {
             if (!pi.allMembersHere()) {
-                pi.getPlayer().message(5, "ÆÄÆ¼¿øÀÌ ¸ğµÎ ¸ğ¿©ÀÖ¾î¾ß ÀÔÀåÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+                pi.getPlayer().message(5, "é¢‡èç›”æ è‘›æ»´ è‘›å’¯ä¹ç»¢å…· æ¶å˜ä¸” è ä¹åš¼èªä¿ƒ.");
                 return false;
             }
             if (!pi.isLeader()) {
-                pi.getPlayer().message(5, "ÆÄÆ¼ÀåÀÌ ÀÔÀåÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+                pi.getPlayer().message(5, "é¢‡èå˜æ æ¶å˜ä¸” è ä¹åš¼èªä¿ƒ.");
                 return false;
             }
             em.setProperty("Leader_"+pi.getPlayer().getParty().getLeader().getId()+"_Exit", pi.getPlayer().getMapId()+"");
             em.setProperty("Leader_"+pi.getPlayer().getParty().getLeader().getId()+"_Map", map+"");
             em.startInstance(pi.getParty(), pi.getPlayer().getMap());
-            pi.getPlayer().message(5, "¹Ì´Ï´øÀü ÀÎ½ºÅÏ½º¿¡ ÀÔÀåµÇ¾ú½À´Ï´Ù.");
+            pi.getPlayer().message(5, "å›ºèªå¸¦å‚ˆ ç‰¢èƒ¶ç•”èƒ¶ä¿Š æ¶å˜ç™»èŒåš¼èªä¿ƒ.");
             var eim = pi.getPlayer().getEventInstance();
             eim.startEventTimer(7200000);
             return true;
@@ -52,7 +52,7 @@ function enter(pi) {
             em.setProperty("Leader_"+pi.getPlayer().getId()+"_Exit", pi.getPlayer().getMapId()+"");
             em.setProperty("Leader_"+pi.getPlayer().getId()+"_Map", map+"");
             em.startInstance(pi.getPlayer());
-            pi.getPlayer().message(5, "¹Ì´Ï´øÀü ÀÎ½ºÅÏ½º¿¡ ÀÔÀåµÇ¾ú½À´Ï´Ù.");
+            pi.getPlayer().message(5, "å›ºèªå¸¦å‚ˆ ç‰¢èƒ¶ç•”èƒ¶ä¿Š æ¶å˜ç™»èŒåš¼èªä¿ƒ.");
             var eim = pi.getPlayer().getEventInstance();
             eim.startEventTimer(7200000);
             return true;

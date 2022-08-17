@@ -13,6 +13,15 @@ function act() {
 	q = 4;
 	q2 = 3;
     }
-	rm.spawnMonster(9400248, q);
-	rm.spawnMonster(9400249, q2);
+    if (rm.getMapId() == 809050002) {
+	rm.spawnMonster(9400213, q);
+	rm.spawnMonster(9400214, q2);
+    } else if (rm.getMapId() == 809050003) {
+	rm.spawnMonster(9400213, q);
+	rm.spawnMonster(9400214, q2);
+    } else if (rm.getMapId() == 809050008) {
+	rm.spawnMonster(9400213, q);
+	rm.spawnMonster(9400214, q2);
+
+    }
 }

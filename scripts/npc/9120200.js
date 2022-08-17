@@ -3,12 +3,12 @@
 */
 
 function start() {
-    cm.sendYesNo("ä½ å®³æ€•äº†ï¼Ÿ æƒ³å›å» #m801000000#ï¼Ÿ");
+    cm.sendYesNo("Äãº¦ÅÂÁË£¿ Ïë»ØÈ¥ #m801000000#£¿");
 }
 
 function action(mode, type, selection) {
     if (mode == 0) {
-	cm.sendOk("å¦‚æœä½ æƒ³å›å» #m801000000#, å‘Šè¯‰æˆ‘");
+	cm.sendOk("Èç¹ûÄãÏë»ØÈ¥ #m801000000#, ¸æËßÎÒ");
     } else {
 	cm.warp(801000000,0);
     }

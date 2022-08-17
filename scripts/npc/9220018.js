@@ -1,32 +1,31 @@
-ï»¿function action(mode, type, selection) {
-	cm.removeAll(4032248);
-	    if (cm.getPlayer().getParty() == null || !cm.isLeader()) {
-		cm.sendOk("è¯·æ‰¾é˜Ÿé•¿æ¥æ‰¾æˆ‘è°ˆè¯ã€‚");
-	    } else {
-		var party = cm.getPlayer().getParty().getMembers();
-		var mapId = cm.getPlayer().getMapId();
-		var next = true;
-		var size = 0;
-		var it = party.iterator();
-		while (it.hasNext()) {
-			var cPlayer = it.next();
-			var ccPlayer = cm.getPlayer().getMap().getCharacterById(cPlayer.getId());
-			if (ccPlayer == null || ccPlayer.getLevel() < 8) {
-				next = false;
-				break;
-			}
-			size += (ccPlayer.isGM() ? 2 : 1);
-		}	
-		if (next && size >= 2) {
-			var em = cm.getEventManager("MV");
-			if (em == null) {
-				cm.sendOk("ç›®å‰å‰¯æœ¬å‡ºäº†ä¸€ç‚¹çŠ¶å†µï¼Œè¯·ç¨åå†å°è¯•ã€‚");
-			} else {
-				em.startInstance(cm.getPlayer().getParty(), cm.getPlayer().getMap());
-			}
-		} else {
-			cm.sendOk("æˆ‘éœ€è¦2ä¸ª8ç­‰ä»¥ä¸Šçš„ã€‚");
-		}
-	    }
-	cm.dispose();
+/*
+ 
+ */
+function action(mode, type, selection) {
+  if (cm.getPlayer().getParty() == null || !cm.isLeader()) {
+    cm.sendOk("ÇëÕÒ¶Ó³¤À´ÕÒÎÒÌ¸»°¡£");
+  } else if (cm.ÅĞ¶ÏÍÅ¶ÓÎïÆ·(5252001) != 0) {
+    cm.sendOk("Äã£¬»òÕßÄãµÄ¶ÓÔ±Ã»ÓĞ " + cm.ÏÔÊ¾ÎïÆ·(5252001) + "¡£");
+  } else {
+    var next = true;
+    if (
+      cm.ÅĞ¶ÏÖ¸¶¨µØÍ¼Íæ¼ÒÊıÁ¿(674030000) > 0 ||
+      cm.ÅĞ¶ÏÖ¸¶¨µØÍ¼Íæ¼ÒÊıÁ¿(674030200) > 0 ||
+      cm.ÅĞ¶ÏÖ¸¶¨µØÍ¼Íæ¼ÒÊıÁ¿(674030300) > 0
+    ) {
+      next = false;
+    }
+    if (next) {
+      var em = cm.getEventManager("MV");
+      if (em == null) {
+        cm.sendOk("Ä¿Ç°¸±±¾³öÁËÒ»µã×´¿ö£¬ÇëÉÔºóÔÙ³¢ÊÔ¡£");
+      } else {
+        cm.givePartyItems(5252001, -1);
+        em.startInstance(cm.getPlayer().getParty(), cm.getPlayer().getMap());
+      }
+    } else {
+      cm.sendOk("ÒÑ¾­ÓĞÈËÔÚÌôÕ½ÁËÅ¶¡£");
+    }
+  }
+  cm.¶Ô»°½áÊø();
 }

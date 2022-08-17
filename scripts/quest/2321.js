@@ -1,12 +1,9 @@
-/* ===========================================================
-			Resonance
-	NPC Name: 		Minister of Magic
-	Map(s): 		Mushroom Castle: Corner of Mushroom Forest(106020000)
-	Description: 	Quest -  Over the Castle Wall (1)
-=============================================================
-Version 1.0 - Script Done.(18/7/2010)
-=============================================================
-*/
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 
 importPackage(Packages.client);
 
@@ -14,41 +11,40 @@ var status = -1;
 
 function start(mode, type, selection) {
     status++;
-	if (mode != 1) {
-	    if(type == 1 && mode == 0)
-		    status -= 2;
-		else{
-			qm.sendOk("You don't seem to follow instructions well. Come see me when you are ready.");
-			qm.dispose();
-			return;
-		}
-	}
-	if (status == 0)
-		qm.sendAcceptDecline("Now you'll be able to penetrate the spiny vine barrier of Mushroom Forest, but before that, #bMinister of Home Affairs#k wants to have a word with you. Please go see him immediately.");
-	if (status == 1){
-		qm.forceStartQuest();
-		qm.sendOk("Good luck.");
-		qm.dispose();
-	}
+    if (mode != 1) {
+        if (type == 1 && mode == 0) {
+            status -= 2;
+        } else {
+            qm.sendOk("你似乎并不遵循指示良好。快来看看我，当你准备好.");
+            qm.dispose();
+            return;
+        }
+    }
+    if (status == 0) {
+        qm.sendAcceptDecline("现在，您将能够穿透蘑菇森林的带刺的藤蔓障碍，但在此之前，#b民政事务部长#k希望有一个词你。请立刻去看他.");
+    } else if (status == 1) {
+        qm.forceStartQuest();
+        qm.sendOk("Good luck.");
+        qm.dispose();
+    }
 }
 
 function end(mode, type, selection) {
     status++;
-	if (mode != 1) {
-	    if(type == 1 && mode == 0)
-		    status -= 2;
-		else{
-			qm.dispose();
-			return;
-		}
-	}
-	if (status == 0)
-		qm.sendOk("I have been keeping up on your fabulour work. I am aware that you have successfully created the #bKiller Mushroom Spores#k, which penetrates through the unpenetrable barrier of the forest. Congratulations!");
-	if (status == 1){
-		qm.gainExp(2500);
-		qm.sendOk("The problem now is to figure out how to enter the castle.");
-		qm.forceCompleteQuest();
-		qm.dispose();
-	}
+    if (mode != 1) {
+        if (type == 1 && mode == 0) {
+            status -= 2;
+        } else {
+            qm.dispose();
+            return;
+        }
+    }
+    if (status == 0) {
+        qm.sendOk("我一直在你的神话般的工作跟上。我知道，你已经成功创建了#b杀手孢菇#k, 它穿过森林的难以逾越的障碍。祝贺!");
+    } else if (status == 1) {
+        qm.gainExp(2500);
+        qm.sendOk("现在的问题是要弄清楚如何进入城堡.");
+        qm.forceCompleteQuest();
+        qm.dispose();
+    }
 }
-	

@@ -1,5 +1,6 @@
 function enter(pi) {
-    var em = pi.getEventManager("CWKPQ");
+	pi.warp(803001100, 0);
+    /*var em = pi.getEventManager("CWKPQ");
     if (em != null) {
 	pi.warpS(610030300, 0);
 	if (!em.getProperty("glpq3").equals("10")){
@@ -10,5 +11,5 @@ function enter(pi) {
 		pi.getMap().changeEnvironment("3pt", 2);
 	    }
 	}
-    }
+    }*/
 }

@@ -25,11 +25,10 @@
   */
   
 function act() {
-    rm.mapMessage(5, "As the light flickers, someone appears out of the light.");
-    rm.spawnNpc(2013001);
-	var em = rm.getEventManager("一束耀眼的强光,出现了一朵云。");
+    //rm.spawnNpc(2013001);
+	var em = rm.getEventManager("OrbisPQ");
 	if (em != null) {
-		rm.givePartyExp(6000);
-		em.setProperty("pre", "1");
+	//	rm.givePartyExp(6000);
+	//	em.setProperty("pre", "1");
 	}
 }

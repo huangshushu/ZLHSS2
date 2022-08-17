@@ -1,59 +1,54 @@
 /*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc> 
-                       Matthias Butz <matze@odinms.de>
-                       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License version 3
-    as published by the Free Software Foundation. You may not use, modify
-    or distribute this program under any other version of the
-    GNU Affero General Public License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-/* Magician Job Instructor
-*/
-
+ 
+ Õ½Ê¿¶ş×ª×ªÖ°½Ì¹Ù
+ */
+var ½éÉÜÎï¼ş = 4031008;
+var ½éÉÜÈË = "ÎäÊõ½ÌÁ·";
+var ÊÕ¼¯ÎïÆ· = 4031013;
+var ÊÕ¼¯ÊıÁ¿ = 30;
+var ÊÔÁ¶µØÍ¼ = 108000300;
 var status;
 
 function start() {
-	status = -1;
-	action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == -1)
-        cm.dispose();
-    else {
-        if (mode == 1)
-            status++;
-        else
-            status--;
-
-			if (cm.haveItem(4031008)) {
-				if (status == 0)
-					cm.sendNext("å™¢, ä½ æ˜¯ #bæ­¦æœ¯æ•™ç»ƒ#k ä»‹ç»æ¥çš„å—")
-				else if (status == 1)
-					cm.sendNextPrev("æ‰€ä»¥ä½ è¦è¯æ˜ä½ çš„å®åŠ›å— ? å¾ˆå¥½...");
-				else if (status == 2)
-					cm.sendNextPrev("æˆ‘å¯ä»¥ç»™ä½ ä¸€æ¬¡æœºä¼š,è¯·ä½ æŠŠæ¡.");
-				else if (status == 3)
-					cm.sendYesNo("è¯·ç»™æˆ‘ #b30 #t4031013##k. ç¥ä½ å¥½è¿.");
-				else if (status == 4) {
-					cm.warp(108000300, 0);
-					cm.dispose();
-				}
-			} else {
-				cm.sendOk("å¾ˆæŠ±æ­‰,æˆ‘éœ€è¦ #bæ­¦æœ¯æ•™ç»ƒçš„ä¿¡ä»¶#k è¯·å»æ‰¾æ­¦æœ¯æ•™ç»ƒæ‹¿å–è°¢è°¢");
-				cm.dispose();
-			}
+  if (mode == -1) cm.¶Ô»°½áÊø();
+  else {
+    if (mode == 1) status++;
+    else status--;
+    if (cm.haveItem(½éÉÜÎï¼ş)) {
+      if (status == 0)
+        cm.ÊÇ·ñËµÃ÷ÎÄ×Ö("Hi #b#h ##k£¬ÄãÊÇ#b" + ½éÉÜÈË + "#k½éÉÜÀ´µÄÂğ£¿");
+      else if (status == 1) cm.ÊÇ·ñËµÃ÷ÎÄ×Ö("ËùÒÔÄãÒªÖ¤Ã÷ÄãµÄÊµÁ¦Âğ? ");
+      else if (status == 2) cm.ÊÇ·ñËµÃ÷ÎÄ×Ö("ÎÒ¿ÉÒÔ¸øÄãÒ»´Î»ú»á,ÇëÄã°ÑÎÕ¡£");
+      else if (status == 3)
+        cm.ÊÇ·ñËµÃ÷ÎÄ×Ö(
+          "Çë¸øÎÒ#b" +
+            ÊÕ¼¯ÊıÁ¿ +
+            "¸ö #v" +
+            ÊÕ¼¯ÎïÆ· +
+            "# #t" +
+            ÊÕ¼¯ÎïÆ· +
+            "##k£¬×£ÄãºÃÔË¡£"
+        );
+      else if (status == 4) {
+        cm.warp(ÊÔÁ¶µØÍ¼, 0);
+        cm.¶Ô»°½áÊø();
+      }
+    } else {
+      cm.ËµÃ÷ÎÄ×Ö(
+        "ºÜ±§Ç¸,ÎÒĞèÒª#b#v" +
+          ½éÉÜÎï¼ş +
+          "# #t" +
+          ½éÉÜÎï¼ş +
+          "##kÇëÈ¥ÕÒ" +
+          ½éÉÜÈË +
+          "ÄÃÈ¡Ğ»Ğ»¡£"
+      );
+      cm.¶Ô»°½áÊø();
     }
-}	
+  }
+}

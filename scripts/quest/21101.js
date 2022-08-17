@@ -1,3 +1,9 @@
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 var status = -1;
 var skills = Array(21001003, 21000000, 21100002, 21100004, 21100005, 21110002);
 //polearm booster, combo ability, polearm mastery, final charge, combo smash, combo drain, full swing
@@ -22,25 +28,23 @@ function start(mode, type, selection) {
     } else if (status == 1) {
 	if (qm.getJob() == 2000) {
 	    qm.changeJob(2100);
-	    qm.forceCompleteQuest();
-	    qm.resetStats(35, 4, 4, 4);
-	    qm.expandInventory(1, 4);
-	    qm.expandInventory(2, 4);
-	    qm.expandInventory(3, 4);
-	    qm.expandInventory(4, 4);
+	    //qm.expandInventory(1, 4);
+	    //qm.expandInventory(2, 4);
+	    //qm.expandInventory(3, 4);
+	    //qm.expandInventory(4, 4);
 	    qm.gainItem(1142129, 1);
-	    qm.forceCompleteQuest(29924); //medal
-	    qm.teachSkill(20009000, 0, -1);
-	    qm.teachSkill(20009000, 1, 0);
+		qm.gainItem(1442077, 1);
+		qm.forceCompleteQuest();//完成任务
+	    //qm.teachSkill(20009000, 0, -1);
+	    //qm.teachSkill(20009000, 1, 0);
+		//qm.teachSkill(20001004, 0, -1);
+	    //qm.teachSkill(20001004, 1, 0);
 		for (var i = 0; i < skills.length; i++) {
-			qm.teachSkill(skills[i], 0);
+			//qm.teachSkill(skills[i], 0);
 		}
 	    qm.sendNextS("#b(好像想起什么了...)#k", 3);
 	}
     } else if (status == 2) {
-	qm.sendYesNoS("是否要跳过动画？？", 1);
-    } else if (status == 3) {
-	qm.warp(140000000, 0)
 	qm.dispose();
     }
 }

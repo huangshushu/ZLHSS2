@@ -1,5 +1,8 @@
 function enter(pi) {
-	pi.playPortalSE();
-	pi.warp(271040000, 1);
-	return true;
+    if (pi.getMapId() == 271040210) {
+        pi.warp(271030600);
+    } else {
+        pi.warp(271030600);
+    }
+    return true;
 }

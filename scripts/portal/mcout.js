@@ -1,9 +1,9 @@
 function enter(pi) {
-	var returnMap = pi.getSavedLocation("MULUNG_TC");
+	var returnMap = pi.getSavedLocation("MONSTER_CARNIVAL");
 	if (returnMap < 0) {
-		returnMap = 103000000; // to fix people who entered the fm trough an unconventional way
+		returnMap = 103000000;
 	}
-	pi.clearSavedLocation("MULUNG_TC");
-	pi.warp(returnMap, "unityPortal2"); 
+	pi.clearSavedLocation("MONSTER_CARNIVAL");
+	pi.warp(returnMap,0);
 	return true;
 }

@@ -1,6 +1,117 @@
-/* ==================
- 脚本类型: 脚本
- 版权：游戏盒团队     
- 联系扣扣：297870163    609654666
- =====================
- */function init(){em.setProperty("state","0");em.setProperty("leader","true")}function setup(a,b){em.setProperty("state","1");em.setProperty("preheadCheck","0");em.setProperty("leader","true");a=em.newInstance("HorntailBattle");a.setInstanceMap(240060200).resetFully();a.startEventTimer(45E5);return a}function playerEntry(a,b){var c=a.getMapFactory().getMap(240060200);b.changeMap(c,c.getPortal(0))}function changedMap(a,b,c){switch(c){case 240060200:return}a.unregisterPlayer(b);a.disposeIfPlayerBelow(0,0)&&(em.setProperty("state","0"),em.setProperty("leader","true"))}function playerDisconnected(a,b){return 0}function scheduledTimeout(a){a.disposeIfPlayerBelow(100,240050400);em.setProperty("state","0");em.setProperty("leader","true")}function playerExit(a,b){a.unregisterPlayer(b);a.disposeIfPlayerBelow(0,0)&&(em.setProperty("state","0"),em.setProperty("leader","true"))}function monsterValue(a,b){return 1}function allMonstersDead(a){}function playerRevive(a,b){return!1}function clearPQ(a){}function leftParty(a,b){}function disbandParty(a){}function playerDead(a,b){}function cancelSchedule(){};
+function init() {
+    // 0 = Not started, 1 = started, 2 = first head defeated, 3 = second head defeated
+    em.setProperty("state", "0");
+	em.setProperty("leader", "true");
+    em.setProperty("preheadCheck", "0");
+// 0 = First head not summoned
+// 1 = Pending, to summon first head
+// 2 = Second head not summoned
+// 3 = Pending, to summon second head
+}
+
+function setup(eim, leaderid) {
+    em.setProperty("state", "1");
+    em.setProperty("preheadCheck", "0");
+	em.setProperty("leader", "true");
+
+    var eim = em.newInstance("HorntailBattle");
+
+    //eim.setInstanceMap(240060000).resetFully();
+    //eim.setInstanceMap(240060100).resetFully();
+    eim.setInstanceMap(240060200).resetFully();
+
+    eim.startEventTimer(60 * 1000 * 720); //now changed to 2 hours
+
+    eim.schedule("CheckHorntailHead", 3000);
+    return eim;
+}
+
+function CheckHorntailHead(eim) {
+    var prop = em.getProperty("preheadCheck");
+
+    if (prop.equals("0")) {
+	eim.schedule("CheckHorntailHead", 3000);
+    }
+    else if (prop.equals("1")) {
+	em.setProperty("preheadCheck", "2");
+
+	var mob = em.getMonster(8810024); // First HT Head
+	eim.registerMonster(mob);
+	eim.getMapFactory().getMap(240060000).spawnMonsterOnGroundBelow(mob, new java.awt.Point(890, 230));
+
+	eim.schedule("CheckHorntailHead", 3000);
+    }
+    else if (prop.equals("2")) {
+	eim.schedule("CheckHorntailHead", 3000);
+    }
+    else if (prop.equals("3")) {
+	em.setProperty("preheadCheck", "4");
+
+	var mob = em.getMonster(8810025); // Second HT Head
+	eim.registerMonster(mob);
+	eim.getMapFactory().getMap(240060100).spawnMonsterOnGroundBelow(mob, new java.awt.Point(-360, 230));
+    }
+}
+
+function playerEntry(eim, player) {
+    var map = eim.getMapFactory().getMap(240060000);
+    player.changeMap(map, map.getPortal(0));
+}
+
+function changedMap(eim, player, mapid) {
+    switch (mapid) {
+	//case 240060000:
+	//case 240060100:
+	case 240060200:
+	    return;
+    }
+    eim.unregisterPlayer(player);
+
+    if (eim.disposeIfPlayerBelow(0, 0)) {
+	em.setProperty("state", "0");
+		em.setProperty("leader", "true");
+    }
+}
+
+function playerDisconnected(eim, player) {
+    return 0;
+}
+
+function scheduledTimeout(eim) {
+    eim.disposeIfPlayerBelow(100, 240050400);
+    em.setProperty("state", "0");
+		em.setProperty("leader", "true");
+}
+
+function playerExit(eim, player) {
+    eim.unregisterPlayer(player);
+
+    if (eim.disposeIfPlayerBelow(0, 0)) {
+	em.setProperty("state", "0");
+		em.setProperty("leader", "true");
+    }
+}
+
+function monsterValue(eim, mobId) {
+    return 1;
+}
+
+function allMonstersDead(eim) {
+    var state = em.getProperty("state");
+
+    if (state.equals("1")) {
+	em.setProperty("state", "2");
+    } else if (state.equals("2")) {
+	em.setProperty("state", "3");
+    }
+}
+
+function playerRevive(eim, player) {
+    return false;
+}
+
+function clearPQ(eim) {}
+function leftParty (eim, player) {}
+function disbandParty (eim) {}
+function playerDead(eim, player) {}
+function cancelSchedule() {}

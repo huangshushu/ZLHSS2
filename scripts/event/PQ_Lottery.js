@@ -1,4 +1,11 @@
-﻿load('nashorn:mozilla_compat.js');
+﻿/*
+ * @Name 乐透
+ * @Author HeavenlySword
+ * @Object em
+ */
+/* global em, java, Packages, Integer, MaplePacketCreator, chr, Randomizer, System, MapleLottery */
+
+load('nashorn:mozilla_compat.js');
 importPackage(java.lang);
 importPackage(Packages.server);
 importPackage(Packages.client);

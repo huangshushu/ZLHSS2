@@ -1,10 +1,3 @@
 function enter(pi) {
-    var em = pi.getEventManager("CWKPQ");
-    if (em != null) {
-	if (em.getProperty("glpq2").equals("5")){
-	    pi.warp(610030300, 0);
-	} else {
-	    pi.playerMessage(5, "The portal has not been activated!");
-	}
-    }
+	pi.openNpc(9120054,1);
 }

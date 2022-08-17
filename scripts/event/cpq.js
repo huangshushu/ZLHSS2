@@ -1,7 +1,4 @@
-/*
- M7MS服务端
- 脚本：嘉年华事件
- */
+
 importPackage(Packages.tools);
 
 var exitMap = 0;

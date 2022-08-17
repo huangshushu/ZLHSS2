@@ -7,7 +7,7 @@ function enter(pi) {
         var d1 = pi.getMap(108010701);
         var d2 = pi.getMap(108010702);
         if (em == null) {
-            pi.playerMessage("找不到脚本，请联络管理员。");
+            pi.playerMessage("你没有任务无法进入哦");
         } else {
             if (d1.playerCount() <= 0 && d2.playerCount() <= 0) {
                 d2.killAllMonsters(true);

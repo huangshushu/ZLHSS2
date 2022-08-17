@@ -1,3 +1,4 @@
-﻿function enter(pi){
-pi.warp(450001230,1);
+function enter(pi) {
+    pi.openNpc(9000212,"alema");
+	return true;
 }

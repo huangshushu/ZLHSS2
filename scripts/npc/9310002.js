@@ -7,7 +7,6 @@ function start() {
 }
 
 function action(mode, type, selection) {
-	//cm.forceCompleteQuest(4100);
     cm.openShop(48);
     cm.dispose();
 }

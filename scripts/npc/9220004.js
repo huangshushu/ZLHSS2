@@ -1,90 +1,80 @@
-var itemList = [5150016, 3010045, 3010049, 3010021, 2002099, 2022465, 2022466, 2022468, 2022246, 2022245];
-var chance = [70, 70, 70, 70, 500, 500, 500, 500, 500, 500];
-var sum = [];
-
-for(var i = 1 ; i < itemList.length; i++)
-    chance[i] = chance[i-1] + chance[i];
-
-var randNum = Math.floor(Math.random()* chance[chance.length-1]);
-
-var randItem = chance[chance.length-1]
-
-for(var i = 0 ; i < chance.length; i++) {
-    if ( randNum <= chance[i] ) {
-        randItem = itemList[i];
-        break;
-    }
-}
-
-
-var status = -1;
-
+/*
+ 
+ */
+var JT = "#fUI/Basic/BtHide3/mouseOver/0#";
+var ÐÄ = "#fUI/GuildMark.img/Mark/Etc/00009001/14#";
 function start() {
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-        status++;
-    } else {
-        status--;
-    }
+  if (status == 0 && mode == 0) {
+    cm.¶Ô»°½áÊø();
+    return;
+  }
+  if (mode == 1) {
+    status++;
+  } else {
+    status--;
+  }
+  var Ñ©»¨½ø¶È = cm.GetPiot("Ñ©»¨½ø¶È", "1");
+  var Ñ©»¨½ø¶ÈÌõ = (Ñ©»¨½ø¶È / 3000) * 100;
+  if (status == 0) {
+    var selStr =
+      "	Hi~#b#h ##kàÓàÓàÓàÓàÓàÓ£¬ÄãÓÐ " +
+      cm.ÏÔÊ¾ÎïÆ·(4031311) +
+      " Âð£¿Èç¹ûÄãÌá¹©¸øÎÒ£¬ÎÒ¿ÉÒÔÔì³É´ó´ó´ó´óµÄÑ©ÈËÅ¶¡£\r\n\r\n";
+    selStr +=
+      "       ÍÆÑ©ÈË½ø¶È: #B" +
+      Ñ©»¨½ø¶ÈÌõ +
+      "# [" +
+      Ñ©»¨½ø¶È +
+      "/3000]\r\n\r\n";
 
-    if (status == 0) {
-        cm.sendSimple("#b#L1#æˆ‘è¦å…‘æ¢ç™½è‰²ç¤¼ç‰©ç›’#l\r\n#L2#æˆ‘è¦å…‘æ¢çº¢è‰²ç¤¼ç‰©ç›’#l\r\n#L3#æˆ‘è¦å…‘æ¢è“è‰²ç¤¼ç‰©ç›’#l\r\n#L4#æˆ‘è¦å…‘æ¢ç´«è‰²ç¤¼ç‰©ç›’#l\r\n#L5#æˆ‘è¦é¢†å–é­”æ³•æ‰‹å¥—#l\r\n#L6#æˆ‘è¦é¢†å–ä¸€ç»„å·¨åž‹é›ªçƒ(æ¶ˆè€—æ è¦ç©ºä¸€æ ¼å–”)#l\r\n#L7#æˆ‘è¦ç»™ä½ æ¸©æš–çš„é›ªèŠ±#l#k");
-    } else if (status == 1) {
-        if (selection == 1) {
-            if (cm.haveItem(4000422)) {
-                cm.gainItem(4000422, -1);
-                cm.gainItem(randItem, 1);
-            } else {
-                cm.sendOk("ä½ æ²¡æœ‰ç¤¼ç‰©ç›’-.-");
+    selStr +=
+      " #L1##bÁìÈ¡ÊÖÌ×#k#l  #L2##bÁìÈ¡Ñ©Çò#k#l  #L3##bÌá½»Ñ©»¨#k#l  #L4##bÑ©»¨´ïÈË#k#l";
+    cm.ËµÃ÷ÎÄ×Ö(selStr);
+  } else if (status == 1) {
+    switch (selection) {
+      case 1:
+        cm.gainItem(1472063, 1, 1);
+        cm.¶Ô»°½áÊø();
+        break;
+      case 2:
+        cm.gainItem(2060006, 800);
+        cm.¶Ô»°½áÊø();
+        break;
+      case 3:
+        cm.¶Ô»°½áÊø();
+        cm.´ò¿ªNPC(2007, 9220004);
+        break;
+      case 4:
+        var text = "   ©¤©¤©¤©¤©¤©¤©¤©¤©¤< #e#rÑ©»¨°ñ#k#n >©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤ #n\r\n\r\n";
+        text += "    ÅÅÃû        \tÍæ¼Ò         \t\t\tÑ©»¨\r\n";
+        var rankinfo_list = cm.getBossRankCountTop("Ñ©»¨");
+        if (rankinfo_list != null) {
+          for (var i = 0; i < rankinfo_list.size(); i++) {
+            if (i == 20) {
+              break;
             }
-            cm.dispose();
-        } else if (selection == 2) {
-            if (cm.haveItem(4000423)) {
-                cm.gainItem(4000423, -1);
-                cm.gainItem(randItem, 1);
-            } else {
-                cm.sendOk("ä½ æ²¡æœ‰ç¤¼ç‰©ç›’-.-");
+            var info = rankinfo_list.get(i);
+
+            text += i == 0 ? "#r" : i == 1 ? "#b" : i == 2 ? "#b" : "";
+            text += "\t" + (i + 1) + "\t\t\t\t";
+            text += info.getCname();
+            for (var j = 16 - info.getCname().getBytes().length; j > 0; j--) {
+              text += " ";
             }
-            cm.dispose();
-        } else if (selection == 3) {
-            if (cm.haveItem(4000424)) {
-                cm.gainItem(4000424, -1);
-                cm.gainItem(randItem, 1);
-            } else {
-                cm.sendOk("ä½ æ²¡æœ‰ç¤¼ç‰©ç›’-.-");
-            }
-            cm.dispose();
-        } else if (selection == 4) {
-            if (cm.haveItem(4000425)) {
-                cm.gainItem(4000425, -1);
-                cm.gainItem(randItem, 1);
-            } else {
-                cm.sendOk("ä½ æ²¡æœ‰ç¤¼ç‰©ç›’-.-");
-            }
-            cm.dispose();
-        } else if (selection == 5) {
-            cm.gainItem(1472063, 1);
-            cm.dispose();
-        } else if (selection == 6) {
-            cm.gainItem(2060006, 800);
-            cm.dispose();
-        } else if (selection == 7) {
-            cm.sendGetNumber("Did you bring the powder keg with you? Then, please give me the #bPowder Keg#k you have.  I will make a nice firecracker.  How many are you willing to give me? \n\r #b< Number of Powder Keg in inventory : 0 >#k", 0, 0, 1000);
+            text += "\t\t#k#n#r" + info.getCount();
+            text += "#k#n \t\t#k";
+            text += "";
+          }
         }
-    } else if (status == 2) {
-        var num = selection;
-        if (num == 7) {
-            cm.sendOk("T.T I will need the powder keg to start the fireworks....\r\n Please think again and talk to me.");
-        } else if (cm.haveItem(4031875, num)) {
-            cm.gainItem(4031875, -num);
-            cm.giveKegs(num);
-            cm.sendOk("Don't forget to give me the powder keg when you obtain them."); cm.safeDispose();
-        } else if (selection == 8) {
-            cm.sendNext("Status of Powder Keg Collection \n\r #B"+cm.getKegs()+"# \n\r If we collect them all, we can start the firework...");
-        }
-        cm.safeDispose();
+        text += "\r\n\r\n";
+        cm.sendOkS(text, 3);
+        cm.dispose();
+        break;
     }
+  }
 }

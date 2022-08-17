@@ -1,5 +1,5 @@
 function start() {
-    cm.sendOk("鍡紝鎴戞槸#p1002101# 寰堥珮鍏磋璇嗕綘=)");
+    cm.sendOk("嗨，我是#p1002101# 很高兴认识你=)");
 }
 
 function action(mode, type, selection) {

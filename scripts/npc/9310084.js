@@ -1,23 +1,28 @@
-﻿/* Dawnveil
-    To Victoria Island
-	Puro
-    Made by Daenerys
-*/
+/*
+ ZEVMS冒险岛(079)游戏服务端
+ 脚本：情人节红线女
+ */
+
+
+
+
+var status = 0
+
 function start() {
-    cm.sendYesNo("我可以直接送你去红鸾宫，你想去吗？");
+    cm.sendYesNo("你是要去殿堂吗？");
 }
 
 function action(mode, type, selection) {
-    if (mode == 0) {
-        cm.sendNext("恩... 看起来你并没有#b10000#k金币，这样我可帮不了你。");
-    } else {
-        if(cm.getPlayer().getMeso() >= 10000) {
-            cm.gainMeso(-10000);
-            cm.saveLocation("WEDDING");
-            cm.warp(700000000,0);
-        } else {
-			cm.sendNext("恩... 看起来你并没有#b10000#k金币，这样我可帮不了你。");
-		}
+    if (mode != 1) {
+        if (mode == 0)
+            cm.sendOk("既然你不去那就算了。");
+        cm.dispose();
+        return;
+    }
+    status++;
+    if (status == 1) {
+        cm.saveLocation("WEDDING");
+        cm.warp(700000000, 0);
         cm.dispose();
     }
 }

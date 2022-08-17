@@ -1,4 +1,4 @@
-ï»¿/* Franz the Owner
+/* Franz the Owner
 	Orbis VIP Eye Change.
 */
 var status = -1;
@@ -17,7 +17,7 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendNext("å“‡ï¼Œæ¬¢è¿æ¥åˆ°å¤©ç©ºä¹‹åŸæ•´å½¢æ‰‹æœ¯é¦† æˆ‘æ˜¯#p2010002# å¦‚æœä½ æœ‰ #b#t5152005##k, æˆ‘å¯ä»¥å¸®ä½ æ•´æƒ³è¦çš„æ‰‹æœ¯ã€‚");
+	cm.sendNext("ÍÛ£¬»¶Ó­À´µ½Ìì¿ÕÖ®³ÇÕûĞÎÊÖÊõ¹İ ÎÒÊÇ#p2010002# Èç¹ûÄãÓĞ #b#t5152005##k, ÎÒ¿ÉÒÔ°ïÄãÕûÏëÒªµÄÊÖÊõ¡£");
     } else if (status == 1) {
 	var face = cm.getPlayerStat("FACE");
 
@@ -29,13 +29,13 @@ function action(mode, type, selection) {
 	for (var i = 0; i < facetype.length; i++) {
 	    facetype[i] = facetype[i] + face % 1000 - (face % 100);
 	}
-	cm.askAvatar("æ¥å§~é€‰æ‹©ä½ æƒ³è¦çš„è„¸å‹", facetype);
+	cm.askAvatar("À´°É~Ñ¡ÔñÄãÏëÒªµÄÁ³ĞÍ",5152005,facetype);
 
     } else if (status == 2) {
 	if (cm.setAvatar(5152005, facetype[selection]) == 1) {
-	    cm.sendOk("äº«å—!");
+	    cm.sendOk("ÏíÊÜ!");
 	} else {
-	    cm.sendOk("ä½ å¥½åƒæ²¡æœ‰#t5152005#");
+	    cm.sendOk("ÄãºÃÏñÃ»ÓĞ#t5152005#");
 	}
 	cm.dispose();
     }

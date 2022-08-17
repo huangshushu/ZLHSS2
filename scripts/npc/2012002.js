@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 	Erin - Before Takeoff To Ellinia(200000112)
 */
 
@@ -10,12 +10,12 @@ function start() {
 function action(mode, type, selection) {
     status++;
     if(mode == 0) {
-	cm.sendOk("è¿™æ˜¯å¥½çš„é€‰æ‹©ï¼ï¼");
+	cm.sendOk("ÕâÊÇºÃµÄÑ¡Ôñ£¡£¡");
 	cm.dispose();
 	return;
     }
     if(status == 0) {
-	cm.sendYesNo("ä½ è¦ç¦»å¼€èˆ¹ä¸Š??");
+	cm.sendYesNo("ÄãÒªÀë¿ª´¬ÉÏ??");
     } else if(status == 1) {
 	cm.warp(200000111, 0);
 	cm.dispose();

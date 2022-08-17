@@ -1,7 +1,9 @@
-/*
-	NPC Name: 		Kia
-	Description: 		Quest - Cygnus tutorial helper
-*/
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 
 var status = -1;
 
@@ -28,7 +30,7 @@ function start(mode, type, selection) {
 	qm.askAcceptDecline("请给我 1个 #b#t4032267##k 和 1个 #b#t4032268##k 在那些箱子里面. 然后我就会做一个最棒的椅子给你， 我会在这里等着你！");
     } else if (status == 5) {
 	qm.forceStartQuest();
-	qm.summonMsg(9);
+//	qm.summonMsg(9);
 	qm.dispose();
     }
 }
@@ -53,7 +55,7 @@ function end(mode, type, selection) {
 	qm.forceCompleteQuest(20002);
 	qm.forceCompleteQuest(20015);
 	qm.gainExp(95);
-	qm.summonMsg(10);
+//	qm.summonMsg(10);
 	qm.dispose();
     }
 }

@@ -1,4 +1,4 @@
-ï»¿/* Kedrick
+/* Kedrick
     Fishking King NPC
 */
 
@@ -18,14 +18,14 @@ function action(mode, type, selection) {
 
     if (status == 0) {
         if (cm.getPlayer().getMapId() == 910000000) {
-            cm.sendSimple("æˆ‘èƒ½ä¸ºæ‚¨åšä»€ä¹ˆå—ï¼Ÿï¼Ÿ\n\r #b#L0#æˆ‘æƒ³å»é’“é±¼ã€‚#l");
+            cm.sendSimple("ÎÒÄÜÎªÄú×öÊ²Ã´Âğ£¿£¿\n\r #b#L0#ÎÒÏëÈ¥µöÓã¡£#l");
         } else {
-            cm.sendSimple("æˆ‘èƒ½ä¸ºæ‚¨åšä»€ä¹ˆå—ï¼Ÿï¼Ÿ\n\r #b#L0#æˆ‘æƒ³å»é’“é±¼ã€‚#l \n\r #L2#å›å»åŸæœ¬çš„åœ°å›¾ã€‚#l");
+            cm.sendSimple("ÎÒÄÜÎªÄú×öÊ²Ã´Âğ£¿£¿\n\r #b#L0#ÎÒÏëÈ¥µöÓã¡£#l \n\r #L2#»ØÈ¥Ô­±¾µÄµØÍ¼¡£#l");
         }
     } else if (status == 1) {
         sel = selection;
         if (sel == 0) {
-            cm.sendSimple("å“ªå»å“ªä¸ªé’“é±¼åœºï¼Ÿï¼Ÿ?\r\n#b#L0##m749050500##l\r\n#L1##m749050501##l\r\n#L2##m749050502##l#k");
+            cm.sendSimple("ÄÄÈ¥ÄÄ¸öµöÓã³¡£¿£¿?\r\n#b#L0##m749050500##l\r\n#L1##m749050501##l\r\n#L2##m749050502##l#k");
         } else if (sel == 2) {
             var returnMap = cm.getSavedLocation("FISHING");
             if (returnMap < 0 || cm.getMap(returnMap) == null) {

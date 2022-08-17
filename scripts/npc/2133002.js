@@ -1,21 +1,25 @@
+/*
+ 
+ ½Å±¾£º¶¾ÎíÉ­ÁÖ
+ */
 var status = -1;
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-	status++;
-    } else {
-	if (status == 0) {
-	    cm.dispose();
-	}
-	status--;
-    }
+  if (mode == 1) {
+    status++;
+  } else {
     if (status == 0) {
-	cm.sendYesNo("è¯·é—®æ‚¨æƒ³ç¦»å¼€#rè¿·é›¾æ£®æ—PQ#kï¼Ÿï¼Ÿ");
-    } else if (status == 1) {
-	    cm.removeAll(4001163);
-	    cm.removeAll(4001169);
-	    cm.removeAll(2270004);
-		cm.warp(930000800,0);
-		cm.dispose();
+      cm.dispose();
     }
+    status--;
+  }
+  if (status == 0) {
+    cm.sendYesNo("ÇëÎÊÄúÏëÀë¿ª#rÃÔÎíÉ­ÁÖ#k£¿£¿");
+  } else if (status == 1) {
+    cm.removeAll(4001163);
+    cm.removeAll(4001169);
+    cm.removeAll(2270004);
+    cm.warp(930000800, 0);
+    cm.dispose();
+  }
 }

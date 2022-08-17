@@ -9,7 +9,7 @@ function scheduleNew() {
     cal.set(java.util.Calendar.SECOND, 5);
     var nextTime = cal.getTimeInMillis();
     while (nextTime <= java.lang.System.currentTimeMillis()) {
-        nextTime += 1000*10; 
+        nextTime += 100*10; 
 }
 		setupTask = em.scheduleAtTimestamp("start", nextTime);
 }

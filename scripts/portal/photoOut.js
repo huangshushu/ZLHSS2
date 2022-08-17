@@ -1,9 +1,4 @@
 ﻿function enter(pi) {
-	var returnMap = pi.getSavedLocation("DONGDONGCHIANG");
-	if (returnMap < 0) {
-		returnMap = 100000000;
-	}
-	pi.clearSavedLocation("DONGDONGCHIANG");
-	pi.warp(returnMap,0);
+	pi.打开NPC(2007,11);
 	return true;
 }

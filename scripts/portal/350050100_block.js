@@ -1,5 +1,5 @@
-锘縡unction enter(pi) {
+function enter(pi) {
     pi.playPortalSE();
     pi.warp(350050100,"sp");
-    pi.playerMessage(-1, "鐪熼仐鎲撅紝閲嶆柊鏉ヨ繃鍚э紒");
+    pi.playerMessage(-1, "真遗憾，重新来过吧！");
 }

@@ -1,152 +1,287 @@
-ï»¿/*
-    Blue Balloon - LudiPQ 8th stage NPC
-*/
+/*
+ 
+ ½Å±¾£ºÍæ¾ßËş¾­µäÏä×Ó×éºÏ
+ */
 
+var µÚ°Ë¹Ø¾­Ñé = 10000;
 var status;
 var partyLdr;
 var chatState;
 var party;
 var preamble;
+//Ïä×Ó×éºÏËæ»ú³öÏÖµÄ×éºÏÎ»ÖÃ£¬0´ú±íÃ»ÈË£¬1´ú±íÓĞÈË
+/*
+var stage8combos = Array(
+        Array(0, 0, 0, 0, 1, 1, 1, 1, 1),
+        Array(0, 0, 0, 1, 0, 1, 1, 1, 1),
+        Array(0, 0, 0, 1, 1, 0, 1, 1, 1),
+        Array(0, 0, 0, 1, 1, 1, 0, 1, 1),
+        Array(0, 0, 0, 1, 1, 1, 1, 0, 1),
+        Array(0, 0, 0, 1, 1, 1, 1, 1, 0),
+        Array(0, 0, 1, 0, 0, 1, 1, 1, 1),
+        Array(0, 0, 1, 0, 1, 0, 1, 1, 1),
+        Array(0, 0, 1, 0, 1, 1, 0, 1, 1),
+        Array(0, 0, 1, 0, 1, 1, 1, 0, 1),
+        Array(0, 0, 1, 0, 1, 1, 1, 1, 0),
+        Array(0, 0, 1, 1, 0, 0, 1, 1, 1),
+        Array(0, 0, 1, 1, 0, 1, 0, 1, 1),
+        Array(0, 0, 1, 1, 0, 1, 1, 0, 1),
+        Array(0, 0, 1, 1, 0, 1, 1, 1, 0),
+        Array(0, 0, 1, 1, 1, 0, 0, 1, 1),
+        Array(0, 0, 1, 1, 1, 0, 1, 0, 1),
+        Array(0, 0, 1, 1, 1, 0, 1, 1, 0),
+        Array(0, 0, 1, 1, 1, 1, 0, 0, 1),
+        Array(0, 0, 1, 1, 1, 1, 0, 1, 0),
+        Array(0, 0, 1, 1, 1, 1, 1, 0, 0),
+        Array(0, 1, 0, 0, 0, 1, 1, 1, 1),
+        Array(0, 1, 0, 0, 1, 0, 1, 1, 1),
+        Array(0, 1, 0, 0, 1, 1, 0, 1, 1),
+        Array(0, 1, 0, 0, 1, 1, 1, 0, 1),
+        Array(0, 1, 0, 0, 1, 1, 1, 1, 0),
+        Array(0, 1, 0, 1, 0, 0, 1, 1, 1),
+        Array(0, 1, 0, 1, 0, 1, 0, 1, 1),
+        Array(0, 1, 0, 1, 0, 1, 1, 0, 1),
+        Array(0, 1, 0, 1, 0, 1, 1, 1, 0),
+        Array(0, 1, 0, 1, 1, 0, 0, 1, 1),
+        Array(0, 1, 0, 1, 1, 0, 1, 0, 1),
+        Array(0, 1, 0, 1, 1, 0, 1, 1, 0),
+        Array(0, 1, 0, 1, 1, 1, 0, 0, 1),
+        Array(0, 1, 0, 1, 1, 1, 0, 1, 0),
+        Array(0, 1, 0, 1, 1, 1, 1, 0, 0),
+        Array(0, 1, 1, 0, 0, 0, 1, 1, 1),
+        Array(0, 1, 1, 0, 0, 1, 0, 1, 1),
+        Array(0, 1, 1, 0, 0, 1, 1, 0, 1),
+        Array(0, 1, 1, 0, 0, 1, 1, 1, 0),
+        Array(0, 1, 1, 0, 1, 0, 0, 1, 1),
+        Array(0, 1, 1, 0, 1, 0, 1, 0, 1),
+        Array(0, 1, 1, 0, 1, 0, 1, 1, 0),
+        Array(0, 1, 1, 0, 1, 1, 0, 0, 1),
+        Array(0, 1, 1, 0, 1, 1, 0, 1, 0),
+        Array(0, 1, 1, 0, 1, 1, 1, 0, 0),
+        Array(0, 1, 1, 1, 0, 0, 0, 1, 1),
+        Array(0, 1, 1, 1, 0, 0, 1, 0, 1),
+        Array(0, 1, 1, 1, 0, 0, 1, 1, 0),
+        Array(0, 1, 1, 1, 0, 1, 0, 0, 1),
+        Array(0, 1, 1, 1, 0, 1, 0, 1, 0),
+        Array(0, 1, 1, 1, 0, 1, 1, 0, 0),
+        Array(0, 1, 1, 1, 1, 0, 0, 0, 1),
+        Array(0, 1, 1, 1, 1, 0, 0, 1, 0),
+        Array(0, 1, 1, 1, 1, 0, 1, 0, 0),
+        Array(0, 1, 1, 1, 1, 1, 0, 0, 0),
+        Array(1, 0, 0, 0, 0, 1, 1, 1, 1),
+        Array(1, 0, 0, 0, 1, 0, 1, 1, 1),
+        Array(1, 0, 0, 0, 1, 1, 0, 1, 1),
+        Array(1, 0, 0, 0, 1, 1, 1, 0, 1),
+        Array(1, 0, 0, 0, 1, 1, 1, 1, 0),
+        Array(1, 0, 0, 1, 0, 0, 1, 1, 1),
+        Array(1, 0, 0, 1, 0, 1, 0, 1, 1),
+        Array(1, 0, 0, 1, 0, 1, 1, 0, 1),
+        Array(1, 0, 0, 1, 0, 1, 1, 1, 0),
+        Array(1, 0, 0, 1, 1, 0, 0, 1, 1),
+        Array(1, 0, 0, 1, 1, 0, 1, 0, 1),
+        Array(1, 0, 0, 1, 1, 0, 1, 1, 0),
+        Array(1, 0, 0, 1, 1, 1, 0, 0, 1),
+        Array(1, 0, 0, 1, 1, 1, 0, 1, 0),
+        Array(1, 0, 0, 1, 1, 1, 1, 0, 0),
+        Array(1, 0, 1, 0, 0, 0, 1, 1, 1),
+        Array(1, 0, 1, 0, 0, 1, 0, 1, 1),
+        Array(1, 0, 1, 0, 0, 1, 1, 0, 1),
+        Array(1, 0, 1, 0, 0, 1, 1, 1, 0),
+        Array(1, 0, 1, 0, 1, 0, 0, 1, 1),
+        Array(1, 0, 1, 0, 1, 0, 1, 0, 1),
+        Array(1, 0, 1, 0, 1, 0, 1, 1, 0),
+        Array(1, 0, 1, 0, 1, 1, 0, 0, 1),
+        Array(1, 0, 1, 0, 1, 1, 0, 1, 0),
+        Array(1, 0, 1, 0, 1, 1, 1, 0, 0),
+        Array(1, 0, 1, 1, 0, 0, 0, 1, 1),
+        Array(1, 0, 1, 1, 0, 0, 1, 0, 1),
+        Array(1, 0, 1, 1, 0, 0, 1, 1, 0),
+        Array(1, 0, 1, 1, 0, 1, 0, 0, 1),
+        Array(1, 0, 1, 1, 0, 1, 0, 1, 0),
+        Array(1, 0, 1, 1, 0, 1, 1, 0, 0),
+        Array(1, 0, 1, 1, 1, 0, 0, 0, 1),
+        Array(1, 0, 1, 1, 1, 0, 0, 1, 0),
+        Array(1, 0, 1, 1, 1, 0, 1, 0, 0),
+        Array(1, 0, 1, 1, 1, 1, 0, 0, 0),
+        Array(1, 1, 0, 0, 0, 0, 1, 1, 1),
+        Array(1, 1, 0, 0, 0, 1, 0, 1, 1),
+        Array(1, 1, 0, 0, 0, 1, 1, 0, 1),
+        Array(1, 1, 0, 0, 0, 1, 1, 1, 0),
+        Array(1, 1, 0, 0, 1, 0, 0, 1, 1),
+        Array(1, 1, 0, 0, 1, 0, 1, 0, 1),
+        Array(1, 1, 0, 0, 1, 0, 1, 1, 0),
+        Array(1, 1, 0, 0, 1, 1, 0, 0, 1),
+        Array(1, 1, 0, 0, 1, 1, 0, 1, 0),
+        Array(1, 1, 0, 0, 1, 1, 1, 0, 0),
+        Array(1, 1, 0, 1, 0, 0, 0, 1, 1),
+        Array(1, 1, 0, 1, 0, 0, 1, 0, 1),
+        Array(1, 1, 0, 1, 0, 0, 1, 1, 0),
+        Array(1, 1, 0, 1, 0, 1, 0, 0, 1),
+        Array(1, 1, 0, 1, 0, 1, 0, 1, 0),
+        Array(1, 1, 0, 1, 0, 1, 1, 0, 0),
+        Array(1, 1, 0, 1, 1, 0, 0, 0, 1),
+        Array(1, 1, 0, 1, 1, 0, 0, 1, 0),
+        Array(1, 1, 0, 1, 1, 0, 1, 0, 0),
+        Array(1, 1, 0, 1, 1, 1, 0, 0, 0),
+        Array(1, 1, 1, 0, 0, 0, 0, 1, 1),
+        Array(1, 1, 1, 0, 0, 0, 1, 0, 1),
+        Array(1, 1, 1, 0, 0, 0, 1, 1, 0),
+        Array(1, 1, 1, 0, 0, 1, 0, 0, 1),
+        Array(1, 1, 1, 0, 0, 1, 0, 1, 0),
+        Array(1, 1, 1, 0, 0, 1, 1, 0, 0),
+        Array(1, 1, 1, 0, 1, 0, 0, 0, 1),
+        Array(1, 1, 1, 0, 1, 0, 0, 1, 0),
+        Array(1, 1, 1, 0, 1, 0, 1, 0, 0),
+        Array(1, 1, 1, 0, 1, 1, 0, 0, 0),
+        Array(1, 1, 1, 1, 0, 0, 0, 0, 1),
+        Array(1, 1, 1, 1, 0, 0, 0, 1, 0),
+        Array(1, 1, 1, 1, 0, 0, 1, 0, 0),
+        Array(1, 1, 1, 1, 0, 1, 0, 0, 0),
+        Array(1, 1, 1, 1, 1, 0, 0, 0, 0)
 
-var stage8combos = Array(Array(0, 0, 0, 0, 0, 0, 0, 0, 1),
 
-    Array(1, 0, 0, 0, 0, 0, 0, 0, 0));
+        );*/
+var stage8combos = Array(Array(1, 0, 0, 0, 0, 0, 0, 0, 0));
 
 function start() {
-	//cm.warp(922011000, 0);
-    status = -1;
-    preamble = null;
-    action(1, 0, 0);
+  status = -1;
+  preamble = null;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == -1) {
-        cm.dispose();
-    } else {
-        if (mode == 0 && status == 0) {
-            cm.dispose();
-            return;
-        }
-        if (mode == 1) {
-            status++;
-        } else {
-            status--;
-        }
-        boxStage(cm);
+  if (mode == -1) {
+    cm.dispose();
+  } else {
+    if (mode == 0 && status == 0) {
+      cm.dispose();
+      return;
     }
+    if (mode == 1) {
+      status++;
+    } else {
+      status--;
+    }
+    boxStage(cm);
+  }
 }
 
 function clear(stage, eim, cm) {
-    eim.setProperty("8stageclear", "true");
-
-    cm.showEffect(true, "quest/party/clear");
-    cm.playSound(true, "Party1/Clear");
-    cm.environmentChange(true, "gate");
-    cm.givePartyExp(22080, eim.getPlayers());
-    // stage 9 does not have a door, might be cause of DC error
+  eim.setProperty("8stageclear", "true");
+  cm.showEffect(true, "quest/party/clear");
+  cm.playSound(true, "Party1/Clear");
+  cm.environmentChange(true, "gate");
+  cm.givePartyExp(µÚ°Ë¹Ø¾­Ñé, eim.getPlayers());
 }
 
 function failstage(eim, cm) {
-    cm.showEffect(true, "quest/party/wrong_kor");
-    cm.playSound(true, "Party1/Failed");
+  cm.showEffect(true, "quest/party/wrong_kor");
+  cm.playSound(true, "Party1/Failed");
 }
 
 function boxStage(cm) {
-    var debug = false;
-    var eim = cm.getEventInstance();
-    var nthtext = "eighth";
-    var nthobj = "boxes";
-    var nthverb = "stand";
-    var nthpos = "stand too close to the edges";
-    var curcombo = stage8combos;
-    var currect = cm.getMap().getAreas();
-    var objset = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  var debug = false;
+  var eim = cm.getEventInstance();
+  var nthtext = "eighth";
+  var nthobj = "boxes";
+  var nthverb = "stand";
+  var nthpos = "stand too close to the edges";
+  var curcombo = stage8combos;
+  var currect = cm.getMap().getAreas();
+  var objset = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-    if( eim == null )
-        return;
+  if (eim == null) return;
 
-    if (cm.isLeader()) { // leader
-        if (status == 0) {
-            party = eim.getPlayers();
-            preamble = eim.getProperty("leader" + nthtext + "preamble");
-            if (preamble == null) {
-                cm.sendNext("å—¨ï¼Œæˆ‘æ˜¯#p2040043# è¿™ä¸€é˜¶æ®µå®Œæˆåï¼Œå°±å¯ä»¥æ‰“BOSS\r\nè§„åˆ™éå¸¸ç®€å•éœ€è¦æ‚¨ä»¬å›¢é˜Ÿçš„é»˜å¥‘ï¼Œé‚£ä¹ˆåŠ æ²¹å§ï¼");
-                eim.setProperty("leader" + nthtext + "preamble", "done");
-                eim.setProperty("stage" + nthtext + "combo", Math.floor(Math.random() * curcombo.length).toString());
-                cm.dispose();
-            } else { // otherwise, check for stage completed
-                var complete = eim.getProperty("8stageclear");
-                if (complete != null) {
-                    var mapClear = "8stageclear";
-                    eim.setProperty(mapClear, "true"); // Just to be sure
-                    cm.sendNext("è¯·èµ¶å¿«åˆ°ä¸‹ä¸€ä¸ªé˜¶æ®µï¼Œé—¨å·²ç»æ‰“å¼€äº†ï¼");
-                } else {
-                    var totplayers = 0;
-                    for (i = 0; i < objset.length; i++) {
-                        for (j = 0; j < party.size(); j++) {
-                            var present = currect.get(i).contains(party.get(j).getPosition());
-                            if (present) {
-                                objset[i] = objset[i] + 1;
-                                totplayers = totplayers + 1;
-                            }
-                        }
-                    }
-                    if (totplayers == 1 || debug) {
-                        var combo = curcombo[parseInt(eim.getProperty("stage" + nthtext + "combo"))];
-                        var testcombo = true;
-                        for (i = 0; i < objset.length; i++) {
-                            if (combo[i] != objset[i]) {
-                                testcombo = false;
-                            }
-                        }
-                        if (testcombo || debug) {
-                            clear(8, eim, cm);
-                            if (cm.getEventInstance().getProperty("s8start") != null) {
-                                var starts4Time = cm.getEventInstance().getProperty("s8start");
-                                var nowTime = new Date().getTime();
-                                if ((nowTime - starts4Time) < 90000)
-                                    cm.getEventInstance().setProperty("s8achievement", "true"); // give via portal script.
-                            }
-                            cm.dispose();
-                        } else {
-                            failstage(eim, cm);
-                            cm.dispose();
-                        }
-                    } else {
-                        if (debug) {
-                            var outstring = "Objects contain:"
-                            for (i = 0; i < objset.length; i++) {
-                                outstring += "\r\n" + (i + 1).toString() + ". " + objset[i].toString();
-                            }
-                            cm.sendNext(outstring);
-                            var combo = curcombo[parseInt(eim.getProperty("stage" + nthtext + "combo"))];
-                        } else {
-                            cm.sendNext("çœ‹èµ·æ¥ä½ è¿˜æ²¡æ‰¾åˆ°5â€œ+nthobj+â€ã€‚è¯·è€ƒè™‘â€œ+nthobj+â€çš„ä¸åŒç»„åˆã€‚åœ¨â€œ+nthobj+â€ä¸Šåªå…è®¸æœ‰5ä¸ªâ€œ+nthverb+â€ï¼Œå¦‚æœâ€œ+nthpos+â€ä¸èƒ½ç®—ä½œç­”æ¡ˆï¼Œè¯·è®°ä½è¿™ä¸€ç‚¹ã€‚ç»§ç»­å‰è¿›!");
-                            cm.dispose();
-                        }
-                    }
-                }
-            }
+  if (cm.isLeader()) {
+    if (status == 0) {
+      party = eim.getPlayers();
+      preamble = eim.getProperty("leader" + nthtext + "preamble");
+      if (preamble == null) {
+        cm.sendNext("ÄãºÍÄãµÄĞ¡»ï°é±ØĞë²Â¶ÔÕıÈ·µÄ×éºÏ£¬²ÅÄÜÍ¨¹Ø¡£");
+        eim.setProperty("leader" + nthtext + "preamble", "done");
+        eim.setProperty(
+          "stage" + nthtext + "combo",
+          Math.floor(Math.random() * curcombo.length).toString()
+        );
+        cm.dispose();
+      } else {
+        var complete = eim.getProperty("8stageclear");
+        if (0 == 0) {
+          var mapClear = "8stageclear";
+          eim.setProperty(mapClear, "true");
+          cm.sendNext("Çë¸Ï¿ìµ½ÏÂÒ»¸ö½×¶Î£¬ÃÅÒÑ¾­´ò¿ªÁË£¡");
         } else {
-            cm.dispose();
-        }
-    } else { // not leader
-        if (status == 0) {
-            var complete = eim.getProperty("8stageclear");
-            if (complete != null) {
-                cm.sendNext("è¯·èµ¶å¿«åˆ°ä¸‹ä¸€ä¸ªé˜¶æ®µï¼Œé—¨å·²ç»æ‰“å¼€äº†ï¼");
-                cm.dispose();
+          var totplayers = 0;
+          for (i = 0; i < objset.length; i++) {
+            for (j = 0; j < party.size(); j++) {
+              var present = currect.get(i).contains(party.get(j).getPosition());
+              if (present) {
+                objset[i] = objset[i] + 1;
+                totplayers = totplayers + 1;
+              }
+            }
+          }
+          if (totplayers == 5 || debug) {
+            var combo =
+              curcombo[parseInt(eim.getProperty("stage" + nthtext + "combo"))];
+            var testcombo = true;
+            for (i = 0; i < objset.length; i++) {
+              if (combo[i] != objset[i]) {
+                testcombo = false;
+              }
+            }
+            if (testcombo || debug) {
+              clear(8, eim, cm);
+              if (cm.getEventInstance().getProperty("s8start") != null) {
+                var starts4Time = cm.getEventInstance().getProperty("s8start");
+                var nowTime = new Date().getTime();
+                if (nowTime - starts4Time < 90000)
+                  cm.getEventInstance().setProperty("s8achievement", "true");
+              }
+              cm.dispose();
             } else {
-                cm.sendNext("è¯·æ‰¾é˜Ÿé•¿æ¥æ‰¾æˆ‘ã€‚");
-                cm.dispose();
+              failstage(eim, cm);
+              cm.dispose();
             }
-        } else {
-            var complete = eim.getProperty("8stageclear");
-            if (complete != null) {
-                cm.sendNext("è¯·èµ¶å¿«åˆ°ä¸‹ä¸€ä¸ªé˜¶æ®µï¼Œé—¨å·²ç»æ‰“å¼€äº†ï¼");
-                cm.dispose();
+          } else {
+            if (debug) {
+              var outstring = "Objects contain:";
+              for (i = 0; i < objset.length; i++) {
+                outstring +=
+                  "\r\n" + (i + 1).toString() + ". " + objset[i].toString();
+              }
+              cm.sendNext(outstring);
+              var combo =
+                curcombo[
+                  parseInt(eim.getProperty("stage" + nthtext + "combo"))
+                ];
+            } else {
+              cm.sendNext("¿´ÆğÀ´ÄãÃ»ÓĞÕÒµ½ÕıÈ·µÄ×éºÏÅ¶£¡");
+              cm.dispose();
             }
-            cm.dispose();
+          }
         }
+      }
+    } else {
+      cm.dispose();
     }
+  } else {
+    if (status == 0) {
+      var complete = eim.getProperty("8stageclear");
+      if (0 == 0) {
+        cm.sendNext("Çë¸Ï¿ìµ½ÏÂÒ»¸ö½×¶Î£¬ÃÅÒÑ¾­´ò¿ªÁË£¡");
+        cm.dispose();
+      } else {
+        cm.sendNext("ÇëÕÒ¶Ó³¤À´ÕÒÎÒ¡£");
+        cm.dispose();
+      }
+    } else {
+      var complete = eim.getProperty("8stageclear");
+      if (0 == 0) {
+        cm.sendNext("Çë¸Ï¿ìµ½ÏÂÒ»¸ö½×¶Î£¬ÃÅÒÑ¾­´ò¿ªÁË£¡");
+        cm.dispose();
+      }
+      cm.dispose();
+    }
+  }
 }

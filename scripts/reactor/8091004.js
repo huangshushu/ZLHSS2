@@ -13,12 +13,17 @@ function act() {
     var q = 0;
     var q2 = 0;
     if (rand < 2) {
-	q = 2;
+	q = 3;
 	q2 = 3;
     } else {
 	q = 3;
-	q2 = 2;
+	q2 = 3;
     }
-    rm.spawnMonster(9400652, q);
-    rm.spawnMonster(9400653, q2);
+    if (rm.getMapId() == 809050005) {
+	rm.spawnMonster(9400217, q);
+	rm.spawnMonster(9400218, q2);
+    } else if (rm.getMapId() == 809050006) {
+	rm.spawnMonster(9400217, q);
+	rm.spawnMonster(9400218, q2);
+    }
 }

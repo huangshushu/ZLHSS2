@@ -1,5 +1,7 @@
 function enter(pi) {
-    if (pi.haveItem(4001480)) {
+	  pi.showInstruction("这里进不去啦!", 100, 5);
+	 
+    /*if (pi.haveItem(4001480)) {
 	pi.warp(910001005,0);
 	pi.gainItem(4001480, -1);
     } else if (pi.haveItem(4001481)) {
@@ -15,5 +17,5 @@ function enter(pi) {
 	pi.warp(910001002, 0);
     } else if (pi.isQuestActive(3195) || pi.isQuestActive(3196)) {
 	pi.warp(910001001, 0);
-    }
+    }*/
 }

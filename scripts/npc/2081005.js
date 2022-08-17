@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 	Keroben - Leafre Cave of life - Entrance
 */
 
@@ -7,39 +7,45 @@ var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
-		status++;
+	status++;
     } else {
-		status--;
+	status--;
     }
     if (status == 0) {
-	    
-		morph = cm.getMorphState();
-		if (morph == 2210003 || cm.isQuestFinished(7301) ) {
-			cm.sendNext("å“¦ï¼Œæˆ‘çš„å…„å¼Ÿï¼ä¸è¦æ‹…å¿ƒäººç±»çš„å…¥ä¾µã€‚æˆ‘ä¼šä¿æŠ¤ä½ çš„ã€‚è¿›æ¥ã€‚");
-		} else {
-			var hp = cm.getPlayerStat("HP");
-			if (hp > 500) {
-			cm.addHP(-500);
-			} else if (hp > 1 && hp <= 500) {
-			cm.addHP(-(hp - 1));
-			}
-			cm.sendNext("è¿™æ˜¯è¿œè¿œä¸å¤Ÿçš„ï¼Œäººç±»ï¼ä»»ä½•äººä¸å¾—è¶…è¿‡æ­¤ç‚¹ã€‚ä»Žè¿™é‡Œæ»šå¼€ï¼");
-		}
+	    var marr = cm.getQuestRecord(160100);
+	    var data = marr.getCustomData();
+	    if (data == null) {
+		marr.setCustomData("0");
+	        data = "0";
+	    }
+	    var time = parseInt(data);
+	morph = cm.getMorphState();
+	if (morph == 2210003 || (cm.isQuestFinished(7301) && time + (6 * 3600000) < cm.getCurrentTime())) {
+	    cm.sendNext("Å¶£¬ÎÒµÄÐÖµÜ£¡²»Òªµ£ÐÄÈËÀàµÄÈëÇÖ¡£ÎÒ»á±£»¤ÄãµÄ¡£½øÀ´¡£");
+	} else {
+	    var hp = cm.getPlayerStat("HP");
+	    if (hp > 500) {
+		cm.addHP(-500);
+	    } else if (hp > 1 && hp <= 500) {
+		cm.addHP(-(hp - 1));
+	    }
+	    cm.sendNext("ÕâÊÇÔ¶Ô¶²»¹»µÄ£¬ÈËÀà£¡ÈÎºÎÈË²»µÃ³¬¹ý´Ëµã¡£´ÓÕâÀï¹ö¿ª£¡");
+	}
     } else if (status == 1) {
-		if (morph == 2210003 || cm.isQuestFinished(7301) ) {
-			cm.cancelItem(2210003);
-			cm.warp(240050000, 0);
+	if (morph == 2210003 || (cm.isQuestFinished(7301) && time + (6 * 3600000) < cm.getCurrentTime())) {
+	    cm.cancelItem(2210003);
+	    cm.warp(240060200, 0);
 
-	/*	    if (cm.haveItem(4031454)) { // Paladin
-			cm.gainItem(4031454, -1);
-			cm.gainItem(4031455, 1);
-			}*/
-	/*	    if (cm.getQuestStatus(6169) == 1) { // Temporary
-			cm.gainItem(4031461, 1);
-			}*/
-		} else {
-			cm.warp(240040600, "st00");
-		}
-		cm.dispose();
+/*	    if (cm.haveItem(4031454)) { // Paladin
+		cm.gainItem(4031454, -1);
+		cm.gainItem(4031455, 1);
+	    }*/
+/*	    if (cm.getQuestStatus(6169) == 1) { // Temporary
+		cm.gainItem(4031461, 1);
+	    }*/
+	} else {
+	    cm.warp(910000000, 0);
+	}
+	cm.dispose();
     }
 }

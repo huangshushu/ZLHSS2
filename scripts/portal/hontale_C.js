@@ -1,23 +1,26 @@
-/*
- * 腔绢柯扼牢 家胶 胶农赋飘 涝聪促.
- * 
- * 器呕困摹 : 急琶狼 悼奔
- * 器呕汲疙 : 悼奔 涝厘
- * 
- * 力累 : 林农喉发
- * 
+/* 
+ * This file is part of the OdinMS Maple Story Server
+    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc> 
+                       Matthias Butz <matze@odinms.de>
+                       Jan Christian Meyer <vimes@odinms.de>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License version 3
+    as published by the Free Software Foundation. You may not use, modify
+    or distribute this program under any other version of the
+    GNU Affero General Public License.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 function enter(pi) {
-    var eim = pi.getPlayer().getEventInstance();
-    if (eim.getProperty("choiceCave") == null) {
-        pi.getPlayer().message(5, "酒流 悼奔捞 急琶登瘤 臼疽嚼聪促.");
-        return false;
-    }
-    if (eim.getProperty("choiceCave").equals("0")) {
-        pi.allPartyWarp(240050300, false);
-    } else {
-        pi.allPartyWarp(240050310, false);
-    }
-    return true;
+	pi.playPortalSE();
+	pi.warp(240050300, "sp");
+	return true;
 }

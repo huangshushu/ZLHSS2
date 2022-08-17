@@ -1,10 +1,10 @@
-ï»¿/* Author: aaroncsn(MapleSea Like)
+/* Author: aaroncsn(MapleSea Like)
 	NPC Name: 		Kidan
 	Map(s): 		Queens Road: Temple of the Knight (130000100)
 	Description: 		Welcoming
 */
 
 function start(){
-	cm.sendOk("æ¬¢è¿æ¥åˆ°éª‘å£«ä¹‹æ®¿ã€‚");
+	cm.sendOk("»¶Ó­À´µ½ÆïÊ¿Ö®µî¡£");
 	cm.dispose();
 }

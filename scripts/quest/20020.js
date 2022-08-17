@@ -1,7 +1,9 @@
-/*
-	NPC Name: 		Nineheart
-	Description: 		Quest - Cygnus movie Intro
-*/
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 var status = -1;
 
 function start(mode, type, selection) {
@@ -11,13 +13,13 @@ function start(mode, type, selection) {
 	status--;
 
     if (status == 0) {
-	qm.sendNext("I can tell you've worked really hard by seeing that you're already at Level 10. I think it's time now for you to break out as a Nobless and officially become the Knight-in-Training. Before doing that, however, I want to ask you one thing. Have you decided which Knight you'd want to beome?");
+	qm.sendNext("我可以告诉你已经被看到，你真的很努力工作已经在10级。我认为这是时间，现在你来闯作为一个贵族，并正式成为骑士在训练。在这之前，但是，我想求你一件事。你决定，你会希望beome奈特?");
     } else if (status == 1) {
-	qm.sendNext("There isn't a single path to becoming a Knight. In fact, there are five of them laid out for you. It's up to you to choose which path you'd like to take, but it should definitely be something you will not regret. That's why... I am offering to show you what you'll look like once you become a Knight.");
+	qm.sendNext("还有就是不要成为一个骑士的单一路径。事实上，有五他们奠定了你。它是由你来选择你想要走的路，但它绝对应该是你不会后悔。这就是为什么......我提供给你看你的样子，一旦你成为骑士.");
     } else if (status == 2) {
-	qm.sendNext("What do you think? Are you interested in seeing yourself as the leader of the Knights? If you have already decided what kind of Knight you'd like to become, then you won't necessarily have to look at it...#b#L0#Show me how I'd look like as the leader of the Knights.#l ..#b#L1#No, I'm okay.");
+	qm.sendNext("你怎么看？您是否有兴趣在看到自己作为骑士的领袖？如果你已经决定你想要什么样的骑士成为，那么你不一定会看它...#b#L0#告诉我我该怎么会看起来像作为骑士的领袖.#l ..#b#L1#不，我没事.");
     } else if (status == 3) {
-	qm.sendYesNo("Would you like to see for it yourself right now? A short clip will come out soon. Be prepared for what you are about to witness.");
+	qm.sendYesNo("你想看到它自己的权利吗？短片即将问世。为你即将看到哪些准备.");
     // IF selected no
     //Talk to me after you have decided what you really want to do. Whatever you choose, you will not miss out or lose privileges, so don't take this too seriously...
     } else if (status == 4) {
@@ -35,7 +37,7 @@ function end(mode, type, selection) {
     else
 	status--;
     if (status == 0) {
-	qm.sendNextPrev("Test");
+	qm.sendNextPrev("测试");
 	qm.dispose();
     }
 }

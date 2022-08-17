@@ -5,12 +5,12 @@
  */
 
 function start() {
-    cm.askAcceptDecline("ä½ æƒ³ç¦»å¼€ï¼Ÿï¼Ÿ");
+    cm.askAcceptDecline("ÄãÏëÀë¿ª£¿£¿");
 }
 
 function action(mode, type, selection) {
     if (mode == 0) {
-	cm.sendNext("ä½ å¯èƒ½éœ€è¦ä¸€äº›æ—¶é—´ã€‚.");
+	cm.sendNext("Äã¿ÉÄÜĞèÒªÒ»Ğ©Ê±¼ä¡£.");
     } else {
 	cm.warp(130020000, 0);
     }

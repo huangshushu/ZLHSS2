@@ -1,4 +1,4 @@
-ï»¿var status = -1;
+var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
@@ -20,13 +20,11 @@ function action(mode, type, selection) {
             data = "0";
         }
         if (cm.getPlayer().getLevel() < 40 || cm.getPlayer().getMarriageId() <= 0 || !data.equals("3")) {
-            cm.sendNext("ä½ å¿…é¡»å·²ç»ç»“å©šä¸”ç­‰çº§è¾¾åˆ°40ç­‰ä»¥ä¸Šæ‰èƒ½è·Ÿæˆ‘è¯´è¯å”·ï½žï¼");
+            cm.sendNext("Äã±ØÐëÒÑ¾­½á»éÇÒµÈ¼¶´ïµ½40µÈÒÔÉÏ²ÅÄÜ¸úÎÒËµ»°à¡¡«£¡");
             cm.dispose();
         } else {
             if (cm.haveItem(4031592)) {
-                cm.gainItem(4031592, -1);
-                cm.warp(670010100, 0);
-                cm.dispose();
+                cm.sendNext("ÎÒ¿ÉÒÔÈÃÄã½øÈ¥. ½øÈ¥ºó¾Í»áÊ§È¥Èë³¡¾íÁËà¡¡«È·¶¨Òª£¿.");
                 return;
             }
             var apq = cm.getQuestRecord(160000);
@@ -35,21 +33,24 @@ function action(mode, type, selection) {
                 apq.setCustomData("0");
                 data = "0";
             }
-            var time = parseInt(data);
-            if (time + (6 * 3600000) < cm.getCurrentTime()) { //6 å°æ—¶
-                if (!cm.haveItem(4031592) && cm.haveItem(4031593, 10)) {
-                    cm.gainItem(4031593, -10);
-                    cm.gainItem(4031592, 1);
-                    cm.sendOk("è¯·ä¸‹ä¸€å¼ å…¥åœºå·è¦6å°æ—¶å€™å”·ã€‚");
-                    apq.setCustomData("" + cm.getCurrentTime());
-                } else {
-                    cm.sendOk("ä»Žæ€ªç‰©èº«ä¸Šå–å¾— 10 ä¸ªè“çŽ¯é’¥åŒ™ç»™æˆ‘. ä½ ä¸€æ¬¡åªèƒ½æ‹¥æœ‰ä¸€ä¸ªå…¥åœºå·.");
-                }
-            } else {
-                cm.sendNext("é¢†å–çš„æ—¶é—´å°šæœªæ»¡6å°æ—¶ã€‚");
-            }
-            cm.dispose();
-            return;
+            /*	    var time = parseInt(data);
+             if (time + (6 * 3600000) < cm.getCurrentTime()) { //6 hours
+             if (!cm.haveItem(4031592) && cm.haveItem(4031593, 10)) {
+             cm.gainItem(4031593, -10);
+             cm.gainItem(4031592, 1);
+             cm.sendOk("Here you are. I've recorded your time right now.");
+             apq.setCustomData("" + cm.getCurrentTime());
+             } else {*/
+            cm.sendOk("´Ó¹ÖÎïÉíÉÏÈ¡µÃ 10 ¸öÀ¶»·Ô¿³×¸øÎÒ. ÄãÒ»´ÎÖ»ÄÜÓµÓÐÒ»¸öÈë³¡¾í.");
+            /*		}
+             } else {
+             cm.sendNext("Oho, it looks like you've already went in here for the past 6 hours. Come back later.");
+             }
+             cm.dispose();*/
         }
+    } else if (status == 1) {
+        cm.gainItem(4031592, -1);
+        cm.warp(670010100, 0);
+        cm.dispose();
     }
 }

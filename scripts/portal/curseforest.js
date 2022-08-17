@@ -1,3 +1,14 @@
+var data = new Date();
+var hour = data.getHours();
+var map;
+
 function enter(pi) {
-    pi.warp(910100000,0); //or 910100001
+	if(hour >= 17 ) {
+		map = 910100000;
+	}else if(hour <= 7 ) {
+		map = 910100000;
+	}else{
+		map = 910100001;
+	}
+    pi.warp(map, 0); 
 }

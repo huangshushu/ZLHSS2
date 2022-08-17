@@ -1,10 +1,14 @@
+/*
+ 
+ ½Å±¾£ºòÚò¼
+ */
 function start() {
-	cm.sendYesNo("ä½ çœŸçš„ç°åœ¨è¦å‡ºå»å—?");
+  cm.sendYesNo("ÄãÒªÀë¿ªÕâÀïÂğ£¿");
 }
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-	cm.warp(701010320, 0);
-    }
-    cm.dispose();
+  if (mode == 1) {
+    cm.warp(701010320, 0);
+  }
+  cm.dispose();
 }

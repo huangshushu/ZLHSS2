@@ -1,43 +1,45 @@
-/* 
-	NPC Name: 		Cherry
-	Map(s): 		Victoria Road : Ellinia Station (101000300)
-	Description: 		Ellinia Ticketing Usher
-*/
+/*
+ 
+ Ä§·¨ÃÜÁÖÂëÍ·È¥Ìì¿ÕÖ®³Ç
+ */
 var status = 0;
 
 function start() {
-    status = -1;
-    boat = cm.getEventManager("Boats");
-    action(1, 0, 0);
+  status = -1;
+  boat = cm.getEventManager("Boats");
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    status++;
-    if(mode == 0) {
-	cm.sendNext("ä½ æœ‰ä¸€äº›ç»æµçš„è´Ÿæ‹…è€Œæ— æ³•æ­èˆ¹å¯¹å§?");
-	cm.dispose();
-	return;
+  status++;
+  if (mode == 0) {
+    cm.sendNext("ÄãÓĞÒ»Ğ©¾­¼ÃµÄ¸ºµ£¶øÎŞ·¨´î´¬¶Ô°É?");
+    cm.dispose();
+    return;
+  }
+  if (status == 0) {
+    if (boat == null) {
+      cm.sendNext("ÕÒ²»µ½½Å±¾ÇëÁªÏµGM£¡");
+      cm.dispose();
+    } else if (boat.getProperty("entry").equals("true")) {
+      cm.sendYesNo("ÄãÒªµÇ´¬Âğ£¿");
+    } else if (
+      boat.getProperty("entry").equals("false") &&
+      boat.getProperty("docked").equals("true")
+    ) {
+      cm.sendNext("ºÜ±§Ç¸±¾°à´¬×¼±¸¿ª×ß,³Ë×øÊ±¼ä±í¿ÉÒÔÍ¨¹ıÊÛÆ±Õ¹Ì¨²é¿´¡£");
+      cm.dispose();
+    } else {
+      cm.sendNext("ÇëÄÍĞÄµÈ´ı£¬·É´¬»¹Î´µÖ´ï¡£");
+      cm.dispose();
     }
-    if (status == 0) {
-	if(boat == null) {
-	    cm.sendNext("æ‰¾ä¸åˆ°è„šæœ¬è¯·è”ç³»GMï¼");
-	    cm.dispose();
-	} else if(boat.getProperty("entry").equals("true")) {
-	    cm.sendYesNo("ä½ æƒ³è¦æ­èˆ¹ï¼Ÿï¼Ÿ");
-	} else if(boat.getProperty("entry").equals("false") && boat.getProperty("docked").equals("true")) {
-	    cm.sendNext("å¾ˆæŠ±æ­‰æœ¬ç­èˆ¹å‡†å¤‡å¼€èµ°,ä¹˜åæ—¶é—´è¡¨å¯ä»¥é€šè¿‡å”®ç¥¨å±•å°æŸ¥çœ‹.");
-	    cm.dispose();
-	} else {
-	    cm.sendNext("è¯·è€å¿ƒç­‰å¾…å‡ åˆ†é’Ÿï¼Œæ­£åœ¨æ•´ç†é‡Œé¢ä¸­ï¼");
-	    cm.dispose();
-	}
-    } else if(status == 1) {
-	if(!cm.haveItem(4031045)) {
-	    cm.sendNext("ä¸! ä½ æ²¡æœ‰#b#t4031045##k æ‰€ä»¥æˆ‘ä¸èƒ½æ”¾ä½ èµ°!.");
-	} else {
-	    cm.gainItem(4031045, -1);
-	    cm.warp(101000301, 0);
-	}
-	cm.dispose();
+  } else if (status == 1) {
+    if (!cm.haveItem(4031045)) {
+      cm.sendNext("²»! ÄãÃ»ÓĞ#b#t4031045##k ËùÒÔÎÒ²»ÄÜ·ÅÄã×ß!.");
+    } else {
+      cm.gainItem(4031045, -1);
+      cm.warp(101000301, 0);
     }
+    cm.dispose();
+  }
 }

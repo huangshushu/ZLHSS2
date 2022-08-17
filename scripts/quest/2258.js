@@ -8,5 +8,5 @@ function start(mode, type, selection) {
 
 function end(mode, type, selection) {
 	qm.dispose();
-	qm.openNPC(2007,2124);
+	qm.打开NPC(2007,2124);
 }

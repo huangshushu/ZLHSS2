@@ -3,10 +3,9 @@
     Made by Daenerys
 */
 function enter(pi) {
-	if(pi.isAllReactorState(1008010, 0) == false){
+	if(pi.isAllReactorState(1008010, 5) == true){
 		pi.openNpc(10310);
 	}else{
-		pi.topMsg("You cannot exit if you do not break the chains.");
+		pi.topMsg("不破坏掉锁链的话，无法离开。");
 	}
-
 }

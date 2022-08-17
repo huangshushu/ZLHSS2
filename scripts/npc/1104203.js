@@ -1,5 +1,5 @@
 function start() {
-    cm.sendOk("å¿«æ•‘...æ•‘.... è€¶é›·å¼—çš„å¤§å®¶....");
+    cm.sendOk("¿ì¾È...¾È.... Ò®À×¸¥µÄ´ó¼Ò....");
 }
 
 function action(mode, type, selection) {

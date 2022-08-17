@@ -1,3 +1,3 @@
 function enter(pi) {
-    pi.playerMessage(5, "Currently unavailable.");
+    pi.playerMessage(5, "当前不可用.");
 }

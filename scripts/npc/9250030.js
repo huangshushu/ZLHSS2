@@ -1,4 +1,4 @@
-/* 
+/* Author: aaroncsn (MapleSea Like)
 	NPC Name: 		Limbo
 	Map(s): 		Thailand:Floating Market(500000000)
 	Description: 		Thailand Hair Salon

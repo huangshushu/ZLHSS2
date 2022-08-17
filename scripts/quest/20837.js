@@ -1,4 +1,4 @@
-/* Cygnus revamp
+﻿/* Cygnus revamp
 	Noblesse tutorial
 	Kizan
     Made by Daenerys
@@ -11,7 +11,7 @@ function start(mode, type, selection) {
 	 else
 	    status--;
 	if (status == 0) {
-		qm.sendNext("I supposed you're about ready to become a Knight-in-Training. I'll send you to the Test Site, and remember, no slouching!");
+		qm.sendNext("現在試著實地使用技能攻擊怪物吧。將技能登錄到快捷欄的話，使用起來會更方便。將要使用的技能以滑鼠拖曳到快捷欄上就可以了。");
 	} else if (status == 1) {	
         qm.forceStartQuest();	
         qm.forceCompleteQuest();

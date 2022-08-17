@@ -1,4 +1,10 @@
-ï»¿var status = 0;
+/* Author: aaroncsn (MapleSea Like)(Incomplete- Needs skin id)
+	NPC Name: 		Laila
+	Map(s): 		The Burning Road: Ariant(2600000000)
+	Description: 	Skin Care Specialist
+*/
+
+var status = 0;
 var skin = Array(0, 1, 2, 3, 4);
 
 function start() {
@@ -19,17 +25,17 @@ function action(mode, type, selection) {
 		else
 			status--;
 		if (status == 0) {
-			cm.sendNext("å—¨ï¼Œæˆ‘æ˜¯#p2100007# ä»Šå¤©ä½ æƒ³è¦æ¥ç‚¹ä¸ä¸€æ ·çš„ï¼Ÿï¼Ÿ");
+			cm.sendNext("àË£¬ÎÒÊÇ#p2100007# ½ñÌìÄãÏëÒªÀ´µã²»Ò»ÑùµÄ£¿£¿");
 		} else if (status == 1) {
-			cm.sendStyle("é€‰æ‹©ä¸€ä¸ªä½ æƒ³è¦çš„ã€‚", skin);
+			cm.sendStyle("Ñ¡ÔñÒ»¸öÄãÏëÒªµÄ¡£", skin);
 		} else if (status == 2){
 			cm.dispose();
 			if (cm.haveItem(5153007) == true){
 				cm.gainItem(5153007, -1);
 				cm.setSkin(skin[selection]);
-				cm.sendOk("äº«å—ï¼");
+				cm.sendOk("ÏíÊÜ£¡");
 			} else {
-				cm.sendNext("ç–´.... è²Œä¼¼æ²¡æœ‰#t5153007#ã€‚");
+				cm.sendNext("¯z.... Ã²ËÆÃ»ÓĞ#t5153007#¡£");
 			}
 		}
 	}

@@ -19,7 +19,7 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-/* ¿¤¸®º£ÀÌÅÍ
+/* éƒ¡åºœæµ·æç£
  */
 var status;
 function start() {
@@ -38,11 +38,11 @@ function action(mode, type, selection) {
         if (status == 0) {
 		if (cm.getMapId() == 222020200) {
 			cm.TimeMoveMap(222020210, 222020100, 13);
-			cm.getPlayer().dropMessage(6, "µµÂøÇÒ ÃşÀº Çï¸®¿À½º Å¾ 2Ãş, ¾Æ·§¸¶À»ÀÌ ÀÖ´Â ÃşÀÔ´Ï´Ù.");
+			cm.getPlayer().dropMessage(6, "æ¡£é¦’ä¸” æ‘¸ç¯® ç§‹åºœå·èƒ¶ å•ª 2æ‘¸, é…’é˜€ä»˜é˜‘æ ä¹ç»° æ‘¸æ¶èªä¿ƒ.");
 			cm.dispose();
 		} else {
 			cm.TimeMoveMap(222020110, 222020200, 13);
-			cm.getPlayer().dropMessage(6, "µµÂøÇÒ ÃşÀº Çï¸®¿À½º Å¾ 99Ãş, ·çµğºê¸®¾öÀÌ ÀÖ´Â ÃşÀÔ´Ï´Ù.");
+			cm.getPlayer().dropMessage(6, "æ¡£é¦’ä¸” æ‘¸ç¯® ç§‹åºœå·èƒ¶ å•ª 99æ‘¸, é£å¼å®åºœå†³æ ä¹ç»° æ‘¸æ¶èªä¿ƒ.");
 			cm.dispose();
 		}
 	}

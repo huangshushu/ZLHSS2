@@ -1,12 +1,9 @@
-/* ===========================================================
-			Resonance
-	NPC Name: 		Scarrs
-	Map(s): 		Mushroom Castle: Corner of Mushroom Forest(106020000)
-	Description: 	Quest -  Killer Mushroom Spores(1)
-=============================================================
-Version 1.0 - Script Done.(18/7/2010)
-=============================================================
-*/
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 
 importPackage(Packages.client);
 
@@ -18,16 +15,16 @@ function start(mode, type, selection) {
 	    if(type == 1 && mode == 0)
 		    status -= 2;
 		else{
-			qm.sendOk("Breaking through the barrier will require the Poison Mushroom Cap. Talk to me when you change your mind.");
+			qm.sendOk("打破障碍将需要毒蘑菇帽。 当你改变主意时，跟我说话.");
 			qm.dispose();
 			return;
 		}
 	}
 	if (status == 0)
-		qm.sendAcceptDecline("Ah! If I am not mistaken, I saw the #bKiller Mushroom Spores#k way back when I was a kid in a book. Now I remember... it's made out of extracts of powerful poisons from Poison Mushrooms, which means you'll need some Poison Mushroom Caps. If you can get me those, I think I'll be able to make it.");
+		qm.sendAcceptDecline("啊! 如果我没有错，我看到了#b杀手孢菇#k 当我是一个孩子在一本书的时候。 现在我记得...它是由强大的毒药的提取物 毒蘑菇, 这意味着你会需要一些 毒蘑菇帽. 如果你能给我那些，我想我能够做到.");
 	if (status == 1){
 		qm.forceStartQuest();
-		qm.sendOk("Please defeat #bPoison Mushrooms#k and bring back #b100 Poison Mushroom Caps#k in return.");
+		qm.sendOk("请击败 #b毒蘑菇#k 并带回 #b100 毒蘑菇帽#k 回报.");
 		qm.dispose();
 	}
 }
@@ -43,11 +40,11 @@ function end(mode, type, selection) {
 		}
 	}
 	if (status == 0)
-		qm.sendOk("Have you gathered up the 100 Poison Mushroom Caps like I asked you to get?");
+		qm.sendOk("你收集了 100 毒蘑菇帽 像我问你得到?");
 	if (status == 1){
 		qm.gainExp(13500);
 		qm.gainItem(4000500, -100);
-		qm.sendOk("I am amazed that you were able to gather up these 100 Poison Mushroom Caps, which is considered a difficult feat. I think I'll be able to make #bKiller Mushroom Spores#k our of these.");
+		qm.sendOk("我很惊讶你能够收集这100个 毒蘑菇帽, 这被认为是一个艰难的壮举。 我想我会做的 #b杀手孢菇#k 我们的这些.");
 		qm.forceCompleteQuest(); 
 		qm.dispose();
 	}

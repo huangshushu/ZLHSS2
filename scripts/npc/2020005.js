@@ -1,67 +1,67 @@
-ï»¿/**
- -- Odin JavaScript --------------------------------------------------------------------------------
- Alcaster - El Nath Market (211000100)
- -- By ---------------------------------------------------------------------------------------------
- Unknown/Information/xQuasar
- -- Version Info -----------------------------------------------------------------------------------
- 1.3 - Fixed up completely [xQuasar]
- 1.2 - Add a missing text part [Information]
- 1.1 - Recoded to official [Information]
- 1.0 - First Version by Unknown
- ---------------------------------------------------------------------------------------------------
- **/
+/**
+-- Odin JavaScript --------------------------------------------------------------------------------
+	Alcaster - El Nath Market (211000100)
+-- By ---------------------------------------------------------------------------------------------
+	Unknown/Information/xQuasar
+-- Version Info -----------------------------------------------------------------------------------
+	1.3 - Fixed up completely [xQuasar]
+	1.2 - Add a missing text part [Information]
+	1.1 - Recoded to official [Information]
+	1.0 - First Version by Unknown
+---------------------------------------------------------------------------------------------------
+**/
 
 var selected;
 var amount;
 var totalcost;
-var item = new Array(2050003, 2050004, 4006000, 4006001);
-var cost = new Array(300, 400, 5000, 5000);
-var msg = new Array("åœ£æ°´", "ä¸‡èƒ½ç–—ä¼¤", "é­”æ³•çŸ³", "å¬å”¤çŸ³");
+var item = new Array(2050003,2050004,4006000,4006001);
+var cost = new Array(300,400,5000,5000);
+var msg = new Array("Ê¥Ë®","ÍòÄÜÁÆÉË","Ä§·¨Ê¯","ÕÙ»½Ê¯");
 var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
-        status++;
+	status++;
     } else {
-        if (status == 2) {
-            cm.sendNext("ä½ éœ€è¦çš„è¯å†æ¥æ‰¾æˆ‘ã€‚.");
-            cm.safeDispose();
-            return;
-        }
-        status--;
+	if (status == 2) {
+	    cm.sendNext("ÄãĞèÒªµÄ»°ÔÙÀ´ÕÒÎÒ¡£.");
+	    cm.safeDispose();
+	    return;
+	}
+	status--;
     }
 
     if (status == 0) {
-        if (cm.getQuestStatus(3035) == 2) {
-            var selStr;
-            for (var i = 0; i < item.length; i++) {
-                selStr += "\r\n#L" + i + "# #b#t" + item[i] + "# (ä»·æ ¼: " + cost[i] + " æ«å¸)#k#l";
-            }
-            cm.sendSimple("è°¢è°¢ä½ è´­ä¹° #b#t4031056##k " + selStr);
-        } else {
-            cm.sendNext("å¦‚æœä½ å¸®åŠ©æˆ‘ï¼Œä½œä¸ºå¥–åŠ±æˆ‘ä¼šæŠŠæˆ‘æœ€æ£’çš„ç‰©å“å–ç»™ä½ ã€‚");
-            cm.safeDispose();
-        }
+	if (cm.getQuestStatus(3035) == 2) {
+	    var selStr;
+	    for (var i = 0; i < item.length; i++){
+		selStr += "\r\n#L" + i + "# #b#t" + item[i] + "# (¼Û¸ñ: "+cost[i]+" ·ã±Ò)#k#l";
+	    }
+	    cm.sendSimple("Ğ»Ğ»Äã¹ºÂò #b#t4031056##k "+selStr);
+	}
+	else {
+	    cm.sendNext("Èç¹ûÄã°ïÖúÎÒ£¬×÷Îª½±ÀøÎÒ»á°ÑÎÒ×î°ôµÄÎïÆ·Âô¸øÄã¡£");
+	    cm.safeDispose();
+	}
     } else if (status == 1) {
-        selected = selection;
-        cm.sendGetNumber("#b#t" + item[selected] + "##k çœŸçš„æ˜¯ä½ éœ€è¦çš„é“å…·ï¼Ÿè¿™ä¸ªé“å…· " + msg[selected] + ". å®ƒå¯èƒ½ä¸æ˜¯è·å–æœ€ç®€å•çš„é¡¹ç›®ï¼Œä½†æˆ‘ä¼šç»™ä½ ä¸€ä¸ªå¾ˆå¥½çš„åè®®å°±å¯ä»¥äº†ã€‚å®ƒä¼šèŠ±è´¹ä½  #b" + cost[selected] + " æ«å¸#k ä½ æƒ³è´­ä¹°å¤šå°‘ï¼Ÿï¼Ÿ", 0, 1, 100);
+	selected = selection;
+	cm.sendGetNumber("#b#t"+item[selected]+"##k ÕæµÄÊÇÄãĞèÒªµÄµÀ¾ß£¿Õâ¸öµÀ¾ß "+msg[selected]+". Ëü¿ÉÄÜ²»ÊÇ»ñÈ¡×î¼òµ¥µÄÏîÄ¿£¬µ«ÎÒ»á¸øÄãÒ»¸öºÜºÃµÄĞ­Òé¾Í¿ÉÒÔÁË¡£Ëü»á»¨·ÑÄã #b"+cost[selected]+" ·ã±Ò#k ÄãÏë¹ºÂò¶àÉÙ£¿£¿", 0, 1, 100);
     } else if (status == 2) {
-        amount = selection;
-        totalcost = cost[selected] * amount;
-        if (amount == 0) {
-            cm.sendOk("å¦‚æœä½ ä¸æ‰“ç®—ä¹°ä»»ä½•ä¸œè¥¿çš„è¯ï¼Œæˆ‘ä¹Ÿæ²¡æœ‰ä»€ä¹ˆå¯å–ã€‚");
-            cm.dispose();
-        }
-        cm.sendYesNo("ä½ çœŸçš„æƒ³è¦ä¹° #r" + amount + " #t" + item[selected] + "##k? è´¹ç”¨æ˜¯ " + cost[selected] + " æ«å¸ æ¯ä¸ª #t" + item[selected] + "#, æ€»å…±è´¹ç”¨æ˜¯ #r" + totalcost + " æ«å¸#k");
-    } else if (status == 3) {
-        if (cm.getMeso() < totalcost || !cm.canHold(item[selected])) {
-            cm.sendOk("ä½ ç¡®å®šä½ çš„æ«å¸è¶³å¤Ÿå—ï¼Œå¦‚æœæ²¡æœ‰è‡³å°‘ä¹Ÿè¦æœ‰ #r" + totalcost + "#k æ«å¸.");
-            cm.dispose();
-            return;
-        }
-        cm.sendNext("è°¢è°¢ã€‚å¦‚æœä½ å‘ç°è‡ªå·±éœ€è¦çš„ç‰©å“çš„é“è·¯ï¼Œç¡®ä¿è¿™é‡Œæ‰€ä¸‹é™ã€‚æˆ‘å¯èƒ½å·²ç»å¾—åˆ°äº†æ—§å†å¹´ï¼Œä½†æˆ‘ä»ç„¶å¯ä»¥è½»æ¾çš„é­”æ³•ç‰©å“ã€‚.");
-        cm.gainMeso(-totalcost);
-        cm.gainItem(item[selected], amount);
-        cm.safeDispose();
+	amount = selection;
+	totalcost = cost[selected] * amount;
+	if (amount == 0) {
+	    cm.sendOk("Èç¹ûÄã²»´òËãÂòÈÎºÎ¶«Î÷µÄ»°£¬ÎÒÒ²Ã»ÓĞÊ²Ã´¿ÉÂô¡£");
+	    cm.dispose();
+	}
+	cm.sendYesNo("ÄãÕæµÄÏëÒªÂò #r"+amount+" #t"+item[selected]+"##k? ·ÑÓÃÊÇ "+cost[selected]+" ·ã±Ò Ã¿¸ö #t"+item[selected]+"#, ×Ü¹²·ÑÓÃÊÇ #r"+totalcost+" ·ã±Ò#k");
+    } else if(status == 3) {
+	if(cm.getMeso() < totalcost || !cm.canHold(item[selected])) {
+	    cm.sendNext("ÄãÈ·¶¨ÄãµÄ·ã±Ò×ã¹»Âğ£¬Èç¹ûÃ»ÓĞÖÁÉÙÒ²ÒªÓĞ #r"+totalcost+"#k ·ã±Ò.");
+	    cm.dispose();
+	}
+	cm.sendNext("Ğ»Ğ»¡£Èç¹ûÄã·¢ÏÖ×Ô¼ºĞèÒªµÄÎïÆ·µÄµÀÂ·£¬È·±£ÕâÀïËùÏÂ½µ¡£ÎÒ¿ÉÄÜÒÑ¾­µÃµ½ÁË¾ÉÀúÄê£¬µ«ÎÒÈÔÈ»¿ÉÒÔÇáËÉµÄÄ§·¨ÎïÆ·¡£.");
+	cm.gainMeso(-totalcost);
+	cm.gainItem(item[selected], amount);
+	cm.safeDispose();
     }
 }

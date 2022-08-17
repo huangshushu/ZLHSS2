@@ -3,5 +3,5 @@
     Made by Daenerys
 */
 function enter(pi) {
-   pi.ShowWZEffect("UI/tutorial.img/25");
+   pi.TutInstructionalBalloon("UI/tutorial.img/25");
 }  

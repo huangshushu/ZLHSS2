@@ -1,4 +1,4 @@
-ï»¿/* V. Isage
+/* V. Isage
 	NLC VIP Eye Change.
 */
 var status = -1;
@@ -13,7 +13,7 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendNext("å—¨ï¼Œæˆ‘æ˜¯#p9201069# å¦‚æœæ‚¨æœ‰#r#t5252034##k é‚£ä¹ˆæˆ‘å¯ä»¥å¸®åŠ©æ‚¨~");
+	cm.sendNext("àË£¬ÎÒÊÇ#p9201069# Èç¹ûÄúÓĞ#r#t5252034##k ÄÇÃ´ÎÒ¿ÉÒÔ°ïÖúÄú~");
     } else if (status == 1) {
 	var face = cm.getPlayerStat("FACE");
 
@@ -25,13 +25,13 @@ function action(mode, type, selection) {
 	for (var i = 0; i < facetype.length; i++) {
 	    facetype[i] = facetype[i] + face % 1000 - (face % 100);
 	}
-	cm.askAvatar("é€‰æ‹©ä¸€ä¸ªå–œæ¬¢çš„", facetype);
+	cm.askAvatar("Ñ¡ÔñÒ»¸öÏ²»¶µÄ", facetype);
 
     } else if (status == 2){
 	if (cm.setAvatar(5152034, facetype[selection]) == 1) {
-	    cm.sendOk("äº«å—ï¼");
+	    cm.sendOk("ÏíÊÜ£¡");
 	} else {
-	    cm.sendOk("ç–´...è²Œä¼¼æ²¡æœ‰#b#t5152034##k");
+	    cm.sendOk("¯z...Ã²ËÆÃ»ÓĞ#b#t5152034##k");
 	}
 	cm.safeDispose();
     }

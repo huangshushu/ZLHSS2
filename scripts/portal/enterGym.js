@@ -9,6 +9,6 @@ function enter(pi) {
 	pi.playPortalSE();
 	pi.warp(914010200, 1);
     } else {
-	pi.playerMessage(5, "只有得到普欧修练时才能进入企鹅修炼场。");
+	pi.playerMessage(5, "只有得到普歐修練時才能進入企鵝修鍊場。");
     }
 }

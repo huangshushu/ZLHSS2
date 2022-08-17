@@ -1,8 +1,4 @@
-/*
- M7MS服务端
- 玩具塔副本事件
- M7MS服务端
- */
+
 var minPlayers = 6;
 
 function init() {

@@ -1,0 +1,58 @@
+/* 
+ *
+ *  
+ *  功能：起源之塔  进入下一阶段 入口
+ *  
+ *
+ */
+
+/* global rm, java */
+
+function enter(pi) {
+    var em = pi.getEventManager("LobbyQuest");
+    var eim = pi.getEventInstance();
+    if (em != null && eim != null) {
+        var stage = parseInt(eim.getProperty("stage"));
+        if (stage % 10 == 5) {
+            eim.setProperty("stage", String(stage + 1))
+            var map = eim.getMapInstance(stage);
+            pi.getPlayer().changeMap(map, map.getPortal(0));
+        } else if ("clear".equals(eim.getProperty("stage" + stage))) {
+            var rData = pi.getQuestInfo(42011, "time");
+            var tData = pi.getQuestInfo(42011, "totalTime");
+            var totalTime = parseInt(tData);
+            var time = parseInt(rData);
+
+            var startData = pi.getQuestInfo(42011, "start");
+            var startTime = parseInt(startData);
+
+            var diffTime = java.lang.System.currentTimeMillis() - startTime;//消耗的时间 毫秒
+            time = time - diffTime;
+            pi.updateOneQuestInfo(42011, "time", String(time));
+            if (stage == 13 || stage == 18 || stage == 28 || stage == 42) {
+                stage += 2;
+            } else if (stage == 46) {
+                stage += 3
+            } else {
+                stage += 1;
+            }
+            eim.setProperty("stage", String(stage))
+            pi.updateTowerRank(stage, (totalTime - time) / 1000);
+            pi.updateOneQuestInfo(42001, "stage", String(stage));
+            if (stage == 51) {
+                pi.openNpc(2540000, 1)
+                return
+            }
+            var map = eim.getMapInstance(stage - 1);
+            pi.getPlayer().changeMap(map, map.getPortal(0));
+        } else if (stage == 12 || stage == 17 || stage == 22 || stage == 23 || stage == 27 || stage == 41) {
+            eim.setProperty("stage" + stage, "clear");
+            pi.broadcastScreenEffect("event/clear");
+            eim.broadcastWeatherEffectNotice("你现在可以前往下一层了。", 147, 15000);
+        } else {
+            pi.showSystemMessage("你还没有完成本层的通关目标！");
+        }
+    } else {
+        pi.showSystemMessage("发生未知错误！");
+    }
+}

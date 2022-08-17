@@ -15,7 +15,7 @@ function enter(pi) {
         pi.resetMap(910540500);
         pi.warp(910540500,0);
     }else{
-        pi.playerMessage("Something went wrong");
+        pi.playerMessage("出现未知错误");
         pi.warp(100000000,0);
     }
 }

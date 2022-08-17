@@ -1,7 +1,9 @@
-/*
-	NPC Name: 		Grendel the really old
-	Description: 		Quest - In search of the lost memory
-*/
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 var status = -1;
 
 function start(mode, type, selection) {
@@ -13,7 +15,7 @@ function start(mode, type, selection) {
 	else
 	    status--;
 	if (status == 0) {
-	    qm.sendNext("Oh my gosh, you've grown so much since we first met! You've lost your memories? I'll take care of that.");
+	    qm.sendNext("哦，我的天哪，你从我们第一次见面后就成长了！ 你失去了你的回忆？ 我会照顾的.");
 	    qm.forceCompleteQuest();
 	    qm.forceCompleteQuest(3507);
 	    qm.dispose();
@@ -31,7 +33,7 @@ function end(mode, type, selection) {
 	else
 	    status--;
 	if (status == 0) {
-	    qm.sendNextPrev("Test");
+	    qm.sendNextPrev("测试");
 	    qm.dispose();
 	}
     }

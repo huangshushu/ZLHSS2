@@ -1,21 +1,14 @@
-ï»¿var status = -1;
+var status = -1;
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-	status++;
-    } else {
-	status--;
-    }
-    if (!cm.isLeader()) {
-	cm.sendNext("è¯·æ‰¾é˜Ÿé•¿æ¥å’Œæˆ‘è¯´è¯ã€‚");
-	cm.dispose();
-	return;
-    }
-    if (cm.haveItem(4032119,17)) {
-	cm.warpParty(674030200);
-	cm.gainItem(4032119,-17);
-    } else {
-	cm.sendOk("æ¬¢è¿æ¥åˆ°Væ€ªå®¢å‰¯æœ¬ æˆ‘éœ€è¦åœ°å›¾ä¸Šå²©å—å † ä¸­çš„\r\n#r17ä¸ª #b#t4032119##kã€‚");
-    }
+    cm.sendNext("ÄãÃÇÀ´ÁË£¿²»´íÂï£¡");
     cm.dispose();
 }
+/*
+    //if (cm.haveItem(4032119,17)) {
+		cm.warpParty(674030200);
+		//cm.gainItem(4032119,-17);
+    //} else {
+	//	cm.sendOk("»¶Ó­À´µ½V¹Ö¿Í¸±±¾ ÎÒĞèÒªµØÍ¼ÉÏÑÒ¿é¶Ñ ÖĞµÄ\r\n#r17¸ö #b#t4032119##k¡£");
+    //}
+*/

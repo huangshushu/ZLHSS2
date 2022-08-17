@@ -1,3 +1,5 @@
+
 function enter(pi) {
-    pi.openNpc(1540446,0);
+    pi.playPortalSE();
+    pi.openNpc(1540446,1);
 }

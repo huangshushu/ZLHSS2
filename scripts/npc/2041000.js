@@ -1,4 +1,4 @@
-ï»¿/* 
+/* Author: Xterminator
 	NPC Name: 		Tian
 	Map(s): 		Ludibrium: Station<Orbis> (220000110)
 	Description: 		Ludibrium Ticketing Usher
@@ -14,26 +14,26 @@ function start() {
 function action(mode, type, selection) {
     status++;
     if(mode == 0) {
-	cm.sendNext("ç­‰ä½ è€ƒè™‘å¥½å†æ¥æ‰¾æˆ‘ã€‚");
+	cm.sendNext("µÈÄã¿¼ÂÇºÃÔÙÀ´ÕÒÎÒ¡£");
 	cm.dispose();
 	return;
     }
     if (status == 0) {
 	if(train == null) {
-	    cm.sendNext("æ‰¾ä¸åˆ°è„šæœ¬è¯·è”ç³»GMï¼");
+	    cm.sendNext("ÕÒ²»µ½½Å±¾ÇëÁªÏµGM£¡");
 	    cm.dispose();
 	} else if(train.getProperty("entry").equals("true")) {
-	    cm.sendYesNo("ä½ æƒ³è¦æ­èˆ¹ï¼Ÿï¼Ÿ");
+	    cm.sendYesNo("ÄãÏëÒª´î´¬£¿£¿");
 	} else if(train.getProperty("entry").equals("false") && train.getProperty("docked").equals("true")) {
-	    cm.sendNext("å¾ˆæŠ±æ­‰æœ¬ç­èˆ¹å‡†å¤‡å¼€èµ°,ä¹˜åæ—¶é—´è¡¨å¯ä»¥é€šè¿‡å”®ç¥¨å±•å°æŸ¥çœ‹.");
+	    cm.sendNext("ºÜ±§Ç¸±¾°à´¬×¼±¸¿ª×ß,³Ë×øÊ±¼ä±í¿ÉÒÔÍ¨¹ıÊÛÆ±Õ¹Ì¨²é¿´.");
 	    cm.dispose();
 	} else {
-	    cm.sendNext("å¾ˆæŠ±æ­‰æœ¬ç­èˆ¹å·²ç»èµ°äº†,ä¹˜åæ—¶é—´è¡¨å¯ä»¥é€šè¿‡å”®ç¥¨å±•å°æŸ¥çœ‹.");
+	    cm.sendNext("ºÜ±§Ç¸±¾°à´¬ÒÑ¾­×ßÁË,³Ë×øÊ±¼ä±í¿ÉÒÔÍ¨¹ıÊÛÆ±Õ¹Ì¨²é¿´.");
 	    cm.dispose();
 	}
     } else if(status == 1) {
 	if(!cm.haveItem(4031045)) {
-	    cm.sendNext("ä¸! ä½ æ²¡æœ‰#b#t4031045##k æ‰€ä»¥æˆ‘ä¸èƒ½æ”¾ä½ èµ°!");
+	    cm.sendNext("²»! ÄãÃ»ÓĞ#b#t4031045##k ËùÒÔÎÒ²»ÄÜ·ÅÄã×ß!");
 	} else {
 	    cm.gainItem(4031045, -1);
 	    cm.warp(220000111, 0);

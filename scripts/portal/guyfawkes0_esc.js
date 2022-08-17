@@ -1,3 +1,4 @@
-function enter(pi) {
-    pi.playerMessage(5, "This portal is not available. Please talk to Charles.");
+﻿function enter(pi) {
+	pi.warpParty(674030200);
+    //pi.playerMessage(5, "请在找查理斯。");
 }

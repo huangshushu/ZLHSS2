@@ -1,4 +1,7 @@
+/*
+ 
+ */
 function action(mode, type, selection) {
-    cm.sendNext("å®ƒçœ‹èµ·æ¥åƒæœ‰ä»€ä¹ˆå¯ç–‘çš„åœ°æ–¹ã€‚");
-    cm.safeDispose();
+  cm.sendNext("Ëü¿´ÆğÀ´ÏñÓĞÊ²Ã´¿ÉÒÉµÄµØ·½¡£");
+  cm.safeDispose();
 }

@@ -3,6 +3,6 @@
 */
 
 function enter(pi) {
-    pi.playerMessage(5, "Please talk to the NPC instead.");
+    pi.playerMessage(6, "请与NPC交谈.");
     return true;
 }

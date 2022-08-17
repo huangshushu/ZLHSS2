@@ -1,8 +1,4 @@
-/*
-* 黑色天堂入口NPC
-* author 99
-*/
 function enter(pi) {
-    pi.openNpc(1540496,"blackHeaven");
+    pi.openNpc(1540496,0);
     return true;
 }

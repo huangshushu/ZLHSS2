@@ -3,26 +3,24 @@ function enter(pi) {
 	if (!pi.haveItem(4001113)) {
 	    if (pi.getPlayerCount(921100200) == 0) {
 		pi.playPortalSE();
-                               
 		pi.warp(921100200, 0);
 		return true;
 	    } else {
-		pi.playerMessage("已经其他玩家进入，你还不能进入。");
+		pi.playerMessage("Other characters are on request. You can't enter.");
 	    }
 	} else {
-	    pi.playerMessage("你已经有凤凰蛋了。你不能进入。");
+	    pi.playerMessage("You already have Phoenix's egg. You can't enter.");
 	}
     } else if (pi.getQuestStatus(6240) == 2 && pi.getQuestStatus(6241) == 0) {
 	if (!pi.haveItem(4001113)) {
 	    pi.playPortalSE();
-                    
 	    pi.warp(921100200, 0);
 	    return true;
 	} else {
-	    pi.playerMessage("你已经有凤凰蛋了。你不能进入。" );
+	    pi.playerMessage("You already have Phoenix's egg. You can't enter." );
 	}
     } else {
-	pi.playerMessage("你不能进入封闭的地方。");
+	pi.playerMessage("You can't enter sealed place.");
     }
     return false;
 }

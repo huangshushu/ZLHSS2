@@ -1,10 +1,10 @@
-ï»¿/* 	Sejan
+/* 	Sejan
 	Ariant
 */
 
 
 function start() {
-    cm.sendNext("å…‰æ˜Žä¸Žé»‘æš—æ€»æ˜¯å…±å­˜è‘—...");
+    cm.sendNext("¹âÃ÷ÓëºÚ°µ×ÜÊÇ¹²´æµÄ...");
 }
 
 function action() {

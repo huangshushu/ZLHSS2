@@ -1,26 +1,123 @@
 /*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
+ ZEVMS冒险岛(079)游戏服务端
+ */
+var JD = "#fUI/Basic/BtHide3/mouseOver/0#";
+var 心 = "#fUI/GuildMark.img/Mark/Etc/00009001/14#";
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
+function start() {
+    status = -1;
+    action(1, 0, 0)
+}
 
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+function action(mode, type, selection) {
+    if (status <= 0 && mode <= 0) {
+        cm.dispose();
+        return
+    }
+    if (mode == 1) {
+        status++
+    } else {
+        status--
+    }	 
+		var 一般 = cm.获取指定地图玩家数量(105040401);
+		var 豪华 = cm.获取指定地图玩家数量(105040402);
+		var 玩具去天空开关 = cm.GetPiot("玩具去天空开关","1");
+		var MC = cm.getServerName();
+		var r = Math.ceil(Math.random() * 3);  //随机取一个值
+				
+		if (cm.getPlayer().getGMLevel() == 99) {
+            cm.showInstruction("\r\n#e#r"+MC+"\r\n\r\n你无权使用#n#k\r\n ", 200, 3);  
+            cm.dispose();
+          return;
+	 
+	    
+	 
+	    
+    } else if (status <= 0) {
+        var selStr = "\t\t"+心+" "+心+"   #r"+MC+"林中桑拿房#k   "+心+" "+心+"#e#n\r\n\r\n";
+			selStr += "\t\t\t一般桑拿房价目：#r5000#k  金币\r\n";
+			selStr += "\t\t\t豪华桑拿房价目：#r10000#k 金币\r\n\r\n";
+			
+			
+			
+			selStr += "\t\t\t\t一般桑拿房人数：#r"+一般+"#k 人\r\n";
+			selStr += "\t\t\t\t豪华桑拿房人数：#r"+豪华+"#k 人\r\n";
+			
+			if(cm.getBossRank("对话旅馆老板",2)>0 &&　cm.getBossRank("获取火龙果",2)<=0){
+			selStr += " \t\t\t\t#L100##r"+JD+"屈原与雪花#l\r\n";
+			}
+			selStr += " \t\t\t\t#L1##b"+JD+"去一般桑拿房#l\r\n";
+	
+			selStr += " \t\t\t\t#L2##r"+JD+"去豪华桑拿房#l\r\n";
+	
+			
+			
+			
+			/*if ( cm.getPlayer().getGMLevel() == 6 ) {
+			if (cm.GetPiot("玩具去天空开关","1") <= 0  ) {
+			selStr += "\t\t\t\t#L100##b售票"+打开+"#l\r\n";} 
+			if (cm.GetPiot("玩具去天空开关","1") > 0  ) {
+			selStr += "\t\t\t\t#L101##b售票"+关闭+"#l\r\n";} }*/
+ 
+ 
+ 
+ 
+ 
+        cm.sendSimple(selStr)
+    } else if (status == 1) {
+        switch (selection) {
+            case 1:
+			if (cm.getMeso() >= 5000 ) {
+                cm.gainMeso(-5000);
+				cm.warp(105040401,3)
+                cm.dispose();
+            } else {
+                cm.sendOk("你没那么多钱？");
+                cm.dispose();
+            }
+                break;
+			case 2:
+			if (cm.getMeso() >= 10000 ) {
+                cm.gainMeso(-10000);
+				cm.warp(105040402,4)
+                cm.dispose();
+            } else {
+                cm.sendOk("你没那么多钱？");
+                cm.dispose();
+            }
+			break;
+			case 100:
+			
+			 cm.gainItem(4031428,r,1);
+			 cm.setBossRankCount("获取火龙果",1);
+			 cm.sendOk("获得好吃的雪球，请按原路返回吧");
+			 cm.dispose();
+			 cm.playerMessage(5,"[获得好吃的雪球，请按原路返回吧]");
+			// cm.openNpc(1061100,1);
+			
+            break;
+			
+			
+			
+			
+			case 100:
+			cm.GainPiot("玩具去天空开关","1",-玩具去天空开关);
+			cm.GainPiot("玩具去天空开关","1",1);
+            cm.dispose();
+			cm.openNpc(2040000,0);
+            break;
+			
+			case 101:
+			cm.GainPiot("玩具去天空开关","1",-玩具去天空开关);
+            cm.dispose();
+            cm.openNpc(2040000,0);
+            break
+        }
+    }
+}
 
-var status = 0;
+/*var status = 0;
 var regcost = 499;
 var vipcost = 999;
 var tempvar;
@@ -74,3 +171,4 @@ function action(mode, type, selection) {
 	cm.dispose();
     }
 }
+*/

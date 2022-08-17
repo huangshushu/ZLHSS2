@@ -1,4 +1,3 @@
-Ôªø
 /*
 	Machine Apparatus - Origin of Clocktower(220080001)
 */
@@ -6,25 +5,48 @@
 var status = -1;
 
 function start() {
-    action(1, 0, 0);
+	action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
     if (mode == 1) {
-        status++;
+	status++;
     } else {
-        status--;
+	status--;
     }
     if (status == 0) {
-        cm.sendYesNo("Âòü...Âòü...‰Ω†ÊÉ≥Ë¶ÅÁ¶ªÂºÄÂêóÔºüÔºü");
+		cm.sendOk("#L2##bøÏΩ›…ÃµÍ\r\n#L1##bŒ““™¿Îø™\r\n")
+		//cm.sendYesNo("‡Ω...‡Ω...ƒ„œÎ“™¿Îø™¬£ø£ø");
     } else if (status == 1) {
-        cm.warp(220080000);
-        if (cm.getPlayerCount(220080001) == 0) {
-            cm.getMap(220080000).resetReactors();
-			cm.getMap().EndPapfight();
-        }
-        cm.dispose();
+		if(selection==2){
+			 cm.∂‘ª∞Ω· ¯();
+                cm.¥Úø™…ÃµÍ(94);
+				return
+		}
+		if(selection==0){
+			if(cm.haveItem(4031179,1)==false){
+				cm.sendOk("ƒ„√ª”–D∆¨≤ª“™∆≠Œ“")
+				cm.dispose();
+				return
+			}
+			if(cm.≈–∂œµÿÕº÷∏∂®π÷ŒÔ ˝¡ø(8500000)>0 || cm.≈–∂œµÿÕº÷∏∂®π÷ŒÔ ˝¡ø(8500001)>0 || cm.≈–∂œµÿÕº÷∏∂®π÷ŒÔ ˝¡ø(8500002)>0){
+				cm.sendOk("“—æ≠’ŸªΩ¡Àƒÿ")
+				cm.dispose();
+				return
+			}
+			cm.gainItem(4031179,-1)
+			cm.µ±«∞µÿÕº’ŸªΩπ÷ŒÔ(8500000,1,-410,-386);
+			cm.dispose();
+			return
+		}
+		if(selection==1){
+			cm.warp(220080000);
+			if (cm.getPlayerCount(220080001) == 0) {
+				cm.getMap(220080000).resetReactors();
+			}
+		cm.dispose();
+		}
     } else {
-        cm.dispose();
-    }
+	cm.dispose();
+	}
 }

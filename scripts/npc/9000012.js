@@ -1,43 +1,58 @@
+/*
+ 
+ ½Å±¾£º»î¶¯
+ */
 var status = 0;
 
-
 function start() {
-	status = -1;
-	action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-	if (mode == -1 || mode == 0) {
-		cm.dispose();
-	} else {
-		status++;
-		if (status == 0) {
-			cm.sendSimple("ä½ å¥½ï¼Œæˆ‘æ˜¯#p9000012# æœ‰ä»€ä¹ˆå¯ä»¥å¸®åŠ©çš„ï¼Ÿï¼Ÿ\r\n#L0#å¸¦æˆ‘ç¦»å¼€è¿™é‡Œ#l\r\n#L1#ä¹°ä¸€æŠŠæ´»åŠ¨æ­¦å™¨ (1 æ«å¸)#l");
-		} else if (status == 1) {
-			if (selection == 0) {
-				cm.sendYesNo("ä½ çš„æƒ³è¦ç¦»å¼€ï¼Ÿï¼Ÿ");
-			} else if (selection == 1) {
-				if (cm.getPlayer().getMeso() < 1 || !cm.canHold(1322005)) {
-					cm.sendOk("å¾ˆæŠ±æ­‰ï¼Œä½ æ²¡æœ‰è¶³å¤Ÿçš„æ«å¸æˆ–è€…è£…å¤‡æ æ»¡äº†ï¼");
-				} else {
-					cm.gainItem(1322005, 1);
-					cm.gainMeso(-1); //lool
-				}
-				cm.dispose();
-			}
-		} else if (status == 2) {
-			var map = cm.getSavedLocation("EVENT");
-			if (map > -1) {
-				cm.warp(map, 0);
-			} else {
-    				cm.warp(910000000, 0);
-			}
-			cm.dispose();
-		}
-	}
+  if (mode == -1 || mode == 0) {
+    cm.dispose();
+  } else {
+    status++;
+    if (status == 0) {
+      var text =
+        "ÓĞÊ²Ã´¿ÉÒÔ°ïÖúµÄ£¿£¿#b\r\n#L0#´øÎÒÀë¿ªÕâÀï#l\r\n#L1#ÂòÒ»°Ñ»î¶¯ÎäÆ÷#l#k\r\n\r\n";
+      if (cm.getPlayer().getGMLevel() >= 30) {
+        text += "------------------ÒÔÏÂÎªGM¹¦ÄÜ------------------\r\n";
+        text += "#r#L2#¿ªÆô»î¶¯#l\r\n";
+      }
+      cm.sendSimple(text);
+    } else if (status == 1) {
+      if (selection == 0) {
+        cm.sendYesNo("ÄãµÄÏëÒªÀë¿ª£¿£¿");
+      } else if (selection == 1) {
+        if (cm.getPlayer().getMeso() < 1 || !cm.canHold(1322005)) {
+          cm.sendOk("ºÜ±§Ç¸£¬ÄãÃ»ÓĞ×ã¹»µÄ½ğ±Ò»òÕß×°±¸À¸ÂúÁË£¡");
+        } else {
+          cm.gainItem(1322005, 1);
+          cm.gainMeso(-1);
+        }
+        cm.dispose();
+      } else if (selection == 2) {
+        cm.startCoconut(cm.getChannel());
+        cm.È«·şÀ®°È(6, "[´òÒ¬×Ó±ÈÈü]´òÒ¬×Ó±ÈÈüÒÑ¾­¿ªÊ¼¡£");
+        cm.sendOk("»î¶¯ÒÑ¿ªÆô£¡");
+        cm.dispose();
+        return;
+      }
+    } else if (status == 2) {
+      var map = cm.getSavedLocation("EVENT");
+      if (map > -1) {
+        cm.warp(map, 0);
+      } else {
+        cm.warp(910000000, 0);
+      }
+      cm.dispose();
+    }
+  }
 }
 
 function getEimForGuild(em, id) {
-        var stringId = "" + id;
-        return em.getInstance(stringId);
+  var stringId = "" + id;
+  return em.getInstance(stringId);
 }

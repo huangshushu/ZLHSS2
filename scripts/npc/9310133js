@@ -1,0 +1,69 @@
+function start() {
+    status = -1;
+
+    action(1, 0, 0);
+}
+function action(mode, type, selection) {
+    if (mode == -1) {
+        cm.dispose();
+    }
+    else {
+        if (status >= 0 && mode == 0) {
+
+            cm.sendOk("感谢你的光临！");
+            cm.dispose();
+            return;
+        }
+        if (mode == 1) {
+            status++;
+        }
+        else {
+            status--;
+        }
+        if (status == 0) {
+            var tex2 = "";
+            var text = "";
+            for (i = 0; i < 10; i++) {
+                text += "";
+            }
+			//显示物品ID图片用的代码是  #v这里写入ID#
+            text += "#e#d制作#v1082391#需要#v4000463#x10  #v4021009#x30  #v4011007#x30  #v4000689#x300  #v4000313#x500  2000万金币搜集好道具我就可以为您制作了.#l\r\n\r\n"//3
+            text += "#L1##r制作传说手套  四维加80 攻魔加50#l\r\n\r\n"//3
+            cm.sendSimple(text);
+        } else if (selection == 1) {
+			if (cm.getMeso() < 1000000) { 
+				cm.sendOk("你的金币不足！");
+				cm.dispose();
+			} else if (cm.itemQuantity(4000463) < 10 ) { 
+				cm.sendOk("您的物品不足");
+				cm.dispose();
+			} else if (cm.itemQuantity(4021009) < 30 ) { 
+				cm.sendOk("您的物品不足");
+				cm.dispose();
+			} else if (cm.itemQuantity(4011007) < 30  ) { 
+ 				cm.sendOk("您的物品不足");
+				cm.dispose();
+                        } else if (cm.itemQuantity(4000689) < 300 ) { 
+ 				cm.sendOk("您的物品不足");
+				cm.dispose();
+                        } else if (cm.itemQuantity(4000313) < 200  ) { 
+ 				cm.sendOk("您的物品不足");
+				cm.dispose();
+			}else{
+				cm.gainItem(4000463, -10);
+				cm.gainItem(4021009, -30);
+				cm.gainItem(4011007, -30);
+				cm.gainItem(4000689, -300);
+				cm.gainItem(4000313, -500);
+				cm.gainItem(1082391, 80,80,80,80,305,350,50,50,300,300,30,30,30,30);
+				cm.gainMeso(-20000000);
+            cm.sendOk("制作成功！");
+            cm.dispose();
+cm.喇叭(2, "恭喜[" + cm.getPlayer().getName() + "]用多种稀有材料成功合成传说手套，恭喜！");
+            cm.dispose();
+			}
+		}
+    }
+}
+
+

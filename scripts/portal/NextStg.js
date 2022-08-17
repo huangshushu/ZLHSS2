@@ -1,7 +1,7 @@
 /*
  * 功能:浓姬副本
  * 下一阶段传送口
- * @Author Kent 
+ * 
  */
 function enter(pi) {
     if (pi.getPlayer().getParty() != null && pi.getMap().getAllMonster().size() == 0 && pi.isLeader()) {

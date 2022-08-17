@@ -1,6 +1,5 @@
 var status = -1;
-var nextt = true;
-var check = [670010200, 670010300, 670010400, 670010500, 670010600, 670010700, 670010800];
+
 function action(mode, type, selection) {
     if (mode == 1) {
         status++;
@@ -14,24 +13,14 @@ function action(mode, type, selection) {
     cm.removeAll(4031594);
     cm.removeAll(4031597);
     if (status == 0) {
-        cm.sendSimple("#b#L0#ç¦»å¼€è¿™é‡Œ (æ²¡æœ‰é€€è´¹)#l\r\n#L1#æˆ‘çš„é˜Ÿä¼å·²ç»å‡†å¤‡å¥½ï¼Œæˆ‘ä»¬è¦æŒ‘æˆ˜äº†ï¼#l#k");
+        cm.sendSimple("#b#L0#Àë¿ªÕâÀï (Ã»ÓĞÍË·Ñ)#l\r\n#L1#ÎÒµÄ¶ÓÎéÒÑ¾­×¼±¸ºÃ£¬ÎÒÃÇÒªÌôÕ½ÁË£¡#l#k");
     } else if (status == 1) {
         if (selection == 0) {
             cm.warp(670010000, 0);
         } else {
             if (cm.getPlayer().getParty() == null || !cm.isLeader()) {
-                cm.sendOk("å¿…é¡»è¦æœ‰é˜Ÿé•¿åœ¨è¿™é‡Œã€‚");
+                cm.sendOk("±ØĞëÒªÓĞ¶Ó³¤ÔÚÕâÀï¡£");
             } else {
-                for (var i = 0; i < check.length; i++) {
-                    if (cm.getPlayer().getClient().getChannelServer().getMapFactory().getMap(check[i]).playerCount() > 0) {
-                        nextt = false;
-                    }
-                }
-                if (!nextt) {
-                    cm.sendNext("ç›®å‰åœ°å›¾æœ‰äºº");
-                    cm.dispose();
-                    return;
-                }
                 var party = cm.getPlayer().getParty().getMembers();
                 var mapId = cm.getPlayer().getMapId();
                 var next = true;
@@ -44,17 +33,17 @@ function action(mode, type, selection) {
                         next = false;
                         break;
                     }
-                    size += (ccPlayer.isGM() ? 2 : 1);
+                    size += (ccPlayer.isGM() ? 6 : 1);
                 }
-                if (next && size >= 2) {
+                if (next && size >= 6) {
                     var em = cm.getEventManager("Amoria");
                     if (em == null) {
-                        cm.sendOk("è¯·ç¨åå†å°è¯•ã€‚");
+                        cm.sendOk("ÇëÉÔºóÔÙ³¢ÊÔ¡£");
                     } else {
                         em.startInstance(cm.getPlayer().getParty(), cm.getPlayer().getMap());
                     }
                 } else {
-                    cm.sendOk("é˜Ÿä¼æˆå‘˜å¿…é¡»æœ‰6ä¸ªä»¥ä¸Šéƒ½åœ¨è¿™é‡Œã€‚");
+                    cm.sendOk("¶ÓÎé³ÉÔ±±ØĞëÓĞ6¸öÒÔÉÏ¶¼ÔÚÕâÀï¡£");
                 }
             }
         }

@@ -30,8 +30,8 @@ function action(mode, type, selection) {
     else
 	cm.dispose();
     if (status == 0 && mode == 1) {
-	var selStr = "孩子...如果你有一些适合的东西，我可以把它变成什么...#b"
-	var options = new Array("制作手套","升级手套","制作拳套","升级拳套","木材与螺丝钉制作");
+	var selStr = "����...�������һЩ�ʺϵĶ������ҿ��԰������ʲô...#b"
+	var options = new Array("��������","��������","����ȭ��","����ȭ��","ľ������˿������");
 	for (var i = 0; i < options.length; i++){
 	    selStr += "\r\n#L" + i + "# " + options[i] + "#l";
 	}
@@ -40,44 +40,44 @@ function action(mode, type, selection) {
     } else if (status == 1 && mode == 1) {
 	selectedType = selection;
 	if (selectedType == 0){ //glove refine
-	    var selStr = "那么，你想要我制作什么样的手套?#b";
-	    var gloves = new Array ("工作手套#k - 需要等级 Lv. 10#b","褐短指手套#k - 需要等级 Lv. 15#b","蓝短指手套#k - 需要等级 Lv. 15#b","黑短指手套#k - 需要等级 Lv. 15#b","青铜盗贼手套#k - 需要等级 Lv. 20#b","青铜精神手套#k - 需要等级 Lv. 25#b","钢铁暴风手套#k - 需要等级 Lv. 30#b",
-		"钢铁追击手套#k - 需要等级 Lv. 35#b","红盗贼手套#k - 需要等级 Lv. 40#b","青月手套#k - 需要等级 Lv. 50#b","青铜柔丝手套#k - 需要等级 Lv. 60#b");
+	    var selStr = "��ô������Ҫ������ʲô��������?#b";
+	    var gloves = new Array ("��������#k - ��Ҫ�ȼ� Lv. 10#b","�ֶ�ָ����#k - ��Ҫ�ȼ� Lv. 15#b","����ָ����#k - ��Ҫ�ȼ� Lv. 15#b","�ڶ�ָ����#k - ��Ҫ�ȼ� Lv. 15#b","��ͭ��������#k - ��Ҫ�ȼ� Lv. 20#b","��ͭ��������#k - ��Ҫ�ȼ� Lv. 25#b","������������#k - ��Ҫ�ȼ� Lv. 30#b",
+		"����׷������#k - ��Ҫ�ȼ� Lv. 35#b","���������#k - ��Ҫ�ȼ� Lv. 40#b","��������#k - ��Ҫ�ȼ� Lv. 50#b","��ͭ��˿����#k - ��Ҫ�ȼ� Lv. 60#b");
 	    for (var i = 0; i < gloves.length; i++){
 		selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
 	    }
 	    equip = true;
 	    cm.sendSimple(selStr);
 	} else if (selectedType == 1){ //glove upgrade
-	    var selStr = "要升级手套?当然可以, 但要注意，升级后将不会延续到新的项目... #b";
-	    var gloves = new Array ("锂矿盗贼手套#k - 需要等级 Lv. 20#b","黑色盗贼手套#k - 需要等级 Lv. 20#b","锂矿精神手套#k - 需要等级 Lv. 25#b",
-		"黑精神手套#k - 需要等级 Lv. 25#b","银暴风手套#k - 需要等级 Lv. 30#b","黄金暴风手套#k - 需要等级 Lv. 30#b","紫矿追击手套#k - 需要等级 Lv. 35#b","黄金追击手套#k - 需要等级 Lv. 35#b","黄金盗贼手套#k - 需要等级 Lv. 40#b",
-		"黑盗贼手套#k - 需要等级 Lv. 40#b","赤月手套#k - 需要等级 Lv. 50#b","黄月手套#k - 需要等级 Lv. 50#b","钢铁柔丝手套#k - 需要等级 Lv. 60#b","黄金柔丝手套#k - 需要等级 Lv. 60#b");
+	    var selStr = "Ҫ��������?��Ȼ����, ��Ҫע�⣬�����󽫲����������µ���Ŀ... #b";
+	    var gloves = new Array ("﮿��������#k - ��Ҫ�ȼ� Lv. 20#b","��ɫ��������#k - ��Ҫ�ȼ� Lv. 20#b","﮿�������#k - ��Ҫ�ȼ� Lv. 25#b",
+		"�ھ�������#k - ��Ҫ�ȼ� Lv. 25#b","����������#k - ��Ҫ�ȼ� Lv. 30#b","�ƽ𱩷�����#k - ��Ҫ�ȼ� Lv. 30#b","�Ͽ�׷������#k - ��Ҫ�ȼ� Lv. 35#b","�ƽ�׷������#k - ��Ҫ�ȼ� Lv. 35#b","�ƽ��������#k - ��Ҫ�ȼ� Lv. 40#b",
+		"�ڵ�������#k - ��Ҫ�ȼ� Lv. 40#b","��������#k - ��Ҫ�ȼ� Lv. 50#b","��������#k - ��Ҫ�ȼ� Lv. 50#b","������˿����#k - ��Ҫ�ȼ� Lv. 60#b","�ƽ���˿����#k - ��Ҫ�ȼ� Lv. 60#b");
 	    for (var i = 0; i < gloves.length; i++){
 		selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
 	    }
 	    equip = true;
 	    cm.sendSimple(selStr);
 	} else if (selectedType == 2){ //claw refine
-	    var selStr = "那么，你想要我制作什么样的拳套呢?#b";
-	    var claws = new Array ("钢铁拳套#k - 需要等级 Lv. 15#b","青铜指虎#k - 需要等级 Lv. 20#b","狼牙#k - 需要等级 Lv. 25#b",
-"钢铁斗拳#k - 需要等级 Lv. 30#b","青铜守护指套#k - 需要等级 Lv. 35#b","钢铁护腕#k - 需要等级 Lv. 40#b","钢铁手甲#k - 需要等级 Lv. 50#b");
+	    var selStr = "��ô������Ҫ������ʲô����ȭ����?#b";
+	    var claws = new Array ("����ȭ��#k - ��Ҫ�ȼ� Lv. 15#b","��ָͭ��#k - ��Ҫ�ȼ� Lv. 20#b","����#k - ��Ҫ�ȼ� Lv. 25#b",
+"������ȭ#k - ��Ҫ�ȼ� Lv. 30#b","��ͭ�ػ�ָ��#k - ��Ҫ�ȼ� Lv. 35#b","��������#k - ��Ҫ�ȼ� Lv. 40#b","�����ּ�#k - ��Ҫ�ȼ� Lv. 50#b");
 	    for (var i = 0; i < claws.length; i++){
 		selStr += "\r\n#L" + i + "# " + claws[i] + "#l";
 	    }
 	    equip = true;
 	    cm.sendSimple(selStr);
 	} else if (selectedType == 3){ //claw upgrade
-	    var selStr = "要升级拳套?当然可以, 但要注意，升级后将不会延续到新的项目...#b";
-	    var claws = new Array ("锂矿拳套#k - 需要等级 Lv. 15#b","黄金拳套#k - 需要等级 Lv. 15#b","钢铁指虎#k - 需要等级 Lv. 20#b","朱矿指虎#k - 需要等级 Lv. 20#b","锂矿斗拳#k - 需要等级 Lv. 30#b","朱矿斗拳#k - 需要等级 Lv. 30#b","银守护拳套#k - 需要等级 Lv. 35#b","黑守护拳套#k - 需要等级 Lv. 35#b","赤红护腕#k - 需要等级 Lv. 40#b","朱矿护腕#k - 需要等级 Lv. 40#b","黑护腕#k - 需要等级 Lv. 40#b","赤红手甲#k - 需要等级 Lv. 50#b","蓝宝手甲#k - 需要等级 Lv. 50#b");
+	    var selStr = "Ҫ����ȭ��?��Ȼ����, ��Ҫע�⣬�����󽫲����������µ���Ŀ...#b";
+	    var claws = new Array ("﮿�ȭ��#k - ��Ҫ�ȼ� Lv. 15#b","�ƽ�ȭ��#k - ��Ҫ�ȼ� Lv. 15#b","����ָ��#k - ��Ҫ�ȼ� Lv. 20#b","���ָ��#k - ��Ҫ�ȼ� Lv. 20#b","﮿�ȭ#k - ��Ҫ�ȼ� Lv. 30#b","���ȭ#k - ��Ҫ�ȼ� Lv. 30#b","���ػ�ȭ��#k - ��Ҫ�ȼ� Lv. 35#b","���ػ�ȭ��#k - ��Ҫ�ȼ� Lv. 35#b","��커��#k - ��Ҫ�ȼ� Lv. 40#b","�����#k - ��Ҫ�ȼ� Lv. 40#b","�ڻ���#k - ��Ҫ�ȼ� Lv. 40#b","����ּ�#k - ��Ҫ�ȼ� Lv. 50#b","�����ּ�#k - ��Ҫ�ȼ� Lv. 50#b");
 	    for (var i = 0; i < claws.length; i++){
 		selStr += "\r\n#L" + i + "# " + claws[i] + "#l";
 	    }
 	    equip = true;
 	    cm.sendSimple(selStr);
 	} else if (selectedType == 4){ //material refine
-	    var selStr = "材料？我知道一些材料，我可以帮你...?#b";
-	    var materials = new Array ("用10个树枝制作1个木材","用5个木柴制作1个木材","制作螺丝钉(1次15个)");
+	    var selStr = "���ϣ���֪��һЩ���ϣ��ҿ��԰���...?#b";
+	    var materials = new Array ("��10����֦����1��ľ��","��5��ľ������1��ľ��","������˿��(1��15��)");
 	    for (var i = 0; i < materials.length; i++){
 		selStr += "\r\n#L" + i + "# " + materials[i] + "#l";
 	    }
@@ -99,7 +99,7 @@ function action(mode, type, selection) {
 	    cost = costSet[selectedItem];
 	}
 		
-	var prompt = "所以你需要我帮你做一些#t" + item + "#? 那你想要我做多少个呢?";
+	var prompt = "��������Ҫ�Ұ�����һЩ#t" + item + "#? ������Ҫ�������ٸ���?";
 		
 	cm.sendGetNumber(prompt,1,1,100)
     }
@@ -149,13 +149,13 @@ function action(mode, type, selection) {
 	    cost = costSet[selectedItem];
 	}
 		
-	var prompt = "你需要我帮你做";
+	var prompt = "����Ҫ�Ұ�����";
 	if (qty == 1)
 	    prompt += "#t" + item + "#?";
 	else
-	    prompt += qty + "个#t" + item + "#?";
+	    prompt += qty + "��#t" + item + "#?";
 			
-	prompt += " 好的我会帮你完成的,但请你确认你的背包是否有足够的空间哦#b";
+	prompt += " �õ��һ������ɵ�,������ȷ����ı����Ƿ����㹻�Ŀռ�Ŷ#b";
 		
 	if (mats instanceof Array) {
 	    for(var i = 0; i < mats.length; i++){
@@ -173,7 +173,7 @@ function action(mode, type, selection) {
 	var complete = true;
 		
 	if (cm.getMeso() < cost * qty) {
-	    cm.sendOk("我怕你买不起我的服务.")
+	    cm.sendOk("�����������ҵķ���.")
 	} else {
 	    if (mats instanceof Array) {
 		for (var i = 0; complete && i < mats.length; i++) {
@@ -188,7 +188,7 @@ function action(mode, type, selection) {
 	    }
 	}
 	if (!complete) {
-	    cm.sendOk("不要以为我是外国人就想骗我啊...再确认你的包包是否有材料吧");
+	    cm.sendOk("��Ҫ��Ϊ��������˾���ƭ�Ұ�...��ȷ����İ����Ƿ��в��ϰ�");
 	} else {
 	    if (mats instanceof Array) {
 		for (var i = 0; i < mats.length; i++){
@@ -205,7 +205,7 @@ function action(mode, type, selection) {
 	    } else {
 		cm.gainItem(item, qty);
 	    }
-	    cm.sendOk("很棒吧?我的手艺,如果还有需要欢迎来找我,我哪都不会去的.");
+	    cm.sendOk("�ܰ���?�ҵ�����,���������Ҫ��ӭ������,���Ķ�����ȥ��.");
 	}
 	cm.dispose();
     }

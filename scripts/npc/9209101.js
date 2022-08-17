@@ -1,30 +1,35 @@
-ï»¿
-var status;
-
+/*
+ 
+ */
+var JT = "#fUI/Basic/BtHide3/mouseOver/0#";
+var ĞÄ = "#fUI/GuildMark.img/Mark/Etc/00009001/14#";
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == 0 && status == 0) {
+  if (status == 0 && mode == 0) {
+    cm.dispose();
+    return;
+  }
+  if (mode == 1) {
+    status++;
+  } else {
+    status--;
+  }
+  if (status == 0) {
+    var selStr =
+      "	Hi~#b#h ##kÄãÒª»ØÈ¥Âğ£¿ÎÒ¿´ÄãÕâÃ´ÈõĞ¡£¬²»Ò»¶¨´òµÃ¹ıËü°É£¬È¥ÕÒÄãµÄĞ¡»ï°éÃÇÒ»ÆğÀ´ÌôÕ½°É¡£\r\n\r\n";
+    selStr += " #L2##b·µ»Ø×ÔÓÉ#k#l\r\n";
+
+    cm.ËµÃ÷ÎÄ×Ö(selStr);
+  } else if (status == 1) {
+    switch (selection) {
+      case 2:
+        cm.warp(910000000, 0);
         cm.dispose();
-        return;
-    } else {
-        if (mode == 1)
-            status++;
-        else
-            status--;
-        var mapId = cm.getMapId();
-        var outText;
-        if (mapId == 220080001) {
-            outText = "ä½ ç¡®å®šè¦ç¦»å¼€BOSS PQï¼Ÿï¼Ÿ";
-        }
-        if (status == 0) {
-            cm.sendYesNo(outText);
-        } else if (mode == 1) {
-            cm.warp(910000000, 0); // å›è‡ªç”±
-            cm.dispose();
-        }
+        break;
     }
+  }
 }

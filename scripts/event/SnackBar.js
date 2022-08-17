@@ -1,8 +1,8 @@
 ﻿/**
- 黑轮王任务 PQ
+ 黑輪王任務 PQ
  */
 
-var minPlayers = 1;
+        var minPlayers = 1;
 
 function init() {
     em.setProperty("state", "0");
@@ -18,7 +18,10 @@ function setup() {
     var eim = em.newInstance("SnackBar");
 
     var map = eim.setInstanceMap(741020101);
+
     map.resetFully();
+   
+
     eim.startEventTimer(900000); //15 分
 
     return eim;

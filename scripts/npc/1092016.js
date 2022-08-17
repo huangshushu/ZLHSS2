@@ -1,4 +1,4 @@
-ï»¿/* 
+/* Author: aaroncsn (MapleSea Like)
 	NPC Name: 		Glittering Stone
 	Map(s): 		Nautilus:Power Source Chamber(120000301)
 	Description: 		Unknown
@@ -6,9 +6,9 @@
 
 function start() {
     if(cm.getQuestStatus(2166) == 1) {
-        cm.sendNext("è¿™æ˜¯ä¸€ä¸ªç¾ä¸½çš„ï¼Œé—ªäº®çš„å²©çŸ³ã€‚æˆ‘èƒ½æ„Ÿè§‰åˆ°å®ƒå‘¨å›´çš„ç¥ç§˜åŠ›é‡ã€‚");
+        cm.sendNext("ÕâÊÇÒ»¸öÃÀÀöµÄ£¬ÉÁÁÁµÄÑÒÊ¯¡£ÎÒÄÜ¸Ğ¾õµ½ËüÖÜÎ§µÄÉñÃØÁ¦Á¿¡£");
 		cm.forceCompleteQuest(2166);
     } else
-        cm.sendNext("æˆ‘ç”¨æˆ‘çš„æ‰‹æ‘¸äº†æ‘¸å‘äº®çš„å²©çŸ³ï¼Œæˆ‘æ„Ÿåˆ°ä¸€ç§ç¥ç§˜çš„åŠ›é‡æµè¿›æˆ‘çš„èº«ä½“ã€‚");
+        cm.sendNext("ÎÒÓÃÎÒµÄÊÖÃşÁËÃş·¢ÁÁµÄÑÒÊ¯£¬ÎÒ¸Ğµ½Ò»ÖÖÉñÃØµÄÁ¦Á¿Á÷½øÎÒµÄÉíÌå¡£");
     cm.dispose();
 }

@@ -1,10 +1,8 @@
-/*
-    传送到噩梦时间塔塔顶
-	@author 99
+/* Dawnveil
+    Ellinel Fairy Academy
+    Made by Daenerys
 */
-
 function enter(pi) {
-    pi.playPortalSE();
-    pi.warp(450004000, 0);
+    pi.warp(450004300,0);
     return true;
 }

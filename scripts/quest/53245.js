@@ -5,7 +5,7 @@ function complete(mode, type, selection) {
     switch (status) {
         case 1:
             qm.forceCompleteQuest();
-            qm.introEnableUI(1);
+            qm.EnableUI(1);
             qm.sendNextS("The ship should be beyond the portal. That's our ticket out of here... if we can get in.", 9);
             break;
         case 2:
@@ -19,7 +19,7 @@ function complete(mode, type, selection) {
             break;
         case 5:
             qm.topMsg("Follow the arrows to the Key Keeper's Room.");
-            qm.introEnableUI(0);
+            qm.EnableUI(0);
             qm.dispose();
             break;
     }

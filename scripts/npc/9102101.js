@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 	This file is part of the OdinMS Maple Story Server
     Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc> 
                        Matthias Butz <matze@odinms.de>
@@ -31,15 +31,15 @@
 **/
 
 function start() {
-    cm.sendYesNo("#b(æˆ‘èƒ½çœ‹åˆ°çš„ä¸œè¥¿è¦†ç›–åœ¨è‰ä¸›ä¸­ã€‚æˆ‘åº”è¯¥æ‹‰å‡ºæ¥ï¼Ÿ)");
+    cm.sendYesNo("#b(ÎÒÄÜ¿´µ½µÄ¶«Î÷¸²¸ÇÔÚ²İ´ÔÖĞ¡£ÎÒÓ¦¸ÃÀ­³öÀ´£¿)");
 }
 
 function action(mode, type, selection) {
     if (mode == -1) {
     } else if (mode == 0) {
-        cm.sendNext("#b(æˆ‘æ²¡æœ‰æƒ³å¤ªå¤šï¼Œæ‰€ä»¥æˆ‘æ²¡æœ‰å»ç¢°å®ƒã€‚)");
+        cm.sendNext("#b(ÎÒÃ»ÓĞÏëÌ«¶à£¬ËùÒÔÎÒÃ»ÓĞÈ¥ÅöËü¡£)");
     } else if (mode == 1) {
-        cm.sendNext("#b(å‘¸...è¿™æ˜¯å® ç‰©ä¾¿ä¾¿!)");
+        cm.sendNext("#b(ÅŞ...ÕâÊÇ³èÎï±ã±ã!)");
         cm.gainItem(4031922, 1);
     }
     cm.dispose();

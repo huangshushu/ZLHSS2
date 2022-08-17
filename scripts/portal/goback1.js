@@ -4,6 +4,6 @@ function enter(pi) {
 		returnMap = 600000000; // to fix people who entered the fm trough an unconventional way
 	}
 	pi.clearSavedLocation("MULUNG_TC");
-	pi.warp(returnMap, "unityPortal2"); 
+	pi.warp(returnMap,0);
 	return true;
 }

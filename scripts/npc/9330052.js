@@ -1,4 +1,4 @@
-ï»¿var status = 0;
+var status = 0;
 var beauty = 0;
 var mface = Array(20000, 20001, 20002, 20003, 20004, 20005, 20006, 20007, 20008, 20012, 20014);
 var fface = Array(21000, 21001, 21002, 21003, 21004, 21005, 21006, 21007, 21008, 21012, 21014);
@@ -22,15 +22,15 @@ function action(mode, type, selection) {
         else
             status--;
         if (status == 0) {
-            cm.sendSimple("å—¨ï¼Œæˆ‘æ˜¯#p9330052# å¦‚æœæ‚¨æœ‰ #b#t5152031##k,æˆ‘å°†å¯ä»¥å¸®æ‚¨éšæœºæ•´å½¢!\r\n#L2#ä½¿ç”¨ #b#t5152031##k");
+            cm.sendSimple("àË£¬ÎÒÊÇ#p9330052# Èç¹ûÄúÓĞ #b#t5152031##k,ÎÒ½«¿ÉÒÔ°ïÄúËæ»úÕûĞÎ!\r\n#L2#Ê¹ÓÃ #b#t5152031##k");
         } else if (status == 1) {
             if (selection == 1) {
                 if(cm.getMeso() >= price) {
                     cm.gainMeso(-price);
                     cm.gainItem(5152031, 1);
-                    cm.sendOk("äº«å—!");
+                    cm.sendOk("ÏíÊÜ!");
                 } else {
-                    cm.sendOk("æ»šï¼");
+                    cm.sendOk("¹ö£¡");
                 }
                 cm.dispose();
             } else if (selection == 2) {
@@ -45,7 +45,7 @@ function action(mode, type, selection) {
                         facenew.push(fface[i] + cm.getPlayer().getFace() % 1000 - (cm.getPlayer().getFace() % 100));
                     }
                 }
-                cm.sendYesNo("æ³¨æ„!è¿™æ˜¯éšæœºï¼Œè¯·é—®æ˜¯å¦è¦ä½¿ç”¨ #b#t5152031##k?");
+                cm.sendYesNo("×¢Òâ!ÕâÊÇËæ»ú£¬ÇëÎÊÊÇ·ñÒªÊ¹ÓÃ #b#t5152031##k?");
             }
         }
         else if (status == 2){
@@ -53,9 +53,9 @@ function action(mode, type, selection) {
             if (cm.haveItem(5152031) == true){
                 cm.gainItem(5152031, -1);
                 cm.setFace(facenew[Math.floor(Math.random() * facenew.length)]);
-                cm.sendOk("äº«å—");
+                cm.sendOk("ÏíÊÜ");
             } else {
-                cm.sendOk("æ‚¨è²Œä¼¼æ²¡æœ‰#b#t5152031##k..");
+                cm.sendOk("ÄúÃ²ËÆÃ»ÓĞ#b#t5152031##k..");
             }
         }
     }

@@ -6,7 +6,7 @@ function action(mode, type, selection) {
     else
 	status--;
     if (status == 0) {
-        cm.sendOk("ä»Šå¤©å¤©æ°”çœŸå¥½å•Š?");
+        cm.sendOk("½ñÌìÌìÆøÕæºÃ°¡?");
 	cm.dispose();
     }
 }

@@ -21,7 +21,7 @@ function action(mode, type, selection) {
         cm.dispose();
         return;
     } else if (status >= 1 && mode == 0) {
-        cm.sendNext("需要的时候可以来找我。");
+        cm.sendNext("��Ҫ��ʱ����������ҡ�");
         cm.dispose();
         return;
     }
@@ -33,94 +33,84 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-        var selStr = "嗨，我是#p2040020# 今天可以为你做点什么？？#b"
-        var options = new Array("什么是催化剂?", "做一双剑士手套", "做一双弓箭手手套", "做一双法师手套", "做一双盗贼手套",
-                "做一双剑士手套使用催化剂", "做一双弓箭手手套使用催化剂", "做一双法师手套使用催化剂", "做一双盗贼手套使用催化剂");
+        var selStr = "�ˣ�����#p2040020# �������Ϊ������ʲô����#b"
+        var options = new Array("ʲô�Ǵ߻���?", "��һ˫��ʿ����", "��һ˫����������", "��һ˫��ʦ����", "��һ˫��������",
+                "��һ˫��ʿ����ʹ�ô߻���", "��һ˫����������ʹ�ô߻���", "��һ˫��ʦ����ʹ�ô߻���", "��һ˫��������ʹ�ô߻���");
         for (var i = 0; i < options.length; i++) {
             selStr += "\r\n#L" + i + "# " + options[i] + "#l";
         }
 
         cm.sendSimple(selStr);
     } else if (status == 1 && mode == 1) {
-        if (selection < 0) {
-            cm.sendOk("脚本出错，请联系管理员...");
-            cm.dispose();
-            return;
-        }
         selectedType = selection;
         if (selectedType > 4)
             stimulator = true;
         else
             stimulator = false;
         if (selectedType == 0) { //What's a stim?
-            cm.sendNext("催化剂是一种特殊的药水，我可以加入到创建某些项目的进程。它给它统计中，就好像从一个怪物下降。然而，它可能有没有变化，而且也有可能为项低于平均水平。还有没有得到任何项目使用刺激的时候，所以请明智的选择有10％的机会。");
+            cm.sendNext("�߻�����һ�������ҩˮ���ҿ��Լ��뵽����ĳЩ��Ŀ�Ľ��̡�������ͳ���У��ͺ����һ�������½���Ȼ������������û�б仯������Ҳ�п���Ϊ�����ƽ��ˮƽ������û�еõ��κ���Ŀʹ�ô̼���ʱ�����������ǵ�ѡ����10���Ļ��ᡣ");
             cm.safeDispose();
         } else if (selectedType == 1) { //warrior glove
-            var selStr = "很好，那么你想做哪一个？？#b";
-            var items = new Array("#t1082007##k - 剑士 等级. 30#b", "#t1082008##k - 剑士 等级. 35#b", "#t1082023##k - 剑士 等级. 40#b", "#t1082009##k - 剑士 等级. 50#b");
+            var selStr = "�ܺã���ô��������һ������#b";
+            var items = new Array("#t1082007##k - ��ʿ �ȼ�. 30#b", "#t1082008##k - ��ʿ �ȼ�. 35#b", "#t1082023##k - ��ʿ �ȼ�. 40#b", "#t1082009##k - ��ʿ �ȼ�. 50#b");
             for (var i = 0; i < items.length; i++) {
                 selStr += "\r\n#L" + i + "# " + items[i] + "#l";
             }
             cm.sendSimple(selStr);
         } else if (selectedType == 2) { //bowman glove
-            var selStr = "很好，那么你想做哪一个？？#b";
-            var items = new Array("#t1082048##k - 弓箭手 等级. 30#b", "#t1082068##k - 弓箭手 等级. 35#b", "#t1082071##k - 弓箭手 等级. 40#b", "#t1082084##k - 弓箭手 等级. 50#b");
+            var selStr = "�ܺã���ô��������һ������#b";
+            var items = new Array("#t1082048##k - ������ �ȼ�. 30#b", "#t1082068##k - ������ �ȼ�. 35#b", "#t1082071##k - ������ �ȼ�. 40#b", "#t1082084##k - ������ �ȼ�. 50#b");
             for (var i = 0; i < items.length; i++) {
                 selStr += "\r\n#L" + i + "# " + items[i] + "#l";
             }
             cm.sendSimple(selStr);
         } else if (selectedType == 3) { //magician glove
-            var selStr = "很好，那么你想做哪一个？？#b";
-            var items = new Array("#t1082051##k - 法师 等级. 30#b", "#t1082054##k - 法师 等级. 35#b", "#t1082062##k - 法师 等级. 40#b", "#t1082081##k - 法师 等级. 50#b");
+            var selStr = "�ܺã���ô��������һ������#b";
+            var items = new Array("#t1082051##k - ��ʦ �ȼ�. 30#b", "#t1082054##k - ��ʦ �ȼ�. 35#b", "#t1082062##k - ��ʦ �ȼ�. 40#b", "#t1082081##k - ��ʦ �ȼ�. 50#b");
             for (var i = 0; i < items.length; i++) {
                 selStr += "\r\n#L" + i + "# " + items[i] + "#l";
             }
             cm.sendSimple(selStr);
         } else if (selectedType == 4) { //thief glove
-            var selStr = "很好，那么你想做哪一个？？#b";
-            var gloves = new Array("#t1082042##k - 盗贼 等级. 30#b", "#t1082046##k - 盗贼 等级. 35#b", "#t1082075##k - 盗贼 等级. 40#b", "#t1082065##k - 盗贼 等级. 50#b");
+            var selStr = "�ܺã���ô��������һ������#b";
+            var gloves = new Array("#t1082042##k - ���� �ȼ�. 30#b", "#t1082046##k - ���� �ȼ�. 35#b", "#t1082075##k - ���� �ȼ�. 40#b", "#t1082065##k - ���� �ȼ�. 50#b");
             for (var i = 0; i < gloves.length; i++) {
                 selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
             }
             cm.sendSimple(selStr);
         } else if (selectedType == 5) { //warrior glove w/ Stim
-            var selStr = "很好，那么你想做哪一个？？#b";
-            var crystals = new Array("#t1082005##k - 剑士 等级. 30#b", "#t1082006##k - 剑士 等级. 30#b", "#t1082035##k - 剑士 等级. 35#b", "#t1082036##k - 剑士 等级. 35#b",
-                    "#t1082024##k - 剑士 等级. 40#b", "#t1082025##k - 剑士 等级. 40#b", "#t1082010##k - 剑士 等级. 50#b", "#t1082011##k - 剑士 等级. 50#b");
+            var selStr = "�ܺã���ô��������һ������#b";
+            var crystals = new Array("#t1082005##k - ��ʿ �ȼ�. 30#b", "#t1082006##k - ��ʿ �ȼ�. 30#b", "#t1082035##k - ��ʿ �ȼ�. 35#b", "#t1082036##k - ��ʿ �ȼ�. 35#b",
+                    "#t1082024##k - ��ʿ �ȼ�. 40#b", "#t1082025##k - ��ʿ �ȼ�. 40#b", "#t1082010##k - ��ʿ �ȼ�. 50#b", "#t1082011##k - ��ʿ �ȼ�. 50#b");
             for (var i = 0; i < crystals.length; i++) {
                 selStr += "\r\n#L" + i + "# " + crystals[i] + "#l";
             }
             cm.sendSimple(selStr);
         } else if (selectedType == 6) { //bowman glove w/ stim
-            var selStr = "很好，那么你想做哪一个？？#b";
-            var crystals = new Array("#t1082049##k - 弓箭手 等级. 30#b", "#t1082050##k - 弓箭手 等级. 30#b", "#t1082069##k - 弓箭手 等级. 35#b", "#t1082070##k - 弓箭手 等级. 35#b", "#t1082072##k - 弓箭手 等级. 40#b", "#t1082073##k - 弓箭手 等级. 40#b", "#t1082085##k - 弓箭手 等级. 50#b", "#t1082083##k - 弓箭手 等级. 50#b");
+            var selStr = "�ܺã���ô��������һ������#b";
+            var crystals = new Array("#t1082049##k - ������ �ȼ�. 30#b", "#t1082050##k - ������ �ȼ�. 30#b", "#t1082069##k - ������ �ȼ�. 35#b", "#t1082070##k - ������ �ȼ�. 35#b", "#t1082072##k - ������ �ȼ�. 40#b", "#t1082073##k - ������ �ȼ�. 40#b", "#t1082085##k - ������ �ȼ�. 50#b", "#t1082083##k - ������ �ȼ�. 50#b");
             for (var i = 0; i < crystals.length; i++) {
                 selStr += "\r\n#L" + i + "# " + crystals[i] + "#l";
             }
             cm.sendSimple(selStr);
         } else if (selectedType == 7) { //magician glove w/ stim
-            var selStr = "很好，那么你想做哪一个？？#b";
-            var items = new Array("#t1082052##k - 法师 等级. 30#b", "#t1082053##k - 法师 等级. 30#b", "#t1082055##k - 法师 等级. 35#b", "#t1082056##k - 法师 等级. 35#b",
-                    "#t1082063##k - 法师 等级. 40#b", "#t1082064##k - 法师 等级. 40#b", "#t1082082##k - 法师 等级. 50#b", "#t1082080##k - 法师 等级. 50#b");
+            var selStr = "�ܺã���ô��������һ������#b";
+            var items = new Array("#t1082052##k - ��ʦ �ȼ�. 30#b", "#t1082053##k - ��ʦ �ȼ�. 30#b", "#t1082055##k - ��ʦ �ȼ�. 35#b", "#t1082056##k - ��ʦ �ȼ�. 35#b",
+                    "#t1082063##k - ��ʦ �ȼ�. 40#b", "#t1082064##k - ��ʦ �ȼ�. 40#b", "#t1082082##k - ��ʦ �ȼ�. 50#b", "#t1082080##k - ��ʦ �ȼ�. 50#b");
             for (var i = 0; i < items.length; i++) {
                 selStr += "\r\n#L" + i + "# " + items[i] + "#l";
             }
             cm.sendSimple(selStr);
         } else if (selectedType == 8) { //thief glove w/ stim
-            var selStr = "很好，那么你想做哪一个？？#b";
-            var gloves = new Array("#t1082043##k - 盗贼 等级. 30#b", "#t1082044##k - 盗贼 等级. 30#b", "#t1082047##k - 盗贼 等级. 35#b", "#t1082045##k - 盗贼 等级. 35#b", "#t1082076##k - 盗贼 等级. 40#b",
-                    "#t1082074##k - 盗贼 等级. 40#b", "#t1082067##k - 盗贼 等级. 50#b", "#t1082066##k - 盗贼 等级. 50#b");
+            var selStr = "�ܺã���ô��������һ������#b";
+            var gloves = new Array("#t1082043##k - ���� �ȼ�. 30#b", "#t1082044##k - ���� �ȼ�. 30#b", "#t1082047##k - ���� �ȼ�. 35#b", "#t1082045##k - ���� �ȼ�. 35#b", "#t1082076##k - ���� �ȼ�. 40#b",
+                    "#t1082074##k - ���� �ȼ�. 40#b", "#t1082067##k - ���� �ȼ�. 50#b", "#t1082066##k - ���� �ȼ�. 50#b");
             for (var i = 0; i < gloves.length; i++) {
                 selStr += "\r\n#L" + i + "# " + gloves[i] + "#l";
             }
             cm.sendSimple(selStr);
         }
     } else if (status == 2) {
-        if (selection < 0) {
-            cm.sendOk("脚本出错，请联系管理员...");
-            cm.dispose();
-            return;
-        }
         selectedItem = selection;
         if (selectedType == 1) { //warrior glove
             var itemSet = new Array(1082007, 1082008, 1082023, 1082009);
@@ -198,7 +188,7 @@ function action(mode, type, selection) {
             cost = costSet[selectedItem];
         }
 
-        var prompt = "你想要做一双 #t" + item + "#? 在这种情况下，为了要做出好品质的装备。请确保您有空间在您的装备栏！#b";
+        var prompt = "����Ҫ��һ˫ #t" + item + "#? ����������£�Ϊ��Ҫ������Ʒ�ʵ�װ������ȷ�����пռ�������װ������#b";
 
         if (stimulator)
             prompt += "\r\n#i" + stimID + "# 1 #t" + stimID + "#";
@@ -212,14 +202,14 @@ function action(mode, type, selection) {
         }
 
         if (cost > 0)
-            prompt += "\r\n#i4031138# " + cost + " 枫币";
+            prompt += "\r\n#i4031138# " + cost + " ���";
 
         cm.sendYesNo(prompt);
     } else if (status == 3) {
         var complete = true;
 
         if (cm.getMeso() < (cost)) {
-            cm.sendOk("我只接受枫币。");
+            cm.sendOk("��ֻ���ܷ�ҡ�");
             cm.dispose();
             return;
         } else {
@@ -247,7 +237,7 @@ function action(mode, type, selection) {
         }
 
         if (!complete)
-            cm.sendOk("由于你没有足够的材料，所以我不帮忙做了。");
+            cm.sendOk("������û���㹻�Ĳ��ϣ������Ҳ���æ���ˡ�");
         else {
             if (mats instanceof Array) {
                 for (var i = 0; i < mats.length; i++) {
@@ -262,13 +252,13 @@ function action(mode, type, selection) {
                 var deleted = Math.floor(Math.random() * 10);
                 if (deleted != 0) {
                     cm.gainItem(item, 1, true);
-                    cm.sendOk("完成。善待你的手套，免得你使手套坏掉.");
+                    cm.sendOk("��ɡ��ƴ�������ף������ʹ���׻���.");
                 } else {
-                    cm.sendOk("不幸的是，催化剂...抵触你的手套。我很抱歉是我的疏失.....");
+                    cm.sendOk("���ҵ��ǣ��߻���...�ִ�������ס��Һܱ�Ǹ���ҵ���ʧ.....");
                 }
             } else { //just give basic item
                 cm.gainItem(item, 1);
-                cm.sendOk("完成。善待你的手套，免得你使手套坏掉.");
+                cm.sendOk("��ɡ��ƴ�������ף������ʹ���׻���.");
             }
         }
         cm.safeDispose();

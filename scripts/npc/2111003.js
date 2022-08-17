@@ -1,24 +1,10 @@
-ï»¿
 /* Author: aaroncsn(MapleSea Like)(Incomplete)
-NPC Name: 		Humanoid A
-Map(s): 		Sunset Road: Magatia(2610000000)
-Description: 		Unknown
- */
+	NPC Name: 		Humanoid A
+	Map(s): 		Sunset Road: Magatia(2610000000)
+	Description: 		Unknown
+*/
 
-function start() {
-	if (cm.isQuestActive(3335)) {
-		if (!cm.canHold(4000361)) {
-			cm.sendNext("è¯·æ£€å¯ŸèƒŒåŒ…ç©ºé—´ã€‚");
-			if (cm.haveItem(4000361) && !cm.haveItem(4031695)) {
-				cm.gainItem(4000361, -1);
-				cm.gainItem(4031695, 1);
-			} else {
-				cm.sendNext("æ‚¨å¥½åƒæ²¡æœ‰æ»¡è¶³æ¡ä»¶å‘¢ã€‚");
-				cm.dispose();
-			}
-		}
-	} else {
-		cm.sendNext("æˆ‘æƒ³æ˜¯ä¸€ä¸ªäººï¼Œä¸€ä¸ªäººæœ‰è‘—æ¸©æš–çš„å¿ƒè„......è¿™æ ·ä¹Ÿè®¸æˆ‘å¯ä»¥ç‰µå¥¹çš„æ‰‹ã€‚ä¸å¹¸çš„æ˜¯ï¼Œç°åœ¨è¿™æ˜¯ä¸å¯èƒ½çš„.");
-	}
+function start(){
+	cm.sendNext("ÎÒÏëÊÇÒ»¸öÈË£¬Ò»¸öÈËÓĞ×ÅÎÂÅ¯µÄĞÄÔà......ÕâÑùÒ²ĞíÎÒ¿ÉÒÔÇ£ËıµÄÊÖ¡£²»ĞÒµÄÊÇ£¬ÏÖÔÚÕâÊÇ²»¿ÉÄÜµÄ.");
 	cm.dispose();
-}
+	}

@@ -1,4 +1,4 @@
 function enter(pi) {
-    pi.getDirectionInfoTest(3, 0);
+    pi.warp(931050980, 0);//931050980
     return true;
 }

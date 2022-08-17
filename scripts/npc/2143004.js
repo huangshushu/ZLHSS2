@@ -1,221 +1,155 @@
-var status = -1;
+
+var ca = java.util.Calendar.getInstance();
+var year = ca.get(java.util.Calendar.YEAR); //获得年份
+var month = ca.get(java.util.Calendar.MONTH) + 1; //获得月份
+var day = ca.get(java.util.Calendar.DATE); //获取日
+var hour = ca.get(java.util.Calendar.HOUR_OF_DAY); //获得小时
+var minute = ca.get(java.util.Calendar.MINUTE); //获得分钟
+var second = ca.get(java.util.Calendar.SECOND); //获得秒
+var weekday = ca.get(java.util.Calendar.DAY_OF_WEEK);
+var 礼包物品 = "#v1302000#";
+var x1 = "1302000,+1"; // 物品ID,数量
+var x2;
+var x3;
+var x4;
+var 爱心 = "#fEffect/CharacterEff/1022223/4/0#";
+var 礼包物品 = "#v1302000#";
+var add = "#fEffect/CharacterEff/1112903/0/0#"; //红桃心
+var aaa = "#fUI/UIWindow.img/Quest/icon9/0#"; //红色右箭头
+var zzz = "#fUI/UIWindow.img/Quest/icon8/0#"; //蓝色右箭头
+var sss = "#fUI/UIWindow.img/QuestIcon/3/0#"; //选择道具
+var 正方箭头 = "#fUI/Basic/BtHide3/mouseOver/0#";
+var 感叹号 = "#fUI/UIWindow/Quest/icon0#";
+var 美化new = "#fUI/UIWindow/Quest/icon5/1#";
+var 红色箭头 = "#fEffect/CharacterEff/1112908/0/1#"; //彩光3
+var ttt1 = "#fEffect/CharacterEff/1062114/1/0#"; //爱心
+var 蓝色角点 = "#fUI/UIWindow.img/PvP/Scroll/enabled/next2#";
+var 正方箭头 = "#fUI/Basic/BtHide3/mouseOver/0#";
+var 爱心 = "#fEffect/CharacterEff/1022223/4/0#";
+var 粉爱心 = "#fItem/Etc/0427/04270005/Icon8/1#"; //
+var 菊花 = "#fUI/PredictHarmony/card/19#"; //卡片效果菊花
+var 笑 = "#fUI/GuildBBS/GuildBBS/Emoticon/Basic/0#"; //笑脸
+var 金枫叶 = "#fMap/MapHelper/weather/maple/2#";
+var 红枫叶 = "#fMap/MapHelper/weather/maple/1#";
+var 巫女 = "#fMap/MapHelper/weather/witch/0#"; //巫女
+var 气球 = "#fMap/MapHelper/weather/balloon/4#"; //气球
+var 射箭 = "#fMap/MapHelper/weather/LoveEffect2/4/0#"; //射箭
+var 玫瑰 = "#fMap/MapHelper/weather/rose/0#"; //玫瑰花
+var 烟花 = "#fMap/MapHelper/weather/squib/squib1/3#"; //烟花
+var 彩虹 ="#fEffect/ItemEff/1071085/effect/walk1/2#";
+var 大粉红爱心 = "#fItem/Etc/0427/04270001/Icon8/4#"; //
+var 小粉红爱心 = "#fItem/Etc/0427/04270001/Icon8/5#"; //
+var 小黄星 = "#fItem/Etc/0427/04270001/Icon9/0#"; //
+var 大黄星 = "#fItem/Etc/0427/04270001/Icon9/1#"; //
+var 小水滴 = "#fItem/Etc/0427/04270001/Icon10/5#"; //
+var 大水滴 = "#fItem/Etc/0427/04270001/Icon10/4#"; //
+var tz = "#fEffect/CharacterEff/1082565/4/0#"; //粉兔子
+var tz1 = "#fEffect/CharacterEff/1082565/0/0#"; //橙兔子
+var tz2 = "#fEffect/CharacterEff/1082565/2/0#"; //蓝兔子
+var 邪恶小兔 = ""; //邪恶小兔 【小】
+var 邪恶小兔2 = "#fEffect/CharacterEff/1112960/3/1#"; //邪恶小兔 【大】
+var 花草 = "#fEffect/SetEff/208/effect/walk2/4#";
+var 花草1 = "#fEffect/SetEff/208/effect/walk2/3#";
+var 小花 = "#fMap/MapHelper/weather/birthday/2#";
+var 桃花 = "#fMap/MapHelper/weather/rose/4#";
+var 银杏叶 = "#fMap/MapHelper/weather/maple/3#";
+var 小烟花 = "#fMap/MapHelper/weather/squib/squib4/1#";
+var 星星 = "#fMap/MapHelper/weather/witch/3#";
+
+var 挑战次数 = 1;
 
 function start() {
-	if (cm.getPlayer().getMapId() == 271040100) {
-		cm.sendYesNo("Would you like to get out?");
-		status = 1;
-		return;
-	}
-		if (cm.getPlayer().getLevel() < 170) {
-			cm.sendOk("There is a level requirement of 170 to attempt Empress Cygnus.");
-			cm.dispose();
-			return;
-		}
-		if (cm.getPlayer().getClient().getChannel() != 13) {
-			cm.sendOk("Cygnus may only be attempted on channel 13.");
-			cm.dispose();
-			return;
-		}
-    var em = cm.getEventManager("CygnusBattle");
+    status = -1;
 
-    if (em == null) {
-	cm.sendOk("The event isn't started, please contact a GM.");
-	cm.dispose();
-	return;
-    }
-    var eim_status = em.getProperty("state");
-	    var marr = cm.getQuestRecord(160109);
-	    var data = marr.getCustomData();
-	    if (data == null) {
-		marr.setCustomData("0");
-	        data = "0";
-	    }
-	    var time = parseInt(data);
-	if (eim_status == null || eim_status.equals("0")) {
-    var squadAvailability = cm.getSquadAvailability("Cygnus");
-    if (squadAvailability == -1) {
-	status = 0;
-	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-		cm.sendOk("You have already went to Cygnus in the past 24 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (24 * 3600000)));
-		cm.dispose();
-		return;
-	    }
-	cm.sendYesNo("Are you interested in becoming the leader of the expedition Squad?");
-
-    } else if (squadAvailability == 1) {
-	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-		cm.sendOk("You have already went to Cygnus in the past 24 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (24 * 3600000)));
-		cm.dispose();
-		return;
-	    }
-	// -1 = Cancelled, 0 = not, 1 = true
-	var type = cm.isSquadLeader("Cygnus");
-	if (type == -1) {
-	    cm.sendOk("The squad has ended, please re-register.");
-	    cm.dispose();
-	} else if (type == 0) {
-	    var memberType = cm.isSquadMember("Cygnus");
-	    if (memberType == 2) {
-		cm.sendOk("You been banned from the squad.");
-		cm.dispose();
-	    } else if (memberType == 1) {
-		status = 5;
-		cm.sendSimple("What would you like to do? \r\n#b#L0#Join the squad#l \r\n#b#L1#Leave the squad#l \r\n#b#L2#See the list of members on the squad#l");
-	    } else if (memberType == -1) {
-		cm.sendOk("The squad has ended, please re-register.");
-		cm.dispose();
-	    } else {
-		status = 5;
-		cm.sendSimple("What would you like to do? \r\n#b#L0#Join the squad#l \r\n#b#L1#Leave the squad#l \r\n#b#L2#See the list of members on the squad#l");
-	    }
-	} else { // Is leader
-	    status = 10;
-	    cm.sendSimple("What do you want to do, expedition leader? \r\n#b#L0#View expedition list#l \r\n#b#L1#Kick from expedition#l \r\n#b#L2#Remove user from ban list#l \r\n#r#L3#Select expedition team and enter#l");
-	// TODO viewing!
-	}
-	    } else {
-			var eim = cm.getDisconnected("CygnusBattle");
-			if (eim == null) {
-				var squd = cm.getSquad("Cygnus");
-				if (squd != null) {
-	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-		cm.sendOk("You have already went to Cygnus in the past 24 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (24 * 3600000)));
-		cm.dispose();
-		return;
-	    }
-					cm.sendYesNo("The squad's battle against the boss has already begun.\r\n" + squd.getNextPlayer());
-					status = 3;
-				} else {
-					cm.sendOk("The squad's battle against the boss has already begun.");
-					cm.safeDispose();
-				}
-			} else {
-				cm.sendYesNo("Ah, you have returned. Would you like to join your squad in the fight again?");
-				status = 2;
-			}
-	    }
-	} else {
-			var eim = cm.getDisconnected("CygnusBattle");
-			if (eim == null) {
-				var squd = cm.getSquad("Cygnus");
-				if (squd != null) {
-	    if (time + (24 * 3600000) >= cm.getCurrentTime() && !cm.getPlayer().isGM()) {
-		cm.sendOk("You have already went to Cygnus in the past 24 hours. Time left: " + cm.getReadableMillis(cm.getCurrentTime(), time + (24 * 3600000)));
-		cm.dispose();
-		return;
-	    }
-					cm.sendYesNo("The squad's battle against the boss has already begun.\r\n" + squd.getNextPlayer());
-					status = 3;
-				} else {
-					cm.sendOk("The squad's battle against the boss has already begun.");
-					cm.safeDispose();
-				}
-			} else {
-				cm.sendYesNo("Ah, you have returned. Would you like to join your squad in the fight again?");
-				status = 2;
-			}
-	}
+    action(1, 0, 0);
 }
-
 function action(mode, type, selection) {
-    switch (status) {
-	case 0:
-	    if (mode == 1) {
-			if (cm.registerSquad("Cygnus", 5, " has been named the Leader of the squad. If you would you like to join please register for the Expedition Squad within the time period.")) {
-				cm.sendOk("You have been named the Leader of the Squad. For the next 5 minutes, you can add the members of the Expedition Squad.");
+    if (mode == -1) {
+        cm.dispose();
+    } else {
+        if (status >= 0 && mode == 0) {
+
+            cm.sendOk("感谢你的光临！");
+            cm.dispose();
+            return;
+        }
+        if (mode == 1) {
+            status++;
+        }
+        else {
+            status--;
+        }
+        if (status == 0) {
+			if(cm.getPlayer().getMapId() == 271040100){
+				cm.sendYesNo("你要出去么？");
+			}else{
+				var tex2 = "";
+				var text = "";
+				for (i = 0; i < 10; i++) {
+					text += "";
+				}
+				
+				//  text += "#e#r" + 星星 + "这里是扎昆的祭台" + 星星 + ".\r\n"//3     
+					text += "#e#r" + 彩虹 +"#e<BOSS - 希纳斯>#n\r\n进图要求:#v4110001#x1\r\n#r(玩家每个账号每天可以入场#e" + 挑战次数 + "次#n,入场记录#e每天午夜0点#n将会初始化)\r\n#b\r\n"
+				  text += "#L1##d" + 小烟花 + "申请进入希纳斯(队员会同时移动。)#l\r\n"  
+				  text += "#L2##d" + 小烟花 + "返回入口" + 小烟花 + "\r\n\r\n"//3
+			 //   text += "#L5##d" + 小烟花 + "回城自由" + 小烟花 + "\r\n\r\n"//3
+			 //   text += "#L2##d" + 小烟花 + "拉回掉线队友" + 小烟花 + "\r\n\r\n"//3
+			 
+			 
+				  cm.sendSimple(text);
+			} 
+		} else if (status == 1){
+
+			if (selection == 3) {
+				cm.warpParty(271040100);//群体传送
+				cm.dispose();
+			}else if (selection == 2) {
+				cm.warpParty(271030600);//群体传送
+				cm.dispose();
+			
+			}else if (selection == 1) {	
+			
+				if (cm.getParty() == null) { // 没有组队
+					cm.sendOk("请组队后和我谈话。");
+					cm.dispose();
+				} else if (cm.getPlayerCount(271040100) > 1) {
+					cm.sendOk("已经有人挑战希纳斯了，你无法进入!");
+					cm.dispose();
+				} else if (!cm.isLeader()) { // Not Party Leader
+				   cm.sendOk("请让你的队长和我说话~");
+				   cm.dispose();
+				} else if (cm.判断团队每日a("希纳斯", 挑战次数) == 0) {//召唤20次
+					cm.sendOk("你好,系统限定每个账号每天只能挑战" + 挑战次数 + "次!");
+					cm.dispose();
+				} else if(cm.getMonsterCount(271040000) > 0){
+					cm.sendOk("请先消灭掉该地图已经召唤出的BOSS!");
+					cm.dispose();
+				} else if(cm.haveItem(4110001,1)){//判断火焰
+					cm.gainItem(4110001, -1);//扣去火焰   
+					cm.重置目标地图(271040100); 					
+					cm.warpParty(271040100);
+					cm.给团队每日a("希纳斯");
+					cm.spawnMobOnMap(8850000,1,-103,116,271040100);
+					cm.getMap().clearOwnerList();
+					cm.getMap().addAllOwnerHere();
+					//cm.给当前地图时钟(360, true, true);
+					cm.worldMessage( "[系统公告]：" + cm.getPlayer().getName() + " 带领队伍开始挑战希纳斯，大家一起为他（她）鼓掌！");
+					cm.dispose();
+					
+				}else{
+					cm.sendOk("检测：你要有#v4110001#才能进入地图!");
+					cm.dispose();
+				}
+
 			} else {
-				cm.sendOk("An error has occurred adding your squad.");
+				if(cm.getPlayer().getMapId() == 271040100){
+					cm.warp(271030600);
+					cm.dispose();
+				}
 			}
-	    }
-	    cm.dispose();
-	    break;
-	case 1:
-	    if (mode == 1) {
-		cm.warp(cm.getMap().getAllMonstersThreadsafe().size() == 0 ? 271040200 : 271030000, 0);
-	    }
-	    cm.dispose();
-	    break;
-	case 2:
-		if (!cm.reAdd("CygnusBattle", "Cygnus")) {
-			cm.sendOk("Error... please try again.");
-		}
-		cm.safeDispose();
-		break;
-	case 3:
-		if (mode == 1) {
-			var squd = cm.getSquad("Cygnus");
-			if (squd != null && !squd.getAllNextPlayer().contains(cm.getPlayer().getName())) {
-				squd.setNextPlayer(cm.getPlayer().getName());
-				cm.sendOk("You have reserved the spot.");
-			}
-		}
-		cm.dispose();
-		break;
-	case 5:
-	    if (selection == 0) { // join
-		var ba = cm.addMember("Cygnus", true);
-		if (ba == 2) {
-		    cm.sendOk("The squad is currently full, please try again later.");
-		} else if (ba == 1) {
-		    cm.sendOk("You have joined the squad successfully");
-		} else {
-		    cm.sendOk("You are already part of the squad.");
-		}
-	    } else if (selection == 1) {// withdraw
-		var baa = cm.addMember("Cygnus", false);
-		if (baa == 1) {
-		    cm.sendOk("You have withdrawed from the squad successfully");
-		} else {
-		    cm.sendOk("You are not part of the squad.");
-		}
-	    } else if (selection == 2) {
-		if (!cm.getSquadList("Cygnus", 0)) {
-		    cm.sendOk("Due to an unknown error, the request for squad has been denied.");
-		}
-	    }
-	    cm.dispose();
-	    break;
-	case 10:
-	    if (mode == 1) {
-		if (selection == 0) {
-		    if (!cm.getSquadList("Cygnus", 0)) {
-			cm.sendOk("Due to an unknown error, the request for squad has been denied.");
-		    }
-		    cm.dispose();
-		} else if (selection == 1) {
-		    status = 11;
-		    if (!cm.getSquadList("Cygnus", 1)) {
-			cm.sendOk("Due to an unknown error, the request for squad has been denied.");
-			cm.dispose();
-		    }
-		} else if (selection == 2) {
-		    status = 12;
-		    if (!cm.getSquadList("Cygnus", 2)) {
-			cm.sendOk("Due to an unknown error, the request for squad has been denied.");
-			cm.dispose();
-		    }
-		} else if (selection == 3) { // get insode
-		    if (cm.getSquad("Cygnus") != null) {
-			var dd = cm.getEventManager("CygnusBattle");
-			dd.startInstance(cm.getSquad("Cygnus"), cm.getMap(), 160109);
-		    } else {
-			cm.sendOk("Due to an unknown error, the request for squad has been denied.");
-		    }
-		    cm.dispose();
-		}
-	    } else {
-		cm.dispose();
-	    }
-	    break;
-	case 11:
-	    cm.banMember("Cygnus", selection);
-	    cm.dispose();
-	    break;
-	case 12:
-	    if (selection != -1) {
-		cm.acceptMember("Cygnus", selection);
-	    }
-	    cm.dispose();
-	    break;
+		} 
     }
 }
+
+

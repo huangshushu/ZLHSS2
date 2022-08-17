@@ -1,33 +1,11 @@
-﻿/*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-/* Dr. Feeble
-	Henesys Random Eye Change.
-*/
+/* ==================
+ 脚本类型: NPC	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 var status = 0;
 var beauty = 0;
-var price = 1000000;
-var mface = Array(20000, 20001, 20002, 20003, 20004, 20005, 20006, 20007, 20008, 20012, 20014);
-var fface = Array(21000, 21001, 21002, 21003, 21004, 21005, 21006, 21007, 21008, 21012, 21014);
-var facenew = Array();
 
 function start() {
     status = -1;
@@ -35,57 +13,34 @@ function start() {
 }
 
 function action(mode, type, selection) {
-    if (mode == -1) {
-        cm.dispose();
-    } else {
-        if (mode == 0 && status == 0) {
-            cm.dispose();
-            return;
-        }
-        if (mode == 1)
-            status++;
-        else
-            status--;
-        if (status == 0) {
-            cm.sendSimple("嗨，我是差不多医生 如果您有 #b#t5152000##k,我将可以帮您随机整形!\r\n#L2#使用 #b#t5152000##k");
-        } else if (status == 1) {
-            if (selection == 1) {
-                if(cm.getMeso() >= price) {
-                    cm.gainMeso(-price);
-                    cm.gainItem(5152000, 1);
-                    cm.sendOk("Enjoy!");
-                } else {
-                    cm.sendOk("You don't have enough mesos to buy a coupon!");
-                }
-                cm.dispose();
-            } else if (selection == 2) {
-                facenew = Array();
-                if (cm.getPlayer().getGender() == 0) {
-                    for(var i = 0; i < mface.length; i++) {
-                        facenew.push(mface[i] + cm.getPlayer().getFace()
-                            % 1000 - (cm.getPlayer().getFace()
-                                % 100));
-                    }
-                }
-                if (cm.getPlayer().getGender() == 1) {
-                    for(var i = 0; i < fface.length; i++) {
-                        facenew.push(fface[i] + cm.getPlayer().getFace()
-                            % 1000 - (cm.getPlayer().getFace()
-                                % 100));
-                    }
-                }
-                cm.sendYesNo("注意!这是随机，请问是否要使用 #b#t5152000##k?");
-            }
-        }
-        else if (status == 2){
-            cm.dispose();
-            if (cm.haveItem(5152000) == true){
-                cm.gainItem(5152000, -1);
-                cm.setFace(facenew[Math.floor(Math.random() * facenew.length)]);
-                cm.sendOk("享受");
-            } else {
-                cm.sendOk("您貌似没有#b#t5152000##k..");
-            }
-        }
+    if (mode == 0 && status == 0) {
+	cm.dispose();
+	return;
+    }
+    if (mode == 1)
+	status++;
+    else
+	status--;
+    if (status == 0) {
+	cm.sendYesNo("如果你使用#i5152000#,我会随机变换你的脸……你还想使用#b#t5152056##k?");
+    } else if (status == 1){
+	var face = cm.getPlayerStat("FACE");
+	var facetype;
+
+	if (cm.getPlayerStat("GENDER") == 0) {
+	    facetype = [20000, 20001, 20002, 20003, 20004, 20005, 20006, 20007, 20008, 20009, 20010, 20011, 20012, 20013, 20014, 20015, 20016, 20017, 20018, 20019, 20020, 20021, 20022, 20023, 20024, 20025, 20026, 20027, 20028, 20100, 20101, 20102, 20103, 20104, 20105, 20106, 20107, 20108, 20109, 20110, 20111, 20112, 20113, 20114, 20115, 20116, 20117, 20118, 20119, 20120, 20121, 20122, 20123, 20125, 20126, 20127, 20128, 20200, 20201, 20202, 20203, 20204, 20205, 20206, 20207, 20208, 20209, 20210, 20211, 20212, 20213, 20214, 20215, 20216, 20217, 20218, 20219, 20220, 20221, 20222, 20223, 20225, 20226, 20227, 20228, 20300, 20301, 20302, 20303, 20304, 20305, 20306, 20307, 20308, 20309, 20310, 20311, 20312, 20313, 20314, 20315, 20316, 20317, 20318, 20319, 20320, 20321, 20322, 20323, 20325, 20326, 20327, 20328, 20400, 20401, 20402, 20403, 20404, 20405, 20406, 20407, 20408, 20409, 20410, 20411, 20412, 20413, 20414, 20415, 20416, 20417, 20418, 20419, 20420, 20421, 20422, 20423, 20424, 20425, 20426, 20427, 20428, 20500, 20501, 20502, 20503, 20504, 20505, 20506, 20507, 20508, 20509, 20510, 20511, 20512, 20513, 20514, 20515, 20516, 20517, 20518, 20519, 20520, 20521, 20522, 20523, 20525, 20526, 20527, 20528, 20600, 20601, 20602, 20603, 20604, 20605, 20606, 20607, 20608, 20609, 20610, 20611, 20612, 20613, 20614, 20615, 20616, 20617, 20618, 20619, 20620, 20621, 20622, 20623, 20625, 20626, 20627, 20628, 20700, 20701, 20702, 20703, 20704, 20705, 20706, 20707, 20708, 20709, 20710, 20711, 20712, 20713, 20714, 20715, 20716, 20717, 20718, 20719, 20720, 20721, 20722, 20725, 20726, 20727, 20728];
+	} else {
+	    facetype = [21000, 21001, 21002, 21003, 21004, 21005, 21006, 21007, 21008, 21009, 21010, 21011, 21012, 21013, 21014, 21015, 21016, 21017, 21018, 21019, 21020, 21021, 21022, 21023, 21025, 21026, 21100, 21101, 21102, 21103, 21104, 21105, 21106, 21107, 21108, 21109, 21111, 21112, 21113, 21114, 21115, 21116, 21117, 21118, 21119, 21120, 21121, 21122, 21123, 21125, 21126];
+	}
+	for (var i = 0; i < facetype.length; i++) {
+	    facetype[i] = facetype[i] + face % 1000 - (face % 100);
+	}
+
+	if (cm.setRandomAvatar(5152000, facetype) == 1) {
+	    cm.sendNext("享受你的新脸型!");
+	} else {
+	    cm.sendNext("对不起，但没有一张一般会员卡,我不能对你进行整形手术。");
+	}
+	cm.dispose();
     }
 }

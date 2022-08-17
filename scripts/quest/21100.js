@@ -1,4 +1,10 @@
-var status = -1;
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
+ var status = -1;
 
 function start(mode, type, selection) {
     if (mode == 1) {
@@ -30,7 +36,7 @@ function start(mode, type, selection) {
 	    qm.forceCompleteQuest();
 	}
 	qm.sendOkS("假如 #p1201001#有反应的话，您就使用#p1201001#的英雄 #b狂狼勇士#k。", 8);
-	//qm.showWZEffect("Effect/Direction1.img/aranTutorial/ClickPoleArm");
+	qm.showWZEffect("Effect/Direction1.img/aranTutorial/ClickPoleArm");
 	qm.dispose();
     }
 }

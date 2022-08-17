@@ -1,11 +1,8 @@
-/* ===========================================================
- Resonance
- NPC Name: 		Head Patrol Officer
- Map(s): 		Mushroom Castle: Corner of Mushroom Forest(106020000)
- Description: 	Quest -  The Story Behind the Case
- =============================================================
- Version 1.0 - Script Done.(18/7/2010)
- =============================================================
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
  */
 
 importPackage(Packages.client);
@@ -18,16 +15,16 @@ function start(mode, type, selection) {
         if (type == 1 && mode == 0)
             status -= 2;
         else {
-            qm.sendOk("There's not much time. Please hurry.");
+            qm.sendOk("没有太多的时间。请快点.");
             qm.dispose();
             return;
         }
     }
     if (status == 0)
-        qm.sendAcceptDecline("I have told our #bMinister of Home Affairs#k of your abilities. Please go pay a visit to him immediately.");
+        qm.sendAcceptDecline("我已经告诉我们#b内政部长#k 的能力。 请立即去拜访他.");
     if (status == 1) {
         qm.forceStartQuest();
-        qm.sendOk("Save our kingdom! We believe in you!");
+        qm.sendOk("拯救我们的王国！ 我们相信你!");
         qm.dispose();
     }
 }

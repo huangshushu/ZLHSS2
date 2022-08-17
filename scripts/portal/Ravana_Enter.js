@@ -1,8 +1,6 @@
 function enter(pi) {
 	var to_spawn = 9500390;
-	if (pi.getPlayer().getMapId() == 809061000) {
-		to_spawn = 9409018; //mirror mode
-	} else if (pi.getPlayer().getLevel() > 120) {
+	if (pi.getPlayer().getLevel() > 120) {
 		to_spawn = 9500392;
 	} else if (pi.getPlayer().getLevel() > 90) {
 		to_spawn = 9500391;
@@ -15,8 +13,6 @@ function enter(pi) {
 		rav = "MED";
 	} else if (to_spawn == 9500392) {
 		rav = "HARD";
-	} else if (to_spawn == 9409018) {
-		rav = "HELL";
 	}
 	var eim = pi.getDisconnected("Ravana_" + rav);
 	if (eim != null && pi.getPlayer().getParty() != null) { //only skip if not null
@@ -40,10 +36,7 @@ function enter(pi) {
 			next = false;
 			break;
 		} else {
-			if (to_spawn == 9409018 && ccPlayer.getLevel() <= 140) {
-				next = false;
-				break;
-			} else if (to_spawn == 9500392 && ccPlayer.getLevel() <= 120) {
+			if (to_spawn == 9500392 && ccPlayer.getLevel() <= 120) {
 				next = false;
 				break;
 			} else if (to_spawn == 9500391 && (ccPlayer.getLevel() > 120 || ccPlayer.getLevel() <= 90)) {
@@ -56,31 +49,19 @@ function enter(pi) {
 		}	
 	}
 	if (next) {
-		var em1 = pi.getEventManager("Ravana_EASY");
-		var em2 = pi.getEventManager("Ravana_MED");
-		var em3 = pi.getEventManager("Ravana_HARD");
 		var em = pi.getEventManager("Ravana_" + rav);
-		if (em == null || em1 == null || em2 == null || em3 == null) {
+		if (em == null) {
 			pi.playerMessage(5, "This event is currently not available.");
 		} else {
-			var prop1 = em1.getProperty("state");
-			var prop2 = em2.getProperty("state");
-			var prop3 = em3.getProperty("state");
 			var prop = em.getProperty("state");
-			if (prop1 != null && !prop1.equals("0")) {
-				pi.playerMessage(5, "Someone is already attempting this boss.");
-			} else if (prop2 != null && !prop2.equals("0")) {
-				pi.playerMessage(5, "Someone is already attempting this boss.");
-			} else if (prop3 != null && !prop3.equals("0")) {
-				pi.playerMessage(5, "Someone is already attempting this boss.");
-			} else if (prop != null && !prop.equals("0")) {
-				pi.playerMessage(5, "Someone is already attempting this boss.");
-			} else {
+			if (prop == null || prop.equals("0")) {
 				em.startInstance(pi.getParty(), pi.getMap());
+			} else {
+				pi.playerMessage(5, "Someone is already attempting this boss.");
 			}
 		}
 	} else {
-		pi.playerMessage(5, "Make sure all party members are in this map and have all at least 30 Sunbursts (You will lose ALL 30 of your Sunbursts). They also must be in the same level range as you (level ranges: 50-90, 91-120, 121+, 141+)");
+		pi.playerMessage(5, "Make sure all party members are in this map and have all at least 30 Sunbursts (You will lose ALL 20 of your Sunbursts). They also must be in the same level range as you (level ranges: 50-90, 91-120, 121+)");
 		return false;
 	}
     return true;

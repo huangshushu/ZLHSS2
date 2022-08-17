@@ -1,4 +1,4 @@
-ï»¿/* Lilishu
+/* Lilishu
 	Mu Lung Random Hair/Hair Color Change.
 */
 var status = 0;
@@ -22,7 +22,7 @@ function action(mode, type, selection) {
     else
 	status--;
     if (status == 0) {
-	cm.sendSimple("å—¨ï¼Œæˆ‘æ˜¯#p2090101# å¦‚æœä½ æœ‰ #b#t5150024##k æˆ–è€… #b#t5151019##k ç„¶åå°±å¯ä»¥æ¥æ‰¾æˆ‘è°ˆã€‚ \r\n#L0#ä½¿ç”¨: #i5150024##t5150024##l\r\n#L1#ä½¿ç”¨: #i5151019##t5151019##l");
+	cm.sendSimple("àË£¬ÎÒÊÇ#p2090101# Èç¹ûÄãÓĞ #b#t5150024##k »òÕß #b#t5151019##k È»ºó¾Í¿ÉÒÔÀ´ÕÒÎÒÌ¸¡£ \r\n#L0#Ê¹ÓÃ: #i5150024##t5150024##l\r\n#L1#Ê¹ÓÃ: #i5151019##t5151019##l");
     } else if (status == 1) {
 	if (selection == 0) {
 	    var hair = cm.getPlayerStat("HAIR");
@@ -37,7 +37,7 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < hair_Colo_new.length; i++) {
 		hair_Colo_new[i] = hair_Colo_new[i] + (hair % 10);
 	    }
-	    cm.sendYesNo("æ˜¯å¦è¦ä½¿ç”¨ #b#t5150024##k ??");
+	    cm.sendYesNo("ÊÇ·ñÒªÊ¹ÓÃ #b#t5150024##k ??");
 	} else if (selection == 1) {
 	    var currenthaircolo = Math.floor((cm.getPlayerStat("HAIR") / 10)) * 10;
 	    hair_Colo_new = [];
@@ -46,20 +46,20 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < 8; i++) {
 		hair_Colo_new[i] = currenthaircolo + i;
 	    }
-	    cm.sendYesNo("æ˜¯å¦è¦ä½¿ç”¨ #b#t5150024##k ??");
+	    cm.sendYesNo("ÊÇ·ñÒªÊ¹ÓÃ #b#t5150024##k ??");
 	}
     } else if (status == 2){
 	if (beauty == 1) {
 	    if (cm.setRandomAvatar(5150024, hair_Colo_new) == 1) {
-		cm.sendOk("äº«å—ï¼ï¼");
+		cm.sendOk("ÏíÊÜ£¡£¡");
 	    } else {
-		cm.sendOk("ç–´...ä¼¼ä¹æ²¡æœ‰#b#t5150024##k");
+		cm.sendOk("¯z...ËÆºõÃ»ÓĞ#b#t5150024##k");
 	    }
 	} else {
 	    if (cm.setRandomAvatar(5151019, hair_Colo_new) == 1) {
-		cm.sendOk("äº«å—ï¼ï¼");
+		cm.sendOk("ÏíÊÜ£¡£¡");
 	    } else {
-		cm.sendOk("ç–´...ä¼¼ä¹æ²¡æœ‰#b#t5151019##k");
+		cm.sendOk("¯z...ËÆºõÃ»ÓĞ#b#t5151019##k");
 	    }
 	}
 	cm.dispose();

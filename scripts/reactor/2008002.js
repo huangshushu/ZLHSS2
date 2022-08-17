@@ -1,6 +1,6 @@
 
 function act() {
-	rm.mapMessage(6, "One of the pieces has been placed.");
+//	rm.mapMessage(6, "One of the pieces has been placed.");
 	var em = rm.getEventManager("OrbisPQ");
 	if (em != null) {
 		em.setProperty("stage", parseInt(em.getProperty("stage")) + 1);

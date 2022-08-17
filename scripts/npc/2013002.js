@@ -1,136 +1,80 @@
+/*
+ 
+ ½Å±¾£ºÅ®ÉñËþ½±Àø
+ */
 var status;
-
-var itemList = new Array(1012056, 1112908, 1012098, 1012101, 1012102, 1012103, 1032055, 1032056, 1032057, 1032058, 1052165, 1052166, 1052167, 1002797, 1002800, 1072366, 1072368, 1072262, 1072264, 1082244, 1082245, 1102174, 1322003, //equips
-    2100009, 2022141, 2049100, 2049001, 2049002, 2049000, 2070007, 2070006, 2044901, 2044902, 2044802, 2044801, 2044702, 2044701, 2044602,
-    2044601, 2044501, 2044502, 2044402, 2044401, 2044302, 2044301, 2044201, 2044202, 2044102, 2044101,
-    2044002, 2044001, 2043802, 2043801, 2043702, 2043701, 2043302, 2043301, 2043202, 2043201, 2043102,
-    2043101, 2043002, 2043001, 2040801, 2040816, 2040817, 2040802, 2040915, 2040914, 2040805, 2040804, 2040532, 2040534, 2040517, 2040516,
-    2040514, 2040513, 2040502, 2040501, 2040323, 2040321, 2040317, 2040316, 2040302, 2040301, //1x use items
-    2022141, 2022245, 2022154, 2290096, 2290031, 2290033, 2290035, 2290037, 2290039, 2290041, 2290043, 2290047, 2290049, 2290051, 2290055, 2290057, 2290059, 2290061,
-    2290063, 2290065, 2290069, 2290071, 2290073, 2290075, 2290077, 2290079, 2290081, 2290083, 2290085, 2290087, 2290089, 2290091, 2290093,
-    2290095, 2280007, 2280008, 2290003, 2290001, 2290005, 2290007, 2290011, 2290013, 2290015, 2290017, 2290021, 2290023,
-    2290025, 2290027, 2290031, 2290033, 2290035, 2290037, 2290039, 2290041, 2290043, 2290045, 2290047, 2290049, 2290051, 2290053,
-    2290055, 2290057, 2290029, 2290061, 2290063, 2290065, 2290067, 2290069, 2290071, 2290073, 2290075, 2290077, 2290079, 2290081,
-    2290083, 2290087, 2290089, 2290091, 2290093, 2290095,   //multiuse items
-    4001126); //etc items
-
-var randNum = Math.floor(Math.random() * (itemList.length));
-var randItem = itemList[randNum];
-var qty;
-
-switch (randItem) {
-    case 4020000:
-    case 4020001:
-    case 4020002:
-    case 4020003:
-    case 4020004:
-    case 4020005:
-    case 4020006:
-    case 4010000:
-    case 4010001:
-    case 4010002:
-    case 4010003:
-    case 4010004:
-    case 4010005:
-        qty = 16;
-        break;
-    case 4010006:
-    case 4020007:
-    case 4020008:
-        qty = 8;
-        break;
-    case 4003000:
-        qty = 30;
-        break;
-    case 2000002:
-    case 2000006:
-        qty = 100;
-        break;
-    case 2000003:
-        qty = 200;
-        break;
-    case 2000004:
-        qty = 50;
-        break;
-    case 2000005:
-    case 2022003:
-        qty = 10;
-        break;
-    default:
-        qty = 1;
-}
+var ´ÎÊýÏÞÖÆ = 10;
+var ½±ÀøÔ¤ÀÀ = [[4031997, 1, 100]];
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    var em = cm.getEventManager("OrbisPQ");
-    if (em == null) {
+  var em = cm.getEventManager("OrbisPQ");
+  if (em == null) {
+    cm.dispose();
+    return;
+  }
+  for (var i = 4001044; i < 4001064; i++) {
+    cm.removeAll(i);
+  }
+  switch (cm.getMapId()) {
+    case 920010100:
+      cm.showEffect(false, "quest/party/clear");
+      cm.playSound(false, "Party1/Clear");
+      cm.gainExp(16500);
+      cm.getPlayer().endPartyQuest(1203);
+      cm.warp(920011300);
+      cm.dispose();
+      break;
+    default:
+      if (mode == -1) {
         cm.dispose();
-        return;
-    }
-    for (var i = 4001044; i < 4001064; i++) {
-        cm.removeAll(i); //holy
-    }
-    switch (cm.getMapId()) {
-        case 920010100: //center stage, minerva warps to bonus
-            //em.setProperty("done", "1");
-            cm.showEffect(false, "quest/party/clear");
-            cm.playSound(false, "Party1/Clear");
-            cm.gainExp_PQ(120, 0.8);
-            cm.getPlayer().endPartyQuest(1203);
-            cm.warp(920011100);
-            cm.dispose();
-            break;
-        default:
-            if (mode == -1) {
-                cm.dispose();
-            }
-            if (mode == 1)
-                status++;
-            else
-                status--;
-            if (status == 0) {
-                cm.sendNext("è¯·ç¡®è®¤ä½ çš„èƒŒåŒ…æœ‰æ²¡æœ‰ç©ºæ ¼ã€‚");
-            } else if (status == 1) {
-                if (!cm.canHold(4001222, 1)) {
-                    cm.sendOk("è¯·æ£€æŸ¥ä½ èƒŒåŒ…å…¶ä»–æ æœ‰æ²¡æœ‰ç©ºæ ¼ã€‚");
-                    cm.dispose();
-                    return;
-                }
-                var a = cm.getBossLogC("æ¯æ—¥å¥³ç¥žå¡”å‰¯æœ¬");
-                if (a <= 1) {
-                    cm.gainItem(4001222, 1);
-                    cm.setBossLog('æ¯æ—¥å¥³ç¥žå¡”å‰¯æœ¬');
-                }
-                if (cm.getPlayer().getLevel() <= 120) {
-                    cm.gainItem(4001222, 1);
-                    cm.gainItem(randItem, qty);
-                    cm.playerMessage(5, "æ­å–œæ‚¨èŽ·å¾—5ç‚¹å¥³ç¥žå¡”å‰¯æœ¬é€šå…³ç‚¹æ•°ï¼");
-                    cm.setBossRankPoints("å¥³ç¥žå¡”å‰¯æœ¬æ€»ç‚¹æ•°", 5);
-                    cm.setBossRankCount("æ‰€æœ‰å‰¯æœ¬æ€»æ¬¡æ•°");
-                    cm.setBossRankCount("å¥³ç¥žå¡”å‰¯æœ¬æ€»æ¬¡æ•°");
-                    cm.setBossLog("å®Œæˆ5æ¬¡å¥³ç¥žå¡”ç»„é˜Ÿ", 12, 1);
-                }else{
-                    cm.givePartyLevelItems(1, 54, 1, 4001229, 2);
-                    cm.setBossRankCount("è¶Šçº§å¥³ç¥žå¡”å‰¯æœ¬æ€»æ¬¡æ•°");
-                }
-                var eim = cm.getEventInstance();
-                var é€šå…³æ—¶é—´ = 20 * 60000;
-                if (eim == null) {
-                    var æ¶ˆè€—æ—¶é—´ = 999999999;
-                } else {
-                    var æ¶ˆè€—æ—¶é—´ = (é€šå…³æ—¶é—´ - eim.getTimeLeft()) / 1000;
-                }
-                if (eim != null) {
-                    cm.worldMessage(2, "[å‰¯æœ¬-å¥³ç¥žå¡”] : æ­å–œ " + cm.getPlayer().getName() + " å®Œæˆå¥³ç¥žå¡”å‰¯æœ¬ã€‚æ¶ˆè€—æ—¶é—´ " + formatSeconds(æ¶ˆè€—æ—¶é—´) + "ã€‚");
-                }
+      }
+      if (mode == 1) status++;
+      else status--;
+      if (status == 0) {
+        cm.sendNext(
+          "ÇëÈ·ÈÏÄãµÄÆäËûÀ¸ÓÐÃ»ÓÐ¿ÕÁ½¸ñ,ÁíÍâÀ¸Î»¿ÕÒ»¸ñ¾ÍºÃ,È·ÈÏ¶¼ÓÐ¿ÕÔÙÀ´¸úÎÒ¶Ô»°"
+        );
+      } else if (status == 1) {
+        //Å®ÉñËþÊ¢²ú·ÛÄ©£¬¶÷
+        if (cm.getPlayer().getMapId() != 920011300) {
+          cm.sendOk("ÄãºÃ°¡£¬Ã°ÏÕ¼Ò£¡");
+          cm.dispose();
+          return;
+        }
+        if (cm.getBossLog("Å®ÉñËþ") < ´ÎÊýÏÞÖÆ) {
+          cm.gainMeso(100000);
+          for (var i = 0; i < ½±ÀøÔ¤ÀÀ.length; i++) {
+            gainItemPro(½±ÀøÔ¤ÀÀ[i][0], ½±ÀøÔ¤ÀÀ[i][1], ½±ÀøÔ¤ÀÀ[i][2]);
+          }
+          //cm.gainItem(4002001,1);
+          //cm.Ôö¼ÓÀï³Ì(2);
+        }
 
-                cm.warp(200080101);
-                cm.dispose();
-                break;
-            }
-    }
+        //¼ÇÂ¼Í¨¹ØÐÅÏ¢
+        cm.setBossRankCount("Å®ÉñËþ", 1);
+        cm.setBossLog("Å®ÉñËþ");
+        cm.worldMessage(
+          2,
+          "[¸±±¾-Å®ÉñËþ] : ¹§Ï² " +
+            cm.getPlayer().getName() +
+            " £¬Íê³ÉÅ®ÉñËþ¸±±¾¡£"
+        );
+        //  cm.gainItem(randItem, qty);
+        cm.warp(200080101);
+        cm.dispose();
+        break;
+      }
+  }
+}
+
+function gainItemPro(itemId, count, prop) {
+  var number = Math.random() * 100;
+  if (number <= prop) {
+    cm.gainItem(itemId, count);
+  }
 }

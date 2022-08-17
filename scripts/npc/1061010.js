@@ -1,30 +1,37 @@
+/*
+ Ï··şÎñ¶Ë
+ */
 function start() {
-    cm.sendYesNo("è¯·é—®ä½ æ˜¯å¦è¦ç¦»å¼€å‘¢??");
+  cm.sendYesNo("ÇëÎÊÄãÊÇ·ñÒªÀë¿ªÄØ£¿");
 }
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-	var map = cm.getMapId();
-	var kill = cm.getMap().killAllMonsters(true);
-	var tomap;
-
-	if (map == 108010101) {
-		kill;
-	    tomap = 100000000;
-	} else if (map == 108010201) {
-		kill;
-	    tomap = 101000000;
-	} else if (map == 108010301) {
-		kill;
-	    tomap = 102000000;
-	} else if (map == 108010401) {
-		kill;
-	    tomap = 103000000;
-	} else if (map == 108010501) {
-		kill;
-	    tomap = 120000000;
-	}
-	cm.warp(tomap);
+  if (mode == 1) {
+    var map = cm.getMapId();
+    var kill = cm.getMap().killAllMonsters(true);
+    var tomap;
+    //¹­¼ıÊÖ É­ÁÖÃÔ¹¬
+    if (map == 108010101) {
+      kill;
+      tomap = 105040305;
+      //Ä§·¨Ê¦ Î×ÆÅÉ­ÁÖII
+    } else if (map == 108010201) {
+      kill;
+      tomap = 100040106;
+      //Õ½Ê¿ ÂìÒÏ¹ã³¡
+    } else if (map == 108010301) {
+      kill;
+      tomap = 105070001;
+      //·ÉÏÀ ºï×ÓÕÓÔó
+    } else if (map == 108010401) {
+      kill;
+      tomap = 107000402;
+      //º£µÁ »ğ¶ÀÑÛÊŞ¶´Ñ¨
+    } else if (map == 108010501) {
+      kill;
+      tomap = 105070200;
     }
-    cm.dispose();
+    cm.warp(tomap);
+  }
+  cm.dispose();
 }

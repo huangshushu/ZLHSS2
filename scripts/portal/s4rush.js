@@ -1,30 +1,30 @@
 function enter(pi) {
     if (pi.getQuestStatus(6110) == 1) {
-        if (pi.getParty() != null) {
-            if (!pi.isLeader()) {
-                pi.playerMessage("请找队伍队长来找我。");
-            } else {
-                //if (pi.getParty().getMembers().size < 2) {
-                //    pi.playerMessage("队伍人数必须大于两个以上。");
-                //} else {
-                //if (!pi.isAllPartyMembersAllowedJob(1)) {
-                //    pi.playerMessage("队伍裡有人职业不符合。");
-                //} else {
-                var em = pi.getEventManager("4jrush");
-                if (em == null) {
-                    pi.playerMessage("尚未找到副本，请联繫管理员。");
-                } else {
-                    em.startInstance(pi.getParty(), pi.getMap());
-                    return true;
-                }
-                //}
-                //}
-            }
-        } else {
-            pi.playerMessage(5, "尚未组队，请组队后再来找我。");
-        }
+	 if (pi.getParty() != null) {
+	     if (!pi.isLeader()) {
+		 pi.playerMessage("Party leader consisting of two Warriors can decide to enter." );
+	     } else {
+		 if (pi.getParty().getMembers().size < 2) {
+		    pi.playerMessage("You can make a quest when you have a party with two. Please make your party with two members." );
+		 } else {
+		      if (!pi.isAllPartyMembersAllowedJob(1)) {
+			  pi.playerMessage("You can't enter. Your party member's job is not Warrior or Your party doesn't consist of two members.");
+		      } else {
+			  var em = pi.getEventManager("4jrush");
+			  if (em == null) {
+			      pi.playerMessage("You're not allowed to enter with unknown reason. Try again." );
+			  } else {
+			      em.startInstance(pi.getParty(), pi.getMap());
+			      return true;
+			  }
+		      }
+		 }
+	     }
+	 } else {
+	     pi.playerMessage(5, "You don...t have a  party. You can challenge with party.");
+	 }
     } else {
-        pi.playerMessage("你不能进入封闭的地方。");
+	pi.playerMessage("You can't enter sealed place.");
     }
     return false;
 }

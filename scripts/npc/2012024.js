@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 	Egnet - Before Takeoff To Ariant(200000152)
 */
 
@@ -8,12 +8,12 @@ function action(mode, type, selection) {
     if (mode == 1) {
 	status++;
     } else {
-	cm.sendOk("è¿™æ˜¯å¥½çš„é€‰æ‹©ï¼ï¼");
+	cm.sendOk("ÕâÊÇºÃµÄÑ¡Ôñ£¡£¡");
 	cm.safeDispose();
 	return;
     }
     if (status == 0) {
-	cm.sendYesNo("ä½ è¦ç¦»å¼€èˆ¹ä¸Š??");
+	cm.sendYesNo("ÄãÒªÀë¿ª´¬ÉÏ??");
     } else if (status == 1) {
 	cm.warp(200000151);
 	cm.dispose();

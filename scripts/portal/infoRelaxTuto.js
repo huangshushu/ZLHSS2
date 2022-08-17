@@ -3,6 +3,6 @@
     Made by Daenerys
 */
 function enter(pi) {
-    pi.ShowWZEffect("UI/tutorial.img/27");
+    pi.TutInstructionalBalloon("UI/tutorial.img/27");
 	return true;
-	}
+}

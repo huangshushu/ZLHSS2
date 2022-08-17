@@ -1,19 +1,22 @@
-ï»¿function start() {
-    cm.sendYesNo("æ‚¨æƒ³è¦ç¦»å¼€äº†ï¼Ÿï¼Ÿ");
+function start() {
+    cm.sendYesNo("ÄúÏëÒªÀë¿ªÁË£¿£¿");
 }
 
 function action(mode, type, selection) {
     if (mode == 1) {
-	if (cm.getMapId() == 674030200) { //boss map
+	if (cm.getMapId() == 674030200 || cm.getMapId() == 674030000) {
 		cm.warp(674030100,0);
+		cm.dispose();
 	} else {
-		var map = cm.getSavedLocation("CHRISTMAS");
+		cm.dispose();
+		cm.´ò¿ªNPC(2007,9);
+		/*var map = cm.getSavedLocation("CHRISTMAS");
 		if (map > -1 && map != cm.getMapId()) {
 			cm.warp(map, 0);
 		} else {
     			cm.warp(100000000, 0);
 		}
+		}*/
 	}
     }
-    cm.dispose();
 }

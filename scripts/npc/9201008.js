@@ -11,9 +11,9 @@ function action(mode, type, selection) {
     }
     if (status == 0) {
 	if (cm.getPlayer().getMapId() == 680000000) {
-	    cm.sendYesNo("è¯·é—®ä½ æƒ³è¦å»å‚è§‚ç»“å©šç¤¼å ‚å—ï¼Ÿï¼Ÿ");
+	    cm.sendYesNo("ÇëÎÊÄãÏëÒªÈ¥²Î¹Û½á»éÀñÌÃÂğ£¿£¿");
 	} else {
-	    cm.sendYesNo("è¯·é—®ä½ æƒ³è¦å›å»#m680000000#ï¼Ÿï¼Ÿ");
+	    cm.sendYesNo("ÇëÎÊÄãÏëÒª»ØÈ¥#m680000000#£¿£¿");
 	}
     } else if (status == 1) {
 	cm.warp(cm.getPlayer().getMapId() == 680000000 ? 680000100 : 680000000);

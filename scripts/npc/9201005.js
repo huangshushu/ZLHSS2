@@ -1,24 +1,24 @@
-ï»¿var status = -1;
+var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
-        status++;
+	status++;
     } else {
-        if (status == 0) {
-            cm.dispose();
-        }
-        status--;
+	if (status == 0) {
+	    cm.dispose();
+	}
+	status--;
     }
     if (status == 0) {
-        if (cm.getPlayer().getMapId() == 680000000) {
-            cm.sendYesNo("ä½ è¦å»ç»“å©šç¤¼å ‚å—?");
-        } else {
-            cm.sendYesNo("ä½ è¦å›å»ç»“å©šå°é•‡å—?");
-        }
+	if (cm.getPlayer().getMapId() == 680000000) {
+	    cm.sendYesNo("ÄãÒªÈ¥½á»éÀñÌÃÂğ?");
+	} else {
+	    cm.sendYesNo("ÄãÒª»ØÈ¥½á»éĞ¡ÕòÂğ?");
+	}
     } else if (status == 1) {
-        var WeddingMap = cm.getMap(680000400);
-        WeddingMap.resetFully();
-        cm.warp(cm.getPlayer().getMapId() == 680000000 ? 680000200 : 680000000);
-        cm.dispose();
+	var WeddingMap = cm.getMap(680000400);
+	WeddingMap.resetFully();
+	cm.warp(cm.getPlayer().getMapId() == 680000000 ? 680000200 : 680000000);
+	cm.dispose();
     }
 }

@@ -1,8 +1,9 @@
-/*
-	NPC Name: 		Nineheart
-	Description: 		Quest - Are you sure you can leave?
-*/
-
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 var status = -1;
 
 function start(mode, type, selection) {
@@ -10,21 +11,21 @@ function start(mode, type, selection) {
 	status++;
     } else {
 	if (status == 1) {
-	    qm.sendNext("When will you realize how weak you are... When you get yourself in trouble in Victoria Island?");
+	    qm.sendNext("你什么时候意识到你是多么的无力......当你自己在维多利亚岛的麻烦?");
 	    qm.safeDispose();
 	    return;
 	}
 	status--;
     }
     if (status == 0) {
-	qm.sendNext("You have finally become a Knight-in-Training. I'd like to give you a mission right away, but you still look miles away from even being able to handle a task on your own. Are you sure you can even go to Victoria Island like this?");
+	qm.sendNext("你终于成为骑士在训练。我想给你一个任务马上，但你还是看看英里远离甚至能够处理你自己的任务。你确定你甚至可以去维多利亚岛这样的?");
     } else if (status == 1) {
-	qm.askAcceptDecline("It's up to you to head over to Victoria Island, but a Knight-in-Training that can't take care of one''s self in battles is likely to cause harm to the Empress''s impeccable reputation. As the Head Tactician of this island, I can't let that happen, period. I want you to keep training until the right time comes.");
+	qm.askAcceptDecline("这是给你头部到维多利亚岛，但骑士在训练不能照顾之一“的自我在战斗中很可能造成伤害女皇”的显赫名声。由于这个岛的负责人战术家，我不能让这种情况发生，期限。我希望你能坚持训练，直到合适的时机到来.");
     } else if (status == 2) {
 	qm.forceCompleteQuest();
-	qm.sendNext("#p1102000#, the Training Instructor, will help you train into a serviceable knight. Once you reach Level 13, I'll assign you a mission or two. So until then, keep training.");
+	qm.sendNext("#p1102000#, 该培训讲师，会帮你培养成一个维修骑士。一旦你到达13级，我会为您分配一个或两个任务。所以在那之前，坚持训练.");
     } else if (status == 3) {
-	qm.sendPrev("Oh, and are you aware that if you strike a conversation with #p1101001#, she'll give you a blessing? The blessing will definitely help you on your journey.");
+	qm.sendPrev("哦，你知道，如果你挥动#p1101001#对话，她会给你一个祝福？祝福一定会帮助你在你的旅程.");
     } else if (status == 4) {
 	qm.dispose();
     }

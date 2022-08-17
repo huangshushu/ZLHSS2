@@ -21,12 +21,12 @@
 */
 var status = 0;
 var zones = 0;
-var names = Array("æ²‰ç¡æ£®æ—1", "æ²‰ç¡æ£®æ—2", "æ²‰ç¡æ£®æ—3");
+var names = Array("³ÁË¯É­ÁÖ1", "³ÁË¯É­ÁÖ2", "³ÁË¯É­ÁÖ3");
 var maps = Array(105040310, 105040312, 105040314);
 var selectedMap = -1;
 
 function start() {
-    cm.sendNext("ä½ è§‰å¾—å‘¨å›´çš„è¿™å°Šé›•åƒçš„ç¥ç§˜åŠ›é‡ã€‚");
+    cm.sendNext("Äã¾õµÃÖÜÎ§µÄÕâ×ğµñÏñµÄÉñÃØÁ¦Á¿¡£");
     if (cm.getQuestStatus(2054))
         zones = 3;
     else if (cm.getQuestStatus(2053))
@@ -42,7 +42,7 @@ function action(mode, type, selection) {
         cm.dispose();
     else {
         if (status >= 2 && mode == 0) {
-            cm.sendOk("å¥½å§ï¼Œä¸‹æ¬¡å†è§ã€‚");
+            cm.sendOk("ºÃ°É£¬ÏÂ´ÎÔÙ¼û¡£");
             cm.dispose();
             return;
         }
@@ -54,7 +54,7 @@ function action(mode, type, selection) {
             if (zones == 0)
                 cm.dispose();
             else {
-                var selStr = "å®ƒçš„åŠ¨åŠ›è®©ä½ è‡ªå·±å°†å°±æ·±æ—é‡Œ.#b";
+                var selStr = "ËüµÄ¶¯Á¦ÈÃÄã×Ô¼º½«¾ÍÉîÁÖÀï.#b";
                 for (var i = 0; i < zones; i++)
                     selStr += "\r\n#L" + i + "#" + names[i] + "#l";
                 cm.sendSimple(selStr);

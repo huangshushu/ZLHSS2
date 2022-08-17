@@ -14,7 +14,7 @@ try {
 		    }
 		}
 	    } else {
-		pi.playerMessage(5, "You are not the leader of the party.");
+		pi.playerMessage(5, "你不是队长.");
 	    }
 	} else {
 	    for (var i = 0; i < dungeons; i++) {
@@ -24,7 +24,7 @@ try {
 		}
 	    }
 	}
-	pi.playerMessage(5, "All of the Mini-Dungeons are in use right now, please try again later.");
+	pi.playerMessage(5, "所有的小型地下城是在马上使用，请稍后再试.");
     } else {
 	pi.playPortalSE();
 	pi.warp(baseid, "MD00");

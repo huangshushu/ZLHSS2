@@ -4,6 +4,12 @@
 */
 
 function act() {
+	var cs = rm.getPlayer().getClient().getChannelServer();
+	var myEvent =  cs.getEvent(Packages.server.events.MapleEventType.寻宝);
+	if(!myEvent.isRunning()){
+		rm.playerMessage("活动尚未开始，无法获得宝箱~");
+		return;
+	}
     if (!rm.haveItem(4031017)) {
         var rand = (Math.random() * 10) + 1;
         var randMap = (Math.random() * 9) + 1;

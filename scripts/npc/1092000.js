@@ -1,4 +1,4 @@
-ï»¿/**
+/**
 	Tangyoon - Nautilus Cook
 **/
 
@@ -8,7 +8,7 @@ function start() {
 		cm.warp(912000100, 0);
 		cm.dispose();
 	} else {
-		cm.sendOk("æˆ‘æ€•æˆ‘ä¸èƒ½è®©ä½ èµ°åˆ°é‚£é‡Œã€‚");
+		cm.sendOk("ÎÒÅÂÎÒ²»ÄÜÈÃÄã×ßµ½ÄÇÀï¡£");
 		cm.dispose();
 }
 }

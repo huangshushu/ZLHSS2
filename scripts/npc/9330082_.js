@@ -4,7 +4,7 @@ var status = -1;
 var sel, select;
 var bosspq = 682020000;
 var items = [
-    /*æ°¸æ’æ­¦å™¨*/
+    /*ÓÀºãÎäÆ÷*/
     [
         [1302081, 130000, 1, -1],
         [1312037, 130000, 1, -1],
@@ -28,7 +28,7 @@ var items = [
         [1372042, 160000, 1, -1],
         [1372039, 160000, 1, -1]
     ],
-    /*é£é•–*/
+    /*·ÉïÚ*/
     [
         [2070006, 8000, 1, -1],
         [2070005, 4500, 1, -1],
@@ -38,7 +38,7 @@ var items = [
         [2330007, 300000, 1, -1],		
         [2070019, 300000, 1, -1]
     ],
-    /*å…¶å®ƒ*/
+    /*ÆäËü*/
     [
         [1122017, 30000, 1, 7],
         [2340000, 165000, 1, -1],
@@ -62,7 +62,7 @@ function action(mode, type, selection) {
 
     if (status == 0) {
         points = record.getCustomData() == null ? "0" : record.getCustomData();
-        cm.sendSimple("æ‚¨å¥½ï¼Œæˆ‘æ˜¯#p9330082#\n\r ç›®å‰æ‚¨æœ‰:#b" + points + "#kç‚¹æ•°\r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n#L2#å…‘æ¢ç‚¹æ•°#l\r\n#L3#æ°¸æ’æ­¦å™¨#l\r\n#L4#é£é•–#l\r\n#L5#å…¶ä»–#l"); //\r\n #L10#æµ‹è¯•#l\r\n\r\n#L8#æ°¸æ’è£…å¤‡#l\r\n#L9#æ°¸æ’æ­¦å™¨(116)#l
+        cm.sendSimple("ÄúºÃ£¬ÎÒÊÇ#p9330082#\n\r Ä¿Ç°ÄúÓĞ:#b" + points + "#kµãÊı\r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n#L2#¶Ò»»µãÊı#l\r\n#L3#ÓÀºãÎäÆ÷#l\r\n#L4#·ÉïÚ#l\r\n#L5#ÆäËû#l"); //\r\n #L10#²âÊÔ#l\r\n\r\n#L8#ÓÀºã×°±¸#l\r\n#L9#ÓÀºãÎäÆ÷(116)#l
     } else if (status == 1) {
         select = selection;
         switch (selection) {
@@ -72,7 +72,7 @@ function action(mode, type, selection) {
                 break;
             case 1:
             case 2:
-                cm.sendGetNumber("ä½ è¦ç”¨å¤šå°‘ " + (selection == 1 ? "#i3993002#" : "#i3993002#") + " å…‘æ¢BOSS ç‚¹æ•°? \r\nç°åœ¨æ¯”å€¼ 1 ä¸ª#t3993002# : #b1ä¸‡ç‚¹æ•°#k\r\n", cm.itemQuantity(selection == 1 ? 3993002 : 3993002), 1, 9999);
+                cm.sendGetNumber("ÄãÒªÓÃ¶àÉÙ " + (selection == 1 ? "#i3993002#" : "#i3993002#") + " ¶Ò»»BOSS µãÊı? \r\nÏÖÔÚ±ÈÖµ 1 ¸ö#t3993002# : #b1ÍòµãÊı#k\r\n", cm.itemQuantity(selection == 1 ? 3993002 : 3993002), 1, 9999);
                 break;
             case 3:
             case 4:
@@ -93,9 +93,9 @@ function action(mode, type, selection) {
                 intPoints += (pricemultipy * cm.itemQuantity(itemid));
                 record.setCustomData("" + intPoints + "");
                 cm.gainItem(itemid, -selection);
-                cm.sendOk("å®Œæˆ! è¯·æŸ¥çœ‹ä½ çš„ç‚¹æ•°ã€‚");
+                cm.sendOk("Íê³É! Çë²é¿´ÄãµÄµãÊı¡£");
             } else {
-                cm.sendOk("ä½ æ²¡æœ‰å¯å…‘æ¢çš„é“å…·");
+                cm.sendOk("ÄãÃ»ÓĞ¿É¶Ò»»µÄµÀ¾ß");
             }
         } else if (select >= 3 && select <= 9) {
             gainReward(intPoints, record, select - 3);
@@ -105,9 +105,9 @@ function action(mode, type, selection) {
 }
 
 function chooseItem(index) {
-    var choice = "é€‰é¡¹ä½ æƒ³è¦æ¢å¾—é¡¹ç›®:#b";
+    var choice = "Ñ¡ÏîÄãÏëÒª»»µÃÏîÄ¿:#b";
     for (var i = 0; i < items[index].length; i++)
-        choice += "\r\n#L" + i + "##i" + items[index][i][0] + "# äº¤æ¢ " + items[index][i][1] + " ç‚¹æ•° (#z" + items[index][i][0] + "#)"+ (items[index][i][2] > 0 ? (" X #r#e" + items[index][i][2] + "#n#bä¸ª") : "") +(items[index][i][3] > 0 ? (" ...æœŸé™ #r#e" + items[index][i][3] + "#n#bå¤©") : "") + "#l";
+        choice += "\r\n#L" + i + "##i" + items[index][i][0] + "# ½»»» " + items[index][i][1] + " µãÊı (#z" + items[index][i][0] + "#)"+ (items[index][i][2] > 0 ? (" X #r#e" + items[index][i][2] + "#n#b¸ö") : "") +(items[index][i][3] > 0 ? (" ...ÆÚÏŞ #r#e" + items[index][i][3] + "#n#bÌì") : "") + "#l";
     choice += "\r\n "
     cm.sendSimple(choice);
 }
@@ -118,12 +118,12 @@ function gainReward(intPoints, record, index) {
         intPoints -= items[index][sel][1];
         record.setCustomData("" + intPoints + "");
         cm.gainItemPeriod(items[index][sel][0], items[index][sel][2], items[index][sel][3]); // 3000 for bullets, they're unrechargable
-        cm.sendOk("äº«å— :P");
+        cm.sendOk("ÏíÊÜ :P");
     } else {
-		cm.sendOk("è¯·ç¡®è®¤æ˜¯å¦æœ‰è¶³å¤Ÿçš„ç©ºé—´ã€‚");
+		cm.sendOk("ÇëÈ·ÈÏÊÇ·ñÓĞ×ã¹»µÄ¿Õ¼ä¡£");
 	}
 	} else {
-        cm.sendOk("è¯·ç¡®è®¤æ˜¯å¦ç‚¹æ•°è¶³å¤Ÿ #bç›®å‰ç‚¹æ•°æ€»å…± : " + points);
+        cm.sendOk("ÇëÈ·ÈÏÊÇ·ñµãÊı×ã¹» #bÄ¿Ç°µãÊı×Ü¹² : " + points);
     }
 }
 

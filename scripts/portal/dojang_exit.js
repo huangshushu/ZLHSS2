@@ -1,11 +1,3 @@
-
- function enter(pi) {
-	var returnMap = pi.getSavedLocation("MULUNG_TC"); 
- 	if (returnMap < 0) { 
-		returnMap = 100000000; // to fix people who entered the fm trough an unconventional way 
- 	} 
- 	pi.playPortalSE(); 
- 	pi.clearSavedLocation("MULUNG_TC"); 
- 	pi.warp(returnMap, 0); 
- 	return true; 
+function enter(pi) {
+    pi.打开NPC(2007,5);
 }

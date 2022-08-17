@@ -1,4 +1,4 @@
-﻿/* 
+/* 
 	脚本类型: 		NPC
 	所在地图:		孤星殿
 	脚本名字:		离婚NPC
@@ -42,14 +42,12 @@ function action(mode, type, selection) {
         }
     } else if (status == 2) {
         if (selection == -1) {
-            if (cm.getPlayer().getMarriageId() <= 0 || !cm.haveItem(1112804)) {
-                cm.sendNext("我不清楚你是什么进来的，不过你好像还没有结婚？或者你的结婚戒指呢？");
+            if (cm.getPlayer().getMarriageId() <= 0) {
+                cm.sendNext("我不清楚你是什么进来的，不过你好像还没有结婚？");
                 cm.dispose();
             } else {
                 if (cm.getMeso() >= 1000000) {
                     cm.handleDivorce();
-					cm.gainItem(1112804, -1);
-					cm.worldMessage(11, "『法海师傅』" + " : " + "[" + cm.getChar().getName() + "]和他的伴侣已离婚！解怨释结更莫相憎,一别两宽各生欢喜!");
                     cm.gainMeso( - 1000000);
                 } else {
                     cm.sendNext("离婚手续费需要100万金币,你没有足够的金币。");

@@ -1,4 +1,4 @@
-ï»¿var status = -1;
+var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
@@ -129,7 +129,7 @@ function action(mode, type, selection) {
 			    }
 			    em.setProperty("apq3_tries", "0");
 			} else {*/
-			    cm.sendOk("é”™è¯¯");
+			    cm.sendOk("´íÎó");
 //			    var rand = java.lang.Math.floor(java.lang.Math.random() * 4);
 //			    cm.spawnMob(9400519 + rand, num_correct, 1663, 196);
 //			}

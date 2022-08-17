@@ -1,4 +1,4 @@
-ï»¿/* Ellie
+/* Ellie
 	Ludibrium VIP Eye Change.
 */
 var status = -1;
@@ -18,7 +18,7 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendNext("å˜¿ï¼Œå—¨ æ¬¢è¿æ¥åˆ°ç©å…·åŸæ•´å½¢å¤–ç§‘! å¦‚æœä½ æœ‰ä¸€å¼  #b#t5152007##k, ä½ å¯ä»¥è·Ÿæˆ‘è°ˆè°ˆã€‚");
+	cm.sendNext("ºÙ£¬àË »¶Ó­À´µ½Íæ¾ß³ÇÕûĞÎÍâ¿Æ! Èç¹ûÄãÓĞÒ»ÕÅ #b#t5152007##k, Äã¿ÉÒÔ¸úÎÒÌ¸Ì¸¡£");
     } else if (status == 1) {
 	var face = cm.getPlayerStat("FACE");
 
@@ -30,12 +30,12 @@ function action(mode, type, selection) {
 	for (var i = 0; i < facetype.length; i++) {
 	    facetype[i] = facetype[i] + face % 1000 - (face % 100);
 	}
-	cm.askAvatar("é€‰æ‹©ä¸€ä¸ªæƒ³è¦çš„", facetype);
+	cm.askAvatar("Ñ¡ÔñÒ»¸öÏëÒªµÄ",5152007, facetype);
     } else if (status == 2){
 	if (cm.setAvatar(5152007, facetype[selection]) == 1) {
-	    cm.sendOk("äº«å—!");
+	    cm.sendOk("ÏíÊÜ!");
 	} else {
-	    cm.sendOk("ç–´...è²Œä¼¼æ²¡æœ‰#t5152007#");
+	    cm.sendOk("¯z...Ã²ËÆÃ»ÓĞ#t5152007#");
 	}
 	cm.dispose();
     }

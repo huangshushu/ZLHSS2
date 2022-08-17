@@ -3,38 +3,38 @@ function enter(pi) {
 	if (pi.getJob() == 312) {
 	    if (pi.haveItem(4001113)) {
 		if (pi.getPlayerCount(924000100) > 0) {
-		    pi.playerMessage("有其他人在里面挑战请稍后再尝试。");
+		    pi.playerMessage("Other characters are on request. You can't enter.");
 		    return false;
 		}
 		var em = pi.getEventManager("s4nest");
 		if (em == null) {
-		    pi.playerMessage("未加载事件，请联系管理员。" );
+		    pi.playerMessage("You're not allowed to enter with unknown reason. Try again." );
 		} else {
 		    em.startInstance(pi.getPlayer());
 		    return true;
 		}
 	    } else {
-		pi.playerMessage("你没有凤凰蛋。你不能进入。" );
+		pi.playerMessage("You don't have Phoenix's Egg. You can't enter." );
 	    }
 	} else if (pi.getJob() == 322) {
 	    if (pi.haveItem(4001114)) {
 		if (pi.getPlayerCount(924000100) > 0) {
-		    pi.playerMessage("有其他人在里面挑战请稍后再尝试。");
+		    pi.playerMessage("Other characters are on request. You can't enter.");
 		    return false;
 		}
 		var em = pi.getEventManager("s4nest");
 		if (em == null) {
-		    pi.playerMessage("未加载事件，请联系管理员。" );
+		    pi.playerMessage("You're not allowed to enter with unknown reason. Try again." );
 		} else {
 		    em.startInstance(pi.getPlayer());
 		    return true;
 		}
 	    } else {
-		pi.playerMessage("你没有凤凰蛋。你不能进入。" );
+		pi.playerMessage("You don't have Freezer's Egg. You can't enter." );
 	    }
 	}
     } else {
-	pi.playerMessage("你不能进入封闭的地方。");
+	pi.playerMessage("You can't enter sealed place.");
     }
     return false;
 }

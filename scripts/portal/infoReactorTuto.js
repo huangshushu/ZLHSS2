@@ -3,7 +3,11 @@
     Made by Daenerys
 */
 function enter(pi) {
-    pi.ShowWZEffect("UI/tutorial.img/22");
+	if (pi.getMapId()==4000001) {
+		pi.openNpc(10310, "infoPortalTuto");
+	} else {
+		pi.TutInstructionalBalloon("UI/tutorial.img/22");
+	}
 	return true;
 }
 

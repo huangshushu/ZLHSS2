@@ -1,50 +1,31 @@
-ï»¿/*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-/* Ms. Tan
+/* Ms. Tan 
 	Henesys Skin Change.
 */
 var status = 0;
-var skin = Array(0, 1, 2, 3, 4);
-var price;
+var skin = Array(0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11);
 
 function start() {
-    cm.sendSimple("æ¬¢è¿æ¥åˆ°å¼“ç®­æ‰‹æ‘æŠ¤å‘ä¸­å¿ƒ! æ˜¯å¦æœ‰æƒ³è¦æŸ“çš„çš®è‚¤å‘¢?? å°±åƒæˆ‘çš„å¥åº·çš®è‚¤??  å¦‚æœä½ æœ‰ #b#t5153000##k, å°±å¯ä»¥éšæ„æŸ“çš„æƒ³åˆ°çš„çš®è‚¤~~~\r\n\#L2#æˆ‘å·²ç»æœ‰ä¸€ä¸ªä¼˜æƒ åˆ¸!#l");
+    status = -1;
+    action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode < 1)
+    if (mode == 0) {
         cm.dispose();
-    else {
+        return;
+    } else {
         status++;
-        if (status == 1)
-            cm.sendStyle("é€‰ä¸€ä¸ªæƒ³è¦çš„é£æ ¼.", skin);
-        else {
-            if (cm.haveItem(5153000)){
-                cm.gainItem(5153000, -1);
-                cm.setSkin(selection);
-                cm.sendOk("äº«å—!");
-            } else
-                cm.sendOk("æ‚¨è²Œä¼¼æ²¡æœ‰#b#t5153000##k..");
-            cm.dispose();
+    }
+    if (status == 0) {
+        cm.sendNext("ÄãºÃ£¡»¶Ó­¹âÁÙÉäÊÖ´å»¤·ôÖĞĞÄ¡£ÄãÏë»ñµÃºÍÎÒÒ»Ñù½¡¿µ½ô±ÁµÄÆ¤·ôÂğ£¿Ö»ÒªÓĞ#bÍòÄÜ»áÔ±¿¨#kµÄ»°£¬ÎÒ¾Í¿ÉÒÔ°´ÕÕÄãµÄÒªÇóÎªÄã»¤ÀíÆ¤·ô¡£ÄãÏë³¢ÊÔÒ»ÏÂÂğ£¿");
+    } else if (status == 1) {
+        cm.sendStyle("ÓÃÎÒÃÇ»¤·ôÖĞĞÄ¿ª·ÅµÄ»úĞµ£¬¿ÉÒÔ²é¿´»¤·ôºóµÄĞ§¹û¡£ÄãÏëÒªÊ²Ã´ÑùµÄÆ¤·ôÄØ£¿ÇëÌôÑ¡Ò»ÏÂ¡«", 5153000, skin);
+    } else if (status == 2) {
+        if (cm.setAvatar(5153000, skin[selection]) == 1) {
+            cm.sendOk("Íê³ÉÁË,ÈÃÅóÓÑÃÇÔŞÌ¾ÄãµÄĞÂ·ôÉ«°É!");
+        } else {
+            cm.sendOk("àÅ¡­¡­ÄãºÃÏñÃ»ÓĞ»¤·ôÈ¯°¡¡£¶Ô²»Æğ£¬Ã»ÓĞ»¤·ôÈ¯µÄ»°£¬ÎÒ¾Í²»ÄÜ°ïÄã»¤ÀíÆ¤·ô¡£");
         }
+        cm.dispose();
     }
 }

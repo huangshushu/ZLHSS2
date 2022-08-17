@@ -1,24 +1,28 @@
+/*
+	Flo - Crossroad of Time(220040200)
+**/
+
 function start() {
     if (cm.getQuestStatus(6225) == 1 || cm.getQuestStatus(6315) == 1) {
 	var ret = checkJob();
 	if (ret == -1) {
-            cm.sendOk("你貌似没有组队。");
+	    cm.sendOk("请再组成一个队伍，再跟我说一次.");
 	} else if (ret == 0) {
-            cm.sendOk("你的队伍人数必须两个人。");
+	    cm.sendOk("请确保组队人数为2.");
 	} else if (ret == 1) {
-            cm.sendOk("你的队伍里有一个职业不符合，无法进入另一个世界。");
+	    cm.sendOk("你的一个队员没有资格进入另一个世界.");
 	} else if (ret == 2) {
-            cm.sendOk("你的队伍里有一个等级不符合，无法进入另一个世界。");
+	    cm.sendOk("你的一个队员的水平是没有资格进入另一个世界.");
 	} else {
 	    var dd = cm.getEventManager("ElementThanatos");
 	    if (dd != null) {
 		dd.startInstance(cm.getParty(), cm.getMap());
 	    } else {
-                cm.sendOk("未知的错误。");
+		cm.sendOk("发生未知错误.");
 	    }
 	}
     } else {
-        cm.sendOk("你看起来似乎没有足够准备。");
+	cm.sendOk("你似乎没有理由满足我.");
     }
     cm.dispose();
 }

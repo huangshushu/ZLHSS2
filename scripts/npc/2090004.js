@@ -1,10 +1,9 @@
-ï»¿/* Author: aaroncsn(MapleSea Like)(Incomplete)
+/* Author: aaroncsn(MapleSea Like)(Incomplete)
  NPC Name: 		Mr. Do
  Map(s): 		Mu Lung: Mu Lung(2500000000)
  Description: 		Potion Creator
  */
-load('nashorn:mozilla_compat.js');
-importPackage(Packages.client);
+        importPackage(Packages.client);
 
 var status = 0;
 var selectedType = -1;
@@ -27,34 +26,29 @@ function action(mode, type, selection) {
     if (status == 0 && mode == 1) {
         if (cm.isQuestActive(3821)) {
             cm.forceCompleteQuest(3821);
-            cm.sendNext("ä»»åŠ¡å®Œæˆã€‚");
+            cm.sendNext("ÈÎÎñÍê³É¡£");
             cm.dispose();
             return;
         }
-        var selStr = "æˆ‘æ˜¯ä¸ªå¤šæ‰å¤šè‰ºçš„äººã€‚è·Ÿæˆ‘è¯´è¯´ä½ æƒ³è¦ä»€ä¹ˆä¸œè¥¿ã€‚ #b"
-        var options = new Array("åˆ¶è¯", "åˆ¶é€ å·è½´");
+        var selStr = "ÎÒÊÇ¸ö¶à²Å¶àÒÕµÄÈË¡£¸úÎÒËµËµÄãÏëÒªÊ²Ã´¶«Î÷¡£ #b"
+        var options = new Array("ÖÆÒ©", "ÖÆÔì¾íÖá");
         for (var i = 0; i < options.length; i++) {
             selStr += "\r\n#L" + i + "# " + options[i] + "#l";
         }
         cm.sendSimple(selStr);
     } else if (status == 1 && mode == 1) {
-        if (selection < 0) {
-            cm.sendOk("è„šæœ¬å‡ºé”™ï¼Œè¯·è”ç³»ç®¡ç†å‘˜...");
-            cm.dispose();
-            return;
-        }
         selectedType = selection;
         var selStr;
         var items;
         if (selectedType == 0) { //Make a medicine
-            cm.sendNext("å¦‚æœä½ æƒ³å­¦åšè¯ï¼Œä½ ç¬¬ä¸€æ­¥å°±æ˜¯å­¦ä¹ ä¸­è¯é…æ–¹ï¼Œæ²¡æœ‰ä»€ä¹ˆæ¯”è¿™ä¸ªæ›´é€‚åˆäº†ã€‚");
+            cm.sendNext("Èç¹ûÄãÏëÑ§×öÒ©£¬ÄãµÚÒ»²½¾ÍÊÇÑ§Ï°ÖĞÒ©Åä·½£¬Ã»ÓĞÊ²Ã´±ÈÕâ¸ö¸üÊÊºÏÁË¡£");
             cm.dispose();
             return;
         } else if (selectedType == 1) { //Make a scroll
-            selStr = "ä½ è¦æƒ³è¦ä»€ä¹ˆï¼Ÿï¼Ÿ#b";
+            selStr = "ÄãÒªÏëÒªÊ²Ã´£¿£¿#b";
             items = new Array("#t2043000#", "#t2043100#", "#t2043200#", "#t2043300#", "#t2043700#", "#t2043800#", "#t2044000#", "#t2044100#", "#t2044200#", "#t2044300#", "#t2044400#", "#t2044500#", "#t2044600#", "#t2044700#", "#t2044800#", "#t2044900##k");
         } else if (selectedType == 2) { //Donate medicine ingredients
-            selStr = "ä»€ä¹ˆï¼Ÿä½ æƒ³æŠŠæ‰€æœ‰çš„è¯ææçŒ®å‡ºæ¥ï¼ŸçœŸæ˜¯å¥½æ¶ˆæ¯å•Šï¼æçŒ®é“å…·æ˜¯ä»¥#b100ä¸ª#kä¸ºå•ä½ã€‚ç»™æçŒ®è€…å¯ä»¥åˆ¶é€ ç¬¦å’’çš„é­”ç ã€‚ä½ ç»†æƒ³æçŒ®é‚£ç§è¯æï¼Ÿ #b";
+            selStr = "Ê²Ã´£¿ÄãÏë°ÑËùÓĞµÄÒ©²Ä¾èÏ×³öÀ´£¿ÕæÊÇºÃÏûÏ¢°¡£¡¾èÏ×µÀ¾ßÊÇÒÔ#b100¸ö#kÎªµ¥Î»¡£¸ø¾èÏ×Õß¿ÉÒÔÖÆÔì·ûÖäµÄÄ§Öé¡£ÄãÏ¸Ïë¾èÏ×ÄÇÖÖÒ©²Ä£¿ #b";
             items = new Array("Acorn", "Thimble", "Needle Pouch", "Necki Flower", "Necki Swimming Cap", "Broken Piece of Pot", "Ginseng-Boiled Water", "Straw Doll", "Wooden Doll", "Bellflower Root", "100-Year-Old Bellflower", "Old Paper", "Yellow Belt", "Broken Deer Horn", "Red Belt", "Peach Seed", "Mr. Alli's Leather", "Cat Doll", "Mark of the Pirate", "Captain Hat#k");
         } else { //I want to forfeit the restoration of Portrait Scroll...
             cm.dispose();
@@ -65,11 +59,6 @@ function action(mode, type, selection) {
         }
         cm.sendSimple(selStr);
     } else if (status == 2 && mode == 1) {
-        if (selection < 0) {
-            cm.sendOk("è„šæœ¬å‡ºé”™ï¼Œè¯·è”ç³»ç®¡ç†å‘˜...");
-            cm.dispose();
-            return;
-        }
         selectedItem = selection;
         if (selectedType == 1) { //Scrolls
             var itemSet = new Array(2043000, 2043100, 2043200, 2043300, 2043700, 2043800, 2044000, 2044100, 2044200, 2044300, 2044400, 2044500, 2044600, 2044700, 2044800, 2044900);
@@ -78,7 +67,7 @@ function action(mode, type, selection) {
             item = itemSet[selectedItem];
             mats = matSet[selectedItem];
             matQty = matQtySet[selectedItem];
-            var prompt = "ä½ æƒ³è¦åš #t" + item + "#? \r\nä»¥ä¸‹æ˜¯ä½ éœ€è¦çš„ææ–™ã€‚#k";
+            var prompt = "ÄãÏëÒª×ö #t" + item + "#? \r\nÒÔÏÂÊÇÄãĞèÒªµÄ²ÄÁÏ¡£#k";
             if (mats instanceof Array) {
                 for (var i = 0; i < mats.length; i++) {
                     prompt += "\r\n#i" + mats[i] + "# " + matQty[i] + " #t" + mats[i] + "#";
@@ -91,7 +80,7 @@ function action(mode, type, selection) {
             status = 3;
             var itemSet = new Array(4000276, 4000277, 4000278, 4000279, 4000280, 4000291, 4000292, 4000286, 4000287, 4000293, 4000294, 4000298, 4000284, 4000288, 4000285, 4000282, 4000295, 4000289, 4000296, 4031435);
             item = itemSet[selectedItem];
-            var prompt = "ä½ ç¡®å®šä»¥æƒ³è¦èµåŠ© #b100ä¸ª #t " + item + "##k";
+            var prompt = "ÄãÈ·¶¨ÒÔÏëÒªÔŞÖú #b100¸ö #t " + item + "##k";
             cm.sendYesNo(prompt);
         }
     } else if (status == 3 && mode == 1) {
@@ -122,7 +111,7 @@ function action(mode, type, selection) {
                 complete = false;
         }
         if (!complete || !cm.canHold(2044900)) {
-            cm.sendOk("ä½ å¥½åƒæ²¡æœ‰è¶³å¤Ÿçš„ææ–™ã€‚");
+            cm.sendOk("ÄãºÃÏñÃ»ÓĞ×ã¹»µÄ²ÄÁÏ¡£");
             cm.dispose();
         } else {
             if (mats instanceof Array) {

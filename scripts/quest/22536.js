@@ -1,7 +1,13 @@
-var status = -1;
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
+ var status = -1;
 //this quest is NELLA INVESTIGATION
 function start(mode, type, selection) {
-	qm.sendNext("Let's talk to Nella of Kerning City.");
+	qm.sendNext("让我们来谈谈字距市的内拉.");
 	qm.forceStartQuest();
 	qm.dispose();
 }

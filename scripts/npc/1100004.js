@@ -4,12 +4,12 @@
     Made by Daenerys
 */
 function start() {
-    cm.sendYesNo("浣犳兂瑕佸幓澶╃┖涔嬪煄蹇呴』鏀粯#b 5000 鏋竵#k 澶ф涓�鍒嗛挓...");
+    cm.sendYesNo("你想要去天空之城必须支付#b 5000 枫币#k 大概一分钟...");
 }
 
 function action(mode, type, selection) {
     if (mode == 0) {
-	cm.sendOk("绛変綘鑰冭檻濂藉啀鏉ユ壘鎴戝惂!");
+	cm.sendOk("等你考虑好再来找我吧!");
 	cm.dispose();
 	} else {
     if(cm.getPlayer().getMeso() >= 5000) {

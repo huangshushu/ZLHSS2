@@ -1,7 +1,13 @@
-var status = -1;
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
+ var status = -1;
 //this quest is JOINING ORGANIZATION
 function start(mode, type, selection) {
-	qm.sendNext("Please kill 150 Curse Eye.");
+	qm.sendNext("请杀150眼诅咒.");
 	qm.forceStartQuest();
 	qm.dispose();
 }

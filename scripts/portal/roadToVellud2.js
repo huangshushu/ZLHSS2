@@ -1,9 +1,3 @@
-/* Dawnveil
-	Portal in Tynerum
-    Made by Daenerys
-*/
 function enter(pi) {
-    pi.playPortalSE();
-    pi.warp(863010000,1);
-    return true;
+    pi.openNpc(9390120,1);
 }

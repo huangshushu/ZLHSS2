@@ -1,12 +1,9 @@
-/* ===========================================================
-			Resonance
-	NPC Name: 		Head Patrol Officer
-	Map(s): 		Mushroom Castle: Corner of Mushroom Forest(106020000)
-	Description: 	Quest -  The Test
-=============================================================
-Version 1.0 - Script Done.(18/7/2010)
-=============================================================
-*/
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 
 importPackage(Packages.client);
 
@@ -18,16 +15,16 @@ function start(mode, type, selection) {
 	    if(type == 1 && mode == 0)
 		    status -= 2;
 		else{
-			qm.sendOk("Hmmm... you must be unsure of your combat skills. We'll be here waiting for you, so come see us when you're ready.");
+			qm.sendOk("嗯...你必须不确定你的战斗技能。 我们会在这里等着你，所以当你准备好，来看看我们.");
 		    qm.dispose();
 			return;
 		}
 	}
 	if (status == 0)
-		qm.sendAcceptDecline("We need your help, noble explorer. Our kingdom is currently facing a big threat, and we are in desperate need of a courageous explorer willing to fight for us, and that's how you ended up here. Please understand, though, that since we need place our faith in you, we'll have to test your skills first before we can stand firmly behind you. Will it be okay for you to do this for us?");
+		qm.sendAcceptDecline("我们需要你们的帮助，高贵的探险家。我们的王国目前正面临着一个很大的威胁，我们正处在一个勇敢的探险家愿意为我们而战的迫切需要，这就是你怎么在这里结束了。请理解，不过，确实因为我们需要把我们的信仰你，我们得先测试你的技能，才能够坚定地站在你身后。它会好起来为你做这为我们?");
 	if (status == 1){
 		qm.forceStartQuest();
-		qm.sendOk("Keep moving forward, and you'll see #bRenegade Spores#k, the Spores that turned their backs on the Kingdom of Mushroom. We'd appreciate it if you can teach them a lesson or two, and bring back #b50 Mutated Spores#k in return.");
+		qm.sendOk("继续向前走，你会看到 #b叛徒孢子#k, 孢子并把他们的背部上 蘑菇王国. 我们将不胜感激，如果你可以给他们一个教训或两个，并带回 #b50 突变孢子#k 回报.");
 		qm.dispose();
 	}
 }
@@ -43,12 +40,12 @@ function end(mode, type, selection) {
 		}
 	}
 	if (status == 0)
-		qm.sendOk("Did you teach those Renegade Spores a lesson?");
+		qm.sendOk("你教的那些叛徒孢子的教训?");
 	if (status == 1){
 		qm.forceCompleteQuest();
 		qm.gainExp(11500);
 		qm.gainItem(4000499, -50);
-		qm.sendOk("That was amazing. I apologize for doubting your abilities. Please save our Kingdom of Mushroom from this crisis!");
+		qm.sendOk("这是惊人的。我怀疑为你的能力表示歉意。请救救我们 蘑菇王国 从这次危机!");
 		qm.dispose();
 		}
 	}

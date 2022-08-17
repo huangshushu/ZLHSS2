@@ -3,8 +3,8 @@
 	Map: 103050370
 
 */
-load('nashorn:mozilla_compat.js');
-importPackage(java.lang);
+
+
 
 function enter(pi) {
     if (pi.haveItem(4031013, 20)) {

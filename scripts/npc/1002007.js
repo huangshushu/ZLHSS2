@@ -18,31 +18,31 @@ function action(mode, type, selection) {
 	status++;
     } else {
 	if (status >= 2) {
-	    cm.sendNext("有很多看到在这个镇上了。回来找我们，当你需要去不同的镇.");
+	    cm.sendNext("�кܶ࿴������������ˡ����������ǣ�������Ҫȥ��ͬ����.");
 	    cm.safeDispose();
 	    return;
 	}
 	status--;
     }
     if (status == 0) {
-	cm.sendNext("您好~! 维多利亚港计程车. 想要往其他村庄安全又快速的移动吗? 如果是这样 为了优先考量满足顾客, 请使用 #b维多利亚港计程车#k 特别免费! 亲切的送你到想要到达的地方");
+	cm.sendNext("����~! ά�����ǸۼƳ̳�. ��Ҫ��������ׯ��ȫ�ֿ��ٵ��ƶ���? ��������� Ϊ�����ȿ�������˿�, ��ʹ�� #bά�����ǸۼƳ̳�#k �ر����! ���е����㵽��Ҫ����ĵط�");
     } else if (status == 1) {
 	if (!cm.haveItem(4032313)) {
 	    var job = cm.getJob();
 	    if (job == 0 || job == 1000 || job == 2000) {
-		var selStr = "我们有特殊90%折扣，对于新手选择你的目的地#b \n\r请选择目的地.#b";
+		var selStr = "����������90%�ۿۣ���������ѡ�����Ŀ�ĵ�#b \n\r��ѡ��Ŀ�ĵ�.#b";
 		for (var i = 0; i < maps.length; i++) {
-		    selStr += "\r\n#L" + i + "##m" + maps[i] + "# (" + costBeginner[i] + " 枫币)#l";
+		    selStr += "\r\n#L" + i + "##m" + maps[i] + "# (" + costBeginner[i] + " ���)#l";
 		}
 	    } else {
-		var selStr = "请选择目的地.#b";
+		var selStr = "��ѡ��Ŀ�ĵ�.#b";
 		for (var i = 0; i < maps.length; i++) {
-		    selStr += "\r\n#L" + i + "##m" + maps[i] + "# (" + cost[i] + " 枫币)#l";
+		    selStr += "\r\n#L" + i + "##m" + maps[i] + "# (" + cost[i] + " ���)#l";
 		}
 	    }
 	    cm.sendSimple(selStr);
 	} else {
-	    cm.sendNextPrev("嘿!您看起来有一张优惠票我可以免费带你带你去#b弓箭手村#k。");
+	    cm.sendNextPrev("��!����������һ���Ż�Ʊ�ҿ�����Ѵ������ȥ#b�����ִ�#k��");
 	}
     } else if (status == 2) {
 	if (!cm.haveItem(4032313)) {
@@ -54,7 +54,7 @@ function action(mode, type, selection) {
 		sCost = rCost[selection];
 		show = cost[selection];
 	    }
-	    cm.sendYesNo("你在这里没有任何东西做，是吧? #b#m" + maps[selection] + "##k 他将花费你的 #b"+ show + " 枫币#k.");
+	    cm.sendYesNo("��������û���κζ��������ǰ�? #b#m" + maps[selection] + "##k ����������� #b"+ show + " ���#k.");
 	    selectedMap = selection;
 	} else {
 	    cm.gainItem(4032313, -1);
@@ -63,7 +63,7 @@ function action(mode, type, selection) {
 	}
     } else if (status == 3) {
 	if (cm.getMeso() < sCost) {
-	    cm.sendNext("很抱歉由于你没有足够的枫币 所以你将无法乘坐出租车!");
+	    cm.sendNext("�ܱ�Ǹ������û���㹻�ķ�� �����㽫�޷��������⳵!");
 	    cm.safeDispose();
 	} else {
 	    cm.gainMeso(-sCost);

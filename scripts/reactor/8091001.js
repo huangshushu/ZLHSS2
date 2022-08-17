@@ -13,6 +13,11 @@ function act() {
 	q = 3;
 	q2 = 4;
     }
-	rm.spawnMonster(9400250, q);
-	rm.spawnMonster(9400251, q2);
+    if (rm.getMapId() == 809050001) {
+	rm.spawnMonster(9400211, q);
+	rm.spawnMonster(9400212, q2);
+    } else if (rm.getMapId() == 809050009) {
+	rm.spawnMonster(9400211, q);
+	rm.spawnMonster(9400212, q2);
+    }
 }

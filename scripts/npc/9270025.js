@@ -1,25 +1,98 @@
-ï»¿/* 	Xan
-	Lian Hua Hua Skin Care
-*/
-var status = -1;
-var skin = [0, 1, 2, 3, 4];
+var Àñ°üÎïÆ· = "#v1302000#";
+var x1 = "1302000,+1";// ÎïÆ·ID,ÊıÁ¿
+var x2;
+var x3;
+var x4;
+var °®ĞÄ = "#fEffect/CharacterEff/1022223/4/0#";
+var Àñ°üÎïÆ· = "#v1302000#";
+var add = "#fEffect/CharacterEff/1112903/0/0#";//ºìÌÒĞÄ
+var aaa = "#fUI/UIWindow.img/Quest/icon9/0#";//ºìÉ«ÓÒ¼ıÍ·
+var zzz = "#fUI/UIWindow.img/Quest/icon8/0#";//À¶É«ÓÒ¼ıÍ·
+var sss = "#fUI/UIWindow.img/QuestIcon/3/0#";//Ñ¡ÔñµÀ¾ß
+var Õı·½¼ıÍ· = "#fUI/Basic/BtHide3/mouseOver/0#";
+var ¸ĞÌ¾ºÅ = "#fUI/UIWindow/Quest/icon0#";
+var ÃÀ»¯new = "#fUI/UIWindow/Quest/icon5/1#";
+var ºìÉ«¼ıÍ· = "#fEffect/CharacterEff/1112908/0/1#";  //²Ê¹â3
+var ttt1 = "#fEffect/CharacterEff/1062114/1/0#";  //°®ĞÄ
+var À¶É«½Çµã = "#fUI/UIWindow.img/PvP/Scroll/enabled/next2#";
+var ·Û°®ĞÄ = "#fItem/Etc/0427/04270005/Icon8/1#";  //
+var ¾Õ»¨ = "#fUI/PredictHarmony/card/19#";//¿¨Æ¬Ğ§¹û¾Õ»¨
+var Ğ¦ = "#fUI/GuildBBS/GuildBBS/Emoticon/Basic/0#";//Ğ¦Á³
+var ½ğ·ãÒ¶ ="#fMap/MapHelper/weather/maple/2#";
+var ºì·ãÒ¶ ="#fMap/MapHelper/weather/maple/1#";
+var Î×Å® ="#fMap/MapHelper/weather/witch/0#";//Î×Å®
+var ÆøÇò ="#fMap/MapHelper/weather/balloon/4#";//ÆøÇò
+var Éä¼ı ="#fMap/MapHelper/weather/LoveEffect2/4/0#";//Éä¼ı
+var Ãµ¹å ="#fMap/MapHelper/weather/rose/0#";//Ãµ¹å»¨
+var ÑÌ»¨ ="#fMap/MapHelper/weather/squib/squib1/3#";//ÑÌ»¨
+
+var ´ó·Ûºì°®ĞÄ = "#fItem/Etc/0427/04270001/Icon8/4#";  //
+var Ğ¡·Ûºì°®ĞÄ = "#fItem/Etc/0427/04270001/Icon8/5#";  //
+var Ğ¡»ÆĞÇ = "#fItem/Etc/0427/04270001/Icon9/0#";  //
+var ´ó»ÆĞÇ = "#fItem/Etc/0427/04270001/Icon9/1#";  //
+var Ğ¡Ë®µÎ = "#fItem/Etc/0427/04270001/Icon10/5#";  //
+var ´óË®µÎ = "#fItem/Etc/0427/04270001/Icon10/4#";  //
+var tz = "#fEffect/CharacterEff/1082565/4/0#";  //·ÛÍÃ×Ó
+var tz1 = "#fEffect/CharacterEff/1082565/0/0#";  //³ÈÍÃ×Ó
+var tz2 = "#fEffect/CharacterEff/1082565/2/0#";  //À¶ÍÃ×Ó
+var Ğ°¶ñĞ¡ÍÃ = "#fEffect/CharacterEff/1112960/3/0#";  //Ğ°¶ñĞ¡ÍÃ ¡¾Ğ¡¡¿
+var Ğ°¶ñĞ¡ÍÃ2 = "#fEffect/CharacterEff/1112960/3/1#";  //Ğ°¶ñĞ¡ÍÃ ¡¾´ó¡¿
+var »¨²İ ="#fEffect/SetEff/208/effect/walk2/4#";
+var »¨²İ1 ="#fEffect/SetEff/208/effect/walk2/3#";
+var Ğ¡»¨ ="#fMap/MapHelper/weather/birthday/2#";
+var ÌÒ»¨ ="#fMap/MapHelper/weather/rose/4#";
+var ÒøĞÓÒ¶ ="#fMap/MapHelper/weather/maple/3#";
+var Ğ¡ÑÌ»¨ ="#fMap/MapHelper/weather/squib/squib4/1#";
+var ĞÇĞÇ ="#fMap/MapHelper/weather/witch/3#";
+var »Ê¹Ú ="#fUI/GuildMark/Mark/Etc/00009004/3#";
+importPackage(Packages.client);
+var status = 0;
+function start() {
+    status = -1;
+    action(1, 0, 0);
+}
 
 function action(mode, type, selection) {
-    if (mode == 0) {
-	cm.dispose();
-	return;
+    if (mode == -1) {
+        cm.dispose();
     } else {
-	status++;
-    }
+        if (mode == 0) {
+            cm.dispose();
+            return;
+        }
+        if (mode == 1)
+            status++;
+        if (status == 0) {
+            var txt = "";
+            txt = "#r" + Ãµ¹å + "ÕâÀïÊÇÅ®ÉñÃ¿ÈÕ¸£ÀûÀñ°üÖĞĞÄ" + Ãµ¹å + "#k\r\n\r\n";
 
-    if (status == 0) {
-	cm.sendNext("å—¨ï¼Œæ¬¢è¿æ¥åˆ°æ–°åŠ å¡ï¼Œæˆ‘æ˜¯#p9270025# å¦‚æœæ‚¨æœ‰#b#t5153010##k æˆ‘å°±å¯ä»¥å…è´¹å¸®æ‚¨æ•´å½¢ä¸€æ¬¡ã€‚");
-    } else if (status == 1){
-	if (cm.setRandomAvatar(5153010, skin) == 1) {
-	    cm.sendOk("äº«å—ä½ æ–°çš„é€ å‹å§ï¼");
-	} else {
-	    cm.sendOk("ç”±äºæ²¡æœ‰#b#t5153010##k æ‰€ä»¥æˆ‘ä¸èƒ½å¸®å¿™ã€‚");
-	}
-	cm.safeDispose();
+        if ( cm.getPlayer().getBossLog("meitianrenwu3") == 1){
+				txt += "#r" + ÌÒ»¨ + "Äã½ñÌìÒÑ¾­Áì¹ıÁË,ÇëÃ÷ÌìÔÚÀ´°É!!!!" + ÌÒ»¨ + "#k\r\n\r\n";
+                cm.sendOk(txt);
+                cm.dispose();
+
+            }else{
+                txt += "#L1##d" + ÌÒ»¨ + "Çë°ÑÅ®ÉñÑ«ÕÂ·ÅÈë±³°üÁìÈ¡Ã¿ÈÕ¸£Àû#v1142574##k\r\n\r\n";
+                cm.sendSimple(txt);
+            }
+
+        } else if (selection == 1) {
+            if (cm.haveItem(1142574,1) ){
+				cm.gainItem(4000463, 5);//¹úÇì±Ò
+                cm.sendOk("¹§Ï²Äú»ñµÃÁË#v4000463#*20  #v2340000#*1  #v2049100#*1!");
+				cm.gainItem(2340000, 1);//×£¸£
+				cm.gainItem(2049100, 1);//»ìãç
+				cm.gainMeso(500000);
+				//cm.gainExp(100000);//¾­Ñé
+				cm.getPlayer().setBossLog('meitianrenwu3');
+                cm.dispose();
+		    cm.È«·ş¹«¸æ("¹§Ï²[" + cm.getPlayer().getName() + "]ÁìÈ¡ÁËÅ®ÉñÃ¿ÈÕ¸£Àû£¡£¡");
+            cm.dispose();
+			}else{
+            cm.sendOk("µÀ¾ß²»×ãÎŞ·¨»»¹º£¡");
+            cm.dispose();
+			}
+		}
     }
 }
+

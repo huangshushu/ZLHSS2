@@ -1,4 +1,4 @@
-ï»¿function start() {
-	cm.sendNext("æˆ‘æ˜¯#p2040031# æ‰¾æˆ‘æœ‰ä»€ä¹ˆäº‹æƒ…ï¼Ÿï¼Ÿ");
+function start() {
+	cm.sendNext("ÎÒÊÇ#p2040031# ÕÒÎÒÓĞÊ²Ã´ÊÂÇé£¿£¿");
 	cm.dispose();
 }

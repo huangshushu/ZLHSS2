@@ -1,70 +1,76 @@
-var status = -1;
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
+ var status = -1;
 
 function start(mode, type, selection) {
     status++;
-	if (mode != 1) {
-	    if(type == 1 && mode == 0)
-		    status -= 2;
-		else{
-			qm.sendNext("Are you scared of the #o9300385#es? Don't tell anyone you're related to me. That's shameful.");
-			qm.dispose();
-			return;
-		}
-	}
-	if (status == 0)
-		qm.sendAcceptDecline("It's strange. The chickens are acting funny. They used to hatch way more #t4032451#s. Do you think the Foxes have something to do with it? If so, we better hurry up and do something.");
-	else if (status == 1){
-		qm.forceStartQuest();
-		qm.sendNext("Right? Let us go and defeat those Foxes. Go on ahead and defeat #r10 #o9300385#es#k in #b#m100030103##k first. I'll follow you and take care of what's left behind. Now, hurry over to #m100030103#!");
-	} else if (status == 2){
-		qm.evanTutorial("UI/tutorial/evan/10/0", 1);
-		qm.dispose();
-	}
+    if (mode != 1) {
+        if (type == 1 && mode == 0) {
+            status -= 2;
+        } else {
+            qm.sendNext("嗯？什么？害怕 阴险的狐狸 ？没想到我弟弟这么胆小。");
+            qm.dispose();
+            return;
+        }
+    }
+    if (status == 0) {
+        qm.sendAcceptDecline("你不觉得奇怪吗？最近的鸡怎么和以前不一样了？以前它们会下很多 鸡蛋 ，但现在越来越少了。是不是因为狐狸增多了呢？那样的话，必须赶紧想办法才行。你说对不对？");
+    } else if (status == 1) {
+        qm.forceStartQuest();
+        qm.sendNext("好吧，让我们去消灭狐狸吧。你先去 #b后院#k 消灭#r10只 阴险的狐狸#k 。我会负责剩下的事情的。好了，你快到 后院 去吧～");
+    } else if (status == 2) {
+        qm.evanTutorial("UI/tutorial/evan/10/0", 1);
+        qm.dispose();
+    }
 }
 
 function end(mode, type, selection) {
     status++;
-	if (mode != 1) {
-	    if(type == 1 && mode == 0)
-		    status -= 2;
-		else{
-		    qm.dispose();
-			return;
-		}
-	}
-	if (status == 0)
-		qm.sendNext("Did you defeat the Cunning Foxes?");
-	if (status == 1)
-		qm.PlayerToNpc("#bWhat happened to slaying the Foxes left behind?");
-	if (status == 2)
-		qm.sendNextPrev("Oh, that? Haha. I did chase them, sort of, but I wanted to make sure that they do not catch up to you. I wouldn't want you eaten by a #o9300385# or anything. So I just let them be.");
-	if (status == 3)
-		qm.PlayerToNpc("#bAre you sure you weren't just hiding because you were scared of the Foxes?");
-	if (status == 4)
-		qm.sendNextPrev("What? No way! Sheesh, I fear nothing!");
-	if (status == 5)
-		qm.PlayerToNpc("#bWatch out! There's a #o9300385# right behind you!");
-	if (status == 6)
-		qm.sendNextPrev("Eeeek! Mommy!");
-	if (status == 7)
-		qm.PlayerToNpc("#b...");
-	if (status == 8)
-		qm.sendNextPrev("...");
-	if (status == 9)
-		qm.sendNextPrev("You little brat! I'm your older brother. Don't you mess with me! Your brother has a weak heart, you know. Don't surprise me like that!");
-	if (status == 10)
-		qm.PlayerToNpc("#b(This is why I don't want to call you Older Brother...)");
-	if (status == 11)
-		qm.sendNextPrev("Hmph! Anyway, I'm glad you were able to defeat the #o9300385#es. As a reward, I'll give you something an adventurer gave me a long time ago. Here you are. \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#i1372043# 1 #t1372043# \r\n#i2022621# 25 #t2022621# \r\n#i2022622# 25 #t2022622#s \r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 910 exp");
-	if (status == 12){
-		qm.forceCompleteQuest();
-		qm.gainItem(1372043, 1);
-		qm.gainItem(2022621, 25);
-		qm.gainItem(2022622, 25);
-		qm.gainExp(910);
-		qm.sendNextPrev("#bThis is a weapon that Magicians use. It's a Wand#k. You probably won't really need it, but it'll make you look important if you carry it around. Hahahahaha.");
-	} if (status == 13){
-		qm.sendPrev("Anyway, the Foxes have increased, right? How weird is that? Why are they growing day by day? We should really look into it and get to the bottom of this.");
-		qm.dispose();
-		}
-	}
+    if (mode != 1) {
+        if (type == 1 && mode == 0) {
+            status -= 2;
+        } else {
+            qm.dispose();
+            return;
+        }
+    }
+    if (status == 0) {
+        qm.sendNext("阴险的狐狸，消灭掉了吗？");
+    } else if (status == 1) {
+        qm.PlayerToNpc("#b你说要去收拾剩下的狐狸的，怎么回事？");
+    } else if (status == 2) {
+        qm.sendNextPrev("啊，那个嘛？我后来是去了，但走错了路，怕被 #o9300385# 抓去做人质，所以就回来了。");
+    } else if (status == 3) {
+        qm.PlayerToNpc("#b该不会是害怕狐狸而躲起来了吧？");
+    } else if (status == 4) {
+        qm.sendNextPrev("你在胡说什么啊？！我为什么会害怕狐狸？！我一点都不害怕狐狸！");
+    } else if (status == 5) {
+        qm.PlayerToNpc("#b……啊，有一只 #o9300385# !");
+    } else if (status == 6) {
+        qm.sendNextPrev("啊！快躲起来！");
+    } else if (status == 7) {
+        qm.PlayerToNpc("#b……");
+    } else if (status == 8) {
+        qm.sendNextPrev("......");
+    } else if (status == 9) {
+        qm.sendNextPrev("……你这家伙。别吓哥哥我！哥哥我的心脏不好，不能受惊吓！");
+    } else if (status == 10) {
+        qm.PlayerToNpc("#b(所以叫哥哥才不愿意去，叫我去。)");
+    } else if (status == 11) {
+        qm.sendNextPrev("哼哼，不管怎样，阴险的狐狸 消灭掉了。辛苦你了。我把一个路过的冒险家送我的东西送给你，作为给你的报酬。来，拿着。 \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#i1372043# 1个 #t1372043# \r\n#i2022621# 25个 #t2022621# \r\n#i2022622# 25个 #t2022622#s \r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 910 exp");
+    } else if (status == 12) {
+        qm.forceCompleteQuest();
+        qm.gainItem(1372043, 1);
+        qm.gainItem(2022621, 25);
+        qm.gainItem(2022622, 25);
+        qm.gainExp(910);
+        qm.sendNextPrev("是#b魔法师的攻击武器短杖。#k 虽然你也可能没什么用，但拿在手里到处走，还是很帅的，哈哈哈。");
+    } else if (status == 13) {
+        qm.sendPrev("狐狸的数量确实增加了，对吧？奇怪。狐狸的数量为什么会增加呢？看来必须调查一下。");
+        qm.dispose();
+    }
+}

@@ -1,0 +1,178 @@
+status = -1;
+var maxTcmes = 900;
+var itemList = Array(
+Array(3010030,900,1),
+Array(3010031,900,1),
+Array(3010032,900,1),
+Array(3010033,900,1),
+Array(3010034,900,1),
+Array(3010002,900,1),
+Array(3010003,900,1),
+Array(3010006,900,1),
+Array(3010007,900,1),
+Array(3010008,900,1),
+Array(3010010,900,1),
+Array(3010012,900,1),
+Array(3010013,900,1),
+Array(3010014,900,1),
+Array(3010016,900,1),
+Array(3010017,900,1),
+Array(3010018,900,1),
+Array(3010019,900,1),
+Array(3010021,900,1),
+Array(3010024,900,1),
+Array(3010025,900,1),
+Array(3010026,900,1),
+Array(3010028,900,1),
+Array(3010029,900,1),
+Array(3010030,900,1),
+Array(3010031,900,1),
+Array(3010032,900,1),
+Array(3010033,900,1),
+Array(3010036,900,1),
+Array(3010037,900,1),
+Array(3010038,900,1),
+Array(3010039,900,1),
+Array(3010040,900,1),
+Array(3010041,900,1),
+Array(3010042,900,1),
+Array(3010043,900,1),
+Array(3010044,900,1),
+Array(3010045,900,1),
+Array(3010046,900,1),
+Array(3010047,900,1),
+Array(3010048,900,1),
+Array(3010049,900,1),
+Array(3010050,900,1),
+Array(3010051,900,1),
+Array(3010052,900,1),
+Array(3010053,900,1),
+Array(3010054,900,1),
+Array(3010055,900,1),
+Array(3010057,900,1),
+Array(3010058,900,1),
+Array(3010059,900,1),
+Array(3010060,900,1),
+Array(3010061,900,1),
+Array(3010062,900,1),
+Array(3010063,900,1),
+Array(3010064,900,1),
+Array(3010065,900,1),
+Array(3010066,900,1),
+Array(3010067,900,1),
+Array(3010068,900,1),
+Array(3010069,900,1),
+Array(3010070,900,1),
+Array(3010071,900,1),
+Array(3010073,900,1),
+Array(3010075,900,1),
+Array(3010077,900,1),
+Array(3010078,900,1),
+Array(3010079,900,1),
+Array(3010080,900,1),
+Array(3010081,900,1),
+Array(3010082,900,1),
+Array(3010085,900,1),
+Array(3010086,900,1),
+Array(3010092,900,1),
+Array(3010093,900,1),
+Array(3010094,900,1),
+Array(3010095,900,1),
+Array(3010096,900,1),
+Array(3010097,900,1),
+Array(3010098,900,1),
+Array(3010099,900,1),
+Array(3010106,900,1),
+Array(3010107,900,1),
+Array(3010108,900,1),
+Array(3010109,900,1),
+Array(3010110,900,1),
+Array(3010111,900,1),
+Array(3010112,900,1),
+Array(3010113,900,1),
+Array(3010114,900,1),
+Array(3010115,900,1),
+Array(3010116,900,1),
+Array(3010117,900,1),
+Array(3010118,900,1),
+Array(3010119,900,1),
+Array(3010120,900,1),
+Array(3010123,900,1),
+Array(3010124,900,1),
+Array(3010125,900,1),
+Array(3010126,900,1),
+Array(3010127,900,1),
+Array(3010128,900,1),
+Array(3010129,900,1),
+Array(3010130,900,1),
+Array(3010131,900,1),
+Array(3010132,900,1),
+Array(3010133,900,1),
+Array(3010134,900,1),
+Array(3010135,900,1),
+Array(3010136,900,1),
+Array(3010137,900,1),
+Array(3010138,900,1),
+Array(3010139,900,1),
+Array(3010140,900,1),
+Array(3010141,900,1),
+Array(3010142,900,1),
+Array(3010144,900,1),
+Array(3010100,900,1)
+);
+var transId = 4032226;
+
+function start() {
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+    if (mode == 1) {
+        status++;
+    } else {
+        if (status == 0) {
+            cm.dispose();
+        }
+        status--;
+    }
+    if (status == 0) {
+        var chance = Math.floor(Math.random() * maxTcmes);
+        var finalitem = Array();
+        for (var i = 0; i < itemList.length; i++) {
+            if (itemList[i][1] >= chance) {
+                finalitem.push(itemList[i]);
+            }
+        }
+        if (finalitem.length != 0) {
+            var item;
+            var random = new java.util.Random();
+            var finalchance = random.nextInt(finalitem.length);
+            var itemId = finalitem[finalchance][0];
+            var quantity = finalitem[finalchance][2];
+            if(!cm.haveItem(transId)){
+                cm.sendOk("您没有#b#t"+ transId +"##k，我无法为您抽奖");
+                cm.dispose();
+		return;
+            }
+            
+            if (cm.getInventory(3).isFull()){
+                cm.sendOk("#b请保证设置栏位至少有1个空格,否则无法抽取.");
+                cm.dispose();
+            } 
+			var ran = Math.floor(Math.random() * 100);
+			if(ran < 90){
+				cm.gainItem(transId,-1);
+				cm.sendOk("今天的运气可真差，什么都没有拿到。\n\r 还丢掉了1个#b#t"+ transId +"##k，真是倒霉透了~~~~(>_<)~~~~");
+				cm.dispose();
+			}else{
+				cm.gainItem(itemId,quantity);
+				cm.gainItem(transId,-1);
+				cm.sendOk("恭喜恭喜恭喜您抽取到了#z"+itemId+"##v"+itemId+"# x #r" + quantity + " #k个\n\r 是不是很开心~~是不是很意外~~");
+				cm.dispose();
+			}
+        } else {
+            cm.sendOk("今天的运气可真差，什么都没有拿到。");
+            cm.dispose();
+        }
+    }
+}

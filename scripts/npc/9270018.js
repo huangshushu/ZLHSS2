@@ -9,13 +9,13 @@ function action(mode, type, selection) {
     }
     if (status == 0) {
 	if (cm.getMapId() == 540010002) {
-		cm.sendOk("é£æ™¯å¾ˆç¾å¯¹å§?");
+		cm.sendOk("·ç¾°ºÜÃÀ¶Ô°É?");
 	    cm.dispose();
 	} else if (cm.getMapId() == 540010101){
-	cm.sendOk("é£æ™¯å¾ˆç¾å¯¹å§?");
+	cm.sendOk("·ç¾°ºÜÃÀ¶Ô°É?");
 	cm.dispose();
 	} else {
-	    cm.sendYesNo("è¿™æ¶é£æœºå°†åœ¨èµ·é£ä¸ä¹…ï¼Œè¯·é—®ä½ ç°åœ¨ç¦»å¼€ï¼Ÿæ‚¨å°†æœ‰å†æ¬¡è´­ä¹°é£æœºç¥¨åˆ°è¿™é‡Œæ¥.");
+	    cm.sendYesNo("Õâ¼Ü·É»ú½«ÔÚÆğ·É²»¾Ã£¬ÇëÎÊÄãÏÖÔÚÀë¿ª£¿Äú½«ÓĞÔÙ´Î¹ºÂò·É»úÆ±µ½ÕâÀïÀ´.");
 	}
     } else {
 	cm.warp(540010000, 0);

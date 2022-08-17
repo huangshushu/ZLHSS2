@@ -1,22 +1,21 @@
 function init() {
-em.setProperty("state", "0");
 	em.setProperty("leader", "true");
+    em.setProperty("state", "0");
 }
 
 function setup(eim, leaderid) {
-	em.setProperty("state", "1");
 	em.setProperty("leader", "true");
-    var eim = em.newInstance("ChaosZakum" + leaderid);
-    eim.setProperty("zakSummoned", "0");
-    eim.createInstanceMap(280030001).resetFully();
-	eim.startEventTimer(5400000); //1 hr 30 min
-//    eim.schedule("checkStart", 1200000); // 20 min
+    var eim = em.newInstance("ChaosZakum");
+    var map = eim.setInstanceMap(280030002);
+    map.resetFully();
+    em.setProperty("state", "1");
 
+    eim.startEventTimer(21600000); // 限制时间，单位毫秒
     return eim;
 }
 
 function playerEntry(eim, player) {
-    var map = eim.getMapInstance(0);
+    var map = eim.getMapFactory().getMap(280030002);
     player.changeMap(map, map.getPortal(0));
 }
 
@@ -24,12 +23,18 @@ function playerRevive(eim, player) {
     return false;
 }
 
+function scheduledTimeout(eim) {
+    eim.disposeIfPlayerBelow(100, 211042401);
+    em.setProperty("state", "0");
+		em.setProperty("leader", "true");
+}
+
 function changedMap(eim, player, mapid) {
-    if (mapid != 280030001) {
+    if (mapid != 280030002) {
 	eim.unregisterPlayer(player);
 
 	if (eim.disposeIfPlayerBelow(0, 0)) {
-		em.setProperty("state", "0");
+	    em.setProperty("state", "0");
 		em.setProperty("leader", "true");
 	}
     }
@@ -39,10 +44,6 @@ function playerDisconnected(eim, player) {
     return 0;
 }
 
-function scheduledTimeout(eim) {
-    end(eim);
-}
-
 function monsterValue(eim, mobId) {
     return 1;
 }
@@ -50,17 +51,17 @@ function monsterValue(eim, mobId) {
 function playerExit(eim, player) {
     eim.unregisterPlayer(player);
 
-    	if (eim.disposeIfPlayerBelow(0, 0)) {
-		em.setProperty("state", "0");
+    if (eim.disposeIfPlayerBelow(0, 0)) {
+	em.setProperty("state", "0");
 		em.setProperty("leader", "true");
-	}
+    }
 }
 
 function end(eim) {
-    eim.disposeIfPlayerBelow(100, 211042301);
+    if (eim.disposeIfPlayerBelow(100, 211042401)) {
 	em.setProperty("state", "0");
 		em.setProperty("leader", "true");
-    em.setProperty("zakSummoned", "0");
+    }
 }
 
 function clearPQ(eim) {
@@ -68,11 +69,6 @@ function clearPQ(eim) {
 }
 
 function allMonstersDead(eim) {
-	if (em.getProperty("state").equals("1")) {
-		em.setProperty("state", "2");
-	} else if (em.getProperty("state").equals("2")) {
-		em.setProperty("state", "3");
-	}
 }
 
 function leftParty (eim, player) {}

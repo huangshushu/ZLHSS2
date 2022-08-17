@@ -19,7 +19,7 @@ function setup() {
 
     var map = eim.setInstanceMap(702060000);
     map.resetFully();
-    eim.startEventTimer(600000); //10 分
+    eim.startEventTimer(900000); //15 分
 
     return eim;
 }

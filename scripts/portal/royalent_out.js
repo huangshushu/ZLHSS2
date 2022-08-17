@@ -1,3 +1,3 @@
 function enter(pi) {
-    pi.warp(250000000, 0);
+    pi.warp(702000000,0);
 }

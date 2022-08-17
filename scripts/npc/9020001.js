@@ -1,436 +1,406 @@
-ï»¿/* global Packages, java */
 
-/**
- Cloto - Hidden Street : 1st Accompaniment
- **/
 
- var status;
- var curMap;
- var playerStatus;
- var chatState;
- var questions = Array("ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šè½¬èŒæˆæˆ˜å£«çš„æœ€ä½ç­‰çº§æ˜¯å¤šå°‘ï¼Ÿ\r\nç­”æ¡ˆï¼š10ä¸ª#b\r\nï¼ˆæ‰“å€’æ€ªç‰©ï¼Œè·å–ç›¸åº”æ•°é‡çš„è¯ä¹¦ã€‚ï¼‰",
-         "ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šè½¬èŒæˆæˆ˜å£«çš„æœ€ä½åŠ›é‡å€¼ï¼ˆSEXï¼‰æ˜¯å¤šå°‘ï¼Ÿ\r\nç­”æ¡ˆï¼š35ä¸ª#b\r\nï¼ˆæ‰“å€’æ€ªç‰©ï¼Œè·å–ç›¸åº”æ•°é‡çš„è¯ä¹¦ã€‚ï¼‰",
-         "ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šè½¬èŒæˆé­”æ³•å¸ˆçš„æœ€ä½æ™ºåŠ›å€¼ï¼ˆINTï¼‰æ˜¯å¤šå°‘ï¼Ÿ\r\nç­”æ¡ˆï¼š20ä¸ª#b\r\nï¼ˆæ‰“å€’æ€ªç‰©ï¼Œè·å–ç›¸åº”æ•°é‡çš„è¯ä¹¦ã€‚ï¼‰",
-         "ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šè½¬èŒæˆå¼“ç®­æ‰‹çš„æœ€ä½æ•æ·å€¼ï¼ˆDEXï¼‰æ˜¯å¤šå°‘ï¼Ÿ\r\nç­”æ¡ˆï¼š25ä¸ª#b\r\nï¼ˆæ‰“å€’æ€ªç‰©ï¼Œè·å–ç›¸åº”æ•°é‡çš„è¯ä¹¦ã€‚ï¼‰",
-         "ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šè½¬èŒæˆé£ä¾ çš„æœ€ä½æ•æ·å€¼ï¼ˆDEXï¼‰æ˜¯å¤šå°‘ï¼Ÿ\r\nç­”æ¡ˆï¼š25#b\r\nï¼ˆæ‰“å€’æ€ªç‰©ï¼Œè·å–ç›¸åº”æ•°é‡çš„è¯ä¹¦ã€‚ï¼‰",
-         "ç¬¬ä¸€ä¸ªé—®é¢˜ï¼šç­‰çº§1 ï½ã€€ç­‰çº§2 æ‰€éœ€çš„ç»éªŒå€¼æ˜¯å¤šå°‘ï¼Ÿ\r\nç­”æ¡ˆï¼š15ä¸ª#b\r\nï¼ˆæ‰“å€’æ€ªç‰©ï¼Œè·å–ç›¸åº”æ•°é‡çš„è¯ä¹¦ã€‚ï¼‰");
- var qanswers = Array(10, 35, 20, 25, 25, 15);
- var party;
- var preamble;
- var stage2rects = Array(Rectangle(-770, -132, 28, 178), Rectangle(-733, -337, 26, 105), Rectangle(-601, -328, 29, 105), Rectangle(-495, -125, 24, 165));
- var stage2combos = Array(Array(0, 1, 1, 1), Array(1, 0, 1, 1), Array(1, 1, 0, 1), Array(1, 1, 1, 0));
- var stage3rects = Array(Rectangle(608, -180, 140, 50), Rectangle(791, -117, 140, 45), Rectangle(958, -180, 140, 50), Rectangle(876, -238, 140, 45), Rectangle(702, -238, 140, 45));
- var stage3combos = Array(Array(0, 0, 1, 1, 1), Array(0, 1, 0, 1, 1), Array(0, 1, 1, 0, 1), Array(0, 1, 1, 1, 0), Array(1, 0, 0, 1, 1), Array(1, 0, 1, 0, 1), Array(1, 0, 1, 1, 0), Array(1, 1, 0, 0, 1), Array(1, 1, 0, 1, 0), Array(1, 1, 1, 0, 0));
- var stage4rects = Array(Rectangle(910, -236, 35, 5), Rectangle(877, -184, 35, 5), Rectangle(946, -184, 35, 5), Rectangle(845, -132, 35, 5), Rectangle(910, -132, 35, 5), Rectangle(981, -132, 35, 5));
- var stage4combos = Array(Array(0, 0, 0, 1, 1, 1), Array(0, 0, 1, 0, 1, 1), Array(0, 0, 1, 1, 0, 1), Array(0, 0, 1, 1, 1, 0), Array(0, 1, 0, 0, 1, 1), Array(0, 1, 0, 1, 0, 1), Array(0, 1, 0, 1, 1, 0), Array(0, 1, 1, 0, 0, 1), Array(0, 1, 1, 0, 1, 0), Array(0, 1, 1, 1, 0, 0), Array(1, 0, 0, 0, 1, 1), Array(1, 0, 0, 1, 0, 1), Array(1, 0, 0, 1, 1, 0), Array(1, 0, 1, 0, 0, 1), Array(1, 0, 1, 0, 1, 0), Array(1, 0, 1, 1, 0, 0), Array(1, 1, 0, 0, 0, 1), Array(1, 1, 0, 0, 1, 0), Array(1, 1, 0, 1, 0, 0), Array(1, 1, 1, 0, 0, 0));
- var eye = 9300002;
- var necki = 9300000;
- var slime = 9300003;
- var monsterIds = Array(eye, eye, eye, necki, necki, necki, necki, necki, necki, slime);
- var prizeIdScroll = Array(2040502, 2040505, // Overall DEX and DEF
-         2040802, // Gloves for DEX
-         2040002, 2040402, 2040602);// Helmet, Topwear and Bottomwear for DEF
- var prizeIdUse = Array(2000001, 2000002, 2000003, 2000006, // Orange, White and Blue Potions and Mana Elixir
-         2000004, 2022000, 2022003);// Elixir, Pure Water and Unagi
- var prizeQtyUse = Array(80, 80, 80, 50, 5, 15, 15);
- var prizeIdEquip = Array(1032004, 1032005, 1032009, // Level 20-25 Earrings
-         1032006, 1032007, 1032010, // Level 30 Earrings
-         1032002, // Level 35 Earring
-         1002026, 1002089, 1002090);// Bamboo Hats
- var prizeIdEtc = Array(4010000, 4010001, 4010002, 4010003, // Mineral Ores
-         4010004, 4010005, 4010006, // Mineral Ores
-         4020000, 4020001, 4020002, 4020003, // Jewel Ores
-         4020004, 4020005, 4020006, // Jewel Ores
-         4020007, 4020008, 4003000);	// Diamond and Black Crystal Ores and Screws
- var prizeQtyEtc = Array(15, 15, 15, 15, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 3, 30);
- 
- function start() {
-     status = -1;
-     mapId = cm.getMapId();
-     if (mapId == 103000800)
-         curMap = 1;
-     else if (mapId == 103000801)
-         curMap = 2;
-     else if (mapId == 103000802)
-         curMap = 3;
-     else if (mapId == 103000803)
-         curMap = 4;
-     else if (mapId == 103000804)
-         curMap = 5;
-     playerStatus = cm.isLeader();
-     preamble = null;
-     action(1, 0, 0);
- }
- 
- function action(mode, type, selection) {
-     if (mode == 0 && status == 0) {
-         cm.dispose();
-         return;
-     }
-     if (mode == 1)
-         status++;
-     else
-         status--;
- 
-     if (curMap == 1) { // First Stage.
-         if (playerStatus) { // Check if player is leader
-             if (status == 0) {
-                 var eim = cm.getEventInstance();
-                 party = eim.getPlayers();
-                 preamble = eim.getProperty("leader1stpreamble");
- 
-                 if (preamble == null) {
-                     cm.sendNext("å—¨ï¼Œæˆ‘æ˜¯#p9020001# æ¬¢è¿æ¥åˆ°åºŸå¼ƒéƒ½å¸‚ç»„é˜Ÿè®­ç»ƒåœºï¼Œæˆ‘éœ€è¦é˜Ÿå‘˜çš„é€šè¡Œè¯ï¼Œè¯·å«é˜Ÿå‘˜æ”¶é›†å®ŒæˆåæŠŠé€šè¡Œè¯æ”¶é›†èµ·æ¥ç„¶åç»™æˆ‘ã€‚");
-                     eim.setProperty("leader1stpreamble", "done");
-                     cm.dispose();
-                 } else { // Check how many they have compared to number of party members
-                     // Check for stage completed
-                     var complete = eim.getProperty(curMap.toString() + "stageclear");
-                     if (complete != null) {
-                         cm.sendNext("æ­å–œæ‚¨è¿‡å…³ é€šå¾€ä¸‹ä¸€é˜¶æ®µçš„é—¨å·²å¼€å¯!");
-                         cm.dispose();
-                     } else {
-                         var numpasses = (party.size() - 1) < 1 ? 1 : (party.size() - 1);
-                         var strpasses = "#b" + numpasses.toString() + " å¼ é€šè¡Œè¯#k";
-                         if (!cm.haveItem(4001008, numpasses)) {
-                             cm.sendNext("æˆ‘å¾ˆæŠ±æ­‰æˆ‘ä¸èƒ½è®©ä½ è¿‡å…³ï¼Œæˆ‘éœ€è¦: " + strpasses + " äº¤ç»™æˆ‘ä¹‹åæˆ‘å°±ä¼šè®©ä½ è¿‡å…³ã€‚");
-                             cm.dispose();
-                         } else {
-                             cm.sendNext("ä½ æ”¶é›† " + strpasses + "! æ­å–œè¿‡å…³ã€‚");
-                             clear(1, eim, cm);
-                             cm.givePartyExp(2000, party);
-                             cm.gainItem(4001008, -numpasses);
-                             cm.dispose();
-                             // TODO: Make the shiny thing flash
-                         }
-                     }
-                 }
-             }
-         } else { // ä¸æ˜¯é˜Ÿé•¿
-             var eim = cm.getChar().getEventInstance();
-             pstring = "member1stpreamble" + cm.getChar().getId().toString();
-             preamble = eim.getProperty(pstring);
-             if (status == 0 && preamble == null) {
-                 var qstring = "member1st" + cm.getChar().getId().toString();
-                 var question = eim.getProperty(qstring);
-                 if (question == null) {
-                     // Select a random question to ask the player.
-                     var questionNum = Math.floor(Math.random() * questions.length);
-                     eim.setProperty(qstring, questionNum.toString());
-                 }
-                 cm.sendNext("åœ¨è¿™é‡Œï¼Œä½ éœ€è¦æ”¶é›† #bé€šè¡Œè¯#k è¿‡å‡»è´¥é³„é±¼çš„æ•°ç›®ç›¸åŒçš„ç­”æ¡ˆä¸ºå•ç‹¬æå‡ºçš„é—®é¢˜ã€‚");
-             } else if (status == 0) { // Otherwise, check for stage completed
-                 var complete = eim.getProperty(curMap.toString() + "stageclear");
-                 if (complete != null) {
-                     //		    cm.sendNext("Please hurry on to the next stage, the portal opened!");
-                     cm.dispose();
-                 } else {
-                     // Reply to player correct/incorrect response to the question they have been asked
-                     var qstring = "member1st" + cm.getChar().getId().toString();
-                     var numcoupons = qanswers[parseInt(eim.getProperty(qstring))];
-                     var qcorr = cm.haveItem(4001007, (numcoupons + 1));
-                     var enough = false;
-                     if (!qcorr) { // Not too many
-                         qcorr = cm.haveItem(4001007, numcoupons);
-                         if (qcorr) { // Just right
-                             cm.sendNext("æ¥ï¼Œè¿™æ˜¯æˆ‘ç­”åº”ä½ çš„ #b#t4001008##k. å¿«ç‚¹æ‹¿å»ç»™ä½ çš„é˜Ÿé•¿å§ã€‚");
-                             cm.gainItem(4001007, -numcoupons);
-                             cm.gainItem(4001008, 1);
-                             enough = true;
-                         }
-                     }
-                     if (!enough) {
-                         cm.sendNext("æˆ‘å¾ˆæŠ±æ­‰ï¼Œä½†æ˜¯è¿™æ˜¯ä¸æ­£ç¡®çš„ç­”æ¡ˆï¼è¯·åœ¨æ‚¨ç»™æˆ‘æ­£ç¡®çš„æ•°é‡ã€‚");
-                     }
-                     cm.dispose();
-                 }
-             } else if (status == 1) {
-                 if (preamble == null) {
-                     var qstring = "member1st" + cm.getChar().getId().toString();
-                     var question = parseInt(eim.getProperty(qstring));
-                     cm.sendNextPrev(questions[question]);
-                 } else { // Shouldn't happen, if it does then just dispose
-                     cm.dispose();
-                 }
-             } else if (status == 2) { // Preamble completed
-                 eim.setProperty(pstring, "done");
-                 cm.dispose();
-             } else { // Shouldn't happen, but still...
-                 eim.setProperty(pstring, "done"); // Just to be sure
-                 cm.dispose();
-             }
-         } // End first map scripts
-     } else if (2 <= curMap && 4 >= curMap) {
-         rectanglestages(cm);
-     } else if (curMap == 5) { // Final stage
-         var eim = cm.getChar().getEventInstance();
-         var stage5done = eim.getProperty("5stageclear");
-         if (stage5done == null) {
-             if (playerStatus) { // Leader
-                 var passes = cm.haveItem(4001008, 10);
-                 if (passes) {
-                     // Clear stage
-                     cm.sendNext("æ­å–œè¿‡å…³ï¼");
-                     party = eim.getPlayers();
-                     cm.gainItem(4001008, -10);
-                     clear(5, eim, cm);
-                     cm.givePartyExp(10000, party);
-                     cm.dispose();
-                 } else { // Not done yet
-                     cm.sendNext("æ¬¢è¿æ¥åˆ°æœ€ç»ˆé˜¶æ®µä½ åªè¦æŠŠé€šè¡Œè¯æ”¶é›†èµ·æ¥äº¤ç»™æˆ‘å°±è¡Œäº†ï¼");
-                 }
-                 cm.dispose();
-             } else { // Members
-                 cm.sendNext("æ¬¢è¿æ¥åˆ°æœ€ç»ˆé˜¶æ®µ~ç°åœ¨ä½ åªè¦æŠŠæ‰€æœ‰çš„é€šè¡Œè¯äº¤ç»™é˜Ÿé•¿å°±è¡Œäº†ï¼");
-                 cm.dispose();
-             }
-         } else { // Give rewards and warp to bonus
-             if (status == 0) {
-                 cm.sendNext("çœŸçš„å¾ˆä¸å¯æ€è®®ï¼");
-             }
-             if (status == 1) {
-                 getPrize(eim, cm);
-                 cm.dispose();
-             }
-         }
-     } else { // No map found
-         cm.sendNext("æ— æ•ˆçš„åœ°å›¾ï¼Œè¯·è”ç»œGMï¼");
-         cm.dispose();
-     }
- }
- 
- function clear(stage, eim, cm) {
-     eim.setProperty(stage.toString() + "stageclear", "true");
- 
-     cm.showEffect(true, "quest/party/clear");
-     cm.playSound(true, "Party1/Clear");
-     cm.environmentChange(true, "gate");
- 
-     var mf = eim.getMapFactory();
-     map = mf.getMap(103000800 + stage);
-     var nextStage = eim.getMapFactory().getMap(103000800 + stage);
-     var portal = nextStage.getPortal("next00");
-     if (portal != null) {
-         portal.setScriptName("kpq" + (stage + 1).toString());
-     }
- }
- 
- function failstage(eim, cm) {
-     cm.showEffect(true, "quest/party/wrong_kor");
-     cm.playSound(true, "Party1/Failed");
- }
- 
- function rectanglestages(cm) {
-     // Debug makes these stages clear without being correct
-     var debug = false;
-     var eim = cm.getChar().getEventInstance();
-     if (curMap == 2) {
-         var nthtext = "2";
-         var nthobj = "ç»³å­";
-         var nthverb = "æŒ‚";
-         var nthpos = "æŒ‚åœ¨ç»³å­å¤ªä½";
-         var curcombo = stage2combos;
-         var currect = stage2rects;
-         var objset = [0, 0, 0, 0];
-     } else if (curMap == 3) {
-         var nthtext = "3";
-         var nthobj = "å¹³å°";
-         var nthverb = "ç«™";
-         var nthpos = "ç«™åœ¨å¤ªé è¿‘è¾¹ç¼˜";
-         var curcombo = stage3combos;
-         var currect = stage3rects;
-         var objset = [0, 0, 0, 0, 0];
-     } else if (curMap == 4) {
-         var nthtext = "4";
-         var nthobj = "é…’æ¡¶";
-         var nthverb = "ç«™";
-         var nthpos = "ç«™åœ¨å¤ªé è¿‘è¾¹ç¼˜";
-         var curcombo = stage4combos;
-         var currect = stage4rects;
-         var objset = [0, 0, 0, 0, 0, 0];
-     }
-     if (playerStatus) { // Check if player is leader
-         if (status == 0) {
-             // Check for preamble
-             party = eim.getPlayers();
-             preamble = eim.getProperty("leader" + nthtext + "preamble");
-             if (preamble == null) {
-                 cm.sendNext("å—¨ï¼Œæ¬¢è¿æ¥åˆ°ç¬¬ " + nthtext + " é˜¶æ®µ. åœ¨æˆ‘æ—è¾¹ï¼Œä½ ä¼šçœ‹åˆ°ä¸€äº› " + nthobj + ", #bä½ éœ€è¦ä¸‰åé˜Ÿå‘˜æŒ‚åœ¨ä¸Šé¢çŒœæˆ‘çš„ç­”æ¡ˆï¼Œå¦‚æœçŒœå¯¹å°±è®©ä½ è¿‡å…³ï¼ŒåŠ æ²¹å§ï¼ \r\nå–”~å¯¹äº†ä¸èƒ½#r" + nthpos + "ä¸ç„¶ä¼šä¸èƒ½è¿‡å…³å“¦ï¼");
-                 eim.setProperty("leader" + nthtext + "preamble", "done");
-                 var sequenceNum = Math.floor(Math.random() * curcombo.length);
-                 eim.setProperty("stage" + nthtext + "combo", sequenceNum.toString());
-                 cm.dispose();
-             } else {
-                 // Otherwise, check for stage completed
-                 var complete = eim.getProperty(curMap.toString() + "stageclear");
-                 if (complete != null) {
-                     var mapClear = curMap.toString() + "stageclear";
-                     eim.setProperty(mapClear, "true"); // Just to be sure
- //		    cm.sendNext("Please hurry on to the next stage, the portal opened!");
-                     cm.dispose();
-                 } else { // Check for people on ropes and their positions
-                     var totplayers = 0;
-                     for (i = 0; i < objset.length; i++) {
-                         for (j = 0; j < party.size(); j++) {
-                             var present = currect[i].contains(party.get(j).getPosition());
-                             if (present) {
-                                 objset[i] = objset[i] + 1;
-                                 totplayers = totplayers + 1;
-                             }
-                         }
-                     }
-                     // Compare to correct positions
-                     // First, are there 3 players on the correct positions?
-                     if (totplayers == 3 || debug) {
-                         var combo = curcombo[parseInt(eim.getProperty("stage" + nthtext + "combo"))];
-                         // Debug
-                         // Combo = curtestcombo;
-                         var testcombo = true;
-                         for (i = 0; i < objset.length; i++) {
-                             if (combo[i] != objset[i])
-                                 testcombo = false;
-                         }
-                         if (testcombo || debug) {
-                             // Do clear
-                             clear(curMap, eim, cm);
-                            // var exp = (Math.pow(2, curMap) * 50);
-                             cm.givePartyExp(2000, party);
-                             cm.dispose();
-                         } else { // Wrong
-                             // Do wrong
-                             failstage(eim, cm);
-                             cm.dispose();
-                         }
-                     } else {
-                         if (debug) {
-                             var outstring = "Objects contain:"
-                             for (i = 0; i < objset.length; i++) {
-                                 outstring += "\r\n" + (i + 1).toString() + ". " + objset[i].toString();
-                             }
-                             cm.sendNext(outstring);
-                         } else {
-                             cm.sendNext("çœ‹èµ·æ¥ä½ è¿˜æ²¡æ‰¾åˆ° 3 " + nthobj + " åªæ˜¯è¿˜æ²¡æœ‰ã€‚è¯·æƒ³ä¸€ä¸ªä¸åŒçš„ç»„åˆ " + nthobj + ". åªæœ‰3è¢«å…è®¸" + nthverb + " åœ¨ " + nthobj + ", å¦‚æœä½  " + nthpos + " å®ƒå¯èƒ½ä¸ç®—æ˜¯ä¸€ä¸ªç­”æ¡ˆï¼Œæ‰€ä»¥è¯·è®°ä½è¿™ä¸€ã€‚ç»§ç»­å‰è¿›!");
-                         }
-                         cm.dispose();
-                     }
-                 }
-             }
-         } else {
-             var complete = eim.getProperty(curMap.toString() + "stageclear");
-             if (complete != null) {
-                 var target = eim.getMapInstance(103000800 + curMap);
-                 var targetPortal = target.getPortal("st00");
-                 cm.getChar().changeMap(target, targetPortal);
-             }
-             cm.dispose();
-         }
-     } else { // Not leader
-         if (status == 0) {
-             var complete = eim.getProperty(curMap.toString() + "stageclear");
-             if (complete != null) {
-                 cm.dispose();
- //		cm.sendNext("Please hurry on to the next stage, the portal opened!");
-             } else {
- //		cm.sendNext("Please have the party leader talk to me.");
-                 cm.dispose();
-             }
-         } else {
-             var complete = eim.getProperty(curMap.toString() + "stageclear");
-             if (complete != null) {
-                 var target = eim.getMapInstance(103000800 + curMap);
-                 var targetPortal = target.getPortal("st00");
-                 cm.getChar().changeMap(target, targetPortal);
-             }
-             cm.dispose();
-         }
-     }
- }
- 
- function getPrize(eim, cm) {
-     var itemSetSel = Math.random();
-     var itemSet;
-     var itemSetQty;
-     var hasQty = false;
-     var ItemName;
-     var item;
-     if (itemSetSel < 0.3)
-         itemSet = prizeIdScroll;
-     else if (itemSetSel < 0.6)
-         itemSet = prizeIdEquip;
-     else if (itemSetSel < 0.9) {
-         itemSet = prizeIdUse;
-         itemSetQty = prizeQtyUse;
-         hasQty = true;
-     } else {
-         itemSet = prizeIdEtc;
-         itemSetQty = prizeQtyEtc;
-         hasQty = true;
-     }
-     var sel = Math.floor(Math.random() * itemSet.length);
-     var qty = 1;
-     if (hasQty)
-         qty = itemSetQty[sel];
-     ItemName = cm.getItemName(itemSet[sel]);
-     item = new Packages.client.inventory.Item(itemSet[sel], 0, qty, 0);
-     cm.setBossLog('æ¯æ—¥åºŸå¼ƒå‰¯æœ¬æ¬¡æ•°');
-     var a = cm.getBossLog("æ¯æ—¥åºŸå¼ƒå‰¯æœ¬æ¬¡æ•°");
-     if (cm.getPlayer().getLevel() <= 120){//åºŸå¼ƒå¸¦å‰¯æœ¬å¥–åŠ±
-         cm.gainItem(itemSet[sel], qty);
-         if (a <= 1) {
-             cm.gainItem(itemSet[sel], qty);
-         }
-         cm.playerMessage(5, "æ­å–œä½ å®ŒæˆåºŸå¼ƒå‰¯æœ¬ï¼");
-     } else {
-         //cm.setBossRankCount("è¶Šçº§å‰¯æœ¬å‡ºå¸­", 2);
-         cm.givePartyLevelItems(1, 34, 1, 4001229, 1);//æ•æ·ä¹‹å¿ƒ
-         if (a <= 1) {
-            cm.gainItem(itemSet[sel], qty);
-         }
-         cm.setBossRankCount("è¶Šçº§åºŸå¼ƒå‰¯æœ¬æ€»æ¬¡æ•°");
-         cm.playerMessage(5, "æ­å–œä½ å¸¦æ–°äººå®ŒæˆåºŸå¼ƒå‰¯æœ¬ï¼");
-     }
-     cm.setBossRankCount("åºŸå¼ƒå‰¯æœ¬æ€»æ¬¡æ•°");
-     //åºŸå¼ƒå‰¯æœ¬é€šå…³è®°2ç‚¹
-     cm.playerMessage(5, "æ­å–œä½ è·å¾—åºŸå¼ƒå‰¯æœ¬ç‚¹æ•°ï¼");
-     cm.setBossRankPoints("åºŸå¼ƒå‰¯æœ¬æ€»ç‚¹æ•°", 1);
-     cm.setBossRankCount("æ‰€æœ‰å‰¯æœ¬æ€»æ¬¡æ•°");
-     cm.removeAll(4001007);
-     cm.removeAll(4001008);
-     //cm.gainItem(1072369, 1);//ç»¿ç²˜æ¶²é‹å­
-     cm.getPlayer().endPartyQuest(1201);
-     var eim = cm.getEventInstance();
-     var é€šå…³æ—¶é—´ = 30*60000;
-     if(eim==null){
-         var æ¶ˆè€—æ—¶é—´ = 999999999;
-     }else{
-         var æ¶ˆè€—æ—¶é—´ = (é€šå…³æ—¶é—´ - eim.getTimeLeft())/1000;
-     }
-     if(eim!=null){
-         cm.worldMessage(2, "[å‰¯æœ¬-åºŸå¼ƒéƒ½å¸‚] : æ­å–œ " + cm.getPlayer().getName() + " å®ŒæˆåºŸå¼ƒéƒ½å¸‚å‰¯æœ¬ï¼Œæ¶ˆè€—æ—¶é—´ "+formatSeconds(æ¶ˆè€—æ—¶é—´)+"ã€‚");
-     }
-     cm.warp(103000805, "sp");
- }
- function Rectangle(x, y, length, width) {
-     return new java.awt.Rectangle(x, y, length, width);
- }
- function formatSeconds(value) {
-     var theTime = parseInt(value);
-     var theTime1 = 0;
-     var theTime2 = 0;
-     if (theTime > 60) {
-         theTime1 = parseInt(theTime / 60);
-         theTime = parseInt(theTime % 60);
-         if (theTime1 > 60) {
-             theTime2 = parseInt(theTime1 / 60);
-             theTime1 = parseInt(theTime1 % 60);
-         }
-     }
-     var result = "" + parseInt(theTime) + " ç§’ ";
-     if (theTime1 > 0) {
-         result = "" + parseInt(theTime1) + " åˆ† " + result;
-     }
-     if (theTime2 > 0) {
-         result = "" + parseInt(theTime2) + " : " + result;
-     }
-     return result;
- } 
+var status;
+var curMap;
+var playerStatus;
+var chatState;
+var questions = Array("ÇëÎÊ·¨Ê¦Ò»×ªÒª¶àÉÙµÈ¼¶",
+    "ÇëÎÊ·ÉÏÀÒ»×ªÒª¶àÉÙµÈ¼¶",
+    "ÇëÎÊ·¨Ê¦×ªÖ°ĞèÒª¶àÉÙÖÇÁ¦",
+    "ÇëÎÊ¹­¼ıÊÖ×ªÖ°ĞèÒª¶àÉÙÃô½İ",
+    "ÇëÎÊ¶àÉÙ¼¶²ÅÄÜ½øĞĞ¶ş×ª",
+    "ÇëÎÊÕ½Ê¿Ò»×ªÒª¶àÉÙÁ¦Á¿");
+var qanswers = Array(8, 10, 20, 25, 30, 35);
+var party;
+var preamble;
+var stage2rects = Array(new java.awt.Rectangle(-770,-132,28,178),new java.awt.Rectangle(-733,-337,26,105),new java.awt.Rectangle(-601,-328,29,105),new java.awt.Rectangle(-495,-125,24,165));
+var stage2combos = Array(Array(0,1,1,1),Array(1,0,1,1),Array(1,1,0,1),Array(1,1,1,0));
+var stage3rects = Array(new java.awt.Rectangle(608,-180,140,50),new java.awt.Rectangle(791,-117,140,45),new java.awt.Rectangle(958,-180,140,50),new java.awt.Rectangle(876,-238,140,45),new java.awt.Rectangle(702,-238,140,45));
+var stage3combos = Array(Array(0,0,1,1,1),Array(0,1,0,1,1),Array(0,1,1,0,1),Array(0,1,1,1,0),Array(1,0,0,1,1),Array(1,0,1,0,1),Array(1,0,1,1,0),Array(1,1,0,0,1),Array(1,1,0,1,0),Array(1,1,1,0,0));
+var stage4rects = Array(new java.awt.Rectangle(910,-236,35,5),new java.awt.Rectangle(877,-184,35,5),new java.awt.Rectangle(946,-184,35,5),new java.awt.Rectangle(845,-132,35,5),new java.awt.Rectangle(910,-132,35,5),new java.awt.Rectangle(981,-132,35,5));
+var stage4combos = Array(Array(0,0,0,1,1,1),Array(0,0,1,0,1,1),Array(0,0,1,1,0,1),Array(0,0,1,1,1,0),Array(0,1,0,0,1,1),Array(0,1,0,1,0,1),Array(0,1,0,1,1,0),Array(0,1,1,0,0,1),Array(0,1,1,0,1,0),Array(0,1,1,1,0,0),Array(1,0,0,0,1,1),Array(1,0,0,1,0,1),Array(1,0,0,1,1,0),Array(1,0,1,0,0,1),Array(1,0,1,0,1,0),Array(1,0,1,1,0,0),Array(1,1,0,0,0,1),Array(1,1,0,0,1,0),Array(1,1,0,1,0,0),Array(1,1,1,0,0,0));
+var eye = 9300002;
+var necki = 9300000;
+var slime = 9300003;
+var monsterIds = Array(eye, eye, eye, necki, necki, necki, necki, necki, necki, slime);
+var prizeIdScroll = Array(2040502, 2040505,					// Overall DEX and DEF
+    2040802,										// Gloves for DEX
+    2040002, 2040402, 2040602);						// Helmet, Topwear and Bottomwear for DEF
+var prizeIdUse = Array(2000001, 2000002, 2000003, 2000006,	// Orange, White and Blue Potions and Mana Elixir
+    2000004, 2022000, 2022003);						// Elixir, Pure Water and Unagi
+var prizeQtyUse = Array(80, 80, 80, 50,
+    5, 15, 15);
+var prizeIdEquip = Array(1032004, 1032005, 1032009,			// Level 20-25 Earrings
+    1032006, 1032007, 1032010,						// Level 30 Earrings
+    1032002,										// Level 35 Earring
+    1002026, 1002089, 1002090);						// Bamboo Hats
+var prizeIdEtc = Array(4010000, 4010001, 4010002, 4010003,	// Mineral Ores
+    4010004, 4010005, 4010006,						// Mineral Ores
+    4020000, 4020001, 4020002, 4020003,				// Jewel Ores
+    4020004, 4020005, 4020006,						// Jewel Ores
+    4020007, 4020008, 4003000);						// Diamond and Black Crystal Ores and Screws
+var prizeQtyEtc = Array(15, 15, 15, 15,
+    8, 8, 8,
+    8, 8, 8, 8,
+    8, 8, 8,
+    3, 3, 30);
+
+function start() {
+    status = -1;
+    mapId = cm.getMapId();
+    if (mapId == 103000800)
+	curMap = 1;
+    else if (mapId == 103000801)
+	curMap = 2;
+    else if (mapId == 103000802)
+	curMap = 3;
+    else if (mapId == 103000803)
+	curMap = 4;
+    else if (mapId == 103000804)
+	curMap = 5;
+    playerStatus = cm.isLeader();
+    preamble = null;
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+    if (mode == 0 && status == 0) {
+	cm.dispose();
+	return;
+    }
+    if (mode == 1)
+	status++;
+    else
+	status--;
+    
+    if (curMap == 1) { // First Stage.
+		if (playerStatus) { // Check if player is leader
+			if (status == 0) {
+			var eim = cm.getEventInstance();
+			party = eim.getPlayers();
+			preamble = eim.getProperty("leader1stpreamble");
+
+			if (preamble == null) {
+				cm.sendNext("àË£¬ÎÒÊÇ#p9020001# »¶Ó­À´µ½¶éÂä³ÇÊĞPQ ÎÒĞèÒª¶ÓÔ±µÄÍ¨ĞĞÖ¤£¬Çë½Ğ¶ÓÔ±ÊÕ¼¯Íê³Éºó°Ñ¿¨Æ¬ÊÕ¼¯ÆğÀ´È»ºó¸øÎÒ¡£");
+				eim.setProperty("leader1stpreamble", "done");
+				cm.dispose();
+			} else { // Check how many they have compared to number of party members
+				// Check for stage completed
+				var complete = eim.getProperty(curMap.toString() + "stageclear");
+				if (complete != null) {
+					cm.sendNext("¹§Ï²Äú¹ı¹Ø Í¨ÍùÏÂÒ»½×¶ÎµÄÃÅÒÑ¿ªÆô!");
+					cm.dispose();
+				} else {
+					var numpasses = (party.size() - 1) < 1 ? 1 : (party.size() - 1);
+					var strpasses = "#b" + numpasses.toString() + " ÕÅÍ¨ĞĞÖ¤#k";
+					if (!cm.haveItem(4001008, numpasses)) {
+						cm.sendNext("ÎÒºÜ±§Ç¸ÎÒ²»ÄÜÈÃÄã¹ı¹Ø£¬ÎÒĞèÒª: " + strpasses + " ½»¸øÎÒÖ®ºóÎÒ¾Í»áÈÃÄã¹ı¹Ø¡£");
+						cm.dispose();
+					} else {
+						cm.sendNext("ÄãÊÕ¼¯ " + strpasses + "! ¹§Ï²¹ı¹Ø¡£");
+						clear(1,eim,cm);
+						cm.givePartyExp(2500, party);
+						cm.gainItem(4001008, -numpasses);
+						cm.dispose();
+					// TODO: Make the shiny thing flash
+					}
+				}
+			}
+			}
+		} else { // ²»ÊÇ¶Ó³¤
+			var eim = cm.getChar().getEventInstance();
+			pstring = "member1stpreamble" + cm.getChar().getId().toString();
+			preamble = eim.getProperty(pstring);
+			if (status == 0 && preamble == null) {
+			var qstring = "member1st" + cm.getChar().getId().toString();
+			var question = eim.getProperty(qstring);
+			if (question == null) {
+				// Select a random question to ask the player.
+				var questionNum = Math.floor(Math.random() * questions.length);
+				eim.setProperty(qstring, questionNum.toString());
+			}
+			cm.sendNext("ÔÚÕâÀï£¬ÄãĞèÒªÊÕ¼¯ #bÓÅ»İÈ¯#k ¹ı»÷°ÜöùÓãµÄÊıÄ¿ÏàÍ¬µÄ´ğ°¸Îªµ¥¶ÀÌá³öµÄÎÊÌâ¡£");
+			} else if (status == 0) { // Otherwise, check for stage completed
+				var complete = eim.getProperty(curMap.toString() + "stageclear");
+				if (complete != null) {
+		//		    cm.sendNext("Please hurry on to the next stage, the portal opened!");
+					cm.dispose();
+			} else {
+				// Reply to player correct/incorrect response to the question they have been asked
+				var qstring = "member1st" + cm.getChar().getId().toString();
+				var numcoupons = qanswers[parseInt(eim.getProperty(qstring))];
+				var qcorr = cm.haveItem(4001007,(numcoupons+1));
+				var enough = false;
+				if (!qcorr) { // Not too many
+					qcorr = cm.haveItem(4001007, numcoupons);
+					if (qcorr) { // Just right
+						cm.sendNext("À´£¬ÕâÊÇÎÒ´ğÓ¦ÄãµÄ #b#t4001008##k. ¿ìµãÄÃÈ¥¸øÄãµÄ¶Ó³¤°É¡£");
+						cm.gainItem(4001007, -numcoupons);
+						cm.gainItem(4001008, 1);
+						enough = true;
+					}
+				}
+				if (!enough) {
+					cm.sendNext("ÎÒºÜ±§Ç¸£¬µ«ÊÇÕâÊÇ²»ÕıÈ·µÄ´ğ°¸£¡ÇëÔÚÄú¸øÎÒÕıÈ·µÄÊıÁ¿¡£");
+				}
+				cm.dispose();
+			}
+			} else if (status == 1) {
+				if (preamble == null) {
+					var qstring = "member1st" + cm.getChar().getId().toString();
+					var question = parseInt(eim.getProperty(qstring));
+					cm.sendNextPrev(questions[question]);
+				} else { // Shouldn't happen, if it does then just dispose
+					cm.dispose();
+				}
+			} else if (status == 2) { // Preamble completed
+				eim.setProperty(pstring,"done");
+				cm.dispose();
+			} else { // Shouldn't happen, but still...
+				eim.setProperty(pstring,"done"); // Just to be sure
+				cm.dispose();
+			}
+		} // End first map scripts
+    } else if (2 <= curMap && 4 >= curMap) {
+		rectanglestages(cm);
+    } else if (curMap == 5) { // Final stage
+	var eim = cm.getChar().getEventInstance();
+	var stage5done = eim.getProperty("5stageclear");
+	if (stage5done == null) {
+	    if (playerStatus) { // Leader
+		var passes = cm.haveItem(4001008,10);
+		if (passes) {
+		    // Clear stage
+		    cm.sendNext("¹§Ï²¹ı¹Ø£¡");
+		    party = eim.getPlayers();
+		    cm.gainItem(4001008, -10);
+		    clear(5,eim,cm);
+		    cm.givePartyExp(5000, party);
+		    cm.dispose();
+		} else { // Not done yet
+		    cm.sendNext("»¶Ó­À´µ½×îÖÕ½×¶ÎÄãÖ»Òª°ÑÍ¨ĞĞÖ¤ÊÕ¼¯ÆğÀ´½»¸øÎÒ¾ÍĞĞÁË£¡");
+		}
+		cm.dispose();
+	    } else { // Members
+		cm.sendNext("»¶Ó­À´µ½×îÖÕ½×¶Î~ÏÖÔÚÄãÖ»Òª°ÑËùÓĞµÄÍ¨ĞĞÖ¤½»¸ø¶Ó³¤¾ÍĞĞÁË£¡");
+		cm.dispose();
+	    }
+	} else { // Give rewards and warp to bonus
+	    if (status == 0) {
+		cm.sendNext("ÕæµÄºÜ²»¿ÉË¼Òé£¡");
+	    }
+	    if (status == 1) {
+		getPrize(eim,cm);
+		cm.dispose();
+	    }
+	}
+    } else { // No map found
+	cm.sendNext("ÎŞĞ§µÄµØÍ¼£¬ÇëÁªÂçGM£¡");
+	cm.dispose();
+    }
+}
+
+function clear(stage, eim, cm) {
+    eim.setProperty(stage.toString() + "stageclear","true");
+
+    cm.showEffect(true, "quest/party/clear");
+    cm.playSound(true, "Party1/Clear");
+    cm.environmentChange(true, "gete");
+
+    var mf = eim.getMapFactory();
+    map = mf.getMap(103000800 + stage);
+    var nextStage = eim.getMapFactory().getMap(103000800 + stage);
+    var portal = nextStage.getPortal("next00");
+    if (portal != null) {
+	portal.setScriptName("kpq" + (stage+1).toString());
+    }
+}
+
+function failstage(eim, cm) {
+    cm.showEffect(true, "quest/party/wrong_kor");
+    cm.playSound(true, "Party1/Failed");
+}
+
+function rectanglestages (cm) {
+    // Debug makes these stages clear without being correct
+    var debug = false;
+    var eim = cm.getChar().getEventInstance();
+    if (curMap == 2) {
+	var nthtext = "2";
+	var nthobj = "Éş×Ó";
+	var nthverb = "¹Ò";
+	var nthpos = "¹ÒÔÚÉş×ÓÌ«µÍ";
+	var curcombo = stage2combos;
+	var currect = stage2rects;
+	var objset = [0,0,0,0];
+    } else if (curMap == 3) {
+	var nthtext = "3";
+	var nthobj = "Æ½Ì¨";
+	var nthverb = "Õ¾";
+	var nthpos = "Õ¾ÔÚÌ«¿¿½ü±ßÔµ";
+	var curcombo = stage3combos;
+	var currect = stage3rects;
+	var objset = [0,0,0,0,0];
+    } else if (curMap == 4) {
+	var nthtext = "4";
+	var nthobj = "¾ÆÍ°";
+	var nthverb = "Õ¾";
+	var nthpos = "Õ¾ÔÚÌ«¿¿½ü±ßÔµ";
+	var curcombo = stage4combos;
+	var currect = stage4rects;
+	var objset = [0,0,0,0,0,0];
+    }
+    if (playerStatus) { // Check if player is leader
+	if (status == 0) {
+	    // Check for preamble
+	    party = eim.getPlayers();
+	    preamble = eim.getProperty("leader" + nthtext + "preamble");
+	    if (preamble == null) {
+		cm.sendNext("àË£¬»¶Ó­À´µ½µÚ " + nthtext + " ½×¶Î. ÔÚÎÒÅÔ±ß£¬Äã»á¿´µ½Ò»Ğ© " + nthobj + ", #bÄãĞèÒªÈıÃû¶ÓÔ±¹ÒÔÚÉÏÃæ²ÂÎÒµÄ´ğ°¸£¬Èç¹û²Â¶Ô¾ÍÈÃÄã¹ı¹Ø£¬¼ÓÓÍ°É£¡ \r\nà¸~¶ÔÁË²»ÄÜ#r" + nthpos + "²»È»»á²»ÄÜ¹ı¹ØÅ¶£¡");
+		eim.setProperty("leader" + nthtext + "preamble","done");
+		var sequenceNum = Math.floor(Math.random() * curcombo.length);
+		eim.setProperty("stage" + nthtext + "combo",sequenceNum.toString());
+		cm.dispose();
+	    } else {
+		// Otherwise, check for stage completed
+		var complete = eim.getProperty(curMap.toString() + "stageclear");
+		if (complete != null) {
+		    var mapClear = curMap.toString() + "stageclear";
+		    eim.setProperty(mapClear,"true"); // Just to be sure
+//		    cm.sendNext("Please hurry on to the next stage, the portal opened!");
+		    cm.dispose();
+		} else { // Check for people on ropes and their positions
+		    var totplayers = 0;
+		    for (i = 0; i < objset.length; i++) {
+			for (j = 0; j < party.size(); j++) {
+			    var present = currect[i].contains(party.get(j).getPosition());
+			    if (present) {
+				objset[i] = objset[i] + 1;
+				totplayers = totplayers + 1;
+			    }
+			}
+		    }
+		    // Compare to correct positions
+		    // First, are there 3 players on the correct positions?
+		    if (totplayers == 3 || debug) {
+			var combo = curcombo[parseInt(eim.getProperty("stage" + nthtext + "combo"))];
+			// Debug
+			// Combo = curtestcombo;
+			var testcombo = true;
+			for (i = 0; i < objset.length; i++) {
+			    if (combo[i] != objset[i])
+				testcombo = false;
+			}
+			if (testcombo || debug) {
+			    // Do clear
+			    clear(curMap,eim,cm);
+			    //var exp = (Math.pow(2,curMap) * 50);
+			    cm.givePartyExp(500*3, party);
+			    cm.dispose();
+			} else { // Wrong
+			    // Do wrong
+			    failstage(eim,cm);
+			    cm.dispose();
+			}
+		    } else {
+			if (debug) {
+			    var outstring = "Objects contain:"
+			    for (i = 0; i < objset.length; i++) {
+				outstring += "\r\n" + (i+1).toString() + ". " + objset[i].toString();
+			    }
+			    cm.sendNext(outstring);
+			} else {
+			    cm.sendNext("It looks like you haven't found the 3 " + nthobj + " just yet. Please think of a different combination of " + nthobj + ". Only 3 are allowed to " + nthverb + " on " + nthobj + ", and if you " + nthpos + " it may not count as an answer, so please keep that in mind. Keep going!");
+			}
+			cm.dispose();
+		    }
+		}
+	    }
+	} else {
+	    var complete = eim.getProperty(curMap.toString() + "stageclear");
+	    if (complete != null) {
+		var target = eim.getMapInstance(103000800 + curMap);
+		var targetPortal = target.getPortal("st00");
+		cm.getChar().changeMap(target, targetPortal);
+	    }
+	    cm.dispose();
+	}
+    } else { // Not leader
+	if (status == 0) {
+	    var complete = eim.getProperty(curMap.toString() + "stageclear");
+	    if (complete != null) {
+		cm.dispose();
+		cm.sendNext("Í¨µÀ´ò¿ªÁË£¬ÇëÒÆ¶¯µ½ÏÂ¸öµØÍ¼!");
+	    } else {
+		cm.sendNext("ÇëÈÃ¶Ó³¤ºÍÎÒ¶Ô»°.");
+		cm.dispose();
+	    }
+	} else {
+	    var complete = eim.getProperty(curMap.toString() + "stageclear");
+	    if (complete != null) {
+		var target = eim.getMapInstance(103000800 + curMap);
+		var targetPortal = target.getPortal("st00");
+		cm.getChar().changeMap(target, targetPortal);
+	    }
+	    cm.dispose();
+	}
+    }
+}
+
+function getPrize(eim,cm) {
+    var itemSetSel = Math.random();
+    var itemSet;
+    var itemSetQty;
+    var hasQty = false;
+	var ItemName;
+	var item;
+    if (itemSetSel < 0.3)
+	itemSet = prizeIdScroll;
+    else if (itemSetSel < 0.6)
+	itemSet = prizeIdEquip;
+    else if (itemSetSel < 0.9) {
+	itemSet = prizeIdUse;
+	itemSetQty = prizeQtyUse;
+	hasQty = true;
+    } else {
+	itemSet = prizeIdEtc;
+	itemSetQty = prizeQtyEtc;
+	hasQty = true;
+    }
+    var sel = Math.floor(Math.random()*itemSet.length);
+    var qty = 1;
+    if (hasQty)
+	qty = itemSetQty[sel];
+	ItemName = cm.getItemName(itemSet[sel]);
+	item = new Packages.client.inventory.Item(itemSet[sel], 0, qty, 0);
+if (playerStatus){
+    cm.gainItem(itemSet[sel], qty);
+    cm.removeAll(4001007);
+    cm.removeAll(4001008);
+cm.gainItem(4002000,1);
+ cm.gainMeso(+50000);//¶ÁÈ¡±äÁ¿
+	//cm.gainItem(4001129,10);
+  //      cm.gainItem(4170002,1);
+   //     cm.gainItem(2340000,1);
+cm.givePartyBossLog('MRFQ');
+    cm.getPlayer().endPartyQuest(1201);
+	cm.È«·ş¹«¸æ( "¹§Ï²[" + cm.getPlayer().getName() + "]³É¹¦´øÁì¶ÓÓÑÍ¨¹Ø¡¾×é¶ÓÈÎÎñ - ·ÏÆú¶¼ÊĞ¸±±¾¡¿»ñµÃ½±Àø£¡");
+    cm.warp(103000805, "sp");
+  cm.dispose();
+}
+else
+{
+    cm.gainItem(itemSet[sel], qty);
+    cm.removeAll(4001007);
+    cm.removeAll(4001008);
+    cm.gainMeso(+50000);//¶ÁÈ¡±äÁ¿
+	//cm.gainItem(4001129,10);
+       // cm.gainItem(4170002,1);
+       // cm.gainItem(2340000,1);
+		cm.getPlayer().setBossLog('MRFQ');
+    cm.getPlayer().endPartyQuest(1201);
+	cm.È«·ş¹«¸æ("¹§Ï²[" + cm.getPlayer().getName() + "]³É¹¦´øÁì¶ÓÓÑÍ¨¹Ø¡¾×é¶ÓÈÎÎñ - ·ÏÆú¶¼ÊĞ¸±±¾¡¿»ñµÃ½±Àø£¡");
+    cm.warp(103000805, "sp");
+  cm.dispose();
+}
+}

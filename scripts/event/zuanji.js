@@ -1,44 +1,83 @@
-function init(){
-	em.setProperty("state","0");
-	em.setProperty("leader","true")
-	}
-function setup(a,b){
-	em.setProperty("state","1");
-	em.setProperty("preheadCheck","0");
-	em.setProperty("leader","true");
-	a=em.newInstance("zuanji");
-	a.setInstanceMap(206600674).resetFully();
-	a.startEventTimer(1800000);
-	return a
-	}
-function playerEntry(a,b){
-var c=a.getMapFactory().getMap(206600674);
-b.changeMap(c,c.getPortal(0))
+﻿/* 
+ * 钻机
+ */
+
+
+function init() {
+    em.setProperty("state", "0");
+    em.setProperty("leader", "true");
 }
-function changedMap(a,b,c){
-switch(c){
-	case 206600674:return
-	}
-	a.unregisterPlayer(b);
-	a.disposeIfPlayerBelow(0,0)&&(em.setProperty("state","0"),em.setProperty("leader","true"))
-	}
-function playerDisconnected(a,b){
-	return 0
-	}
-function scheduledTimeout(a){
-	a.disposeIfPlayerBelow(100,910000000);
-	em.setProperty("state","0");
-	em.setProperty("leader","true")
-	}
-function playerExit(a,b){
-	a.unregisterPlayer(b);
-	a.disposeIfPlayerBelow(0,0)&&(em.setProperty("state","0"),em.setProperty("leader","true"))
-	}
-function monsterValue(a,b){return 1}
-function allMonstersDead(a){}
-function playerRevive(a,b){return!1}
-function clearPQ(a){}
-function leftParty(a,b){}
-function disbandParty(a){}
-function playerDead(a,b){}
-function cancelSchedule(){};
+
+function setup(eim, leaderid) {
+    em.setProperty("state", "1");
+    em.setProperty("leader", "true");
+    var eim = em.newInstance("Pierre1");
+    var map = eim.setInstanceMap(703020100);
+    map.resetFully();
+    eim.getMapFactoryMap(703020100).killAllMonsters(false);
+   // for(var i = 8900000; i <= 8900002; i++){
+    //var mob = em.getMonster(i);
+	var mob = em.getMonster(9600087);//召唤怪物
+    map.spawnMonsterOnGroundBelow(mob, new java.awt.Point(663, 227));//坐标x y
+    //}
+    eim.startEventTimer(30 * 60 * 1000); //30分钟
+    return eim;
+}
+
+function playerEntry(eim, player) {
+    var map = eim.getMapInstance(0);
+    player.changeMap(map, map.getPortal(0));
+}
+
+function changedMap(eim, player, mapid) {
+    if (mapid != 703020100) {
+        eim.unregisterPlayer(player);
+        if (eim.disposeIfPlayerBelow(0, 0)) {
+            em.setProperty("state", "0");
+            em.setProperty("leader", "true");
+        }
+    }
+}
+
+function playerDisconnected(eim, player) {
+    return 0;
+}
+
+function scheduledTimeout(eim) {
+    eim.disposeIfPlayerBelow(100, 703020000);//回去入口
+    em.setProperty("state", "0");
+    em.setProperty("leader", "true");
+}
+
+function playerExit(eim, player) {
+    eim.unregisterPlayer(player);
+    if (eim.disposeIfPlayerBelow(0, 0)) {
+        em.setProperty("state", "0");
+        em.setProperty("leader", "true");
+    }
+}
+
+function monsterValue(eim, mobId) {
+    return 1;
+}
+
+function allMonstersDead(eim) {
+    var state = em.getProperty("state");
+    if (state.equals("1")) {
+        em.setProperty("state", "2");
+    } else if (state.equals("2")) {
+        em.setProperty("state", "3");
+    }
+}
+
+function playerRevive(eim, player) {
+    return false;
+}
+
+function clearPQ(eim) {
+    scheduledTimeout(eim);
+}
+function leftParty(eim, player) {}
+function disbandParty(eim) {}
+function playerDead(eim, player) {}
+function cancelSchedule() {}

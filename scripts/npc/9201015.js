@@ -1,4 +1,4 @@
-ï»¿/* Julius Styleman
+/* Julius Styleman
 	Amoria VIP Hair/Hair Color Change.
 */
 var status = -1;
@@ -18,7 +18,7 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendSimple("å—¨ï¼Œæˆ‘æ˜¯#p9201015# å¦‚æœä½ æœ‰ #b#t5150020##k, æˆ–è€…æœ‰ #b#t5151017##k æˆ‘å°±å¯ä»¥å¸®åŠ©ä½ å˜å¤§æ˜æ˜Ÿ~ \r\n#L0#ä½¿ç”¨: #i5150020##t5150020##l\r\n#L1#ä½¿ç”¨: #i5151017##t5151017##l");
+	cm.sendSimple("àË£¬ÎÒÊÇ#p9201015# Èç¹ûÄãÓĞ #b#t5150020##k, »òÕßÓĞ #b#t5151017##k ÎÒ¾Í¿ÉÒÔ°ïÖúÄã±ä´óÃ÷ĞÇ~ \r\n#L0#Ê¹ÓÃ: #i5150020##t5150020##l\r\n#L1#Ê¹ÓÃ: #i5151017##t5151017##l");
     } else if (status == 1) {
 	if (selection == 0) {
 	    var hair = cm.getPlayerStat("HAIR");
@@ -33,7 +33,7 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < hair_Colo_new.length; i++) {
 		hair_Colo_new[i] = hair_Colo_new[i] + (hair % 10);
 	    }
-	    cm.askAvatar("é€‰æ‹©å–œæ¬¢çš„", hair_Colo_new);
+	    cm.askAvatar("Ñ¡ÔñÏ²»¶µÄ", hair_Colo_new);
 	} else if (selection == 1) {
 	    var currenthaircolo = Math.floor((cm.getPlayerStat("HAIR") / 10)) * 10;
 	    hair_Colo_new = [];
@@ -42,20 +42,20 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < 8; i++) {
 		hair_Colo_new[i] = currenthaircolo + i;
 	    }
-	    cm.askAvatar("é€‰æ‹©å–œæ¬¢çš„", hair_Colo_new);
+	    cm.askAvatar("Ñ¡ÔñÏ²»¶µÄ", hair_Colo_new);
 	}
     } else if (status == 2) {
 	if (beauty == 1) {
 	    if (cm.setAvatar(5150020, hair_Colo_new[selection]) == 1) {
-		cm.sendOk("äº«å—ï¼");
+		cm.sendOk("ÏíÊÜ£¡");
 	    } else {
-		cm.sendOk("ç–´...æ‚¨è²Œä¼¼æ²¡æœ‰#b#t5150020##kã€‚");
+		cm.sendOk("¯z...ÄúÃ²ËÆÃ»ÓĞ#b#t5150020##k¡£");
 	    }
 	} else {
 	    if (cm.setAvatar(5151017, hair_Colo_new[selection]) == 1) {
-		cm.sendOk("äº«å—ï¼");
+		cm.sendOk("ÏíÊÜ£¡");
 	    } else {
-		cm.sendOk("ç–´...æ‚¨è²Œä¼¼æ²¡æœ‰#b#t5151017##kã€‚");
+		cm.sendOk("¯z...ÄúÃ²ËÆÃ»ÓĞ#b#t5151017##k¡£");
 	    }
 	}
 	cm.dispose();

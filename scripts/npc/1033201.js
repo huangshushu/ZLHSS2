@@ -1,3 +1,6 @@
+/*
+ ZEVMS冒险岛(079)游戏服务端
+ */
 var status = -1;
 
 function action(mode, type, selection) {
@@ -8,25 +11,25 @@ function action(mode, type, selection) {
 		return;
 	}
 	if (status == 0) {
-		cm.sendPlayerToNpc("Afrien? Freud! Are you okay?");
+		cm.sendPlayerToNpc("Afrien？佛洛伊德！你没事吧？");
 	} else if (status == 1) {
-		cm.sendNextNoESC("Mercedes... you survived.");
+		cm.sendNextNoESC("梅赛德斯。。。你幸存下来了。");
 	} else if (status == 2) {
-		cm.sendPlayerToNpc("Of course. I managed to seal him away. I can't let myself die for that. What about you? And the others? Where are they?");
+		cm.sendPlayerToNpc("当然。我设法把他封住了。我不能让自己为此而死。你呢？其他的呢？他们在哪里？");
 	} else if (status == 3) {
-		cm.sendNextNoESC("We may have defeated the Black Mage, but he sent everyone flying in different directions with that last spell. We're lucky we ended up in the same place.");
+		cm.sendNextNoESC("我们可能打败了黑魔法师，但他让每个人在最后一个咒语中飞向不同的方向。我们很幸运，我们在同一个地方结束了。");
 	} else if (status == 4) {
-		cm.sendPlayerToNpc("I didn't realiez how far away we ended up. At least we're safe. I feel so weak... and cold... has it always been snowy here? It's hot, and yet snow is falling. Strange...");
+		cm.sendPlayerToNpc("我不知道我们走了多远。至少我们是安全的。我感觉很虚弱…寒冷…这里总是下雪吗？天气很热，但是下雪了。奇怪…");
 	} else if (status == 5) {
-		cm.sendNextNoESC("You can't feel it? Mercedes, the great curse... has been place upon you, Freud, and the others. An icy, cold curse, clinging to you. It looks like the Black Mage isn't letting us off so easily..");
+		cm.sendNextNoESC("你感觉不到吗？梅赛德斯，伟大的诅咒…已经在你身上，佛洛伊德和其他人。冰冷的诅咒，紧贴着你。它看起来像黑色法师不让我们这么容易。");
 	} else if (status == 6) {
-		cm.sendPlayerToNpc("A c-curse... you should be able to survive it, but what about Freud? He looks weak...");
+		cm.sendPlayerToNpc("诅咒…你应该能够生存下来，但是佛洛伊德呢？他看起来很虚弱…");
 	} else if (status == 7) {
-		cm.sendNextNoESC("I'll take care of him. For now, I'm more worried about you. You're the #bruler of the Elves.#k If the curse is on you, it'll be placed on #rall of the Elves!#k Hurry back to #bElluel#k If the #bBlack Mage's curse is on all of the Elves#k, then you must return to  your people.");
+		cm.sendNextNoESC("我来照顾他。现在，我更担心你。你是精灵的傀儡。如果诅咒在你身上，它将被放在精灵的地狱里！如果你在所有精灵精灵身上都有诅咒，那么你必须回到你的子民身上。");
 	} else if (status == 8) {
-		cm.sendPlayerToNpc("...! All right! Afrien, we'll meet again!");
+		cm.sendPlayerToNpc("...! 好吧！Afrien，我们会再见面的！");
 	} else if (status == 9) {
-		cm.sendPlayerToNpc("(The other heroes will make it through somehow. For now, I'll return to town using my skill.)");
+		cm.sendPlayerToNpc("(其他的“英雄”将使它到不知怎的。现在，我会返回到镇，用我的技能.)");
 	} else if (status == 10) {
 		cm.warp(910150001,0);
 		cm.dispose();

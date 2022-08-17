@@ -1,13 +1,13 @@
-var status = -1;
+ï»¿var status = -1;
 
 function start(mode, type, selection) {
-	qm.sendNext("Çëµ½±ùÔ­Ñ©ÓòÕÒ½£Ê¿½Ì¹ÙÈı×ª¡£");
-	qm.ÈÎÎñ¿ªÊ¼(21300);
+	qm.sendNext("è¯·åˆ°å†°åŸé›ªåŸŸæ‰¾å‰‘å£«æ•™å®˜ä¸‰è½¬ã€‚");
+	qm.ä»»åŠ¡å¼€å§‹(21300);
 	qm.dispose();
 }
 
 function end(mode, type, selection) {
-	qm.sendNext("Çëµ½±ùÔ­Ñ©ÓòÕÒ½£Ê¿½Ì¹ÙÈı×ª¡£");
-	qm.ÈÎÎñ¿ªÊ¼(21300);
+	qm.sendNext("è¯·åˆ°å†°åŸé›ªåŸŸæ‰¾å‰‘å£«æ•™å®˜ä¸‰è½¬ã€‚");
+	qm.ä»»åŠ¡å¼€å§‹(21300);
 	qm.dispose();
 }

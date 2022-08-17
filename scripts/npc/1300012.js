@@ -1,46 +1,69 @@
+/*
+ ZEVMS冒险岛(079)游戏服务端
+ 脚本：雪人三兄弟
+ */
+var 箭头 = "#fUI/Basic/BtHide3/mouseOver/0#";
+var C = "#fUI/UIWindow.img/Minigame/Common/mark#";
+
+
 function start() {
-	cm.sendSimple("移动到#b#m106021500##k 要前往到哪里呢？ #b\r\n#L0#打三色雪吉拉 (需要组队)#l\r\n#L1#拯救菲欧娜#l#k");
+    status = -1;
+
+    action(1, 0, 0)
 }
 
 function action(mode, type, selection) {
-	if (mode == 1) {
-		switch (selection) {
-			case 0:
-				if (cm.getPlayer().getParty() == null || !cm.isLeader()) {
-					cm.sendOk("请找你的队长来和我说话。");
-				} else {
-					var party = cm.getPlayer().getParty().getMembers();
-					var mapId = cm.getPlayer().getMapId();
-					var next = true;
-					var size = 0;
-					var it = party.iterator();
-					while (it.hasNext()) {
-						var cPlayer = it.next();
-						var ccPlayer = cm.getPlayer().getMap().getCharacterById(cPlayer.getId());
-						if (ccPlayer == null) {
-							next = false;
-							break;
-						}
-						size += (ccPlayer.isGM() ? 4 : 1);
-					}
-					if (next && (cm.getPlayer().isGM() || size >= 3)) {
-						for (var i = 0; i < 10; i++) {
-							if (cm.getMap(106021500 + i).getCharactersSize() == 0) {
-								cm.warpParty(106021500 + i);
-								cm.dispose();
-								return;
-							}
-						}
-						cm.sendOk("已经有另一个队伍在挑战，请稍后再尝试。");
-					} else {
-						cm.sendOk("队伍里需要三个人以上。");
-					}
-				}
-				break;
-			case 1:
-				cm.warp(106021401, 0);
-				break;
-		}
-	}
-	cm.dispose();
+    if (status <= 0 && mode <= 0) {
+        cm.dispose();
+        return
+    }
+    if (mode == 1) {
+        status++
+    } else {
+        status--
+
+    }
+
+    var 地图 = cm.getMap(106021500).getCharactersSize();
+    var FantMap = cm.getMap(106021500);
+    var r = Math.ceil(Math.random() * 3);
+    if (status <= 0) {
+        var
+         selStr = "hi，勇士，蘑菇城是不是很壮观？\r\n\r\n";
+        selStr += "#L1##r挑战雪人三兄弟\r\n";
+        selStr += "#L2##b拯救菲欧娜\r\n";
+        cm.sendSimple(selStr)
+    } else if (status == 1) {
+        switch (selection) {
+            case 1:
+               if (地图 == 0) {
+                    FantMap.resetFully();
+                    if (r <= 1) {
+                        cm.warpParty(106021500, 1);
+                        cm.showEffect(true, "pepeKing/frame/B");
+                        cm.showEffect(true, "pepeKing/pepe/pepeB");
+                        cm.spawnMob_map(3300005, 106021500, 283, -68);
+                    } else if (r == 2) {
+                        cm.warpParty(106021500, 1);
+                        cm.showEffect(true, "pepeKing/frame/B");
+                        cm.showEffect(true, "pepeKing/pepe/pepeB");
+                        cm.spawnMob_map(3300006, 106021500, 283, -68);
+                    } else if (r == 3) {
+                        cm.warpParty(106021500, 1);
+                        cm.showEffect(true, "pepeKing/frame/B");
+                        cm.showEffect(true, "pepeKing/pepe/pepeB");
+                        cm.spawnMob_map(3300007, 106021500, 283, -68);
+                    }
+                } else {
+                    cm.sendOk("已经有人正在挑战中···");
+                }
+                cm.dispose();
+                break
+            case 2:
+                cm.warp(106021401, 0);
+                cm.dispose();
+                break
+
+        }
+    }
 }

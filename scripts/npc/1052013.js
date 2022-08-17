@@ -1,14 +1,14 @@
 /*
-	Computer - Premium road : Kerning City Internet Cafe
-*/
+ ZEVMS冒险岛(079)游戏服务端
+ */
 
 var maps = Array(190000000, 191000000, 192000000, 195000000, 196000000, 197000000
 );
 
 function start() {
-    var selStr = "Select your desired premium map exclusively for you!#b";
+    var selStr = "选择一个你要去的世界吧？#b";
     for (var i = 0; i < maps.length; i++) {
-	selStr += "\r\n#L" + i + "##m" + maps[i] + "# #l";
+	selStr += "\r\n#L" + i + "##m" + maps[i] + "##l";
     }
     cm.sendSimple(selStr);
 }

@@ -1,4 +1,4 @@
-ï»¿var status = -1;
+var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
@@ -23,10 +23,10 @@ function action(mode, type, selection) {
     if (em.getProperty("apq1").equals("0")) {
 	if (cm.getMap().getAllMonstersThreadsafe().size() == 0) {
 	    em.setProperty("apq1", "1");
-	    cm.mapMessage(5, "æŸç§ä¸œè¥¿å·²ç»åœ¨åœ°å›¾ä¸ŠæŸä¸ªåœ°æ–¹ç”Ÿæˆäº†ã€‚");
+	    cm.mapMessage(5, "Ä³ÖÖ¶«Î÷ÒÑ¾­ÔÚµØÍ¼ÉÏÄ³¸öµØ·½Éú³ÉÁË¡£");
 	    cm.spawnMonster(9400518,1);
 	} else {
-	    cm.sendOk("è¯·é—®ä½ å¯ä»¥å¸®æˆ‘æ¶ˆé™¤åœ°å›¾ä¸Šæ‰€æœ‰çš„æ€ªç‰©å—ï¼Ÿï¼Ÿ");
+	    cm.sendOk("ÇëÎÊÄã¿ÉÒÔ°ïÎÒÏû³ıµØÍ¼ÉÏËùÓĞµÄ¹ÖÎïÂğ£¿£¿");
 	}
     } else if (em.getProperty("apq1").equals("1")) {
 	if (cm.haveItem(4031595)) {
@@ -35,7 +35,7 @@ function action(mode, type, selection) {
     	    cm.playSound(true, "Party1/Clear");
 	    em.setProperty("apq1", "2");
 	} else {
-	    cm.sendOk("è¯·å‘Šè¯‰æˆ‘ä½¿ç”¨æ°¸é”¤ä»è½®æ¸¡æ‰“ç ´é•œå­çš„è¯æ˜ã€‚");
+	    cm.sendOk("Çë¸æËßÎÒÊ¹ÓÃÓÀ´¸´ÓÂÖ¶É´òÆÆ¾µ×ÓµÄÖ¤Ã÷¡£");
 		}
     }
     cm.dispose();

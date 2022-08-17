@@ -1,4 +1,4 @@
-﻿/* Tara
+/* Tara
  Ludibrium : Tara and Sarah's House (220000303)
  
  Refining NPC: 
@@ -21,7 +21,7 @@ function action(mode, type, selection) {
         cm.dispose();
         return;
     } else if (status >= 1 && mode == 0) {
-        cm.sendNext("需要的时候可以来找我。");
+        cm.sendNext("��Ҫ��ʱ����������ҡ�");
         cm.dispose();
         return;
     }
@@ -31,20 +31,15 @@ function action(mode, type, selection) {
         status--;
     }
     if (status == 0) {
-        var selStr = "嗨，我是#p2040021# 今天可以为你做点什么？？#b"
-        var options = new Array("什么是催化剂?", "做一双剑士鞋子", "做一双弓箭手鞋子", "做一双法师鞋子", "做一双盗贼鞋子",
-                "做一双剑士鞋子使用催化剂", "做一双弓箭手鞋子使用催化剂", "做一双法师鞋子使用催化剂", "做一双盗贼鞋子使用催化剂");
+        var selStr = "�ˣ�����#p2040021# �������Ϊ������ʲô����#b"
+        var options = new Array("ʲô�Ǵ߻���?", "��һ˫��ʿЬ��", "��һ˫������Ь��", "��һ˫��ʦЬ��", "��һ˫����Ь��",
+                "��һ˫��ʿЬ��ʹ�ô߻���", "��һ˫������Ь��ʹ�ô߻���", "��һ˫��ʦЬ��ʹ�ô߻���", "��һ˫����Ь��ʹ�ô߻���");
         for (var i = 0; i < options.length; i++) {
             selStr += "\r\n#L" + i + "# " + options[i] + "#l";
         }
 
         cm.sendSimple(selStr);
     } else if (status == 1) {
-        if (selection < 0) {
-            cm.sendOk("脚本出错，请联系管理员...");
-            cm.dispose();
-            return;
-        }
         selectedType = selection;
         var selStr;
         var shoes = Array();
@@ -55,35 +50,35 @@ function action(mode, type, selection) {
         } else
             stimulator = false;
         if (selectedType == 0) { // what is stim
-            cm.sendNext("催化剂是一种特殊的药水，我可以加入到创建某些项目的进程。它给它统计中，就好像从一个怪物下降。然而，它可能有没有变化，而且也有可能为项低于平均水平。还有没有得到任何项目使用刺激的时候，所以请明智的选择有10％的机会。");
+            cm.sendNext("�߻�����һ�������ҩˮ���ҿ��Լ��뵽����ĳЩ��Ŀ�Ľ��̡�������ͳ���У��ͺ����һ�������½���Ȼ������������û�б仯������Ҳ�п���Ϊ�����ƽ��ˮƽ������û�еõ��κ���Ŀʹ�ô̼���ʱ�����������ǵ�ѡ����10���Ļ��ᡣ");
             cm.dispose();
             return;
         }
         if (selectedType == 1) { //warrior shoe
-            selStr = "很好，那么你想做哪一个？？#b";
-            shoes = new Array("#t1072003##k - 剑士 等级. 30#b", "#t1072039##k - 剑士 等级. 30#b", "#t1072040##k - 剑士 等级. 30#b", "#t1072041##k - 剑士 等级. 30#b",
-                    "#t1072002##k - 剑士 等级. 35#b", "#t1072112##k - 剑士 等级. 35#b", "#t1072113##k - 剑士 等级. 35#b",
-                    "#t1072000##k - 剑士 等级. 40#b", "#t1072126##k - 剑士 等级. 40#b", "#t1072127##k - 剑士 等级. 40#b",
-                    "#t1072132##k - 剑士 等级. 50#b", "#t1072133##k - 剑士 等级. 50#b", "#t1072134##k - 剑士 等级. 50#b", "#t1072135##k - 剑士 等级. 50#b");
+            selStr = "�ܺã���ô��������һ������#b";
+            shoes = new Array("#t1072003##k - ��ʿ �ȼ�. 30#b", "#t1072039##k - ��ʿ �ȼ�. 30#b", "#t1072040##k - ��ʿ �ȼ�. 30#b", "#t1072041##k - ��ʿ �ȼ�. 30#b",
+                    "#t1072002##k - ��ʿ �ȼ�. 35#b", "#t1072112##k - ��ʿ �ȼ�. 35#b", "#t1072113##k - ��ʿ �ȼ�. 35#b",
+                    "#t1072000##k - ��ʿ �ȼ�. 40#b", "#t1072126##k - ��ʿ �ȼ�. 40#b", "#t1072127##k - ��ʿ �ȼ�. 40#b",
+                    "#t1072132##k - ��ʿ �ȼ�. 50#b", "#t1072133##k - ��ʿ �ȼ�. 50#b", "#t1072134##k - ��ʿ �ȼ�. 50#b", "#t1072135##k - ��ʿ �ȼ�. 50#b");
             ;
         } else if (selectedType == 2) { //bowman shoe
-            selStr = "很好，那么你想做哪一个？？#b";
-            shoes = new Array("#t1072079##k - 弓箭手 等级. 30#b", "#t1072080##k - 弓箭手 等级. 30#b", "#t1072081##k - 弓箭手 等级. 30#b", "#t1072082##k - 弓箭手 等级. 30#b", "#t1072083##k - 弓箭手 等级. 30#b",
-                    "#t1072101##k - 弓箭手 等级. 35#b", "#t1072102##k - 弓箭手 等级. 35#b", "#t1072103##k - 弓箭手 等级. 35#b",
-                    "#t1072118##k - 弓箭手 等级. 40#b", "#t1072119##k - 弓箭手 等级. 40#b", "#t1072120##k - 弓箭手 等级. 40#b", "#t1072121##k - 弓箭手 等级. 40#b",
-                    "#t1072122##k - 弓箭手 等级. 50#b", "#t1072123##k - 弓箭手 等级. 50#b", "#t1072124##k - 弓箭手 等级. 50#b", "#t1072125##k - 弓箭手 等级. 50#b");
+            selStr = "�ܺã���ô��������һ������#b";
+            shoes = new Array("#t1072079##k - ������ �ȼ�. 30#b", "#t1072080##k - ������ �ȼ�. 30#b", "#t1072081##k - ������ �ȼ�. 30#b", "#t1072082##k - ������ �ȼ�. 30#b", "#t1072083##k - ������ �ȼ�. 30#b",
+                    "#t1072101##k - ������ �ȼ�. 35#b", "#t1072102##k - ������ �ȼ�. 35#b", "#t1072103##k - ������ �ȼ�. 35#b",
+                    "#t1072118##k - ������ �ȼ�. 40#b", "#t1072119##k - ������ �ȼ�. 40#b", "#t1072120##k - ������ �ȼ�. 40#b", "#t1072121##k - ������ �ȼ�. 40#b",
+                    "#t1072122##k - ������ �ȼ�. 50#b", "#t1072123##k - ������ �ȼ�. 50#b", "#t1072124##k - ������ �ȼ�. 50#b", "#t1072125##k - ������ �ȼ�. 50#b");
         } else if (selectedType == 3) { //magician shoe
-            selStr = "很好，那么你想做哪一个？？#b";
-            shoes = new Array("#t1072075##k - 法师 等级. 30#b", "#t1072076##k - 法师 等级. 30#b", "#t1072077##k - 法师 等级. 30#b", "#t1072078##k - 法师 等级. 30#b",
-                    "#t1072089##k - 法师 等级. 35#b", "#t1072090##k - 法师 等级. 35#b", "#t1072091##k - 法师 等级. 35#b",
-                    "#t1072114##k - 法师 等级. 40#b", "#t1072115##k - 法师 等级. 40#b", "#t1072116##k - 法师 等级. 40#b", "#t1072117##k - 法师 等级. 40#b",
-                    "#t1072140##k - 法师 等级. 50#b", "#t1072141##k - 法师 等级. 50#b", "#t1072142##k - 法师 等级. 50#b", "#t1072143##k - 法师 等级. 50#b");
+            selStr = "�ܺã���ô��������һ������#b";
+            shoes = new Array("#t1072075##k - ��ʦ �ȼ�. 30#b", "#t1072076##k - ��ʦ �ȼ�. 30#b", "#t1072077##k - ��ʦ �ȼ�. 30#b", "#t1072078##k - ��ʦ �ȼ�. 30#b",
+                    "#t1072089##k - ��ʦ �ȼ�. 35#b", "#t1072090##k - ��ʦ �ȼ�. 35#b", "#t1072091##k - ��ʦ �ȼ�. 35#b",
+                    "#t1072114##k - ��ʦ �ȼ�. 40#b", "#t1072115##k - ��ʦ �ȼ�. 40#b", "#t1072116##k - ��ʦ �ȼ�. 40#b", "#t1072117##k - ��ʦ �ȼ�. 40#b",
+                    "#t1072140##k - ��ʦ �ȼ�. 50#b", "#t1072141##k - ��ʦ �ȼ�. 50#b", "#t1072142##k - ��ʦ �ȼ�. 50#b", "#t1072143##k - ��ʦ �ȼ�. 50#b");
         } else if (selectedType == 4) { //thief shoe
-            selStr = "很好，那么你想做哪一个？？#b";
-            shoes = new Array("#t1072032##k - 盗贼 等级. 30#b", "#t1072033##k - 盗贼 等级. 30#b", "#t1072035##k - 盗贼 等级. 30#b", "#t1072036##k - 盗贼 等级. 30#b",
-                    "#t1072104##k - 盗贼 等级. 35#b", "#t1072105##k - 盗贼 等级. 35#b", "#t1072106##k - 盗贼 等级. 35#b",
-                    "#t1072107##k - 盗贼 等级. 40#b", "#t1072108##k - 盗贼 等级. 40#b", "#t1072109##k - 盗贼 等级. 40#b", "#t1072110##k - 盗贼 等级. 40#b",
-                    "#t1072128##k - 盗贼 等级. 50#b", "#t1072130##k - 盗贼 等级. 50#b", "#t1072129##k - 盗贼 等级. 50#b", "#t1072131##k - 盗贼 等级. 50#b");
+            selStr = "�ܺã���ô��������һ������#b";
+            shoes = new Array("#t1072032##k - ���� �ȼ�. 30#b", "#t1072033##k - ���� �ȼ�. 30#b", "#t1072035##k - ���� �ȼ�. 30#b", "#t1072036##k - ���� �ȼ�. 30#b",
+                    "#t1072104##k - ���� �ȼ�. 35#b", "#t1072105##k - ���� �ȼ�. 35#b", "#t1072106##k - ���� �ȼ�. 35#b",
+                    "#t1072107##k - ���� �ȼ�. 40#b", "#t1072108##k - ���� �ȼ�. 40#b", "#t1072109##k - ���� �ȼ�. 40#b", "#t1072110##k - ���� �ȼ�. 40#b",
+                    "#t1072128##k - ���� �ȼ�. 50#b", "#t1072130##k - ���� �ȼ�. 50#b", "#t1072129##k - ���� �ȼ�. 50#b", "#t1072131##k - ���� �ȼ�. 50#b");
         }
 
         if (selectedType != 0)
@@ -94,11 +89,6 @@ function action(mode, type, selection) {
             cm.sendSimple(selStr);
         }
     } else if (status == 2) {
-        if (selection < 0) {
-            cm.sendOk("脚本出错，请联系管理员...");
-            cm.dispose();
-            return;
-        }
         selectedItem = selection;
         if (selectedType == 1) { //warrior shoe
             var itemSet = new Array(1072003, 1072039, 1072040, 1072041, 1072002, 1072112, 1072113, 1072000, 1072126, 1072127, 1072132, 1072133, 1072134, 1072135);
@@ -156,7 +146,7 @@ function action(mode, type, selection) {
         //Ludi fee is -10%, array not changed unlike 2040016 and 2040020
         cost = cost * .9;
 
-        var prompt = "你想要做一双 #t" + item + "#? 在这种情况下，为了要做出好品质的装备。请确保您有空间在您的装备栏！#b";
+        var prompt = "����Ҫ��һ˫ #t" + item + "#? ����������£�Ϊ��Ҫ������Ʒ�ʵ�װ������ȷ�����пռ�������װ������#b";
 
         if (stimulator)
             prompt += "\r\n#i" + stimID + "# 1 #t" + stimID + "#";
@@ -170,14 +160,14 @@ function action(mode, type, selection) {
         }
 
         if (cost > 0)
-            prompt += "\r\n#i4031138# " + cost + " 枫币";
+            prompt += "\r\n#i4031138# " + cost + " ���";
 
         cm.sendYesNo(prompt);
     } else if (status == 3) {
         var complete = true;
 
         if (cm.getMeso() < (cost)) {
-            cm.sendOk("我只接受枫币。");
+            cm.sendOk("��ֻ���ܷ�ҡ�");
             cm.dispose();
             return;
         } else {
@@ -205,7 +195,7 @@ function action(mode, type, selection) {
         }
 
         if (!complete)
-            cm.sendOk("由于你没有足够的材料，所以我不帮忙做了。");
+            cm.sendOk("������û���㹻�Ĳ��ϣ������Ҳ���æ���ˡ�");
         else {
             if (mats instanceof Array) {
                 for (var i = 0; i < mats.length; i++) {
@@ -220,13 +210,13 @@ function action(mode, type, selection) {
                 var deleted = Math.floor(Math.random() * 10);
                 if (deleted != 0) {
                     cm.gainItem(item, 1, true);
-                    cm.sendOk("完成。善待你的鞋子，免得你使鞋子坏掉.");
+                    cm.sendOk("��ɡ��ƴ����Ь�ӣ������ʹЬ�ӻ���.");
                 } else {
-                    cm.sendOk("不幸的是，催化剂...抵触你的鞋子。我很抱歉是我的疏失.....");
+                    cm.sendOk("���ҵ��ǣ��߻���...�ִ����Ь�ӡ��Һܱ�Ǹ���ҵ���ʧ.....");
                 }
             } else { //just give basic item
                 cm.gainItem(item, 1);
-                cm.sendOk("完成。善待你的鞋子，免得你使鞋子坏掉.");
+                cm.sendOk("��ɡ��ƴ����Ь�ӣ������ʹЬ�ӻ���.");
             }
         }
         cm.safeDispose();

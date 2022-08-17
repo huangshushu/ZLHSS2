@@ -1,107 +1,87 @@
 /*
-	This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-		       Matthias Butz <matze@odinms.de>
-		       Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-//BY MOOGRA
-/* Robeira
-	Magician 3rd job advancement
-	El Nath: Chief's Residence (211000001)
-	Custom Quest 100100, 100102
-*/
+ 
+ º£µÁÈı×ª×ªÖ°½Ì¹Ù
+ */
 
 var status = 0;
 var job;
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == -1) {
-        cm.dispose();
-    } else {
-        if (mode == 0 && status == 1) {
-            cm.sendOk("ç­‰æ‚¨ä¸‹å®šå†³å¿ƒå†æ¬¡æ‰¾æˆ‘å§.");
-            cm.dispose();
-            return;
-        }
-        if (mode == 1)
-            status++;
-        else
-            status--;
-        if (status == 0) {
-		if (cm.getJob() == 511 || cm.getJob() == 521 || cm.getJob() == 512 || cm.getJob() == 522) {	
-	    cm.sendOk("æ‚¨å±äºæµ·ç›—éƒ¨,ä½†æ˜¯æ‚¨å·²ç»æˆåŠŸä¸‰è½¬äº†,å·²ç»è¶…è¶Šäº†æ•™å®˜çš„å¼ºåº¦äº†!");
-	    cm.dispose();
-	    return;
-		}
-            if (!(cm.getJob()==510 ||cm.getJob()==520)) {
-		cm.sendOk("è¯·æ‰¾æ‚¨çš„è½¬èŒæ•™å®˜,æ‚¨ä¸å±äºæµ·ç›—éƒ¨çš„æ»šå§!");
-                cm.dispose();
-                return;
-			} else if (cm.getPlayer().getLevel() < 70) {
-				cm.sendOk("ä½ çš„ç­‰çº§å°šæœªæ»¡70ç­‰");
-				cm.dispose();
-				return;		
-            }	
-			if (cm.haveItem(4031057, 1)){
-                cm.sendNext("æ­å–œä½ åˆ°è¾¾è¿™é‡Œ,æœ€åæˆ‘å°†ç»™ä½ ä¸€ä¸ªè€ƒéªŒ!");			
-            } else if (!(cm.haveItem(4031057,1))) {
-				cm.warp(120000101);
-                cm.sendOk("å»æ‰¾ #rå¡ä¼Šç³#k å¥¹ä¼šå¸®åŠ©ä½ çš„!");
-                cm.dispose();
-            } else if (cm.getPlayer().getRemainingSp() <= (cm.getLevel() - 70) * 3) {
-                cm.sendNext("ä½ çš„æŠ€èƒ½ç‚¹æ•°è¿˜æ²¡ç‚¹å®Œ..");
-		} else {
-                cm.sendOk("ä½ è¿˜ä¸èƒ½è½¬èŒ...");
-                cm.dispose();
-            }
-        } else if (status == 1) {
-            if (cm.haveItem(4031058, 1)) {
-                if (cm.getJob()==510) {
-                    cm.changeJob(511);
-                    //cm.getPlayer().gainAp(5);
-					cm.gainItem(4031057, -1);
-					cm.gainItem(4031058, -1);
-					cm.sendOk("æ­å–œè½¬èŒäº†!");
-					cm.worldMessage("ã€è½¬èŒå¿«æŠ¥ã€ï¼šæ­å–œç©å®¶."+ cm.getChar().getName() +"  æˆåŠŸä¸‰è½¬-æ ¼æ–—å®¶è®©æˆ‘ä»¬çƒ­çƒˆçš„ç¥ç¦ä»–/å¥¹å§ï¼");
-                    cm.dispose();
-                } else if (cm.getJob()==520) {
-                    cm.changeJob(521);
-                    //cm.getPlayer().gainAp(5);
-					cm.gainItem(4031057, -1);
-					cm.gainItem(4031058, -1);
-                    cm.sendOk("æ­å–œè½¬èŒäº†!");
-					cm.worldMessage("ã€è½¬èŒå¿«æŠ¥ã€ï¼šæ­å–œç©å®¶."+ cm.getChar().getName() +"  æˆåŠŸä¸‰è½¬-ç¥æªæ‰‹è®©æˆ‘ä»¬çƒ­çƒˆçš„ç¥ç¦ä»–/å¥¹å§ï¼");
-                    cm.dispose();
-                }
-            } else if (cm.haveItem(4031057, 1))
-                cm.sendAcceptDecline("ä½ å‡†å¤‡æ‰¿æ‹…æœ€ç»ˆæµ‹è¯•??");
-            else
-                cm.sendAcceptDecline("ä½†æ˜¯ï¼Œæˆ‘å¯ä»¥è®©ä½ æ›´åŠ å¼ºå¤§ã€‚è™½ç„¶ä½ å¿…é¡»è¯æ˜ä¸ä»…æ˜¯ä½ çš„å®åŠ›ï¼Œä½†ä½ çš„çŸ¥è¯†ã€‚ä½ å‡†å¤‡å¥½æŒ‘æˆ˜äº†å—ï¼Ÿ");
-        } else if (status == 2) {
-            if (cm.haveItem(4031057, 1)) {
-                cm.sendOk("å»æ‰¾ç¥åœ£çš„çŸ³å¤´æµ‹éªŒå§!!.");
-                cm.dispose();
-            }
-        }
+  if (mode == -1) {
+    cm.dispose();
+  } else {
+    if (mode == 0 && status == 1) {
+      cm.sendOk("µÈÄúÏÂ¶¨¾öĞÄÔÙ´ÎÕÒÎÒ°É¡£");
+      cm.dispose();
+      return;
     }
+    if (mode == 1) status++;
+    else status--;
+    if (status == 0) {
+      if (
+        cm.getJob() == 511 ||
+        cm.getJob() == 521 ||
+        cm.getJob() == 512 ||
+        cm.getJob() == 522
+      ) {
+        cm.sendOk("Äã»¹Ïë±äÇ¿£¿!");
+        cm.dispose();
+        return;
+      }
+      if (!(cm.getJob() == 510 || cm.getJob() == 520)) {
+        cm.sendOk("ÄãÊÇ²»ÊÇÕÒ´íÈËÁË£¿");
+        cm.dispose();
+        return;
+      } else if (cm.getPlayer().getLevel() < 70) {
+        cm.sendOk("ÄãµÄµÈ¼¶ÉĞÎ´Âú70¼¶¡£");
+        cm.dispose();
+        return;
+      }
+      if (cm.haveItem(4031057, 1)) {
+        cm.sendNext("¹§Ï²Äãµ½´ïÕâÀï,×îºóÎÒ½«¸øÄãÒ»¸ö¿¼Ñé!");
+      } else if (!cm.haveItem(4031057, 1)) {
+        //²»´«ËÍ
+        //cm.warp(120000101);
+        cm.sendOk("È¥ÕÒ #r¿­ÁÕ#k Ëı»á°ïÖúÄãµÄ¡£");
+        cm.setBossRank7("Èı×ªÈÎÎñ1", 2, 1);
+        cm.dispose();
+      } else if (cm.getPlayer().getRemainingSp() <= (cm.getLevel() - 70) * 3) {
+        cm.sendNext("ÄãµÄ¼¼ÄÜµãÊı»¹Ã»µãÍê¡£");
+      } else {
+        cm.sendOk("Äã»¹²»ÄÜ×ªÖ°¡£");
+        cm.dispose();
+      }
+    } else if (status == 1) {
+      if (cm.haveItem(4031058, 1)) {
+        if (cm.getJob() == 510) {
+          cm.changeJob(511);
+          cm.getPlayer().gainAp(5);
+          cm.gainItem(4031057, -1);
+          cm.gainItem(4031058, -1);
+          cm.dispose();
+        } else if (cm.getJob() == 520) {
+          cm.changeJob(521);
+          cm.getPlayer().gainAp(5);
+          cm.gainItem(4031057, -1);
+          cm.gainItem(4031058, -1);
+          cm.dispose();
+        }
+      } else if (cm.haveItem(4031057, 1))
+        cm.sendAcceptDecline("Äã×¼±¸³Ğµ£×îÖÕ²âÊÔ£¿");
+      else
+        cm.sendAcceptDecline(
+          "µ«ÊÇ£¬ÎÒ¿ÉÒÔÈÃÄã¸ü¼ÓÇ¿´ó¡£ËäÈ»Äã±ØĞëÖ¤Ã÷²»½öÊÇÄãµÄÊµÁ¦£¬µ«ÄãµÄÖªÊ¶¡£Äã×¼±¸ºÃÌôÕ½ÁËÂğ£¿"
+        );
+    } else if (status == 2) {
+      if (cm.haveItem(4031057, 1)) {
+        cm.sendOk("È¥ÕÒ#b#m211040401##kÉñÊ¥µÄÊ¯Í·¡£");
+        cm.dispose();
+      }
+    }
+  }
 }

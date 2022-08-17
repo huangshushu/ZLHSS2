@@ -20,9 +20,7 @@ function action(mode, type, selection) {
         status--;
     }
     if (status == 0) {
-        cm.sendSimple("这里结婚的红鸾宫门口。你想做什么？\r\n\r\n#b#L0#我想进去红鸾宫。#l" +
-            // "\r\n#b#L100#我想与TA订婚。#l" +
-            "\r\n#L1#请告诉我关于结婚的信息。#l\r\n#L2#我是贺客。我想去参加别人的婚礼。#l\r\n#L3#请告诉我关于离婚的说明。#l\r\n#L4#我想进去孤星殿。#l\r\n#L5#我想回家。#l");//#b#L0#我想进去红鸾宫。#l\r\n#L1#请告诉我关于结婚的信息。#l\r\n#L2#我是贺客。我想去宴客堂。#l\r\n#L3#请告诉我关于离婚的说明。#l\r\n#L4#我想进去孤星殿。#l
+        cm.sendSimple("这里结婚的红鸾宫门口。你想做什么？\r\n#l\r\n#b#L0#我想进去红鸾宫。#l\r\n#L1#请告诉我关于结婚的信息。\r\n#L5#我想回家。#l");//#b#L0#我想进去红鸾宫。#l\r\n#L1#请告诉我关于结婚的信息。#l\r\n#L2#我是贺客。我想去宴客堂。#l\r\n#L3#请告诉我关于离婚的说明。#l\r\n#L4#我想进去孤星殿。#l
     } else if (status == 1) {
         if (selection == 0) { //我想进去红鸾宫
             if (cm.getParty() == null || !cm.isLeader()) {
@@ -36,7 +34,7 @@ function action(mode, type, selection) {
             cm.sendNext("结婚是二个人的事，你想结婚就先要找一个对象吧？你一个人怎么能结婚？");
         } else if (selection == 2) { //我是贺客。我想去宴客堂。
             status = 9;
-            cm.sendNext("你要去参加别人的婚礼吗？那你必须要有#v4150000#(1个)，才可以进去。");
+            cm.sendNext("你要去宴客堂吗？要去宴客堂必须有#v4000463#(1个)，才可以进去。");
         } else if (selection == 3) { //请告诉我关于离婚的说明。
             status = 11;
             cm.sendNext("你想离婚吗？你再想想吧。");
@@ -46,45 +44,65 @@ function action(mode, type, selection) {
         } else if (selection == 5) { //我想进去孤星殿。
             status = 15;
             cm.sendNext("你想回去吗？你这次下去再次上来的时候还要付费。");
-        }else if (selection == 100) {
-            if (cm.getParty() == null || !cm.isLeader()) {
-                cm.sendOk("请让队长与我对话");
-                cm.dispose();
-                return;
-            }
-            var party = cm.getParty().getMembers();
-            if (party.size() <= 1 && !cm.getPlayer().isGM()) {
-                cm.sendOk("1个人不能订婚哦！");
-                cm.dispose();
-                return;
-            }
-            var it = party.iterator();
-            while (it.hasNext()) {
-                var cPlayer = it.next();
-                var aa = cm.getBossRank(cPlayer.getId(), "订婚", 1);
-                if (aa == 0) {
-                    //已订婚
-                    cm.sendOk("队伍中有人已经订婚，请确认");
-                    cm.dispose();
-                    return;
-                }
-            }
-            var msg = "";
-            var it2 = party.iterator();
-            while (it2.hasNext()) {
-                var cPlayer = it2.next();
-                msg += "[" + cPlayer.getName() + "] ";
-                cm.gainItem2(cPlayer.getId(), 1112302, 700000000);
-                cm.setBossRank(cPlayer.getId(), cPlayer.getName(), '订婚', 0, 0);
-            }
-            cm.worldMessage(11, "『月下老人』" + " : " + msg +"进行订婚。瓜瓞延绵 情投意合 宜室宜家 佳偶天成 有情成眷 诗咏好逑 乐赋唱随 连理交枝 鱼水相谐 钟鼓乐之 鸳鸯比翼 海燕双栖 乾坤定奏 笙磬同音 琴耽瑟好 琴瑟在御。祝福他们：永结同心，百年好合、百子千孙,无论富贵贫穷同德同心、琴瑟合鸣、相敬如宾。结此终身之盟,守此终身之誓,不离不弃、白头偕老。大家祝福他[她]！我们祝他/她们从游戏走到现实婚姻的殿堂。");
-            cm.dispose();
         }
     } else if (status == 2) {
         cm.sendNext("好！我看看你是否满足结婚的条件后，就送你到宫殿里。");
     } else if (status == 3) {
-        if (cm.getParty().getMembers().size() != 2) { //判断组队成员是否达到2人。
-            cm.sendNext("组队人员只能是两个人。不是你们两个人结婚吗？");
+		if(cm.getPlayer().isGM()){
+			cm.warpParty(700000100);
+			// cm.给当前地图时钟(5, false, true);
+			cm.dispose();
+		}else{
+			switch(cm.MarrageChecking()){
+				case 1:
+					cm.sendOk("组队人员不能超过两个人。不是你们两个人结婚吗？");
+					cm.dispose();
+					break;
+				case 2:
+					cm.sendOk("请确保您的伴侣和您在同一地图。");
+					cm.dispose();
+					break;
+				// case 3:
+					// cm.sendOk("你的组队中，已经有人结过婚了。\r\n请检查后再试。");
+					// cm.dispose();
+					// break;
+				// case 4:
+					// cm.sendOk("我不支持同性结婚。所以不能让你们进去。");
+					// cm.dispose();
+					// break;
+				case 5:
+					cm.sendOk("要穿的衣服是这样。男士:#b#b#v1050122##k或#b#b#v1051129##k或#b#b#v1050113##k，女士:#b#v1051130##k或#b#v1051177##k或#b#v1051114##k。其中#b#v1050129##k，#b#v1050113##k，#b#v1051177##k，#b#v1051114##k,这些道具在冒险商城可以购买，#b#v1050122##k和#b#v1051130##k是在那边那位红线女那里卖。");
+					cm.dispose();
+					break;
+				case 6:
+					cm.sendOk("组队成员中有人没有戴恋人戒指。");
+					cm.dispose();
+					break;
+				case 7:
+					cm.sendOk("你们佩戴的恋人戒指不一样啊。");
+					cm.dispose();
+					break;
+				case 8:
+					cm.sendOk("你们戴的恋人戒指虽然一样，但是戒指上为什么出现了第三者的名字？可不要乱搞哦！");
+					cm.dispose();
+					break;
+				default:
+					if (cm.getPlayerCount(700000100) > 0) {
+						cm.sendNext("结婚地图现在有别的玩家正在举行婚礼，请稍后在试。");
+						cm.dispose();
+						return;
+					}
+					cm.warpParty(700000100);
+					cm.给当前地图时钟(5, false, true);
+					cm.dispose();
+					//cm.worldMessage(5, "<频道 " + cm.getClient().getChannel() + "> " + cm.getPlayer().getName() + " 和 " + chr.getName() + " 的婚礼即将开始。");
+					break;
+			}
+		}
+		
+		cm.dispose();
+        /* if (!cm.getParty().getMembers().size() == 2) { //判断组队成员是否达到2人。
+            cm.sendNext("组队人员不能超过两个人。不是你们两个人结婚吗？");
             cm.dispose();
         } else if (!cm.isLeader()) { // 不是队长
             cm.sendOk("你想结婚吗？那就请你的组队长和我讲话吧…");
@@ -117,7 +135,7 @@ function action(mode, type, selection) {
             cm.dispose();
             //cm.worldMessage(5, "<频道 " + cm.getClient().getChannel() + "> " + cm.getPlayer().getName() + " 和 " + chr.getName() + " 的婚礼即将开始。");
         }
-        cm.dispose();
+        cm.dispose(); */
     } else if (status == 4) {
         cm.sendNextPrev("两位来我这里后你们一定要给我能证明两位是真正恋人的标志，就是恋人戒指。同时两位必须戴好恋人戒指，才能进去结婚。");
     } else if (status == 5) {
@@ -125,24 +143,24 @@ function action(mode, type, selection) {
     } else if (status == 6) {
         cm.sendNextPrev("第二个条件是你们应该穿好结婚礼服，想要进到神圣的红鸾殿，一定要做好“结婚的准备”");
     } else if (status == 7) {
-        cm.sendNextPrev("要穿的衣服是这样。男士:#b#b#z1050121##k或#b#b#z1050122##k或#b#b#z1050113##k，女士:#b#z1051129##k或#b#z1051130##k或#b#z1051114##k。其中#b#z1050121##k，#b#z1051129##k，#b#z1050113##k，#b#z1051114##k,这些道具在冒险商城可以购买，#b#z1050122##k和#b#z1051130##k是在那边那位红线女那里卖。");
+        cm.sendNextPrev("要穿的衣服是这样。男士:#b#b#v1050122##k或#b#b#v1051129##k或#b#b#v1050113##k，女士:#b#v1051130##k或#b#v1051177##k或#b#v1051114##k。其中#b#v1050129##k，#b#v1050113##k，#b#v1051177##k，#b#v1051114##k,这些道具在冒险商城可以购买，#b#v1050122##k和#b#v1051130##k是在那边那位红线女那里卖。");
     } else if (status == 8) {
         cm.sendNextPrev("另外你要结婚一定要付结婚登记费，要10万金币。这是必须的哦。呵呵。");
     } else if (status == 9) {
         cm.sendNextPrev("这里只能一对一对新人结婚，后面的恋人需要等待。所以你们进去结婚时，请务必在5分钟之内办完所有手续。");
         cm.dispose();
     } else if (status == 10) {
-        if (cm.getMap(700000100).getCharactersSize() <= 0 && cm.getMap(700000200).getCharactersSize() <= 0) {
+        if (cm.getMap(700000100).getCharactersSize() <= 0&&cm.getMap(700000200).getCharactersSize() <= 0) {
                 cm.sendNext("结婚地图现在没有玩家进行结婚，请稍后在试。");
                 cm.dispose();
             }
-        if (cm.haveItem(4150000) && cm.getMap(700000100).getCharactersSize() > 0) {
-	    cm.gainItem(4150000,-1);
-	    cm.warp(700000100);
-            cm.sendNext("给予新人最好的祝福吧。");
+        if (cm.haveItem(4000463)) {
+	    cm.gainItem(4000463,-1);
+	    cm.warp(700000200);
+            cm.sendNext("看来你带来了#v4000463#(1个)，我已经将你送到宴客堂。");
 	    cm.dispose();
         } else {
-            cm.sendNext("你好像没有#v4150000#(1个)吧。没有#v4150000#(1个)就进不去.或者里面并没有举行婚礼！");
+            cm.sendNext("你好像没有#v4000463#(1个)吧。没有#v4000463#(1个)就进不去");
             cm.dispose();
         }
     } else if (status == 11) {
@@ -155,16 +173,18 @@ function action(mode, type, selection) {
     } else if (status == 14) {
         //to do
     } else if (status == 15) {
-        if (cm.haveItem(1112804) && cm.getPlayer().getMarriageId() != 0) { //结婚戒指
-            cm.warp(700000101)
+            cm.warp(700000101);
             cm.dispose();
-        } else {
-            cm.sendOk("你好像没有结婚戒指吧。没有戒指就进不去.")
-            cm.dispose();
-        }
+        //if (cm.haveItem(1112804)) { //结婚戒指
+            //cm.warp(700000101)
+            //cm.dispose();
+        //} else {
+            //cm.sendOk("你好像没有结婚戒指吧。没有戒指就进不去.")
+            //cm.dispose();
+        //}
     } else if (status == 16) {
-        var returnMap = cm.getSavedLocation("WEDDING");
-        cm.clearSavedLocation("WEDDING");
+        var returnMap = cm.getSavedLocation("MULUNG_TC");
+        cm.clearSavedLocation("MULUNG_TC");
         if (returnMap < 0) {
             returnMap = 211000000;
         }

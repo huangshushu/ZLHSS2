@@ -1,19 +1,21 @@
-/*
-	任务: 不管多少次都得争取！
-	描述: 我从重力网驾驶员……位于2102年商业区的#p9120033#处，获得了讨伐#o9400295#的任务，他说重力网使用的驱动组件目前出现在#o9400295#的周围，有了它就可以强化#o9400295#没时间了，如果不尽快地打倒#o9400295#的话…！
-*/
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 var status = -1;
 
 function start(mode, type, selection) {
     if (mode == 1) {
         status++;
     } else {
-        qm.sendNext("...What is it? Ah, I see that he's coming really close!");
+        qm.sendNext("...它是什么？啊，我看到他的到来非常接近!");
         qm.dispose();
         return;
     }
     if (status == 0) {
-        qm.askAcceptDecline("Watch out, because he seems... much more powerful than before. Do not underestimate him!");
+        qm.askAcceptDecline("当心，因为他似乎......比以前更加强大。不要低估他!");
     } else if (status == 1) {
         qm.forceStartQuest();
         qm.dispose();

@@ -1,4 +1,4 @@
-ï»¿/* 	Kelvin
+/* 	Kelvin
 	SingaPore VIP Face changer
 */
 var status = 0;
@@ -36,16 +36,16 @@ function action(mode, type, selection) {
 						facenew.push(fface[i] + cm.getChar().getFace() % 1000 - (cm.getChar().getFace() % 100));
 					}
 				}
-				cm.sendStyle("é€‰æ‹©ä¸€ä¸ªä½ æƒ³è¦çš„ã€‚", facenew);
+				cm.sendStyle("Ñ¡ÔñÒ»¸öÄãÏëÒªµÄ¡£", facenew);
 			}
 		else if (status == 1){
 			cm.dispose();
 			if (cm.haveItem(5152038) == true){
 				cm.gainItem(5152038, -1);
 				cm.setFace(facenew[selection]);
-				cm.sendOk("äº«å—ï¼");
+				cm.sendOk("ÏíÊÜ£¡");
 			} else {
-				cm.sendNext("ç–´.... è²Œä¼¼æ²¡æœ‰#t5152038#ã€‚");
+				cm.sendNext("¯z.... Ã²ËÆÃ»ÓĞ#t5152038#¡£");
 			}
 		}
 	}

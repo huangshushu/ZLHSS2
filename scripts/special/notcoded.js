@@ -1,10 +1,33 @@
-/* global cm */
+/*
+ ZEVMS冒险岛(079)游戏服务端
+ 道具制作
+ */
+
+//说明文字
+var 说明文字 = "   hi #b#h ##k 抱歉，该脚本尚未投入使用，如果您认为有必要，请联系管理员添加。";
+
+
+var status = -1;
+var sels;
 
 function start() {
-    var info = "瀵逛笉璧凤紝鎴戝苟娌℃湁琚鐞嗗憳璁剧疆鍙娇鐢紝濡傛灉鎮ㄨ寰楁垜搴旇宸ヤ綔鐨勶紝閭ｅ氨璇锋偍鍥炴姤缁欑鐞嗗憳.\r\n";
-    if (cm.getPlayerStat("GM") > 0) {
-        info += "鎴戠殑ID缂栧彿: #r" + cm.getNpc() + "#k ";
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+    if (mode == 1) {
+        status++;
+    } else if (mode == 0) {
+        status--;
+    } else {
+        cm.对话结束();
+        return;
     }
-    cm.sendOk(info);
-    cm.dispose();
+    if (status == 0) {
+        var 文本信息 = "";
+
+        cm.sendSimple("" + 说明文字 + "\r\n" + 文本信息 + "");
+    } else {
+        cm.对话结束();
+    }
 }

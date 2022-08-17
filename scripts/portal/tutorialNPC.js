@@ -4,7 +4,7 @@ function enter(pi) {
 		var npcid = 0;
 	
 		if (m == 120000101) { // Navigation Room, The Nautilus
-			npcid = 1090000; // Maybe 1090000?
+			npcid = 1072008; // Maybe 1090000?
 		} else if (m == 102000003) { // Warrior's Sanctuary
 			npcid = 1022000;
 		}else if (m == 103000003) { // Thieves' Hideout

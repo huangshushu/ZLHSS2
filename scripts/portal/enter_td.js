@@ -1,3 +1,3 @@
 function enter(pi) {
-    pi.playerMessage(5, "This portal is not available. Please talk to Charles.");
+    pi.playerMessage(5, "找查理斯才能进入。");
 }

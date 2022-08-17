@@ -1,27 +1,33 @@
-var status = -1;
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
+ var status = -1;
 
 function start(mode, type, selection) {
     if (mode == 1) {
 	status++;
     } else {
 	if (status == 2) {
-	    qm.sendNext("What? I don''t think there are any suspects besides that kid. Please think again.");
+	    qm.sendNext("什么？我认为那电影有除了那小子任何嫌疑人。请三思.");
 	    qm.dispose();
 	    return;
 	}
 	status--;
     }
     if (status == 0) {
-	qm.sendNextS("What did #p1032112# say?", 8);
+	qm.sendNextS("做什么 #p1032112# 说?", 8);
     } else if (status == 1) {
-	qm.sendNextPrevS("#b(You tell her what #p1032112# observed.)#k", 2);
+	qm.sendNextPrevS("#b(你告诉她 #p1032112# 观察到的.)#k", 2);
     } else if (status == 2) {
-	qm.askAcceptDecline("A kid with a puppet? That seems very suspicious. I am sure that kid is the reason the Green Mushrooms have suddenly turned violent.");
+	qm.askAcceptDecline("用木偶的孩子吗？这似乎很可疑。我相信，孩子是绿色蘑菇突然演变成暴力冲突的原因.");
     } else if (status == 3) {
 	qm.forceStartQuest();
-	qm.sendNextS("How dare this kid wreak havoc in the South Forest. Who knows how long it will take to restore the forest... I''ll have to devote most of my time cleaning up the mess.", 2);
+	qm.sendNextS("怎么敢这小子肆虐南方森林。谁知道它需要多长时间来恢复森林......请给我投入我大部分的时间清理烂摊子.", 2);
     } else if (status == 4) {
-	qm.sendPrevS("#b(You were able to find out what caused the changes in the Green Mushrooms. You should report #p1002104# and deliver the information you''ve collected.)#k", 2);
+	qm.sendPrevS("#b(你能找出导致绿蘑菇的变化。你应该报告#p1002104#并提供您所收集的信息.)#k", 2);
     } else if (status == 5) {
 	qm.dispose();
     }

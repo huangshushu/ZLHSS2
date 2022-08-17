@@ -4,15 +4,7 @@
 
 var status = -1;
 
-function start() {
-	action(1,0,0);
-}
-
 function action(mode, type, selection) {
-	if (cm.haveItem(4001086)) {
-		cm.warp(240050400,0);
-	} else {
-		cm.sendOk("#b(ä¸€åº§çŸ³ç¢‘ï¼Œä¸Šé¢å†™è‘—çœ‹ä¸æ‡‚çš„æ–‡å­—â€¦â€¦ã€‚)");
-	}
-    cm.dispose();
+	cm.sendOk("#b(Ò»×ùÊ¯±®£¬ÉÏÃæĞ´×Å¿´²»¶®µÄÎÄ×Ö¡­¡­¡£)");
+	cm.safeDispose();
 }

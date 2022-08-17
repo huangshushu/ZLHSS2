@@ -1,72 +1,107 @@
-var status = -1;
-var minLevel = 70;
-var maxLevel = 200;
+/*
+	This file is part of the cherry Maple Story Server
+    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc> 
+                       Matthias Butz <matze@cherry.de>
+                       Jan Christian Meyer <vimes@cherry.de>
 
-var minPartySize = 1;
-var maxPartySize = 6;
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License version 3
+    as published by the Free Software Foundation. You may not use, modify
+    or distribute this program under any other version of the
+    GNU Affero General Public License.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+function start() {
+	status = -1;
+	action(1, 0, 0);
+}
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-	status++;
-    } else {
-	if (status == 0) {
-	    cm.dispose();
-	    return;
-	}
-	status--;
-    }
-
-    if (status == 0) {
-	if (cm.getParty() == null) { // No Party
-	    cm.sendOk("è¯·ç»„é˜Ÿå†æ¥æ‰¾æˆ‘");
-	} else if (!cm.isLeader()) { // Not Party Leader
-	    cm.sendOk("å¦‚æžœæƒ³å°è¯•ä¿æŠ¤é‡ŽçŒªä»»åŠ¡ #bè¯·é˜Ÿé•¿æ¥æ‰¾æˆ‘#k è°ˆè°ˆã€‚#b#l");
+	if (mode == -1 || mode == 0) {
+		cm.dispose();
 	} else {
-	    // Check if all party members are within PQ levels
-	    var party = cm.getParty().getMembers();
-	    var mapId = cm.getMapId();
-	    var next = true;
-	    var levelValid = 0;
-	    var inMap = 0;
-	    var it = party.iterator();
-
-	    while (it.hasNext()) {
-		var cPlayer = it.next();
-		if ((cPlayer.getLevel() >= minLevel) && (cPlayer.getLevel() <= maxLevel)) {
-		    levelValid += 1;
-		} else {
-		    next = false;
-		}
-		if (cPlayer.getMapid() == mapId) {
-		    inMap += (1);
-		}
-	    }
-	    if (party.size() > maxPartySize || inMap < minPartySize) {
-		next = false;
-	    }
-	    if (next) {
-		var em = cm.getEventManager("ProtectPig");
-		if (em == null) {
-		    cm.sendSimple("æ‰¾ä¸åˆ°æ­¤å‰¯æœ¬ï¼Œè¯·è”ç»œç®¡ç†å‘˜ã€‚#b#l");
-		} else {
-		    var prop = em.getProperty("state");
-		    if (prop.equals("0") || prop == null) {
-        for (var i = 4001095; i < 4001099; i++) {
-	    cm.givePartyItems(i, 0, true);
-	}
-        for (var i = 4001100; i < 4001101; i++) {
-	    cm.givePartyItems(i, 0, true);
-	}
-			em.startInstance(cm.getParty(), cm.getMap());
+		if (mode == 1)
+			status++;
+		if (status == 0) {
+			cm.sendSimple ("ÎÒ¿ÉÒÔÒÑºÜ±ãÒËµÄ¼Û¸ñÂô¸øÄãÐ©¶«Î÷¡£ÐèÒªµÄÊ²Ã´£¿\r\n#b#L0#Ð¡ä½Öí [5,000,000 ½ð±Ò]#l\r\n#L1#ÒøÉ«Ò°Öí [20,000,000 ½ð±Ò]#l\r\n#L2#³àÁçÁú [50,000,000 ½ð±Ò]#l\r\n#L3#5¸öÑÐ¾¿±¨¸æÊé [1,000,000 ½ð±Ò]#l\r\n#L4#5¸ö·ÑÂåÃÉ [1,000,000 ½ð±Ò]#l");
+		} else if (status == 1) {
+			if(!cm.canHold(1902000)){
+				cm.sendOk("ÄãµÄ±³°üÃ»ÓÐ×ã¹»µÄ¿Õ¼ä£¬ÇëÈ·±£ÓÐ×ã¹»µÄ¿Õ¼äÔÙ¹ºÂò£¡"); 
+				cm.dispose();
+				return;
+			}
+			if (selection == 0) {
+				if (cm.getPlayer().getMeso() < 5000000) {
+					cm.sendOk("ÄãÃ»ÓÐ×ã¹»µÄ½ð±Ò¡£ÎÞ·¨¹ºÂò£¡");
+					cm.dispose();
+					return;
+				}
+				else if (cm.getPlayer().getLevel() < 70) {
+					cm.sendOk("ÄãÖÁÉÙÐèÒª#b70#k¼¶²Å¿É¹ºÂò#bÐ¡ä½Öí#k.¼ÓÓÍ°É£¡»¶Ó­ÔÙ´Î¹âÁÙ£¡");
+					cm.dispose();
+					return;
+				}
+				cm.gainItem(1902000, 1);
+				cm.gainMeso(-5000000); 
+			}
+			else if (selection == 1) {
+				if (cm.getPlayer().getMeso() < 20000000) {
+					cm.sendOk("ÄãÃ»ÓÐ×ã¹»µÄ½ð±Ò¡£ÎÞ·¨¹ºÂò£¡");
+					cm.dispose();
+					return;
+				}
+				else if (cm.getPlayer().getLevel() < 120) {
+					cm.sendOk("ÄãÖÁÉÙÐèÒª#b120#k¼¶²Å¿É¹ºÂò#bÒøÉ«Ò°Öí#k.¼ÓÓÍ°É£¡»¶Ó­ÔÙ´Î¹âÁÙ£¡");
+					cm.dispose();
+					return;
+				}
+				cm.gainItem(1902001, 1);
+				cm.gainMeso(-20000000); 
+			} 
+			else if (selection == 2) {
+				if (cm.getPlayer().getMeso() < 50000000) {
+					cm.sendOk("ÄãÃ»ÓÐ×ã¹»µÄ½ð±Ò¡£ÎÞ·¨¹ºÂò£¡");
+					cm.dispose();
+					return;
+				}
+				else if (cm.getPlayer().getLevel() < 200) {
+					cm.sendOk("ÄãÐèÒªµ½´ï#b200#k¼¶²Å¿É¹ºÂò#b³àÁçÁú#k.¼ÓÓÍ°É£¡»¶Ó­ÔÙ´Î¹âÁÙ£¡");
+					cm.dispose();
+					return;
+				}
+				cm.gainItem(1902002, 1);
+				cm.gainMeso(-50000000); 
+			}
+			else if (selection == 3) {
+				if (cm.getPlayer().getMeso() < 1000000) {
+					cm.sendOk("ÄãÃ»ÓÐ×ã¹»µÄ½ð±Ò¡£ÎÞ·¨¹ºÂò£¡");
+					cm.dispose();
+					return;
+				}
+				cm.gainItem(4031508, 5);
+				cm.gainMeso(-1000000); 
+			}
+			else if (selection == 4) {
+				if (cm.getPlayer().getMeso() < 1000000) {
+					cm.sendOk("ÄãÃ»ÓÐ×ã¹»µÄ½ð±Ò¡£ÎÞ·¨¹ºÂò£¡");
+					cm.dispose();
+					return;
+				}
+				cm.gainItem(4031507, 5);
+				cm.gainMeso(-1000000); 		
+			 
+	         }
+			cm.sendOk("¹ºÂò³É¹¦¡£ÓÐ×øÆï×ßÆðÂ·À´¾Í¿ìµÄ¶àÁË£¡\r\nÈç¹ûÄãÃ»ÓÐ»ñµÃ#bÆ¤°°×Ó#kºÍ#bÆïÊÞ¼¼ÄÜ#kµÄ»°Ò²¿ÉÒÔÔÚÎÒÕâÀï»ñµÃ¡£»ñµÃ·½·¨½ÓÎÒµÄÈÎÎñ¾Í¿ÉÒÔÁË¡£½ÓÁËÈÎÎñºóÔÙ¹ºÂòÈÎÎñËùÐèÒªµÄÎïÆ·¾Í¿ÉÒÔÁË£¡");
 			cm.dispose();
 			return;
-		    } else {
-			cm.sendSimple("å·²ç»æœ‰ #rå¦å¤–ä¸€é˜Ÿ#k è¿›åŽ»æŒ‘æˆ˜äº†ï¼Œè¯·ç¨åŽå†å°è¯•ã€‚#b#");
-		    }
 		}
-	    } else {
-		cm.sendSimple("ç»„é˜Ÿæ¡ä»¶è²Œä¼¼æ²¡æœ‰è¾¾åˆ°è¦æ±‚:\r\n\r\n#ræœ€å°‘çš„æˆå‘˜: " + minPartySize + " å…¨éƒ¨ç­‰çº§å¿…é¡»åœ¨ " + minLevel + " åˆ° " + maxLevel + ".#b#l");
-	    }
-	}
 	}
 }

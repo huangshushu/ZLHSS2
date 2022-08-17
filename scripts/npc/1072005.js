@@ -1,40 +1,46 @@
-ï»¿/*
- This file is part of the OdinMS Maple Story Server
- Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc> 
- Matthias Butz <matze@odinms.de>
- Jan Christian Meyer <vimes@odinms.de>
+/*
  
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU Affero General Public License version 3
- as published by the Free Software Foundation. You may not use, modify
- or distribute this program under any other version of the
- GNU Affero General Public License.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU Affero General Public License for more details.
- 
- You should have received a copy of the GNU Affero General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ Ä§·¨Ê¦¶ş×ª×ªÖ°½Ì¹Ù
  */
 
-
+var ·µ»ØÍ¼ = 101020000;
 function start() {
-    if (cm.haveItem(4031013, 30)) {
-        cm.sendNext("wow æœç„¶æ˜¯ä¸ªå¤§ä¾ æ­å–œé€šè¿‡è¿™æ¬¡ä¸ªè€ƒéªŒ ä½ å·²ç»æ˜¯ä¸ªå¼ºå¤§çš„æ³•å¸ˆäº†æ‰€ä»¥æˆ‘å°†é¢èµ ç»™ä½ ç¥ç§˜çš„å°ç¤¼ç‰©.");
-    } else {
-        cm.sendOk("ä½ è¿˜æ²¡æœ‰ #b30 #t4031013##k. è¯·æ”¶é›†å®Œæ¯•å†æ¥æ‰¾æˆ‘,ç¥ä½ å¥½è¿.");
-        cm.dispose();
-    }
+  status = -1;
+  action(1, 0, 0);
 }
-
 function action(mode, type, selection) {
-    if (mode == 1) {
-        cm.warp(101000003, 0);
-        cm.removeAll(4031013);
-        cm.gainItem(4031009, -1);
-        cm.gainItem(4031012, 1);
-    }
+  if (status <= 0 && mode <= 0) {
     cm.dispose();
+    return;
+  }
+  if (mode == 1) {
+    status++;
+  } else {
+    status--;
+  }
+  if (status <= 0) {
+    var selStr = "ÄãÊÇ·ñÒÑ¾­ÊÕ¼¯ÆëÁË#b30¸ö #v4031013# #t4031013##k £¿\r\n";
+    selStr += "  #L1##bÎÒÒÑ¾­ÊÕ¼¯ºÃÁË#k#l\r\n";
+    selStr += "  #L2##bÎÒÒªÀë¿ªÕâÀï#k#l\r\n";
+    cm.sendSimple(selStr);
+  } else if (status == 1) {
+    switch (selection) {
+      case 1:
+        if (cm.haveItem(4031013, 30)) {
+          cm.warp(·µ»ØÍ¼, 0);
+          cm.removeAll(4031013);
+          cm.gainItem(4031009, -1);
+          cm.gainItem(4031012, 1);
+          cm.¶Ô»°½áÊø();
+        } else {
+          cm.sendOk("ÄãÊÕ¼¯µ½ÁË#b30¸ö #v4031013# #t4031013##k Âğ£¿");
+          cm.¶Ô»°½áÊø();
+        }
+        break;
+      case 2:
+        cm.warp(·µ»ØÍ¼, 0);
+        cm.¶Ô»°½áÊø();
+        break;
+    }
+  }
 }

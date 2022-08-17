@@ -1,37 +1,42 @@
-/* guild emblem npc */
+/*
+ 
+ */
 var status = 0;
 var sel;
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == 0 && status == 0) {
-	cm.dispose();
-	return;
-    }
-    if (mode == 1)
-	status++;
-    else
-	status--;
+  if (mode == 0 && status == 0) {
+    cm.dispose();
+    return;
+  }
+  if (mode == 1) status++;
+  else status--;
 
-    if (status == 0)
-	cm.sendSimple("ä½ æƒ³è¦åšä»€ä¹ˆï¼Ÿ\r\n#b#L0#åˆ›å»º/æ›´æ”¹å…¬ä¼šå¾½ç« #l#k");
-    else if (status == 1) {
-	sel = selection;
-	if (selection == 0) {
-	    if (cm.getPlayerStat("GRANK") == 1)
-		cm.sendYesNo("é‡æ–°æ‰“é€ ä¸€ä¸ªå¾½ç« éœ€è¦ #b1,000,000æ«å¸#kï¼Œä½ ç¡®å®šè¦ç»§ç»­å—ï¼Ÿ");
-	    else
-		cm.sendOk("æ‰“é€ å…¬ä¼šå¾½ç« éœ€è¦å…¬ä¼šé•¿æ¥æ‰¾æˆ‘æ‰è¡Œå–”ï¼Œè¯·ä½ ä»¬çš„å…¬ä¼šé•¿æ¥æ‰¾æˆ‘å§~");
-	}
-				
-    } else if (status == 2) {
-	if (sel == 0) {
-	    cm.genericGuildMessage(17);
-	    cm.dispose();
-	}
+  if (status == 0)
+    cm.sendSimple(
+      "  Hi~#b#h ##k£¬Ò»¸öÆ¯ÁÁµÄÎ¢ÕÂ¸üÄÜÌåÏÖÒ»¸ö¼Ò×åµÄÌØµã£¬ÄãÒª²»ÒªÑ¡Ò»¸öÄØ\r\n\r\n#b#L0#´´½¨/¸ü¸Ä»ÕÕÂ#l#k"
+    );
+  else if (status == 1) {
+    sel = selection;
+    if (selection == 0) {
+      if (cm.getPlayerStat("GRANK") == 1)
+        cm.sendYesNo(
+          "ÖØĞÂ´òÔìÒ»¸ö»ÕÕÂĞèÒª #b5,000,000½ğ±Ò#k£¬ÄãÈ·¶¨Òª¼ÌĞøÂğ£¿"
+        );
+      else
+        cm.sendOk(
+          "´òÔì¹«»á»ÕÕÂĞèÒª¹«»á³¤À´ÕÒÎÒ²ÅĞĞà¸£¬ÇëÄãÃÇµÄ¹«»á³¤À´ÕÒÎÒ°É~"
+        );
     }
+  } else if (status == 2) {
+    if (sel == 0) {
+      cm.genericGuildMessage(17);
+      cm.dispose();
+    }
+  }
 }

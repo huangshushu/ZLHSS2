@@ -1,3 +1,3 @@
 function enter(pi) {
-    pi.openNpc(2210014,0);
+    pi.warp(240093200,0);
 }

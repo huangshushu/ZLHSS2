@@ -1,31 +1,20 @@
-var baseid = 221022200;
+
+var baseid = 221023400;
 var dungeonid = 221023401;
 var dungeons = 30;
 
 function enter(pi) {
-    if (pi.getMapId() == baseid) {
-	if (pi.getParty() != null) {
-	    if (pi.isLeader()) {
-		for (var i = 0; i < dungeons; i++) {
-		    if (pi.getPlayerCount(dungeonid + i) == 0) {
-			pi.warpParty(dungeonid + i);
-			return;
-		    }
-		}
-	    } else {
-		pi.playerMessage(5, "You are not the leader of the party.");
-	    }
-	} else {
-	    for (var i = 0; i < dungeons; i++) {
-		if (pi.getPlayerCount(dungeonid + i) == 0) {
-		    pi.warp(dungeonid + i);
-		    return;
-		}
-	    }
-	}
-	pi.playerMessage(5, "All of the Mini-Dungeons are in use right now, please try again later.");
+	pi.openNpc(2003,4);
+    /*if (pi.getMapId() == baseid) {
+        for(var i = 0; i < dungeons; i++) {
+            if (pi.getPlayerCount(dungeonid + i) == 0) {
+                pi.warp(dungeonid + i, 0);
+                return true;
+            }
+        }
+        pi.playerMessage(5, "所有的地下城都在使用中，請稍後再嘗試。");
     } else {
-	pi.playPortalSE();
-	pi.warp(baseid, "MD00");
+        pi.warp(baseid, "MD00");
     }
+    return true;*/
 }

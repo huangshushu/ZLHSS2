@@ -1,24 +1,31 @@
-var status = -1;
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
+ var status = -1;
 
 function start(mode, type, selection) {
     if (mode == 1) {
 	status++;
     } else {
 	if (status == 0) {
-	    qm.sendNext("It's really urgent, and you'll regret it if you refuse to. #bIt has something to do with your pole arm,#k which means it has to do with your past. Who knows...? Maybe the pole arm is key to reawakening your abilities...?");
+	    qm.sendNext("这真的很紧急，如果你拒绝，你会后悔. #b它与你的极手臂有关,#k这意味着它与你的过去有关。 谁知道...？ 也许杆臂是唤醒你的能力的关键...?");
 	    qm.dispose();
 	    return;
 	}
 	status--;
     }
     if (status == 0) {
-	qm.askAcceptDecline("How's the training going? Wow, looking at you, I can tell your levels have shot through the roof. That's amazing... well, anyway, I see that you'r busy, but you'll have to return to the island for a bit.");
+	qm.askAcceptDecline("培训如何进行？ 哇，看着你，我可以告诉你的水平射过屋顶。 这是惊人的...好吧，反正，我看到你的忙，但你必须回到岛上一点.");
     } else if (status == 1) {
-	qm.forceStartQuest(21200, "3"); //??
-	qm.forceCompleteQuest();
-	qm.forceStartQuest(21202); //skip just in case
-	qm.forceStartQuest(21203, "0");
-	qm.sendOk("Your #bGiant Pole Arm#k that's being kept in #bRien#k is acting strange all of a sudden. According to the book, the pole arm reacts like this when it's calling for its master. #bMaybe it's calling for you?#k? Please come back to the island and find out.");
+	qm.forceStartQuest();//开始任务
+	//qm.forceStartQuest(21201);
+	
+	//qm.forceStartQuest(21202); //skip just in case
+	//qm.forceStartQuest(21203, "0");
+	qm.sendOk("你的 #b巨型臂#k这是保持在#bRien#k 突然间变得奇怪。 根据这本书，当它要求它的主人时，极臂像这样反应. #b也许它在呼唤你?#k? 请回到岛上找出来.");
 	qm.dispose();
     }
 }
@@ -28,46 +35,46 @@ function end(mode, type, selection) {
 	status++;
     } else {
 	if (status == 11) {
-	    qm.sendNext("Hey, at least you tell me you tried!");
+	    qm.sendNext("嘿，至少你告诉我你试过!");
 	    qm.dispose();
 	    return;
 	} else if (status == 13) {
 	    qm.MovieClipIntroUI(true);
-	    qm.warp(914090200, 0);
+	    //qm.warp(914090200, 0);
 	    qm.dispose();
 	    return;
 	}
 	status--;
     }
     if (status == 0) {
-	qm.sendNextS("Hmmmmmm mmmm mmmmm....", 2);
+	qm.sendNextS("嗯嗯嗯....", 2);
     } else if (status == 1) {
-	qm.sendNextPrevS("#b(Giant Pole Arm is buzzing, but who's that boy standing there?)#k", 2);
+	qm.sendNextPrevS("#b(巨人的胳膊是嗡嗡声，但谁是那个男孩站在那里?)#k", 2);
     } else if (status == 2) {
-	qm.sendNextPrevS("#b(I've never met him before. He doesn't look human.)#k", 2);
+	qm.sendNextPrevS("#b(我从来没有见过他。 他不看人.)#k", 2);
     } else if (status == 3) {
-	qm.sendNextPrev("Hey Aran! Do you still not hear me? Seriously, can't you hear me? Ahhh, this is frustrating!");
+	qm.sendNextPrev("嘿Aran！ 你还是听不到我吗？ 说真的，你不能听到我吗？ 啊，这是令人沮丧的!");
     } else if (status == 4) {
-	qm.sendNextPrevS("#b(Whoa, who was that? Sounds like an angry boy...)#k", 2);
+	qm.sendNextPrevS("#b(哇，是谁？ 听起来像一个生气的男孩。..)#k", 2);
     } else if (status == 5) {
-	qm.sendNextPrev("Seriously, the one master I had turned out to be trapped in ice for hundreds of years, abandoning the weapon, and now the 'master' can't even hear me?");
+	qm.sendNextPrev("真的，一个大师我原来是被困在冰上几百年，放弃了武器，现在的“主人”甚至不能听到我?");
     } else if (status == 6) {
-	qm.sendNextPrevS("Who are you?", 2);
+	qm.sendNextPrevS("你是谁?", 2);
     } else if (status == 7) {
-	qm.sendNextPrev("Aran? Do you hear me now? It's me, it's me! I'm your weapon #bMaha the pole arm!#k!");
+	qm.sendNextPrev("Aran？ 你现在听到我吗？ 这是我，是我！ 我是你的武器#b玛哈的手臂!#k!");
     } else if (status == 8) {
-	qm.sendNextPrevS("#b(...Maha? Giant pole Arm actually talks?)#k", 2);
+	qm.sendNextPrevS("#b(...玛哈？ 巨人手臂实际上在说什么？)#k", 2);
     } else if (status == 9) {
-	qm.sendNextPrev("Why do you have that look on your face like you can't believe it? I see that you have lost all your memories, but... did you also forget about me? How can you do that to me??");
+	qm.sendNextPrev("你为什么在你的脸上看起来像你不能相信？ 我看到你失去了所有的回忆，但...你也忘记了我吗？ 你怎么能这样对我??");
     } else if (status == 10) {
-	qm.sendNextPrevS("I'm sorry, but seriously... I don't remember a thing.", 2);
+	qm.sendNextPrevS("对不起，但严重...我不记得一件事.", 2);
     } else if (status == 11) {
-	qm.sendYesNo("Is that all you can say after all those years? I'm sorry? Do you understand how bored I was all by myself for hundreds of years? Bring it out if you can. Bring your memories out! Bring them all out! Dig them up if you need to!");
+	qm.sendYesNo("这是所有这些年后可以说的吗？ 对不起？ 你明白我为什么无聊我自己几百年了吗？ 把它带出来，如果可以的话。 把你的回忆出来！ 把他们全部！ 如果你需要，挖它们!");
     } else if (status == 12) {
-	qm.sendNextS("#b(The voice that claims to be Maha the Giant Pole Arm seem quite perturbed. This conversation is going nowhere. I better talk to Lirin first.)#k", 2);
+	qm.sendNextS("#b(声称是玛哈巨人之臂的声音似乎很受干扰。 这个对话没有了。 我最好先和Lirin谈谈.)#k", 2);
 	qm.forceCompleteQuest();
     } else if (status == 13) {
-	qm.sendYesNo("Would you like to skip the video clip?  Even if you skip the scene, game play will not be affected.");
+	qm.sendYesNo("您要跳过视频剪辑吗？ 即使你跳过现场，游戏也不会受到影响.");
     } else if (status == 14) {
 	qm.dispose();
     }

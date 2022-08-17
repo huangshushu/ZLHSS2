@@ -1,11 +1,12 @@
-ï»¿/*
-	Pink Balloon - LudiPQ Bonus stage NPC
-*/
+/*
+ 
+ ½Å±¾£ºÍæ¾ßËşµÚÊ®¹Ø
+ */
 
 function start() {
-    cm.sendNext("æ­å–œå®Œæˆï¼Œ#ré—å¼ƒä¹‹å¡”PQ#k è¿™ä¸€é˜¶æ®µå°±æ˜¯åº†ç¥ï¼Œæ‰“ç ´ç®±å­å¯ä»¥æ‹¿åˆ°æƒŠå–œã€‚");
+  cm.sendNext("¹§Ï²Äã£¬ÕâÒ»½×¶Î¾ÍÊÇÇì×££¬´òÆÆÏä×Ó¿ÉÒÔÄÃµ½¾ªÏ²¡£");
 }
 
 function action(mode, type, selection) {
-    cm.dispose();
+  cm.dispose();
 }

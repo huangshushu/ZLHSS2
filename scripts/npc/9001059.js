@@ -1,95 +1,62 @@
-/*  
- *  
- */
-
-//var PQLog = ["BossFairyQueen"];//配置文件名称
-var maxenter = [3];//次數限制
-var status = -1;
-var minPlayers = 1;//最低限制人數
-var maxPlayers = 1;//最高限制人數
-var minLevel = [160];//最低等级限制
-var maxLevel = [255];//最高等级限制
-var PQLog = ["火焰狼"];//记录次數名称
-var moblevel = 255;//怪物最大等级设置
-var startmap = 993000000;//开始的地圖
-var open = true;//副本开關 开启、true 關闭、false
-var chs;
-
+﻿var status = 0;
 
 function start() {
-    if (cm.getMapId() == startmap) {
-        var text = "";
-        for (var i = 0; i < PQLog.length; i++) {
-            text += "\r\n#b#L" + i + "#挑战" + PQLog[i] + "#l#k         ";
-        }
-        cm.sendSimple("《Boss - " + PQLog[0] + "》#n\r\n\r\n#b#h0# \n\#k你現在想和队友一起挑战这個BOSS副本嗎?\r\n" + text);
-    } else {
-        cm.sendYesNo("Boss - " + PQLog[0] + "》#n\r\n要离开这里了吗？我将会送你回到原来的地图！\r\n");
-    }
-
+    status = -1;
+    action(1, 0, 0);
 }
-function action(mode, type, selection) {
-    if (status >= 1 && mode == 0) {
-        cm.sendOk("快捷寻找组队按热键“O”赶快加入组队來挑战组队任务吧。");
-        cm.dispose();
-        return;
-    }
-    mode == 1 ? status++ : status--;
 
-    if (cm.getMapId() == startmap) {
-        if (status == 0) {
-            if  (cm.getParty() == null) {
-                cm.sendOk("未组队。");
-                cm.dispose();
-                return;
-            }
-            chs = selection;
-            var rwpz = "《Boss - " + PQLog[selection] + "》#n\r\n#k\r\n#r";
-            rwpz += "#d       当前已挑战火焰狼[#e#g"+cm.getBossLog("火焰狼") + "#n#k/#r#e3#n#k]次#n#k\r\n";
-            rwpz += "\r\n#b推荐人數：" + minPlayers + " - " + maxPlayers + "#n    推荐等级：" + minLevel[selection] + " - " + maxLevel[selection] + "#n#k";
-            rwpz += "\r\n#d当前已進行：#e#r" +cm.getBossLog("火焰狼")  + " #n#k次\r\n";
-            cm.sendYesNo(rwpz + "#r#h0# #n#k\n\#k是否現在就進入？#n");
-        } else if (status == 1) {
-            if (cm.getParty() == null) { //判断组队
-                cm.sendYesNo("你并沒有组队，請创建组建一個队伍在來吧。");
-                cm.dispose();
-                return;
-            } else if (!cm.isLeader()) { // 判断组队隊長
-                cm.sendOk("請讓你們的隊長和我對話。");
-                cm.dispose();
-                return;
-            } else if (cm.getPlayer().getLevel() < 160) {//判断玩家角色等级
-                cm.sendNext("组队成员等级 " + 160 + " 以上 " + 255 + " 以下才可以入场。");
-                cm.dispose();
-                return;
-            } else if ( cm.getBossLog("火焰狼") >= 3) {
-                cm.sendOk("您好,你当天挑战次数已用完"+ maxenter +"次！");
-                cm.dispose();
-                return;
-            } else if (!cm.allMembersHere()) {
-                cm.sendOk("你的组队部分成员不在当前地圖,請召集他們過來後在尝试。"); //判断组队成员是否在一張地圖..
-                cm.dispose();
-                return;
-            } 
-            else {
-                      if (cm.getPlayerCount(993000500) <= 0 && cm.getPlayerCount(993000500) <= 0 && cm.getPlayerCount(993000500) <= 0 && cm.getPlayerCount(993000500) <= 0 && cm.getPlayerCount(993000500) <= 0) {
-                            cm.warpParty(993000500);
-                            cm.getMap(993000500).resetFully();
-                            cm.spawnMob(9101078, 373, 29);
-                            cm.getPlayer().setBossLog("火焰狼");
-                            //cm.喇叭(2,"『终极BOSS』：【" + cm.getChar().getName() + "】带领他的队伍悍不畏死的去火焰狼了");
-                    } else {
-                        cm.sendOk("已經有队伍在進行了,請換其他频道尝试。");
-                    }
-                }
-            cm.dispose();
-        } else {
-            cm.dispose();
-        }
-    } else {
-        if (status == 0) {
-            cm.warp(startmap, 0);
-        }
-    cm.dispose();
+function action(mode, type, selection) {
+    if (status == 0 && mode == 0) {
+		cm.dispose();
+		return;
     }
+    if (mode == 1)
+		status++;
+	else
+		status--;
+    if (status == 0) {
+		if (cm.getPlayer().getMapId() == 993000500) {
+			cm.sendNext("我们成功了！成功击败了火焰狼！啊哈哈哈！这么多财宝都是我们的了！");
+		} else if (cm.getPlayer().getMapId() == 993000600){
+			cm.sendOk("感谢你为击败火焰狼作出的贡献，送你回到射手村吧。");
+		} else {
+			cm.sendYesNo("#e<限时副本>#n\r\n\r\n你想和我还有其他冒险家们一起去挑战#r火焰狼#k吗？击败可获得大量奖励！");
+		}
+    } else if (status == 1) {
+		if (cm.getPlayer().getMapId() == 993000500) {
+			//if (cm.canHold(2049116,15) && cm.canHold(2049618,15) && cm.canHold(4001551,2) && cm.canHold(4310282,2) && cm.canHold(2048747,5) ){
+			if (cm.getEventCount("火焰狼") < 2){
+				cm.gainItem(2049116,10);//完美化混沌卷轴
+				cm.gainItem(2049618,10);//完美还原卷轴
+				cm.gainItem(5062024,10);//闪炫魔方
+				cm.gainItem(4001551,2);//海盗王的金币1000万金币
+				cm.gainItem(4310282,10);//冒险岛纪念币
+				cm.gainItem(2048747,1);//永远的涅槃火焰
+				cm.setEventCount("火焰狼");
+cm.worldSpouseMessage(0x17,"[世界BOSS-火焰狼] 恭喜玩家 "+ cm.getChar().getName() +" 在火焰狼活动中获得大量奖励。");
+				cm.warp(993000600);
+		    }else{
+cm.worldSpouseMessage(0x17,"【检测BUG公告】 恭喜玩家 "+ cm.getChar().getName() +" 利用BUG牟利，看到此提示的玩家即可举报这个傻逼！");
+cm.worldSpouseMessage(0x17,"【检测BUG公告】 恭喜玩家 "+ cm.getChar().getName() +" 利用BUG牟利，看到此提示的玩家即可举报这个傻逼！");
+cm.worldSpouseMessage(0x17,"【检测BUG公告】 恭喜玩家 "+ cm.getChar().getName() +" 利用BUG牟利，看到此提示的玩家即可举报这个傻逼！");
+cm.worldSpouseMessage(0x17,"【检测BUG公告】 恭喜玩家 "+ cm.getChar().getName() +" 利用BUG牟利，看到此提示的玩家即可举报这个傻逼！");
+cm.worldSpouseMessage(0x17,"【检测BUG公告】 恭喜玩家 "+ cm.getChar().getName() +" 利用BUG牟利，看到此提示的玩家即可举报这个傻逼！");
+				cm.sendOk("你号没了，弟弟玩意。")
+
+			}
+		} else if (cm.getPlayer().getMapId() == 993000600) {
+			cm.warp(100000000);
+		} else {
+			var eim = cm.getEIMbyEvenName("FlameWolf");
+			if (eim == null) {
+				var em = cm.getEventManager("FlameWolf");
+				em.startInstance(cm.getPlayer());
+				cm.sendOk("先静静等待一会，火焰狼马上就要回来了！");
+			} else {
+				eim.registerPlayer(cm.getPlayer());
+				cm.sendOk("先静静等待一会，火焰狼马上就要回来了！");
+			}
+		}
+	cm.dispose();
+	}
 }

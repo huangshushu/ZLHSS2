@@ -11,6 +11,9 @@ function enter(pi) {
             case 1://Stage 1
             case 2://Stage 2
             case 3://Stage 3
+                if (!eim.getProperty("stage" + stage).equals("0"))
+                    nextMap = mapid + 100;
+                break;
             case 4://Stage 4
                 if (!eim.getProperty("stage" + stage).equals("0"))
                     nextMap = mapid + 100;
@@ -21,7 +24,7 @@ function enter(pi) {
                 }
                 break;
         }
-        if (nextMap > 0) {
+        if (· > 0) {
             eim.setProperty("stage", parseInt(stage + 1));
             eim.setProperty("killed", "0");
             pi.warpParty(nextMap, 0);
@@ -31,3 +34,4 @@ function enter(pi) {
         }
     }
 }
+6

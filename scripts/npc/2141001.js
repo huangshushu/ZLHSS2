@@ -1,295 +1,511 @@
 /*
- NPC Name: 		The Forgotten Temple Manager
- Map(s): 		Deep in the Shrine - Forgotten Twilight
- Description: 		Pink Bean battle starter
- */
-        var status = -1;
-
+	NPC Name: 		Adobis
+	Map(s): 		El Nath : Entrance to pinkbeanum Altar
+	Description: 		pinkbeanum battle starter
+*/
+var status = 0;
+var cishuxianzhi = 5;//限制次数
+var 重返次数 = 3;
 function start() {
-    if (cm.getPlayer().getLevel() < 120) {
-        cm.sendOk("��ĵȼ�����120���o������");
-        cm.dispose();
-        return;
-    }
-    if (cm.getPlayer().getClient().getChannel() != 1) {
-        cm.sendOk("ֻ�����l��1����");
-        cm.dispose();
-        return;
-    }
-    var em = cm.getEventManager("PinkBeanBattle");
-
-    if (em == null) {
-        cm.sendOk("�_���e�`��Ո�M����T��");
-        cm.dispose();
-        return;
-    }
-    var eim_status = em.getProperty("state");
-    var marr = cm.getQuestRecord(160104);
-    var data = marr.getCustomData();
-    if (data == null) {
-        marr.setCustomData("0");
-        data = "0";
-    }
-    var time = parseInt(data);
-    if (eim_status == null || eim_status.equals("0")) {
-
-        var squadAvailability = cm.getSquadAvailability("PinkBean");
-        if (squadAvailability == -1) {
-            status = 0;
-            cm.sendYesNo("�����dȤ�ɞ��h�����L?");
-        } else if (squadAvailability == 1) {
-            // -1 = Cancelled, 0 = not, 1 = true
-            var type = cm.isSquadLeader("PinkBean");
-            if (type == -1) {
-                cm.sendOk("����h��ꠕr�g���ţ����Ա����������Ոһ���h���.");
-                cm.dispose();
-            } else if (type == 0) {
-                var memberType = cm.isSquadMember("PinkBean");
-                if (memberType == 2) {
-                    cm.sendOk("���ѽ����������ˡ�");
-                    cm.dispose();
-                } else if (memberType == 1) {
-                    status = 5;
-                    cm.sendSimple("��Ҫ��ʲ�N? \r\n#b#L0#�����h���#l \r\n#b#L1#�˳��h���#l \r\n#b#L2#�鿴�h��꠳ɆT#l");
-                } else if (memberType == -1) {
-                    cm.sendOk("����h��ꠕr�g���ţ����Ա����������Ոһ���h��ꠡ�");
-                    cm.dispose();
-                } else {
-                    status = 5;
-                    cm.sendSimple("��Ҫ��ʲ�N?\r\n#b#L0#�����h���#l \r\n#b#L1#�˳��h���#l \r\n#b#L2#�鿴�h��꠳ɆT#l");
-                }
-            } else { // Is leader
-                status = 10;
-                cm.sendSimple("��Ҫ��ʲ�N? \r\n#b#L0#�鿴�h��꠳ɆT#l \r\n#b#L1#�Ƴ��h��꠆T#l \r\n#b#L2#��݋�����б�#l \r\n#r#L3#�M��؈D#l");
-                // TODO viewing!
-            }
-        } else {
-            /*var eim = cm.getDisconnected("PinkBeanBattle");
-             if (eim == null) {
-             var squd = cm.getSquad("PinkBean");
-             if (squd != null) {
-             cm.sendYesNo("�����h��ꠣ����ڌ�����.\r\n" + squd.getNextPlayer());
-             status = 3;
-             } else {
-             cm.sendOk("�����h��ꠣ����ڌ�����.");
-             cm.safeDispose();
-             }
-             } else {
-             cm.sendYesNo("��؁��˰����F���Ƿ�Ҫ���·����h������ڈ���?");
-             status = 2;
-             }*/
-
-
-            var props = em.getProperty("leader");
-            if (props != null && props.equals("true")) {
-                var eim = cm.getDisconnected("PinkBeanBattle");
-                if (eim == null) {
-                    cm.sendOk("�����h��ꠣ����ڌ����С�");
-                    cm.safeDispose();
-                } else {
-                    cm.sendOk("�����h��ꠣ����ڌ����С�");
-                    cm.safeDispose();
-                }
-            } else {
-                cm.sendOk("�ܱ�Ǹ����h�����L�x�_�ˬF���������㲻���ٷ��ؑ�����");
-                cm.safeDispose();
-            }
-        }
-    } else {
-
-
-
-        var props = em.getProperty("leader");
-        if (props != null && props.equals("true")) {
-            var eimc = em.getInstance("PinkBeanBattle");
-            var propsc = eimc.getProperty("isSquadPlayerID_" + cm.getPlayer().getId());
-            var sayc = "\r\n" + (eimc == null ? "eimc is null" : propsc) + "\r\n";
-            if ((eimc != null) && (propsc != null) && propsc.equals("1")) {
-                status = 13;
-                sayc += "#b�F���Ƿ�Ҫ���·����h������ڈ��أ�";
-                sayc += "\r\n#r#L1#���·����h������ڈ���#l";
-                cm.sendSimple(sayc);
-            } else {
-                eim = cm.getDisconnected("PinkBeanBattle");
-                if (eim == null) {
-                    cm.sendOk("�����h��ꠣ����ڌ����С�" + sayc);
-                    cm.safeDispose();
-                } else {
-                    cm.sendOk("�����h��ꠣ����ڌ����С�" + sayc);
-                    cm.safeDispose();
-                }
-            }
-        } else {
-            var eimd = em.getInstance("PinkBeanBattle");
-            var propsd = eimd.getProperty("isSquadPlayerID_" + cm.getPlayer().getId());
-            var sayd = "\r\n" + (eimd == null ? "eimd is null" : propsd) + "\r\n";
-            if ((eimd != null) && (propsd != null) && propsd.equals("1")) {
-                status = 13;
-                sayd += "#b�F���Ƿ�Ҫ���·����h������ڈ��أ�";
-                sayd += "\r\n#r#L1#���·����h������ڈ���#l";
-                cm.sendSimple(sayd);
-            } else {
-                cm.sendOk("�ܱ�Ǹ����h�����L�x�_�ˬF���������㲻���ٷ��ؑ�����");
-                cm.safeDispose();
-            }
-        }
-
-        /*var eim = cm.getDisconnected("PinkBeanBattle");
-         if (eim == null) {
-         var squd = cm.getSquad("PinkBean");
-         if (squd != null) {
-         cm.sendYesNo("�����h��ꠣ����ڌ�����.\r\n" + squd.getNextPlayer());
-         status = 3;
-         } else {
-         cm.sendOk("�����h��ꠣ����ڌ�����.");
-         cm.safeDispose();
-         }
-         } else {
-         cm.sendYesNo("��؁��˰����F���Ƿ�Ҫ���·����h������ڈ���?");
-         status = 2;
-         }*/
-    }
+	status =0;
+    action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    switch (status) {
-        case 0:
-            if (mode == 1) {
-                if (cm.getPlayer().getBossLogD("Ƥ��౴Δ�") == 3) {
-                    cm.sendNext("�ܱ�Ǹÿ��ֻ�ܴ�3��..");
-                    cm.dispose();
-                    return;
-                }
-                if (cm.registerSquad("PinkBean", 5, " �ѳɞ��h����L����Ҫ�����h��꠵����Ո�_ʼ�M����Ո��")) {
-                    cm.sendOk("��ɹ���Ո���h�����L�������ڽ����������ټ������Ո�h��ꠣ�Ȼ���_ʼ���Y��");
-                    //cm.getPlayer().setBossLog("Ƥ��౴Δ�");
-                } else {
-                    cm.sendOk("�����h��꠳��e��");
-                }
+    if (cm.getPlayer().getMapId() == 240040700) {
+        if (selection < 100) {
+            cm.sendSimple("#r#L100#品克缤#l\r\n#L101#超级品克缤#l");
+        } else {
+            if (selection == 100) {
+                cm.warp(240050400,0);
+            } else if (selection == 101) {
+                cm.warp(240050400,0);
             }
             cm.dispose();
-            break;
-        case 2:
-            if (!cm.reAdd("PinkBeanBattle", "PinkBean")) {
-                cm.sendOk("�l��δ֪�e�`��Ո������ԇ��");
-            }
-            cm.safeDispose();
-            break;
-        case 3:
-            if (mode == 1) {
-                var squd = cm.getSquad("PinkBean");
-                if (cm.getPlayer().getBossLogD("Ƥ��౴Δ�") == 3) {
-                    cm.sendNext("�ܱ�Ǹÿ��ֻ�ܴ�3��..");
+        }
+        return;
+    } else if (cm.getPlayer().getMapId() == 240050400) {
+        switch (status) {
+            case 0:
+                if (cm.getPlayer().getLevel() < 100) {
+                    cm.sendOk("你的等级必须达到100级以上.");
                     cm.dispose();
                     return;
                 }
-                if (squd != null && !squd.getAllNextPlayer().contains(cm.getPlayer().getName())) {
+/*                 if (cm.getPlayer().getClient().getChannel() != 2 && cm.getPlayer().getClient().getChannel() != 3) {
+                    cm.sendOk("混乱品克缤只能试图在频道（2）（3）挑战.");
+                    cm.dispose();
+                    return;
+                } */
+                var em = cm.getEventManager("PinkBeanBattle");
 
-                    squd.setNextPlayer(cm.getPlayer().getName());
-                    cm.sendOk("���Ѽ������h��ꠡ�");
-                    //cm.getPlayer().setBossLog("Ƥ��౴Δ�");
-                }
-            }
-            cm.dispose();
-            break;
-        case 5:
-            if (selection == 0) { // join
-                if (cm.getPlayer().getBossLogD("Ƥ��౴Δ�") == 3) {
-                    cm.sendNext("�ܱ�Ǹÿ��ֻ�ܴ�3��..");
-                    cm.dispose();
+                if (em == null) {
+                    cm.sendOk("事件还没有开始，请联系一个通用汽车公司.");
+                    cm.safeDispose();
                     return;
                 }
-                var ba = cm.addMember("PinkBean", true);
-                if (ba == 2) {
-                    cm.sendOk("�h����˔��ѝM��Ո�����هLԇ��");
-                } else if (ba == 1) {
+                var prop = em.getProperty("state");
+                var marr = cm.getQuestRecord(160102);
+                var data = marr.getCustomData();
+                if (data == null) {
+                    marr.setCustomData("0");
+                    data = "0";
+                }
+                var time = parseInt(data);
+                if (prop == null || prop.equals("0")) {
+                    var squadAvailability = cm.getSquadAvailability("pinkbean");
+                    if (squadAvailability == -1) {
+                        status = 1;
+                        cm.sendYesNo("你有兴趣成为远征队的队长吗？");
 
-                    //cm.getPlayer().setBossLog("Ƥ��౴Δ�");
-                    cm.sendOk("��Ո�h��꠳ɹ���");
-                } else {
-                    cm.sendOk("���ѽ����h����e���ˡ�");
-                }
-            } else if (selection == 1) {// withdraw
-                var baa = cm.addMember("PinkBean", false);
-                if (baa == 1) {
-                    cm.sendOk("�x�_�h��꠳ɹ���");
-                } else {
-                    cm.sendOk("�㲻���h����e�档");
-                }
-            } else if (selection == 2) {
-                if (!cm.getSquadList("PinkBean", 0)) {
-                    cm.sendOk("���δ֪���e�`���h��꠵�Ո�󱻾ܽ^�ˡ�");
-                }
-            }
-            cm.dispose();
-            break;
-        case 10:
-            if (mode == 1) {
-                if (selection == 0) {
-                    if (!cm.getSquadList("PinkBean", 0)) {
-                        cm.sendOk("���δ֪���e�`���h��꠵�Ո�󱻾ܽ^�ˡ�");
+                    } else if (squadAvailability == 1) {
+                        // -1 = Cancelled, 0 = not, 1 = true
+                        var type = cm.isSquadLeader("pinkbean");
+                        if (type == -1) {
+                            cm.sendOk("远征队已经结束，请重新注册.");
+                            cm.safeDispose();
+                        } else if (type == 0) {
+							
+                            var memberType = cm.isSquadMember("pinkbean");
+                            if (memberType == 2) {
+                                cm.sendOk("你被禁止参加远征队.");
+                                cm.safeDispose();
+                            } else if (memberType == 1) {
+                                status = 5;
+                                cm.sendSimple("你想做什么? \r\n#b#L0#检查成员#l \r\n#b#L1#加入远征队#l \r\n#b#L2#退出小队#l");
+                            } else if (memberType == -1) {
+                                cm.sendOk("队伍已经结束，请重新注册.");
+                                cm.safeDispose();
+                            } else {
+                                status = 5;
+                                cm.sendSimple("你想做什么? \r\n#b#L0#检查成员#l \r\n#b#L1#加入队伍#l \r\n#b#L2#退出小队#l");
+                            }
+                        } else { // Is leader
+                            status = 10;
+                            cm.sendSimple("你想做什么? \r\n#b#L0#检查成员#l \r\n#b#L1#删除成员#l \r\n#b#L2#编辑限制列表#l \r\n#r#L3#进入地图#l");
+                        // TODO viewing!
+                        }
+                    } else {
+                        var eim = cm.getDisconnected("PinkBeanBattle");
+                        if (eim == null) {
+                            var squd = cm.getSquad("pinkbean");
+                            if (squd != null) {
+                                cm.sendYesNo("队伍的对抗品克缤的战斗已经开始了.\r\n" + squd.getNextPlayer());
+                                status = 3;
+                            } else {
+                                cm.sendOk("队伍的对抗品克缤的战斗已经开始了.");
+                                cm.safeDispose();
+                            }
+                        } else {
+                            cm.sendYesNo("啊，你回来了。你愿意加入你的队伍在战斗中吗?");
+                            status = 2;
+                        }
                     }
-                    cm.dispose();
+                } else {
+                    var eim = cm.getDisconnected("PinkBeanBattle");
+                    if (eim == null) {
+                        var squd = cm.getSquad("pinkbean");
+                        if (squd != null) {
+                            cm.sendYesNo("队伍的对抗品克缤的战斗已经开始了.\r\n" + squd.getNextPlayer());
+                            status = 3;
+                        } else {
+                            cm.sendOk("队伍的对抗品克缤的战斗已经开始了.");
+                            cm.safeDispose();
+                        }
+                    } else {
+                        cm.sendYesNo("啊，你回来了。你愿意加入你的队伍在战斗中吗?");
+                        status = 2;
+                    }
+                }
+                break;
+            case 1:
+                if (mode == 1) {
+					if(cm.getMap(270050100).getCharactersSize() > 0){
+						cm.sendOk("里面已经有人了~.");
+						cm.dispose();
+						return
+						
+					}
+					var cishu = cm.查询当日BOSS记录("pinkbean");
+                    if(cishu >= cishuxianzhi){
+						cm.sendOk("抱歉，你今日已参加过 "  + cishu + " 次品克缤远征，当日的BOSS次数已达到上限。");
+					}else{
+						if (cm.registerSquad("pinkbean", 5, " 已被任命为团长。如果你想加入请在时间段内开启远征队.")) {
+							cm.sendOk("你已经被任命为队伍的领袖。在接下来的5分钟，你可以加入远征队的成员.");
+							cm.worldMessage( "[BOSS公告] " + cm.getPlayer().getName() + " 在 " + cm.getChannel() + " 频道创建了品克缤远征队，请各位玩家尽快备好弹药，来讨伐时间的宠儿品克缤吧！");
+						} else {
+							cm.sendOk("添加你的小队时发生了一个错误.");
+						}
+					}
+					
+                } else {
+                    cm.sendOk("如果你想成为远征队的领队的话，跟我谈谈.")
+                }
+                cm.safeDispose();
+                break;
+            case 2:
+				//BOSS重返
+				if(cm.getBossLog("PB重返") >= 重返次数){
+					cm.sendOk("抱歉，每个BOSS一天最多只能重返" + 重返次数 + "次。")
+				}else{
+					if (!cm.reAdd("PinkBeanBattle", "pinkbean")) {
+						cm.sendOk("误差…请再试一次.");
+					}else{
+						cm.setBossLog("PB重返");
+					}
+				}
+				// cm.sendOk
+                cm.dispose();
+                break;
+            case 3:
+                if (mode == 1) {
+					// var party = cm.组队成员();
+					var party = cm.组队成员();
+			//cm.getPlayer().dropMessage(5, "队伍有"+cm.组队人数()+"人");
+			cm.dispose();
+            for (var i = 0; i < cm.组队人数(); i++) {
+			//cm.getPlayer().dropMessage(5, "所在地图代码"+party.get(i).getMapid());
+			cm.dispose();
+            if (party.get(i).getMapid() == 270050100){//判断队长在不在这个地图,可以重返的地图
+            cm.flytoID(party.get(i).getId());
+			cm.dispose();
+			return;
+                } } }
+                break;
+            case 5:
+                if (selection == 0) {
+                    if (!cm.getSquadList("pinkbean", 0)) {
+                        cm.sendOk("由于未知的错误，对队伍的要求被拒绝了.");
+                        cm.safeDispose();
+                    } else {
+                        cm.dispose();
+                    }
+                } else if (selection == 1) { // join
+					var cishu = cm.查询当日BOSS记录("pinkbean");
+                    if(cishu >= cishuxianzhi){
+						cm.sendOk("抱歉，你今日已参加过 "  + cishu + " 次品克缤远征，当日的BOSS次数已达到上限。");
+						cm.safeDispose();
+					}else{
+						var ba = cm.addMember("pinkbean", true);
+						if (ba == 2) {
+							cm.sendOk("队伍目前已满，请稍后再试。");
+							cm.safeDispose();
+						} else if (ba == 1) {
+							cm.sendOk("你已经成功加入了队伍");
+							cm.worldMessage( "[BOSS公告] 玩家 " + cm.getPlayer().getName() + " 加入了 " + cm.getChannel() + "频道的品克缤讨伐远征队。");
+							cm.safeDispose();
+						} else {
+							cm.sendOk("你已经是队伍的一部分了.");
+							cm.safeDispose();
+						}
+					}
+                    
+                } else {// withdraw
+                    var baa = cm.addMember("pinkbean", false);
+                    if (baa == 1) {
+                        cm.sendOk("你已经退出了队伍的成功");
+                        cm.safeDispose();
+                    } else {
+                        cm.sendOk("你不是队伍的一部分.");
+                        cm.safeDispose();
+                    }
+                }
+                break;
+            case 10:
+                if (selection == 0) {
+                    if (!cm.getSquadList("pinkbean", 0)) {
+                        cm.sendOk("由于未知的错误，对队伍的要求被拒绝了.");
+                    }
+                    cm.safeDispose();
                 } else if (selection == 1) {
                     status = 11;
-                    if (!cm.getSquadList("PinkBean", 1)) {
-                        cm.sendOk("���δ֪���e�`���h��꠵�Ո�󱻾ܽ^�ˡ�");
-                        cm.dispose();
+                    if (!cm.getSquadList("pinkbean", 1)) {
+                        cm.sendOk("由于未知的错误，对队伍的要求被拒绝了.");
+                        cm.safeDispose();
                     }
+
                 } else if (selection == 2) {
                     status = 12;
-                    if (!cm.getSquadList("PinkBean", 2)) {
-                        cm.sendOk("���δ֪���e�`���h��꠵�Ո�󱻾ܽ^�ˡ�");
+                    if (!cm.getSquadList("pinkbean", 2)) {
+                        cm.sendOk("由于未知的错误，对队伍的要求被拒绝了.");
+                        cm.safeDispose();
+                    }
+
+                } else if (selection == 3) { // get insode
+                    if (cm.getSquad("pinkbean") != null) {
+                        var dd = cm.getEventManager("PinkBeanBattle");
+                        dd.startInstance(cm.getSquad("pinkbean"), cm.getMap(), 160102);
+						if(cm.getPlayer().getMapId() == 270050100){
+							//cm.getMap().clearOwnerList();
+							//cm.getMap().addAllOwnerHere();
+							//cm.getMap().给时钟(240, true, true);
+							cm.worldMessage( "[BOSS公告] " + cm.getChannel() + " 频道的远征队长已经入场，品克缤的讨伐即将开始，请加入远征队伍的玩家尽快入场！");
+							//cm.给团队每日("pinkbean");//给团队次数
+							给地图每日a(cm.getPlayer().getMap(), "pinkbean");
+						}
+                        cm.dispose();
+                    } else {
+                        cm.sendOk("由于未知的错误，对队伍的要求被拒绝了.");
+                        cm.safeDispose();
+                    }
+                }
+                break;
+            case 11:
+                cm.banMember("pinkbean", selection);
+                cm.dispose();
+                break;
+            case 12:
+                if (selection != -1) {
+                    cm.acceptMember("pinkbean", selection);
+                }
+                cm.dispose();
+                break;
+        }
+    } else {
+        switch (status) {
+            case 0:
+                if (cm.getPlayer().getLevel() < 50) {
+                    cm.sendOk("有一个50级要求的尝试品克缤.");
+                    cm.dispose();
+                    return;
+                }
+                var em = cm.getEventManager("PinkBeanBattle");
+
+                if (em == null) {
+                    cm.sendOk("事件未启动，请联系GM.");
+                    cm.safeDispose();
+                    return;
+                }
+                var prop = em.getProperty("state");
+                var marr = cm.getQuestRecord(160101);
+                var data = marr.getCustomData();
+                if (data == null) {
+                    marr.setCustomData("0");
+                    data = "0";
+                }
+                var time = parseInt(data);
+                if (prop == null || prop.equals("0")) {
+                    var squadAvailability = cm.getSquadAvailability("pinkbean");
+                    if (squadAvailability == -1) {
+                        status = 1;
+                        cm.sendYesNo("你有兴趣成为远征队的领队吗?");
+
+                    } else if (squadAvailability == 1) {
+
+                        // -1 = Cancelled, 0 = not, 1 = true
+                        var type = cm.isSquadLeader("pinkbean");
+                        if (type == -1) {
+                            cm.sendOk("队伍已经结束，请重新注册.");
+                            cm.safeDispose();
+                        } else if (type == 0) {
+                            var memberType = cm.isSquadMember("pinkbean");
+                            if (memberType == 2) {
+                                cm.sendOk("你被禁止参加队伍.");
+                                cm.safeDispose();
+                            } else if (memberType == 1) {
+                                status = 5;
+                                cm.sendSimple("你想做什么? \r\n#b#L0#检查成员#l \r\n#b#L1#加入队伍#l \r\n#b#L2#退出小队#l");
+                            } else if (memberType == -1) {
+                                cm.sendOk("队伍已经结束，请重新注册.");
+                                cm.safeDispose();
+                            } else {
+                                status = 5;
+                                cm.sendSimple("你想做什么? \r\n#b#L0#检查成员#l \r\n#b#L1#加入队伍#l \r\n#b#L2#退出小队#l");
+                            }
+                        } else { // Is leader
+                            status = 10;
+                            cm.sendSimple("你想做什么啊啊啊啊? \r\n#b#L0#检查成员#l \r\n#b#L1#删除成员#l \r\n#b#L2#编辑限制列表#l \r\n#r#L3#进入地图#l");
+                        // TODO viewing!
+                        }
+                    } else {
+                        var eim = cm.getDisconnected("PinkBeanBattle");
+                        if (eim == null) {
+                            var squd = cm.getSquad("pinkbean");
+                            if (squd != null) {
+                                cm.sendYesNo("远征队对抗品克缤已经开始了.\r\n" + squd.getNextPlayer());
+                                status = 3;
+                            } else {
+                                cm.sendOk("远征队对抗品克缤已经开始了.");
+                                cm.safeDispose();
+                            }
+                        } else {
+                            cm.sendYesNo("啊，你回来了。你愿意加入你的队伍在战斗中吗?");
+                            status = 2;
+                        }
+                    }
+                } else {
+                    var eim = cm.getDisconnected("PinkBeanBattle");
+                    if (eim == null) {
+                        var squd = cm.getSquad("pinkbean");
+                        if (squd != null) {
+                            cm.sendYesNo("远征队对抗品克缤已经开始了.\r\n" + squd.getNextPlayer());
+                            status = 3;
+                        } else {
+                            cm.sendOk("远征队对抗品克缤已经开始了.");
+                            cm.safeDispose();
+                        }
+                    } else {
+                        cm.sendYesNo("啊，你回来了。你愿意加入你的队伍在战斗中吗?");
+                        status = 2;
+                    }
+                }
+                break;
+            case 1:
+                if (mode == 1) {
+					if(cm.getMap(270050100).getCharactersSize() > 0){
+						cm.sendOk("里面已经有人了~.");
+						cm.dispose();
+						return
+						
+					}
+					var cishu = cm.查询当日BOSS记录("pinkbean");
+                    if(cishu >= cishuxianzhi){
+						cm.sendOk("抱歉，你今日已参加过 "  + cishu + " 次品克缤远征，当日的BOSS次数已达到上限。");
+					}else{
+						if (cm.registerSquad("pinkbean", 5, " 已被任命为班长（定期）。如果你想加入请在时间段内注册的远征队.")) {
+							cm.sendOk("你已经被任命为远征队领袖领袖。在接下来的5分钟，你可以加入远征队的成员。");
+							cm.worldMessage( "[BOSS公告] " + cm.getPlayer().getName() + " 在 " + cm.getChannel() + " 频道创建了品克缤远征队，请各位玩家尽快备好弹药，来讨伐时间的宠儿品克缤吧！");
+						} else {
+							cm.sendOk("添加你的小队时发生了一个错误.");
+						}
+					}
+                    
+                } else {
+                    cm.sendOk("如果你想成为远征队领队的话，跟我谈谈.")
+                }
+                cm.safeDispose();
+                break;
+            case 2:
+				//BOSS重返
+				if(cm.getBossLog("PB重返") >= 重返次数){
+					cm.sendOk("抱歉，每个BOSS一天最多只能重返" + 重返次数 + "次。")
+				}else{
+					if (!cm.reAdd("PinkBeanBattle", "pinkbean")) {
+						cm.sendOk("误差…请再试一次.");
+					}else{
+						cm.setBossLog("PB重返");
+					}
+				}
+                cm.safeDispose();
+                break;
+            case 3:
+                if (mode == 1) {
+					var party = cm.组队成员();
+			//cm.getPlayer().dropMessage(5, "队伍有"+cm.组队人数()+"人");
+			cm.dispose();
+            for (var i = 0; i < cm.组队人数(); i++) {
+			//cm.getPlayer().dropMessage(5, "所在地图代码"+party.get(i).getMapid());
+			cm.dispose();
+            if (party.get(i).getMapid() == 270050100){//判断队长在不在这个地图,可以重返的地图
+            cm.flytoID(party.get(i).getId());
+			cm.dispose();
+			return;
+                } } }
+               
+                break;
+            case 5:
+                if (selection == 0) {
+                    if (!cm.getSquadList("pinkbean", 0)) {
+                        cm.sendOk("由于未知的错误，对队伍的要求被拒绝了.");
+                        cm.safeDispose();
+                    } else {
                         cm.dispose();
                     }
-                } else if (selection == 3) { // get insode
-                    if (cm.getSquad("PinkBean") != null) {
-                        var dd = cm.getEventManager("PinkBeanBattle");
-						//��¼�ط�
-						�ط���¼("PinkBean", "Ʒ���͵����ط�", "Ƥ��౴Δ�");
-                        dd.startInstance(cm.getSquad("PinkBean"), cm.getMap(), 160104);
+                } else if (selection == 1) { // join
+					var cishu = cm.查询当日BOSS记录("pinkbean");
+                    if(cishu >= cishuxianzhi){
+						cm.sendOk("抱歉，你今日已参加过 "  + cishu + " 次品克缤远征，当日的BOSS次数已达到上限。");
+						cm.safeDispose();
+					}else{
+						var ba = cm.addMember("pinkbean", true);
+						if (ba == 2) {
+							cm.sendOk("队伍目前已满，请稍后再试.");
+							cm.safeDispose();
+						} else if (ba == 1) {
+							cm.sendOk("你已经成功加入了队伍");
+							cm.worldMessage( "[BOSS公告] 玩家 " + cm.getPlayer().getName() + " 加入了 " + cm.getChannel() + "频道的品克缤讨伐远征队。");
+							cm.safeDispose();
+						} else {
+							cm.sendOk("你已经是队伍的一部分了.");
+							cm.safeDispose();
+						}
+					}
+                    
+                } else {// withdraw
+                    var baa = cm.addMember("pinkbean", false);
+                    if (baa == 1) {
+                        cm.sendOk("你已经退出了队伍的成功");
+                        cm.safeDispose();
                     } else {
-                        cm.sendOk("���δ֪���e�`���h��꠵�Ո�󱻾ܽ^�ˡ�");
+                        cm.sendOk("你不是队伍的一部分.");
+                        cm.safeDispose();
                     }
-                    cm.dispose();
                 }
-            } else {
+                break;
+            case 10:
+                if (selection == 0) {
+                    if (!cm.getSquadList("pinkbean", 0)) {
+                        cm.sendOk("由于未知的错误，对队伍的要求被拒绝了。");
+                    }
+                    cm.safeDispose();
+                } else if (selection == 1) {
+                    status = 11;
+                    if (!cm.getSquadList("pinkbean", 1)) {
+                        cm.sendOk("由于未知的错误，对队伍的要求被拒绝了.");
+                        cm.safeDispose();
+                    }
+
+                } else if (selection == 2) {
+                    status = 12;
+                    if (!cm.getSquadList("pinkbean", 2)) {
+                        cm.sendOk("由于未知的错误，对队伍的要求被拒绝了.");
+                        cm.safeDispose();
+                    }
+
+                } else if (selection == 3) { // get insode
+                    if (cm.getSquad("pinkbean") != null) {
+                        var dd = cm.getEventManager("PinkBeanBattle");//执行event事件
+                        dd.startInstance(cm.getSquad("pinkbean"), cm.getMap(), 160101);
+						if(cm.getPlayer().getMapId() == 270050100){
+							//cm.getMap().clearOwnerList();
+							//cm.getMap().addAllOwnerHere();
+							//cm.getMap().给时钟(240, true, true);
+							//cm.worldMessage( "[BOSS公告] " + cm.getChannel() + " 频道的远征队长已经入场，品克缤的讨伐即将开始，请加入远征队伍的玩家尽快入场！");
+							//cm.给团队每日("pinkbean");//给团队次数
+							给地图每日a(cm.getPlayer().getMap(), "pinkbean");
+						}
+						//cm.getPlayer().setBossLog('pinkbean');//给bosslog记录
+                        cm.dispose();
+                    } else {
+                        cm.sendOk("由于未知的错误，对队伍的要求被拒绝了.");
+                        cm.safeDispose();
+                    }
+                }
+                break;
+            case 11:
+                cm.banMember("pinkbean", selection);
                 cm.dispose();
-            }
-            break;
-        case 11:
-            cm.banMember("PinkBean", selection);
-            cm.dispose();
-            break;
-        case 12:
-            if (selection != -1) {
-                cm.acceptMember("PinkBean", selection);
-            }
-            cm.dispose();
-            break;
-        case 13:
-            var em = cm.getEventManager("PinkBeanBattle");
-            if ((selection == 1) && (em != null)) {
-                var eim = em.getInstance("PinkBeanBattle");
-                if ((eim != null) && (eim.getProperty("isSquadPlayerID_" + cm.getPlayer().getId()) != null)) {
-                    eim.registerPlayer(cm.getPlayer());
+                break;
+            case 12:
+                if (selection != -1) {
+                    cm.acceptMember("pinkbean", selection);
                 }
-            }
-            cm.dispose();
-            break;
+                cm.dispose();
+                break;
+        }
     }
 }
 
-function �ط���¼(type, name1, name2) {
-	var sq = cm.getSquad(type);
-	var members = sq.getMembers();
-	var bosscopy = cm.getBosslogManager();
-	for (var i in members) {
-		var chr = cm.getMap().getCharacterByName(members[i]);
-		if (chr != null) {
-			
-			bosscopy.setBossLog(name1, chr);
-			bosscopy.setBossLog(name2, chr);
+
+function 给地图每日a(map, name){
+	var chrs = map.getCharactersThreadsafe();
+	if(chrs != null && !chrs.isEmpty()){
+		var it = chrs.iterator();
+		while(it.hasNext()){
+			var chr = it.next();
+			if (chr != null) {
+				chr.setBossLoga(name);
+			}
 		}
 	}
 }

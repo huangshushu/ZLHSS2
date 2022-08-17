@@ -1,4 +1,10 @@
-var status = -1;
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
+ var status = -1;
 
 function start(mode, type, selection) {
     if (mode == 1) {
@@ -38,6 +44,8 @@ function end(mode, type, selection) {
 	qm.sendNext("材料都带回来了吗？那么请您等一下，只要这样组装一下... \r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0# \r\n#i3010062# 1 #t3010062# \r\n\r\n#fUI/UIWindow.img/QuestIcon/8/0# 95 经验值");
     } else if (status == 1) {
 	if (qm.getQuestStatus(21013) == 1) {
+		qm.gainItem(4032309, -1);
+		qm.gainItem(4032310, -1);
 	    qm.gainItem(3010062, 1);
 	    qm.gainExp(95);
 	    qm.forceCompleteQuest();

@@ -1,7 +1,4 @@
-/*
-	NPC Name: 		Kisan
-	Description: 		Quest - Cygnus tutorial helper
-*/
+
 
 var status = -1;
 
@@ -10,7 +7,7 @@ function start(mode, type, selection) {
 	status++;
     } else {
 	if (status == 2) {
-	    qm.sendNext("You don't want to? It's not even that hard, and you'll receive special equipment as a reward! Well, give it some thought and let me know if you change your mind.");
+	    qm.sendNext("你不想来？它甚至不是很难做的，您会收到特殊装备作为奖励！好了，给它一些想法，让你改变了主意，我知道，.");
 	    qm.safeDispose();
 	    return;
 	}
@@ -44,7 +41,7 @@ function end(mode, type, selection) {
 	qm.gainItem(1052177, 1);
 	qm.forceCompleteQuest();
 	qm.gainExp(30);
-	qm.summonMsg(6);
+//	qm.summonMsg(6);
 	qm.dispose();
     }
 }

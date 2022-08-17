@@ -3,7 +3,8 @@ var dungeonid = 261020301;
 var dungeons = 39;
 
 function enter(pi) {
-    if (pi.getMapId() == baseid) {
+	pi.openNpc(2003,7);
+    /*if (pi.getMapId() == baseid) {
 	if (pi.getParty() != null) {
 	    if (pi.isLeader()) {
 		for (var i = 0; i < dungeons; i++) {
@@ -13,7 +14,7 @@ function enter(pi) {
 		    }
 		}
 	    } else {
-		pi.playerMessage(5, "You are not the leader of the party.");
+		pi.playerMessage(5, "你不是隊長。");
 	    }
 	} else {
 	    for (var i = 0; i < dungeons; i++) {
@@ -23,9 +24,9 @@ function enter(pi) {
 		}
 	    }
 	}
-	pi.playerMessage(5, "All of the Mini-Dungeons are in use right now, please try again later.");
+	pi.playerMessage(5, "目前所有地下城都在使用，請稍後在嘗試。");
     } else {
 	pi.playPortalSE();
 	pi.warp(baseid, "MD00");
-    }
+    }*/
 }

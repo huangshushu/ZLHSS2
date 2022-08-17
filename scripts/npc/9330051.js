@@ -1,5 +1,5 @@
-ï»¿/* éƒ‘æºç•… ID:9330051
-	101å¤§é“NPC å‰ªå‘+æŸ“å‘
+/* Ö£Ô´³© ID:9330051
+	101´óµÀNPC ¼ô·¢+È¾·¢
 */
 var status = 0;
 var beauty = 0;
@@ -18,7 +18,7 @@ function action(mode, type, selection) {
     } else {
         status++;
         if (status == 0) 
-            cm.sendSimple("æ‚¨å¥½ï¼Œæˆ‘æ˜¯#p9330051#. å¦‚æœä½ æœ‰ #b#t5150029##k æˆ–è€…æœ‰ #b#t5151024##k è¯·å…è®¸æˆ‘æŠŠä½ çš„å¤´å‘æŠ¤ç†ã€‚è¯·é€‰æ‹©ä¸€ä¸ªä½ æƒ³è¦çš„.\r\n#L1#ä½¿ç”¨ #i5150029##t5150029##l\r\n#L2#ä½¿ç”¨ #i5151024##t5151024##l");
+            cm.sendSimple("ÄúºÃ£¬ÎÒÊÇ#p9330051#. Èç¹ûÄãÓĞ #b#t5150029##k »òÕßÓĞ #b#t5151024##k ÇëÔÊĞíÎÒ°ÑÄãµÄÍ··¢»¤Àí¡£ÇëÑ¡ÔñÒ»¸öÄãÏëÒªµÄ.\r\n#L1#Ê¹ÓÃ #i5150029##t5150029##l\r\n#L2#Ê¹ÓÃ #i5151024##t5151024##l");
         else if (status == 1) {
             if (selection == 0) {
                 beauty = 0;
@@ -32,14 +32,14 @@ function action(mode, type, selection) {
                 if (cm.getPlayer().getGender() == 1)
                     for(var i = 0; i < fhair.length; i++)
                         hairnew.push(fhair[i] + parseInt(cm.getPlayer().getHair() % 10));
-                cm.sendStyle("é€‰æ‹©ä¸€ä¸ªæƒ³è¦çš„.", hairnew);
+                cm.sendStyle("Ñ¡ÔñÒ»¸öÏëÒªµÄ.", hairnew);
             } else if (selection == 2) {
                 beauty = 2;
                 haircolor = Array();
                 var current = parseInt(cm.getPlayer().getHair()/10)*10;
                 for(var i = 0; i < 8; i++)
                     haircolor.push(current + i);
-                cm.sendStyle("é€‰æ‹©ä¸€ä¸ªæƒ³è¦çš„", haircolor);
+                cm.sendStyle("Ñ¡ÔñÒ»¸öÏëÒªµÄ", haircolor);
             }
         } else if (status == 2){
             cm.dispose();
@@ -47,17 +47,17 @@ function action(mode, type, selection) {
                 if (cm.haveItem(5150029)){
                     cm.gainItem(5150029, -1);
                     cm.setHair(hairnew[selection]);
-                    cm.sendOk("äº«å—!");
+                    cm.sendOk("ÏíÊÜ!");
                 } else
-                    cm.sendOk("æ‚¨è²Œä¼¼æ²¡æœ‰#b#t5150029##k..");
+                    cm.sendOk("ÄúÃ²ËÆÃ»ÓĞ#b#t5150029##k..");
             }
             if (beauty == 2){
                 if (cm.haveItem(5151024)){
                     cm.gainItem(5151024, -1);
                     cm.setHair(haircolor[selection]);
-                    cm.sendOk("äº«å—!");
+                    cm.sendOk("ÏíÊÜ!");
                 } else
-                    cm.sendOk("æ‚¨è²Œä¼¼æ²¡æœ‰#b#t5151024##k..");
+                    cm.sendOk("ÄúÃ²ËÆÃ»ÓĞ#b#t5151024##k..");
             }
         }
     }

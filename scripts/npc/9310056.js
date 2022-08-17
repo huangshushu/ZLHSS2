@@ -1,79 +1,115 @@
-ï»¿var status = -1;
-var letter = Array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+/*
+ 
+ ½Å±¾£ºÓ¢Óï´å´ğÌâ
+ */
+var status = -1;
+var letter = Array(
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z"
+);
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-	status++;
-    } else {
-	if (status == 0) {
-	    cm.dispose();
-	}
-	status--;
-    }
+  if (mode == 1) {
+    status++;
+  } else {
     if (status == 0) {
-	cm.sendSimple("#b#L0#å›ç­”é—®é¢˜ã€‚#l\r\n#L1#ç¦»å¼€åœ°å›¾ã€‚#l");
-    } else if (status == 1) {
-	if (selection == 0) {
-	    if (!cm.isLeader() || cm.getPlayer().getEventInstance() == null) {
-		cm.sendOk("è¯·æ‰¾é˜Ÿé•¿æ¥æ‰¾æˆ‘è°ˆè¯ã€‚");
-	    } else {
-		//calculate letters needed
-		var letters = cm.getPlayer().getEventInstance().getProperty("answer");
-		var needed = Array(letters.length);
-		var done = 0;
-		for (var i = 0; i < letters.length(); i++) {
-		    for (var x = 0; x < letter.length; x++) {
-			if (letters.substring(i, i+1).equals(letter[x])) {
-			    needed[i] = 3994059 + x;
-			    break;
-			}
-		    }
-		}
-		//now array should be like (3994059, 3994060, 3994059) etc
-		//calculate duplicates
-		for (var i = 0; i < needed.length; i++) {
-		    var num = 0;
-		    for (var x = 0; x < needed.length; x++) {
-			if (needed[x] == needed[i]) {
-			    num++;
-			}
-		    }
-		    if (cm.haveItem(needed[i], num, false, false)) {
-			done++;
-		    }
-		}    
-		var lettersNot = 0;
-                for (var i = 3994059; i < 3994085; i++) {
-		    var num = 0;
-		    for (var x = 0; x < needed.length; x++) {
-			if (needed[x] == i) {
-			    num++;
-			    break;
-			}
-		    }
-		    if (num == 0 && cm.haveItem(i, 1)) { //this letter is not in the answer at all
-			lettersNot++;
-		    }
-	        }
-		if (lettersNot > 0) {
-		    cm.sendNext("ä½ æœ‰å­—æ¯ä½†æ˜¯ä½ å›ç­”äº† #eé”™è¯¯çš„ç­”æ¡ˆï¼#n");
-		} else if (done != needed.length) {
-		    cm.sendNext("ä½ å›ç­”äº† #eé”™è¯¯çš„ç­”æ¡ˆï¼#n");
-		} else { //correct
-                    for (var i = 3994059; i < 3994085; i++) {
-	                cm.givePartyItems(i, 0, true);
-	            }
-		    cm.givePartyItems(4001137, 1);
-		    cm.warpParty(702090400, 0);
-                    cm.showEffect(true, "englishSchool/correct");
-		}
-	    }
-	} else if (selection == 1) {
-            for (var i = 3994059; i < 3994085; i++) {
-	        cm.removeAll(i);
-	    }
-	    cm.warp(702090400,0);
-	}
-	cm.dispose();
+      cm.dispose();
     }
+    status--;
+  }
+  if (status == 0) {
+    cm.sendSimple("#b#L0#»Ø´ğÎÊÌâ¡£#l\r\n#L1#Àë¿ªµØÍ¼¡£#l");
+  } else if (status == 1) {
+    if (selection == 0) {
+      if (!cm.isLeader() || cm.getPlayer().getEventInstance() == null) {
+        cm.sendOk("ÇëÕÒ¶Ó³¤À´ÕÒÎÒÌ¸»°¡£");
+      } else {
+        var letters = cm.getPlayer().getEventInstance().getProperty("answer");
+        var needed = Array(letters.length);
+        var done = 0;
+        for (var i = 0; i < letters.length(); i++) {
+          for (var x = 0; x < letter.length; x++) {
+            if (letters.substring(i, i + 1).equals(letter[x])) {
+              needed[i] = 3994059 + x;
+              break;
+            }
+          }
+        }
+        for (var i = 0; i < needed.length; i++) {
+          var num = 0;
+          for (var x = 0; x < needed.length; x++) {
+            if (needed[x] == needed[i]) {
+              num++;
+            }
+          }
+          if (cm.haveItem(needed[i], num, false, false)) {
+            done++;
+          }
+        }
+        var lettersNot = 0;
+        for (var i = 3994059; i < 3994085; i++) {
+          var num = 0;
+          for (var x = 0; x < needed.length; x++) {
+            if (needed[x] == i) {
+              num++;
+              break;
+            }
+          }
+          if (num == 0 && cm.haveItem(i, 1)) {
+            lettersNot++;
+          }
+        }
+        if (lettersNot > 0) {
+          cm.sendNext("ÄãÓĞ×ÖÄ¸µ«ÊÇÄã»Ø´ğÁË #e´íÎóµÄ´ğ°¸£¡#n");
+        } else if (done != needed.length) {
+          cm.sendNext("Äã»Ø´ğÁË #e´íÎóµÄ´ğ°¸£¡#n");
+        } else {
+          for (var i = 3994059; i < 3994085; i++) {
+            cm.givePartyItems(i, 0, true);
+          }
+          cm.givePartyItems(4001137, 1);
+          cm.warpParty(702090400, 0);
+          cm.showEffect(true, "englishSchool/correct");
+          cm.setBossRankCount("Ó¢Óï´å", 1);
+          cm.givePartyBossLog("Ó¢Óï´å");
+          cm.worldMessage(
+            2,
+            "[¸±±¾-Ó¢Óï´å] : ¹§Ï² " +
+              cm.getPlayer().getName() +
+              " ´øÁì¶ÓÎé£¬Íê³ÉÓ¢Óï´å¸±±¾¡£"
+          );
+        }
+      }
+    } else if (selection == 1) {
+      for (var i = 3994059; i < 3994085; i++) {
+        cm.removeAll(i);
+      }
+      cm.warp(702090400, 0);
+    }
+    cm.dispose();
+  }
 }

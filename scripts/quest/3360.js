@@ -1,7 +1,9 @@
-/*
-	NPC Name: 		Parwen
-	Description: 		Quest - Verifying the password
-*/
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 var status = -1;
 
 function start(mode, type, selection) {
@@ -11,18 +13,18 @@ function start(mode, type, selection) {
 	if (mode == 1) {
 	    status++;
 	} else {
-	    qm.sendNext("Come on, hurry up. Get your pen and paper out if you're not that smart!");
+	    qm.sendNext("来吧，快点。 如果你不聪明，拿出你的钢笔和纸!");
 	    qm.dispose();
 	    return;
 	}
 
 	if (status == 0) {
-	    qm.sendNext("Oh! Finally you have come! I'm glad you are here in time. I have the master key for you to open the secert passage! Hahahaha! Isn't it amazing? Say it amazing!");
+	    qm.sendNext("哦！最后，你也来了！我很高兴你在这里的时间。我也为你打开通道secert的万能钥匙！哈哈哈哈！是不是很神奇？说它惊人!");
 	} else if (status == 1) {
-	    qm.askAcceptDecline("All right, now, this key is very long and complex. I need you to memorize it very well. I won't say again, so you'd better write it down somewhere. Are you ready?");
+	    qm.askAcceptDecline("好吧，现在，这个键是非常漫长和复杂。我需要你记住它非常好。我不会再说，所以你最好把它写下来的地方。你准备好了吗?");
 	} else if (status == 2) {
 	    var pass = generateString();
-	    qm.sendOk("The key code is #b"+pass+"#k. Got that? Put the key into the door of the secret passage, and you will be able to walk around the passage freely.");
+	    qm.sendOk("关键代码是 #b"+pass+"#k.了解？ 把钥匙放在秘密通道的门口，你将能够自由地走过通道.");
 	    qm.forceStartQuest(pass);
 	    qm.dispose();
 	}

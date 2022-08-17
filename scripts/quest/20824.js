@@ -1,4 +1,4 @@
-/* Cygnus revamp
+﻿/* Cygnus revamp
 	Noblesse tutorial
 	Kimu
     Made by Daenerys
@@ -8,10 +8,10 @@ var status = -1;
 function start(mode, type, selection) {
 	status++;
 	if (status == 0) {
-	  qm.sendNext("I like to give all the new recruits a little gift when they come to Ereve. It's important that the recruits look up to snuff, you know? Hit the#e#b I key#k#n to open up your inventory when we're done talking. Double click on that hat I gave you!");
+	  qm.sendNext("#h0#,，為表達歡迎你來到耶雷弗之意，送上一個小禮物給你。套用裝備的方法很簡單。請按壓#b#e快捷鍵I#k#n。就會開啟您的道具欄視窗。稍等一下，你是個急性子呢？我的話說完以後你試試看吧。帽子還在我手裡。透過快捷鍵 I開啟道具欄視窗後，雙擊帽子，就可以套用該裝備了。現在要試試看了嗎？");
 	} else if (status == 1) {
 	  qm.forceStartQuest();
-	  qm.AranTutInstructionalBubble("Effect/OnUserEff.img/guideEffect/cygnusTutorial/5");
+	  qm.TutInstructionalBalloon("Effect/OnUserEff.img/guideEffect/cygnusTutorial/5");
 	  qm.gainItem(1003769, 1);
 	  qm.dispose();
 	} else if  (status == 2)  {

@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 Third Eos Rock - Ludibrium : Eos Tower 41st Floor (221021700)
 */
 
@@ -22,18 +22,18 @@ function action(mode, type, selection) {
 	status--;
     if (status == 0) {
 	if (cm.haveItem(4001020)) {
-	    cm.sendSimple("éœ€è¦ä»€ä¹ˆæœåŠ¡å—ï¼Ÿï¼Ÿ#b\r\n#L0#çˆ±å¥¥æ–¯å¡” (71æ¥¼)#l\r\n#L1#çˆ±å¥¥æ–¯å¡” (1æ¥¼)#l");
+	    cm.sendSimple("ĞèÒªÊ²Ã´·şÎñÂğ£¿£¿#b\r\n#L0#°®°ÂË¹Ëş (71Â¥)#l\r\n#L1#°®°ÂË¹Ëş (1Â¥)#l");
 	} else {
-	    cm.sendOk("ä½ éœ€è¦æœ‰#t4001020# æ‰å¯ä»¥å¯åŠ¨ã€‚");
+	    cm.sendOk("ÄãĞèÒªÓĞ#t4001020# ²Å¿ÉÒÔÆô¶¯¡£");
 	    cm.dispose();
 	}
     } else if (status == 1) {
 	if (selection == 0) {
-	    cm.sendYesNo("ä½ æ˜¯å¦è¦ä½¿ç”¨#t4001020# ä¼ é€åˆ°#m221022900# å‘¢ï¼Ÿï¼Ÿ");
+	    cm.sendYesNo("ÄãÊÇ·ñÒªÊ¹ÓÃ#t4001020# ´«ËÍµ½#m221022900# ÄØ£¿£¿");
 	    map = 221022900;
 	    portal = 3;
 	} else {
-	    cm.sendYesNo("ä½ æ˜¯å¦è¦ä½¿ç”¨#t4001020# ä¼ é€åˆ°#m221020000# å‘¢ï¼Ÿï¼Ÿ");
+	    cm.sendYesNo("ÄãÊÇ·ñÒªÊ¹ÓÃ#t4001020# ´«ËÍµ½#m221020000# ÄØ£¿£¿");
 	    map = 221020000;
 	    portal = 4;
 	}

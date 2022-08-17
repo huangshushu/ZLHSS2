@@ -1,10 +1,10 @@
-ï»¿/* 
+/* 
  * NPC :      Mihai
  * Map :      Timu's Forest
  */
 
 function start() {
-    cm.sendNext("å‘µå‘µ...éš¾é“æˆ‘åˆšåˆšåšçš„è¢«å‘ç°äº†å—ï¼Ÿï¼");
+    cm.sendNext("ºÇºÇ...ÄÑµÀÎÒ¸Õ¸Õ×öµÄ±»·¢ÏÖÁËÂğ£¿£¡");
 }
 
 function action(mode, type, selection) {

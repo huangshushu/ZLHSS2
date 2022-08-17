@@ -1,11 +1,11 @@
-﻿/* 
+/* 
  * @Author Lerk
  * 
  * Tiger Statue (990000900)
  * 
  * Guild Quest - end of boss
  */
-load('nashorn:mozilla_compat.js');
+
 importPackage(java.lang);
 
 function start() {
@@ -27,7 +27,7 @@ function action(mode, type, selection) {
 		}
 		eim.finishPQ();
 	    } else {
-                cm.sendOk("这是你最后的挑战。请打带恶灵13后并带著他的遗物来找我。");
+		cm.sendOk("This is your final challenge. Defeat the evil lurking within the Rubian and return it to me. That is all.");
 	    }
 	}
     } else {

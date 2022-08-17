@@ -1,67 +1,100 @@
-var equiplist;
-var equip;
-var equipscrolllist;
-var equipscroll;
-var str = "";
-var strs = "";
-var modea = 0;
-var yesno = false;
+/** Author: nejevoli
+ NPC Name: 		NimaKin
+ Map(s): 		Victoria Road : Ellinia (180000000)
+ Description: 		Maxes out your stats and able to modify your equipment stats
+ */
+importPackage(java.lang);
+
+var status = 0;
+var slot = Array();
+var stats = Array("Á¦Á¿", "Ãô½İ", "ÖÇÁ¦", "ĞÒÔË", "HP", "MP", "ÎïÀí¹¥»÷", "Ä§·¨¹¥»÷", "ÎïÀí·ÀÓù", "Ä§·¨·ÀÓù", "ÃüÖĞÂÊ", "»Ø±ÜÂÊ", "ÁéÃô¶È", "ÒÆ¶¯ËÙ¶È", "ÌøÔ¾Á¦", "¾íÖáÊı", "»Æ½ğÌú´¸Ê¹ÓÃÊı", "Ê¹ÓÃ¾íÖáÊı", "ĞÇĞÇÊı", "Ç³ÄÜ 1", "Ç³ÄÜ 2", "Ç³ÄÜ 3", "×°±¸Ãû×Ö");
+var selected;
+var statsSel;
 
 function start() {
-    var Editing = false //false å¼€å§‹
-    if (Editing) {
-        cm.sendOk("ç»´ä¿®ä¸­");
-        cm.dispose();
-        return;
-    }
     status = -1;
     action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-        status++;
-    } else if (mode == 0) {
-        status--;
-    } else {
+    if (status >= 0 && mode == 0) {
         cm.dispose();
         return;
     }
-    if (status == 0) {
-        cm.sendSimple("ä½ å¥½ï¼Œæˆ‘æ˜¯è£…å¤‡å¼ºåŒ–æ¦‚ç‡æå‡å¸ˆã€‚\r\n" +
-                "#L0#æå‡è£…å¤‡å¼ºåŒ–å·è½´æ¦‚ç‡10%#l\r\n");
+    if (mode == 1)
+        status++;
+    else
+        status--;
 
+    if (status == 0) {
+        if (cm.getPlayerStat("ADMIN") == 1) {
+            cm.sendSimple("Ç×°®µÄ#h \r\n¹ÜÀíÔ±ÎÒÄÜÎªÄú×öÊ²Ã´ÄØ£¿£¿#b\r\n#L0#°ïÎÒÄÜÁ¦Öµ¼Óµ½È«Âú£¡£¡#l\r\n#L1#°ïÎÒ¼¼ÄÜ¼Óµ½È«Âú£¡£¡#l\r\n#L2#°ïÎÒĞŞ¸Ä×°±¸ÊıÖµ£¡£¡#l\r\n#L4#°ïÎÒ³õÊ¼»¯AP/SP£¡#l#k");
+        } else if (cm.getPlayerStat("GM") == 1) {
+            cm.sendSimple("Ç×°®µÄ#h \r\n¹ÜÀíÔ±ÎÒÄÜÎªÄú×öÊ²Ã´ÄØ£¿£¿#b\r\n#L0#°ïÎÒÄÜÁ¦Öµ¼Óµ½È«Âú£¡£¡#l\r\n#L1#°ïÎÒ¼¼ÄÜ¼Óµ½È«Âú£¡£¡#l\r\n#L2#°ïÎÒĞŞ¸Ä×°±¸ÊıÖµ£¡£¡#l\r\n#L4#°ïÎÒ³õÊ¼»¯AP/SP£¡#l#k");
+        } else {
+            cm.dispose();
+        }
     } else if (status == 1) {
         if (selection == 0) {
-            equiplist = cm.getEquippedlist();
-            if (equiplist != null) {
-                for (var i = 0; i < equiplist.size(); i++) {
-                    str += "#L" + i + "##i" + equiplist.get(i).getItemId() + "##t" + equiplist.get(i).getItemId() + "##k\r\n";
+            if (cm.getPlayerStat("GM") == 1) {
+                cm.maxStats();
+                cm.sendOk("ÒÑ¾­°ïÄú¼ÓÂúÁË£¡£¡");
+            }
+            cm.dispose();
+        } else if (selection == 1) {
+            //Beginner
+            if (cm.getPlayerStat("GM") == 1) {
+                cm.maxAllSkills();
+            }
+            cm.dispose();
+        } else if (selection == 2 && cm.getPlayerStat("ADMIN") == 1) {
+            var avail = "";
+            for (var i = -1; i > -199; i--) {
+                if (cm.getInventory(-1).getItem(i) != null) {
+                    avail += "#L" + Math.abs(i) + "##t" + cm.getInventory(-1).getItem(i).getItemId() + "##l\r\n";
                 }
+                slot.push(i);
             }
-            cm.sendSimple("é€‰æ‹©ä½ æƒ³è¦å¼ºåŒ–çš„è£…å¤‡ã€‚\r\n" + str);
-
-        }
-
-    } else if (status == 2) {
-        equip = selection;
-        //cm.setMonsterRiding(equiplist.get(equipscroll).getItemId());
-        equipscrolllist = cm.getEquipScrolllist();
-        if (equipscrolllist != null) {
-            for (var i = 0; i < equipscrolllist.size(); i++) {
-                strs += "#L" + i + "##i" + equipscrolllist.get(i).getItemId() + "##t" + equipscrolllist.get(i).getItemId() + "##k\r\n";
+            cm.sendSimple("ÏëÒªĞŞ¸ÄÄÄÒ»¼ş×°±¸ÄÜÁ¦ÖµÄØ£¿£¿\r\n#b" + avail);
+        } else if (selection == 3 && cm.getPlayerStat("ADMIN") == 1) {
+            var eek = cm.getAllPotentialInfo();
+            var avail = "";
+            for (var ii = 0; ii < eek.size(); ii++) {
+                avail += "#L" + eek.get(ii) + "#Ç³ÄÜ ID " + eek.get(ii) + "#l\r\n";
             }
-        }
-        cm.sendSimple("é€‰æ‹©ä½ æƒ³è¦å¼ºåŒ–çš„å¼ºåŒ–å·è½´ã€‚\r\n" + strs);
-    } else if (status == 3) {
-        equipscroll = selection;
-        yesno = cm.UseUpgradeScroll(equiplist.get(equip), equipscrolllist.get(equipscroll), 10);
-        if (yesno) {
-            cm.sendOk("æ­å–œæ‚¨å¼ºåŒ–æˆåŠŸã€‚");
+            cm.sendSimple("ÇëÎÊÏëÁË½â£¿£¿\r\n#b" + avail);
+            status = 9;
+        } else if (selection == 4) {
+            cm.getPlayer().resetAPSP();
+  cm.getPlayer().fakeRelog();
+           cm.sendNext("Íê³É£¬Çë»»ÆµµÀorÖØĞÂµÇÈë¡£");
+            cm.dispose();
         } else {
-            cm.sendOk("å¾ˆæŠ±æ­‰ï¼Œå¼ºåŒ–å¤±è´¥ã€‚");
+            cm.dispose();
         }
+    } else if (status == 2 && cm.getPlayerStat("ADMIN") == 1) {
+        selected = selection - 1;
+        var text = "";
+        for (var i = 0; i < stats.length; i++) {
+            text += "#L" + i + "#" + stats[i] + "#l\r\n";
+        }
+        cm.sendSimple("ÄãÏëÒªĞŞ¸ÄÄãµÄ #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k.\r\nÏëĞŞ¸ÄÄÄ¸öÄÜÁ¦Öµ£¿£¿\r\n#b" + text);
+    } else if (status == 3 && cm.getPlayerStat("ADMIN") == 1) {
+        statsSel = selection;
+        if (selection == 22) {
+            cm.sendGetText("ÇëÎÊÄãÏëÉèÖÃ¶àÉÙ #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k's " + stats[statsSel] + " ÄÜÁ¦Öµ?");
+        } else {
+            cm.sendGetNumber("ÇëÎÊÄãÏëÉèÖÃ #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k's " + stats[statsSel] + " ¶àÉÙÄÜÁ¦Öµ?", 0, 0, 32767);
+        }
+    } else if (status == 4 && cm.getPlayerStat("ADMIN") == 1) {
+        cm.changeStat(slot[selected], statsSel, selection);
+        cm.sendOk("ÄãµÄ #b#t" + cm.getInventory(-1).getItem(slot[selected]).getItemId() + "##k's " + stats[statsSel] + " ÒÑ±»ÉèÖÃÎª " + selection + ".");
         cm.dispose();
-        return;
+        cm.getPlayer().fakeRelog();
+    } else if (status == 10 && cm.getPlayerStat("ADMIN") == 1) {
+        cm.sendSimple("#L3#" + cm.getPotentialInfo(selection) + "#l");
+        status = 0;
+    } else {
+        cm.dispose();
     }
 }

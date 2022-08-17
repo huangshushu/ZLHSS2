@@ -1,9 +1,5 @@
 function act(){
-try {
     rm.changeMusic("Bgm09/TimeAttack");
     rm.spawnMonster(9420513, -146, 225);
-    rm.mapMessage(5, "As you wish, here comes Capt Latanica.");
-} catch(e) {
-    rm.mapMessage(5, "Error: " + e);
-}
+    rm.mapMessage(5, "TMD，是谁来打扰我啊.");
 }

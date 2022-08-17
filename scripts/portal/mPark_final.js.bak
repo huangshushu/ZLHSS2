@@ -1,0 +1,29 @@
+﻿function enter(pi) {
+    if (pi.getMap().getAllMonster().size() == 0) {
+        pi.gainItem(4310020, Math.random() * 20 + 10);
+        if (pi.getParty() != null && pi.getParty().getMembers().size() < 2) {
+            pi.playerMessage(-5, "单人无法获得额外奖励。");
+        } else if (pi.getParty() != null) {
+            if (pi.getEventCount("MonsterPark") < 10) {
+				var size = cm.getPlayer().getParty().getMembers();
+				if(size>1){
+					pi.setEventCount("MonsterPark");
+					pi.gainNX(2000);
+					pi.gainItem(4034999, 10);
+					pi.gainItem(4001006, 10);
+					pi.gainItem(4310020,20);
+					pi.playerMessage(-5, "获得大量奖励(只有前十次组队2人以上次才有哦！)当前第"+pi.getEventCount("MonsterPark")+"次");
+					}
+					else{
+					pi.playerMessage(-5, "组队人数不足2人，无法获取奖励");
+					}
+            } else {
+                pi.playerMessage(-5, "怪物公园每天每个帐号只能额外获得10次点卷奖励,您次数已经用完。");
+            }
+        }
+        pi.warp(951000000, 0);
+    } else {
+        pi.playerMessage(-1, "必须消灭区域内的所有怪物才能移动到下一回合。");
+        pi.playerMessage(5, "必须消灭区域内的所有怪物才能移动到下一回合。");
+    }
+}

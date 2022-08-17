@@ -1,6 +1,8 @@
-/*
- * The return of the Hero
- * Rien Cold Forest 1
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
  */
 
 var status = -1;
@@ -47,7 +49,7 @@ function end(mode, type, selection) {
     } else if (status == 1) {
 	qm.sendNextPrev("啊！真是的，我耽误英雄太久了。先收拾起快乐的心情...其他企鹅应该也有同样的想法。我知道您很忙，不过在前往村庄的路上 #b也请您和其他企鹅们谈一谈#k。可以和英雄谈话，大家应该会很兴奋！ \n\r #fUI/UIWindow.img/QuestIcon/4/0# \r #i2000022# #t2000022# 5 \r #i2000023# #t2000023# 5 \n\r #fUI/UIWindow.img/QuestIcon/8/0# 16 经验值");
     } else if (status == 2) {
-	qm.sendNextPrev("想要升级吗？不晓得您有没有获得技能点数。在枫之谷内透过转职之后每上升1级就会获得3点的技能点数。按下 #bK键#k 就能栏位就能确认。");
+	qm.sendNextPrev("想要升级吗？不晓得您有没有获得技能点数。在冒险岛内透过转职之后每上升1级就会获得3点的技能点数。按下 #bK键#k 就能栏位就能确认。");
 	if (qm.getQuestStatus(21010) == 1) {
 	    qm.gainExp(16);
 	    qm.gainItem(2000022, 5);

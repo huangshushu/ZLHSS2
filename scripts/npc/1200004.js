@@ -1,21 +1,16 @@
-/* Dawnveil
-    To Rien
-	Puro
-    Made by Daenerys
-*/
+/*
+ 
+ */
 function start() {
-    cm.sendYesNo("‰Ω†ÊÉ≥Ë¶ÅÂéªÁëûÊÅ©Â≤õÂøÖÈ°ªÊîØ‰ªò#b 80 Êû´Â∏Å#k Âà∞ÈÇ£ËæπÁ∫¶‰∏ÄÂàÜÈíü.");
+  cm.sendYesNo("ƒ„œÎ“™»• #b∂˜µ∫#k ¬£øµΩƒ«±ﬂ‘º“ª∑÷÷”°£");
 }
 
 function action(mode, type, selection) {
-    if (mode == 0) {
-	cm.sendOk("Á≠â‰Ω†ËÄÉËôëÂ•ΩÂÜçÊù•ÊâæÊàëÂêß!");
-	cm.dispose();
-	} else {
-    if(cm.getPlayer().getMeso() >= 80) {
-	cm.gainMeso(-80);
-	cm.warpBack(200090060,140020300,80);
-    }
+  if (mode == 0) {
+    cm.sendOk("µ»ƒ„øº¬«∫√‘Ÿ¿¥’“Œ“∞…°£");
     cm.dispose();
-}
+  } else {
+    cm.warpBack(200090060, 140020300, 80);
+    cm.dispose();
+  }
 }

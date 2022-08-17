@@ -1,6 +1,3 @@
 function enter(pi) {
-    
-	
-	
-	pi.warp(240093200,0);
-}W
+    pi.openNpc(2030000, "蜘蛛女王out");
+}

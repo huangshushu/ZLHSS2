@@ -1,4 +1,4 @@
-ï»¿/* Tepei
+/* Tepei
 	Showa VIP Hair/Hair Color Change.
 */
 var status = -1;
@@ -18,7 +18,7 @@ function action(mode, type, selection) {
     }
 
     if (status == 0) {
-	cm.sendSimple("å—¨ï¼Œæˆ‘æ˜¯#p9120100# å¦‚æœä½ æœ‰ #b#t5150009##k, æˆ–è€…æœ‰ #b#t5151009##k, æˆ‘å°±å¯ä»¥å¸®åŠ©ä½ ~ \r\n#L0#ä½¿ç”¨: #i5150009##t5150009##l\r\n#L1#ä½¿ç”¨: #i5151009##t5151009##l");
+	cm.sendSimple("àË£¬ÎÒÊÇ#p9120100# Èç¹ûÄãÓĞ #b#t5150009##k, »òÕßÓĞ #b#t5151009##k, ÎÒ¾Í¿ÉÒÔ°ïÖúÄã~ \r\n#L0#Ê¹ÓÃ: #i5150009##t5150009##l\r\n#L1#Ê¹ÓÃ: #i5151009##t5151009##l");
     } else if (status == 1) {
 	if (selection == 0) {
 	    var hair = cm.getPlayerStat("HAIR");
@@ -33,7 +33,7 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < hair_Colo_new.length; i++) {
 		hair_Colo_new[i] = hair_Colo_new[i] + (hair % 10);
 	    }
-	    cm.askAvatar("é€‰æ‹©ä¸€ä¸ªä½ å–œæ¬¢çš„ã€‚", hair_Colo_new);
+	    cm.askAvatar("Ñ¡ÔñÒ»¸öÄãÏ²»¶µÄ¡£",5150009, hair_Colo_new);
 	} else if (selection == 1) {
 	    var currenthaircolo = Math.floor((cm.getPlayerStat("HAIR") / 10)) * 10;
 	    hair_Colo_new = [];
@@ -42,20 +42,20 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < 8; i++) {
 		hair_Colo_new[i] = currenthaircolo + i;
 	    }
-	    cm.askAvatar("é€‰æ‹©ä¸€ä¸ªä½ å–œæ¬¢çš„ã€‚", hair_Colo_new);
+	    cm.askAvatar("Ñ¡ÔñÒ»¸öÄãÏ²»¶µÄ¡£",5150009, hair_Colo_new);
 	}
     } else if (status == 2) {
 	if (beauty == 1) {
 	    if (cm.setAvatar(5150009, hair_Colo_new[selection]) == 1) {
-		cm.sendOk("äº«å—ï¼");
+		cm.sendOk("ÏíÊÜ£¡");
 	    } else {
-		cm.sendOk("ç–´...ä½ å¥½åƒæ²¡æœ‰#t5150009#ã€‚");
+		cm.sendOk("¯z...ÄãºÃÏñÃ»ÓĞ#t5150009#¡£");
 	    }
 	} else {
 	    if (cm.setAvatar(5151009, hair_Colo_new[selection]) == 1) {
-		cm.sendOk("äº«å—ï¼");
+		cm.sendOk("ÏíÊÜ£¡");
 	    } else {
-		cm.sendOk("ç–´...ä½ å¥½åƒæ²¡æœ‰#t5151009#ã€‚");
+		cm.sendOk("¯z...ÄãºÃÏñÃ»ÓĞ#t5151009#¡£");
 	    }
 	}
 	cm.dispose();

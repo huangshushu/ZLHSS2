@@ -1,12 +1,7 @@
-/*  
- *  功能：女神之塔
- *  @Author 99
- */
-
 function enter(pi) {
+    var em = pi.getEventManager("OrbisPQ");
     var eim = pi.getEventInstance();
-    var em = pi.getEventManager("PQ_Minerva");
-    if (eim != null && em != null) {
-        pi.warpParty_Instanced(933032000);
+    if (em != null && eim != null && pi.getPlayer().getParty() != null) {
+        pi.warp(933032000, 0);
     }
 }

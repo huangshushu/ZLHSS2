@@ -18,7 +18,7 @@ function enter(pi) {
 		pi.warp(103000008, 0); //or 103000009
 		break;
 	case 100000201:
-		pi.warp(100000204, 2); //or 100000205
+		pi.warp(100000204, 0); //or 100000205
 		break;
 	default:
 		pi.warp(pi.getMapId() + 1, 0); //or + 2

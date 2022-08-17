@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 	This file is part of the OdinMS Maple Story Server
     Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
 		       Matthias Butz <matze@odinms.de>
@@ -24,7 +24,7 @@ var zones = 0;
 var cost = 1000;
 
 function start() {
-    cm.sendNext("å—¨~~ æˆ‘æ˜¯åœ°é“ç«™ æœåŠ¡å‘˜..");
+    cm.sendNext("àË~~ ÎÒÊÇµØÌúÕ¾ ·şÎñÔ±..");
     if (cm.getQuestStatus(2055) || cm.getQuestStatus(2055))
         zones++;
     if (cm.getQuestStatus(2056) || cm.getQuestStatus(2056))
@@ -43,14 +43,14 @@ function action(mode, type, selection) {
         if (zones == 0)
             cm.dispose();
         else {
-            var selStr = "ä½ æƒ³è¦ä¹°å“ªç§ç¥¨??#b";
+            var selStr = "ÄãÏëÒªÂòÄÄÖÖÆ±??#b";
             for (var i = 0; i < zones; i++)
-                selStr += "\r\n#L" + i + "#å·¥åœ° B" + (i+1) + " (" + cost + " æ«å¸)#l";
+                selStr += "\r\n#L" + i + "#¹¤µØ B" + (i+1) + " (" + cost + " ·ã±Ò)#l";
             cm.sendSimple(selStr);
         }
     } else if (status == 1) {
         if (cm.getMeso() < cost)
-            cm.sendOk("çœ‹æ¥ä½ æ²¡æœ‰è¶³å¤Ÿçš„æ«å¸...");
+            cm.sendOk("¿´À´ÄãÃ»ÓĞ×ã¹»µÄ·ã±Ò...");
         else {
             cm.gainMeso(-cost);
             cm.gainItem(4031036 + selection,1);

@@ -1,7 +1,7 @@
-/*  This is mada by Kent    
- *  This source is made by Funms Team
+/*     
+ *  
  *  BOSS组队副本 阿卡伊勒 监狱传送口
- *  @Author Kent 
+ *  
  */
 
 

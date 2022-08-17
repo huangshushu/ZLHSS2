@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 	NPC Name: 		Rini
 	Map(s): 		Orbis: Station<To Ellinia> (200000111)
 	Description: 		Orbis Ticketing Usher
@@ -14,26 +14,26 @@ function start() {
 function action(mode, type, selection) {
     status++;
     if(mode == 0) {
-	cm.sendNext("ç­‰ä½ è€ƒè™‘å¥½å†æ¥æ‰¾æˆ‘ã€‚");
+	cm.sendNext("µÈÄã¿¼ÂÇºÃÔÙÀ´ÕÒÎÒ¡£");
 	cm.dispose();
 	return;
     }
     if (status == 0) {
 	if(boat == null) {
-	    cm.sendNext("æ‰¾ä¸åˆ°è„šæœ¬è¯·è”ç³»GMï¼");
+	    cm.sendNext("ÕÒ²»µ½½Å±¾ÇëÁªÏµGM£¡");
 	    cm.dispose();
 	} else if(boat.getProperty("entry").equals("true")) {
-	    cm.sendYesNo("ä½ æƒ³è¦æ­èˆ¹ï¼Ÿï¼Ÿ");
+	    cm.sendYesNo("ÄãÏëÒª´î´¬£¿£¿");
 	} else if(boat.getProperty("entry").equals("false") && boat.getProperty("docked").equals("true")) {
-	    cm.sendNext("å¾ˆæŠ±æ­‰æœ¬ç­èˆ¹å‡†å¤‡å¼€èµ°,ä¹˜åæ—¶é—´è¡¨å¯ä»¥é€šè¿‡å”®ç¥¨å±•å°æŸ¥çœ‹.");
+	    cm.sendNext("ºÜ±§Ç¸±¾°à´¬×¼±¸¿ª×ß,³Ë×øÊ±¼ä±í¿ÉÒÔÍ¨¹ıÊÛÆ±Õ¹Ì¨²é¿´.");
 	    cm.dispose();
 	} else {
-	    cm.sendNext("å¾ˆæŠ±æ­‰æœ¬ç­èˆ¹å·²ç»èµ°äº†,ä¹˜åæ—¶é—´è¡¨å¯ä»¥é€šè¿‡å”®ç¥¨å±•å°æŸ¥çœ‹.");
+	    cm.sendNext("ºÜ±§Ç¸±¾°à´¬ÒÑ¾­×ßÁË,³Ë×øÊ±¼ä±í¿ÉÒÔÍ¨¹ıÊÛÆ±Õ¹Ì¨²é¿´.");
 	    cm.dispose();
 	}
     } else if(status == 1) {
 	if(!cm.haveItem(4031047)) {
-	    cm.sendNext("ä¸! ä½ æ²¡æœ‰#b#t4031047##k æ‰€ä»¥æˆ‘ä¸èƒ½æ”¾ä½ èµ°!");
+	    cm.sendNext("²»! ÄãÃ»ÓĞ#b#t4031047##k ËùÒÔÎÒ²»ÄÜ·ÅÄã×ß!");
 	} else {
 	    cm.gainItem(4031047, -1);
 	    cm.warp(200000112, 0);

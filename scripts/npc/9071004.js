@@ -1,11 +1,11 @@
-var maps = Array(952000000, 952010000, 952020000, 952030000, 952040000, 953000000, 953010000, 953020000, 953030000, 953040000, 953050000, 954000000, 954010000, 954020000, 954030000, 954040000, 954050000);
-var minLevel = Array(20, 45, 50, 55, 60, 70, 75, 85, 95, 100, 110, 120, 125, 130, 140, 150, 165);
-var maxLevel = Array(30, 55, 60, 65, 70, 80, 85, 95, 105, 110, 120, 130, 135, 140, 150, 165, 200);
+var maps = Array(952010000, 952040000, 952030000, 952020000, 953000000, 953010000, 953030000, 953040000, 953050000, 954000000, 954010000, 954020000, 954030000, 954040000, 954050000, 954060000);
+var minLevel = Array(45, 60, 70, 80, 85, 90, 120, 130, 150, 160, 175, 180, 185, 190, 195,205);
+var maxLevel = Array(55, 90, 110, 130, 150, 170, 180, 200, 200, 200, 200, 200, 220, 240, 245,255);
 
 function start() {
-    var selStr = "Which dungeon would you like to enter?\r\n\r\n#b";
+    var selStr = "你要哪一种地牢进入?\r\n\r\n#b";
     for (var i = 0; i < maps.length; i++) {
-	selStr += "#L" + i + "##m" + maps[i] + "# (Monsters Lv." + minLevel[i] + " - " + maxLevel[i] + ")#l\r\n";
+	selStr += "#L" + i + "##m" + maps[i] + "# (怪兽." + minLevel[i] + " - " + maxLevel[i] + ")#l\r\n";
     }
     cm.sendSimple(selStr);
 }
@@ -13,27 +13,50 @@ function start() {
 function action(mode, type, selection) {
     if (mode == 1 && selection >= 0 && selection < maps.length) {
         if (cm.getParty() == null || !cm.isLeader()) {
-	    cm.sendOk("Please get your leader to walk through.");
-	} else {
-	    var party = cm.getParty().getMembers().iterator();
-	    var next = true;
-	    while (party.hasNext()) {
-		var cPlayer = party.next();
-		if (cPlayer.getLevel() < minLevel[selection] || cPlayer.getLevel() > maxLevel[selection] || cPlayer.getMapid() != cm.getMapId()) {
-		    next = false;
-		} 
-	    }
-	    if (!next) {
-		cm.sendOk("Please make sure all party members are in the map and have correct level requirements.");
-	    } else {
-		var em = cm.getEventManager("MonsterPark");
-		if (em == null || em.getInstance("MonsterPark" + maps[selection]) != null) {
-		    cm.sendOk("Someone is already attempting Monster Park.");
+			cm.sendOk("请让队长找我.");
+		} else if (cm.itemQuantity(4001516) < 1 ) { 
+			cm.sendOk("您没有#v4001516#,不能进入！~");
+			cm.dispose();
 		} else {
-		    em.startInstance_Party("" + maps[selection], cm.getPlayer());
+
+			var party = cm.getParty().getMembers().iterator();
+			var next = true;
+			while (party.hasNext()) {
+				var cPlayer = party.next();
+				var chr = cm.getPlayer().getMap().getCharacterById(cPlayer.getId());
+				if(chr != null && !chr.haveItem(4001516)){
+					cm.sendOk("你队伍里的 #r" + chr.getName() + "#k 身上没有#i" + 4001516 + ":#，无法进入~");
+					cm.dispose();
+				}
+				if (cPlayer.getLevel() < minLevel[selection] || cPlayer.getMapid() != cm.getMapId()) {
+					cm.playerMessage(5, "要求等级：" + minLevel[selection] + ",当前最低角色等级：" + cPlayer.getLevel());//测试
+					next = false;
+				} 
+			}
+			if (!next) {
+				cm.sendOk("请确保所有队员都在地图上，并有正确的级别要求.");
+			} else {
+				var em = cm.getEventManager("MonsterPark");
+				cm.dispose();	
+				if (em == null || em.getInstance("MonsterPark" + maps[selection]) != null) {
+					cm.sendOk("有人已经在挑战中.");
+				} else {
+					var party = cm.getParty().getMembers().iterator();
+					while (party.hasNext()) {
+						var cPlayer = party.next();
+						var chr = cm.getPlayer().getMap().getCharacterById(cPlayer.getId());
+						if(chr != null){
+							chr.gainItem(4001516, -1);
+						}
+						
+					}
+					
+					//cm.gainItem(4001516, -1);
+					em.startInstance_Party("" + maps[selection], cm.getPlayer());
+				}
+			}
 		}
-	    }
-	}
     }
     cm.dispose();
 }
+

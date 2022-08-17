@@ -1,70 +1,70 @@
-ï»¿var status = -1;
+var status = -1;
 
 function action(mode, type, selection) {
     if (mode == 1) {
-        status++;
+	status++;
     } else {
-        cm.dispose();
-        return;
+	cm.dispose();
+	return;
     }
     if (status == 0) {
-        if (cm.getPlayer().getMarriageId() > 0) {
-            cm.sendSimple("æ€ä¹ˆäº†ï¼Œçœ‹èµ·æ¥å¾ˆä¼¤å¿ƒ....\r\n#b#L0#æˆ‘æƒ³è¦ç¦»å©šã€‚#l\r\n#L1#æˆ‘æƒ³è¦ä»æˆ‘è£…å¤‡æ åˆ é™¤æˆ‘çš„æˆ’æŒ‡ã€‚#l#k");
-        } else {
-            cm.sendSimple("å—¨ï¼Œæˆ‘å¯ä»¥ä¸ºæ‚¨åšä»€ä¹ˆï¼Ÿï¼Ÿ \r\n#L1#æˆ‘æƒ³è¦ä»æˆ‘è£…å¤‡æ åˆ é™¤æˆ‘çš„æˆ’æŒ‡ã€‚#l#k");
-        }
+	if (cm.getPlayer().getMarriageId() > 0) {
+	    cm.sendSimple("ÔõÃ´ÁË£¬¿´ÆğÀ´ºÜÉËĞÄ....\r\n#b#L0#ÎÒÏëÒªÀë»é¡£#l\r\n#L1#ÎÒÏëÒª´ÓÎÒ×°±¸À¸É¾³ıÎÒµÄ½äÖ¸¡£#l#k");
+	} else  {
+	    cm.sendSimple("àË£¬ÎÒ¿ÉÒÔÎªÄú×öÊ²Ã´£¿£¿ \r\n#L1#ÎÒÏëÒª´ÓÎÒ×°±¸À¸É¾³ıÎÒµÄ½äÖ¸¡£#l#k");
+	}
     } else if (status == 1) {
-        if (selection == 0) {
-            cm.sendYesNo("ç¦»å©šï¼Ÿä½ ç¡®å®šå—ï¼Ÿä½ æƒ³ç¦»å©šï¼Ÿè¿™ä¸æ˜¯ç©ç¬‘å§...ï¼Ÿ");
-        } else {
-            var selStr = "ä½ æƒ³è¦åˆ é™¤ä»€ä¹ˆæˆ’æŒ‡ï¼Œè®©æˆ‘çœ‹çœ‹ã€‚";
-            var found = false;
-            for (var i = 1112300; i < 1112312; i++) {
-                if (cm.haveItem(i)) {
-                    found = true;
-                    selStr += "\r\n#L" + i + "##v" + i + "##t" + i + "##l";
-                }
-            }
-            for (var i = 2240004; i < 2240016; i++) {
-                if (cm.haveItem(i)) {
-                    found = true;
-                    selStr += "\r\n#L" + i + "##v" + i + "##t" + i + "##l";
-                }
-            }
-            if (!found) {
-                cm.sendOk("èº«ä¸Šæ²¡æœ‰ä»»ä½•æˆ’æŒ‡ã€‚");
-                cm.dispose();
-            } else {
-                cm.sendSimple(selStr);
-            }
-        }
+	if (selection == 0) {
+	    cm.sendYesNo("Àë»é£¿ÄãÈ·¶¨Âğ£¿ÄãÏëÀë»é£¿Õâ²»ÊÇÍæĞ¦°É...£¿");
+	} else {
+	    var selStr = "ÄãÏëÒªÉ¾³ıÊ²Ã´½äÖ¸£¬ÈÃÎÒ¿´¿´¡£";
+	    var found = false;
+	    for (var i = 1112300; i < 1112312; i++) {
+		if (cm.haveItem(i)) {
+		    found = true;
+		    selStr += "\r\n#L" + i + "##v" + i + "##t" + i + "##l";
+			}
+	    }
+	    for (var i = 2240004; i < 2240016; i++) {
+		if (cm.haveItem(i)) {
+		    found = true;
+		    selStr += "\r\n#L" + i + "##v" + i + "##t" + i + "##l";
+			}
+	    }
+	    if (!found) {
+		cm.sendOk("ÉíÉÏÃ»ÓĞÈÎºÎ½äÖ¸¡£");
+		cm.dispose();
+	    } else {
+		cm.sendSimple(selStr);
+	    }
+	}
     } else if (status == 2) {
-        if (selection == -1) {
-            var cPlayer = cm.getClient().getChannelServer().getPlayerStorage().getCharacterById(cm.getPlayer().getMarriageId());
-            if (cPlayer == null) {
-                cm.sendNext("è¯·ç¡®å®šä½ çš„ä¼´ä¾£åœ¨çº¿ä¸Šã€‚");
-            } else {
-                cPlayer.dropMessage(1, "ä½ çš„ä¼´ä¾£æƒ³è¦è·Ÿä½ ç¦»å©šã€‚");
-                cPlayer.setMarriageId(0);
-                cm.setQuestRecord(cPlayer, 160001, "0");
-                cm.setQuestRecord(cm.getPlayer(), 160001, "0");
-                cm.setQuestRecord(cPlayer, 160002, "0");
-                cm.setQuestRecord(cm.getPlayer(), 160002, "0");
-                cm.getPlayer().setMarriageId(0);
+	if (selection == -1) {
+	    var cPlayer = cm.getClient().getChannelServer().getPlayerStorage().getCharacterById(cm.getPlayer().getMarriageId());
+	    if (cPlayer == null) {
+	        cm.sendNext("ÇëÈ·¶¨ÄãµÄ°éÂÂÔÚÏßÉÏ¡£");
+	    } else {
+	    	cPlayer.dropMessage(1, "ÄãµÄ°éÂÂÏëÒª¸úÄãÀë»é¡£");
+	    	cPlayer.setMarriageId(0);
+	    	cm.setQuestRecord(cPlayer, 160001, "0");
+	    	cm.setQuestRecord(cm.getPlayer(), 160001, "0");
+	    	cm.setQuestRecord(cPlayer, 160002, "0");
+	    	cm.setQuestRecord(cm.getPlayer(), 160002, "0");
+	    	cm.getPlayer().setMarriageId(0);
                 for (var i = 1112300; i < 1112312; i++) {
-                    cm.gainItem(i, -1);
-                }
-                cm.sendNext("æˆåŠŸç¦»å©šäº†ã€‚");
-            }
-        } else {
-            if (selection >= 1112300 && selection < 1112312) {
-                cm.gainItem(selection, -1);
-                cm.sendOk("ä½ æˆåŠŸç§»é™¤äº†æˆ’æŒ‡ã€‚");
-            } else if (selection >= 2240004 && selection < 2240016) {
-                cm.gainItem(selection, -1);
-                cm.sendOk("ä½ çš„è®¢å©šæˆ’æŒ‡å·²è¢«åˆ é™¤ã€‚");
-            }
-        }
-        cm.dispose();
+                cm.gainItem(i, -1);
+	        }
+	    	cm.sendNext("³É¹¦Àë»éÁË¡£");
+	    }
+	} else {
+	    if (selection >= 1112300 && selection < 1112312) {
+		cm.gainItem(selection, -1);
+		cm.sendOk("Äã³É¹¦ÒÆ³ıÁË½äÖ¸¡£");
+	    } else if (selection >= 2240004 && selection < 2240016) {
+		cm.gainItem(selection, -1);
+		cm.sendOk("ÄãµÄ¶©»é½äÖ¸ÒÑ±»É¾³ı¡£");
+	    }
+	}		
+	cm.dispose();
     }
 }

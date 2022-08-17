@@ -1,41 +1,33 @@
-ï»¿var status = 0;
+var status = 0;
 
 
 function start() {
-    status = -1;
-    action(1, 0, 0);
+	status = -1;
+	action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == -1 || mode == 0) {
-        cm.dispose();
-    } else {
-        status++;
-        if (status == 0) {
-            cm.sendSimple("å—¨ï¼Œæˆ‘æ˜¯#p9000003#ï¼Œéœ€è¦ä»€ä¹ˆå¸®å¿™å—ï¼Ÿï¼Ÿ\r\n#L0#æˆ‘æ‹¿åˆ°å®ç®±äº†ã€‚");
-        } else if (status == 1) {
-            if (cm.getQianDaoAcLog("ç®±å­æ´»åŠ¨") < 3) {
-                if (cm.haveItem(4001102)) {
-                    cm.setAcLog("ç®±å­æ´»åŠ¨");
-                    cm.gainItem(4001102, -1);
-                    cm.giveEventPrize();
-					cm.sendOk("æ­å–œä½ è·å¾—ç¥ç§˜å¥–åŠ±");
-                    cm.dispose();
-                } else {
-                    cm.sendOk("ä½ æ²¡æœ‰#b#t4001102##kï¼Œä½ æ¥æ‰¾æˆ‘åšä»€ä¹ˆï¼Ÿï¼Ÿ");
-                    cm.dispose();
-                }
-            } else {
-                cm.sendOk("ä½ ä»Šå¤©å·²ç»å…‘æ¢è¿‡3æ¬¡å®ç®±ã€‚");
-                cm.dispose();
-                return;
-            }
-            cm.dispose();
-        }
-    }
+	if (mode == -1 || mode == 0) {
+		cm.dispose();
+	} else {
+		status++;
+		if (status == 0) {
+			cm.sendSimple("àË£¬ÎÒÊÇ#p9000003#£¬ĞèÒªÊ²Ã´°ïÃ¦Âğ£¿£¿\r\n#L0#ÎÒÄÃµ½±¦ÏäÁË¡£");
+		} else if (status == 1) {
+			if(cm.haveItem(4031017)){
+			cm.removeAll(4031017);
+    		cm.warp(109050000, 0);
+			cm.dispose();
+			} else {
+			cm.sendOk("ÄãÃ»ÓĞ#b#t4031017##k£¬ÄãÀ´ÕÒÎÒ×öÊ²Ã´£¿£¿");
+			cm.dispose();
+			}
+			cm.dispose();
+		}
+	}
 }
 
 function getEimForGuild(em, id) {
-    var stringId = "" + id;
-    return em.getInstance(stringId);
+        var stringId = "" + id;
+        return em.getInstance(stringId);
 }

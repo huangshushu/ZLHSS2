@@ -1,4 +1,3 @@
-load('nashorn:mozilla_compat.js');
 importPackage(java.util);
 importPackage(java.lang);
 var status = -1;

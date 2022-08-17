@@ -1,46 +1,55 @@
-ï»¿/*
-	Lime Balloon - LudiPQ 4th stage NPC
-*/
+/*
+ 
+ ½Å±¾£ºÍæ¾ßËşµÚËÄ¹Ø
+ */
 
-var exp = 7000 * 2;
+var ÊÕ¼¯¿¨Æ¬ÊıÁ¿ = 6;
+var µÚËÄ¹Ø¾­Ñé = 7500;
 
 function action(mode, type, selection) {
-    var eim = cm.getEventInstance();
-    var stage4status = eim.getProperty("stage4status");
+  var eim = cm.getEventInstance();
+  var stage4status = eim.getProperty("stage4status");
 
-    if (stage4status == null) {
-	if (cm.isLeader()) { // Leader
-	    var stage4leader = eim.getProperty("stage4leader");
-	    if (stage4leader == "done") {
-
-		if (cm.haveItem(4001022,6)) { // Clear stage
-		    cm.sendNext("æ­å–œï¼ä½ å·²ç»é€šè¿‡äº†ç¬¬å››é˜¶æ®µã€‚å¿«ç‚¹ç°åœ¨ï¼Œåˆ°ç¬¬5é˜¶æ®µã€‚");
-		    cm.removeAll(4001022);
-		    clear(4,eim,cm);
-		    cm.givePartyExp(exp);
-		} else { // Not done yet
-		    cm.sendNext("ä½ ç¡®å®šä½ æœ‰æ”¶é›†äº† #r6å¼  #t4001022##kï¼Ÿï¼Ÿ");
-		}
-		cm.safeDispose();
-	    } else {
-		cm.sendOk("æ¬¢è¿æ¥åˆ°ç¬¬å››é˜¶æ®µã€‚#bé—å¼ƒä¹‹å¡”PQ#k è¯·æ”¶é›†#r#t4001022##k æ¥æ‰¾æˆ‘å³å¯å®Œæˆä»»åŠ¡ã€‚");
-		eim.setProperty("stage4leader","done");
-		cm.safeDispose();
-	    }
-	} else { // Members
-	    cm.sendNext("æ¬¢è¿æ¥åˆ°ç¬¬å››é˜¶æ®µã€‚#bé—å¼ƒä¹‹å¡”PQ#k è¯·æ”¶é›†#r#t4001022##k ç»™ä½ çš„é˜Ÿé•¿ï¼Œç„¶åå«é˜Ÿé•¿æ¥æ‰¾æˆ‘å³å¯å®Œæˆä»»åŠ¡ã€‚");
-	    cm.safeDispose();
-	}
+  if (stage4status == null) {
+    if (cm.isLeader()) {
+      var stage4leader = eim.getProperty("stage4leader");
+      if (stage4leader == "done") {
+        if (cm.haveItem(4001022, ÊÕ¼¯¿¨Æ¬ÊıÁ¿)) {
+          cm.gainItem(4001022, -15);
+          cm.sendNext("¹§Ï²£¡ÄãÒÑ¾­Í¨¹ıÁËµÚËÄ½×¶Î¡£¿ìµãÏÖÔÚ£¬µ½µÚ5½×¶Î¡£");
+          //cm.removeAll(4001022);
+          clear(4, eim, cm);
+          cm.givePartyExp(µÚËÄ¹Ø¾­Ñé);
+        } else {
+          cm.sendNext(
+            "ÄãÈ·¶¨ÄãÓĞÊÕ¼¯ÁË #r" + ÊÕ¼¯¿¨Æ¬ÊıÁ¿ + "#k ÕÅ #v4001022# £¿£¿"
+          );
+        }
+        cm.safeDispose();
+      } else {
+        cm.sendOk(
+          "»¶Ó­À´µ½µÚËÄ½×¶Î¡£#r" +
+            ÊÕ¼¯¿¨Æ¬ÊıÁ¿ +
+            "#k ÕÅ#v4001022#  À´ÕÒÎÒ¼´¿ÉÍê³ÉÈÎÎñ¡£"
+        );
+        eim.setProperty("stage4leader", "done");
+        cm.safeDispose();
+      }
     } else {
-	cm.sendNext("æ­å–œï¼ä½ å·²ç»é€šè¿‡äº†ç¬¬å››é˜¶æ®µã€‚å¿«ç‚¹ç°åœ¨ï¼Œåˆ°ç¬¬5é˜¶æ®µã€‚");
-	cm.safeDispose();
+      cm.sendNext(
+        "»¶Ó­À´µ½µÚËÄ½×¶Î¡£ÇëÊÕ¼¯#v4001022# ½»¸ø¶Ó³¤£¬È»ºó½Ğ¶Ó³¤À´ÕÒÎÒ¼´¿ÉÍê³ÉÈÎÎñ¡£"
+      );
+      cm.safeDispose();
     }
+  } else {
+    cm.sendNext("¹§Ï²£¡ÄãÒÑ¾­Í¨¹ıÁËµÚËÄ½×¶Î¡£¿ìµãÏÖÔÚ£¬µ½µÚ5½×¶Î¡£");
+    cm.safeDispose();
+  }
 }
 
 function clear(stage, eim, cm) {
-    eim.setProperty("stage" + stage.toString() + "status","clear");
-
-    cm.showEffect(true, "quest/party/clear");
-    cm.playSound(true, "Party1/Clear");
-    cm.environmentChange(true, "gate");
+  eim.setProperty("stage" + stage.toString() + "status", "clear");
+  cm.showEffect(true, "quest/party/clear");
+  cm.playSound(true, "Party1/Clear");
+  cm.environmentChange(true, "gate");
 }

@@ -1,82 +1,97 @@
-ï»¿var status = 0;
-var mapList = [
-    701000000,
-    540000000,
-    800000000,
-    500000000,
-    702000000,
-    550000000
-];
-var back = false;
-var map = 100000000;
-var cost = 3000;
+/*
+ 
+ ½Å±¾£º´«ËÍ
+ */
+
+var Ä§·¨Ê¯ = 4006000;
+var JT = "#fUI/Basic/BtHide3/mouseOver/0#";
+var ÐÄ = "#fUI/GuildMark.img/Mark/Etc/00009001/14#";
 function start() {
-    status = -1;
-    action(1,0,0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-    if (mode == -1) {
+  if (status == 0 && mode == 0) {
+    cm.dispose();
+    return;
+  }
+  if (mode == 1) {
+    status++;
+  } else {
+    status--;
+  }
+  if (
+    cm.ÅÐ¶ÏµØÍ¼() == 500000000 ||
+    cm.ÅÐ¶ÏµØÍ¼() == 702000000 ||
+    cm.ÅÐ¶ÏµØÍ¼() == 600000000 ||
+    cm.ÅÐ¶ÏµØÍ¼() == 540000000 ||
+    cm.ÅÐ¶ÏµØÍ¼() == 800000000 ||
+    cm.ÅÐ¶ÏµØÍ¼() == 702100000 ||
+    cm.ÅÐ¶ÏµØÍ¼() == 550000000
+  ) {
+    cm.¶Ô»°½áÊø();
+    cm.´ò¿ªNPC(2007, 12);
+    return;
+  }
+  if (cm.getBossRank("¼ÇÂ¼´«ËÍµã12", 2) == -1) {
+    cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", 1);
+  }
+  if (status == 0) {
+    var selStr = " Ñ¡ÔñÒ»¸öÄãÒªÈ¥µÄÂÃÓÎÄ¿µÄµØ°É£»\r\n";
+    selStr += "#L1##b#m500000000##k#l\r\n";
+    selStr += "#L2##b#m702000000##k#l\r\n";
+    selStr += "#L3##b#m600000000##k#l\r\n";
+    selStr += "#L4##b#m540000000##k#l\r\n";
+    selStr += "#L5##b#m800000000##k#l\r\n";
+    selStr += "#L6##b#m702100000##k#l\r\n";
+    selStr += "#L7##b#m550000000##k#l\r\n";
+
+    cm.ËµÃ÷ÎÄ×Ö(selStr);
+  } else if (status == 1) {
+    switch (selection) {
+      case 1:
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", -cm.getBossRank("¼ÇÂ¼´«ËÍµã12", 2));
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", cm.getMapId());
+        cm.warp(500000000, 0);
         cm.dispose();
-    } else {
-        if ((status <= 2 && mode == 0) || (status == 4 && mode == 1)) {
-            cm.dispose();
-            return;
-        }
-        if (mode == 1)
-            status++;
-        else
-            status--;
-
-        if (status == 0) {
-            if (!checkContain(mapList, cm.getMapId())) {
-                if (cm.getJob() == 0 && cm.getJob() == 1000 && cm.getJob() == 2000) {
-                    cm.sendNext("å¦‚æžœå¯¹ç–²å€¦çš„ç”Ÿæ´»åŽŒçƒ¦äº†ï¼Œä½•ä¸åŽ»æ—…è¡Œå‘¢ï¼Ÿä¸ä»…å¯ä»¥æ„Ÿå—åˆ«çš„æ–‡åŒ–,è¿˜èƒ½å­¦åˆ°å¾ˆå¤šçŸ¥è¯†ï¼å‘æ‚¨æŽ¨èç”±æˆ‘ä»¬æž«ä¹‹è°·æ—…è¡Œç¤¾å‡†å¤‡çš„#bä¸–ç•Œæ—…è¡Œ#k!æ‹…å¿ƒä¼šæœ‰å¾ˆå¤§çƒ‚å¤Ÿå—ï¼Ÿè¯·ä¸å¿…æ‹…å¿ƒï¼Œæˆ‘ä»¬çš„\r\n#bæž«ä¹‹è°·ä¸–ç•Œæ—…è¡Œ#k! åªéœ€ #b300 æž«å¸#kå°±å¯ä»¥ã€‚");
-                    cost = 300;
-                } else {
-                    cm.sendNext("å¦‚æžœå¯¹ç–²å€¦çš„ç”Ÿæ´»åŽŒçƒ¦äº†ï¼Œä½•ä¸åŽ»æ—…è¡Œå‘¢ï¼Ÿä¸ä»…å¯ä»¥æ„Ÿå—åˆ«çš„æ–‡åŒ–,è¿˜èƒ½å­¦åˆ°å¾ˆå¤šçŸ¥è¯†ï¼å‘æ‚¨æŽ¨èç”±æˆ‘ä»¬æž«ä¹‹è°·æ—…è¡Œç¤¾å‡†å¤‡çš„#bä¸–ç•Œæ—…è¡Œ#k!æ‹…å¿ƒä¼šæœ‰å¾ˆå¤§çƒ‚å¤Ÿå—ï¼Ÿè¯·ä¸å¿…æ‹…å¿ƒï¼Œæˆ‘ä»¬çš„\r\n#bæž«ä¹‹è°·ä¸–ç•Œæ—…è¡Œ#k! åªéœ€ #b3000 æž«å¸#kå°±å¯ä»¥ã€‚");
-                    cost = 3000;
-                }
-			} else {
-            	back = true;
-                map = cm.getSavedLocation("WORLDTOUR");
-                cm.sendSimple("æ€Žä¹ˆæ ·çš„æ—…æ¸¸ä½ äº«å—äº†å—ï¼Ÿ \r\n #L1#æˆ‘æ—…è¡Œå®Œäº†,æˆ‘è¦å›žåŽ»#m"+map+"##l");
-			}
-		} else if (status == 1) {
-        	if (back) {
-                cm.warp(map == -1 ? 100000000 : map);
-                cm.clearSavedLocation("WORLDTOUR");
-                cm.dispose();
-			} else {
-        		var txt = "ä½ æƒ³è¦åŽ»å“ªé‡Œæ—…è¡Œå‘¢ï¼Ÿ\r\n";
-        		for (var i in mapList) {
-        			txt += "#b#L"+i+"##m"+mapList[i]+"# "+cost+"é‡‘å¸#l\r\n";
-				}
-        		cm.sendNext(txt);
-			}
-		} else if (status == 2) {
-        	if (!back) {
-                cm.sendNext("ä½ æƒ³è¦åŽ»è¿™ä¸ªåœ°æ–¹æ—…è¡Œ? #b#m"+mapList[selection]+"##k? æˆ‘å°†å¸¦ä½ åŽ»åªéœ€è¦ #b3,000 æž«å¸#k. ä½ çŽ°åœ¨æ„¿æ„åŽ»?");
-                map = mapList[selection];
-			}
-		} else if (status == 3) {
-        	if (!back) {
-                cm.gainMeso(-cost);
-                cm.saveLocation("WORLDTOUR");
-                cm.warp(map, 0);
-                cm.dispose();
-			} else {
-        		cm.dispose();
-			}
-		}
+        break;
+      case 2:
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", -cm.getBossRank("¼ÇÂ¼´«ËÍµã12", 2));
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", cm.getMapId());
+        cm.warp(702000000, 0);
+        cm.dispose();
+        break;
+      case 3:
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", -cm.getBossRank("¼ÇÂ¼´«ËÍµã12", 2));
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", cm.getMapId());
+        cm.warp(600000000, 0);
+        cm.dispose();
+        break;
+      case 4:
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", -cm.getBossRank("¼ÇÂ¼´«ËÍµã12", 2));
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", cm.getMapId());
+        cm.warp(540000000, 0);
+        cm.dispose();
+        break;
+      case 5:
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", -cm.getBossRank("¼ÇÂ¼´«ËÍµã12", 2));
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", cm.getMapId());
+        cm.warp(800000000, 0);
+        cm.dispose();
+        break;
+      case 6:
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", -cm.getBossRank("¼ÇÂ¼´«ËÍµã12", 2));
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", cm.getMapId());
+        cm.warp(702100000, 0);
+        cm.dispose();
+        break;
+      case 7:
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", -cm.getBossRank("¼ÇÂ¼´«ËÍµã12", 2));
+        cm.setBossRankCount("¼ÇÂ¼´«ËÍµã12", cm.getMapId());
+        cm.warp(550000000, 0);
+        cm.dispose();
+        break;
     }
-}
-
-function checkContain(list, x) {
-	for (var i in list) {
-		if (list[i] == x) {
-			return true;
-		}
-	}
-	return false;
+  }
 }

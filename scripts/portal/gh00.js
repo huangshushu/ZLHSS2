@@ -1,3 +1,4 @@
 function enter(pi) {
-		pi.openNpc(9330111,0);
+	pi.playerMessage(5, "很抱歉，轉蛋屋暫時不開放!");
+	return false;
 }

@@ -1,7 +1,13 @@
-var status = -1;
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
+ var status = -1;
 
 function start(mode, type, selection) {
-	qm.sendNext("Royal Guard Ani comes out every hour, but right now he's not feeling like fighting.");
+	qm.sendNext("皇家卫队阿尼出来每隔一小时，但现在他没有感觉像战斗.");
 	qm.forceStartQuest();
 	qm.dispose();
 }

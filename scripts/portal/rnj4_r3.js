@@ -4,6 +4,6 @@ function enter(pi) {
 	pi.warp(926100303,0);
 	em.setProperty("stage6_2", "1");
     } else {
-	pi.playerMessage(5, "Someone has already gone in this portal.");
+	pi.playerMessage(5, "里面已经有人了.");
     }
 }

@@ -13,7 +13,7 @@ function action(mode, type, selection) {
              cm.warpParty(240050300);
 			 cm.dispose();
 	} else {
-             cm.sendOk("è¯·å«ä½ çš„é˜Ÿé•¿å¸¦è‘—5ç§è¿·å®«å®¤é’¥åŒ™æ¥æ‰¾æˆ‘");
+             cm.sendOk("Çë½ĞÄãµÄ¶Ó³¤´ø×Å5ÖÖÃÔ¹¬ÊÒÔ¿³×À´ÕÒÎÒ");
 			 cm.dispose();
               }
         }

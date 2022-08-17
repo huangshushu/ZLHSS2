@@ -1,17 +1,47 @@
-var status = -1;
+/*
+ 
+ */
+var JT = "#fUI/Basic/BtHide3/mouseOver/0#";
+var ĞÄ = "#fUI/GuildMark.img/Mark/Etc/00009001/14#";
+function start() {
+  status = -1;
+  action(1, 0, 0);
+}
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-        status++;
-    } else {
-        cm.sendNext("å™¢å™¢~ ä½ è¿˜æƒ³å¾…åœ¨è¿™é‡Œçš„è¯ï¼Œæˆ‘éšæ—¶éƒ½åœ¨å“¦ >_^");
-        cm.safeDispose();
+  if (status == 0 && mode == 0) {
+    cm.dispose();
+    return;
+  }
+  if (mode == 1) {
+    status++;
+  } else {
+    status--;
+  }
+  if (status == 0) {
+    var selStr =
+      "	Hi~#b#h ##kÄãÊÇ»ØÈ¥ÁËÂğ£¿Äã¾õµÃÕâÀïÔõÑù£¬ÊÇ²»ÊÇºÜÆ¯ÁÁµÄĞ¡´å×¯£¬»¶Ó­ÄãÔÙÀ´Å¶¡£\r\n\r\n";
+    if (cm.ÅĞ¶ÏµØÍ¼() == 209000000) {
+      selStr += " #L1##bÎÒÒª»ØÈ¥ÁË#k#l\r\n";
+      //selStr += " #L2##bÈ¥»î¶¯Èë¿Ú#k#l\r\n";
+      selStr += " #L3##b½øÈë×é¶ÓÊÒ#k#l\r\n";
     }
 
-    if (status == 0) {
-        cm.sendYesNo("å—¨~~ä½ åœ¨è¿™é‡Œæ²¡äº‹åšäº†å—? ä½ æƒ³è¦ç°åœ¨å›å» #bè‡ªç”±å¸‚åœº#k? æˆ‘éšæ—¶éƒ½èƒ½é€ä½ å›å»ã€‚ä½ æƒ³è¦ç°åœ¨å›å»å—ï¼Ÿ");
-    } else if (status == 1) {
-        cm.warp(910000000);
+    cm.ËµÃ÷ÎÄ×Ö(selStr);
+  } else if (status == 1) {
+    switch (selection) {
+      case 1:
         cm.dispose();
+        cm.warp(910000000, 0);
+        break;
+      case 2:
+        cm.warp(889100100, 1);
+        cm.dispose();
+        break;
+      case 3:
+        cm.warp(209080100, 2);
+        cm.dispose();
+        break;
     }
+  }
 }

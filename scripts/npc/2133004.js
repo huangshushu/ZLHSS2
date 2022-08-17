@@ -1,19 +1,23 @@
-ï»¿var status = -1;
+/*
+ 
+ ½Å±¾£º¶¾ÎíÉ­ÁÖ
+ */
+var status = -1;
 
 function action(mode, type, selection) {
-    if (mode == 1) {
-	status++;
-    } else {
-	status--;
-    }
-    switch(cm.getPlayer().getMapId()) {
-	case 930000500:
-	    if (!cm.haveItem(4001163)) {
-	    	cm.sendNext("æŠŠ#b#t4001163##kå¸¦æ¥ç»™æˆ‘ã€‚");
-	    } else {
-                cm.warpParty(930000600);
-	    }
-	    break;
-    }
-    cm.dispose();
+  if (mode == 1) {
+    status++;
+  } else {
+    status--;
+  }
+  switch (cm.getPlayer().getMapId()) {
+    case 930000500:
+      if (!cm.haveItem(4001163)) {
+        cm.sendNext("°Ñ#b#t4001163##k´øÀ´¸øÎÒ¡£");
+      } else {
+        cm.warpParty(930000600);
+      }
+      break;
+  }
+  cm.dispose();
 }

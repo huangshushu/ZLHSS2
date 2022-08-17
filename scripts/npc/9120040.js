@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 	NPC Name: 		Ponicher
 	Map(s): 		Neo Tokyo 2100 : Odaiba (802000210)
 	Description: 		Vergamot Battle starter
@@ -8,14 +8,14 @@ var status = -1;
 function start() {
     if (cm.getMapId() == 802000210) {
         if (cm.getPlayer().getClient().getChannel() != 2) {
-            cm.sendOk("å‚åŠ è¿œå¾ä»»åŠ¡è¯·åˆ° 2 é¢‘é“.");
+            cm.sendOk("²Î¼ÓÔ¶Õ÷ÈÎÎñÇëµ½ 2 ÆµµÀ.");
             cm.dispose();
             return;
         }
         var em = cm.getEventManager("Vergamot");
 
         if (em == null) {
-            cm.sendOk("è„šæœ¬å‡ºé”™ï¼Œè¯·è”ç³»ç®¡ç†å‘˜.");
+            cm.sendOk("½Å±¾³ö´í£¬ÇëÁªÏµ¹ÜÀíÔ±.");
             cm.dispose();
             return;
         }
@@ -27,32 +27,32 @@ function start() {
             var squadAvailability = cm.getSquadAvailability("VERGAMOT");
             if (squadAvailability == -1) {
                 status = 0;
-                cm.sendYesNo("ä½ æƒ³æˆä¸ºè¿œå¾é˜Ÿé•¿å—ï¼Ÿ");
+                cm.sendYesNo("ÄãÏë³ÉÎªÔ¶Õ÷¶Ó³¤Âğ£¿");
 
             } else if (squadAvailability == 1) {
                 // -1 = Cancelled, 0 = not, 1 = true
                 var type = cm.isSquadLeader("VERGAMOT");
                 if (type == -1) {
-                    cm.sendOk("è¿œå¾é˜Ÿå·²ç»æ³¨é”€.è¯·é‡æ–°å‘èµ·.");
+                    cm.sendOk("Ô¶Õ÷¶ÓÒÑ¾­×¢Ïú.ÇëÖØĞÂ·¢Æğ.");
                     cm.dispose();
                 } else if (type == 0) {
                     var memberType = cm.isSquadMember("VERGAMOT");
                     if (memberType == 2) {
-                        cm.sendOk("ä½ è¢«åŠ å…¥åˆ¶è£åå•ï¼Œä¸èƒ½è¿›è¡Œè¿œå¾ä»»åŠ¡.");
+                        cm.sendOk("Äã±»¼ÓÈëÖÆ²ÃÃûµ¥£¬²»ÄÜ½øĞĞÔ¶Õ÷ÈÎÎñ.");
                         cm.dispose();
                     } else if (memberType == 1) {
                         status = 5;
-                        cm.sendSimple("ä½ æƒ³å¹²ä»€ä¹ˆ? \r\n#b#L0#æŸ¥çœ‹è¿œå¾é˜Ÿ#l \r\n#b#L1#åŠ å…¥è¿œå¾é˜Ÿ#l \r\n#b#L2#ç¦»å¼€è¿œå¾é˜Ÿ#l");
+                        cm.sendSimple("ÄãÏë¸ÉÊ²Ã´? \r\n#b#L0#²é¿´Ô¶Õ÷¶Ó#l \r\n#b#L1#¼ÓÈëÔ¶Õ÷¶Ó#l \r\n#b#L2#Àë¿ªÔ¶Õ÷¶Ó#l");
                     } else if (memberType == -1) {
-                        cm.sendOk("è¿œå¾é˜Ÿå·²ç»æ³¨é”€ï¼Œè¯·é‡æ–°å‘èµ·ã€‚");
+                        cm.sendOk("Ô¶Õ÷¶ÓÒÑ¾­×¢Ïú£¬ÇëÖØĞÂ·¢Æğ¡£");
                         cm.dispose();
                     } else {
                         status = 5;
-                        cm.sendSimple("ä½ æƒ³å¹²ä»€ä¹ˆ? \r\n#b#L0#æŸ¥çœ‹è¿œå¾é˜Ÿ#l \r\n#b#L1#åŠ å…¥è¿œå¾é˜Ÿ#l \r\n#b#L2#ç¦»å¼€è¿œå¾é˜Ÿ#l");
+                        cm.sendSimple("ÄãÏë¸ÉÊ²Ã´? \r\n#b#L0#²é¿´Ô¶Õ÷¶Ó#l \r\n#b#L1#¼ÓÈëÔ¶Õ÷¶Ó#l \r\n#b#L2#Àë¿ªÔ¶Õ÷¶Ó#l");
                     }
                 } else { // Is leader
                     status = 10;
-                    cm.sendSimple("ä½ æƒ³åšä»€ä¹ˆ?è¿œå¾é˜Ÿé•¿ã€‚ \r\n#b#L0#æŸ¥çœ‹è¿œå¾é˜Ÿ#l \r\n#b#L1#åˆ¶è£è¿œå¾é˜Ÿå‘˜#l \r\n#b#L2#æŸ¥çœ‹åˆ¶è£åå•#l \r\n#r#L3#å¼€å§‹è¿œå¾ä»»åŠ¡#l");
+                    cm.sendSimple("ÄãÏë×öÊ²Ã´?Ô¶Õ÷¶Ó³¤¡£ \r\n#b#L0#²é¿´Ô¶Õ÷¶Ó#l \r\n#b#L1#ÖÆ²ÃÔ¶Õ÷¶ÓÔ±#l \r\n#b#L2#²é¿´ÖÆ²ÃÃûµ¥#l \r\n#r#L3#¿ªÊ¼Ô¶Õ÷ÈÎÎñ#l");
                     // TODO viewing!
                 }
             } else {
@@ -60,14 +60,14 @@ function start() {
                 if (eim == null) {
                     var squd = cm.getSquad("VERGAMOT");
                     if (squd != null) {
-                        cm.sendYesNo("è¿œå¾ä»»åŠ¡å·²ç»å¼€å§‹.\r\n" + squd.getNextPlayer());
+                        cm.sendYesNo("Ô¶Õ÷ÈÎÎñÒÑ¾­¿ªÊ¼.\r\n" + squd.getNextPlayer());
                         status = 3;
                     } else {
-                        cm.sendOk("è¿œå¾ä»»åŠ¡å·²ç»å¼€å§‹");
+                        cm.sendOk("Ô¶Õ÷ÈÎÎñÒÑ¾­¿ªÊ¼");
                         cm.safeDispose();
                     }
                 } else {
-                    cm.sendYesNo("ä½ è¦ç»§ç»­è¿œå¾ä»»åŠ¡å—?");
+                    cm.sendYesNo("ÄãÒª¼ÌĞøÔ¶Õ÷ÈÎÎñÂğ?");
                     status = 2;
                 }
             }
@@ -76,20 +76,20 @@ function start() {
             if (eim == null) {
                 var squd = cm.getSquad("VERGAMOT");
                 if (squd != null) {
-                    cm.sendYesNo("è¿œå¾ä»»åŠ¡å·²ç»å¼€å§‹\r\n" + squd.getNextPlayer());
+                    cm.sendYesNo("Ô¶Õ÷ÈÎÎñÒÑ¾­¿ªÊ¼\r\n" + squd.getNextPlayer());
                     status = 3;
                 } else {
-                    cm.sendOk("è¿œå¾ä»»åŠ¡å·²ç»å¼€å§‹");
+                    cm.sendOk("Ô¶Õ÷ÈÎÎñÒÑ¾­¿ªÊ¼");
                     cm.safeDispose();
                 }
             } else {
-                cm.sendYesNo("ä½ è¦ç»§ç»­è¿›è¡Œè¿œå¾ä»»åŠ¡å—?");
+                cm.sendYesNo("ÄãÒª¼ÌĞø½øĞĞÔ¶Õ÷ÈÎÎñÂğ?");
                 status = 2;
             }
         }
     } else {
         status = 25;
-        cm.sendNext("ä½ æƒ³é€€å‡ºè¿œå¾é˜Ÿå—?");
+        cm.sendNext("ÄãÏëÍË³öÔ¶Õ÷¶ÓÂğ?");
     }
 }
 
@@ -97,17 +97,17 @@ function action(mode, type, selection) {
     switch (status) {
     case 0:
         if (mode == 1) {
-            if (cm.registerSquad("VERGAMOT", 5, " å·²ç»æˆä¸ºè¿œå¾é˜Ÿé•¿ã€‚å¦‚æœä½ æƒ³å‚åŠ è¿œå¾ä»»åŠ¡è¯·åœ¨5åˆ†é’Ÿå†…åŠ å…¥è¿œå¾é˜Ÿã€‚")) {
-                cm.sendOk("ä½ å·²ç»æˆä¸ºè¿œå¾é˜Ÿé•¿ï¼Œè¯·åœ¨5åˆ†é’Ÿå†…æ•´ç†å¥½ä½ çš„è¿œå¾é˜Ÿä¼ï¼Œå¹¶å¼€å§‹è¿œå¾ä»»åŠ¡ã€‚");
+            if (cm.registerSquad("VERGAMOT", 5, " ÒÑ¾­³ÉÎªÔ¶Õ÷¶Ó³¤¡£Èç¹ûÄãÏë²Î¼ÓÔ¶Õ÷ÈÎÎñÇëÔÚ5·ÖÖÓÄÚ¼ÓÈëÔ¶Õ÷¶Ó¡£")) {
+                cm.sendOk("ÄãÒÑ¾­³ÉÎªÔ¶Õ÷¶Ó³¤£¬ÇëÔÚ5·ÖÖÓÄÚÕûÀíºÃÄãµÄÔ¶Õ÷¶ÓÎé£¬²¢¿ªÊ¼Ô¶Õ÷ÈÎÎñ¡£");
             } else {
-                cm.sendOk("æœªçŸ¥é”™è¯¯ã€‚æˆä¸ºè¿œå¾é˜Ÿé•¿å¤±è´¥");
+                cm.sendOk("Î´Öª´íÎó¡£³ÉÎªÔ¶Õ÷¶Ó³¤Ê§°Ü");
             }
         }
         cm.dispose();
         break;
     case 2:
         if (!cm.reAdd("Vergamot", "VERGAMOT")) {
-            cm.sendOk("é”™è¯¯ã€‚ã€‚è¯·å†è¯•ä¸€æ¬¡");
+            cm.sendOk("´íÎó¡£¡£ÇëÔÙÊÔÒ»´Î");
         }
         cm.safeDispose();
         break;
@@ -124,23 +124,23 @@ function action(mode, type, selection) {
     case 5:
         if (selection == 0) {
             if (!cm.getSquadList("VERGAMOT", 0)) {
-                cm.sendOk("ç”±äºæœªçŸ¥çš„é”™è¯¯ï¼Œå¯¹è¿œå¾é˜Ÿçš„è¦æ±‚è¢«æ‹’ç»ã€‚");
+                cm.sendOk("ÓÉÓÚÎ´ÖªµÄ´íÎó£¬¶ÔÔ¶Õ÷¶ÓµÄÒªÇó±»¾Ü¾ø¡£");
             }
         } else if (selection == 1) { // join
             var ba = cm.addMember("VERGAMOT", true);
             if (ba == 2) {
-                cm.sendOk("è¿œå¾é˜Ÿäººæ•°å·²ç»è¶³å¤Ÿã€‚è¯·ç¨åå†è¯•");
+                cm.sendOk("Ô¶Õ÷¶ÓÈËÊıÒÑ¾­×ã¹»¡£ÇëÉÔºóÔÙÊÔ");
             } else if (ba == 1) {
-                cm.sendOk("åŠ å…¥è¿œå¾é˜ŸæˆåŠŸ");
+                cm.sendOk("¼ÓÈëÔ¶Õ÷¶Ó³É¹¦");
             } else {
-                cm.sendOk("ä½ å·²ç»åŠ å…¥è¿œå¾é˜Ÿäº†.");
+                cm.sendOk("ÄãÒÑ¾­¼ÓÈëÔ¶Õ÷¶ÓÁË.");
             }
         } else { // withdraw
             var baa = cm.addMember("VERGAMOT", false);
             if (baa == 1) {
-                cm.sendOk("é€€å‡ºè¿œå¾é˜ŸæˆåŠŸ");
+                cm.sendOk("ÍË³öÔ¶Õ÷¶Ó³É¹¦");
             } else {
-                cm.sendOk("ä½ è¿˜æ²¡æœ‰åŠ å…¥è¿œå¾é˜Ÿ.");
+                cm.sendOk("Äã»¹Ã»ÓĞ¼ÓÈëÔ¶Õ÷¶Ó.");
             }
         }
         cm.dispose();
@@ -149,19 +149,19 @@ function action(mode, type, selection) {
         if (mode == 1) {
             if (selection == 0) {
                 if (!cm.getSquadList("VERGAMOT", 0)) {
-                    cm.sendOk("ç”±äºæœªçŸ¥çš„é”™è¯¯ï¼Œå¯¹è¿œå¾é˜Ÿçš„è¦æ±‚è¢«æ‹’ç»ã€‚");
+                    cm.sendOk("ÓÉÓÚÎ´ÖªµÄ´íÎó£¬¶ÔÔ¶Õ÷¶ÓµÄÒªÇó±»¾Ü¾ø¡£");
                 }
                 cm.dispose();
             } else if (selection == 1) {
                 status = 11;
                 if (!cm.getSquadList("VERGAMOT", 1)) {
-                    cm.sendOk("ç”±äºæœªçŸ¥çš„é”™è¯¯ï¼Œå¯¹è¿œå¾é˜Ÿçš„è¦æ±‚è¢«æ‹’ç»ã€‚");
+                    cm.sendOk("ÓÉÓÚÎ´ÖªµÄ´íÎó£¬¶ÔÔ¶Õ÷¶ÓµÄÒªÇó±»¾Ü¾ø¡£");
                     cm.dispose();
                 }
             } else if (selection == 2) {
                 status = 12;
                 if (!cm.getSquadList("VERGAMOT", 2)) {
-                    cm.sendOk("ç”±äºæœªçŸ¥çš„é”™è¯¯ï¼Œå¯¹è¿œå¾é˜Ÿçš„è¦æ±‚è¢«æ‹’ç»ã€‚");
+                    cm.sendOk("ÓÉÓÚÎ´ÖªµÄ´íÎó£¬¶ÔÔ¶Õ÷¶ÓµÄÒªÇó±»¾Ü¾ø¡£");
                     cm.dispose();
                 }
             } else if (selection == 3) { // get insode
@@ -169,7 +169,7 @@ function action(mode, type, selection) {
                     var dd = cm.getEventManager("Vergamot");
                     dd.startInstance(cm.getSquad("VERGAMOT"), cm.getMap());
                 } else {
-                    cm.sendOk("ç”±äºæœªçŸ¥çš„é”™è¯¯ï¼Œå¯¹è¿œå¾é˜Ÿçš„è¦æ±‚è¢«æ‹’ç»ã€‚");
+                    cm.sendOk("ÓÉÓÚÎ´ÖªµÄ´íÎó£¬¶ÔÔ¶Õ÷¶ÓµÄÒªÇó±»¾Ü¾ø¡£");
                 }
                 cm.dispose();
             }

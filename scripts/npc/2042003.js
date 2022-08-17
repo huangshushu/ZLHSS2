@@ -1,12 +1,12 @@
 var status = 0;
 function start() {
-    cm.sendYesNo("è¯·é—®ä½ æƒ³è¦ç¦»å¼€ï¼Ÿï¼Ÿ");
+    cm.sendYesNo("ÇëÎÊÄãÏëÒªÀë¿ª£¿£¿");
 }
 
 function action(mode, type, selection) {
     if (mode != 1) {
         if (mode == 0)
-        cm.sendOk("æ”¹å˜ä¸»æ„å†æ¥æ‰¾æˆ‘ã€‚");
+        cm.sendOk("¸Ä±äÖ÷ÒâÔÙÀ´ÕÒÎÒ¡£");
         cm.dispose();
         return;
     }

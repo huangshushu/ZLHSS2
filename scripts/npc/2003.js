@@ -1,80 +1,133 @@
-ï»¿var status;
+/*
+ 
+ */
+var status;
 var sel;
 
 function start() {
-    status = -1;
-    sel = -1;
-    cm.sendSimple("æˆ‘å¯ä»¥å‘Šè¯‰ä½ äº›å†’é™©è€…çš„æŠ€å·§å”·!!\r\n#L0##bè¦æ€ä¹ˆç§»åŠ¨ï¼Ÿ#l\r\n#L1#æˆ‘è¦å¦‚ä½•å‡»é€€æ€ªç‰©ï¼Ÿ#l\r\n#L2#æˆ‘è¦æ€ä¹ˆæ¡èµ·ç‰©å“ï¼Ÿ#l\r\n#L3#å½“æˆ‘æ­»æ‰ä¼šå‘ç”Ÿä»€ä¹ˆäº‹æƒ…ï¼Ÿ#l\r\n#L4#æˆ‘ä½•æ—¶èƒ½é€‰æ‹©èŒä¸šï¼Ÿ#l\r\n#L5#å‘Šè¯‰æˆ‘æœ‰å…³è¿™ä¸ªå²›å±¿ï¼#l\r\n#L6#æˆ‘è¦æ€ä¹ˆåšæ‰èƒ½æˆä¸ºæˆ˜å£«ï¼Ÿ#l\r\n#L7#æˆ‘è¦æ€ä¹ˆåšæ‰èƒ½æˆä¸ºå¼“ç®­æ‰‹ï¼Ÿ#l\r\n#L8#æˆ‘è¦æ€ä¹ˆåšæ‰èƒ½æˆä¸ºé­”æ³•å¸ˆï¼Ÿ#l\r\n#L9#æˆ‘è¦æ€ä¹ˆåšæ‰èƒ½æˆä¸ºç›—è´¼ï¼Ÿ#l\r\n#L10#æ€ä¹ˆæå‡èƒ½åŠ›å€¼ï¼Ÿ(S)#l\r\n#L11#æˆ‘è¦æ€ä¹ˆç¡®è®¤æˆ‘æ¡èµ·æ¥çš„ç‰©å“å‘¢ï¼Ÿ#l\r\n#L12#æˆ‘è¦æ€ä¹ˆè£…å¤‡ç‰©å“ï¼Ÿ#l\r\n#L13#æˆ‘è¦æ€ä¹ˆç¡®è®¤æˆ‘èº«ä¸Šå·²ç»è£…å¤‡çš„ç‰©å“ï¼Ÿ#l\r\n#L14#ä»€ä¹ˆæ˜¯æŠ€èƒ½ï¼Ÿ(K)#l\r\n#L15#æˆ‘è¦æ€ä¹ˆå‰å¾€ç»´å¤šåˆ©äºšå²›ï¼Ÿ#l\r\n#L16#æ«å¸æ˜¯ä»€ä¹ˆï¼Ÿ#l#k");
+  status = -1;
+  sel = -1;
+  cm.sendSimple(
+    "ÎÒ¿ÉÒÔ¸æËßÄãĞ©Ã°ÏÕÕßµÄ¼¼ÇÉà¡!!\r\n#L0##bÒªÔõÃ´ÒÆ¶¯£¿#l\r\n#L1#ÎÒÒªÈçºÎ»÷ÍË¹ÖÎï£¿#l\r\n#L2#ÎÒÒªÔõÃ´¼ñÆğÎïÆ·£¿#l\r\n#L3#µ±ÎÒËÀµô»á·¢ÉúÊ²Ã´ÊÂÇé£¿#l\r\n#L4#ÎÒºÎÊ±ÄÜÑ¡ÔñÖ°Òµ£¿#l\r\n#L5#¸æËßÎÒÓĞ¹ØÕâ¸öµºÓì£¡#l\r\n#L6#ÎÒÒªÔõÃ´×ö²ÅÄÜ³ÉÎªÕ½Ê¿£¿#l\r\n#L7#ÎÒÒªÔõÃ´×ö²ÅÄÜ³ÉÎª¹­¼ıÊÖ£¿#l\r\n#L8#ÎÒÒªÔõÃ´×ö²ÅÄÜ³ÉÎªÄ§·¨Ê¦£¿#l\r\n#L9#ÎÒÒªÔõÃ´×ö²ÅÄÜ³ÉÎªµÁÔô£¿#l\r\n#L10#ÔõÃ´ÌáÉıÄÜÁ¦Öµ£¿(S)#l\r\n#L11#ÎÒÒªÔõÃ´È·ÈÏÎÒ¼ñÆğÀ´µÄÎïÆ·ÄØ£¿#l\r\n#L12#ÎÒÒªÔõÃ´×°±¸ÎïÆ·£¿#l\r\n#L13#ÎÒÒªÔõÃ´È·ÈÏÎÒÉíÉÏÒÑ¾­×°±¸µÄÎïÆ·£¿#l\r\n#L14#Ê²Ã´ÊÇ¼¼ÄÜ£¿(K)#l\r\n#L15#ÎÒÒªÔõÃ´Ç°ÍùÎ¬¶àÀûÑÇµº£¿#l\r\n#L16#·ã±ÒÊÇÊ²Ã´£¿#l#k"
+  );
 }
 
 function action(mode, type, selection) {
-    status++;
-    if (mode != 1) {
-        if(mode == 0 && type != 4)
-            status -= 2;
-        else{
-            cm.dispose();
-            return;
-        }
+  status++;
+  if (mode != 1) {
+    if (mode == 0 && type != 4) status -= 2;
+    else {
+      cm.dispose();
+      return;
     }
-    if (status == 0) {
-        if(sel == -1)
-            sel = selection;
-        if (sel == 0)
-            cm.sendNext("å¥½ï¼Œæˆ‘æ¥æ•™ä½ å¦‚ä½•ç§»åŠ¨ã€‚ ä½¿ç”¨ #æ–¹å‘å·¦é”®#k å°±èƒ½åœ¨å¹³å°ä¸Šç§»åŠ¨äº†ï¼ŒæŒ‰ä¸‹ #bAlt#k å¯ä»¥è¿›è¡Œè·³è·ƒã€‚ æœ‰äº›é‹å­èƒ½æå‡ä½ çš„é€Ÿåº¦ä»¥åŠè·³è·ƒåŠ›ã€‚");
-        else if (sel == 1)
-            cm.sendNext("å¥½ï¼Œå‡»é€€æ€ªç‰©å¾ˆç®€å•ï¼Œæ¯ä¸ªæ€ªç‰©æœ‰è‡ªå·±çš„è¡€æ¡ï¼Œä½ å¯ä»¥ä½¿ç”¨æ­¦å™¨å°†ä»–ä»¬æ€æ­»ã€‚å½“ç„¶ï¼Œå¦‚æœæ€ªç‰©ç­‰çº§è¶Šé«˜ï¼Œä½ è¶Šéš¾å‡»é€€å®ƒä»¬ã€‚");
-        else if (sel == 2)
-            cm.sendNext("æ¥ä¸‹æ¥å‘Šè¯‰ä½ å¦‚ä½•å‰ªå–ç‰©å“ï¼Œå½“ä½ å‡»é€€æ€ªç‰©æ—¶ï¼Œä¼šæœ‰æœºä¼šæ‰è½å®ç‰©ä»¥åŠæ«å¸ï¼Œå½“åœ°ä¸Šæœ‰ç‰©å“æ—¶ï¼ŒæŒ‰ä¸‹#bZ#k æˆ–æ˜¯ æ•°å­—é”®ç›˜ä¸Šçš„ #b0 æ¥æ¡å–ç‰©å“ã€‚");
-        else if (sel == 3)
-            cm.sendNext("ä½ å¥½å¥‡åœ°æ‰¾å‡ºå½“ä½ æ­»ä¼šå‘ç”Ÿä»€ä¹ˆå—ï¼Ÿ å½“ä½ çš„HPå½’é›¶æ—¶ï¼Œä½ ä¼šå˜æˆå¹½çµã€‚ è€Œåœ°ä¸Šä¼šå‡ºç°ä¸€å—å¢“ç¢‘ï¼Œè€Œä½ æ— æ³•ç§»åŠ¨ï¼Œä½†æ˜¯ä½ è¿˜æ˜¯å¯ä»¥èŠå¤©ã€‚");
-        else if (sel == 4)
-            cm.sendNext("ä»€ä¹ˆæ—¶å€™ä½ å¯ä»¥é€‰æ‹©ä½ çš„èŒä¸šï¼Ÿå“ˆå“ˆå“ˆï¼Œåˆ«ç´§å¼ ï¼Œæˆ‘çš„æœ‹å‹å•Šï½æ¯ä¸ªèŒä¸šéƒ½æœ‰ç­‰çº§çš„é™åˆ¶ã€‚é€šå¸¸åœ¨8ç­‰å’Œ10ç­‰ä¹‹é—´ä¼šè¿›è¡Œã€‚");
-        else if (sel == 5)
-            cm.sendNext("ä½ æƒ³è¦çŸ¥é“è¿™ä¸ªå²›å±¿å—ï¼Ÿ è¿™é‡Œæ˜¯æ«ä¹‹å²›ï¼Œè¿™åº§å²›å±¿æµ®åœ¨å¤©ç©ºä¸Šã€‚ç”±äºæµ®åœ¨å¤©ç©ºä¸Šï¼Œå¼ºå¤§çš„æ€ªç‰©ä»¬æ— æ³•é è¿‘ã€‚è¿™é‡Œéå¸¸å’Œå¹³ï¼Œéå¸¸é€‚åˆæ–°æ‰‹ã€‚");
-        else if (sel == 6)
-            cm.sendNext("ä½ æƒ³æˆä¸º#bæˆ˜å£«#kï¼Ÿ æ‘...é‚£æˆ‘å»ºè®®ä½ åˆ°ç»´å¤šåˆ©äºšæ¸¯ï¼Œå¯»æ‰¾ä¸€ä¸ªå«åš#rå‹‡å£«ä¹‹æ‘#kçš„æˆ˜å£«æ‘åº„ä»¥åŠå»æ‰¾å¯»#bDances with Balrog#kã€‚ ä»–ä¼šæ•™ä½ å¦‚ä½•æˆä¸ºä¸€ä¸ªæˆ˜å£«ã€‚ å–”å¯¹äº†ï¼Œæœ‰ä»¶å¾ˆé‡è¦çš„äº‹ï¼Œä½ å¿…é¡»è¾¾åˆ°ç­‰çº§10æ‰èƒ½æˆä¸ºæˆ˜å£«ï¼");
-        else if (sel == 7)
-            cm.sendNext("You want to become a #bBowman#k? You'll need to go to Victoria Island to make the job advancement. Head over to a bowman-town called #rHenesys#k and talk to the beautiful #bAthena Pierce#k and learn the in's and out's of being a bowman. Ohh, and one VERY important thing: You'll need to be at least level 10 in order to become a bowman!!");
-        else if (sel == 8)
-            cm.sendNext("You want to become a #bMagician#k? For you to do that, you'll have to head over to Victoria Island. Head over to a magician-town called #rEllinia#k, and at the very top lies the Magic Library. Inside, you'll meet the head of all wizards, #bGrendel the Really Old#k, who'll teach you everything about becoming a wizard.");
-        else if (sel == 9)
-            cm.sendNext("You want to become a #bThief#k? In order to become one, you'll have to head over to Victoria Island. Head over to a thief-town called #rKerning City#k, and on the shadier side of town, you'll see a thief's hideaway. There, you'll meet #bDark Lord#k who'll teach you everything about being a thief. Ohh, and one VERY important thing: You'll need to be at least level 10 in order to become a thief!!");
-        else if (sel == 10)
-            cm.sendNext("You want to know how to raise your character's ability stats? First press #bS#k to check out the ability window. Every time you level up, you'll be awarded 5 ability points aka AP's. Assign those AP's to the ability of your choice. It's that simple.");
-        else if (sel == 11)
-            cm.sendNext("You want to know how to check out the items you've picked up, huh? When you defeat a monster, it'll drop an item on the ground, and you may press #bZ#k to pick up the item. That item will then be stored in your item inventory, and you can take a look at it by simply pressing #bI#k.");
-        else if (sel == 12)
-            cm.sendNext("You want to know how to wear the items, right? Press #bI#k to check out your item inventory. Place your mouse cursor on top of an item and double-click on it to put it on your character. If you find yourself unable to wear the item, chances are your character does not meet the level & stat requirements. You can also put on the item by opening the equipment inventory (#bE#k) and dragging the item into it. To take off an item, double-click on the item at the equipment inventory.");
-        else if (sel == 13)
-            cm.sendNext("You want to check on the equipped items, right? Press #bE#k to open the equipment inventory, where you'll see exactly what you are wearing right at the moment. To take off an item, double-click on the item. The item will then be sent to the item inventory.");
-        else if (sel == 14)
-            cm.sendNext("The special 'abilities' you get after acquiring a job are called skills. You'll acquire skills that are specifically for that job. You're not at that stage yet, so you don't have any skills yet, but just remember that to check on your skills, press #bK#k to open the skill book. It'll help you down the road.");
-        else if (sel == 15)
-            cm.sendNext("How do you get to Victoria Island? On the east of this island there's a harbor called Southperry. There, you'll find a ship that flies in the air. In front of the ship stands the captain. Ask him about it.");
-        else if (sel == 16)
-            cm.sendNext("It's the currency used in MapleStory. You may purchase items through mesos. To earn them, you may either defeat the monsters, sell items at the store, or complete quests...");
-    } else if (status == 1) {
-        if (sel == 0)
-            cm.sendNextPrev("In order to attack the monsters, you'll need to be equipped with a weapon. When equipped, press #bCtrl#k to use the weapon. With the right timing, you'll be able to easily take down the monsters.");
-        else if (sel == 1)
-            cm.sendNextPrev("Once you make the job advancement, you'll acquire different kinds of skills, and you can assign them to HotKeys for easier access. If it's an attacking skill, you don't need to press Ctrl to attack, just press the button assigned as a HotKey.");
-        else if (sel == 2)
-            cm.sendNextPrev("Remember, though, that if your item inventory is full, you won't be able to acquire more. So if you have an item you don't need, sell it so you can make something out of it. The inventory may expand once you make the job advancement.");
-        else if (sel == 3)  
-            cm.sendNextPrev("There isn't much to lose when you die if you are just a beginner. Once you have a job, however, it's a different story. You'll lose a portion of your EXP when you die, so make sure you avoid danger and death at all cost.");
-        else if (sel == 4) 
-            cm.sendNextPrev("Level isn't the only thing that determines the advancement, though. You also need to boost up the levels of a particular ability based on the occupation. For example, to be a warrior, your STR has to be over 35, and so forth, you know what I'm saying? Make sure you boost up the abilities that has direct implications to your job.");
-        else if (sel == 5)
-            cm.sendNextPrev("But, if you want to be a powerful player, better not think about staying here for too long. You won't be able to get a job anyway. Underneath this island lies an enormous island called Victoria Island. That place is so much bigger than here, it's not even funny.");
-        else if (sel == 8)
-            cm.sendNextPrev("Oh by the way, unlike other jobs, to become a magician you only need to be at level 8. What comes with making the job advancement early also comes with the fact that it takes a lot to become a true powerful mage. Think long and carefully before choosing your path.");
-        else if (sel == 10)
-            cm.sendNextPrev("Place your mouse cursor on top of all abilities for a brief explanation. For example, STR for warriors, DEX for bowman, INT for magician, and LUK for thief. That itself isn't everything you need to know, so you'll need to think long and hard on how to emphasize your character's strengths through assigning the points.");
-        else if (sel == 15)
-            cm.sendNextPrev("Oh yeah! One last piece of information before I go. If you are not sure where you are, always press #bW#k. The world map will pop up with the locator showing where you stand. You won't have to worry about getting lost with that.");
-        else
-            start();
-    }else
-        cm.dispose();
+  }
+  if (status == 0) {
+    if (sel == -1) sel = selection;
+    if (sel == 0)
+      cm.sendNext(
+        "ºÃ£¬ÎÒÀ´½ÌÄãÈçºÎÒÆ¶¯¡£ Ê¹ÓÃ #·½Ïò×ó¼ü#k ¾ÍÄÜÔÚÆ½Ì¨ÉÏÒÆ¶¯ÁË£¬°´ÏÂ #bAlt#k ¿ÉÒÔ½øĞĞÌøÔ¾¡£ ÓĞĞ©Ğ¬×ÓÄÜÌáÉıÄãµÄËÙ¶ÈÒÔ¼°ÌøÔ¾Á¦¡£"
+      );
+    else if (sel == 1)
+      cm.sendNext(
+        "ºÃ£¬»÷ÍË¹ÖÎïºÜ¼òµ¥£¬Ã¿¸ö¹ÖÎïÓĞ×Ô¼ºµÄÑªÌõ£¬Äã¿ÉÒÔÊ¹ÓÃÎäÆ÷½«ËûÃÇÉ±ËÀ¡£µ±È»£¬Èç¹û¹ÖÎïµÈ¼¶Ô½¸ß£¬ÄãÔ½ÄÑ»÷ÍËËüÃÇ¡£"
+      );
+    else if (sel == 2)
+      cm.sendNext(
+        "½ÓÏÂÀ´¸æËßÄãÈçºÎ¼ôÈ¡ÎïÆ·£¬µ±Äã»÷ÍË¹ÖÎïÊ±£¬»áÓĞ»ú»áµôÂä±¦ÎïÒÔ¼°·ã±Ò£¬µ±µØÉÏÓĞÎïÆ·Ê±£¬°´ÏÂ#bZ#k »òÊÇ Êı×Ö¼üÅÌÉÏµÄ #b0 À´¼ñÈ¡ÎïÆ·¡£"
+      );
+    else if (sel == 3)
+      cm.sendNext(
+        "ÄãºÃÆæµØÕÒ³öµ±ÄãËÀ»á·¢ÉúÊ²Ã´Âğ£¿ µ±ÄãµÄHP¹éÁãÊ±£¬Äã»á±ä³ÉÓÄÁé¡£ ¶øµØÉÏ»á³öÏÖÒ»¿éÄ¹±®£¬¶øÄãÎŞ·¨ÒÆ¶¯£¬µ«ÊÇÄã»¹ÊÇ¿ÉÒÔÁÄÌì¡£"
+      );
+    else if (sel == 4)
+      cm.sendNext(
+        "Ê²Ã´Ê±ºòÄã¿ÉÒÔÑ¡ÔñÄãµÄÖ°Òµ£¿¹ş¹ş¹ş£¬±ğ½ôÕÅ£¬ÎÒµÄÅóÓÑ°¡¡«Ã¿¸öÖ°Òµ¶¼ÓĞµÈ¼¶µÄÏŞÖÆ¡£Í¨³£ÔÚ8µÈºÍ10µÈÖ®¼ä»á½øĞĞ¡£"
+      );
+    else if (sel == 5)
+      cm.sendNext(
+        "ÄãÏëÒªÖªµÀÕâ¸öµºÓìÂğ£¿ ÕâÀïÊÇ·ãÖ®µº£¬Õâ×ùµºÓì¸¡ÔÚÌì¿ÕÉÏ¡£ÓÉÓÚ¸¡ÔÚÌì¿ÕÉÏ£¬Ç¿´óµÄ¹ÖÎïÃÇÎŞ·¨¿¿½ü¡£ÕâÀï·Ç³£ºÍÆ½£¬·Ç³£ÊÊºÏĞÂÊÖ¡£"
+      );
+    else if (sel == 6)
+      cm.sendNext(
+        "ÄãÏë³ÉÎª#bÕ½Ê¿#k£¿ Şô...ÄÇÎÒ½¨ÒéÄãµ½Î¬¶àÀûÑÇ¸Û£¬Ñ°ÕÒÒ»¸ö½Ğ×ö#rÓÂÊ¿Ö®´å#kµÄÕ½Ê¿´å×¯ÒÔ¼°È¥ÕÒÑ°#bDances with Balrog#k¡£ Ëû»á½ÌÄãÈçºÎ³ÉÎªÒ»¸öÕ½Ê¿¡£ à¸¶ÔÁË£¬ÓĞ¼şºÜÖØÒªµÄÊÂ£¬Äã±ØĞë´ïµ½µÈ¼¶10²ÅÄÜ³ÉÎªÕ½Ê¿£¡"
+      );
+    else if (sel == 7)
+      cm.sendNext(
+        "You want to become a #bBowman#k? You'll need to go to Victoria Island to make the job advancement. Head over to a bowman-town called #rHenesys#k and talk to the beautiful #bAthena Pierce#k and learn the in's and out's of being a bowman. Ohh, and one VERY important thing: You'll need to be at least level 10 in order to become a bowman!!"
+      );
+    else if (sel == 8)
+      cm.sendNext(
+        "You want to become a #bMagician#k? For you to do that, you'll have to head over to Victoria Island. Head over to a magician-town called #rEllinia#k, and at the very top lies the Magic Library. Inside, you'll meet the head of all wizards, #bGrendel the Really Old#k, who'll teach you everything about becoming a wizard."
+      );
+    else if (sel == 9)
+      cm.sendNext(
+        "You want to become a #bThief#k? In order to become one, you'll have to head over to Victoria Island. Head over to a thief-town called #rKerning City#k, and on the shadier side of town, you'll see a thief's hideaway. There, you'll meet #bDark Lord#k who'll teach you everything about being a thief. Ohh, and one VERY important thing: You'll need to be at least level 10 in order to become a thief!!"
+      );
+    else if (sel == 10)
+      cm.sendNext(
+        "You want to know how to raise your character's ability stats? First press #bS#k to check out the ability window. Every time you level up, you'll be awarded 5 ability points aka AP's. Assign those AP's to the ability of your choice. It's that simple."
+      );
+    else if (sel == 11)
+      cm.sendNext(
+        "You want to know how to check out the items you've picked up, huh? When you defeat a monster, it'll drop an item on the ground, and you may press #bZ#k to pick up the item. That item will then be stored in your item inventory, and you can take a look at it by simply pressing #bI#k."
+      );
+    else if (sel == 12)
+      cm.sendNext(
+        "You want to know how to wear the items, right? Press #bI#k to check out your item inventory. Place your mouse cursor on top of an item and double-click on it to put it on your character. If you find yourself unable to wear the item, chances are your character does not meet the level & stat requirements. You can also put on the item by opening the equipment inventory (#bE#k) and dragging the item into it. To take off an item, double-click on the item at the equipment inventory."
+      );
+    else if (sel == 13)
+      cm.sendNext(
+        "You want to check on the equipped items, right? Press #bE#k to open the equipment inventory, where you'll see exactly what you are wearing right at the moment. To take off an item, double-click on the item. The item will then be sent to the item inventory."
+      );
+    else if (sel == 14)
+      cm.sendNext(
+        "The special 'abilities' you get after acquiring a job are called skills. You'll acquire skills that are specifically for that job. You're not at that stage yet, so you don't have any skills yet, but just remember that to check on your skills, press #bK#k to open the skill book. It'll help you down the road."
+      );
+    else if (sel == 15)
+      cm.sendNext(
+        "How do you get to Victoria Island? On the east of this island there's a harbor called Southperry. There, you'll find a ship that flies in the air. In front of the ship stands the captain. Ask him about it."
+      );
+    else if (sel == 16)
+      cm.sendNext(
+        "It's the currency used in MapleStory. You may purchase items through mesos. To earn them, you may either defeat the monsters, sell items at the store, or complete quests..."
+      );
+  } else if (status == 1) {
+    if (sel == 0)
+      cm.sendNextPrev(
+        "In order to attack the monsters, you'll need to be equipped with a weapon. When equipped, press #bCtrl#k to use the weapon. With the right timing, you'll be able to easily take down the monsters."
+      );
+    else if (sel == 1)
+      cm.sendNextPrev(
+        "Once you make the job advancement, you'll acquire different kinds of skills, and you can assign them to HotKeys for easier access. If it's an attacking skill, you don't need to press Ctrl to attack, just press the button assigned as a HotKey."
+      );
+    else if (sel == 2)
+      cm.sendNextPrev(
+        "Remember, though, that if your item inventory is full, you won't be able to acquire more. So if you have an item you don't need, sell it so you can make something out of it. The inventory may expand once you make the job advancement."
+      );
+    else if (sel == 3)
+      cm.sendNextPrev(
+        "There isn't much to lose when you die if you are just a beginner. Once you have a job, however, it's a different story. You'll lose a portion of your EXP when you die, so make sure you avoid danger and death at all cost."
+      );
+    else if (sel == 4)
+      cm.sendNextPrev(
+        "Level isn't the only thing that determines the advancement, though. You also need to boost up the levels of a particular ability based on the occupation. For example, to be a warrior, your STR has to be over 35, and so forth, you know what I'm saying? Make sure you boost up the abilities that has direct implications to your job."
+      );
+    else if (sel == 5)
+      cm.sendNextPrev(
+        "But, if you want to be a powerful player, better not think about staying here for too long. You won't be able to get a job anyway. Underneath this island lies an enormous island called Victoria Island. That place is so much bigger than here, it's not even funny."
+      );
+    else if (sel == 8)
+      cm.sendNextPrev(
+        "Oh by the way, unlike other jobs, to become a magician you only need to be at level 8. What comes with making the job advancement early also comes with the fact that it takes a lot to become a true powerful mage. Think long and carefully before choosing your path."
+      );
+    else if (sel == 10)
+      cm.sendNextPrev(
+        "Place your mouse cursor on top of all abilities for a brief explanation. For example, STR for warriors, DEX for bowman, INT for magician, and LUK for thief. That itself isn't everything you need to know, so you'll need to think long and hard on how to emphasize your character's strengths through assigning the points."
+      );
+    else if (sel == 15)
+      cm.sendNextPrev(
+        "Oh yeah! One last piece of information before I go. If you are not sure where you are, always press #bW#k. The world map will pop up with the locator showing where you stand. You won't have to worry about getting lost with that."
+      );
+    else start();
+  } else start();
 }

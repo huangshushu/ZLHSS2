@@ -20,8 +20,8 @@ function action(mode, type, selection) {
     else
 	cm.dispose();
     if (status == 0) {
-	var selStr = "æˆ‘å–œæ¬¢ä½ çš„æ€åº¦ï¼æˆ‘ä»¬åªæ˜¯ç…§é¡¾è¿™ä¸ªç°åœ¨ã€‚ä½ å–œæ¬¢ä»€ä¹ˆæ ·çš„çŸ¿çŸ³æç‚¼? #b";
-	var options = new Array("æç‚¼çŸ¿çŸ³","æç‚¼çš„å®çŸ³çŸ¿","ç»†åŒ–æ™¶çŸ¿çŸ³");
+	var selStr = "ÎÒÏ²»¶ÄãµÄÌ¬¶È£¡ÎÒÃÇÖ»ÊÇÕÕ¹ËÕâ¸öÏÖÔÚ¡£ÄãÏ²»¶Ê²Ã´ÑùµÄ¿óÊ¯ÌáÁ¶? #b";
+	var options = new Array("ÌáÁ¶¿óÊ¯","ÌáÁ¶µÄ±¦Ê¯¿ó","Ï¸»¯¾§¿óÊ¯");
 	for (var i = 0; i < options.length; i++){
 	    selStr += "\r\n#L" + i + "# " + options[i] + "#l";
 	}
@@ -31,8 +31,8 @@ function action(mode, type, selection) {
     else if (status == 1) {
 	selectedType = selection;
 	if (selectedType == 0){ //mineral refine
-	    var selStr = "é€‰æ‹©ä¸€ä¸ªä½ æç‚¼çš„çŸ¿çŸ³?#b";
-	    var minerals = new Array ("é’é“œ","é’¢é“","é”‚çŸ¿çŸ³","æœ±çŸ¿çŸ³","é“¶","ç´«çŸ¿çŸ³","é»„é‡‘","é”‚");
+	    var selStr = "Ñ¡ÔñÒ»¸öÄãÌáÁ¶µÄ¿óÊ¯?#b";
+	    var minerals = new Array ("ÇàÍ­","¸ÖÌú","ï®¿óÊ¯","Öì¿óÊ¯","Òø","×Ï¿óÊ¯","»Æ½ğ","ï®");
 	    for (var i = 0; i < minerals.length; i++){
 		selStr += "\r\n#L" + i + "# " + minerals[i] + "#l";
 	    }
@@ -40,8 +40,8 @@ function action(mode, type, selection) {
 	    cm.sendSimple(selStr);
 	}
 	else if (selectedType == 1){ //jewel refine
-	    var selStr = "é€‰æ‹©ä¸€ä¸ªä½ æç‚¼çš„å®çŸ³çŸ¿?#b";
-	    var jewels = new Array ("çŸ³æ¦´çŸ³","ç´«æ°´æ™¶","æµ·è“å®çŸ³","ç¥–æ¯ç»¿","è›‹ç™½çŸ³","è“å®çŸ³","é»„æ™¶","é’»çŸ³","é»‘æ°´æ™¶");
+	    var selStr = "Ñ¡ÔñÒ»¸öÄãÌáÁ¶µÄ±¦Ê¯¿ó?#b";
+	    var jewels = new Array ("Ê¯ÁñÊ¯","×ÏË®¾§","º£À¶±¦Ê¯","×æÄ¸ÂÌ","µ°°×Ê¯","À¶±¦Ê¯","»Æ¾§","×êÊ¯","ºÚË®¾§");
 	    for (var i = 0; i < jewels.length; i++){
 		selStr += "\r\n#L" + i + "# " + jewels[i] + "#l";
 	    }
@@ -49,8 +49,8 @@ function action(mode, type, selection) {
 	    cm.sendSimple(selStr);
 	}
 		else if (selectedType == 2){ //Crystal refine
-			var selStr = "é€‰æ‹©ä¸€ä¸ªä½ ç»†åŒ–æ™¶çŸ¿çŸ³?#b";
-			var crystals = new Array("åŠ›é‡æ°´æ™¶","æ™ºæ…§æ°´æ™¶","æ•æ·æ°´æ™¶","å¹¸è¿æ°´æ™¶");
+			var selStr = "Ñ¡ÔñÒ»¸öÄãÏ¸»¯¾§¿óÊ¯?#b";
+			var crystals = new Array("Á¦Á¿Ë®¾§","ÖÇ»ÛË®¾§","Ãô½İË®¾§","ĞÒÔËË®¾§");
 			for (var i = 0; i < crystals.length; i++){
 				selStr += "\r\n#L" + i + "# " + crystals[i] + "#l";
 			}
@@ -93,7 +93,7 @@ function action(mode, type, selection) {
 	    cost = costSet[selectedItem];
 	}
 		
-	var prompt = "æ‰€ä»¥å¼„äº† #t" + item + "# ã€‚ä½ æƒ³è¦åšå¤šå°‘ä¸ªå‘¢ï¼Ÿ";
+	var prompt = "ËùÒÔÅªÁË #t" + item + "# ¡£ÄãÏëÒª×ö¶àÉÙ¸öÄØ£¿";
 		
 	cm.sendGetNumber(prompt,1,1,100)
     }
@@ -122,13 +122,13 @@ function action(mode, type, selection) {
 		last_use = true;
 	}
 	
-	var prompt = "ä½ æƒ³è¦åˆ¶é€  ";
+	var prompt = "ÄãÏëÒªÖÆÔì ";
 	if (qty == 1)
-	    prompt += "ä¸€ä¸ª #t" + item + "#?";
+	    prompt += "Ò»¸ö #t" + item + "#?";
 	else
-	    prompt += qty + " ä¸ª #t" + item + "#?";
+	    prompt += qty + " ¸ö #t" + item + "#?";
 			
-	prompt += " åœ¨è¿™ç§æƒ…å†µä¸‹ï¼Œæˆ‘ä¼šä¸ºäº†è®©éœ€è¦ä½ çš„å…·ä½“é¡¹ç›®ã€‚è¯·ç¡®ä¿æ‚¨æœ‰è¶³å¤Ÿçš„ç©ºé—´åœ¨æ‚¨çš„åº“å­˜ï¼#b";
+	prompt += " ÔÚÕâÖÖÇé¿öÏÂ£¬ÎÒ»áÎªÁËÈÃĞèÒªÄãµÄ¾ßÌåÏîÄ¿¡£ÇëÈ·±£ÄúÓĞ×ã¹»µÄ¿Õ¼äÔÚÄúµÄ¿â´æ£¡#b";
 		
 	if (mats instanceof Array){
 	    for (var i = 0; i < mats.length; i++) {
@@ -139,7 +139,7 @@ function action(mode, type, selection) {
 	}
 		
 	if (cost > 0) {
-	    prompt += "\r\n#i4031138# " + cost * qty + " æ«å¸";
+	    prompt += "\r\n#i4031138# " + cost * qty + " ·ã±Ò";
 	}
 	cm.sendYesNo(prompt);
     } else if (status == 4) {
@@ -162,7 +162,7 @@ function action(mode, type, selection) {
 	}
 		
 	if (!complete)
-	    cm.sendOk("æˆ‘ä¸èƒ½æ¥å—çš„æ›¿ä»£å“ã€‚å¦‚æœä½ æ²¡æœ‰ä»€ä¹ˆæˆ‘éœ€è¦çš„ä¸œè¥¿çš„è¯ï¼Œæˆ‘å°±ä¸èƒ½æ¥å¸®ä½ .");
+	    cm.sendOk("ÎÒ²»ÄÜ½ÓÊÜµÄÌæ´úÆ·¡£Èç¹ûÄãÃ»ÓĞÊ²Ã´ÎÒĞèÒªµÄ¶«Î÷µÄ»°£¬ÎÒ¾Í²»ÄÜÀ´°ïÄã.");
 	else {
 	    if (mats instanceof Array) {
 		for (var i = 0; i < mats.length; i++){
@@ -173,7 +173,7 @@ function action(mode, type, selection) {
 	    }
 	    cm.gainMeso(-cost * qty);
 	    cm.gainItem(item, qty);
-	    cm.sendNext("å—¯...æˆ‘å·®ç‚¹æ²¡æƒ³åˆ°ä¼šå·¥ä½œçš„ç¬¬äºŒä¸ª......å¥½å§ï¼Œåæ­£æˆ‘å¸Œæœ›ä½ å–œæ¬¢å®ƒ.");
+	    cm.sendNext("àÅ...ÎÒ²îµãÃ»Ïëµ½»á¹¤×÷µÄµÚ¶ş¸ö......ºÃ°É£¬·´ÕıÎÒÏ£ÍûÄãÏ²»¶Ëü.");
 	}
 	cm.dispose();
     }

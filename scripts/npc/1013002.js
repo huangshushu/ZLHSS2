@@ -1,33 +1,25 @@
-/* ===========================================================
-			Resonance
-	NPC Name: 		Dragon's Nest
-	Map(s): 		Hidden Street: Lost Forest(900020220)
-	Description: 	Obtain Dragon Egg
-=============================================================
-Version 1.0 - Script Done.(4/6/2010)
-=============================================================
-*/
+/*
+ 
+ */
 
 var status = 0;
 
 function start() {
-	status = -1;
-	action(1, 0, 0);
+  status = -1;
+  action(1, 0, 0);
 }
 
 function action(mode, type, selection) {
-	if (mode == -1) {
-		cm.dispose();
-	} else {
-		if (mode == 1)
-			status++;
-		else
-			status--;
-		if (status == 0) {
-			cm.forceStartQuest(22011);
-			cm.playerMessage("ä½ å·²ç»è·å¾—äº†é¾™è›‹ã€‚");
-			cm.warp(900090103);
-			cm.dispose();
-		}
-	}
+  if (mode == -1) {
+    cm.dispose();
+  } else {
+    if (mode == 1) status++;
+    else status--;
+    if (status == 0) {
+      cm.forceStartQuest(22011);
+      cm.playerMessage("ÄãÒÑ¾­»ñµÃÁËÁúµ°¡£");
+      cm.warp(900090103);
+      cm.dispose();
+    }
+  }
 }

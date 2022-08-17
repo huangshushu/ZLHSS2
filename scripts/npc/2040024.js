@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 	First Eos Rock - Ludibrium : Eos Tower 100th Floor (221024400)
 **/
 
@@ -20,9 +20,9 @@ function action(mode, type, selection) {
 	status--;
     if (status == 0) {
 	if (cm.haveItem(4001020)) {
-	    cm.sendYesNo("ä½ æ˜¯å¦è¦ä½¿ç”¨#t4001020# ä¼ é€åˆ°#m221022900# å‘¢ï¼Ÿï¼Ÿ");
+	    cm.sendYesNo("ÄãÊÇ·ñÒªÊ¹ÓÃ#t4001020# ´«ËÍµ½#m221022900# ÄØ£¿£¿");
 	} else {
-	    cm.sendOk("ä½ éœ€è¦æœ‰#t4001020# æ‰å¯ä»¥å¯åŠ¨ã€‚");
+	    cm.sendOk("ÄãĞèÒªÓĞ#t4001020# ²Å¿ÉÒÔÆô¶¯¡£");
 	    cm.dispose();
 	}
     } else if (status == 1) {

@@ -1,7 +1,7 @@
 function enter(pi) {
-    if (pi.getMap().getReactorByName("rnj3_out1").getState() > 0) {
+    if (pi.getMap().getReactorByName("rnj3_out1").getState() > 999) {
 	pi.warp(926100201,0);
     } else {
-	pi.playerMessage(5, "The portal has not opened yet.");
+	pi.playerMessage(5, "击杀怪物获得卡帕莱特的实验资料和蒙特鸠的实验资料交给罗密欧");
     }
 }

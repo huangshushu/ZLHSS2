@@ -1,20 +1,20 @@
 var status = 0;
 var cost = 2000;
 function start() {
-    cm.sendYesNo("è¯·é—®æ˜¯å¦æƒ³å›å»å •è½åŸå¸‚?? 2000æ«å¸ä¸€æ¬¡~~~~");
+    cm.sendYesNo("ÇëÎÊÊÇ·ñÏë»ØÈ¥¶éÂä³ÇÊĞ?? 2000·ã±ÒÒ»´Î~~~~");
 }
 
 function action(mode, type, selection) {
     if (mode != 1) {
         if (mode == 0)
-        cm.sendOk("æ—¢ç„¶ä½ ä¸è¦é‚£å°±ç®—äº†~~~");
+        cm.sendOk("¼ÈÈ»Äã²»ÒªÄÇ¾ÍËãÁË~~~");
         cm.dispose();
         return;
     }
     status++;
     if (status == 1) {
 		if(cm.getMeso() < cost) {
-		cm.sendOk("å¹²æ²¡é’±è¿˜æ•¢å›å»å •è½åŸå¸‚!!");
+		cm.sendOk("¸ÉÃ»Ç®»¹¸Ò»ØÈ¥¶éÂä³ÇÊĞ!!");
 		cm.dispose();
 		} else {
 		cm.gainMeso(-cost);

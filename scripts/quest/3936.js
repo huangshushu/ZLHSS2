@@ -4,11 +4,11 @@
 var status = -1;
 
 function start(mode, type, selection) {
-	qm.forceStartQuest(3937);
+	qm.任务开始(3937);
 	qm.dispose();
 }
 
 function end(mode, type, selection) {
-	qm.forceStartQuest(3937);
+	qm.任务开始(3937);
 	qm.dispose();
 }

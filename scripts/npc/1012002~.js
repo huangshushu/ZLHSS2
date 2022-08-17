@@ -30,8 +30,8 @@ function action(mode, type, selection) {
     else
 	cm.dispose();
     if (status == 0 && mode == 1) {
-	var selStr = "哈囉，我是比休斯，退休的狙击手，但我曾经是雅典娜皮尔斯顶尖的学生，我不再打猎了，但我可以帮你制作一些对你有帮助的物品#b"
-	var options = new Array("制作弓","制作弩","制作手套","升级手套","木材与螺丝钉制作","制作箭矢");
+	var selStr = "���������Ǳ���˹�����ݵľѻ��֣������������ŵ���Ƥ��˹�����ѧ�����Ҳ��ٴ����ˣ����ҿ��԰�������һЩ�����а�������Ʒ#b"
+	var options = new Array("������","������","��������","��������","ľ������˿������","������ʸ");
 	for (var i = 0; i < options.length; i++) {
 	    selStr += "\r\n#L" + i + "# " + options[i] + "#l";
 	}
@@ -41,10 +41,10 @@ function action(mode, type, selection) {
     else if (status == 1 && mode == 1) {
 	selectedType = selection;
 	if (selectedType == 0) { //bow refine
-	    var selStr = "好眼光,弓的攻击速度快,也比弩灵敏许多,但是攻击比弩低一点点哦~#b";
+	    var selStr = "���۹�,���Ĺ����ٶȿ�,Ҳ������������,���ǹ��������һ���Ŷ~#b";
 	    var items = new Array(1452002,1452003,1452001,1452000,1452005,1452006,1452007);
-	    var suffix = new Array (" - 需要等级 Lv. 10"," - 需要等级 Lv. 15"," - 需要等级 Lv. 20"," - 需要等级 Lv. 25"," - 需要等级 Lv. 30"," - 需要等级 Lv. 35",
-		" - 需要等级 Lv. 40");
+	    var suffix = new Array (" - ��Ҫ�ȼ� Lv. 10"," - ��Ҫ�ȼ� Lv. 15"," - ��Ҫ�ȼ� Lv. 20"," - ��Ҫ�ȼ� Lv. 25"," - ��Ҫ�ȼ� Lv. 30"," - ��Ҫ�ȼ� Lv. 35",
+		" - ��Ҫ�ȼ� Lv. 40");
 	    equip = true;
 	    for (var i = 0; i < items.length; i++) {
 		selStr += "\r\n#L" + i + "##z" + items[i] + "##k" + suffix[i] + "#l#b";
@@ -52,10 +52,10 @@ function action(mode, type, selection) {
 	    cm.sendSimple(selStr);
 	}
 	else if (selectedType == 1) { //xbow refine
-	    var selStr = "弩是我的专长~它的攻击速度比弓还要慢一点，但是伤害却比弓要来的高哦#b";
+	    var selStr = "�����ҵ�ר��~���Ĺ����ٶȱȹ���Ҫ��һ�㣬�����˺�ȴ�ȹ�Ҫ���ĸ�Ŷ#b";
 	    var items = new Array(1462001,1462002,1462003,1462000,1462004,1462005,1462006,1462007);
-	    var suffix = new Array (" - 需要等级 Lv. 12"," - 需要等级 Lv. 18"," - 需要等级 Lv. 22"," - 需要等级 Lv. 28"," - 需要等级 Lv. 32"," - 需要等级 Lv. 38",
-		" - 需要等级 Lv. 42"," - 需要等级 Lv. 50");
+	    var suffix = new Array (" - ��Ҫ�ȼ� Lv. 12"," - ��Ҫ�ȼ� Lv. 18"," - ��Ҫ�ȼ� Lv. 22"," - ��Ҫ�ȼ� Lv. 28"," - ��Ҫ�ȼ� Lv. 32"," - ��Ҫ�ȼ� Lv. 38",
+		" - ��Ҫ�ȼ� Lv. 42"," - ��Ҫ�ȼ� Lv. 50");
 	    equip = true;
 	    for (var i = 0; i < items.length; i++) {
 		selStr += "\r\n#L" + i + "##z" + items[i] + "##k" + suffix[i] + "#l#b";
@@ -63,10 +63,10 @@ function action(mode, type, selection) {
 	    cm.sendSimple(selStr);
 	}
 	else if (selectedType == 2) { //glove refine
-	    var selStr = "好的,你想要制作哪一种手套呢?#b";
+	    var selStr = "�õ�,����Ҫ������һ��������?#b";
 	    var items = new Array(1082012,1082013,1082016,1082048,1082068,1082071,1082084,1082089);
-	    var suffix = new Array (" - 需要等级 Lv. 15"," - 需要等级 Lv. 20"," - 需要等级 Lv. 25"," - 需要等级 Lv. 30"," - 需要等级 Lv. 35",
-		" - 需要等级 Lv. 40"," - 需要等级 Lv. 50"," - 需要等级 Lv. 60");
+	    var suffix = new Array (" - ��Ҫ�ȼ� Lv. 15"," - ��Ҫ�ȼ� Lv. 20"," - ��Ҫ�ȼ� Lv. 25"," - ��Ҫ�ȼ� Lv. 30"," - ��Ҫ�ȼ� Lv. 35",
+		" - ��Ҫ�ȼ� Lv. 40"," - ��Ҫ�ȼ� Lv. 50"," - ��Ҫ�ȼ� Lv. 60");
 	    equip = true;
 	    for (var i = 0; i < items.length; i++) {
 		selStr += "\r\n#L" + i + "##z" + items[i] + "##k" + suffix[i] + "#l#b";
@@ -74,11 +74,11 @@ function action(mode, type, selection) {
 	    cm.sendSimple(selStr);
 	}
 	else if (selectedType == 3) { //glove upgrade
-	    var selStr = "升级手套? 对于弓箭手来说再适合不过了,你想要升级哪一种呢??#b";
+	    var selStr = "��������? ���ڹ�������˵���ʺϲ�����,����Ҫ������һ����??#b";
 	    var items = new Array (1082015,1082014,1082017,1082018,1082049,1082050,1082069,1082070,1082072,1082073,1082085,1082083,1082090,1082091);
-	    var suffix = new Array (" - 需要等级 Lv. 20"," - 需要等级 Lv. 20"," - 需要等级 Lv. 25"," - 需要等级 Lv. 25"," - 需要等级 Lv. 30",
-		" - 需要等级 Lv. 30"," - 需要等级 Lv. 35"," - 需要等级 Lv. 35"," - 需要等级 Lv. 40"," - 需要等级 Lv. 40"," - 需要等级 Lv. 50",
-		" - 需要等级 Lv. 50"," - 需要等级 Lv. 60"," - 需要等级 Lv. 60");
+	    var suffix = new Array (" - ��Ҫ�ȼ� Lv. 20"," - ��Ҫ�ȼ� Lv. 20"," - ��Ҫ�ȼ� Lv. 25"," - ��Ҫ�ȼ� Lv. 25"," - ��Ҫ�ȼ� Lv. 30",
+		" - ��Ҫ�ȼ� Lv. 30"," - ��Ҫ�ȼ� Lv. 35"," - ��Ҫ�ȼ� Lv. 35"," - ��Ҫ�ȼ� Lv. 40"," - ��Ҫ�ȼ� Lv. 40"," - ��Ҫ�ȼ� Lv. 50",
+		" - ��Ҫ�ȼ� Lv. 50"," - ��Ҫ�ȼ� Lv. 60"," - ��Ҫ�ȼ� Lv. 60");
 	    for (var i = 0; i < items.length; i++) {
 		selStr += "\r\n#L" + i + "##z" + items[i] + "##k" + suffix[i] + "#l#b";
 	    }
@@ -86,8 +86,8 @@ function action(mode, type, selection) {
 	    cm.sendSimple(selStr);
 	}
 	else if (selectedType == 4) { //material refine
-	    var selStr = "材料？我知道一些材料，我可以帮助你...?#b";
-	    var materials = new Array ("用10个树枝制作1个木材","用5个木柴制作1个木材","制作螺丝钉(1次15个)");
+	    var selStr = "���ϣ���֪��һЩ���ϣ��ҿ��԰�����...?#b";
+	    var materials = new Array ("��10����֦����1��ľ��","��5��ľ������1��ľ��","������˿��(1��15��)");
 	    for (var i = 0; i < materials.length; i++) {
 		selStr += "\r\n#L" + i + "# " + materials[i] + "#l";
 	    }
@@ -95,8 +95,8 @@ function action(mode, type, selection) {
 	    cm.sendSimple(selStr);
 	}
 	else if (selectedType == 5) { //arrow refine
-	    var selStr = "箭矢?没问题的,1次=1000支箭矢哦#b";
-	    var arrows = new Array ("制作箭矢","制作弩箭矢","制作青铜弓箭","制作青铜弩箭","制作钢铁弓箭","制作钢铁弩箭");
+	    var selStr = "��ʸ?û�����,1��=1000֧��ʸŶ#b";
+	    var arrows = new Array ("������ʸ","�������ʸ","������ͭ����","������ͭ���","������������","�����������");
 	    for (var i = 0; i < arrows.length; i++) {
 		selStr += "\r\n#L" + i + "# " + arrows[i] + "#l";
 	    }
@@ -119,7 +119,7 @@ function action(mode, type, selection) {
 	    cost = costSet[selectedItem];
 	}
 		
-	var prompt = "所以你需要我帮你做一些#t" + item + "#? 那你想要我做多少个呢?";
+	var prompt = "��������Ҫ�Ұ�����һЩ#t" + item + "#? ������Ҫ�������ٸ���?";
 		
 	cm.sendGetNumber(prompt,1,1,100)
     }
@@ -190,13 +190,13 @@ function action(mode, type, selection) {
 	    cost = costSet[selectedItem];
 	}
 		
-	var prompt = "你需要我帮你做";
+	var prompt = "����Ҫ�Ұ�����";
 	if (qty == 1)
 	    prompt += "#t" + item + "#?";
 	else
-	    prompt += qty + "个#t" + item + "#?";
+	    prompt += qty + "��#t" + item + "#?";
 			
-	prompt += " 好的我会帮你完成的,但请你确认你的背包是否有以下的材料与足够的空间哦#b";
+	prompt += " �õ��һ������ɵ�,������ȷ����ı����Ƿ������µĲ������㹻�Ŀռ�Ŷ#b";
 		
 	if (mats instanceof Array) {
 	    for(var i = 0; i < mats.length; i++) {
@@ -216,7 +216,7 @@ function action(mode, type, selection) {
 	var complete = true;
 	if (cm.getMeso() < cost * qty)
 	{
-	    cm.sendOk("钱不够...就没有道具哦抱歉...")
+	    cm.sendOk("Ǯ����...��û�е���Ŷ��Ǹ...")
 		complete = false;
 	}
 	else
@@ -239,7 +239,7 @@ function action(mode, type, selection) {
 	}
 			
 	if (!complete)
-	    cm.sendOk("身为一个弓箭手不能容许不细心的事情发生吧? 再确认你的包包是否有材料吧");
+	    cm.sendOk("��Ϊһ�������ֲ���������ϸ�ĵ����鷢����? ��ȷ����İ����Ƿ��в��ϰ�");
 	else {
 	    if (cm.canHold(item)) {
 		if (mats instanceof Array) {
@@ -261,10 +261,10 @@ function action(mode, type, selection) {
 		    cm.gainItem(4003000, 15 * qty);
 		else
 		    cm.gainItem(item, qty);
-		cm.sendOk("很棒的道具吧? 我的手艺,如果还有需要欢迎来找我,弓箭手村是我的故乡.");
+		cm.sendOk("�ܰ��ĵ��߰�? �ҵ�����,���������Ҫ��ӭ������,�����ִ����ҵĹ���.");
 	    }
 	    else {
-		cm.sendOk("请确保你的背包有足够的空间，再跟我说话.");
+		cm.sendOk("��ȷ����ı������㹻�Ŀռ䣬�ٸ���˵��.");
 	    }
 	}
 	cm.dispose();

@@ -1,4 +1,4 @@
-ï»¿var status = 0;
+var status = 0;
 var request;
 
 function start() {
@@ -15,34 +15,31 @@ function action(mode, type, selection) {
     if (status == 0) {
         request = cm.getNextCarnivalRequest();
         if (request != null) {
-            cm.sendYesNo(request.getChallengeInfo() + "\r\næ˜¯å¦æƒ³è·Ÿä»–ä»¬æŒ‘æˆ˜??")
+            cm.sendYesNo(request.getChallengeInfo() + "\r\nÊÇ·ñÏë¸úËûÃÇÌôÕ½??")
         } else {
             cm.dispose();
         }
     } else if (status == 1) {
-        var pt = cm.getPlayer().getParty();
-        if (checkLevelsAndMap(51, 120) == 1) {
-            cm.sendOk("é˜Ÿä¼é‡Œæœ‰äººç­‰çº§ä¸ç¬¦åˆã€‚");
-            cm.dispose();
+		var pt = cm.getPlayer().getParty();
+		if (checkLevelsAndMap(51, 120) == 1) {
+           cm.sendOk("¶ÓÎéÀïÓĞÈËµÈ¼¶²»·ûºÏ¡£");
+           cm.dispose();
         } else if (checkLevelsAndMap(51, 120) == 2) {
-            cm.sendOk("åœ¨åœ°å›¾ä¸Šæ‰¾ä¸åˆ°æ‚¨çš„é˜Ÿå‹ã€‚");
+           cm.sendOk("ÔÚµØÍ¼ÉÏÕÒ²»µ½ÄúµÄ¶ÓÓÑ¡£");
+           cm.dispose();
+		} else if (pt.getMembers().size() < 2) {
+			cm.sendOk("ĞèÒª 2 ÈËÒÔÉÏ²Å¿ÉÒÔÀŞÌ¨£¡£¡");
+			cm.dispose();
+		} else {
+        try {
+            cm.getChar().getEventInstance().registerCarnivalParty(request.getChallenger(), request.getChallenger().getMap(), 1);
             cm.dispose();
-        } else if (pt.getMembers().size() < 2) {
-            cm.sendOk("éœ€è¦ 2 äººä»¥ä¸Šæ‰å¯ä»¥æ“‚å°ï¼ï¼");
-            cm.dispose();
-        } else if (request.getChallenger().getParty().getMembers().size() != pt.getMembers().size()) {
-            cm.sendOk("å¯¹æ–¹äººæ•°ä¸ç¬¦ï¼ï¼");
-            cm.dispose();
-        } else {
-            try {
-                cm.getChar().getEventInstance().registerCarnivalParty(request.getChallenger(), request.getChallenger().getMap(), 1);
-                cm.dispose();
-            } catch (e) {
-                cm.sendOk("ç›®å‰æŒ‘æˆ˜ä¸å†æ˜¯æœ‰æ•ˆçš„ã€‚");
-            }
-            status = -1;
+        } catch (e) {
+            cm.sendOk("Ä¿Ç°ÌôÕ½²»ÔÙÊÇÓĞĞ§µÄ¡£");
         }
+        status = -1;
     }
+}
 }
 
 function checkLevelsAndMap(lowestlevel, highestlevel) {

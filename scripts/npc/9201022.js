@@ -1,13 +1,13 @@
-ï»¿/*
- NPC Name: 		Hera
- Map(s): 		Towns
- Description: 		Wedding Village Entrance
- */
+/*
+	NPC Name: 		Hera
+	Map(s): 		Towns
+	Description: 		Wedding Village Entrance
+*/
 
 var status = -1;
 
 function start() {
-    cm.sendSimple("æ‚¨æƒ³å›å»#m680000000#äº†å—?? \n\r #b#L0# æˆ‘æƒ³å›å»ç»“å©šå°é•‡.#l \r\n #L1#æˆ‘å·²ç»ç»“å©šäº†æˆ‘æƒ³è¦é¢†æ‹çˆ±ä¹‹å¿ƒ~");
+    cm.sendSimple("°¡~½ñÌìÕæÊÇ¸öºÃÈÕ×Ó£¡ÕâÊÀ½çÌ«ÃÀºÃÁË~£¡Äã²»¾õµÃÕâÊÀ½ç³äÂúÁË°®Âğ£¿ÂúÒç»éÀñ´åµÄ°®Òâ¶¼Á÷ÌÊµ½ÕâÀïÀ´ÁË~£¡ \n\r #b#L0# ÎÒÏë»ØÈ¥½á»éĞ¡Õò.#l \r\n #L1#ÎÒÒÑ¾­½á»éÁËÎÒÏëÒªÁìÁµ°®Ö®ĞÄ~");
 }
 
 function action(mode, type, selection) {
@@ -20,34 +20,34 @@ function action(mode, type, selection) {
     if (status == 0) {
         switch (selection) {
             case 0:
-                if (cm.haveItem(4213000) && cm.haveItem(4213001)) {
-                    cm.gainItem(4213000, -1);
-                    cm.gainItem(4213001, -1);
-                    cm.warp(680000000, 0);
-                    cm.dispose();
-                } else {
-                    cm.warp(680000000, 0);
-                    cm.dispose();
-                }
+		cm.sendNext("Å¶£¡¶àÃ´ÃÀºÃµÄÒ»Ìì£¡Õâ¸öÊÀ½çÊÇ¶àÃ´µÄÃÀºÃ¡«£¡Õâ¸öÊÀ½çËÆºõÊÇ³äÂú°®µÄ£¬²»ÊÇÂğ£¿ÎÒ¿ÉÒÔ´ÓÕâÀï¸ĞÊÜµ½°®µÄ¾«ÉñÌî²¹ÁË»éÀñ!");
                 break;
             case 1:
-                var marr = cm.getQuestRecord(160001);
-                var data = marr.getCustomData();
-                if (data == null) {
-                    marr.setCustomData("0");
-                    data = "0";
-                }
-                if (cm.getPlayer().getMarriageId() <= 0 /*|| !data.equals("3")*/) {
-                    cm.sendOk("æˆ‘å¾ˆæŠ±æ­‰å¦‚æœæ‚¨æƒ³è¦å¾—åˆ°è¿™ä¸ªæ¤…å­çš„è¯è¯·å…ˆç»“å©š~~" + cm.getPlayer().getMarriageId() + "å’Œ" + data);
-                } else if (cm.canHold(3012004, 1) && !cm.haveItem(3012004, 1) && !cm.isQuestFinished(52013)) {
-                    cm.gainItem(3012004, 1);
-                    cm.forceCompleteQuest(52013);
-                    cm.sendOk("ç»“å©šåå¤šä¸€ä»½å–œæ‚¦é€ä½ å§ï¼Œä½†æœºä¼šåªæœ‰ä¸€æ¬¡!");
-                } else {
-                    cm.sendOk("è¯·ç¡®å®šæ˜¯å¦è£…å¤‡æ æ»¡äº†æˆ–è€…æ‚¨å·²ç»æœ‰ç›¸åŒçš„æ¤…å­äº†... æˆ–è€…ä½ é¢†è¿‡äº†....");
-                }
+	        var marr = cm.getQuestRecord(160001);
+	        var data = marr.getCustomData();
+	        if (data == null) {
+		    marr.setCustomData("0");
+	            data = "0";
+	        }
+		if (cm.getPlayer().getMarriageId() <= 0 || !data.equals("3")) {
+                    cm.sendOk("ÎÒºÜ±§Ç¸Èç¹ûÄúÏëÒªµÃµ½Õâ¸öÒÎ×ÓµÄ»°ÇëÏÈ½á»é~~");
+		} else if (cm.canHold(3012004,1) && !cm.haveItem(3012004,1) && !cm.isQuestFinished(52013)) {
+		    cm.gainItem(3012004,1);
+			cm.forceCompleteQuest(52013);
+			cm.sendOk("½á»éºó¶àÒ»·İÏ²ÔÃËÍÄã°É£¬µ«»ú»áÖ»ÓĞÒ»´Î!");
+		} else {
+		    cm.sendOk("ÇëÈ·¶¨ÊÇ·ñ×°±¸À¸ÂúÁË»òÕßÄúÒÑ¾­ÓĞÏàÍ¬µÄÒÎ×ÓÁË... »òÕßÄãÁì¹ıÁË....");
+		}
                 cm.dispose();
                 break;
         }
+    } else if (status == 1) {
+        cm.sendYesNo("ÄãÔø¾­È¥¹ıµÄ»éÀñ´å×¯£¿ÕâÊÇÒ»¸öÁË²»ÆğµÄµØ·½£¬°®ÇéÊÇÎŞ¼«ÏŞµÄ¡£¶÷°®·òÆŞ¿ÉÒÔ½á»é»¹ÓĞ£¬ÈçºÎÀËÂşËüÊÇÊ²Ã´£¿Èç¹ûÄãÏëÔÚÄÇÀï£¬ÎÒ»á¸æËßÄãµÄ·½Ê½.");
+    } else if (status == 2) {
+        cm.sendNext("Äã×öÁËÒ»¸öÕıÈ·µÄ¾ö¶¨£¡Äã¿ÉÒÔ¸ĞÊÜµ½°®µÄ¾«ÉñÔÚ»éÀñ´å·¢»Óµ½ÁÜÀì¾¡ÖÂ¡£µ±ÄãÏë»ØÀ´£¬ÄãµÄÄ¿µÄµØ½«ÔÚÕâÀï£¬ËùÒÔ²»Òªµ£ĞÄ.");
+    } else if (status == 3) {
+	   cm.saveLocation("AMORIA");
+	   cm.warp(680000000, 0);
+           cm.dispose();
     }
 }

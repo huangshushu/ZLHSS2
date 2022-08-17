@@ -14,26 +14,26 @@ function start() {
 function action(mode, type, selection) {
     status++;
     if(mode == 0) {
-	cm.sendNext("ä½ æœ‰ä¸€äº›ç»æµçš„è´Ÿæ‹…è€Œæ— æ³•æ­èˆ¹å¯¹å§?");
+	cm.sendNext("ÄãÓĞÒ»Ğ©¾­¼ÃµÄ¸ºµ£¶øÎŞ·¨´î´¬¶Ô°É?");
 	cm.dispose();
 	return;
     }
     if (status == 0) {
 	if(flight == null) {
-	    cm.sendNext("æ‰¾ä¸åˆ°æ­¤è„šæœ¬è¯·å›æŠ¥GM");
+	    cm.sendNext("ÕÒ²»µ½´Ë½Å±¾Çë»Ø±¨GM");
 	    cm.dispose();
 	} else if(flight.getProperty("entry").equals("true")) {
-        cm.sendYesNo("ä½ è¦æ­å¾€ç¥æœ¨æ‘çš„èˆ¹?");
+        cm.sendYesNo("ÄãÒª´îÍùÉñÄ¾´åµÄ´¬?");
 	} else if(flight.getProperty("entry").equals("false") && flight.getProperty("docked").equals("true")) {
-	    cm.sendNext("å¾ˆæŠ±æ­‰æœ¬ç­èˆ¹å‡†å¤‡èµ·é£,ä¹˜åæ—¶é—´è¡¨å¯ä»¥é€šè¿‡å”®ç¥¨å±•å°æŸ¥çœ‹.");
+	    cm.sendNext("ºÜ±§Ç¸±¾°à´¬×¼±¸Æğ·É,³Ë×øÊ±¼ä±í¿ÉÒÔÍ¨¹ıÊÛÆ±Õ¹Ì¨²é¿´.");
 	    cm.dispose();
 	} else {
-	    cm.sendNext("è¯·è€å¿ƒç­‰å¾…å‡ åˆ†é’Ÿï¼Œæ­£åœ¨æ•´ç†é‡Œé¢ä¸­ï¼");
+	    cm.sendNext("ÇëÄÍĞÄµÈ´ı¼¸·ÖÖÓ£¬ÕıÔÚÕûÀíÀïÃæÖĞ£¡");
 	    cm.dispose();
 	}
     } else if(status == 1) {
 	if(!cm.haveItem(4031045)) {
-	    cm.sendNext("ä¸! ä½ æ²¡æœ‰#b#t4031045##k æ‰€ä»¥æˆ‘ä¸èƒ½æ”¾ä½ èµ°!.");
+	    cm.sendNext("²»! ÄãÃ»ÓĞ#b#t4031045##k ËùÒÔÎÒ²»ÄÜ·ÅÄã×ß!.");
 	} else {
 	    cm.gainItem(4031045, -1);
 	    cm.warp(240000111, 0);

@@ -1,35 +1,61 @@
-var status;
+/*
+ 
+ º£µÁ¶ş×ª×ªÖ°½Ì¹Ù
+ */
 
+var ·µ»ØÍ¼ = 120000101;
 function start() {
-    status = -1;
-    action(1,0,0);
+  status = -1;
+  action(1, 0, 0);
 }
-
-function action(mode,type,selection) {
-    if (status == -1) {
-	if (cm.getMapId() == 108000500) {
-	    if (!(cm.haveItem(4031857,15))) {
-		cm.sendNext("å¿«å»æ”¶é›† 15ä¸ª #båˆ—é£ç»“æ™¶#k ç»™æˆ‘.");
-		cm.dispose();
-	    } else {
-		status = 2;
-		cm.sendNext("wow æœç„¶æ˜¯ä¸ªå¤§ä¾ æ­å–œé€šè¿‡è¿™æ¬¡ä¸ªè€ƒéªŒ ä½ å·²ç»æ˜¯ä¸ªå¼ºå¤§çš„æµ·ç›—äº†æ‰€ä»¥æˆ‘å°†é¢èµ ç»™ä½ ç¥ç§˜çš„å°ç¤¼ç‰©.");
-	    }
-	} else if (cm.getMapId() == 108000502) {
-	    if (!(cm.haveItem(4031856,15))) {
-		cm.sendNext("å¿«å»æ”¶é›†15ä¸ª #bå¼ºå¤§åŠ›é‡ç»“æ™¶#k ç»™æˆ‘.");
-		cm.dispose();
-	    } else {
-		status = 2;
-		cm.sendNext("wow æœç„¶æ˜¯ä¸ªå¤§ä¾ æ­å–œé€šè¿‡è¿™æ¬¡ä¸ªè€ƒéªŒ ä½ å·²ç»æ˜¯ä¸ªå¼ºå¤§çš„æµ·ç›—äº†æ‰€ä»¥æˆ‘å°†é¢èµ ç»™ä½ ç¥ç§˜çš„å°ç¤¼ç‰©.");
-	    }
-	} else {
-	    cm.sendNext("é”™è¯¯è¯·å†å°è¯•ä¸€æ¬¡.");
-	    cm.dispose();
-	}
-    } else if (status == 2) {
-	cm.gainItem(4031012, 1);
-	cm.warp(120000101,0);
-	cm.dispose();
+function action(mode, type, selection) {
+  if (status <= 0 && mode <= 0) {
+    cm.dispose();
+    return;
+  }
+  if (mode == 1) {
+    status++;
+  } else {
+    status--;
+  }
+  if (status <= 0) {
+    var selStr = " \r\n";
+    if (cm.getMapId() == 108000500) {
+      selStr += "ÄãÊÇ·ñÒÑ¾­ÊÕ¼¯ÆëÁË#b15¸ö #v4031857# #t4031857##k £¿\r\n";
+    } else if (cm.getMapId() == 108000502) {
+      selStr += "ÄãÊÇ·ñÒÑ¾­ÊÕ¼¯ÆëÁË#b15¸ö #v4031856# #t4031856##k £¿\r\n";
     }
+    selStr += "  #L3##bÎÒÒªÀë¿ªÕâÀï#k#l\r\n";
+    cm.sendSimple(selStr);
+  } else if (status == 1) {
+    switch (selection) {
+      case 1:
+        if (cm.haveItem(4031857, 15)) {
+          cm.warp(·µ»ØÍ¼, 0);
+          cm.removeAll(4031857);
+          cm.gainItem(4031012, 1);
+          cm.¶Ô»°½áÊø();
+        } else {
+          cm.sendOk("ÄãÊÕ¼¯µ½ÁË#b15¸ö #v4031857# #t4031857##k Âğ£¿");
+          cm.¶Ô»°½áÊø();
+        }
+        break;
+      case 2:
+        if (cm.haveItem(4031856, 15)) {
+          cm.warp(·µ»ØÍ¼, 0);
+          cm.removeAll(4031856);
+          cm.gainItem(4031012, 1);
+          cm.¶Ô»°½áÊø();
+        } else {
+          cm.sendOk("ÄãÊÕ¼¯µ½ÁË#b15¸ö #v4031856# #t4031856##k Âğ£¿");
+          cm.¶Ô»°½áÊø();
+        }
+        break;
+
+      case 3:
+        cm.warp(·µ»ØÍ¼, 0);
+        cm.¶Ô»°½áÊø();
+        break;
+    }
+  }
 }

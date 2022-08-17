@@ -1,59 +1,50 @@
-/* ===========================================================
-			Resonance
-	NPC Name: 		Minister of Home Affairs
-	Map(s): 		Mushroom Castle: Corner of Mushroom Forest(106020000)
-	Description: 	Quest -  Over the Castle Wall (2)
-=============================================================
-Version 1.0 - Script Done.(18/7/2010)
-=============================================================
-*/
-
+/* ==================
+ 脚本类型:  任务	    
+ 脚本版权：游戏盒团队
+ 联系扣扣：297870163    609654666
+ =====================
+ */
 importPackage(Packages.client);
 
 var status = -1;
 
 function start(mode, type, selection) {
     status++;
-	if (mode != 1) {
-	    if(type == 1 && mode == 0)
-		    status -= 2;
-		else{
-			qm.sendNext("Really? Is there another way you can penetrate the castle? If you don't know of one, then just come see me.");
-			qm.dispose();
-			return;
-		}
-	}
-	if (status == 0)
-		qm.sendYesNo("Like I told you, just breaking the barrier cannot be a cause for celebration. That's because our castle for the Kingdom of Mushroom completely denies entry of anyone outside our kingdom, so it'll be hard for you to do that. Hmmm... to figure out a way to enter, can you...investigate the outer walls of the castle first?");
-	if (status == 1)
-		qm.sendNext("Walk past the Mushroom Forest and when you reach the #bSplit Road of Choice#k, just walk towards the castle. Good luck.");
-	if (status == 2){
-		//qm.forceStartQuest();
-		//qm.forceStartQuest(2322, "1");
-		qm.gainExp(11000);
-		qm.sendOk("Good job navigating through the area.");
-		qm.forceCompleteQuest();
-		qm.dispose();
-	}
+    if (mode != 1) {
+        if (type == 1 && mode == 0) {
+            status -= 2;
+        } else {
+            qm.sendNext("我们需要你的帮助。");
+            qm.dispose();
+            return;
+        }
+    }
+    if (status == 0) {
+        qm.sendYesNo("就像我刚才告诉你的一样，刚刚打破的障碍不值得庆祝，这是因为企鹅王国禁止让所有人进入城堡，嗯。。得找出另外一种潜入方式。");
+    } else if (status == 1) {
+        qm.sendNext("路过蘑菇森林，当你到屏障的时候，就可以走进城墙了，祝你好运。");
+    } else if (status == 2) {
+        qm.forceStartQuest();
+        qm.dispose();
+    }
 }
 
 function end(mode, type, selection) {
     status++;
-	if (mode != 1) {
-	    if(type == 1 && mode == 0)
-		    status -= 2;
-		else{
-			qm.dispose();
-			return;
-		}
-	}
-	if (status == 0)
-		qm.sendOk("Hmmm I see... so they have completely shut off the entrance and everything.");
-	if (status == 1){
-		qm.gainExp(11000);
-		qm.sendOk("Good job navigating through the area.");
-		qm.forceCompleteQuest();
-		qm.dispose();
-	}
+    if (mode != 1) {
+        if (type == 1 && mode == 0) {
+            status -= 2;
+        } else {
+            qm.dispose();
+            return;
+        }
+    }
+    if (status == 0) {
+        qm.sendOk("嗯。。可能他们已经关闭大门。");
+    } else if (status == 1) {
+        qm.gainExp(11000);
+        qm.sendOk("干得好，太谢谢你了。");
+        qm.forceCompleteQuest();
+        qm.dispose();
+    }
 }
-	

@@ -1,4 +1,4 @@
-﻿/* Guild Rank Board */
+/* Guild Rank Board */
 
 function start() {
     cm.dispose();

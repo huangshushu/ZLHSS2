@@ -1,26 +1,11 @@
-﻿var status = 0
-
-function start(){
-	action(1, 0, 0);
+function start() {
+	cm.sendYesNo("你想要回到入口处么？");
 }
 
-function action(mode, type ,selection){
-	if(mode == 1) {
-		status++;
-	} else if(mode == 0) {
-		status--;
-	} else {
-		cm.dispose();
-		return;
+function action(mode, type, selection) {
+	if (mode == 1) {
+		cm.warp(700000000);
 	}
-	if(status == 1){
-		cm.sendYesNo("你想回去吗？");
-	} else if(status == 2){
-		var map = cm.getSavedLocation("WEDDING");
-		cm.warp(map, 0);
-		cm.clearSavedLocation("WEDDING");
-		cm.dispose();	
-	} else {
-		cm.dispose();
-	}
+	cm.dispose();
+
 }

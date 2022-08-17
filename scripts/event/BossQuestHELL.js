@@ -1,4 +1,4 @@
-ï»¿var eventmapid = 740000000;
+var eventmapid = 740000000;
 var returnmap = 910000000;
 var monster = Array(8820001,9400300);
 
@@ -181,15 +181,15 @@ function allMonstersDead(eim) {
 
     eim.setProperty("points", totalp);
 
-    eim.broadcastPlayerMsg(5, "ä½ çš„éšŠä¼ç²å¾—äº† "+num+" é»æ•¸! ç¸½å…±ç‚º "+totalp+".");
+    eim.broadcastPlayerMsg(5, "ÄãµÄê Îé«@µÃÁË "+num+" üc”µ! ¿‚¹²é "+totalp+".");
     
     eim.saveBossQuest(num);
 
     if (mobnum < monster.length) {
-	eim.broadcastPlayerMsg(6, "æº–å‚™ï¼ä¸‹ä¸€éš»çš„BOSSå³å°‡ä¾†è‡¨ã€‚");
+	eim.broadcastPlayerMsg(6, "œÊ‚ä£¡ÏÂÒ»ëbµÄBOSS¼´Œ¢íÅR¡£");
     } else {
 	eim.saveBossQuest(15000);
-	eim.broadcastPlayerMsg(5, "æ­å–œæ•´éšŠæŒ‘æˆ°æ™®é€šæ¨¡å¼æˆåŠŸã€‚");
+	eim.broadcastPlayerMsg(5, "¹§Ï²Õûê Ìô‘ğÆÕÍ¨Ä£Ê½³É¹¦¡£");
 	//eim.giveAchievement(22);
 	}
 // When invoking unregisterMonster(MapleMonster mob) OR killed

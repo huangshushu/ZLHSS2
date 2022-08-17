@@ -15,18 +15,14 @@ function action(mode, type, selection) {
 	}
 	cm.gainItem(itemid, 1);
 	if (em.getProperty("stage").equals("2")) {
-                //cm.gainNX(5000);
-                cm.gainExpR(randomNum(700000,1000000));
-            } else {
-                //cm.gainNX(3500);
-                cm.gainExpR(randomNum(500000,700000));
-            }
+    		//cm.gainNX(5000);
+    		cm.gainExpR(140000);
+	} else {
+		//cm.gainNX(3500);
+		cm.gainExpR(105000);
+	}
     }
     cm.getPlayer().endPartyQuest(1205);
     cm.warp(cm.getMapId() == 926100600 ? 926100700 : 926110700,0);
     cm.dispose();
 }
-//生成从minNum到maxNum的随机数
-function randomNum(minNum,maxNum){ 
-    return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
-}	

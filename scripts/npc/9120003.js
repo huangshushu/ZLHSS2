@@ -1,4 +1,4 @@
-ï»¿/*
+/*
 	Hikari - Showa Town(801000000)
 */
 
@@ -12,15 +12,15 @@ function action(mode, type, selection) {
     if (mode == 1)
 	status++;
     else {
-	cm.sendOk("éœ€è¦çš„æ—¶å€™å†æ¥æ‰¾æˆ‘ã€‚");
+	cm.sendOk("ĞèÒªµÄÊ±ºòÔÙÀ´ÕÒÎÒ¡£");
 	cm.dispose();
 	return;
     }
     if (status == 0) {
-	cm.sendYesNo("ä½ æƒ³è¿›å…¥æ¾¡å ‚ï¼Ÿ "+300+" æ«å¸");
+	cm.sendYesNo("ÄãÏë½øÈëÔèÌÃ£¿ "+300+" ·ã±Ò");
     } else if (status == 1) {
 	if (cm.getMeso() < 300) {
-	    cm.sendOk("è¯·ç¡®è®¤æ˜¯ä¸æ˜¯æœ‰ "+300+" æ«å¸ã€‚");
+	    cm.sendOk("ÇëÈ·ÈÏÊÇ²»ÊÇÓĞ "+300+" ·ã±Ò¡£");
 	} else {
 	    cm.gainMeso(-300);
 	    if (cm.getPlayerStat("GENDER") == 0) {

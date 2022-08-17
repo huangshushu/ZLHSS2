@@ -1,4 +1,4 @@
-ï»¿/* Salon Seamus
+/* Salon Seamus
 	Amoria Random Hair/Hair Color Change.
 */
 var status = -1;
@@ -19,7 +19,7 @@ function action(mode, type, selection) {
     else
 	status--;
     if (status == 0) {
-	cm.sendSimple("å—¨ï¼Œæˆ‘æ˜¯#p9201016# å¦‚æœä½ æœ‰ #b#t5150019##k æˆ–è€… #b#t5151016##k æˆ‘å¯ä»¥å¸®åŠ©ä½ ~ \r\n#L0#ä½¿ç”¨: #i5150019##t5150019##l\r\n#L1#ä½¿ç”¨: #i5151016##t5151016##l");
+	cm.sendSimple("àË£¬ÎÒÊÇ#p9201016# Èç¹ûÄãÓĞ #b#t5150019##k »òÕß #b#t5151016##k ÎÒ¿ÉÒÔ°ïÖúÄã~ \r\n#L0#Ê¹ÓÃ: #i5150019##t5150019##l\r\n#L1#Ê¹ÓÃ: #i5151016##t5151016##l");
     } else if (status == 1) {
 	if (selection == 0) {
 	    var hair = cm.getPlayerStat("HAIR");
@@ -34,7 +34,7 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < hair_Colo_new.length; i++) {
 		hair_Colo_new[i] = hair_Colo_new[i] + (hair % 10);
 	    }
-	    cm.sendYesNo("æ˜¯å¦è¦ä½¿ç”¨ #b#t5150019##k");
+	    cm.sendYesNo("ÊÇ·ñÒªÊ¹ÓÃ #b#t5150019##k");
 	} else if (selection == 1) {
 	    var currenthaircolo = Math.floor((cm.getPlayerStat("HAIR") / 10)) * 10;
 	    hair_Colo_new = [];
@@ -43,20 +43,20 @@ function action(mode, type, selection) {
 	    for (var i = 0; i < 8; i++) {
 		hair_Colo_new[i] = currenthaircolo + i;
 	    }
-	    cm.sendYesNo("æ˜¯å¦è¦ä½¿ç”¨ #b#t5150019##k");
+	    cm.sendYesNo("ÊÇ·ñÒªÊ¹ÓÃ #b#t5150019##k");
 	}
     } else if (status == 2){
 	if (beauty == 1){
 	    if (cm.setRandomAvatar(5150019, hair_Colo_new) == 1) {
-		cm.sendOk("äº«å—ï¼");
+		cm.sendOk("ÏíÊÜ£¡");
 	    } else {
-		cm.sendOk("ç–´...æ‚¨è²Œä¼¼æ²¡æœ‰#b#t5150019##kã€‚");
+		cm.sendOk("¯z...ÄúÃ²ËÆÃ»ÓĞ#b#t5150019##k¡£");
 	    }
 	} else {
 	    if (cm.setRandomAvatar(5151016, hair_Colo_new) == 1) {
-		cm.sendOk("äº«å—ï¼");
+		cm.sendOk("ÏíÊÜ£¡");
 	    } else {
-		cm.sendOk("ç–´...æ‚¨è²Œä¼¼æ²¡æœ‰#b#t5151016##kã€‚");
+		cm.sendOk("¯z...ÄúÃ²ËÆÃ»ÓĞ#b#t5151016##k¡£");
 	    }
 	}
 	cm.dispose();

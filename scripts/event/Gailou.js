@@ -15,7 +15,7 @@ function scheduleNew() {
     cal.set(java.util.Calendar.SECOND, 0);
     var nextTime = cal.getTimeInMillis();
     while (nextTime <= java.lang.System.currentTimeMillis()) {
-        nextTime += 1000 * 60 * 60 * 2; //设置多久开启
+        nextTime += 100 * 60 * 60 * 2; //设置多久开启
     }
     setupTask = em.scheduleAtTimestamp("startEvent", nextTime);
 }
@@ -34,7 +34,7 @@ function startEvent() {
         nextTime += 1000 * 60 * 10; //设置多久结束
     }
     setupTask = em.scheduleAtTimestamp("finishEvent", nextTime);
-    em.broadcastServerMsg(5121010, " 抢楼活动已经开始，参加的玩家请到市场找小Z参加。", true);
+    em.broadcastServerMsg(5121010, " 抢楼活动已经开始，参加的玩家请到市场找小z参加。", true);
 	
     em.broadcastServerMsg("[抢楼活动]:活动已经开始，目标 " + em.getProperty("maxCheck") + " 楼。");
 

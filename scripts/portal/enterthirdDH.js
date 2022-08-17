@@ -6,9 +6,9 @@ function enter(pi) {
 	    map.respawn(true);
 	    pi.warp(913010200, 0);
 	} else {
-	    pi.playerMessage("有人在地图裡面了，请稍后再尝试。");
+	    pi.playerMessage("有人在地圖裡面了，請稍後再嘗試。");
 	}
     } else {
-	pi.playerMessage("我只给有修练的人进入。");
+	pi.playerMessage("我只給有修練的人進入。");
     }
 }

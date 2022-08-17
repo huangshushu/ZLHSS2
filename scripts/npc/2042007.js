@@ -1,20 +1,18 @@
-ï»¿ï»¿/* 
+/* 
  * Spiegelmann - Monster Carnival
  */
 
-        var status = -1;
+var status = -1;
 var rank = "C";
 var exp = 0;
 
 function start() {
-
     if (cm.getCarnivalParty() != null && cm.getCarnivalParty().getTotalCP() > 0) {
         status = 99;
     }
     action(1, 0, 0);
-
 }
-
+ 
 function action(mode, type, selection) {
     if (mode == 1) {
         status++;
@@ -22,42 +20,27 @@ function action(mode, type, selection) {
         status--;
     }
     if (mode == -1) {
-        cm.dispose();
-        return;
+	cm.dispose();
+	return;
     }
     if (status == 0) {
-        switch (cm.getMapId()) {
-            case 980030010:
-            case 980031300:
-            case 980031400:
-            case 980032300:
-            case 980032400:
-            case 980033300:
-            case 980033400:
-                cm.warp(980030000, 4);
-                cm.dispose();
-                break;
-            default:
-                cm.sendSimple("å¬è¯´ä¿®è²å‡¯è”“å–œæ¬¢åƒé²é±¼\r\n#b#L0#æˆ‘è¦å‰å¾€æ€ªç‰©æ“‚å°#l");
-        }
+        cm.sendSimple("ÌıËµĞŞ·Æ¿­ÂûÏ²»¶³Ô±«Óã\r\n#b#L0#ÎÒÒªÇ°Íù¹ÖÎïÀŞÌ¨#l");
     } else if (status == 1) {
         switch (selection) {
-            case 0:
-            {
+            case 0: {
                 var level = cm.getPlayerStat("LVL");
-                if (level < 50) {
-                    cm.sendOk("50ç­‰ä»¥ä¸Šæ‰èƒ½ç©æ€ªç‰©æ“‚å°èµ›å–”");
+                if ( level < 50) {
+                    cm.sendOk("50µÈÒÔÉÏ²ÅÄÜÍæ¹ÖÎïÀŞÌ¨Èüà¸");
                 } else {
-                    cm.warp(980030000, "st00");
+                    cm.warp( 980030000, "st00" );
                 }
                 cm.dispose();
             }
-            default:
-                {
-                    cm.dispose();
-                    break;
-                }
+            default: {
+                cm.dispose();
                 break;
+            }
+            break;
         }
     } else if (status == 100) {
         var carnivalparty = cm.getCarnivalParty();
@@ -74,31 +57,31 @@ function action(mode, type, selection) {
             rank = "D";
             exp = 35000;
         }
-        cm.getPlayer().endPartyQuest(1302);
+	cm.getPlayer().endPartyQuest(1302);
         if (carnivalparty.isWinner()) {
-            cm.sendOk("æ­å–œä½ èµ¢äº† å¤ªç¥å•¦\r\n#bæ€ªç‰©æ“‚å°èµ›æ’è¡Œ : " + rank);
+            cm.sendOk("¹§Ï²ÄãÓ®ÁË Ì«ÉñÀ²\r\n#b¹ÖÎïÀŞÌ¨ÈüÅÅĞĞ : " + rank);
         } else {
-            cm.sendOk("è™½ç„¶è¾“äº†ä¹Ÿä¸è¦æ°”é¦Q_Q\r\n#bæ€ªç‰©æ“‚å°èµ›æ’è¡Œ : " + rank);
+            cm.sendOk("ËäÈ»ÊäÁËÒ²²»ÒªÆøÄÙQ_Q\r\n#b¹ÖÎïÀŞÌ¨ÈüÅÅĞĞ : " + rank);
         }
     } else if (status == 101) {
         var carnivalparty = cm.getCarnivalParty();
-        var los = parseInt(cm.getPlayer().getOneInfo(1302, "lose"));
-        var vic = parseInt(cm.getPlayer().getOneInfo(1302, "vic"));
+	var los = parseInt(cm.getPlayer().getOneInfo(1302, "lose"));
+	var vic = parseInt(cm.getPlayer().getOneInfo(1302, "vic"));
         if (carnivalparty.isWinner()) {
-            vic++;
-            cm.getPlayer().updateOneInfo(1302, "vic", "" + vic);
+	    vic++;
+	    cm.getPlayer().updateOneInfo(1302, "vic", "" + vic);
             carnivalparty.removeMember(cm.getChar());
             cm.gainExpR(exp);
         } else {
-            los++;
-            cm.getPlayer().updateOneInfo(1302, "lose", "" + los);
+	    los++;
+	    cm.getPlayer().updateOneInfo(1302, "lose", "" + los);
             carnivalparty.removeMember(cm.getChar());
             cm.gainExpR(exp / 2);
 
         }
-        cm.getPlayer().updateOneInfo(1302, "VR", "" + (java.lang.Math.ceil((vic * 100) / los)));
-        cm.warp(980030000);
-        cm.dispose();
+	cm.getPlayer().updateOneInfo(1302, "VR", "" + (java.lang.Math.ceil((vic * 100) / los)));
+            cm.warp(980030000);
+            cm.dispose();
     }
 
 }

@@ -1,115 +1,85 @@
-﻿/*
- ZEVMS冒险岛(079)游戏服务端
-蝙蝠怪系列
+/*
+ *
+ *  �˽ű���ð�յ��������
+ * 
+ *
  */
-var 装备 = [
-    1432055,
-	1402058,
-	1332086,
-	1322069,
-	1412039,
-	1302113,
-	1372050,
-	1462063,
-	1452070,
-	1332087,
-	1442075,
-	1472084,
-	1402059,
-	1492036,
-	1482031,
-	1482032,
-	1422043
+var ��ս���� = 1;
 
-];
-//材料设置
-var 材料 = [
-    [4001261, 500],
-	[4021007, 5],
-    [4011001, 10],
-	[4011000, 10],
-    [4004001, 20],
-    [4004002, 20],
-    [4004003, 20],
-	[4004000, 20]
-];
-var 金币 = 100;
-var 点券 = 100;
-//说明文字
-var 说明文字 = "   hi #b#h ##k 蝙蝠怪是一种很强力的怪物，用它的材料制作的装备也是很强力的。";
+var status = 0;
 
+function start() 
+	{
+	status = -1;
+	action(1, 0, 0);
+	}
 
-var sels;
-var 脚本执行 = -1;
+function action(mode, type, selection)
+{
+	var nextmap = cm.getC().getChannelServer().getMapFactory().getMap(105100300);
+	if (mode == -1)
+	{
+		cm.dispose();
+	}
+	else if (mode == 0)
+	{
+		cm.sendOk("�õ����Ҫ��ս��ʱ������.");
+		cm.dispose();
+	} 
+	else 
+	{
+	if (mode == 1)
+	status++;
+	else
+	status--;
+		
+	if (status == 0)
+	{	
+			if (cm.getPlayerCount(105100300) > 1){
+	            cm.sendOk("�Ѿ�������ս���޷����룡");
+                    cm.dispose();
+			}else{
+				cm.sendYesNo("��սҪ��50�����ϣ�ÿ���˺�ÿ����" + ��ս���� + "�λ��ᣬ��ս��ħ����");
+			}
+		//}
+	}
+	else if (status == 1) 
+	{ 	
+		var party = cm.getPlayer().getParty();		
+		if (party == null || party.getLeader().getId() != cm.getPlayer().getId()) {
+                    cm.sendOk("�㲻�Ƕӳ��������Ƕӳ���˵���ɣ�");
+                    cm.dispose();
 
-function start() {
-    action(1, 0, 0);
-}
+			}else if(cm.getBossLoga("jumo01") >= ��ս����) {
+	            cm.sendOk("���˺Ž������ս�����Ѿ������ˣ�������������..");
+                    cm.dispose();
 
-function action(mode, type, selection) {
-    if (mode == 1) {
-        脚本执行++;
-    } else if (mode == 0) {
-        脚本执行--;
-    } else {
-        cm.dispose();
-        return;
-    }
-    if (脚本执行 == 0) {
-        var 文本信息 = "";
-        for (var i = 0; i < 装备.length; i++) {
-            文本信息 += "#b#L" + i + "#";
-            文本信息 += "#i" + 装备[i] + "##z" + 装备[i] + "##l#k\r\n";
-        }
-        文本信息 += "\r\n";
-        文本信息 += "#d所需材料；————————————————————#k\r\n";
-        for (var ii = 0; ii < 材料.length; ii++) {
-            文本信息 += "    #i" + 材料[ii][0] + "#  #b#t" + 材料[ii][0] + "##k [" + 材料[ii][1] + " / #r#c " + 材料[ii][0] + "##k]\r\n";
-            if (ii % 3 == 0) {
-                文本信息 += "";
-            }
-        }
-        文本信息 += "\r\n";
-        if (金币 > 0 || 点券 > 0) {
-            文本信息 += "#d所需费用；————————————————————#k\r\n";
-            if (金币 > 0) {
-                文本信息 += "    #v5200000##b  金币 #k[" + 金币 + " / #r" + cm.getMeso() + "#k]\r\n";
-            }
-            if (点券 > 0) {
-                文本信息 += "    #v5440000##b  点券 #k[" + 点券 + " / #r" + cm.getPlayer().getCSPoints(1) + "#k]\r\n";
-            }
-        }
-        文本信息 += "\r\n—————————————————————————#k\r\n";
-        cm.sendSimple("" + 说明文字 + "\r\n" + 文本信息 + "");
-    } else if (脚本执行 == 1) {
-        sels = selection;
-        if (cm.getInventory(1).isFull()) {
-			cm.sendNext("装备栏必须有一个空位。");
+		}else if(party.getMembers().size() < 1) {
+	            cm.sendOk("��Ҫ 1 �����ϵ���Ӳ��ܽ��룡!");
+                    cm.dispose();
+
+ 
+		}else{
+if(cm.getMonsterCount(105100300) <= 100){
+		
+
+	
+}			 cm.setBossLoga('jumo01');
+			nextmap.resetReactors();			
+			cm.getEventManager("BossBalrog").startInstance(cm.getParty(),cm.getMap());
+                          //cm.spawnMobOnMap(8230043,1,78,5,350050300);
+                          //cm.spawnMobOnMap(8240096,1,-118,60,350051250);
+                          //cm.spawnMobOnMap(8240096,1,279,190,350051250);
+                          //cm.spawnMobOnMap(8240096,1,579,362,350051250);
+                          //cm.spawnMobOnMap(8240096,1,906,456,350051250);
+                          //cm.spawnMobOnMap(8240096,1,1281,456,350051250);
+
+                                //cm.gainItem(4000313, -1);
+                                cm.warpParty(105100300);
+                               cm.ȫ������(6, "[" + cm.getPlayer().getName() + "]���������ս�Թ��-��ħ����֣�~");
+                                //cm.setmoneyb(-100);
 			cm.dispose();
-        return;
-    }
-        if (cm.getMeso() < 金币 || cm.getPlayer().getCSPoints(1) < 点券) {
-            cm.sednOk("制作费用不够。");
-            cm.dispose();
-            return;
-        }
-        for (var i = 0; i < 材料.length; i++) {
-            if (!cm.haveItem(材料[i][0], 材料[i][1])) {
-                cm.sednOk("#i" + 材料[i][0] + "#  #b#t" + 材料[i][0] + "##k 需要 #r" + 材料[i][1] + "#k 个");
-                cm.dispose();
-                return;
-            }
-        }
-        cm.sendYesNo("#b确定制作 #b #i" + 装备[sels] + "##k 吗? \r\n");
-    } else if (脚本执行 == 2) {
-        for (var i = 0; i < 材料.length; i++) {
-            cm.gainItem(材料[i][0], 材料[i][1]);
-        }
-        cm.给物品(装备[sels], 1);
-        cm.说明文字("#b成功制作 #i" + 装备[sels] + "#");
-        cm.对话结束();
-    } else {
-        cm.说明文字("#r发生错误: mode : " + mode + " 脚本执行 : " + 脚本执行);
-        cm.对话结束();
-    }
+		}
+	}
+}
 }
