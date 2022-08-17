@@ -3709,4 +3709,17 @@ public abstract class AbstractPlayerInteraction {
         }
     }
 
+    public final boolean checkNumSpace(final int type, final int space) {
+        if (type <= 5 && type > 0) {
+            return this.c.getPlayer().getInventory(MapleInventoryType.getByType((byte) type)).getNumFreeSlot() >= space;
+        }
+        for (int i = 1; i <= 5; ++i) {
+            if (this.c.getPlayer().getInventory(MapleInventoryType.getByType((byte) i)).getNumFreeSlot() < space) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }

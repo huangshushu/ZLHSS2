@@ -2918,4 +2918,42 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, text));
     }
 
+    public int gainGachaponItem2(final int id, final int quantity, final String msg, final int 概率) {
+        try {
+            if (!MapleItemInformationProvider.getInstance().itemExists(id)) {
+                return -1;
+            }
+            final IItem item = MapleInventoryManipulator.addbyId_Gachapon(this.c, id, (short) quantity);
+            if (item == null) {
+                return -1;
+            }
+            if (概率 > 0) {
+                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[ " + msg + " ] : 已经被玩家 [ " + this.c.getPlayer().getName(), " ] 幸运抽中！", item, (byte) 0, this.getPlayer().getClient().getChannel()));
+            }
+            return item.getItemId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public int gainGachaponItem3(final int id, final int quantity, final String msg, final int 概率) {
+        try {
+            if (!MapleItemInformationProvider.getInstance().itemExists(id)) {
+                return -1;
+            }
+            final IItem item = MapleInventoryManipulator.addbyId_Gachapon(this.c, id, (short) quantity);
+            if (item == null) {
+                return -1;
+            }
+            if (概率 > 0) {
+                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[ " + msg + " ] : 已经被玩家 [ " + this.c.getPlayer().getName(), " ] 幸运抽中！", item, (byte) 0, this.getPlayer().getClient().getChannel()));
+            }
+            return item.getItemId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
 }

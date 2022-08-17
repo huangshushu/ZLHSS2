@@ -11364,5 +11364,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return -1;
         }
     }
+
+    public int getNX() {
+        return this.getCSPoints(1);
+    }
     
 }
