@@ -852,6 +852,14 @@ public class MapleInventoryManipulator {
         if (c.getPlayer().isGM()) {
             c.getPlayer().dropMessage("穿装备: src : " + src + " dst : " + dst + " 代码：" + source.getItemId());
         }
+
+        //换装备时更新战斗力
+        if (c.getPlayer().getGuildId() > 0) {
+            c.sendPacket(MaplePacketCreator.showGuildInfo(c.getPlayer()));
+        }else{
+            c.sendPacket(MaplePacketCreator.勋章(c.getPlayer()));
+        }
+
         if (dst == -6) { // unequip the overall
             IItem top = c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -5);
             if (top != null && isOverall(top.getItemId())) {

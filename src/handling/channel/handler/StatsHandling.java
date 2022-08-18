@@ -37,6 +37,7 @@ import tools.data.LittleEndianAccessor;
 
 public class StatsHandling {
 
+    //分配属性点
     public static final void DistributeAP(final LittleEndianAccessor slea, final MapleClient c,
             final MapleCharacter chr) {
         Map<MapleStat, Integer> statupdate = new EnumMap<>(MapleStat.class);

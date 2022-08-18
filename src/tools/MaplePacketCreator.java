@@ -284,6 +284,16 @@ public class MaplePacketCreator {
 
         mplew.write(0);
         mplew.write(0);
+        //更新战斗力
+        //有点影响性能，并且没什么必要每次状态刷新就刷新战斗力
+        /*
+        if(WorldConstants.ShowBattlePower){
+            if (chr.getGuildId() > 0) {
+                showGuildInfo(chr);
+            }else {
+                MaplePacketCreator.勋章(chr);
+            }
+        }*/
         return mplew.getPacket();
     }
 
@@ -3382,10 +3392,10 @@ public class MaplePacketCreator {
     }
 
     public static void getGuildInfo(MaplePacketLittleEndianWriter mplew, MapleGuild guild, MapleCharacter c) {
-        String BattlePowerPoint = c.getBattlePowerPoint() >=1 ?  String.valueOf(c.getBattlePowerPoint()) : "未上传";
+        //String BattlePowerPoint = c.getBattlePowerPoint() >=1 ?  String.valueOf(c.getBattlePowerPoint()) : "未上传";
         mplew.writeInt(guild.getId());
         if(WorldConstants.ShowBattlePower){
-        mplew.writeMapleAsciiString(guild.getName()  + "||战斗力"+BattlePowerPoint);    
+        mplew.writeMapleAsciiString(guild.getName()  + "||战斗力"+String.valueOf(c.getBattlePowerPoint()));
         }else{
             mplew.writeMapleAsciiString(guild.getName());
         }
@@ -3404,8 +3414,7 @@ public class MaplePacketCreator {
     }
 
     public static byte[] 勋章(MapleCharacter chr) {
-
-        String BattlePowerPoint = chr.getBattlePowerPoint() >=1 ?  String.valueOf(chr.getBattlePowerPoint()) : "未上传";
+        //String BattlePowerPoint = chr.getBattlePowerPoint() >=1 ?  String.valueOf(chr.UpAndGetBattlePowerPoint()) : "未上传";
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         mplew.writeShort(SendPacketOpcode.GUILD_OPERATION.getValue());
         mplew.write(0x1A); // signature for showing guild info
@@ -3415,7 +3424,11 @@ public class MaplePacketCreator {
         }
         mplew.write(1);
         mplew.writeInt(0);
-        mplew.writeMapleAsciiString("战斗力"+BattlePowerPoint);
+        if(WorldConstants.ShowBattlePower){
+            mplew.writeMapleAsciiString("战斗力"+String.valueOf(chr.UpAndGetBattlePowerPoint()));
+        }else{
+            mplew.writeMapleAsciiString("");
+        }
         for (int i = 1; i <= 5; i++) {
             mplew.writeMapleAsciiString("");
         }

@@ -185,10 +185,10 @@ function action(mode, type, selection) {
         cm.sql_Update(mainUpdateSql);
       }
     }
-    cm.getPlayer().dropMessage(
-      5,
-      "您的战斗力信息已更新，您目前的战斗力为[" + totalScore + "]"
-    );
+    // cm.getPlayer().dropMessage(
+    //   5,
+    //   "您的战斗力信息已更新，您目前的战斗力为[" + totalScore + "]"
+    // );
     cm.dispose();
   }
 }

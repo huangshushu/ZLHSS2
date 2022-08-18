@@ -64,11 +64,7 @@ import client.inventory.MapleMount;
 import client.inventory.MaplePet;
 import client.inventory.MapleRing;
 import client.inventory.ModifyInventory;
-import constants.GameConstants;
-import constants.ItemConstants;
-import constants.MapConstants;
-import constants.ServerConfig;
-import constants.ServerConstants;
+import constants.*;
 import database.DBConPool;
 import database.DatabaseException;
 import handling.cashshop.CashShopServer;
@@ -133,7 +129,7 @@ import server.shops.IMaplePlayerShop;
 import tools.ConcurrentEnumMap;
 import tools.FilePrinter;
 import tools.FileoutputUtil;
-import static tools.FileoutputUtil.log;
+
 import static tools.FileoutputUtil.log;
 import tools.HexTool;
 import tools.MaplePacketCreator;
@@ -11341,8 +11337,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
         return ret;
     }
-    
-    
+
     public int getBattlePowerPoint() {
         try {
             Connection con = DBConPool.getInstance().getDataSource().getConnection();
@@ -11351,10 +11346,37 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             ps = con.prepareStatement("select total_score from equip_score where character_id = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
+
             if (rs.next()) {
                 ret_count = rs.getInt(1);
             } else {
-                ret_count = -1;
+                openNpc(9900001, "战斗力信息上传");
+                ret_count = rs.getInt(1);
+            }
+            rs.close();
+            ps.close();
+            return ret_count;
+        } catch (SQLException Ex) {
+            // log.error("Error while read bosslog.", Ex);
+            return -1;
+        }
+    }
+
+    public int UpAndGetBattlePowerPoint() {
+        try {
+            Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            int ret_count = 0;
+            PreparedStatement ps;
+            ps = con.prepareStatement("select total_score from equip_score where character_id = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                openNpc(9900001, "战斗力信息上传");
+                ret_count = rs.getInt(1);
+            } else {
+                openNpc(9900001, "战斗力信息上传");
+                ret_count = rs.getInt(1);
             }
             rs.close();
             ps.close();

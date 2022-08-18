@@ -762,13 +762,13 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
             case MESSENGER:
                 ChatHandler.Messenger(slea, c);
                 break;
-            case AUTO_ASSIGN_AP:
+            case AUTO_ASSIGN_AP://自动分配属性点
                 StatsHandling.AutoAssignAP(slea, c, c.getPlayer());
                 break;
-            case DISTRIBUTE_AP:
+            case DISTRIBUTE_AP://分配属性点
                 StatsHandling.DistributeAP(slea, c, c.getPlayer());
                 break;
-            case DISTRIBUTE_SP:
+            case DISTRIBUTE_SP://分配技能点
                 c.getPlayer().updateTick(slea.readInt());
                 StatsHandling.DistributeSP(slea.readInt(), c, c.getPlayer());
                 break;
