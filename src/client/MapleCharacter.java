@@ -6915,12 +6915,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         final ChannelServer toch = ChannelServer.getInstance(channel);
 
         try {
-            // int res =
             this.saveToDB(false, false);
-
-            // if (res == 1) {
-            // dropMessage(5, "角色保存成功！");
-            // }
         } catch (Exception ex) {
             FileoutputUtil.logToFile("logs/ForcechangeChannel保存数据异常.txt",
                     "\r\n " + FileoutputUtil.NowTime() + " IP: "
@@ -11324,16 +11319,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
                 break;
             case 4:
+            case 5:
                 if (MissionMake == 1) {
                     //此任务已经接过了
                     ret = true;
                 }
-                break;
-            case 5:
-                if (MissionMake == 1) {
-                    //已经接了锁地图的任务
-                    ret = true;
-                }
+                break;//已经接了锁地图的任务
         }
         return ret;
     }

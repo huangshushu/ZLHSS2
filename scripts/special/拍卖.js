@@ -142,7 +142,7 @@ function action(mode, type, selection) {
           "装扮中心#L1007#" +
           LJ +
           "虚拟上线#l\r\n";
-        text += "#L1009#" + LJ + "快速转职#L1110#" + LJ + "查看传送#l\r\n";
+        text += "#L1009#" + LJ + "快速转职#L1110#" + LJ + "查看传送#L1012#" + LJ + "在线玩家#l\r\n";
       }
       cm.sendSimple(text);
     }
@@ -406,9 +406,9 @@ function action(mode, type, selection) {
       cm.openNpc(9900004, 1011);
     }
     if (selection == 1012) {
-      //功能测试
+      //在线玩家
       cm.dispose();
-      cm.openNpc(9900004, 1012);
+      cm.openNpc(9900004, "巡逻玩家");
     }
     if (selection == 1013) {
       //虚拟抽奖

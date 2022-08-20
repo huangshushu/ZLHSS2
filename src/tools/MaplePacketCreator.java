@@ -3395,7 +3395,7 @@ public class MaplePacketCreator {
         //String BattlePowerPoint = c.getBattlePowerPoint() >=1 ?  String.valueOf(c.getBattlePowerPoint()) : "未上传";
         mplew.writeInt(guild.getId());
         if(WorldConstants.ShowBattlePower){
-        mplew.writeMapleAsciiString(guild.getName()  + "||战斗力"+String.valueOf(c.getBattlePowerPoint()));
+        mplew.writeMapleAsciiString(guild.getName()  + "||战斗力"+String.valueOf(c.UpAndGetBattlePowerPoint()));
         }else{
             mplew.writeMapleAsciiString(guild.getName());
         }

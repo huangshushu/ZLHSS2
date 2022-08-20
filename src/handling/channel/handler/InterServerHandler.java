@@ -424,7 +424,10 @@ public class InterServerHandler {
                     player.setAllianceRank((byte) 5);
                     player.saveGuildStatus();
                 }
-            } else if(WorldConstants.ShowBattlePower){                
+            } else if(WorldConstants.ShowBattlePower){
+                if(player.getBattlePowerPoint() == -1){
+
+                }
                 c.sendPacket(MaplePacketCreator.勋章(player));
             }
             // 家族
