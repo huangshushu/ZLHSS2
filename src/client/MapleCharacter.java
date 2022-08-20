@@ -5121,6 +5121,43 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     }
 
+    public void setmoneyb(final int slot) {
+        try (final Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            final int cid = this.getAccountID();
+            try (final PreparedStatement ps = con.prepareStatement("UPDATE accounts SET moneyb = " + slot + " WHERE id = " + cid + "")) {
+                ps.executeUpdate();
+                ps.close();
+            }
+            con.close();
+        } catch (SQLException ex) {
+            System.err.println("setmoneyb" + (Object) ex);
+            FileoutputUtil.outputFileError("logs/数据库异常.txt", (Throwable) ex);
+            ex.getStackTrace();
+        }
+    }
+
+    public int getmoneyb() {
+        int moneyb = 0;
+        try (final Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            final int cid = this.getAccountID();
+            ResultSet rs;
+            try (final PreparedStatement limitCheck = con.prepareStatement("SELECT * FROM accounts WHERE id=" + cid + "")) {
+                rs = limitCheck.executeQuery();
+                if (rs.next()) {
+                    moneyb = rs.getInt("moneyb");
+                }
+                limitCheck.close();
+            }
+            rs.close();
+            con.close();
+        } catch (SQLException ex) {
+            System.err.println("getmoneyb" + (Object) ex);
+            FileoutputUtil.outputFileError("logs/数据库异常.txt", (Throwable) ex);
+            ex.getStackTrace();
+        }
+        return moneyb;
+    }
+
     public static enum FameStatus {
 
         OK, NOT_TODAY, NOT_THIS_MONTH
@@ -9739,116 +9776,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
     }
 
-    /*
-     * public void setBuffTime(int skill, int time) {
-     * try (Connection con =
-     * DBConPool.getInstance().getDataSource().getConnection()) {
-     * PreparedStatement ps;
-     * ps = con.
-     * prepareStatement("insert into skills_bufftimes (charid, SkillID, length, StartTime) values (?,?,?,?)"
-     * );
-     * ps.setInt(1, getId());
-     * ps.setInt(2, skill);
-     * ps.setInt(3, time);
-     * ps.setLong(4, System.currentTimeMillis());
-     * ps.executeUpdate();
-     * ps.close();
-     * } catch (SQLException Ex) {
-     * FileoutputUtil.outError("logs/资料库异常.txt", Ex);
-     * }
-     * }
-     * 
-     * public void updateBuffTime(int skill, int length) {
-     * try (Connection con =
-     * DBConPool.getInstance().getDataSource().getConnection()) {
-     * PreparedStatement ps;
-     * ps = con.
-     * prepareStatement("Update skills_bufftimes set length = ?, StartTime = ? Where charid = ? and SkillID = ?"
-     * );
-     * ps.setInt(1, length);
-     * ps.setLong(2, System.currentTimeMillis());
-     * ps.setInt(3, getId());
-     * ps.setInt(4, skill);
-     * ps.execute();
-     * ps.close();
-     * } catch (SQLException ex) {
-     * FileoutputUtil.outError("logs/资料库异常.txt", ex);
-     * } catch (Exception ex) {
-     * FileoutputUtil.outError("logs/资料库异常.txt", ex);
-     * }
-     * }
-     * 
-     * public int getBuffTimeCout(int skill) {
-     * try (Connection con =
-     * DBConPool.getInstance().getDataSource().getConnection()) {
-     * int ret_count;
-     * PreparedStatement ps;
-     * ps = con.
-     * prepareStatement("select count(*) from skills_bufftimes where charid = ? and SkillID = ?"
-     * );
-     * ps.setInt(1, getId());
-     * ps.setInt(2, skill);
-     * try (ResultSet rs = ps.executeQuery()) {
-     * if (rs.next()) {
-     * ret_count = rs.getInt(1);
-     * } else {
-     * ret_count = -1;
-     * }
-     * }
-     * ps.close();
-     * return ret_count;
-     * } catch (SQLException Ex) {
-     * FileoutputUtil.outError("logs/资料库异常.txt", Ex);
-     * return -1;
-     * }
-     * }
-     * 
-     * public int getBuffTimeLength(int skill) {
-     * int nx = 0;
-     * try (Connection con =
-     * DBConPool.getInstance().getDataSource().getConnection()) {
-     * ResultSet rs;
-     * try (PreparedStatement limitCheck = con.
-     * prepareStatement("SELECT * FROM skills_bufftimes WHERE charid=? and SkillID=?"
-     * )) {
-     * limitCheck.setInt(1, getId());
-     * limitCheck.setInt(2, skill);
-     * rs = limitCheck.executeQuery();
-     * if (rs.next()) {
-     * nx = rs.getInt("length");
-     * }
-     * }
-     * rs.close();
-     * } catch (SQLException ex) {
-     * FileoutputUtil.outputFileError("logs/资料库异常.txt", ex);
-     * ex.getStackTrace();
-     * }
-     * return nx;
-     * }
-     * 
-     * public long getBuffTimeStartTime(int skill) {
-     * long nx = 0;
-     * try (Connection con =
-     * DBConPool.getInstance().getDataSource().getConnection()) {
-     * ResultSet rs;
-     * try (PreparedStatement limitCheck = con.
-     * prepareStatement("SELECT * FROM skills_bufftimes WHERE charid=? AND SkillID=?"
-     * )) {
-     * limitCheck.setInt(1, getId());
-     * limitCheck.setInt(2, skill);
-     * rs = limitCheck.executeQuery();
-     * if (rs.next()) {
-     * nx = rs.getLong("StartTime");
-     * }
-     * }
-     * rs.close();
-     * } catch (SQLException ex) {
-     * FileoutputUtil.outputFileError("logs/资料库异常.txt", ex);
-     * ex.getStackTrace();
-     * }
-     * return nx;
-     * }
-     */
     public void isSquadPlayerID() {
         if (getMapId() == 240060000 || getMapId() == 240060100 || getMapId() == 240060200) {
             final EventManager em = getClient().getChannelServer().getEventSM().getEventManager("HorntailBattle");
@@ -10150,29 +10077,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             this.vip = vip;
         }
     }
-
-    /*
-     * public Timestamp getViptime() {
-     * if (getVip() == 0) {
-     * return null;
-     * }
-     * return viptime;
-     * }
-     * 
-     * public void setViptime(Timestamp expire) {
-     * this.viptime = expire;
-     * }
-     * 
-     * public void setViptime(long period) {
-     * if (period > 0) {
-     * Timestamp expiration = new Timestamp(System.currentTimeMillis() + (period * 1
-     * * 60 * 60 * 1000));
-     * setViptime(expiration);
-     * } else {
-     * setViptime(null);
-     * }
-     * }
-     */
 
     // 获取师徒记录
     public int getMentorLog(String bossid) {
@@ -10479,43 +10383,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         this.updateOneInfo(pqid, "point", String.valueOf(this.getPQPoint(pqid) + point));
     }
 
-    /*
-     * public void changeSkillLevel(final Skill skill, int newLevel, byte
-     * newMasterlevel) { //1 month
-     * if (skill == null) {
-     * return;
-     * }
-     * changeSkillLevel(skill, newLevel, newMasterlevel, skill.isTimeLimited() ?
-     * (System.currentTimeMillis() + (long) (30L * 24L * 60L * 60L * 1000L)) : -1);
-     * }
-     * 
-     * public void changeSkillLevel(final Skill skill, int newLevel, byte
-     * newMasterlevel, long expiration) {
-     * if (skill == null || (!GameConstants.isApplicableSkill(skill.getId()) &&
-     * !GameConstants.isApplicableSkill_(skill.getId()))) {
-     * return;
-     * }
-     * client.getSession().write(MaplePacketCreator.updateSkill(skill.getId(),
-     * newLevel, newMasterlevel, expiration));
-     * if (newLevel == 0 && newMasterlevel == 0) {
-     * if (skills.containsKey(skill)) {
-     * skills.remove(skill);
-     * } else {
-     * return; //nothing happen
-     * }
-     * } else {
-     * skills.put(skill, new SkillEntry((byte) newLevel, newMasterlevel,
-     * expiration));
-     * }
-     * boolean changed_skills = true;
-     * if (GameConstants.isRecoveryIncSkill(skill.getId())) {
-     * stats.relocHeal(this);
-     * }
-     * if (skill.getId() < 80000000) {
-     * stats.recalcLocalStats(this);
-     * }
-     * }
-     */
 
     public void forceUpdateItem(Item item) {
         forceUpdateItem(item, false);
@@ -10739,23 +10606,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     /*
-     * // 更改伤害皮肤
-     * public void changeDamageSkin(int id) {
-     * MapleQuest q = MapleQuest.getInstance(7291);
-     * if (q == null) {
-     * return;
-     * }
-     * MapleQuestStatus status = getQuestNAdd(q);
-     * status.setStatus((byte) 1);
-     * status.setCustomData(String.valueOf(id));
-     * updateQuest(status, true);
-     * map.broadcastMessage(InventoryPacket.showDamageSkin(getId(), id)); //
-     * 发送给其他玩家显示角色更换技能皮肤
-     * dropMessage(-9, "伤害皮肤已更改。");
-     * }
-     */
-
-    /*
      * 获取伤害皮肤的数值
      */
     public int getDamageSkin() {
@@ -10765,29 +10615,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             stat.setCustomData("0");
         }
         return Integer.parseInt(stat.getCustomData());
-    }
-
-    public int getmoneyb() {
-        int moneyb = 0;
-        try (final Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            final int cid = this.getAccountID();
-            ResultSet rs;
-            try (final PreparedStatement limitCheck = con
-                    .prepareStatement("SELECT * FROM accounts WHERE id=" + cid + "")) {
-                rs = limitCheck.executeQuery();
-                if (rs.next()) {
-                    moneyb = rs.getInt("moneyb");
-                }
-                limitCheck.close();
-            }
-            rs.close();
-            con.close();
-        } catch (SQLException ex) {
-            System.err.println("getmoneyb" + (Object) ex);
-            FileoutputUtil.outputFileError("logs/数据库异常.txt", (Throwable) ex);
-            ex.getStackTrace();
-        }
-        return moneyb;
     }
     
     public final int[] StringtoInt(final String str) {

@@ -35,6 +35,8 @@ import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 
 public class Start {
+        public static boolean 是否控制台启动 = true;
+    private static int 回收内存;
 
     private static void resetAllLoginState() {
         String name = null;

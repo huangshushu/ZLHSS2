@@ -2955,5 +2955,235 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             return -1;
         }
     }
+    
+        public static String 角色ID取名字(final int id) {
+        String data = "";
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT name as DATA FROM characters WHERE id = ?");
+            ps.setInt(1, id);
+            try (final ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取角色ID取名字出错 - 数据库查询失败：" + (Object) Ex);
+        }
+        if (data == null) {
+            data = "匿名人士";
+        }
+        return data;
+    }
+        
+            public static int 角色名字取ID(final String id) {
+        int data = 0;
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT id as DATA FROM characters WHERE name = ?");
+            ps.setString(1, id);
+            try (final ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getInt("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + (Object) Ex);
+        }
+        return data;
+    }
+
+    public static int 角色名字取账号ID(final String id) {
+        int data = 0;
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT accountid as DATA FROM characters WHERE name = ?");
+            ps.setString(1, id);
+            try (final ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getInt("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + (Object) Ex);
+        }
+        return data;
+    }
+
+    public static String IP取账号(final String id) {
+        String data = "";
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT name as DATA FROM accounts WHERE SessionIP = ?");
+            ps.setString(1, id);
+            try (final ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                    return data;
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取角色ID取名字出错 - 数据库查询失败：" + (Object) Ex);
+        }
+        if (data == null) {
+            data = "匿名人士";
+        }
+        return data;
+    }
+
+    public static String MAC取账号(final String id) {
+        String data = "";
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT name as DATA FROM accounts WHERE macs = ?");
+            ps.setString(1, id);
+            try (final ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取角色ID取名字出错 - 数据库查询失败：" + (Object) Ex);
+        }
+        if (data == null) {
+            data = "匿名人士";
+        }
+        return data;
+    }
+
+    public static String 账号ID取账号(final String id) {
+        String data = "";
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT name as DATA FROM accounts WHERE id = ?");
+            ps.setString(1, id);
+            try (final ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + (Object) Ex);
+        }
+        return data;
+    }
+
+    public static String 账号ID取在线(final int id) {
+        String data = "";
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT loggedin as DATA FROM accounts WHERE id = ?");
+            ps.setInt(1, id);
+            try (final ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + (Object) Ex);
+        }
+        return data;
+    }
+
+    public static String 角色名字取等级(final String id) {
+        String data = "";
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT level as DATA FROM characters WHERE name = ?");
+            ps.setString(1, id);
+            try (final ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + (Object) Ex);
+        }
+        if (data == null) {
+            data = "匿名人士";
+        }
+        return data;
+    }
+
+    public static String 物品获取掉落怪物(final int itemid) {
+        String data = "";
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT dropperid as DATA FROM drop_data WHERE itemid = ?");
+            ps.setInt(1, itemid);
+            try (final ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    data = rs.getString("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取物品获取掉落怪物出错 - 数据库查询失败：" + (Object) Ex);
+        }
+        return data;
+    }
+
+    public static String 获取最高等级玩家名字() {
+        String name = "";
+        String level = "";
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT `name`, `level` FROM characters WHERE gm = 0 ORDER BY `level` DESC LIMIT 1");
+            try (final ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    name = rs.getString("name");
+                    level = rs.getString("level");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取家族名称出错 - 数据库查询失败：" + (Object) Ex);
+        }
+        return String.format("%s", name);
+    }
+
+    public int 角色ID取雇佣数据(final int id) {
+        int data = 0;
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT cid as DATA FROM hire WHERE cid = ?");
+            ps.setInt(1, id);
+            try (final ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getInt("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("角色名字取账号ID、出错");
+        }
+        return data;
+    }
+
+    public static int 角色ID取账号ID(final int id) {
+        int data = 0;
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT accountid as DATA FROM characters WHERE id = ?");
+            ps.setInt(1, id);
+            try (final ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    data = rs.getInt("DATA");
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("角色名字取账号ID、出错");
+        }
+        return data;
+    }
 
 }

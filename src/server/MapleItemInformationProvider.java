@@ -48,7 +48,7 @@ public class MapleItemInformationProvider {
     protected final MapleData petStringData = stringData.getData("Pet.img");
     protected Map<Integer, Boolean> onEquipUntradableCache = new HashMap<>();
     protected final Map<Integer, List<Integer>> scrollReqCache = new HashMap<>();
-    protected final Map<Integer, Short> slotMaxCache = new HashMap<>();
+    public static final Map<Integer, Short> slotMaxCache = new HashMap<Integer, Short>();
     protected final Map<Integer, List<StructPotentialItem>> potentialCache = new HashMap<>();
     protected final Map<Integer, MapleStatEffect> itemEffects = new HashMap<>();
     protected final Map<Integer, Map<String, Integer>> equipStatsCache = new HashMap<>();

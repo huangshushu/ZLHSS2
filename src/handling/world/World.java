@@ -41,6 +41,7 @@ import handling.world.guild.MapleGuildCharacter;
 import handling.world.guild.MapleGuildSummary;
 import scripting.ReactorScriptManager;
 import server.Randomizer;
+import server.ServerProperties;
 import server.Timer;
 import server.Timer.WorldTimer;
 import server.life.MapleMonster;
@@ -154,6 +155,35 @@ public class World {
             ret += cserv.getPlayerStorage().pendingCharacterSize();
         }
         return ret;
+    }
+
+    public static void scheduleRateDelay(final String type, final long delay) {
+        WorldTimer.getInstance().schedule((Runnable) new Runnable() {
+            @Override
+            public void run() {
+                final String rate = type;
+                if (rate.equals((Object) "经验")) {
+                    for (final ChannelServer cservs : ChannelServer.getAllInstances()) {
+                        cservs.setExpRate((int) Double.parseDouble(ServerProperties.getProperty("server.settings.expRate")));
+                        cservs.broadcastPacket(MaplePacketCreator.serverNotice(6, "[系统公告]：经验倍率活动已经结束，已经恢复正常值。"));
+                    }
+                } else if (rate.equals((Object) "爆率")) {
+                    for (final ChannelServer cservs : ChannelServer.getAllInstances()) {
+                        cservs.setDropRate(Integer.parseInt(ServerProperties.getProperty("server.settings.dropRate")));
+                        cservs.broadcastPacket(MaplePacketCreator.serverNotice(6, "[系统公告]：爆物倍率活动已经结束，已经恢复正常值。"));
+                    }
+                } else if (rate.equals((Object) "金币")) {
+                    for (final ChannelServer cservs : ChannelServer.getAllInstances()) {
+                        cservs.setMesoRate(Integer.parseInt(ServerProperties.getProperty("server.settings.mesoRate")));
+                        cservs.broadcastPacket(MaplePacketCreator.serverNotice(6, "[系统公告]：金币倍率活动已经结束，已经恢复正常值。"));
+                    }
+                } else if (rate.equals((Object) "宠物经验")) {
+                }
+                for (final ChannelServer cservs : ChannelServer.getAllInstances()) {
+                    cservs.broadcastPacket(MaplePacketCreator.serverNotice(6, " 系统双倍活动已经结束。系统已成功自动切换为正常游戏模式！"));
+                }
+            }
+        }, delay * 1000L);
     }
 
     public static class Party {

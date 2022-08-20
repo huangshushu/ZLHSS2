@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="OX&#x7b54;&#x9898;&#x63a7;&#x5236;&#x53f0;"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="1220" max="32767" attributes="0"/>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel352" min="-2" pref="1220" max="-2" attributes="0"/>
+                          <Component id="jScrollPane110" min="-2" pref="1190" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel336" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
+                                      <Component id="jLabel351" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="345" pref="345" max="-2" attributes="0"/>
+                                      <Component id="jLabel350" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="录入序号" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                      <Component id="录入问题" min="-2" pref="390" max="-2" attributes="0"/>
+                                      <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                                      <Component id="录入答案" min="-2" pref="60" max="-2" attributes="0"/>
+                                      <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                                      <Component id="录入问题按钮" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                      <Component id="录入问题按钮1" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                      <Component id="修改问题按钮" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                      <Component id="删除问题按钮" min="-2" pref="70" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="566" max="32767" attributes="0"/>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
+                      <Component id="jLabel352" min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                      <Component id="jScrollPane110" min="-2" pref="470" max="-2" attributes="0"/>
+                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel336" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jLabel351" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="jLabel350" min="-2" pref="20" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="录入序号" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="录入问题" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="录入答案" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="录入问题按钮" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="录入问题按钮1" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="修改问题按钮" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="删除问题按钮" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel352">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#x5e7c;&#x5706;" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="33" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x9898;&#x76ee;&#x76ee;&#x5f55;&#xff1b;   &#x673a;&#x5668;&#x4eba;&#x5f55;&#x9898;&#x683c;&#x5f0f;&#xff1b;*&#x5f55;&#x9898;&lt;&#x7a7a;&#x683c;&gt;[&#x95ee;&#x9898;]&lt;&#x7a7a;&#x683c;&gt;[&#x7b54;&#x6848;]     &#x6848;&#x4f8b;&#xff1a;*&#x5f55;&#x9898; &#x5192;&#x9669;&#x5c9b;&#x662f;&#x4e0d;&#x662f;&#x4f11;&#x95f2;&#x5a31;&#x4e50;&#x7684;&#x6e38;&#x620f; O"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane110">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTable" name="OX&#x7b54;&#x9898;&#x9898;&#x5e93;">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="&#x5e7c;&#x5706;" size="18" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                  <Table columnCount="3" rowCount="0">
+                    <Column editable="false" title="&#x5e8f;&#x53f7;" type="java.lang.Object"/>
+                    <Column editable="false" title="&#x95ee;&#x9898;" type="java.lang.Object"/>
+                    <Column editable="false" title="&#x7b54;&#x6848;" type="java.lang.Object"/>
+                  </Table>
+                </Property>
+                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                  <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
+                </Property>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JTextField" name="&#x5f55;&#x5165;&#x5e8f;&#x53f7;">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel336">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#x5e7c;&#x5706;" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x5e8f;&#x53f7;&#xff1b;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel351">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#x5e7c;&#x5706;" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x95ee;&#x9898;&#xff1b;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="&#x5f55;&#x5165;&#x95ee;&#x9898;">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel350">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#x5e7c;&#x5706;" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x7b54;&#x6848;&#xff1b;O&#x6216;&#x8005;X"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="&#x5f55;&#x5165;&#x7b54;&#x6848;">
+        </Component>
+        <Component class="javax.swing.JButton" name="&#x5f55;&#x5165;&#x95ee;&#x9898;&#x6309;&#x94ae;">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#x5e7c;&#x5706;" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x5237;&#x65b0;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="&#x5f55;&#x5165;&#x95ee;&#x9898;&#x6309;&#x94ae;ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="&#x5f55;&#x5165;&#x95ee;&#x9898;&#x6309;&#x94ae;1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#x5e7c;&#x5706;" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x5f55;&#x5165;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="&#x5f55;&#x5165;&#x95ee;&#x9898;&#x6309;&#x94ae;1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="&#x4fee;&#x6539;&#x95ee;&#x9898;&#x6309;&#x94ae;">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#x5e7c;&#x5706;" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x4fee;&#x6539;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="&#x4fee;&#x6539;&#x95ee;&#x9898;&#x6309;&#x94ae;ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="&#x5220;&#x9664;&#x95ee;&#x9898;&#x6309;&#x94ae;">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="&#x5e7c;&#x5706;" size="15" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#x5220;&#x9664;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="&#x5220;&#x9664;&#x95ee;&#x9898;&#x6309;&#x94ae;ActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
