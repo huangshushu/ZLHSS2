@@ -2,15 +2,16 @@ package client;
 
 import handling.channel.handler.InventoryHandler;
 import handling.world.MaplePartyCharacter;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.locks.Lock;
 import server.MapleInventoryManipulator;
 import server.MapleItemInformationProvider;
 import server.life.MapleMonster;
 import server.maps.MapleMapItem;
 import server.maps.MapleMapObject;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.locks.Lock;
 
 public class ItemVac extends Thread {
 

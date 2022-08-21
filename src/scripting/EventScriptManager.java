@@ -20,14 +20,14 @@
  */
 package scripting;
 
+import handling.channel.ChannelServer;
+import tools.FilePrinter;
+
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-
-import handling.channel.ChannelServer;
-import tools.FilePrinter;
 
 /**
  *

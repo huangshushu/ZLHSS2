@@ -20,7 +20,7 @@
  */
 package server.maps;
 
-import java.awt.Point;
+import java.awt.*;
 
 public abstract class AbstractMapleMapObject implements MapleMapObject {
 

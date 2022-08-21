@@ -8,8 +8,12 @@ package gui.tools;
 import client.MapleCharacter;
 import database.DBConPool;
 import gui.Maple;
-import static gui.Maple.ConfigValuesMap;
 import handling.channel.ChannelServer;
+import server.MapleItemInformationProvider;
+import server.Start;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
@@ -18,11 +22,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import server.MapleItemInformationProvider;
-import server.Start;
+
+import static gui.Maple.ConfigValuesMap;
 
 /**
  *

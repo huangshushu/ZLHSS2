@@ -20,13 +20,15 @@
  */
 package handling.channel.handler;
 
-import java.awt.Point;
+import server.maps.AnimatedMapleMapObject;
+import server.movement.LifeMovement;
+import server.movement.LifeMovementFragment;
+import server.movement.StaticLifeMovement;
+import tools.data.LittleEndianAccessor;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import server.maps.AnimatedMapleMapObject;
-import server.movement.*;
-import tools.data.LittleEndianAccessor;
 
 public class MovementParse {
 

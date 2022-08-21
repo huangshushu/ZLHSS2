@@ -20,10 +20,10 @@
  */
 package client.inventory;
 
-import java.io.Serializable;
-
 import constants.GameConstants;
 import server.MapleItemInformationProvider;
+
+import java.io.Serializable;
 
 public class Item implements IItem, Serializable {
 

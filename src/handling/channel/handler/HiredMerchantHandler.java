@@ -20,24 +20,16 @@
  */
 package handling.channel.handler;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import client.inventory.IItem;
-import client.inventory.MapleInventoryType;
-import client.MapleClient;
 import client.MapleCharacter;
-import constants.GameConstants;
+import client.MapleClient;
+import client.inventory.IItem;
 import client.inventory.ItemLoader;
+import client.inventory.MapleInventoryType;
+import constants.GameConstants;
 import constants.ServerConfig;
 import constants.WorldConstants;
 import database.DBConPool;
 import handling.world.World;
-import java.util.Map;
 import server.MapleInventoryManipulator;
 import server.MerchItemPackage;
 import server.maps.MapleMap;
@@ -45,6 +37,14 @@ import tools.FileoutputUtil;
 import tools.Pair;
 import tools.data.LittleEndianAccessor;
 import tools.packet.PlayerShopPacket;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class HiredMerchantHandler {
 

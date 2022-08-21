@@ -20,36 +20,8 @@
  */
 package scripting;
 
-import java.awt.Point;
-import java.nio.charset.Charset;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import client.ISkill;
-import client.MapleCharacter;
-import client.MapleClient;
-import client.MapleQuestStatus;
-import client.MapleStat;
-import client.SkillFactory;
-import client.inventory.Equip;
-import client.inventory.IItem;
-import client.inventory.Item;
-import client.inventory.MapleInventory;
-import client.inventory.MapleInventoryIdentifier;
-import client.inventory.MapleInventoryType;
-import client.inventory.MaplePet;
-import client.inventory.MapleRing;
+import client.*;
+import client.inventory.*;
 import client.messages.CommandProcessor;
 import constants.GameConstants;
 import constants.ItemConstants;
@@ -75,17 +47,18 @@ import server.events.MapleEventType;
 import server.life.MapleLifeFactory;
 import server.life.MapleMonster;
 import server.life.OverrideMonsterStats;
-import server.maps.Event_DojoAgent;
-import server.maps.MapleMap;
-import server.maps.MapleMapFactory;
-import server.maps.MapleMapObject;
-import server.maps.MapleReactor;
-import server.maps.SavedLocationType;
+import server.maps.*;
 import server.quest.MapleQuest;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.packet.PetPacket;
 import tools.packet.UIPacket;
+
+import java.awt.*;
+import java.nio.charset.Charset;
+import java.sql.*;
+import java.util.List;
+import java.util.*;
 
 public abstract class AbstractPlayerInteraction {
 

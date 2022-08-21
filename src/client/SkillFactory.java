@@ -20,19 +20,10 @@
  */
 package client;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import provider.MapleData;
-import provider.MapleDataProvider;
-import provider.MapleDataFileEntry;
-import provider.MapleDataProviderFactory;
-import provider.MapleDataDirectoryEntry;
-import provider.MapleDataTool;
+import provider.*;
 import tools.StringUtil;
+
+import java.util.*;
 
 /**
  * 技能工厂

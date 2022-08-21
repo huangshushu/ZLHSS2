@@ -1,9 +1,10 @@
 package server.maps;
 
-import java.awt.Point;
 import client.MapleCharacter;
 import client.MapleClient;
 import tools.MaplePacketCreator;
+
+import java.awt.*;
 
 public class MapleKite extends AbstractMapleMapObject {
 

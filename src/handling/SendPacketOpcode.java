@@ -1,12 +1,9 @@
 package handling;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Properties;
 import tools.StringUtil;
+
+import java.io.*;
+import java.util.Properties;
 
 public enum SendPacketOpcode implements WritableIntValueHolder {
     // # 地图风筝封包包头

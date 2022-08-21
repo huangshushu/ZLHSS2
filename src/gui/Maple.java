@@ -15,64 +15,42 @@ import handling.login.LoginServer;
 import handling.world.MapleParty;
 import handling.world.World;
 import handling.world.World.Find;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
+import scripting.PortalScriptManager;
+import scripting.ReactorScriptManager;
+import server.Timer;
+import server.*;
+import server.Timer.EventTimer;
+import server.life.MapleMonsterInformationProvider;
+import server.quest.MapleQuest;
+import tools.FileoutputUtil;
+import tools.MaplePacketCreator;
+import tools.wztosql.*;
+
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.MBeanRegistrationException;
+import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.rmi.NotBoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.management.InstanceAlreadyExistsException;
-import javax.management.MBeanRegistrationException;
-import javax.management.MalformedObjectNameException;
-import javax.management.NotCompliantMBeanException;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
-import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
-import scripting.PortalScriptManager;
-import scripting.ReactorScriptManager;
-import server.*;
-import server.Timer.EventTimer;
-import server.life.MapleMonsterInformationProvider;
-import server.quest.MapleQuest;
-//import sun.swing.table.DefaultTableCellHeaderRenderer;
-import tools.FileoutputUtil;
-import tools.MaplePacketCreator;
-import tools.wztosql.*;
 
 /**
  *
@@ -80,9 +58,7 @@ import tools.wztosql.*;
  */
 public class Maple extends javax.swing.JFrame {
 
-    private static String authCode;
-    private ImageIcon bgImg = new ImageIcon(this.getClass().getClassLoader().getResource("image/qqq.jpg"));// 图片路径不要写错了
-    private JLabel imgLabel = new JLabel(bgImg);
+    private final ImageIcon bgImg = new ImageIcon(Objects.requireNonNull(this.getClass().getClassLoader().getResource("image/qqq.jpg")));// 图片路径不要写错了
     public static Map<String, Integer> ConfigValuesMap = new HashMap<>();
     private final ReentrantReadWriteLock mutex = new ReentrantReadWriteLock();
     private static Maple instance = new Maple();
@@ -90,7 +66,7 @@ public class Maple extends javax.swing.JFrame {
     private ScheduledFuture<?> shutdownServer, updateplayer;
     private static long startRunTime = 0;
     private static long starttime = 0;
-    private ArrayList<Tools> tools = new ArrayList();
+    private ArrayList<Tools> tools = new ArrayList<>();
     private final Lock writeLock = mutex.writeLock();
     private Vector<Vector<String>> playerTableRom = new Vector<>();
     boolean 调试模式 = false;
@@ -98,7 +74,7 @@ public class Maple extends javax.swing.JFrame {
     String 服务器名字 = "获取中";
     String 经验倍数 = "获取中";
     boolean 开启服务端 = false;
-    private boolean searchServer = false;
+    private final boolean searchServer = false;
     String accname = "null", pwd = "null", money = "null", rmb = "null", dj = "null", dy = "null", ljzz = "null";
     String mima = "123456";
     int accid = 0;
@@ -109,7 +85,7 @@ public class Maple extends javax.swing.JFrame {
         Image img;
 
         public HomePanel() {
-            ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("image/logo.png"));
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("image/logo.png")));
             this.img = icon.getImage();
         }
 
@@ -127,7 +103,7 @@ public class Maple extends javax.swing.JFrame {
         Image img;
 
         public HomePanel2() {
-            ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("image/long.gif"));
+            ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("image/long.gif")));
             this.img = icon.getImage();
         }
 
@@ -148,7 +124,7 @@ public class Maple extends javax.swing.JFrame {
     }
 
     public Maple() {
-        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("image/Icon.png"));
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("image/Icon.png")));
         setIconImage(icon.getImage());
         setTitle(" 【" + ServerConfig.SERVER_NAME + "控制台】Ver.079版本");
         try {
@@ -190,7 +166,7 @@ public class Maple extends javax.swing.JFrame {
 
     private void resetWorldPanel() {
         //给服务器增加一个默认状态
-        InputStream is = null;
+        InputStream is;
 //        //开始读取ini内的参数信息
         String exp = null;
         String drop = null;
@@ -361,7 +337,6 @@ public class Maple extends javax.swing.JFrame {
                     ConfigValuesMap.put(name, val);
                 }
             }
-            ps.close();
         } catch (SQLException ex) {
             System.err.println("读取动态数据库出错：" + ex.getMessage());
         }
@@ -383,9 +358,7 @@ public class Maple extends javax.swing.JFrame {
                     while ((s = br.readLine()) != null) {
                         boolean caretAtEnd = false;
                         sb.setLength(0);
-                        Maple.this.输出窗口.append(new StringBuilder().append("").append(s).toString() + '\n');
-                        if (!caretAtEnd) {
-                        }
+                        Maple.this.输出窗口.append(s + '\n');
                     }
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(null, "从BufferedReader读取错误：" + e);
@@ -401,7 +374,6 @@ public class Maple extends javax.swing.JFrame {
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -857,97 +829,49 @@ public class Maple extends javax.swing.JFrame {
 
         角色名称编辑框.setEditable(false);
         角色名称编辑框.setForeground(new java.awt.Color(51, 153, 255));
-        角色名称编辑框.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                角色名称编辑框ActionPerformed(evt);
-            }
-        });
+        角色名称编辑框.addActionListener(evt -> 角色名称编辑框ActionPerformed(evt));
 
         jLabel23.setText("角色点券：");
 
         角色点券编辑框.setForeground(new java.awt.Color(51, 153, 255));
-        角色点券编辑框.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                角色点券编辑框ActionPerformed(evt);
-            }
-        });
+        角色点券编辑框.addActionListener(evt -> 角色点券编辑框ActionPerformed(evt));
 
         角色抵用编辑框.setForeground(new java.awt.Color(51, 153, 255));
-        角色抵用编辑框.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                角色抵用编辑框ActionPerformed(evt);
-            }
-        });
+        角色抵用编辑框.addActionListener(evt -> 角色抵用编辑框ActionPerformed(evt));
 
         jLabel24.setText("角色抵用：");
 
         角色所在地图编辑.setForeground(new java.awt.Color(51, 153, 255));
         角色所在地图编辑.setText("填写地图代码");
-        角色所在地图编辑.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                角色所在地图编辑ActionPerformed(evt);
-            }
-        });
+        角色所在地图编辑.addActionListener(this::角色所在地图编辑ActionPerformed);
 
         jLabel25.setText("所在地图：");
 
         修改玩家信息.setText("修改信息");
-        修改玩家信息.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                修改玩家信息ActionPerformed(evt);
-            }
-        });
+        修改玩家信息.addActionListener(this::修改玩家信息ActionPerformed);
 
         个人玩家下线.setText("强制下线");
-        个人玩家下线.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                个人玩家下线ActionPerformed(evt);
-            }
-        });
+        个人玩家下线.addActionListener(this::个人玩家下线ActionPerformed);
 
         传送玩家到自由.setText("传送自由");
-        传送玩家到自由.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                传送玩家到自由ActionPerformed(evt);
-            }
-        });
+        传送玩家到自由.addActionListener(this::传送玩家到自由ActionPerformed);
 
         全员下线.setText("全部下线");
-        全员下线.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                全员下线ActionPerformed(evt);
-            }
-        });
+        全员下线.addActionListener(this::全员下线ActionPerformed);
 
         关玩家到小黑屋.setText("关小黑屋");
-        关玩家到小黑屋.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                关玩家到小黑屋ActionPerformed(evt);
-            }
-        });
+        关玩家到小黑屋.addActionListener(this::关玩家到小黑屋ActionPerformed);
 
         传送玩家到指定地图.setText("传送地图");
-        传送玩家到指定地图.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                传送玩家到指定地图ActionPerformed(evt);
-            }
-        });
+        传送玩家到指定地图.addActionListener(this::传送玩家到指定地图ActionPerformed);
 
         一键满技能.setText("一键满技");
-        一键满技能.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                一键满技能ActionPerformed(evt);
-            }
-        });
+        一键满技能.addActionListener(this::一键满技能ActionPerformed);
 
         jLabel27.setText("角色元宝：");
 
         角色元宝编辑框.setForeground(new java.awt.Color(51, 153, 255));
-        角色元宝编辑框.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                角色元宝编辑框ActionPerformed(evt);
-            }
-        });
+        角色元宝编辑框.addActionListener(this::角色元宝编辑框ActionPerformed);
 
         javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
         jPanel38.setLayout(jPanel38Layout);
@@ -1048,7 +972,7 @@ public class Maple extends javax.swing.JFrame {
                 .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane2.addTab("在线玩家监控", new javax.swing.ImageIcon(getClass().getResource("/image2/信息日志.png")), jPanel5); // NOI18N
+        jTabbedPane2.addTab("在线玩家监控", new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/信息日志.png"))), jPanel5); // NOI18N
 
         首页功能.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 540));
 
@@ -1056,69 +980,37 @@ public class Maple extends javax.swing.JFrame {
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "重载系列", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
         jPanel15.setPreferredSize(new java.awt.Dimension(320, 250));
 
-        重载副本按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/更新.png"))); // NOI18N
+        重载副本按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/更新.png")))); // NOI18N
         重载副本按钮2.setText("重载副本");
-        重载副本按钮2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                重载副本按钮2ActionPerformed(evt);
-            }
-        });
+        重载副本按钮2.addActionListener(this::重载副本按钮2ActionPerformed);
 
-        重载爆率按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/4031041.png"))); // NOI18N
+        重载爆率按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/4031041.png")))); // NOI18N
         重载爆率按钮2.setText("重载爆率");
-        重载爆率按钮2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                重载爆率按钮2ActionPerformed(evt);
-            }
-        });
+        重载爆率按钮2.addActionListener(evt -> 重载爆率按钮2ActionPerformed(evt));
 
-        重载反应堆按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/更多设置.png"))); // NOI18N
+        重载反应堆按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/更多设置.png")))); // NOI18N
         重载反应堆按钮2.setText("重载反应堆");
-        重载反应堆按钮2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                重载反应堆按钮2ActionPerformed(evt);
-            }
-        });
+        重载反应堆按钮2.addActionListener(this::重载反应堆按钮2ActionPerformed);
 
-        重载传送门按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/1802034.png"))); // NOI18N
+        重载传送门按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/1802034.png")))); // NOI18N
         重载传送门按钮2.setText("重载传送门");
-        重载传送门按钮2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                重载传送门按钮2ActionPerformed(evt);
-            }
-        });
+        重载传送门按钮2.addActionListener(this::重载传送门按钮2ActionPerformed);
 
-        重载商城按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/自定义购物中心.png"))); // NOI18N
+        重载商城按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/自定义购物中心.png")))); // NOI18N
         重载商城按钮2.setText("重载商城");
-        重载商城按钮2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                重载商城按钮2ActionPerformed(evt);
-            }
-        });
+        重载商城按钮2.addActionListener(this::重载商城按钮2ActionPerformed);
 
-        重载商店按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/商店管理.png"))); // NOI18N
+        重载商店按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/商店管理.png")))); // NOI18N
         重载商店按钮2.setText("重载商店");
-        重载商店按钮2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                重载商店按钮2ActionPerformed(evt);
-            }
-        });
+        重载商店按钮2.addActionListener(this::重载商店按钮2ActionPerformed);
 
-        重载任务2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/信息日志.png"))); // NOI18N
+        重载任务2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/信息日志.png")))); // NOI18N
         重载任务2.setText("重载任务");
-        重载任务2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                重载任务2ActionPerformed(evt);
-            }
-        });
+        重载任务2.addActionListener(this::重载任务2ActionPerformed);
 
-        重载包头按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/更多设置.png"))); // NOI18N
+        重载包头按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/更多设置.png")))); // NOI18N
         重载包头按钮2.setText("重载包头");
-        重载包头按钮2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                重载包头按钮2ActionPerformed(evt);
-            }
-        });
+        重载包头按钮2.addActionListener(this::重载包头按钮2ActionPerformed);
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -1165,7 +1057,7 @@ public class Maple extends javax.swing.JFrame {
 
         首页功能.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 290, 250));
 
-        jLabel28.setFont(new java.awt.Font("微软雅黑", 0, 12)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("微软雅黑", Font.PLAIN, 12)); // NOI18N
         jLabel28.setText("【运行时长】：");
         首页功能.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 500, -1, -1));
 
@@ -1173,14 +1065,10 @@ public class Maple extends javax.swing.JFrame {
         jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder("游戏开关"));
 
         startserverbutton.setBackground(new java.awt.Color(51, 51, 255));
-        startserverbutton.setFont(new java.awt.Font("微软雅黑", 1, 12)); // NOI18N
-        startserverbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/常用功能.png"))); // NOI18N
+        startserverbutton.setFont(new java.awt.Font("微软雅黑", Font.BOLD, 12)); // NOI18N
+        startserverbutton.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/常用功能.png")))); // NOI18N
         startserverbutton.setText("启动服务端");
-        startserverbutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startserverbuttonActionPerformed(evt);
-            }
-        });
+        startserverbutton.addActionListener(this::startserverbuttonActionPerformed);
 
         ActiveThread.setText("【游戏线程】:0个进程");
 
@@ -3180,58 +3068,33 @@ public class Maple extends javax.swing.JFrame {
 
     private void 泡点豆豆开关ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_泡点豆豆开关ActionPerformed
         int 泡点豆豆开关 = Maple.ConfigValuesMap.get("泡点豆豆开关");
-        if (泡点豆豆开关 <= 0) {
-            按键开关("泡点豆豆开关", 711);
-            刷新泡点豆豆开关();
-        } else {
-            按键开关("泡点豆豆开关", 711);
-            刷新泡点豆豆开关();
-        }
+        按键开关("泡点豆豆开关", 711);
+        刷新泡点豆豆开关();
     }//GEN-LAST:event_泡点豆豆开关ActionPerformed
 
     private void 泡点抵用开关ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_泡点抵用开关ActionPerformed
         int 泡点抵用开关 = Maple.ConfigValuesMap.get("泡点抵用开关");
-        if (泡点抵用开关 <= 0) {
-            按键开关("泡点抵用开关", 707);
-            刷新泡点抵用开关();
-        } else {
-            按键开关("泡点抵用开关", 707);
-            刷新泡点抵用开关();
-        }
+        按键开关("泡点抵用开关", 707);
+        刷新泡点抵用开关();
     }//GEN-LAST:event_泡点抵用开关ActionPerformed
 
     private void 泡点点券开关ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_泡点点券开关ActionPerformed
         int 泡点点券开关 = Maple.ConfigValuesMap.get("泡点点券开关");
-        if (泡点点券开关 <= 0) {
-            按键开关("泡点点券开关", 703);
-            刷新泡点点券开关();
-        } else {
-            按键开关("泡点点券开关", 703);
-            刷新泡点点券开关();
-        }
+        按键开关("泡点点券开关", 703);
+        刷新泡点点券开关();
     }//GEN-LAST:event_泡点点券开关ActionPerformed
 
     private void 泡点经验开关ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_泡点经验开关ActionPerformed
 
         int 泡点经验开关 = Maple.ConfigValuesMap.get("泡点经验开关");
-        if (泡点经验开关 <= 0) {
-            按键开关("泡点经验开关", 705);
-            刷新泡点经验开关();
-        } else {
-            按键开关("泡点经验开关", 705);
-            刷新泡点经验开关();
-        }
+        按键开关("泡点经验开关", 705);
+        刷新泡点经验开关();
     }//GEN-LAST:event_泡点经验开关ActionPerformed
 
     private void 泡点金币开关ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_泡点金币开关ActionPerformed
         int 泡点金币开关 = Maple.ConfigValuesMap.get("泡点金币开关");
-        if (泡点金币开关 <= 0) {
-            按键开关("泡点金币开关", 701);
-            刷新泡点金币开关();
-        } else {
-            按键开关("泡点金币开关", 701);
-            刷新泡点金币开关();
-        }
+        按键开关("泡点金币开关", 701);
+        刷新泡点金币开关();
     }//GEN-LAST:event_泡点金币开关ActionPerformed
 
     private void 泡点值修改ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_泡点值修改ActionPerformed
@@ -4111,7 +3974,7 @@ public class Maple extends javax.swing.JFrame {
                 }
             }
         }
-        final int answer = JOptionPane.showConfirmDialog((Component) this, "当前选择的类型是:" + 名字2 + "\r\n当前输入数量设置是:" + 道具数量 + "个\r\n当前发放范围设置是:" + 名字 + "" + ((发放范围 == 1) ? ("\r\n当前你选择的角色名字是:" + 玩家的名字 + "\r\n") : "") + "请问您是否要发放呢?\r\n", "发放点卷抵用金币", 0);
+        final int answer = JOptionPane.showConfirmDialog(this, "当前选择的类型是:" + 名字2 + "\r\n当前输入数量设置是:" + 道具数量 + "个\r\n当前发放范围设置是:" + 名字 + "" + ((发放范围 == 1) ? ("\r\n当前你选择的角色名字是:" + 玩家的名字 + "\r\n") : "") + "请问您是否要发放呢?\r\n", "发放点卷抵用金币", 0);
         if (answer != 0) {
             return;
         }
@@ -4151,19 +4014,19 @@ public class Maple extends javax.swing.JFrame {
     }
 
     public void 发放道具() {
-        int 道具代码 = 0;
+        int 道具代码;
         if ("输入道具代码".equals(this.发放道具代码.getText())) {
             道具代码 = 4000000;
         } else {
-            道具代码 = ((Integer.parseInt(this.发放道具代码.getText()) < 1) ? 1 : Integer.parseInt(this.发放道具代码.getText()));
+            道具代码 = (Math.max(Integer.parseInt(this.发放道具代码.getText()), 1));
         }
-        int 道具数量 = 0;
+        int 道具数量;
         if ("输入数字".equals(this.发放道具数量.getText())) {
             道具数量 = 0;
         } else {
             道具数量 = Integer.parseInt(this.发放道具数量.getText());
         }
-        int 发放范围 = 0;
+        int 发放范围;
         String 名字 = "";
         String 玩家的名字 = "";
         if ("输入数字".equals(Integer.valueOf(this.发放道具发放范围.getSelectedIndex()))) {
@@ -4182,7 +4045,7 @@ public class Maple extends javax.swing.JFrame {
                 }
             }
         }
-        final int answer = JOptionPane.showConfirmDialog((Component) this, "当前输入道具代码是:" + 道具代码 + "\r\n当前输入道具数量设置是:" + 道具数量 + "个\r\n当前发放范围设置是:" + 名字 + "" + ((发放范围 == 1) ? ("\r\n当前你选择的角色名字是:" + 玩家的名字 + "\r\n") : "") + "请问您是否要开启呢?\r\n", "发放道具", 0);
+        final int answer = JOptionPane.showConfirmDialog(this, "当前输入道具代码是:" + 道具代码 + "\r\n当前输入道具数量设置是:" + 道具数量 + "个\r\n当前发放范围设置是:" + 名字 + "" + ((发放范围 == 1) ? ("\r\n当前你选择的角色名字是:" + 玩家的名字 + "\r\n") : "") + "请问您是否要开启呢?\r\n", "发放道具", 0);
         if (answer != 0) {
             return;
         }
@@ -4302,137 +4165,129 @@ public class Maple extends javax.swing.JFrame {
             for (ChannelServer cserv1 : ChannelServer.getAllInstances()) {
                 for (MapleCharacter mch : cserv1.getPlayerStorage().getAllCharacters()) {
                     if (a == 1) {
-                        if (1 >= 0) {
-                            if (!MapleInventoryManipulator.checkSpace(mch.getClient(), 物品ID, 1, "")) {
-                                return;
+                        if (!MapleInventoryManipulator.checkSpace(mch.getClient(), 物品ID, 1, "")) {
+                            return;
+                        }
+                        if (type.equals(MapleInventoryType.EQUIP)
+                                || type.equals(MapleInventoryType.CASH) && 物品ID >= 5000000 && 物品ID <= 5000100) {
+                            final Equip item = (Equip) (ii.getEquipById(物品ID));
+                            if (ii.isCash(物品ID)) {
+                                item.setUniqueId(1);
                             }
-                            if (type.equals(MapleInventoryType.EQUIP)
-                                    || type.equals(MapleInventoryType.CASH) && 物品ID >= 5000000 && 物品ID <= 5000100) {
-                                final Equip item = (Equip) (ii.getEquipById(物品ID));
-                                if (ii.isCash(物品ID)) {
-                                    item.setUniqueId(1);
-                                }
-                                if (力量 > 0 && 力量 <= 32767) {
-                                    item.setStr((short) (力量));
-                                }
-                                if (敏捷 > 0 && 敏捷 <= 32767) {
-                                    item.setDex((short) (敏捷));
-                                }
-                                if (智力 > 0 && 智力 <= 32767) {
-                                    item.setInt((short) (智力));
-                                }
-                                if (运气 > 0 && 运气 <= 32767) {
-                                    item.setLuk((short) (运气));
-                                }
-                                if (攻击力 > 0 && 攻击力 <= 32767) {
-                                    item.setWatk((short) (攻击力));
-                                }
-                                if (魔法力 > 0 && 魔法力 <= 32767) {
-                                    item.setMatk((short) (魔法力));
-                                }
-                                if (物理防御 > 0 && 物理防御 <= 32767) {
-                                    item.setWdef((short) (物理防御));
-                                }
-                                if (魔法防御 > 0 && 魔法防御 <= 32767) {
-                                    item.setMdef((short) (魔法防御));
-                                }
-                                if (HP > 0 && HP <= 30000) {
-                                    item.setHp((short) (HP));
-                                }
-                                if (MP > 0 && MP <= 30000) {
-                                    item.setMp((short) (MP));
-                                }
-                                if ("1".equals(是否可以交易)) {
-                                    item.setFlag((byte) (item.getFlag() | ItemFlag.LOCK.getValue()));
-                                }
-                                if (给予时间 > 0) {
-                                    item.setExpiration(System.currentTimeMillis() + ((给予时间 * 2) * 24 * 60 * 60 * 1000));
-                                }
-                                if (可加卷次数 > 0) {
-                                    item.setUpgradeSlots((byte) (可加卷次数));
-                                }
-                                if (制作人名字 != null) {
-                                    item.setOwner(制作人名字);
-                                }
-                                final String name = ii.getName(物品ID);
-                                if (物品ID / 10000 == 114 && name != null && name.length() > 0) { //medal
-                                    final String msg = "你已获得称号 <" + name + ">";
-                                    mch.getClient().getPlayer().dropMessage(5, msg);
-                                }
-                                MapleInventoryManipulator.addbyItem(mch.getClient(), item.copy());
-                            } else {
-                                //     MapleInventoryManipulator.addById(mch.getClient(), 物品ID, (short) 1, "", null, 给予时间, "");
-                                MapleInventoryManipulator.addById(mch.getClient(), 物品ID, (short) 1, "", null, (byte) 0);
-
+                            if (力量 > 0 && 力量 <= 32767) {
+                                item.setStr((short) (力量));
                             }
+                            if (敏捷 > 0 && 敏捷 <= 32767) {
+                                item.setDex((short) (敏捷));
+                            }
+                            if (智力 > 0 && 智力 <= 32767) {
+                                item.setInt((short) (智力));
+                            }
+                            if (运气 > 0 && 运气 <= 32767) {
+                                item.setLuk((short) (运气));
+                            }
+                            if (攻击力 > 0 && 攻击力 <= 32767) {
+                                item.setWatk((short) (攻击力));
+                            }
+                            if (魔法力 > 0 && 魔法力 <= 32767) {
+                                item.setMatk((short) (魔法力));
+                            }
+                            if (物理防御 > 0 && 物理防御 <= 32767) {
+                                item.setWdef((short) (物理防御));
+                            }
+                            if (魔法防御 > 0 && 魔法防御 <= 32767) {
+                                item.setMdef((short) (魔法防御));
+                            }
+                            if (HP > 0 && HP <= 30000) {
+                                item.setHp((short) (HP));
+                            }
+                            if (MP > 0 && MP <= 30000) {
+                                item.setMp((short) (MP));
+                            }
+                            if ("1".equals(是否可以交易)) {
+                                item.setFlag((byte) (item.getFlag() | ItemFlag.LOCK.getValue()));
+                            }
+                            if (给予时间 > 0) {
+                                item.setExpiration(System.currentTimeMillis() + ((给予时间 * 2L) * 24 * 60 * 60 * 1000));
+                            }
+                            if (可加卷次数 > 0) {
+                                item.setUpgradeSlots((byte) (可加卷次数));
+                            }
+                            if (制作人名字 != null) {
+                                item.setOwner(制作人名字);
+                            }
+                            final String name = ii.getName(物品ID);
+                            if (物品ID / 10000 == 114 && name != null && name.length() > 0) { //medal
+                                final String msg = "你已获得称号 <" + name + ">";
+                                mch.getClient().getPlayer().dropMessage(5, msg);
+                            }
+                            MapleInventoryManipulator.addbyItem(mch.getClient(), item.copy());
                         } else {
-                            MapleInventoryManipulator.removeById(mch.getClient(), GameConstants.getInventoryType(物品ID), 物品ID, -1, true, false);
+                            //     MapleInventoryManipulator.addById(mch.getClient(), 物品ID, (short) 1, "", null, 给予时间, "");
+                            MapleInventoryManipulator.addById(mch.getClient(), 物品ID, (short) 1, "", null, (byte) 0);
+
                         }
                         mch.getClient().getSession().write(MaplePacketCreator.getShowItemGain(物品ID, (short) 1, true));
                     } else if (mch.getName().equals(发送装备玩家姓名.getText())) {
-                        if (1 >= 0) {
-                            if (!MapleInventoryManipulator.checkSpace(mch.getClient(), 物品ID, 1, "")) {
-                                return;
+                        if (!MapleInventoryManipulator.checkSpace(mch.getClient(), 物品ID, 1, "")) {
+                            return;
+                        }
+                        if (type.equals(MapleInventoryType.EQUIP)
+                                || type.equals(MapleInventoryType.CASH) && 物品ID >= 5000000 && 物品ID <= 5000100) {
+                            final Equip item = (Equip) (ii.getEquipById(物品ID));
+                            if (ii.isCash(物品ID)) {
+                                item.setUniqueId(1);
                             }
-                            if (type.equals(MapleInventoryType.EQUIP)
-                                    || type.equals(MapleInventoryType.CASH) && 物品ID >= 5000000 && 物品ID <= 5000100) {
-                                final Equip item = (Equip) (ii.getEquipById(物品ID));
-                                if (ii.isCash(物品ID)) {
-                                    item.setUniqueId(1);
-                                }
-                                if (力量 > 0 && 力量 <= 32767) {
-                                    item.setStr((short) (力量));
-                                }
-                                if (敏捷 > 0 && 敏捷 <= 32767) {
-                                    item.setDex((short) (敏捷));
-                                }
-                                if (智力 > 0 && 智力 <= 32767) {
-                                    item.setInt((short) (智力));
-                                }
-                                if (运气 > 0 && 运气 <= 32767) {
-                                    item.setLuk((short) (运气));
-                                }
-                                if (攻击力 > 0 && 攻击力 <= 32767) {
-                                    item.setWatk((short) (攻击力));
-                                }
-                                if (魔法力 > 0 && 魔法力 <= 32767) {
-                                    item.setMatk((short) (魔法力));
-                                }
-                                if (物理防御 > 0 && 物理防御 <= 32767) {
-                                    item.setWdef((short) (物理防御));
-                                }
-                                if (魔法防御 > 0 && 魔法防御 <= 32767) {
-                                    item.setMdef((short) (魔法防御));
-                                }
-                                if (HP > 0 && HP <= 30000) {
-                                    item.setHp((short) (HP));
-                                }
-                                if (MP > 0 && MP <= 30000) {
-                                    item.setMp((short) (MP));
-                                }
-                                if ("1".equals(是否可以交易)) {
-                                    item.setFlag((byte) (item.getFlag() | ItemFlag.LOCK.getValue()));
-                                }
-                                if (给予时间 > 0) {
-                                    item.setExpiration(System.currentTimeMillis() + ((给予时间 * 2) * 24 * 60 * 60 * 1000));
-                                }
-                                if (可加卷次数 > 0) {
-                                    item.setUpgradeSlots((byte) (可加卷次数));
-                                }
-                                if (制作人名字 != null) {
-                                    item.setOwner(制作人名字);
-                                }
-                                final String name = ii.getName(物品ID);
-                                if (物品ID / 10000 == 114 && name != null && name.length() > 0) { //medal
-                                    final String msg = "你已获得称号 <" + name + ">";
-                                    mch.getClient().getPlayer().dropMessage(5, msg);
-                                }
-                                MapleInventoryManipulator.addbyItem(mch.getClient(), item.copy());
-                            } else {
-                                MapleInventoryManipulator.addById(mch.getClient(), 物品ID, (short) 1, "", null, (byte) 0);
+                            if (力量 > 0 && 力量 <= 32767) {
+                                item.setStr((short) (力量));
                             }
+                            if (敏捷 > 0 && 敏捷 <= 32767) {
+                                item.setDex((short) (敏捷));
+                            }
+                            if (智力 > 0 && 智力 <= 32767) {
+                                item.setInt((short) (智力));
+                            }
+                            if (运气 > 0 && 运气 <= 32767) {
+                                item.setLuk((short) (运气));
+                            }
+                            if (攻击力 > 0 && 攻击力 <= 32767) {
+                                item.setWatk((short) (攻击力));
+                            }
+                            if (魔法力 > 0 && 魔法力 <= 32767) {
+                                item.setMatk((short) (魔法力));
+                            }
+                            if (物理防御 > 0 && 物理防御 <= 32767) {
+                                item.setWdef((short) (物理防御));
+                            }
+                            if (魔法防御 > 0 && 魔法防御 <= 32767) {
+                                item.setMdef((short) (魔法防御));
+                            }
+                            if (HP > 0 && HP <= 30000) {
+                                item.setHp((short) (HP));
+                            }
+                            if (MP > 0 && MP <= 30000) {
+                                item.setMp((short) (MP));
+                            }
+                            if ("1".equals(是否可以交易)) {
+                                item.setFlag((byte) (item.getFlag() | ItemFlag.LOCK.getValue()));
+                            }
+                            if (给予时间 > 0) {
+                                item.setExpiration(System.currentTimeMillis() + ((给予时间 * 2L) * 24 * 60 * 60 * 1000));
+                            }
+                            if (可加卷次数 > 0) {
+                                item.setUpgradeSlots((byte) (可加卷次数));
+                            }
+                            if (制作人名字 != null) {
+                                item.setOwner(制作人名字);
+                            }
+                            final String name = ii.getName(物品ID);
+                            if (物品ID / 10000 == 114 && name != null && name.length() > 0) { //medal
+                                final String msg = "你已获得称号 <" + name + ">";
+                                mch.getClient().getPlayer().dropMessage(5, msg);
+                            }
+                            MapleInventoryManipulator.addbyItem(mch.getClient(), item.copy());
                         } else {
-                            MapleInventoryManipulator.removeById(mch.getClient(), GameConstants.getInventoryType(物品ID), 物品ID, -1, true, false);
+                            MapleInventoryManipulator.addById(mch.getClient(), 物品ID, (short) 1, "", null, (byte) 0);
                         }
                         mch.getClient().getSession().write(MaplePacketCreator.getShowItemGain(物品ID, (short) 1, true));
 
@@ -4512,8 +4367,6 @@ public class Maple extends javax.swing.JFrame {
                     switch (tool) {
 
                         case DumpItems:
-                            DumpItems.main(new String[0]);
-                            break;
                         case DumpCashShop:
                             DumpItems.main(new String[0]);
                             break;
@@ -4664,17 +4517,17 @@ public class Maple extends javax.swing.JFrame {
         CashShopItemEditor,
         CashShopItemAdder,
         DropDataAdder,
-        DropDataEditor,;
+        DropDataEditor,
     }
 
     public void 刷新泡点设置() {
-        for (int i = ((DefaultTableModel) (this.在线泡点设置.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.在线泡点设置.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.在线泡点设置.getModel())).removeRow(i);
         }
         try {
             Connection con = DBConPool.getInstance().getDataSource().getConnection();
-            PreparedStatement ps = null;
-            ResultSet rs = null;
+            PreparedStatement ps;
+            ResultSet rs;
             ps = con.prepareStatement("SELECT * FROM configvalues WHERE id = 700 || id = 702 || id = 704 || id = 706 || id = 708 || id = 712");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -4712,7 +4565,7 @@ public class Maple extends javax.swing.JFrame {
     }
 
     private void 刷新泡点金币开关() {
-        String 泡点金币开关显示 = "";
+        String 泡点金币开关显示;
         int 泡点金币开关 = Maple.ConfigValuesMap.get("泡点金币开关");
         if (泡点金币开关 <= 0) {
             泡点金币开关显示 = "泡点金币:开启";
@@ -4723,7 +4576,7 @@ public class Maple extends javax.swing.JFrame {
     }
 
     private void 刷新泡点点券开关() {
-        String 泡点点券开关显示 = "";
+        String 泡点点券开关显示;
         int 泡点点券开关 = Maple.ConfigValuesMap.get("泡点点券开关");
         if (泡点点券开关 <= 0) {
             泡点点券开关显示 = "泡点点券:开启";
@@ -4734,7 +4587,7 @@ public class Maple extends javax.swing.JFrame {
     }
 
     private void 刷新泡点经验开关() {
-        String 泡点经验开关显示 = "";
+        String 泡点经验开关显示;
         int 泡点经验开关 = Maple.ConfigValuesMap.get("泡点经验开关");
         if (泡点经验开关 <= 0) {
             泡点经验开关显示 = "泡点经验:开启";
@@ -4745,7 +4598,7 @@ public class Maple extends javax.swing.JFrame {
     }
 
     private void 刷新泡点抵用开关() {
-        String 泡点抵用开关显示 = "";
+        String 泡点抵用开关显示;
         int 泡点抵用开关 = Maple.ConfigValuesMap.get("泡点抵用开关");
         if (泡点抵用开关 <= 0) {
             泡点抵用开关显示 = "泡点抵用:开启";
@@ -4756,7 +4609,7 @@ public class Maple extends javax.swing.JFrame {
     }
 
     private void 刷新泡点豆豆开关() {
-        String 泡点豆豆开关显示 = "";
+        String 泡点豆豆开关显示;
         int 泡点豆豆开关 = Maple.ConfigValuesMap.get("泡点豆豆开关");
         if (泡点豆豆开关 <= 0) {
             泡点豆豆开关显示 = "泡点豆豆:开启";
@@ -4787,9 +4640,9 @@ public class Maple extends javax.swing.JFrame {
     }
 
     private void 个人发送福利(int a) {
-        int 数量 = 0;
+        int 数量;
         String 类型 = "";
-        String name = "";
+        String name;
         数量 = Integer.parseInt(a2.getText());
         name = 个人发送物品玩家名字1.getText();
         for (ChannelServer cserv1 : ChannelServer.getAllInstances()) {
@@ -4852,19 +4705,16 @@ public class Maple extends javax.swing.JFrame {
             minutesLeft = Integer.parseInt(jTextField22.getText());
             if (ts == null && (t == null || !t.isAlive())) {
                 t = new Thread(ShutdownServer.getInstance());
-                ts = EventTimer.getInstance().register(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (minutesLeft == 0) {
-                            ShutdownServer.getInstance();
-                            t.start();
-                            ts.cancel(false);
-                            return;
-                        }
-                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "本私服器將在 " + minutesLeft + "分钟后关闭. 请尽速关闭雇佣商人 并下线，以免造成损失."));;
-                        System.out.println("本私服器將在 " + minutesLeft + "分钟后关闭.");
-                        minutesLeft--;
+                ts = EventTimer.getInstance().register(() -> {
+                    if (minutesLeft == 0) {
+                        ShutdownServer.getInstance();
+                        t.start();
+                        ts.cancel(false);
+                        return;
                     }
+                    World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "本私服器將在 " + minutesLeft + "分钟后关闭. 请尽速关闭雇佣商人 并下线，以免造成损失."));
+                    System.out.println("本私服器將在 " + minutesLeft + "分钟后关闭.");
+                    minutesLeft--;
                 }, 60000);
             }
             jTextField22.setText("关闭服务器倒数时间");
@@ -4886,7 +4736,7 @@ public class Maple extends javax.swing.JFrame {
                 ps1.setInt(1, b);
                 rs = ps1.executeQuery();
                 if (rs.next()) {
-                    String sqlString2 = null;
+                    String sqlString2;
                     String sqlString3 = null;
                     String sqlString4 = null;
                     sqlString2 = "update configvalues set Val= '0' where id= '" + b + "';";
@@ -4903,7 +4753,7 @@ public class Maple extends javax.swing.JFrame {
                 ps1.setInt(1, b);
                 rs = ps1.executeQuery();
                 if (rs.next()) {
-                    String sqlString2 = null;
+                    String sqlString2;
                     String sqlString3 = null;
                     String sqlString4 = null;
                     sqlString2 = "update configvalues set Val= '1' where id='" + b + "';";
@@ -4939,7 +4789,7 @@ public class Maple extends javax.swing.JFrame {
 //                            break;
                         case 1:
                             //顶端公告
-                            World.Broadcast.broadcastMessage(MaplePacketCreator.serverMessage(str.toString()));
+                            World.Broadcast.broadcastMessage(MaplePacketCreator.serverMessage(str));
                             break;
                         case 2:
                             //弹窗公告
@@ -4958,15 +4808,15 @@ public class Maple extends javax.swing.JFrame {
                 }
                 公告发布喇叭代码.setText("5120027");
             }
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
     public void 按键开关2(String name, int id, int val) {
         int oval = Maple.ConfigValuesMap.get(name);
         PreparedStatement ps = null;
-        PreparedStatement ps1 = null;
-        ResultSet rs = null;
+        PreparedStatement ps1;
+        ResultSet rs;
         try {
             //ps = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("UPDATE configvalues SET Val = ? WHERE id = ?");
             ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM configvalues WHERE id = ?");
@@ -4998,12 +4848,7 @@ public class Maple extends javax.swing.JFrame {
     public void updateThreadNum() {
         writeLock.lock();
         try {
-            server.Timer.WorldTimer.GuiTimer.getInstance().register(new Runnable() {
-                @Override
-                public final void run() {
-                    ActiveThread.setText("<html>【线程个数】：<span style='color:red;'>" + Thread.activeCount() + "</span>");
-                }
-            }, 1 * 1000);
+            server.Timer.WorldTimer.GuiTimer.getInstance().register(() -> ActiveThread.setText("<html>【线程个数】：<span style='color:red;'>" + Thread.activeCount() + "</span>"), 1 * 1000);
         } finally {
             writeLock.unlock();
         }
@@ -5012,30 +4857,27 @@ public class Maple extends javax.swing.JFrame {
     public void MemoryTest() {
         writeLock.lock();
         try {
-            server.Timer.WorldTimer.GuiTimer.getInstance().register(new Runnable() {
-                @Override
-                public final void run() {
-                    Runtime rt = Runtime.getRuntime();
-                    long totalMemory = rt.totalMemory() / 1024 / 1024;
-                    long usedMemory = totalMemory - rt.freeMemory() / 1024 / 1024;
-                    int usedRate = Math.toIntExact(usedMemory * 100 / totalMemory);
-                    内存.setValue(usedRate);
-                    内存.setString("已用:" + usedMemory + "MB/共:" + totalMemory + "MB");
-                }
-            }, 1 * 1000);
+            server.Timer.WorldTimer.GuiTimer.getInstance().register(() -> {
+                Runtime rt = Runtime.getRuntime();
+                long totalMemory = rt.totalMemory() / 1024 / 1024;
+                long usedMemory = totalMemory - rt.freeMemory() / 1024 / 1024;
+                int usedRate = Math.toIntExact(usedMemory * 100 / totalMemory);
+                内存.setValue(usedRate);
+                内存.setString("已用:" + usedMemory + "MB/共:" + totalMemory + "MB");
+            }, 1000);
         } finally {
             writeLock.unlock();
         }
     }
 
     public void 刷新经验加成表() {
-        for (int i = ((DefaultTableModel) (this.经验加成表.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.经验加成表.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.经验加成表.getModel())).removeRow(i);
         }
         try {
             Connection con = DBConPool.getInstance().getDataSource().getConnection();
-            PreparedStatement ps = null;
-            ResultSet rs = null;
+            PreparedStatement ps;
+            ResultSet rs;
             ps = con.prepareStatement("SELECT * FROM configvalues WHERE id = 150 ||  id = 151  ||  id=152  ||  id=153 || id=154");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -5065,20 +4907,17 @@ public class Maple extends javax.swing.JFrame {
             UIManager.put("RootPane.setupButtonVisible", false);//关闭设置
             BeautyEyeLNFHelper.launchBeautyEyeLNF();
             //顺便加载一下字体
-            for (int i = 0; i < DEFAULT_FONT.length; i++) {
-                UIManager.put(DEFAULT_FONT[i], new Font("微软雅黑", Font.PLAIN, 14));
+            for (String s : DEFAULT_FONT) {
+                UIManager.put(s, new Font("微软雅黑", Font.PLAIN, 14));
             }
         } catch (Exception e) {
             System.out.println("[" + FileoutputUtil.CurrentReadable_Time() + "]" + e);
         }
-        EventQueue.invokeLater((Runnable) new Runnable() {
-            @Override
-            public void run() {
-                new Maple().setVisible(true);
-                System.out.println("[" + FileoutputUtil.CurrentReadable_Time() + "][========================================]");
-                System.out.println("[" + FileoutputUtil.CurrentReadable_Time() + "][信息]控制台已启动，点击左下角[启动服务端]运行。");
-                System.out.println("[" + FileoutputUtil.CurrentReadable_Time() + "][========================================]");
-            }
+        EventQueue.invokeLater(() -> {
+            new Maple().setVisible(true);
+            System.out.println("[" + FileoutputUtil.CurrentReadable_Time() + "][========================================]");
+            System.out.println("[" + FileoutputUtil.CurrentReadable_Time() + "][信息]控制台已启动，点击左下角[启动服务端]运行。");
+            System.out.println("[" + FileoutputUtil.CurrentReadable_Time() + "][========================================]");
         });
     }
 

@@ -1,11 +1,11 @@
 package server;
 
-import java.awt.Point;
-
 import provider.MapleData;
 import provider.MapleDataTool;
 import server.maps.MapleGenericPortal;
 import server.maps.MapleMapPortal;
+
+import java.awt.*;
 
 public class PortalFactory {
 

@@ -20,20 +20,20 @@
  */
 package handling.channel.handler;
 
-import static client.BuddyList.BuddyOperation.ADDED;
-import static client.BuddyList.BuddyOperation.DELETED;
-
-import client.BuddyList;
 import client.BuddyEntry;
-import client.MapleCharacter;
-import client.MapleClient;
+import client.BuddyList;
 import client.BuddyList.BuddyAddResult;
 import client.BuddyList.BuddyOperation;
+import client.MapleCharacter;
+import client.MapleClient;
 import handling.channel.ChannelServer;
 import handling.world.World;
 import tools.FilePrinter;
 import tools.MaplePacketCreator;
 import tools.data.LittleEndianAccessor;
+
+import static client.BuddyList.BuddyOperation.ADDED;
+import static client.BuddyList.BuddyOperation.DELETED;
 
 public class BuddyListHandler {
 

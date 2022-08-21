@@ -20,34 +20,20 @@
  */
 package client;
 
-import java.io.Serializable;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.locks.ReentrantLock;
-
-import client.inventory.Equip;
-import client.inventory.IEquip;
-import client.inventory.IItem;
-import client.inventory.MapleInventoryType;
-import client.inventory.MapleWeaponType;
-import client.inventory.ModifyInventory;
+import client.inventory.*;
 import constants.GameConstants;
 import constants.SkillType.十字军;
 import constants.SkillType.骑士;
-import server.MapleInventoryManipulator;
-import server.MapleItemInformationProvider;
-import server.MapleStatEffect;
-import server.StructPotentialItem;
-import server.StructSetItem;
+import server.*;
 import server.StructSetItem.SetItem;
 import tools.MaplePacketCreator;
 import tools.data.MaplePacketLittleEndianWriter;
+
+import java.io.Serializable;
+import java.lang.ref.WeakReference;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class PlayerStats implements Serializable {
 

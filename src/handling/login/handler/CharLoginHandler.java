@@ -20,13 +20,6 @@
  */
 package handling.login.handler;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
-
 import client.MapleCharacter;
 import client.MapleCharacterUtil;
 import client.MapleClient;
@@ -49,6 +42,13 @@ import tools.MaplePacketCreator;
 import tools.StringUtil;
 import tools.data.LittleEndianAccessor;
 import tools.packet.LoginPacket;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
 
 public class CharLoginHandler {
 

@@ -1,13 +1,13 @@
 package gui.tools;
 
 import database.DBConPool;
-import java.awt.Image;
+
+import javax.swing.*;
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 public class 一键还原 extends javax.swing.JFrame {
 

@@ -6,13 +6,14 @@
 package tools;
 
 import database.DBConPool;
+import server.MapleItemInformationProvider;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import server.MapleItemInformationProvider;
 
 public class FixShopItemsPrice {
 

@@ -20,14 +20,14 @@
  */
 package server.life;
 
-import java.awt.Point;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import server.MapleCarnivalFactory;
 import server.MapleCarnivalFactory.MCSkill;
 import server.maps.MapleMap;
 import server.maps.MapleReactor;
 import tools.MaplePacketCreator;
+
+import java.awt.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SpawnPoint extends Spawns {
 

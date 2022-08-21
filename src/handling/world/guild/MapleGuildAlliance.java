@@ -23,15 +23,12 @@ package handling.world.guild;
 
 import database.DBConPool;
 import handling.world.World;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collection;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class MapleGuildAlliance implements java.io.Serializable {
 

@@ -20,8 +20,6 @@
  */
 package server.maps;
 
-import java.awt.Point;
-
 import client.MapleCharacter;
 import handling.channel.ChannelServer;
 import handling.world.MaplePartyCharacter;
@@ -30,6 +28,8 @@ import server.Timer.MapTimer;
 import server.life.MapleLifeFactory;
 import tools.FilePrinter;
 import tools.MaplePacketCreator;
+
+import java.awt.*;
 
 public class Event_DojoAgent {
 

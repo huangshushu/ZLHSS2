@@ -20,13 +20,13 @@
  */
 package handling.world;
 
+import client.MapleCoolDownValueHolder;
+import client.MapleDiseaseValueHolder;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import client.MapleCoolDownValueHolder;
-import client.MapleDiseaseValueHolder;
 
 public class PlayerBuffStorage implements Serializable {
 

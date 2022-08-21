@@ -20,12 +20,13 @@
  */
 package server.maps;
 
-import java.awt.Rectangle;
 import client.MapleClient;
 import scripting.ReactorScriptManager;
 import server.Timer.MapTimer;
 import tools.MaplePacketCreator;
 import tools.Pair;
+
+import java.awt.*;
 
 public class MapleReactor extends AbstractMapleMapObject {
 

@@ -20,19 +20,13 @@
  */
 package client.inventory;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import client.MapleCharacter;
 import constants.GameConstants;
 import server.MapleItemInformationProvider;
 import tools.MaplePacketCreator;
+
+import java.io.Serializable;
+import java.util.*;
 
 public class MapleInventory implements Iterable<IItem>, Serializable {
 

@@ -20,20 +20,19 @@
  */
 package client.inventory;
 
+import client.MapleCharacter;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+import database.DBConPool;
+import server.MapleInventoryManipulator;
+import tools.FilePrinter;
+import tools.FileoutputUtil;
+
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Comparator;
-
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
-
-import client.MapleCharacter;
-import database.DBConPool;
-import server.MapleInventoryManipulator;
-import tools.FilePrinter;
-import tools.FileoutputUtil;
 
 public class MapleRing implements Serializable {
 

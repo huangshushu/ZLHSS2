@@ -5,12 +5,13 @@ import client.MapleCharacter;
 import client.MapleClient;
 import constants.BeansConstants;
 import constants.GameConstants;
-import java.util.ArrayList;
-import java.util.List;
 import server.Randomizer;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.data.LittleEndianAccessor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BeanGame {
 

@@ -5,16 +5,15 @@
  */
 package scripting;
 
-import java.util.Map;
-import java.util.WeakHashMap;
+import client.MapleClient;
+import client.inventory.IItem;
+import tools.FilePrinter;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
-
-import client.MapleClient;
-import client.inventory.IItem;
-import tools.FilePrinter;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 public class ItemScriptManager extends AbstractScriptManager {
 

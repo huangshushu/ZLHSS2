@@ -20,12 +20,12 @@
  */
 package server.life;
 
-import java.awt.Point;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import server.Randomizer;
 import server.maps.MapleMap;
 import tools.MaplePacketCreator;
+
+import java.awt.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SpawnPointAreaBoss extends Spawns {
 

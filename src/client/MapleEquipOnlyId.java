@@ -6,11 +6,12 @@
 package client;
 
 import database.DBConPool;
+import tools.FileoutputUtil;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicLong;
-import tools.FileoutputUtil;
 
 
 public class MapleEquipOnlyId {

@@ -20,16 +20,17 @@
  */
 package client;
 
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.HashMap;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.io.Serializable;
 import tools.FileoutputUtil;
 import tools.Pair;
 import tools.data.MaplePacketLittleEndianWriter;
+
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class MapleKeyLayout implements Serializable {
 

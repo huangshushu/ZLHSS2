@@ -21,6 +21,9 @@
  */
 package client.inventory;
 
+import database.DBConPool;
+import tools.FileoutputUtil;
+
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,9 +31,6 @@ import java.sql.ResultSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import database.DBConPool;
-import tools.FileoutputUtil;
 
 public class MapleInventoryIdentifier implements Serializable {
 

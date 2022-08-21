@@ -22,10 +22,11 @@
 package server.events;
 
 import client.MapleCharacter;
-import java.util.LinkedList;
-import java.util.List;
 import server.Timer.EventTimer;
 import tools.MaplePacketCreator;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class MapleCoconut extends MapleEvent {
 

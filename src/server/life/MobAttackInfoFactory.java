@@ -20,14 +20,15 @@
  */
 package server.life;
 
-import java.util.HashMap;
-import java.util.Map;
 import provider.MapleData;
 import provider.MapleDataProvider;
 import provider.MapleDataProviderFactory;
 import provider.MapleDataTool;
 import tools.Pair;
 import tools.StringUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MobAttackInfoFactory {
 

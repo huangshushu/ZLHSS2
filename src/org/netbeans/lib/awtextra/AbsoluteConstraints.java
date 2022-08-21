@@ -1,7 +1,6 @@
 package org.netbeans.lib.awtextra;
 
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.io.Serializable;
 
 public class AbsoluteConstraints implements Serializable

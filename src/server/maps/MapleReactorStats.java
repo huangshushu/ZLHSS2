@@ -20,10 +20,11 @@
  */
 package server.maps;
 
-import java.awt.Point;
+import tools.Pair;
+
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-import tools.Pair;
 
 public class MapleReactorStats {
 

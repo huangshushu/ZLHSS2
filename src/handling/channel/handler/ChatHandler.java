@@ -20,8 +20,8 @@
  */
 package handling.channel.handler;
 
-import client.MapleClient;
 import client.MapleCharacter;
+import client.MapleClient;
 import client.messages.CommandProcessor;
 import constants.ServerConfig;
 import constants.ServerConstants.CommandType;
@@ -29,12 +29,13 @@ import handling.channel.ChannelServer;
 import handling.world.MapleMessenger;
 import handling.world.MapleMessengerCharacter;
 import handling.world.World;
-import java.util.Arrays;
-import java.util.ConcurrentModificationException;
 import server.maps.MapleMap;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.data.LittleEndianAccessor;
+
+import java.util.Arrays;
+import java.util.ConcurrentModificationException;
 
 public class ChatHandler {
 

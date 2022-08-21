@@ -20,20 +20,15 @@
  */
 package handling.channel.handler;
 
-import java.util.EnumMap;
-import java.util.Map;
-
-import client.ISkill;
-import client.MapleCharacter;
-import client.MapleClient;
-import client.MapleStat;
-import client.PlayerStats;
-import client.SkillFactory;
+import client.*;
 import constants.GameConstants;
 import server.Randomizer;
 import tools.FilePrinter;
 import tools.MaplePacketCreator;
 import tools.data.LittleEndianAccessor;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 public class StatsHandling {
 

@@ -2,6 +2,7 @@ package server.custom.bossrank;
 
 import client.MapleCharacter;
 import database.DBConPool;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

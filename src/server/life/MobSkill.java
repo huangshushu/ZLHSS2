@@ -20,15 +20,6 @@
  */
 package server.life;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import client.MapleCharacter;
 import client.MapleDisease;
 import client.status.MonsterStatus;
@@ -37,6 +28,10 @@ import server.maps.MapleMapObject;
 import server.maps.MapleMapObjectType;
 import server.maps.MapleMist;
 import tools.MaplePacketCreator;
+
+import java.awt.*;
+import java.util.List;
+import java.util.*;
 
 public class MobSkill {
 

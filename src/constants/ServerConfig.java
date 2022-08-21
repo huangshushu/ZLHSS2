@@ -1,8 +1,8 @@
 package constants;
 
-import java.io.File;
-
 import server.ServerProperties;
+
+import java.io.File;
 
 public class ServerConfig {
 

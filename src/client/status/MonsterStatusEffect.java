@@ -20,12 +20,12 @@
  */
 package client.status;
 
-import java.lang.ref.WeakReference;
-import java.util.TimerTask;
-
 import client.MapleCharacter;
 import server.life.MapleMonster;
 import server.life.MobSkill;
+
+import java.lang.ref.WeakReference;
+import java.util.TimerTask;
 
 public class MonsterStatusEffect {
 

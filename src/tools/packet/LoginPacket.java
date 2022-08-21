@@ -20,9 +20,6 @@
  */
 package tools.packet;
 
-import java.util.List;
-import java.util.Set;
-
 import client.MapleCharacter;
 import client.MapleClient;
 import constants.ServerConstants;
@@ -33,6 +30,9 @@ import handling.login.LoginServer;
 import server.Randomizer;
 import tools.HexTool;
 import tools.data.MaplePacketLittleEndianWriter;
+
+import java.util.List;
+import java.util.Set;
 
 public class LoginPacket {
 

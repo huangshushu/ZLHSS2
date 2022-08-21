@@ -3,8 +3,11 @@
  */
 package gui.tools;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.Calendar;
 
 public class SystemLog {
 

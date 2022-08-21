@@ -7,14 +7,11 @@ import client.inventory.MapleWeaponType;
 import client.status.MonsterStatus;
 import handling.channel.handler.AttackInfo;
 import handling.login.LoginServer;
-import java.util.List;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Random;
 import server.MapleStatEffect;
 import server.Randomizer;
 import server.maps.MapleMapObjectType;
+
+import java.util.*;
 
 public class GameConstants {
     public static boolean GMS = true; // true = GMS

@@ -20,23 +20,17 @@
  */
 package handling.channel;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.concurrent.locks.Lock;
-import java.util.Collections;
-import java.util.Collection;
-import client.MapleCharacterUtil;
 import client.MapleCharacter;
+import client.MapleCharacterUtil;
 import client.MapleClient;
 import handling.world.CharacterTransfer;
 import handling.world.CheaterData;
 import handling.world.World;
-import java.util.ConcurrentModificationException;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 import server.Timer.PingTimer;
+
+import java.util.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class PlayerStorage {
 

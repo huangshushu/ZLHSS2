@@ -1,10 +1,10 @@
 package gui.tools;
 
-import java.util.Map;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import tools.SearchGenerator;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.Map;
 
 /**
  *

@@ -20,8 +20,8 @@
  */
 package handling.channel.handler;
 
-import client.MapleClient;
 import client.MapleCharacterUtil;
+import client.MapleClient;
 import constants.ServerConstants;
 import scripting.NPCScriptManager;
 import tools.MaplePacketCreator;

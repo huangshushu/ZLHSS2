@@ -1,11 +1,11 @@
 package scripting;
 
-import javax.script.Invocable;
-
 import client.MapleClient;
 import client.inventory.IItem;
 import client.inventory.MapleInventoryType;
 import server.MapleInventoryManipulator;
+
+import javax.script.Invocable;
 
 public class ItemActionManager extends NPCConversationManager {
 

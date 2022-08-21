@@ -4,12 +4,6 @@
  */
 package tools;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import client.ISkill;
 import client.MapleJob;
 import client.SkillFactory;
@@ -24,6 +18,8 @@ import server.MapleItemInformationProvider;
 import server.life.MapleLifeFactory;
 import server.life.MapleMonsterInformationProvider;
 import server.quest.MapleQuest;
+
+import java.util.*;
 
 public class SearchGenerator {
 

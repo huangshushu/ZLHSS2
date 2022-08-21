@@ -1,13 +1,12 @@
 /*   1:    */ package tools.wztosql;
 /*   2:    */
-/*   3:    */ import java.io.File;
-/*   4:    */ import java.io.FileNotFoundException;
-/*   5:    */ import java.io.FileOutputStream;
-/*   6:    */ import java.io.IOException;
-/*   8:    */ import java.io.PrintWriter;
-/*   9:    */ import provider.MapleData;
-/*  10:    */ import provider.MapleDataProvider;
-/*  11:    */ import provider.MapleDataProviderFactory;
+/*   3:    */
+
+import provider.MapleData;
+import provider.MapleDataProvider;
+import provider.MapleDataProviderFactory;
+
+import java.io.*;
 /*  12:    */
 /*  13:    */ public class WzStringDumper /*  14:    */ {
     /*  15:    */ public static void main(String[] args)

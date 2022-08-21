@@ -21,11 +21,12 @@
  */
 package server.events;
 
-import java.util.concurrent.ScheduledFuture;
 import client.MapleCharacter;
 import server.Randomizer;
 import server.Timer.EventTimer;
 import tools.MaplePacketCreator;
+
+import java.util.concurrent.ScheduledFuture;
 
 public class MapleOla extends MapleEvent {
 

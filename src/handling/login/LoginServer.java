@@ -23,15 +23,14 @@ package handling.login;
 import client.MapleClient;
 import constants.ServerConfig;
 import handling.MapleServerHandler;
-import java.util.HashMap;
-import java.util.Map;
-
 import handling.mina.ServerConnection;
-import java.util.Collection;
-import java.util.WeakHashMap;
-
 import server.ServerProperties;
 import tools.FileoutputUtil;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 public class LoginServer {
 

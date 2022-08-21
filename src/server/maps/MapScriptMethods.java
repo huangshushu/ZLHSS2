@@ -20,24 +20,23 @@
  */
 package server.maps;
 
-import java.awt.Point;
-
 import client.MapleClient;
 import client.MapleQuestStatus;
 import client.SkillFactory;
 import scripting.EventManager;
 import scripting.NPCScriptManager;
-import server.Randomizer;
 import server.MapleItemInformationProvider;
+import server.Randomizer;
 import server.life.MapleLifeFactory;
 import server.life.MapleMonster;
 import server.life.OverrideMonsterStats;
 import server.quest.MapleQuest;
 import server.quest.MapleQuest.MedalQuest;
 import tools.FilePrinter;
-
 import tools.MaplePacketCreator;
 import tools.packet.UIPacket;
+
+import java.awt.*;
 
 public class MapScriptMethods {
 

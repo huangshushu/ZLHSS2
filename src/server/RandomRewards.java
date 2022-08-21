@@ -1,10 +1,10 @@
 package server;
 
-import java.util.List;
+import constants.GameConstants;
+
 import java.util.ArrayList;
 import java.util.Collections;
-
-import constants.GameConstants;
+import java.util.List;
 
 public class RandomRewards {
 

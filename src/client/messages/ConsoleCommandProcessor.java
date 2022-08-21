@@ -5,15 +5,15 @@
  */
 package client.messages;
 
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-
 import client.messages.commands.ConsoleCommand;
 import client.messages.commands.ConsoleCommandExecute;
 import client.messages.commands.ConsoleCommandObject;
 import tools.FilePrinter;
+
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 
 public class ConsoleCommandProcessor {

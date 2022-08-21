@@ -5,6 +5,13 @@
 package tools.wztosql;
 
 import database.DBConPool;
+import provider.MapleData;
+import provider.MapleDataProvider;
+import provider.MapleDataProviderFactory;
+import provider.MapleDataTool;
+import server.ServerProperties;
+import tools.FileoutputUtil;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,12 +20,6 @@ import java.nio.charset.CharsetEncoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import provider.MapleData;
-import provider.MapleDataProvider;
-import provider.MapleDataProviderFactory;
-import provider.MapleDataTool;
-import server.ServerProperties;
-import tools.FileoutputUtil;
 
 public class DumpOxQuizData {
 

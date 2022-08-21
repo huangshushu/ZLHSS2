@@ -20,7 +20,7 @@
  */
 package server.movement;
 
-import java.awt.Point;
+import java.awt.*;
 
 public abstract class AbstractLifeMovement implements LifeMovement {
 

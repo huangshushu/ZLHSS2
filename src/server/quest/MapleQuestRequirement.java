@@ -1,12 +1,5 @@
 package server.quest;
 
-import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
-
 import client.ISkill;
 import client.MapleCharacter;
 import client.MapleQuestStatus;
@@ -16,6 +9,13 @@ import client.inventory.MapleInventoryType;
 import client.inventory.MaplePet;
 import constants.GameConstants;
 import tools.Pair;
+
+import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MapleQuestRequirement implements Serializable {
 

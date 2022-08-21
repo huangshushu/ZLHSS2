@@ -5,8 +5,9 @@
  */
 package gui.tools;
 
-import javax.swing.ImageIcon;
 import tools.HexTool;
+
+import javax.swing.*;
 
 /**
  *

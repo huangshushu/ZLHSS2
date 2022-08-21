@@ -20,24 +20,15 @@
  */
 package handling.channel.handler;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-import client.inventory.IItem;
-import client.inventory.ItemFlag;
-import constants.GameConstants;
-import client.inventory.ItemLoader;
 import client.MapleCharacter;
 import client.MapleCharacterUtil;
 import client.MapleClient;
+import client.inventory.IItem;
+import client.inventory.ItemFlag;
+import client.inventory.ItemLoader;
 import client.inventory.MapleInventoryType;
+import constants.GameConstants;
 import database.DBConPool;
-import java.sql.Statement;
-import java.util.Collections;
-import java.util.Map;
 import server.MapleDueyActions;
 import server.MapleInventoryManipulator;
 import server.MapleItemInformationProvider;
@@ -46,6 +37,12 @@ import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.Pair;
 import tools.data.LittleEndianAccessor;
+
+import java.sql.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class DueyHandler {
 

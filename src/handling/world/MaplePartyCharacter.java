@@ -20,13 +20,13 @@
  */
 package handling.world;
 
-import java.awt.Point;
-import java.util.List;
-import java.io.Serializable;
-
 import client.MapleCharacter;
 import handling.cashshop.CashShopServer;
 import server.maps.MapleDoor;
+
+import java.awt.*;
+import java.io.Serializable;
+import java.util.List;
 
 public class MaplePartyCharacter implements Serializable {
 

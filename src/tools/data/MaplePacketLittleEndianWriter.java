@@ -1,15 +1,11 @@
 package tools.data;
 
 import constants.ServerConstants;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import tools.HexTool;
+
+import java.awt.*;
+import java.io.*;
+import java.nio.charset.Charset;
 
 /**
  * Writes a maplestory-packet little-endian stream of bytes.

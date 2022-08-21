@@ -22,13 +22,13 @@ package client;
 
 import constants.GameConstants;
 import constants.SkillType;
-import java.util.ArrayList;
-import java.util.List;
-
 import provider.MapleData;
 import provider.MapleDataTool;
 import server.MapleStatEffect;
 import server.life.Element;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Skill implements ISkill {
 

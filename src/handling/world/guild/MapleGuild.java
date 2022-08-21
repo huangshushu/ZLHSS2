@@ -20,33 +20,22 @@
  */
 package handling.world.guild;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.locks.Lock;
-
 import client.MapleCharacter;
 import client.MapleCharacterUtil;
 import client.MapleClient;
 import database.DBConPool;
 import handling.world.World;
 import handling.world.guild.MapleBBSThread.MapleBBSReply;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.data.MaplePacketLittleEndianWriter;
 import tools.packet.UIPacket;
+
+import java.sql.*;
+import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class MapleGuild implements java.io.Serializable {
 

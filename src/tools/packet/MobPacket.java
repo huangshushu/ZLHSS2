@@ -20,23 +20,17 @@
  */
 package tools.packet;
 
-import java.util.List;
-import java.awt.Point;
-
 import client.status.MonsterStatus;
 import client.status.MonsterStatusEffect;
 import handling.SendPacketOpcode;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
 import server.life.MapleMonster;
 import server.movement.LifeMovementFragment;
 import tools.MaplePacketCreator;
 import tools.data.MaplePacketLittleEndianWriter;
+
+import java.awt.*;
+import java.util.List;
+import java.util.*;
 
 public class MobPacket {
 

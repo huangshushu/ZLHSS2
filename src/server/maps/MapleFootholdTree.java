@@ -20,7 +20,7 @@
  */
 package server.maps;
 
-import java.awt.Point;
+import java.awt.*;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;

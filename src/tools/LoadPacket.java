@@ -4,11 +4,12 @@
  */
 package tools;
 
+import tools.data.MaplePacketLittleEndianWriter;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
-import tools.data.MaplePacketLittleEndianWriter;
 
 public class LoadPacket {
 

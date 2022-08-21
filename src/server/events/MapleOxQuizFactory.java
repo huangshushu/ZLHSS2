@@ -22,17 +22,18 @@
 package server.events;
 
 import database.DBConPool;
-import java.util.HashMap;
-import java.util.Map;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Map.Entry;
 import server.Randomizer;
 import tools.FilePrinter;
 import tools.FileoutputUtil;
 import tools.Pair;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class MapleOxQuizFactory {
 

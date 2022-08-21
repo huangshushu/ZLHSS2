@@ -23,9 +23,10 @@ package handling.channel.handler;
 import client.MapleClient;
 import handling.world.World;
 import handling.world.guild.MapleBBSThread;
-import java.util.List;
 import tools.MaplePacketCreator;
 import tools.data.LittleEndianAccessor;
+
+import java.util.List;
 
 public class BBSHandler {
 

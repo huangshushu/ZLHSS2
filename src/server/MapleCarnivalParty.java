@@ -2,12 +2,13 @@ package server;
 
 import client.MapleCharacter;
 import handling.channel.ChannelServer;
-import java.util.LinkedList;
-import java.util.List;
-import java.lang.ref.WeakReference;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 import server.maps.MapleMap;
 import tools.MaplePacketCreator;
+
+import java.lang.ref.WeakReference;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * Note for this class : MapleCharacter reference must be removed immediately

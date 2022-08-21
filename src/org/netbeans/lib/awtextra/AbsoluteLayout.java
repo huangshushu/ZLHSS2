@@ -1,12 +1,9 @@
 package org.netbeans.lib.awtextra;
 
-import java.util.Enumeration;
-import java.awt.Dimension;
-import java.awt.Container;
-import java.awt.Component;
-import java.util.Hashtable;
+import java.awt.*;
 import java.io.Serializable;
-import java.awt.LayoutManager2;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 public class AbsoluteLayout implements LayoutManager2, Serializable
 {

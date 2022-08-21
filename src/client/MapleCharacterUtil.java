@@ -22,15 +22,15 @@ package client;
 
 import constants.GameConstants;
 import database.DBConPool;
+import tools.FilePrinter;
+import tools.FileoutputUtil;
+import tools.Pair;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Connection;
-import tools.Pair;
 import java.util.regex.Pattern;
-
-import tools.FilePrinter;
-import tools.FileoutputUtil;
 
 public class MapleCharacterUtil {
 

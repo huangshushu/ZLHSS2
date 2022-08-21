@@ -20,10 +20,10 @@
  */
 package provider;
 
-import java.awt.Point;
-import java.awt.image.BufferedImage;
-
 import provider.WzXML.MapleDataType;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class MapleDataTool {
 

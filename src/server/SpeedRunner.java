@@ -1,6 +1,12 @@
 package server;
 
 import database.DBConPool;
+import server.maps.SpeedRunType;
+import tools.FilePrinter;
+import tools.FileoutputUtil;
+import tools.Pair;
+import tools.StringUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,11 +14,6 @@ import java.sql.SQLException;
 import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import server.maps.SpeedRunType;
-import tools.FilePrinter;
-import tools.FileoutputUtil;
-import tools.Pair;
-import tools.StringUtil;
 
 public class SpeedRunner {
 

@@ -22,13 +22,12 @@ package handling.cashshop;
 
 import constants.ServerConfig;
 import handling.MapleServerHandler;
-import java.net.InetSocketAddress;
-
 import handling.channel.PlayerStorage;
 import handling.mina.ServerConnection;
 import server.MTSStorage;
-
 import server.ServerProperties;
+
+import java.net.InetSocketAddress;
 
 public class CashShopServer {
 

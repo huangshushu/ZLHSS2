@@ -5,14 +5,11 @@
  */
 package scripting;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import tools.HexTool;
 import tools.Pair;
+
+import java.io.*;
+import java.net.URL;
 
 /**
  *

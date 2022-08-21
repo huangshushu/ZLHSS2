@@ -20,11 +20,12 @@
  */
 package server.shops;
 
-import java.util.List;
 import client.MapleCharacter;
 import client.MapleClient;
 import server.shops.AbstractPlayerStore.BoughtItem;
 import tools.Pair;
+
+import java.util.List;
 
 public interface IMaplePlayerShop {
 

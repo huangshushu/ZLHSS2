@@ -21,11 +21,12 @@
 package client;
 
 import database.DBConPool;
+import tools.FileoutputUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import tools.FileoutputUtil;
 
 /**
  * 储存好友个别的单位

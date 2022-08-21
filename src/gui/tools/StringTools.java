@@ -3,14 +3,14 @@
  */
 package gui.tools;
 
-import java.security.SecureRandom;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
-import java.util.*;
-import java.util.regex.Pattern;
+import java.security.SecureRandom;
+import java.util.Random;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringTools {
 

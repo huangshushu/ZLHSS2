@@ -20,19 +20,20 @@
  */
 package handling.channel.handler;
 
-import java.util.Iterator;
-
 import client.MapleCharacter;
 import client.MapleClient;
 import handling.channel.ChannelServer;
 import handling.world.World;
-import handling.world.guild.*;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import handling.world.guild.MapleGuild;
+import handling.world.guild.MapleGuildResponse;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.data.LittleEndianAccessor;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 public class GuildHandler {
 

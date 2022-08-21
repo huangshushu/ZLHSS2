@@ -20,14 +20,14 @@
  */
 package server.maps;
 
-import java.awt.Point;
-
 import client.MapleClient;
 import client.anticheat.CheatingOffense;
 import handling.channel.ChannelServer;
 import scripting.PortalScriptManager;
 import server.MaplePortal;
 import tools.MaplePacketCreator;
+
+import java.awt.*;
 
 public class MapleGenericPortal implements MaplePortal {
 

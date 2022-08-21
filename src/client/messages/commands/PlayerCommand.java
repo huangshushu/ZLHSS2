@@ -1,8 +1,5 @@
 package client.messages.commands;
 
-import java.util.Arrays;
-import java.util.Calendar;
-
 import client.MapleCharacter;
 import client.MapleClient;
 import client.MapleStat;
@@ -21,6 +18,9 @@ import server.maps.MapleMapObjectType;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.StringUtil;
+
+import java.util.Arrays;
+import java.util.Calendar;
 
 /**
  *

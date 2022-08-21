@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 package gui;
-import java.awt.Color;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
+
+import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
+import java.awt.*;
+import java.io.OutputStream;
+import java.io.PrintStream;
 /**
  *
  * @author IceScald

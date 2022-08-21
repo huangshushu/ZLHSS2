@@ -1,13 +1,6 @@
 package tools.wztosql;
 
 import database.DBConPool;
-import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 import provider.MapleData;
 import provider.MapleDataProvider;
 import provider.MapleDataProviderFactory;
@@ -16,6 +9,14 @@ import server.quest.MapleQuestActionType;
 import server.quest.MapleQuestRequirementType;
 import tools.FileoutputUtil;
 import tools.Pair;
+
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DumpQuests {
 

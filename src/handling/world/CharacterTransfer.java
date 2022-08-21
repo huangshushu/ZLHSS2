@@ -20,24 +20,20 @@
  */
 package handling.world;
 
+import client.*;
+import client.inventory.MapleMount;
+import client.inventory.MaplePet;
+import server.quest.MapleQuest;
+import tools.Pair;
+
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import client.inventory.MapleMount;
-import client.MapleCharacter;
-import client.MapleQuestStatus;
-import client.ISkill;
-import client.SkillEntry;
-import client.BuddyEntry;
-import client.inventory.MaplePet;
-import server.quest.MapleQuest;
-import tools.Pair;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CharacterTransfer implements Externalizable {
 

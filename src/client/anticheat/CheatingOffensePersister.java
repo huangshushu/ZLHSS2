@@ -20,12 +20,12 @@
  */
 package client.anticheat;
 
+import server.Timer.CheatTimer;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import server.Timer.CheatTimer;
 
 public class CheatingOffensePersister {
 

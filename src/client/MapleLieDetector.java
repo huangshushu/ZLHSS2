@@ -5,8 +5,6 @@
  */
 package client;
 
-import java.util.concurrent.ScheduledFuture;
-
 import handling.world.World;
 import scripting.LieDetectorScript;
 import server.Timer.EtcTimer;
@@ -14,6 +12,8 @@ import server.maps.MapleMap;
 import tools.HexTool;
 import tools.MaplePacketCreator;
 import tools.Pair;
+
+import java.util.concurrent.ScheduledFuture;
 
 public class MapleLieDetector {
 

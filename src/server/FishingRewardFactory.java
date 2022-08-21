@@ -6,6 +6,9 @@
 package server;
 
 import database.DBConPool;
+import tools.FileoutputUtil;
+import tools.Pair;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,8 +17,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import tools.FileoutputUtil;
-import tools.Pair;
 
 /**
  *

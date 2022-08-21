@@ -1,11 +1,5 @@
 package client.messages.commands;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.List;
-
 import client.MapleCharacter;
 import client.MapleCharacterUtil;
 import client.MapleClient;
@@ -20,6 +14,12 @@ import server.maps.MapleMap;
 import tools.FilePrinter;
 import tools.FileoutputUtil;
 import tools.StringUtil;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
 
 public class InternCommand {
 

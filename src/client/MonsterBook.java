@@ -20,6 +20,14 @@
  */
 package client;
 
+import constants.GameConstants;
+import database.DBConPool;
+import server.MapleItemInformationProvider;
+import tools.FileoutputUtil;
+import tools.MaplePacketCreator;
+import tools.data.MaplePacketLittleEndianWriter;
+import tools.packet.MonsterBookPacket;
+
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,14 +36,6 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import constants.GameConstants;
-import database.DBConPool;
-import server.MapleItemInformationProvider;
-import tools.FileoutputUtil;
-import tools.MaplePacketCreator;
-import tools.data.MaplePacketLittleEndianWriter;
-import tools.packet.MonsterBookPacket;
 
 public class MonsterBook implements Serializable {
 

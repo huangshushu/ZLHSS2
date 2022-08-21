@@ -20,14 +20,14 @@
  */
 package server.maps;
 
-import java.awt.Point;
-
 import client.MapleCharacter;
 import handling.world.World;
 import server.Randomizer;
 import server.Timer.EventTimer;
 import server.life.MapleLifeFactory;
 import tools.MaplePacketCreator;
+
+import java.awt.*;
 
 public class AramiaFireWorks {
 
