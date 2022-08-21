@@ -36,7 +36,7 @@ public class MapleSummon extends AbstractAnimatedMapleMapObject {
     private MapleMap map; //required for instanceMaps
     private short hp;
     private boolean changedMap = false;
-    private SummonMovementType movementType;
+    private final SummonMovementType movementType;
     // Since player can have more than 1 summon [Pirate] 
     // Let's put it here instead of cheat tracker
     private int lastSummonTickCount;

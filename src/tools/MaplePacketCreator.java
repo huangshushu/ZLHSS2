@@ -1048,7 +1048,7 @@ public class MaplePacketCreator {
         int[] mask = new int[4];
         mask[2] = 0xFFFC0000;
         for (MapleBuffStat buf : statups) {
-            mask[buf.getPosition()] |= ((MapleBuffStat) buf).getValue();
+            mask[buf.getPosition()] |= buf.getValue();
         }
         for (int i = 0; i < mask.length; i++) {
             mplew.writeInt(mask[i]);
@@ -3364,7 +3364,7 @@ public class MaplePacketCreator {
         //String BattlePowerPoint = c.getBattlePowerPoint() >=1 ?  String.valueOf(c.getBattlePowerPoint()) : "未上传";
         mplew.writeInt(guild.getId());
         if(WorldConstants.ShowBattlePower){
-        mplew.writeMapleAsciiString(guild.getName()  + "||战斗力"+String.valueOf(c.UpAndGetBattlePowerPoint()));
+        mplew.writeMapleAsciiString(guild.getName()  + "||战斗力"+ c.UpAndGetBattlePowerPoint());
         }else{
             mplew.writeMapleAsciiString(guild.getName());
         }
@@ -3394,7 +3394,7 @@ public class MaplePacketCreator {
         mplew.write(1);
         mplew.writeInt(0);
         if(WorldConstants.ShowBattlePower){
-            mplew.writeMapleAsciiString("战斗力"+String.valueOf(chr.UpAndGetBattlePowerPoint()));
+            mplew.writeMapleAsciiString("战斗力"+ chr.UpAndGetBattlePowerPoint());
         }else{
             mplew.writeMapleAsciiString("");
         }
@@ -4970,18 +4970,15 @@ public class MaplePacketCreator {
         // 22 = The invitation card is ineffective.
         mplew.writeShort(SendPacketOpcode.MARRIAGE_RESULT.getValue());
         mplew.write(msg); // 1103 custom quest
-        switch (msg) {
-            case 11: {
-                mplew.writeInt(0); // ringid or uniqueid
-                mplew.writeInt(male.getId());
-                mplew.writeInt(female.getId());
-                mplew.writeShort(1); // always
-                mplew.writeInt(item);
-                mplew.writeInt(item); // wtf?repeat?
-                mplew.writeAsciiString(male.getName(), 13);
-                mplew.writeAsciiString(female.getName(), 13);
-                break;
-            }
+        if (msg == 11) {
+            mplew.writeInt(0); // ringid or uniqueid
+            mplew.writeInt(male.getId());
+            mplew.writeInt(female.getId());
+            mplew.writeShort(1); // always
+            mplew.writeInt(item);
+            mplew.writeInt(item); // wtf?repeat?
+            mplew.writeAsciiString(male.getName(), 13);
+            mplew.writeAsciiString(female.getName(), 13);
         }
         return mplew.getPacket();
     }

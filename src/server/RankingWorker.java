@@ -67,12 +67,11 @@ public class RankingWorker {
     }
 
     private void updateRanking(Connection con) throws Exception {
-        StringBuilder sb = new StringBuilder("SELECT c.id, c.job, c.exp, c.level, c.name, c.jobRank, c.jobRankMove, c.rank, c.rankMove");
-        sb.append(", a.lastlogin AS lastlogin, a.loggedin FROM characters AS c LEFT JOIN accounts AS a ON c.accountid = a.id WHERE c.gm = 0 AND a.banned = 0 ");
-        sb.append("ORDER BY c.level DESC , c.exp DESC , c.fame DESC , c.meso DESC , c.rank ASC");
+        String sb = "SELECT c.id, c.job, c.exp, c.level, c.name, c.jobRank, c.jobRankMove, c.rank, c.rankMove" + ", a.lastlogin AS lastlogin, a.loggedin FROM characters AS c LEFT JOIN accounts AS a ON c.accountid = a.id WHERE c.gm = 0 AND a.banned = 0 " +
+                "ORDER BY c.level DESC , c.exp DESC , c.fame DESC , c.meso DESC , c.rank ASC";
 
         PreparedStatement ps;
-        try (PreparedStatement charSelect = con.prepareStatement(sb.toString()); ResultSet rs = charSelect.executeQuery()) {
+        try (PreparedStatement charSelect = con.prepareStatement(sb); ResultSet rs = charSelect.executeQuery()) {
             ps = con.prepareStatement("UPDATE characters SET jobRank = ?, jobRankMove = ?, rank = ?, rankMove = ? WHERE id = ?");
             int rank = 0; //for "all"
             final Map<Integer, Integer> rankMap = new LinkedHashMap<>();
@@ -138,18 +137,17 @@ public class RankingWorker {
         }
 
         public final void loadToString() {
-            final StringBuilder builder = new StringBuilder("Rank ");
-            builder.append(rank);
-            builder.append(" : ");
-            builder.append(name);
-            builder.append(" - Level ");
-            builder.append(level);
-            builder.append(" ");
-            builder.append(MapleCarnivalChallenge.getJobNameById(job));
-            builder.append(" | ");
-            builder.append(exp);
-            builder.append(" EXP");
-            this.toString = builder.toString(); //Rank 1 : KiDALex - Level 200 Blade Master | 0 EXP
+            String builder = "Rank " + rank +
+                    " : " +
+                    name +
+                    " - Level " +
+                    level +
+                    " " +
+                    MapleCarnivalChallenge.getJobNameById(job) +
+                    " | " +
+                    exp +
+                    " EXP";
+            this.toString = builder; //Rank 1 : KiDALex - Level 200 Blade Master | 0 EXP
         }
 
         @Override

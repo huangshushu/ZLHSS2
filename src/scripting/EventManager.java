@@ -52,12 +52,12 @@ import java.util.concurrent.ScheduledFuture;
 
 public class EventManager {
 
-    private static int[] eventChannel = new int[4];
-    private Invocable iv;
-    private int channel;
-    private Map<String, EventInstanceManager> instances = new WeakHashMap<>();
-    private Properties props = new Properties();
-    private String name;
+    private static final int[] eventChannel = new int[4];
+    private final Invocable iv;
+    private final int channel;
+    private final Map<String, EventInstanceManager> instances = new WeakHashMap<>();
+    private final Properties props = new Properties();
+    private final String name;
 
     public EventManager(ChannelServer cserv, Invocable iv, String name) {
         this.iv = iv;
@@ -198,7 +198,7 @@ public class EventManager {
 
     public void startInstance(String mapid, MapleCharacter chr) {
         try {
-            EventInstanceManager eim = (EventInstanceManager) iv.invokeFunction("setup", (Object) mapid);
+            EventInstanceManager eim = (EventInstanceManager) iv.invokeFunction("setup", mapid);
             eim.registerCarnivalParty(chr, chr.getMap(), (byte) 0);
         } catch (ScriptException | NoSuchMethodException ex) {
             System.err.println("Event name : " + name + ", method Name : setup:\n" + ex);
@@ -208,7 +208,7 @@ public class EventManager {
 
     public void startInstance_Party(String mapid, MapleCharacter chr) {
         try {
-            EventInstanceManager eim = (EventInstanceManager) iv.invokeFunction("setup", (Object) mapid);
+            EventInstanceManager eim = (EventInstanceManager) iv.invokeFunction("setup", mapid);
             eim.registerParty(chr.getParty(), chr.getMap());
         } catch (ScriptException | NoSuchMethodException ex) {
             System.err.println("Event name : " + name + ", method Name : setup:\n" + ex);

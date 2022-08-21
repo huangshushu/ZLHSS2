@@ -72,7 +72,7 @@ public class Skill implements ISkill {
     private boolean chargeskill;
     private boolean timeLimited;
     
-    private int skillType = 0; //4 is alert
+    private final int skillType = 0; //4 is alert
 
     public Skill(final int id) {
         super();
@@ -314,12 +314,10 @@ public class Skill implements ISkill {
             return false;
         } else if (GameConstants.isAran(skillForJob) && !GameConstants.isAran(job)) {
             return false;
-        } else if ((skillForJob / 10) % 10 > (jid / 10) % 10) { // wrong 2nd job
+        } else // wrong 3rd/4th job
+            if ((skillForJob / 10) % 10 > (jid / 10) % 10) { // wrong 2nd job
             return false;
-        } else if (skillForJob % 10 > jid % 10) { // wrong 3rd/4th job
-            return false;
-        }
-        return true;
+        } else return skillForJob % 10 <= jid % 10;
     }
 
     @Override

@@ -43,7 +43,7 @@ public class MapleMount implements Serializable {
     private int itemid;
     private int exp;
     private transient boolean changed = false;
-    private long lastFatigue = 0;
+    private final long lastFatigue = 0;
     private final transient WeakReference<MapleCharacter> owner;
     private ScheduledFuture<?> tirednessSchedule;
     private boolean Riding = false;

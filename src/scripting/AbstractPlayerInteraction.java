@@ -56,13 +56,14 @@ import tools.packet.UIPacket;
 
 import java.awt.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.List;
 import java.util.*;
 
 public abstract class AbstractPlayerInteraction {
 
-    private MapleClient c;
+    private final MapleClient c;
     protected int id;
     protected int id2;
 
@@ -410,19 +411,13 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final boolean canHoldByType(byte bytype, int num) {
-        if ((c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getSlotLimit()
-                - (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getNumSlotLimit() + 1)) <= num) {
-            return false;
-        }
-        return true;
+        return (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getSlotLimit()
+                - (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getNumSlotLimit() + 1)) > num;
     }
 
     public final boolean canHoldByTypea(byte bytype, int num) {
-        if (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getSlotLimit()
-                - (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getNextFreeSlot() - 1) <= num) {
-            return false;
-        }
-        return true;
+        return c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getSlotLimit()
+                - (c.getPlayer().getInventory(MapleInventoryType.getByType(bytype)).getNextFreeSlot() - 1) > num;
     }
 
     public final boolean canHold(final int itemid) {
@@ -641,7 +636,7 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final void gainItem(final int id, final short quantity, final long period, byte Flag) {
-        gainItem(id, quantity, false, period, -1, "", (byte) Flag);
+        gainItem(id, quantity, false, period, -1, "", Flag);
     }
 
     public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period,
@@ -1558,17 +1553,17 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public String getCharacterNameById(int id) {
-        String name = c.getPlayer().getCharacterNameById(id);
+        String name = MapleCharacter.getCharacterNameById(id);
         return name;
     }
 
     public final int getCharacterIdByName(String name) {
-        int id = c.getPlayer().getCharacterIdByName(name);
+        int id = MapleCharacter.getCharacterIdByName(name);
         return id;
     }
 
     public int getCharacterByNameLevel(String name) {
-        int level = c.getPlayer().getCharacterByName(name).getLevel();
+        int level = MapleCharacter.getCharacterByName(name).getLevel();
         return level;
     }
 
@@ -1891,7 +1886,7 @@ public abstract class AbstractPlayerInteraction {
 
     public void sql_Update(String sql, Object... objects) {
         PreparedStatement ps = null;
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             ps = con.prepareStatement(sql);
             if (objects.length > 0) {
                 for (int i = 0; i < objects.length; i++) {
@@ -1916,7 +1911,7 @@ public abstract class AbstractPlayerInteraction {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<Map<String, Object>> list = new ArrayList<>();
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             ps = con.prepareStatement(sql);
             if (objects.length > 0) {
                 for (int i = 0; i < objects.length; i++) {
@@ -2078,7 +2073,6 @@ public abstract class AbstractPlayerInteraction {
                             || message.indexOf("笨") != -1 || message.indexOf("靠") != -1 || message.indexOf("腦包") != -1
                             || message.indexOf("腦") != -1 || message.indexOf("智障") != -1 || message.indexOf("白目") != -1
                             || message.indexOf("白吃") != -1) {
-                        ;
                         c.getPlayer().dropMessage("說髒話是不禮貌的，請勿說髒話。");
                         c.getSession().write(MaplePacketCreator.enableActions());
                         return;
@@ -2153,11 +2147,11 @@ public abstract class AbstractPlayerInteraction {
                         }
                     }
                     final boolean ear = true;
-                    if (c.getPlayer().isPlayer() && messages.indexOf("幹") != -1 || messages.indexOf("豬") != -1
-                            || messages.indexOf("笨") != -1 || messages.indexOf("靠") != -1
-                            || messages.indexOf("腦包") != -1 || messages.indexOf("腦") != -1
-                            || messages.indexOf("智障") != -1 || messages.indexOf("白目") != -1
-                            || messages.indexOf("白吃") != -1) {
+                    if (c.getPlayer().isPlayer() && messages.contains("幹") || messages.contains("豬")
+                            || messages.contains("笨") || messages.contains("靠")
+                            || messages.contains("腦包") || messages.contains("腦")
+                            || messages.contains("智障") || messages.contains("白目")
+                            || messages.contains("白吃")) {
                         c.getPlayer().dropMessage("說髒話是不禮貌的，請勿說髒話。");
                         c.getSession().write(MaplePacketCreator.enableActions());
                         return;
@@ -2647,7 +2641,7 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public void equipqh(byte slot, boolean 攻击) {
-        Equip sel = (Equip) this.c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem((short) slot);
+        Equip sel = (Equip) this.c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem(slot);
         if (攻击) {
             int Watk = 30 + -Randomizer.nextInt(60);
             int Matk = 30 + -Randomizer.nextInt(60);
@@ -2853,7 +2847,7 @@ public abstract class AbstractPlayerInteraction {
     }
 
     private int getDot(String data) {
-        int gbk = data.getBytes(Charset.forName("GBK")).length, utf_8 = data.getBytes(Charset.forName("UTF-8")).length;
+        int gbk = data.getBytes(Charset.forName("GBK")).length, utf_8 = data.getBytes(StandardCharsets.UTF_8).length;
         for (int i = 0; i < 50; i++) {
             for (int j = 0; j < 50; j++) {
                 if (i + j * 2 == gbk) {

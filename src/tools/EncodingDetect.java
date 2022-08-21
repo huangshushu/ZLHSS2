@@ -45,19 +45,19 @@ class BytesEncodingDetect extends Encoding {
     // Frequency tables to hold the GB, Big5, and EUC-TW character
     // frequencies
 
-    int GBFreq[][];
+    int[][] GBFreq;
 
-    int GBKFreq[][];
+    int[][] GBKFreq;
 
-    int Big5Freq[][];
+    int[][] Big5Freq;
 
-    int Big5PFreq[][];
+    int[][] Big5PFreq;
 
-    int EUC_TWFreq[][];
+    int[][] EUC_TWFreq;
 
-    int KRFreq[][];
+    int[][] KRFreq;
 
-    int JPFreq[][];
+    int[][] JPFreq;
 
     // int UnicodeFreq[94][128];
     // public static String[] nicename;
@@ -78,17 +78,17 @@ class BytesEncodingDetect extends Encoding {
         initialize_frequencies();
     }
 
-    public static void main(String argc[]) {
+    public static void main(String[] argc) {
         BytesEncodingDetect sinodetector;
         int result = OTHER;
         int i;
         sinodetector = new BytesEncodingDetect();
         for (i = 0; i < argc.length; i++) {
-            if (argc[i].startsWith("http://") == true) {
+            if (argc[i].startsWith("http://")) {
                 try {
                     result = sinodetector.detectEncoding(new URL(argc[i]));
                 } catch (Exception e) {
-                    System.err.println("Bad URL " + e.toString());
+                    System.err.println("Bad URL " + e);
                 }
             } else if (argc[i].equals("-d")) {
                 sinodetector.debug = true;
@@ -117,11 +117,10 @@ class BytesEncodingDetect extends Encoding {
             while ((bytesread = chinesestream.read(rawtext, byteoffset, rawtext.length - byteoffset)) > 0) {
                 byteoffset += bytesread;
             }
-            ;
             chinesestream.close();
             guess = detectEncoding(rawtext);
         } catch (Exception e) {
-            System.err.println("Error loading or using URL " + e.toString());
+            System.err.println("Error loading or using URL " + e);
             guess = -1;
         }
         return guess;

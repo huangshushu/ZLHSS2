@@ -36,7 +36,7 @@ public class MapleGuildCharacter implements java.io.Serializable { // alias for 
     // if it's online
     public MapleGuildCharacter(final MapleCharacter c) {
         name = c.getName();
-        level = (short) c.getLevel();
+        level = c.getLevel();
         id = c.getId();
         channel = (byte) c.getClient().getChannel();
         jobid = c.getJob();

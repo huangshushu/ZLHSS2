@@ -36,7 +36,7 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
 
     @Override
     protected void encode(ChannelHandlerContext chc, Object message, ByteBuf buffer) throws Exception {
-        final MapleClient client = (MapleClient) chc.channel().attr(MapleClient.CLIENT_KEY).get();
+        final MapleClient client = chc.channel().attr(MapleClient.CLIENT_KEY).get();
 
         if (client != null) {
             final MapleAESOFB send_crypto = client.getSendCrypto();
@@ -60,16 +60,16 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
                 final StringBuilder sb = new StringBuilder("[发送]\t" + op + tab + "\t包头:" + pHeaderStr + t + "["
                         + packetLen/* + "\r\nCaller: " + Thread.currentThread().getStackTrace()[2] */ + "字元]");
                 if (ServerConfig.LOG_PACKETS) {
-                    System.out.println(sb.toString());
+                    System.out.println(sb);
                 }
                 sb.append("\r\n\r\n").append(HexTool.toString((byte[]) message)).append("\r\n")
                         .append(HexTool.toStringFromAscii((byte[]) message));
                 if (ServerConfig.LOG_PACKETS) {
-                    FileoutputUtil.log(FileoutputUtil.Packet_Log, "\r\n\r\n" + sb.toString() + "\r\n\r\n");
+                    FileoutputUtil.log(FileoutputUtil.Packet_Log, "\r\n\r\n" + sb + "\r\n\r\n");
                 } else if (ServerConfig.CHRLOG_PACKETS) {
                     if (client.getPlayer() != null) {
                         FilePrinter.print("封包记录/" + client.getPlayer().getName() + ".txt",
-                                "\r\n\r\n" + sb.toString() + "\r\n\r\n");
+                                "\r\n\r\n" + sb + "\r\n\r\n");
                     }
                 }
             }

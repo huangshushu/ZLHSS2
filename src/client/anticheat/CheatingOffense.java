@@ -92,15 +92,15 @@ public enum CheatingOffense {
         return bantype >= 1;
     }
 
-    private CheatingOffense(final byte points, final long validityDuration) {
+    CheatingOffense(final byte points, final long validityDuration) {
         this(points, validityDuration, -1, (byte) 1);
     }
 
-    private CheatingOffense(final byte points, final long validityDuration, final int autobancount) {
+    CheatingOffense(final byte points, final long validityDuration, final int autobancount) {
         this(points, validityDuration, autobancount, (byte) 1);
     }
 
-    private CheatingOffense(final byte points, final long validityDuration, final int autobancount,
+    CheatingOffense(final byte points, final long validityDuration, final int autobancount,
             final byte bantype) {
         this.points = points;
         this.validityDuration = validityDuration;

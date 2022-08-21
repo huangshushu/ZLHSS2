@@ -144,7 +144,7 @@ public class AllianceHandler {
                 }
                 break;
             default:
-                System.out.println("Unhandled GuildAlliance op: " + op + ", \n" + slea.toString());
+                System.out.println("Unhandled GuildAlliance op: " + op + ", \n" + slea);
                 break;
         }
         //c.sendPacket(MaplePacketCreator.enableActions());

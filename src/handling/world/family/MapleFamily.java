@@ -34,9 +34,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class MapleFamily implements java.io.Serializable {
 
-    public static enum FCOp {
+    public enum FCOp {
 
-        NONE, DISBAND;
+        NONE, DISBAND
     }
     public static final long serialVersionUID = 6322150443228168192L;
     private final Map<Integer, MapleFamilyCharacter> members = new ConcurrentHashMap<>();
@@ -163,7 +163,7 @@ public final class MapleFamily implements java.io.Serializable {
         return proper;
     }
 
-    public static final Collection<MapleFamily> loadAll() {
+    public static Collection<MapleFamily> loadAll() {
         final Collection<MapleFamily> ret = new ArrayList<>();
         MapleFamily g;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
@@ -184,7 +184,7 @@ public final class MapleFamily implements java.io.Serializable {
         return ret;
     }
 
-    public final void writeToDB(final boolean bDisband) {
+    public void writeToDB(final boolean bDisband) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             if (!bDisband) {
                 if (changed) {
@@ -208,34 +208,34 @@ public final class MapleFamily implements java.io.Serializable {
         }
     }
 
-    public final int getId() {
+    public int getId() {
         return id;
     }
 
-    public final int getLeaderId() {
+    public int getLeaderId() {
         return leaderid;
     }
 
-    public final String getNotice() {
+    public String getNotice() {
         if (notice == null) {
             return "";
         }
         return notice;
     }
 
-    public final String getLeaderName() {
+    public String getLeaderName() {
         return leadername;
     }
 
-    public final void broadcast(final byte[] packet, List<Integer> cids) {
+    public void broadcast(final byte[] packet, List<Integer> cids) {
         broadcast(packet, -1, FCOp.NONE, cids);
     }
 
-    public final void broadcast(final byte[] packet, final int exception, List<Integer> cids) {
+    public void broadcast(final byte[] packet, final int exception, List<Integer> cids) {
         broadcast(packet, exception, FCOp.NONE, cids);
     }
 
-    public final void broadcast(final byte[] packet, final int exceptionId, final FCOp bcop, List<Integer> cids) {
+    public void broadcast(final byte[] packet, final int exceptionId, final FCOp bcop, List<Integer> cids) {
         //passing null to cids will ensure all
         buildNotifications();
         if (members.size() < 2) {
@@ -258,7 +258,7 @@ public final class MapleFamily implements java.io.Serializable {
 
     }
 
-    private final void buildNotifications() {
+    private void buildNotifications() {
         if (!bDirty) {
             return;
         }
@@ -285,7 +285,7 @@ public final class MapleFamily implements java.io.Serializable {
         bDirty = false;
     }
 
-    public final void setOnline(final int cid, final boolean online, final int channel) {
+    public void setOnline(final int cid, final boolean online, final int channel) {
         final MapleFamilyCharacter mgc = getMFC(cid);
         if (mgc != null && mgc.getFamilyId() == id) {
             if (mgc.isOnline() != online) {
@@ -297,7 +297,7 @@ public final class MapleFamily implements java.io.Serializable {
         bDirty = true; // member formation has changed, update notifications
     }
 
-    public final int setRep(final int cid, int addrep, final int oldLevel) {
+    public int setRep(final int cid, int addrep, final int oldLevel) {
         final MapleFamilyCharacter mgc = getMFC(cid);
         if (mgc != null && mgc.getFamilyId() == id) {
             if (oldLevel > mgc.getLevel()) {
@@ -318,7 +318,7 @@ public final class MapleFamily implements java.io.Serializable {
         return 0;
     }
 
-    public final MapleFamilyCharacter addFamilyMemberInfo(final MapleCharacter mc, final int seniorid, final int junior1, final int junior2) {
+    public MapleFamilyCharacter addFamilyMemberInfo(final MapleCharacter mc, final int seniorid, final int junior1, final int junior2) {
         final MapleFamilyCharacter ret = new MapleFamilyCharacter(mc, id, seniorid, junior1, junior2);
         members.put(mc.getId(), ret);
         ret.resetPedigree(this);
@@ -341,7 +341,7 @@ public final class MapleFamily implements java.io.Serializable {
         return ret;
     }
 
-    public final int addFamilyMember(final MapleFamilyCharacter mgc) {
+    public int addFamilyMember(final MapleFamilyCharacter mgc) {
         mgc.setFamilyId(id);
         members.put(mgc.getId(), mgc);
         mgc.resetPedigree(this);
@@ -352,7 +352,7 @@ public final class MapleFamily implements java.io.Serializable {
         return 1;
     }
 
-    public final void leaveFamily(final int id) {
+    public void leaveFamily(final int id) {
         leaveFamily(getMFC(id), true);
     }
 
@@ -425,7 +425,7 @@ public final class MapleFamily implements java.io.Serializable {
      public final void setNotice(final String notice) {
      this.notice = notice;
      }*/
-    public final void leaveFamily(final MapleFamilyCharacter mgc, final boolean skipLeader) {
+    public void leaveFamily(final MapleFamilyCharacter mgc, final boolean skipLeader) {
         bDirty = true;
         if (mgc.getId() == leaderid && !skipLeader) {
             //disband
@@ -469,13 +469,13 @@ public final class MapleFamily implements java.io.Serializable {
         bDirty = true;
     }
 
-    public final void memberLevelJobUpdate(final MapleCharacter mgc) {
+    public void memberLevelJobUpdate(final MapleCharacter mgc) {
         final MapleFamilyCharacter member = getMFC(mgc.getId());
         if (member != null) {
             int old_level = member.getLevel();
             int old_job = member.getJobId();
             member.setJobId(mgc.getJob());
-            member.setLevel((short) mgc.getLevel());
+            member.setLevel(mgc.getLevel());
             if (old_level != mgc.getLevel()) {
                 this.broadcast(MaplePacketCreator.sendLevelup(true, mgc.getLevel(), mgc.getName()), mgc.getId(), mgc.getId() == leaderid ? null : member.getPedigree());
             }
@@ -485,11 +485,11 @@ public final class MapleFamily implements java.io.Serializable {
         }
     }
 
-    public final void disbandFamily() {
+    public void disbandFamily() {
         writeToDB(true);
     }
 
-    public final MapleFamilyCharacter getMFC(final int cid) {
+    public MapleFamilyCharacter getMFC(final int cid) {
         return members.get(cid);
     }
 
@@ -646,7 +646,7 @@ public final class MapleFamily implements java.io.Serializable {
         return false;
     }
 
-    public final void setNotice(final String notice) {
+    public void setNotice(final String notice) {
         this.changed = true;
         this.notice = notice;
     }

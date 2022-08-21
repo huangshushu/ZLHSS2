@@ -17,15 +17,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DumpOxQuizData {
 
-    static CharsetEncoder asciiEncoder = Charset.forName("UTF-8").newEncoder();
+    static CharsetEncoder asciiEncoder = StandardCharsets.UTF_8.newEncoder();
 
-    public static void main(String args[]) throws FileNotFoundException, IOException, SQLException {
+    public static void main(String[] args) throws IOException, SQLException {
         System.out.println("OXQuiz.img 读取中 ...");
         DumpOxQuizData dump = new DumpOxQuizData();
         dump.dumpOxData();

@@ -17,8 +17,8 @@ import io.netty.handler.timeout.IdleStateHandler;
 
 public class ServerInitializer extends ChannelInitializer<SocketChannel> {
 
-    private int world;
-    private int channels;
+    private final int world;
+    private final int channels;
 
     public ServerInitializer(int world, int channels) {
         this.world = world;

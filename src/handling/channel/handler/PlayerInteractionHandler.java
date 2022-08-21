@@ -550,7 +550,7 @@ public class PlayerInteractionHandler {
                     return;
                 }
                 long check = tobuy.bundles * quantity;
-                long check2 = tobuy.price * quantity;
+                long check2 = (long) tobuy.price * quantity;
                 long check3 = tobuy.item.getQuantity() * quantity;
                 if (check <= 0 || check2 > 2147483647 || check2 <= 0 || check3 > 32767 || check3 < 0) { //This is the better way to check.
                     return;
@@ -742,7 +742,7 @@ public class PlayerInteractionHandler {
             case EXPEL: {
                 final IMaplePlayerShop ips = chr.getPlayerShop();
                 if (ips != null && ips instanceof MapleMiniGame) {
-                    if (!((MapleMiniGame) ips).isOpen()) {
+                    if (!ips.isOpen()) {
                         break;
                     }
                     ips.removeAllVisitors(5, 1); //no msg

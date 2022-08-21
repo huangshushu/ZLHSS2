@@ -148,7 +148,7 @@ public final class PlayerNPC extends MapleNPC {
         setName(chr.getName());
         setHair(chr.getHair());
         setFace(chr.getFace());
-        setSkin((byte) (chr.getSkinColor()));
+        setSkin(chr.getSkinColor());
         setGender(chr.getGender());
         //setPets(chr.getSummonedPets());
 

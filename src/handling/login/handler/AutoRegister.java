@@ -44,7 +44,7 @@ public class AutoRegister {
             try (PreparedStatement ipc = con.prepareStatement("SELECT * FROM accounts WHERE macs = ?")) {
                 ipc.setString(1, macs);
                 rs = ipc.executeQuery();
-                if (rs.first() == false || rs.last() == true && rs.getRow() < ACCOUNTS_PER_MAC) {
+                if (!rs.first() || rs.last() && rs.getRow() < ACCOUNTS_PER_MAC) {
                     try {
                         try (PreparedStatement ps = con.prepareStatement(
                                 "INSERT INTO accounts (name, password, email, birthday, macs, SessionIP) VALUES (?, ?, ?, ?, ?, ?)")) {

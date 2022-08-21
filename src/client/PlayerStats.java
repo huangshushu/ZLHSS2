@@ -241,14 +241,10 @@ public class PlayerStats implements Serializable {
             return;
         }
         // lock.lock();
-        try {
-            if (isRecalc) {
-                return;
-            }
-            isRecalc = true;
-        } finally {
-            // lock.unlock();
+        if (isRecalc) {
+            return;
         }
+        isRecalc = true;
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         int oldmaxhp = localmaxhp;
         int localmaxhp_ = getMaxHp();
@@ -427,9 +423,9 @@ public class PlayerStats implements Serializable {
                             added_sharpeye_rate += pot.incCr;
                             added_sharpeye_dmg += pot.incCr;
                             if (!pot.boss) {
-                                dam_r = (double) Math.max(pot.incDAMr, dam_r);
+                                dam_r = Math.max(pot.incDAMr, dam_r);
                             } else {
-                                bossdam_r = (double) Math.max(pot.incDAMr, bossdam_r); // SET, not add
+                                bossdam_r = Math.max(pot.incDAMr, bossdam_r); // SET, not add
                             }
                             recoverHP += pot.RecoveryHP;
                             recoverMP += pot.RecoveryMP;
@@ -594,10 +590,8 @@ public class PlayerStats implements Serializable {
             }
         }
         for (IItem item : chra.getInventory(MapleInventoryType.CASH)) { // omfg;
-            switch (item.getItemId()) {
-                case 5062000:
-                    hasVac = true;
-                    break;
+            if (item.getItemId() == 5062000) {
+                hasVac = true;
             }
         }
         magic += chra.getSkillLevel(SkillFactory.getSkill(22000000));
@@ -936,11 +930,7 @@ public class PlayerStats implements Serializable {
             chra.updatePartyMemberHP();
         }
         // lock.lock();
-        try {
-            isRecalc = false;
-        } finally {
-            // lock.unlock();
-        }
+        isRecalc = false;
     }
 
     public boolean checkEquipLevels(final MapleCharacter chr, int gain) {
@@ -1428,7 +1418,7 @@ public class PlayerStats implements Serializable {
         shouldHealMP = 3 + mpRestore + recoverMP; // i think
 
         if (GameConstants.isJobFamily(200, playerjob)) { // Improving MP recovery
-            shouldHealMP += ((float) ((float) chra.getSkillLevel(SkillFactory.getSkill(2000000)) / 10)
+            shouldHealMP += (((float) chra.getSkillLevel(SkillFactory.getSkill(2000000)) / 10)
                     * chra.getLevel());
 
         } else if (GameConstants.isJobFamily(111, playerjob)) {

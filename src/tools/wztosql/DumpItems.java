@@ -23,7 +23,9 @@ import java.util.Set;
 
 public class DumpItems {
 
-    private MapleDataProvider item, string = MapleDataProviderFactory.getDataProvider(new File((System.getProperty("wzpath") != null ? System.getProperty("wzpath") : "") + "wz/String.wz")), character;
+    private final MapleDataProvider item;
+    private final MapleDataProvider string = MapleDataProviderFactory.getDataProvider(new File((System.getProperty("wzpath") != null ? System.getProperty("wzpath") : "") + "wz/String.wz"));
+    private final MapleDataProvider character;
     protected final MapleData cashStringData = string.getData("Cash.img");
     protected final MapleData consumeStringData = string.getData("Consume.img");
     protected final MapleData eqpStringData = string.getData("Eqp.img");
@@ -168,14 +170,14 @@ public class DumpItems {
             try {
                 pEntry = MapleDataTool.getDouble(pData);
             } catch (Exception e) {
-                pEntry = (double) MapleDataTool.getIntConvert(pData, -1);
+                pEntry = MapleDataTool.getIntConvert(pData, -1);
             }
         } else {
             pData = iz.getChildByPath("info/price");
             if (pData == null) {
                 pEntry = -1.0;
             } else {
-                pEntry = (double) MapleDataTool.getIntConvert(pData, -1);
+                pEntry = MapleDataTool.getIntConvert(pData, -1);
             }
         }
 
@@ -341,7 +343,7 @@ public class DumpItems {
                     Pair<Integer, Integer> incs = null;
                     if (z.isElement()) {
                         String ele = MapleDataTool.getString(z.getValue1(), d, "F30"); //value1=value2
-                        incs = new Pair<Integer, Integer>(Element.getFromChar(ele.charAt(0)).getValue(), Integer.parseInt(ele.substring(1, ele.length()))); //E.G. F30
+                        incs = new Pair<Integer, Integer>(Element.getFromChar(ele.charAt(0)).getValue(), Integer.parseInt(ele.substring(1))); //E.G. F30
                     } else {
                         incs = new Pair<Integer, Integer>(MapleDataTool.getIntConvert(z.getValue1(), d, 0), MapleDataTool.getIntConvert(z.getValue2(), d, 0));
                     }
@@ -407,6 +409,7 @@ public class DumpItems {
         for (String file : args) {
             if (file.equalsIgnoreCase("-update")) {
                 update = true;
+                break;
             }
         }
         int currentQuest = 0;

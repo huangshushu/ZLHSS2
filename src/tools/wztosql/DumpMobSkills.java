@@ -142,7 +142,7 @@ public class DumpMobSkills {
                     if (summ.length() > 0) {
                         summ.append(", ");
                     }
-                    summ.append(String.valueOf(summon));
+                    summ.append(summon);
                 }
                 ps.setString(12, summ.toString());
                 if (lvlz.getChildByPath("lt") != null) {
@@ -180,6 +180,7 @@ public class DumpMobSkills {
         for (String file : args) {
             if (file.equalsIgnoreCase("-update")) {
                 update = true;
+                break;
             }
         }
         int currentQuest = 0;

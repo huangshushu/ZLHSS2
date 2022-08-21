@@ -41,7 +41,7 @@ public class BBSHandler {
 
         byte value = -1;
 
-        private BBSOperation(byte value) {
+        BBSOperation(byte value) {
             this.value = value;
         }
 
@@ -175,11 +175,11 @@ public class BBSHandler {
     }
 
     private static void deleteBBSThread(final MapleClient c, final int localthreadid) {
-        World.Guild.deleteBBSThread(c.getPlayer().getGuildId(), localthreadid, c.getPlayer().getId(), (int) c.getPlayer().getGuildRank());
+        World.Guild.deleteBBSThread(c.getPlayer().getGuildId(), localthreadid, c.getPlayer().getId(), c.getPlayer().getGuildRank());
     }
 
     private static void deleteBBSReply(final MapleClient c, final int localthreadid, final int replyid) {
-        World.Guild.deleteBBSReply(c.getPlayer().getGuildId(), localthreadid, replyid, c.getPlayer().getId(), (int) c.getPlayer().getGuildRank());
+        World.Guild.deleteBBSReply(c.getPlayer().getGuildId(), localthreadid, replyid, c.getPlayer().getId(), c.getPlayer().getGuildRank());
         displayThread(c, localthreadid);
     }
 

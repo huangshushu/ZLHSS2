@@ -30,11 +30,11 @@ import java.util.zip.Inflater;
 public class PNGMapleCanvas implements MapleCanvas {
 
     private static final int[] ZAHLEN = new int[]{2, 1, 0, 3};
-    private int height;
-    private int width;
-    private int dataLength;
-    private int format;
-    private byte[] data;
+    private final int height;
+    private final int width;
+    private final int dataLength;
+    private final int format;
+    private final byte[] data;
 
     public PNGMapleCanvas(int width, int height, int dataLength, int format, byte[] data) {
         super();

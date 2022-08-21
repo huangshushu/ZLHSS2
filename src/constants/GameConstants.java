@@ -178,7 +178,7 @@ public class GameConstants {
     }
 
     public static int getBookLevel(final int level) {
-        return (int) (5 * (5 * level) * (level + 1));
+        return 5 * (5 * level) * (level + 1);
     }
 
     public static int getTimelessRequiredEXP(final int level) {
@@ -2905,17 +2905,11 @@ public class GameConstants {
     public static final boolean isMountItemAvailable(final int mountid, final int jobid) {
         if (jobid != 900 && mountid / 10000 == 190) {
             if (isKOC(jobid)) {
-                if (mountid < 1902005 || mountid > 1902007) {
-                    return false;
-                }
+                return mountid >= 1902005 && mountid <= 1902007;
             } else if (isAdventurer(jobid)) {
-                if (mountid < 1902000 || mountid > 1902002) {
-                    return false;
-                }
+                return mountid >= 1902000 && mountid <= 1902002;
             } else if (isAran(jobid)) {
-                if (mountid < 1902015 || mountid > 1902018) {
-                    return false;
-                }
+                return mountid >= 1902015 && mountid <= 1902018;
             }
         }
         return true;
@@ -2935,10 +2929,7 @@ public class GameConstants {
             case 1122076: // ht, chaos ht
                 return false;
         }
-        if (!canScroll(itemId)) {
-            return false;
-        }
-        return true;
+        return canScroll(itemId);
     }
 
     public static int[] owlItems = new int[] {
@@ -2976,10 +2967,8 @@ public class GameConstants {
     }
 
     public static String getCashBlockedMsg(final int id) {
-        switch (id) {
-            case 5062000:
-                // cube
-                return "这个东西只能通过自由市场玩家NPC";
+        if (id == 5062000) {// cube
+            return "这个东西只能通过自由市场玩家NPC";
         }
         return "这个道具无法购买\r\n未来有机会开放购买。";
     }
@@ -3054,7 +3043,7 @@ public class GameConstants {
     }
 
     public static int getFishingTime(boolean vip, boolean gm) {
-        return gm ? 1000 : (vip ? 120000 : 120000);
+        return gm ? 1000 : (120000);
     }
 
     public static int getCustomSpawnID(int summoner, int def) {
@@ -3098,12 +3087,10 @@ public class GameConstants {
 
     public static boolean isExpChair(final int itemid) {
 
-        switch (itemid / 10000) {
-            case 302:
-                return true;
-            default:
-                return false;
+        if (itemid / 10000 == 302) {
+            return true;
         }
+        return false;
     }
 
     public static boolean isFishingMap(int mapId) {
@@ -3480,10 +3467,7 @@ public class GameConstants {
         if (id == 211061001 && portal.equals("down00")) {
             return true;
         }
-        if (id == 211061001 && portal.equals("st00")) {
-            return true;
-        }
-        return false;
+        return id == 211061001 && portal.equals("st00");
     }
 
     public static short getSlotMax(int itemId) {

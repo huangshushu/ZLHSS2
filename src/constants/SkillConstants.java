@@ -121,11 +121,8 @@ public class SkillConstants {
         if (isNot4thNeedMasterLevel(skillId)) {
             return true;
         }
-        if (jobTimes != 4) {
-            return false;
-        }
-        return true;//!MapleJob.is神之子(jobid)
-        //    }
+        return jobTimes == 4;//!MapleJob.is神之子(jobid)
+//    }
     }
 
     public static int get紫扇传授UnknownValue(int skillId) {

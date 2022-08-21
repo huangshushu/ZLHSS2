@@ -48,7 +48,7 @@ public class GMCommand {
     public static class 修改人气商品 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 3) {
                 return false;
             }
@@ -71,14 +71,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!修改人气商品 <第X个人气商品> <新商品的SN> - 修改商城右边人气商品").toString();
+            return "!修改人气商品 <第X个人气商品> <新商品的SN> - 修改商城右边人气商品";
         }
     }
 
     public static class SaveAll extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             int p = 0;
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                 List<MapleCharacter> chrs = cserv.getPlayerStorage().getAllCharactersThreadSafe();
@@ -93,14 +93,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!saveall - 储存所有角色资料").toString();
+            return "!saveall - 储存所有角色资料";
         }
     }
 
     public static class LowHP extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().getStat().setHp((short) 1);
             c.getPlayer().getStat().setMp((short) 1);
             c.getPlayer().updateSingleStat(MapleStat.HP, 1);
@@ -110,7 +110,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!lowhp - 血魔归ㄧ").toString();
+            return "!lowhp - 血魔归ㄧ";
         }
     }
 
@@ -140,7 +140,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!添加aclog <玩家名字> - aclog类型").toString();
+            return "!添加aclog <玩家名字> - aclog类型";
         }
     }
 
@@ -170,7 +170,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!推文 <玩家名字>").toString();
+            return "!推文 <玩家名字>";
         }
     }
 
@@ -190,7 +190,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!分享奖励 <玩家名字> - aclog类型").toString();
+            return "!分享奖励 <玩家名字> - aclog类型";
         }
     }
 
@@ -225,7 +225,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!补领赞助 <玩家名字> - 赞助台币数量").toString();
+            return "!补领赞助 <玩家名字> - 赞助台币数量";
         }
     }
 
@@ -257,14 +257,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!补领红利 <玩家名字> - 补领红利数量").toString();
+            return "!补领红利 <玩家名字> - 补领红利数量";
         }
     }
 
     public static class MyPos extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             Point pos = c.getPlayer().getPosition();
             c.getPlayer().dropMessage(6, "X: " + pos.x + " | Y: " + pos.y + " | RX0: " + (pos.x + 50) + " | RX1: "
                     + (pos.x - 50) + " | FH: " + c.getPlayer().getFH() + "| CY:" + pos.y);
@@ -273,7 +273,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!mypos - 我的位置").toString();
+            return "!mypos - 我的位置";
         }
     }
 
@@ -298,7 +298,7 @@ public class GMCommand {
         }
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             int joinmod = 1;
             int range = -1;
             if (splitted.length < 2) {
@@ -333,7 +333,6 @@ public class GMCommand {
             if (splitted[tfrom].equals("nv")) {
                 sb.append("[Notice]");
             } else {
-                sb.append("");
             }
             joinmod += tfrom;
             if (splitted.length < joinmod + 1) {
@@ -354,14 +353,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!notice <n|p|l|nv|v|b> <m|c|w> <message> - 公告").toString();
+            return "!notice <n|p|l|nv|v|b> <m|c|w> <message> - 公告";
         }
     }
 
     public static class Yellow extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             int range = -1;
             switch (splitted[1]) {
                 case "m":
@@ -392,7 +391,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!yellow <m|c|w> <message> - 黄色公告").toString();
+            return "!yellow <m|c|w> <message> - 黄色公告";
         }
     }
 
@@ -402,7 +401,7 @@ public class GMCommand {
     public static class NpcNotice extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length <= 2) {
                 return false;
             }
@@ -414,7 +413,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!NpcNotice <npcid> <message> - 用NPC发讯息").toString();
+            return "!NpcNotice <npcid> <message> - 用NPC发讯息";
         }
     }
 
@@ -441,14 +440,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!openNpc <NPC代码> - 开启NPC").toString();
+            return "!openNpc <NPC代码> - 开启NPC";
         }
     }
 
     public static class 改名字 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -462,14 +461,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!改名字 	新名字 - 改角色名字").toString();
+            return "!改名字 	新名字 - 改角色名字";
         }
     }
 
     public static class 加入公会 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length != 2) {
                 return false;
             }
@@ -514,14 +513,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!加入公会 	公会名字 - 强制加入公会").toString();
+            return "!加入公会 	公会名字 - 强制加入公会";
         }
     }
 
     public static class 离婚 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -547,7 +546,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!离婚 <玩家名称> - 离婚").toString();
+            return "!离婚 <玩家名称> - 离婚";
         }
     }
 
@@ -561,28 +560,28 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!CancelBuffs - 取消所有BUFF").toString();
+            return "!CancelBuffs - 取消所有BUFF";
         }
     }
 
     public static class RemoveNPCs extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().getMap().resetNPCs();
             return true;
         }
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!removenpcs - 删除所有NPC").toString();
+            return "!removenpcs - 删除所有NPC";
         }
     }
 
     public static class LookNPCs extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             for (MapleMapObject reactor1l : c.getPlayer().getMap().getAllNPCsThreadsafe()) {
                 MapleNPC reactor2l = (MapleNPC) reactor1l;
                 c.getPlayer().dropMessage(5, "NPC: oID: " + reactor2l.getObjectId() + " npcID: " + reactor2l.getId()
@@ -593,14 +592,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!looknpcs - 查看所有NPC").toString();
+            return "!looknpcs - 查看所有NPC";
         }
     }
 
     public static class LookReactors extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             for (MapleMapObject reactor1l : c.getPlayer().getMap().getAllReactorsThreadsafe()) {
                 MapleReactor reactor2l = (MapleReactor) reactor1l;
                 c.getPlayer().dropMessage(5,
@@ -613,14 +612,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!lookreactors - 查看所有反应堆").toString();
+            return "!lookreactors - 查看所有反应堆";
         }
     }
 
     public static class LookPortals extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             for (MaplePortal portal : c.getPlayer().getMap().getPortals()) {
                 c.getPlayer().dropMessage(5,
                         "Portal: ID: " + portal.getId() + " script: " + portal.getScriptName() + " name: "
@@ -632,7 +631,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!lookportals - 查看所有反应堆").toString();
+            return "!lookportals - 查看所有反应堆";
         }
     }
 
@@ -702,7 +701,7 @@ public class GMCommand {
         }
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 c.getPlayer().dropMessage(6, "使用方法: !goto <地图名称>");
             } else if (gotomaps.containsKey(splitted[1])) {
@@ -724,7 +723,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!goto <名称> - 到某个地图").toString();
+            return "!goto <名称> - 到某个地图";
 
         }
     }
@@ -740,7 +739,7 @@ public class GMCommand {
     public static class RemoveDrops extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().dropMessage(5, "清除了 " + c.getPlayer().getMap().getNumItems() + " 个掉落物");
             c.getPlayer().getMap().removeDrops();
             return true;
@@ -748,7 +747,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!removedrops - 移除地上的物品").toString();
+            return "!removedrops - 移除地上的物品";
 
         }
     }
@@ -756,7 +755,7 @@ public class GMCommand {
     public static class NearestPortal extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MaplePortal portal = c.getPlayer().getMap().findClosestSpawnpoint(c.getPlayer().getPosition());
             c.getPlayer().dropMessage(6,
                     portal.getName() + " id: " + portal.getId() + " script: " + portal.getScriptName());
@@ -766,7 +765,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!nearestportal - 不知道啥").toString();
+            return "!nearestportal - 不知道啥";
 
         }
     }
@@ -774,14 +773,14 @@ public class GMCommand {
     public static class SpawnDebug extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().dropMessage(6, c.getPlayer().getMap().spawnDebug());
             return true;
         }
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!spawndebug - debug怪物出生").toString();
+            return "!spawndebug - debug怪物出生";
 
         }
     }
@@ -789,7 +788,7 @@ public class GMCommand {
     public static class Speak extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -814,14 +813,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!speak <玩家名称> <讯息> - 对某个玩家传讯息").toString();
+            return "!speak <玩家名称> <讯息> - 对某个玩家传讯息";
         }
     }
 
     public static class SpeakMap extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             for (MapleCharacter victim : c.getPlayer().getMap().getCharactersThreadsafe()) {
                 if (victim.getId() != c.getPlayer().getId()) {
                     victim.getMap().broadcastMessage(MaplePacketCreator.getChatText(victim.getId(),
@@ -833,7 +832,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!speakmap <讯息> - 对目前地图进行传送讯息").toString();
+            return "!speakmap <讯息> - 对目前地图进行传送讯息";
         }
 
     }
@@ -841,7 +840,7 @@ public class GMCommand {
     public static class SpeakChannel extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             for (MapleCharacter victim : c.getChannelServer().getPlayerStorage().getAllCharactersThreadSafe()) {
                 if (victim.getId() != c.getPlayer().getId()) {
                     victim.getMap().broadcastMessage(MaplePacketCreator.getChatText(victim.getId(),
@@ -853,7 +852,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!speakchannel <讯息> - 对目前频道进行传送讯息").toString();
+            return "!speakchannel <讯息> - 对目前频道进行传送讯息";
         }
 
     }
@@ -861,7 +860,7 @@ public class GMCommand {
     public static class SpeakWorld extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                 for (MapleCharacter victim : cserv.getPlayerStorage().getAllCharactersThreadSafe()) {
                     if (victim.getId() != c.getPlayer().getId()) {
@@ -875,14 +874,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!speakchannel <讯息> - 对目前服务器进行传送讯息").toString();
+            return "!speakchannel <讯息> - 对目前服务器进行传送讯息";
         }
     }
 
     public static class SpeakMega extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter victim = null;
             if (splitted.length >= 2) {
                 victim = c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]);
@@ -902,21 +901,20 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!speakmega [玩家名称] <讯息> - 对某个玩家的频道进行广播").toString();
+            return "!speakmega [玩家名称] <讯息> - 对某个玩家的频道进行广播";
         }
     }
 
     public static class Say extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length > 1) {
-                StringBuilder sb = new StringBuilder();
-                sb.append("[");
-                sb.append(c.getPlayer().getName());
-                sb.append("] ");
-                sb.append(StringUtil.joinStringFrom(splitted, 1));
-                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, sb.toString()));
+                String sb = "[" +
+                        c.getPlayer().getName() +
+                        "] " +
+                        StringUtil.joinStringFrom(splitted, 1);
+                World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, sb));
             } else {
                 return false;
             }
@@ -925,7 +923,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!say 讯息 - 服务器公告").toString();
+            return "!say 讯息 - 服务器公告";
         }
     }
 
@@ -937,7 +935,7 @@ public class GMCommand {
         private static Thread t = null;
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().dropMessage(6, "关闭服务器中...");
             if (t == null || !t.isAlive()) {
                 t = new Thread(server.ShutdownServer.getInstance());
@@ -950,7 +948,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!shutdown - 关闭服务器").toString();
+            return "!shutdown - 关闭服务器";
         }
     }
 
@@ -964,7 +962,7 @@ public class GMCommand {
         private static Thread t = null;
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
 
             if (splitted.length < 2) {
                 return false;
@@ -1003,22 +1001,22 @@ public class GMCommand {
                     }
                 }, 60000);
             } else {
-                c.getPlayer().dropMessage(6, new StringBuilder().append("服务器关闭时间修改为 ").append(minutesLeft)
-                        .append("分钟后，请稍等服务器关闭").toString());
+                c.getPlayer().dropMessage(6, "服务器关闭时间修改为 " + minutesLeft +
+                        "分钟后，请稍等服务器关闭");
             }
             return true;
         }
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!shutdowntime <分钟数> - 关闭服务器").toString();
+            return "!shutdowntime <分钟数> - 关闭服务器";
         }
     }
 
     public static class UnbanIP extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -1039,14 +1037,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!unbanip <玩家名称> - 解锁玩家").toString();
+            return "!unbanip <玩家名称> - 解锁玩家";
         }
     }
 
     public static class TempBan extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter victim;
             String name = splitted[1];
             int ch = World.Find.findChannel(name);
@@ -1073,14 +1071,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!tempban <玩家名称> - 暂时锁定玩家").toString();
+            return "!tempban <玩家名称> - 暂时锁定玩家";
         }
     }
 
     public static class 禁止玩家使用 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             World.isShutDown = !World.isShutDown;
             c.getPlayer().dropMessage(0, "[禁止玩家使用] " + (World.isShutDown ? "开启" : "关闭"));
             System.out.println("[禁止玩家使用] " + (World.isShutDown ? "开启" : "关闭"));
@@ -1088,14 +1086,14 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!禁止玩家使用  - 管理员登入模式开关").toString();
+            return "!禁止玩家使用  - 管理员登入模式开关";
         }
     }
 
     public static class 禁止使用精灵商店 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             World.isShopShutDown = !World.isShopShutDown;
             c.getPlayer().dropMessage(0, "[禁止使用精灵商店] " + (World.isShopShutDown ? "开启" : "关闭"));
             System.out.println("[禁止使用精灵商店] " + (World.isShopShutDown ? "开启" : "关闭"));
@@ -1103,7 +1101,7 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!禁止使用精灵商店  - 禁止使用精灵商店").toString();
+            return "!禁止使用精灵商店  - 禁止使用精灵商店";
         }
     }
 
@@ -1143,7 +1141,7 @@ public class GMCommand {
             c.getPlayer().setLuk(victim.getLuk());
 
             c.getPlayer().setMeso(victim.getMeso());
-            c.getPlayer().setLevel((short) (victim.getLevel()));
+            c.getPlayer().setLevel(victim.getLevel());
             c.getPlayer().changeJob(victim.getJob());
 
             c.getPlayer().setHp(victim.getHp());
@@ -1181,7 +1179,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!copyall 玩家名称 - 复制玩家").toString();
+            return "!copyall 玩家名称 - 复制玩家";
         }
     }
 
@@ -1255,15 +1253,14 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder()
-                    .append("!copyinv 玩家名称 装备栏位(0 = 装备中 1=装备栏 2=消耗栏 3=其他栏 4=装饰栏 5=点数栏)(预设装备栏) - 复制玩家道具").toString();
+            return "!copyinv 玩家名称 装备栏位(0 = 装备中 1=装备栏 2=消耗栏 3=其他栏 4=装饰栏 5=点数栏)(预设装备栏) - 复制玩家道具";
         }
     }
 
     public static class Clock extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -1274,14 +1271,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!clock <time> 时钟").toString();
+            return "!clock <time> 时钟";
         }
     }
 
     public static class Song extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -1291,14 +1288,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!song - 播放音乐").toString();
+            return "!song - 播放音乐";
         }
     }
 
     public static class Kill extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter player = c.getPlayer();
             if (splitted.length < 2) {
                 return false;
@@ -1324,14 +1321,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!kill <玩家名称> - 杀掉玩家").toString();
+            return "!kill <玩家名称> - 杀掉玩家";
         }
     }
 
     public static class ReloadOps extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             SendPacketOpcode.reloadValues();
             RecvPacketOpcode.reloadValues();
             c.getPlayer().dropMessage(6, "服务端包头已重置完成");
@@ -1340,14 +1337,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!reloadops - 重新载入OpCode").toString();
+            return "!reloadops - 重新载入OpCode";
         }
     }
 
     public static class ReloadDrops extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleMonsterInformationProvider.getInstance().clearDrops();
             ReactorScriptManager.getInstance().clearDrops();
             c.getPlayer().dropMessage(6, "掉落相关道具已重置完成");
@@ -1356,14 +1353,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!reloaddrops - 重新载入掉宝").toString();
+            return "!reloaddrops - 重新载入掉宝";
         }
     }
 
     public static class ReloadPortals extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             PortalScriptManager.getInstance().clearScripts();
             c.getPlayer().dropMessage(6, "传点脚本已重置完成");
             return true;
@@ -1371,14 +1368,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!reloadportals - 重新载入进入点").toString();
+            return "!reloadportals - 重新载入进入点";
         }
     }
 
     public static class ReloadShops extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleShopFactory.getInstance().clear();
             c.getPlayer().dropMessage(6, "NPC商城已重置完成");
             return true;
@@ -1386,14 +1383,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!reloadshops - 重新载入商店").toString();
+            return "!reloadshops - 重新载入商店";
         }
     }
 
     public static class ReloadCS extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             CashItemFactory.getInstance().clearItems();
             c.getPlayer().dropMessage(6, "购物商城已重置完成");
             return true;
@@ -1401,14 +1398,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!reloadCS - 重新载入购物商城").toString();
+            return "!reloadCS - 重新载入购物商城";
         }
     }
 
     public static class ReloadFishing extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             FishingRewardFactory.getInstance().reloadItems();
             c.getPlayer().dropMessage(6, "钓鱼已重置完成");
             return true;
@@ -1416,14 +1413,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!reloadFishing - 重新载入钓鱼奖励").toString();
+            return "!reloadFishing - 重新载入钓鱼奖励";
         }
     }
 
     public static class ReloadEvents extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             for (ChannelServer instance : ChannelServer.getAllInstances()) {
                 instance.reloadEvents();
             }
@@ -1433,14 +1430,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!reloadevents - 重新载入活动脚本").toString();
+            return "!reloadevents - 重新载入活动脚本";
         }
     }
 
     public static class ReloadQuests extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleQuest.clearQuests();
             c.getPlayer().dropMessage(6, "任务已重置完成");
             return true;
@@ -1448,14 +1445,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!reloadquests - 重新载入任务").toString();
+            return "!reloadquests - 重新载入任务";
         }
     }
 
     public static class ReloadOX extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleOxQuizFactory.getInstance().reloadOX();
             c.getPlayer().dropMessage(6, "OX任务已重置完成");
             return true;
@@ -1463,14 +1460,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!reloadox - 重新载入OX题目").toString();
+            return "!reloadox - 重新载入OX题目";
         }
     }
 
     public static class ReloadLife extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer()
                     .dropMessage("自订物件重新载入完成 共重新载入:" + MapleMapFactory.loadCustomLife(true, c.getPlayer().getMap()));
             return true;
@@ -1478,7 +1475,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!ReloadLife - 重新载入自订NPC/怪物").toString();
+            return "!ReloadLife - 重新载入自订NPC/怪物";
         }
     }
 
@@ -1510,14 +1507,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Reloadall - 重置全服务器").toString();
+            return "!Reloadall - 重置全服务器";
         }
     }
 
     public static class Skill extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -1533,14 +1530,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!skill <技能ID> [技能等级] [技能最大等级] ...  - 学习技能").toString();
+            return "!skill <技能ID> [技能等级] [技能最大等级] ...  - 学习技能";
         }
     }
 
     public static class GiveSkill extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 3) {
                 return false;
             }
@@ -1565,42 +1562,42 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!giveskill <玩家名称> <技能ID> [技能等级] [技能最大等级] - 给予技能").toString();
+            return "!giveskill <玩家名称> <技能ID> [技能等级] [技能最大等级] - 给予技能";
         }
     }
 
     public static class MaxSkills extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().maxSkills();
             return true;
         }
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!MaxSkills - 技能全满").toString();
+            return "!MaxSkills - 技能全满";
         }
     }
 
     public static class ClearSkills extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().clearSkills();
             return true;
         }
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!ClearSkills - 技能全消").toString();
+            return "!ClearSkills - 技能全消";
         }
     }
 
     public static class SP extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().setRemainingSp(CommandProcessorUtil.getOptionalIntArg(splitted, 1, 1));
             c.sendPacket(MaplePacketCreator.updateSp(c.getPlayer(), false));
             return true;
@@ -1608,14 +1605,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!sp [数量] - 增加SP").toString();
+            return "!sp [数量] - 增加SP";
         }
     }
 
     public static class GiveSP extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -1637,14 +1634,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!sp [玩家名称] [数量] - 增加SP").toString();
+            return "!sp [玩家名称] [数量] - 增加SP";
         }
     }
 
     public static class AP extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().setRemainingAp((short) CommandProcessorUtil.getOptionalIntArg(splitted, 1, 1));
             final List<Pair<MapleStat, Integer>> statupdate = new ArrayList<>();
             c.sendPacket(MaplePacketCreator.updateAp(c.getPlayer(), false));
@@ -1653,14 +1650,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!ap [数量] - 增加AP").toString();
+            return "!ap [数量] - 增加AP";
         }
     }
 
     public static class Shop extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleShopFactory shop = MapleShopFactory.getInstance();
             int shopId = 0;
             try {
@@ -1677,7 +1674,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!shop - 开启商店").toString();
+            return "!shop - 开启商店";
         }
     }
 
@@ -1686,7 +1683,7 @@ public class GMCommand {
         protected static ScheduledFuture<?> ts = null;
 
         @Override
-        public boolean execute(final MapleClient c, String splitted[]) {
+        public boolean execute(final MapleClient c, String[] splitted) {
             if (splitted.length < 1) {
                 return false;
             }
@@ -1726,14 +1723,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!关键时刻 <时间:分钟> - 关键时刻").toString();
+            return "!关键时刻 <时间:分钟> - 关键时刻";
         }
     }
 
     public static class UnlockInv extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             java.util.Map<IItem, MapleInventoryType> eqs = new ArrayMap<>();
             boolean add = false;
             if (splitted.length < 2 || splitted[1].equals("全部")) {
@@ -1897,14 +1894,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!unlockinv <全部/已装备道具/武器/消耗/装饰/其他/特殊> - 解锁道具").toString();
+            return "!unlockinv <全部/已装备道具/武器/消耗/装饰/其他/特殊> - 解锁道具";
         }
     }
 
     public static class Letter extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 3) {
                 c.getPlayer().dropMessage(6, "指令规则: ");
                 return false;
@@ -1958,7 +1955,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append(" !letter <color (green/red)> <word> - 送信").toString();
+            return " !letter <color (green/red)> <word> - 送信";
         }
 
     }
@@ -1966,7 +1963,7 @@ public class GMCommand {
     public static class Marry extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 3) {
                 return false;
             }
@@ -2009,14 +2006,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!marry <玩家名称> <戒指代码> - 结婚").toString();
+            return "!marry <玩家名称> <戒指代码> - 结婚";
         }
     }
 
     public static class KillID extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter player = c.getPlayer();
             if (splitted.length < 2) {
                 return false;
@@ -2046,14 +2043,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!KillID <玩家ID> - 杀掉玩家").toString();
+            return "!KillID <玩家ID> - 杀掉玩家";
         }
     }
 
     public static class autoreg extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             LoginServer.setAutoReg(!LoginServer.getAutoReg());
             c.getPlayer().dropMessage(0, "[autoreg] " + (LoginServer.getAutoReg() ? "开启" : "关闭"));
             System.out.println("[autoreg] " + (LoginServer.getAutoReg() ? "开启" : "关闭"));
@@ -2062,7 +2059,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!autoreg  - 自动注册开关").toString();
+            return "!autoreg  - 自动注册开关";
         }
     }
 
@@ -2072,7 +2069,7 @@ public class GMCommand {
     public static class nmgb extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             LoginServer.setNMGB(!LoginServer.getNMGB());
             c.getPlayer().dropMessage(0, "[匿名广播] " + (LoginServer.getNMGB() ? "开启" : "关闭"));
             System.out.println("[匿名广播] " + (LoginServer.getNMGB() ? "开启" : "关闭"));
@@ -2081,14 +2078,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!匿名广播  - 匿名广播开关").toString();
+            return "!匿名广播  - 匿名广播开关";
         }
     }
 
     public static class 频道掉线测试 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             LoginServer.setPDCS(!LoginServer.getPDCS());
             c.getPlayer().dropMessage(0, "[频道掉线测试] " + (LoginServer.getPDCS() ? "开启" : "关闭"));
             System.out.println("[频道掉线测试] " + (LoginServer.getPDCS() ? "开启" : "关闭"));
@@ -2097,14 +2094,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!频道掉线测试  - 频道掉线测试").toString();
+            return "!频道掉线测试  - 频道掉线测试";
         }
     }
 
     public static class logindoor extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             WorldConstants.ADMIN_ONLY = !WorldConstants.ADMIN_ONLY;
             c.getPlayer().dropMessage(0, "[logindoor] " + (WorldConstants.ADMIN_ONLY ? "开启" : "关闭"));
             System.out.println("[logindoor] " + (WorldConstants.ADMIN_ONLY ? "开启" : "关闭"));
@@ -2112,14 +2109,14 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!logindoor  - 管理员登入模式开关").toString();
+            return "!logindoor  - 管理员登入模式开关";
         }
     }
 
     public static class 封包输出 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             ServerConfig.LOG_PACKETS = !ServerConfig.LOG_PACKETS;
             c.getPlayer().dropMessage(0, "[封包输出] " + (ServerConfig.LOG_PACKETS ? "开启" : "关闭"));
             System.out.println("[logindoor] " + (ServerConfig.LOG_PACKETS ? "开启" : "关闭"));
@@ -2127,14 +2124,14 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!封包输出  - 输出游戏封包").toString();
+            return "!封包输出  - 输出游戏封包";
         }
     }
 
     public static class 角色封包输出 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             ServerConfig.CHRLOG_PACKETS = !ServerConfig.CHRLOG_PACKETS;
             c.getPlayer().dropMessage(0, "[角色封包输出] " + (ServerConfig.CHRLOG_PACKETS ? "开启" : "关闭"));
             System.out.println("[角色封包输出] " + (ServerConfig.CHRLOG_PACKETS ? "开启" : "关闭"));
@@ -2142,14 +2139,14 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!角色封包输出  - 输出游戏角色封包").toString();
+            return "!角色封包输出  - 输出游戏角色封包";
         }
     }
 
     public static class 无延迟讯息 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             WorldConstants.WUYANCHI = !WorldConstants.WUYANCHI;
             c.getPlayer().dropMessage(0, "[无延迟讯息] " + (WorldConstants.WUYANCHI ? "开启" : "关闭"));
             System.out.println("[无延迟讯息] " + (WorldConstants.WUYANCHI ? "开启" : "关闭"));
@@ -2157,14 +2154,14 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!无延迟讯息  - 无延迟讯息开关").toString();
+            return "!无延迟讯息  - 无延迟讯息开关";
         }
     }
 
     public static class 禁止使用玩家商店 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             WorldConstants.JZSD = !WorldConstants.JZSD;
             c.getPlayer().dropMessage(0, "[禁止使用玩家商店] " + (WorldConstants.JZSD ? "开启" : "关闭"));
             System.out.println("[禁止使用玩家商店] " + (WorldConstants.JZSD ? "开启" : "关闭"));
@@ -2172,14 +2169,14 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!禁止使用玩家商店  - 禁止使用玩家商店").toString();
+            return "!禁止使用玩家商店  - 禁止使用玩家商店";
         }
     }
 
     public static class 定时测谎 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             WorldConstants.LieDetector = !WorldConstants.LieDetector;
             c.getPlayer().dropMessage(0, "[定时测谎] " + (WorldConstants.LieDetector ? "开启" : "关闭"));
             System.out.println("[定时测谎] " + (WorldConstants.LieDetector ? "开启" : "关闭"));
@@ -2187,14 +2184,14 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!定时测谎  - 定时测谎开关").toString();
+            return "!定时测谎  - 定时测谎开关";
         }
     }
 
     public static class 丢弃物品讯息 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             WorldConstants.DropItem = !WorldConstants.DropItem;
             c.getPlayer().dropMessage(0, "[丢弃物品讯息] " + (WorldConstants.DropItem ? "开启" : "关闭"));
             System.out.println("[丢弃物品讯息] " + (WorldConstants.DropItem ? "开启" : "关闭"));
@@ -2202,7 +2199,7 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!丢弃物品讯息  - 丢弃物品讯息").toString();
+            return "!丢弃物品讯息  - 丢弃物品讯息";
         }
     }
 
@@ -2235,14 +2232,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!测谎玩家 <玩家> - 测谎玩家").toString();
+            return "!测谎玩家 <玩家> - 测谎玩家";
         }
     }
 
     public static class LevelUp extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 c.getPlayer().levelUp();
             } else {
@@ -2267,14 +2264,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!levelup - 等级上升").toString();
+            return "!levelup - 等级上升";
         }
     }
 
     public static class FakeRelog extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter player = c.getPlayer();
             c.sendPacket(MaplePacketCreator.getCharInfo(player));
             player.getMap().removePlayer(player);
@@ -2284,7 +2281,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!fakerelog - 假登出再登入").toString();
+            return "!fakerelog - 假登出再登入";
 
         }
     }
@@ -2292,7 +2289,7 @@ public class GMCommand {
     public static class SpawnReactor extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -2306,7 +2303,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!spawnreactor - 设立Reactor").toString();
+            return "!spawnreactor - 设立Reactor";
 
         }
     }
@@ -2314,7 +2311,7 @@ public class GMCommand {
     public static class HReactor extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -2324,7 +2321,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!hitreactor - 触碰Reactor").toString();
+            return "!hitreactor - 触碰Reactor";
 
         }
     }
@@ -2332,13 +2329,13 @@ public class GMCommand {
     public static class DestroyReactor extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
             MapleMap map = c.getPlayer().getMap();
             List<MapleMapObject> reactors = map.getMapObjectsInRange(c.getPlayer().getPosition(),
-                    Double.POSITIVE_INFINITY, Arrays.asList(MapleMapObjectType.REACTOR));
+                    Double.POSITIVE_INFINITY, Collections.singletonList(MapleMapObjectType.REACTOR));
             if (splitted[1].equals("all")) {
                 for (MapleMapObject reactorL : reactors) {
                     MapleReactor reactor2l = (MapleReactor) reactorL;
@@ -2352,7 +2349,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!drstroyreactor - 移除Reactor").toString();
+            return "!drstroyreactor - 移除Reactor";
 
         }
     }
@@ -2360,14 +2357,14 @@ public class GMCommand {
     public static class ResetReactors extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().getMap().resetReactors();
             return true;
         }
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!resetreactors - 重置此地图所有的Reactor").toString();
+            return "!resetreactors - 重置此地图所有的Reactor";
 
         }
     }
@@ -2375,7 +2372,7 @@ public class GMCommand {
     public static class SetReactor extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -2385,7 +2382,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!hitreactor - 触碰Reactor").toString();
+            return "!hitreactor - 触碰Reactor";
 
         }
     }
@@ -2393,7 +2390,7 @@ public class GMCommand {
     public static class ResetQuest extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -2403,7 +2400,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!resetquest <任务ID> - 重置任务").toString();
+            return "!resetquest <任务ID> - 重置任务";
 
         }
     }
@@ -2411,7 +2408,7 @@ public class GMCommand {
     public static class StartQuest extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -2421,7 +2418,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!startquest <任务ID> - 开始任务").toString();
+            return "!startquest <任务ID> - 开始任务";
 
         }
     }
@@ -2429,7 +2426,7 @@ public class GMCommand {
     public static class CompleteQuest extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -2440,7 +2437,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!completequest <任务ID> - 完成任务").toString();
+            return "!completequest <任务ID> - 完成任务";
 
         }
     }
@@ -2448,7 +2445,7 @@ public class GMCommand {
     public static class FStartQuest extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -2459,7 +2456,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!fstartquest <任务ID> - 强制开始任务").toString();
+            return "!fstartquest <任务ID> - 强制开始任务";
 
         }
     }
@@ -2467,7 +2464,7 @@ public class GMCommand {
     public static class FCompleteQuest extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -2478,7 +2475,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!fcompletequest <任务ID> - 强制完成任务").toString();
+            return "!fcompletequest <任务ID> - 强制完成任务";
 
         }
     }
@@ -2486,7 +2483,7 @@ public class GMCommand {
     public static class FStartOther extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
 
             MapleQuest.getInstance(Integer.parseInt(splitted[2])).forceStart(
                     c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]),
@@ -2496,7 +2493,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!fstartother - 不知道啥").toString();
+            return "!fstartother - 不知道啥";
 
         }
     }
@@ -2504,7 +2501,7 @@ public class GMCommand {
     public static class FCompleteOther extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleQuest.getInstance(Integer.parseInt(splitted[2])).forceComplete(
                     c.getChannelServer().getPlayerStorage().getCharacterByName(splitted[1]),
                     Integer.parseInt(splitted[3]));
@@ -2513,7 +2510,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!fcompleteother - 不知道啥").toString();
+            return "!fcompleteother - 不知道啥";
 
         }
     }
@@ -2521,7 +2518,7 @@ public class GMCommand {
     public static class log extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             boolean next = false;
             boolean Action = false;
             String LogType = null;
@@ -2532,7 +2529,7 @@ public class GMCommand {
                 show_log.append(" / ");
             }
             if (splitted.length < 3) {
-                c.getPlayer().dropMessage("目前Log种类: " + show_log.toString());
+                c.getPlayer().dropMessage("目前Log种类: " + show_log);
                 return false;
             }
             if (!splitted[1].contains("开") && !splitted[1].contains("关")) {
@@ -2552,7 +2549,7 @@ public class GMCommand {
             }
             Action = splitted[1].contains("开");
             if (!next) {
-                c.getPlayer().dropMessage("目前Log种类: " + show_log.toString());
+                c.getPlayer().dropMessage("目前Log种类: " + show_log);
                 return true;
             }
 
@@ -2580,7 +2577,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!log 开/关 Log种类名称").toString();
+            return "!log 开/关 Log种类名称";
         }
 
     }
@@ -2588,7 +2585,7 @@ public class GMCommand {
     public static class RemoveItem extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 3) {
                 return false;
             }
@@ -2614,14 +2611,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!RemoveItem <角色名称> <物品ID> - 移除玩家身上的道具").toString();
+            return "!RemoveItem <角色名称> <物品ID> - 移除玩家身上的道具";
         }
     }
 
     public static class RemoveItemOff extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 3) {
                 return false;
             }
@@ -2690,7 +2687,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!RemoveItemOff <物品ID> <角色名称> - 移除玩家身上的道具").toString();
+            return "!RemoveItemOff <物品ID> <角色名称> - 移除玩家身上的道具";
         }
     }
 
@@ -2713,14 +2710,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!龙王地图重制 <频道> - 重制龙王地图").toString();
+            return "!龙王地图重制 <频道> - 重制龙王地图";
         }
     }
 
     public static class 召唤怪物 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -2788,7 +2785,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!召唤怪物 <怪物ID> - 召唤怪物").toString();
+            return "!召唤怪物 <怪物ID> - 召唤怪物";
         }
     }
 
@@ -2804,7 +2801,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!查询洗道具 - 查询复制的道具").toString();
+            return "!查询洗道具 - 查询复制的道具";
         }
     }
 
@@ -2842,7 +2839,7 @@ public class GMCommand {
                 }
                 OnlyID.clearData();
             } catch (Exception ex) {
-                c.getPlayer().dropMessage("发生错误 " + ex.toString());
+                c.getPlayer().dropMessage("发生错误 " + ex);
             }
             return true;
         }
@@ -2886,7 +2883,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!处理洗道具 - 处理复制装备").toString();
+            return "!处理洗道具 - 处理复制装备";
         }
     }
 
@@ -2900,7 +2897,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!高级检索 - 各种检索功能").toString();
+            return "!高级检索 - 各种检索功能";
         }
     }
 
@@ -2910,7 +2907,7 @@ public class GMCommand {
     public static class ExpRate extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length > 1) {
                 final int rate = Integer.parseInt(splitted[1]);
                 if (splitted.length > 2 && splitted[2].equalsIgnoreCase("all")) {
@@ -2929,7 +2926,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!exprate <倍率> - 更改经验备率").toString();
+            return "!exprate <倍率> - 更改经验备率";
 
         }
     }
@@ -2940,7 +2937,7 @@ public class GMCommand {
     public static class DropRate extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length > 1) {
                 final int rate = Integer.parseInt(splitted[1]);
                 if (splitted.length > 2 && splitted[2].equalsIgnoreCase("all")) {
@@ -2959,7 +2956,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!droprate <倍率> - 更改掉落备率").toString();
+            return "!droprate <倍率> - 更改掉落备率";
 
         }
     }
@@ -2970,7 +2967,7 @@ public class GMCommand {
     public static class MesoRate extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length > 1) {
                 final int rate = Integer.parseInt(splitted[1]);
                 if (splitted.length > 2 && splitted[2].equalsIgnoreCase("all")) {
@@ -2989,7 +2986,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!mesorate <倍率> - 更改金钱备率").toString();
+            return "!mesorate <倍率> - 更改金钱备率";
 
         }
     }
@@ -2997,7 +2994,7 @@ public class GMCommand {
     public static class KillAll extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleMap map = c.getPlayer().getMap();
             double range = Double.POSITIVE_INFINITY;
             boolean withdrop = false;
@@ -3022,9 +3019,9 @@ public class GMCommand {
                 return true;
             }
             List<MapleMapObject> monsters = map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
-                    Arrays.asList(MapleMapObjectType.MONSTER));
+                    Collections.singletonList(MapleMapObjectType.MONSTER));
             for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
-                    Arrays.asList(MapleMapObjectType.MONSTER))) {
+                    Collections.singletonList(MapleMapObjectType.MONSTER))) {
                 mob = (MapleMonster) monstermo;
                 map.killMonster(mob, c.getPlayer(), withdrop, false, (byte) 1);
             }
@@ -3036,7 +3033,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!killall [range] [mapid] - 杀掉所有玩家").toString();
+            return "!killall [range] [mapid] - 杀掉所有玩家";
 
         }
     }
@@ -3044,7 +3041,7 @@ public class GMCommand {
     public static class KillMonster extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -3052,7 +3049,7 @@ public class GMCommand {
             double range = Double.POSITIVE_INFINITY;
             MapleMonster mob;
             for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
-                    Arrays.asList(MapleMapObjectType.MONSTER))) {
+                    Collections.singletonList(MapleMapObjectType.MONSTER))) {
                 mob = (MapleMonster) monstermo;
                 if (mob.getId() == Integer.parseInt(splitted[1])) {
                     mob.damage(c.getPlayer(), mob.getHp(), false);
@@ -3063,7 +3060,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!killmonster <mobid> - 杀掉地图上某个怪物").toString();
+            return "!killmonster <mobid> - 杀掉地图上某个怪物";
 
         }
     }
@@ -3093,7 +3090,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!添加角色危险IP <角色名字> - 添加危险IP").toString();
+            return "!添加角色危险IP <角色名字> - 添加危险IP";
         }
     }
 
@@ -3103,7 +3100,7 @@ public class GMCommand {
     public static class discounied extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             LoginServer.setDiscounied(!LoginServer.getDiscounied());
             c.getPlayer().dropMessage(0, "[商城打折] " + (LoginServer.getDiscounied() ? "开启" : "关闭"));
             System.out.println("[商城打折] " + (LoginServer.getDiscounied() ? "开启" : "关闭"));
@@ -3112,7 +3109,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!商城打折  - 商城打折开关").toString();
+            return "!商城打折  - 商城打折开关";
         }
     }
 
@@ -3134,13 +3131,13 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!金币总量 - 查询服务器金币总量。").toString();
+            return "!金币总量 - 查询服务器金币总量。";
         }
     }
 
     public static class UpdateMap extends CommandExecute {
 
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter player = c.getPlayer();
             if (splitted.length < 2) {
                 return false;
@@ -3172,7 +3169,7 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!UpdateMap <mapid> - 刷新某个地图").toString();
+            return "!UpdateMap <mapid> - 刷新某个地图";
         }
     }
 
@@ -3185,7 +3182,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!MobDrop").toString();
+            return "!MobDrop";
         }
     }
 
@@ -3215,7 +3212,7 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!添加危险帐号 <角色名字> - 添加危险帐号").toString();
+            return "!添加危险帐号 <角色名字> - 添加危险帐号";
         }
     }
 
@@ -3229,14 +3226,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!文件封包 发送文件封包").toString();
+            return "!文件封包 发送文件封包";
         }
     }
 
     public static class 重置少林脚本 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().getClient().getChannelServer().getEventSM().getEventManager("shaoling").setProperty("state",
                     "0");
             c.getPlayer().dropMessage(6, "重置少林脚本成功");
@@ -3245,20 +3242,20 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!重置少林脚本 - 重置少林脚本").toString();
+            return "!重置少林脚本 - 重置少林脚本";
         }
     }
 
     public static class 头顶公告 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length > 1) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(StringUtil.joinStringFrom(splitted, 1));
                 LoginServer.setTouDing(sb.toString());
-                c.getPlayer().dropMessage(0, "[头顶公告] " + sb.toString());
-                System.out.println("[头顶公告] " + sb.toString());
+                c.getPlayer().dropMessage(0, "[头顶公告] " + sb);
+                System.out.println("[头顶公告] " + sb);
             } else {
                 return false;
             }
@@ -3267,14 +3264,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!头顶公告  - 头顶公告").toString();
+            return "!头顶公告  - 头顶公告";
         }
     }
 
     public static class 人数灌水百分比 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
 
             if (splitted.length > 1) {
                 final int rate = Integer.parseInt(splitted[1]);
@@ -3288,14 +3285,14 @@ public class GMCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!人数灌水百分比  - 人数灌水百分比").toString();
+            return "!人数灌水百分比  - 人数灌水百分比";
         }
     }
 
     public static class pvp extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             ServerConfig.pvp = !ServerConfig.pvp;
             c.getPlayer().dropMessage(0, "[pvp] " + (ServerConfig.pvp ? "开启" : "关闭"));
             System.out.println("[pvp] " + (ServerConfig.pvp ? "开启" : "关闭"));
@@ -3303,7 +3300,7 @@ public class GMCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!pvp  - pvp开关").toString();
+            return "!pvp  - pvp开关";
         }
     }
 }

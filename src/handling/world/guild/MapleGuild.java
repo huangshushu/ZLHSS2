@@ -39,13 +39,13 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class MapleGuild implements java.io.Serializable {
 
-    private static enum BCOp {
+    private enum BCOp {
 
         NONE, DISBAND, EMBELMCHANGE
     }
     public static final long serialVersionUID = 6322150443228168192L;
     private final List<MapleGuildCharacter> members = new CopyOnWriteArrayList<>();
-    private final String rankTitles[] = new String[5]; // 1 = master, 2 = jr, 5 = lowest member
+    private final String[] rankTitles = new String[5]; // 1 = master, 2 = jr, 5 = lowest member
     private String name, notice;
     private int id, gp, logo, logoColor, leader, capacity, logoBG, logoBGColor, signature;
     private boolean bDirty = true, proper = true;
@@ -685,7 +685,7 @@ public class MapleGuild implements java.io.Serializable {
                 if (mgc.isOnline()) {
                     World.Guild.setGuildAndRank(cid, this.id, mgc.getGuildRank(), newRank);
                 } else {
-                    saveCharacterGuildInfo((short) this.id, (byte) mgc.getGuildRank(), (byte) newRank, cid);
+                    saveCharacterGuildInfo((short) this.id, mgc.getGuildRank(), (byte) newRank, cid);
                 }
                 mgc.setAllianceRank((byte) newRank);
                 //WorldRegistryImpl.getInstance().sendGuild(MaplePacketCreator.changeAllianceRank(allianceid, mgc), -1, allianceid);
@@ -704,7 +704,7 @@ public class MapleGuild implements java.io.Serializable {
                 if (mgc.isOnline()) {
                     World.Guild.setGuildAndRank(cid, this.id, newRank, mgc.getAllianceRank());
                 } else {
-                    saveCharacterGuildInfo((short) this.id, (byte) newRank, (byte) mgc.getAllianceRank(), cid);
+                    saveCharacterGuildInfo((short) this.id, (byte) newRank, mgc.getAllianceRank(), cid);
                 }
                 mgc.setGuildRank((byte) newRank);
                 broadcast(MaplePacketCreator.changeRank(mgc));

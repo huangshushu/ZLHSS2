@@ -71,7 +71,7 @@ public class 广播系统控制台 extends javax.swing.JFrame {
                 "序号", "10分钟一次随机广播内容"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false
             };
 
@@ -257,7 +257,7 @@ public class 广播系统控制台 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_修改广播ActionPerformed
     private void 刷新公告广播() {
-        for (int i = ((DefaultTableModel) (this.广播信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.广播信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.广播信息.getModel())).removeRow(i);
         }
         try {

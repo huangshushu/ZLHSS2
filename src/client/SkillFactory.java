@@ -99,7 +99,7 @@ public class SkillFactory {
         if (skill == null) {
             return -1;
         }
-        return (skill.isTimeLimited() ? (System.currentTimeMillis() + (long) (30L * 24L * 60L * 60L * 1000L)) : -1);
+        return (skill.isTimeLimited() ? (System.currentTimeMillis() + (30L * 24L * 60L * 60L * 1000L)) : -1);
     }
 
     public static final List<Integer> getSkillsByJob(final int jobId) {

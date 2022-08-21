@@ -89,12 +89,7 @@ public class Quadra<F, S, T, Fo> implements Serializable {
             return false;
         }
         if (forth == null) {
-            if (other.forth != null) {
-                return false;
-            }
-        } else if (!forth.equals(other.forth)) {
-            return false;
-        }
-        return true;
+            return other.forth == null;
+        } else return forth.equals(other.forth);
     }
 }

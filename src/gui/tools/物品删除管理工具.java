@@ -88,7 +88,7 @@ public class 物品删除管理工具 extends javax.swing.JFrame {
                 "角色ID", "角色名字", "道具ID", "道具名字"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -295,7 +295,7 @@ public class 物品删除管理工具 extends javax.swing.JFrame {
     private void 查找道具ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_查找道具ActionPerformed
         boolean result1 = this.游戏道具代码.getText().matches("[0-9]+");
         if (result1) {
-            for (int i = ((DefaultTableModel) (this.游戏道具.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.游戏道具.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.游戏道具.getModel())).removeRow(i);
             }
             try {
@@ -329,7 +329,7 @@ public class 物品删除管理工具 extends javax.swing.JFrame {
 
         if (result1) {
             try {
-                for (int i = ((DefaultTableModel) (this.游戏道具.getModel())).getRowCount() - 1; i >= 0; i--) {
+                for (int i = this.游戏道具.getModel().getRowCount() - 1; i >= 0; i--) {
                     ((DefaultTableModel) (this.游戏道具.getModel())).removeRow(i);
                 }
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM inventoryitems WHERE itemid = ?");
@@ -351,7 +351,7 @@ public class 物品删除管理工具 extends javax.swing.JFrame {
     private void 查找道具1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_查找道具1ActionPerformed
         boolean result1 = this.游戏道具代码.getText().matches("[0-9]+");
         if (result1) {
-            for (int i = ((DefaultTableModel) (this.游戏道具.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.游戏道具.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.游戏道具.getModel())).removeRow(i);
             }
             try {
@@ -384,7 +384,7 @@ public class 物品删除管理工具 extends javax.swing.JFrame {
         boolean result1 = this.游戏道具代码.getText().matches("[0-9]+");
         if (result1) {
             try {
-                for (int i = ((DefaultTableModel) (this.游戏道具.getModel())).getRowCount() - 1; i >= 0; i--) {
+                for (int i = this.游戏道具.getModel().getRowCount() - 1; i >= 0; i--) {
                     ((DefaultTableModel) (this.游戏道具.getModel())).removeRow(i);
                 }
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM auctionitems WHERE itemid = ?");
@@ -406,7 +406,7 @@ public class 物品删除管理工具 extends javax.swing.JFrame {
     private void 查找道具2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_查找道具2ActionPerformed
         boolean result1 = this.游戏道具代码.getText().matches("[0-9]+");
         if (result1) {
-            for (int i = ((DefaultTableModel) (this.游戏道具.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.游戏道具.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.游戏道具.getModel())).removeRow(i);
             }
             try {
@@ -439,7 +439,7 @@ public class 物品删除管理工具 extends javax.swing.JFrame {
 
         if (result1) {
             try {
-                for (int i = ((DefaultTableModel) (this.游戏道具.getModel())).getRowCount() - 1; i >= 0; i--) {
+                for (int i = this.游戏道具.getModel().getRowCount() - 1; i >= 0; i--) {
                     ((DefaultTableModel) (this.游戏道具.getModel())).removeRow(i);
                 }
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM auctionitems1 WHERE itemid = ?");
@@ -461,7 +461,7 @@ public class 物品删除管理工具 extends javax.swing.JFrame {
     private void 查找道具3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_查找道具3ActionPerformed
         boolean result1 = this.游戏道具代码.getText().matches("[0-9]+");
         if (result1) {
-            for (int i = ((DefaultTableModel) (this.游戏道具.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.游戏道具.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.游戏道具.getModel())).removeRow(i);
             }
             try {
@@ -493,7 +493,7 @@ public class 物品删除管理工具 extends javax.swing.JFrame {
         boolean result1 = this.游戏道具代码.getText().matches("[0-9]+");
         if (result1) {
             try {
-                for (int i = ((DefaultTableModel) (this.游戏道具.getModel())).getRowCount() - 1; i >= 0; i--) {
+                for (int i = this.游戏道具.getModel().getRowCount() - 1; i >= 0; i--) {
                     ((DefaultTableModel) (this.游戏道具.getModel())).removeRow(i);
                 }
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM bank_item1 WHERE itemid = ?");
@@ -515,7 +515,7 @@ public class 物品删除管理工具 extends javax.swing.JFrame {
     private void 查找道具4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_查找道具4ActionPerformed
         boolean result1 = this.游戏道具代码.getText().matches("[0-9]+");
         if (result1) {
-            for (int i = ((DefaultTableModel) (this.游戏道具.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.游戏道具.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.游戏道具.getModel())).removeRow(i);
             }
             try {
@@ -549,7 +549,7 @@ public class 物品删除管理工具 extends javax.swing.JFrame {
 
         if (result1) {
             try {
-                for (int i = ((DefaultTableModel) (this.游戏道具.getModel())).getRowCount() - 1; i >= 0; i--) {
+                for (int i = this.游戏道具.getModel().getRowCount() - 1; i >= 0; i--) {
                     ((DefaultTableModel) (this.游戏道具.getModel())).removeRow(i);
                 }
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM bank_item WHERE itemid = ?");

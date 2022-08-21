@@ -48,9 +48,9 @@ public class ItemScriptManager extends AbstractScriptManager {
             c.getPlayer().setConversation(1);
             c.setClickedNPC();
             try {
-                iv.invokeFunction("start", new Object[0]);
+                iv.invokeFunction("start");
             } catch (NoSuchMethodException nsme) {
-                iv.invokeFunction("action", new Object[] { (byte) 1, (byte) 0, (int) (byte) 0 });
+                iv.invokeFunction("action", (byte) 1, (byte) 0, (int) (byte) 0);
             }
         } catch (ScriptException | NoSuchMethodException e) {
             System.err.println("执行道具脚本失败 道具ID: (" + item.getItemId() + ")..NPCID: " + npc + ":" + e);
@@ -62,7 +62,7 @@ public class ItemScriptManager extends AbstractScriptManager {
 
     public void action(MapleClient c, byte mode, byte type, int selection) {
         if (mode != -1) {
-            ItemActionManager im = (ItemActionManager) this.ims.get(c);
+            ItemActionManager im = this.ims.get(c);
             if (im == null) {
                 return;
             }
@@ -71,7 +71,7 @@ public class ItemScriptManager extends AbstractScriptManager {
                     dispose(c);
                 } else {
                     c.setClickedNPC();
-                    im.getIv().invokeFunction("action", new Object[] { mode, type, selection });
+                    im.getIv().invokeFunction("action", mode, type, selection);
                 }
             } catch (ScriptException | NoSuchMethodException e) {
                 int npcId = im.getNpc();
@@ -85,7 +85,7 @@ public class ItemScriptManager extends AbstractScriptManager {
     }
 
     public void dispose(MapleClient c) {
-        ItemActionManager im = (ItemActionManager) this.ims.get(c);
+        ItemActionManager im = this.ims.get(c);
         if (im != null) {
             this.ims.remove(c);
             c.removeScriptEngine("scripts/item/" + im.getItemId() + ".js");
@@ -106,7 +106,7 @@ public class ItemScriptManager extends AbstractScriptManager {
     }
 
     public ItemActionManager getIM(MapleClient c) {
-        return (ItemActionManager) this.ims.get(c);
+        return this.ims.get(c);
     }
 
     private void notice(MapleClient c, int itemId) {

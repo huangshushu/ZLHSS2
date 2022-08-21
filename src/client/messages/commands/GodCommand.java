@@ -49,14 +49,14 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!MinStats - 预设属性").toString();
+            return "!MinStats - 预设属性";
         }
     }
 
     public static class Buff extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter player = c.getPlayer();
             SkillFactory.getSkill(9001002).getEffect(1).applyTo(player);
             SkillFactory.getSkill(9001003).getEffect(1).applyTo(player);
@@ -67,13 +67,13 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Buff - 施放管理BUFF").toString();
+            return "!Buff - 施放管理BUFF";
         }
     }
 
     public static class Maxstats extends CommandExecute {
 
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
 
             MapleCharacter player = c.getPlayer();
             player.getStat().setHp(30000);
@@ -99,7 +99,7 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Maxstats - 满属性").toString();
+            return "!Maxstats - 满属性";
         }
     }
 
@@ -114,7 +114,7 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!BanCommand - 封锁指令").toString();
+            return "!BanCommand - 封锁指令";
         }
     }
 
@@ -136,7 +136,7 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Hair <发型代码> - 修改发型").toString();
+            return "!Hair <发型代码> - 修改发型";
         }
     }
     
@@ -158,7 +158,7 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Face <脸型代码> - 修改脸型").toString();
+            return "!Face <脸型代码> - 修改脸型";
         }
     }
 
@@ -180,7 +180,7 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Str <能力值> - 修改能力值").toString();
+            return "!Str <能力值> - 修改能力值";
         }
     }
 
@@ -202,7 +202,7 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Int <能力值> - 修改能力值").toString();
+            return "!Int <能力值> - 修改能力值";
         }
     }
 
@@ -224,7 +224,7 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Luk <能力值> - 修改能力值").toString();
+            return "!Luk <能力值> - 修改能力值";
         }
     }
 
@@ -246,7 +246,7 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Luk <能力值> - 修改能力值").toString();
+            return "!Luk <能力值> - 修改能力值";
         }
     }
 
@@ -270,7 +270,7 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!HP <能力值> - 修改能力值").toString();
+            return "!HP <能力值> - 修改能力值";
         }
     }
 
@@ -294,7 +294,7 @@ public class GodCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!MP <能力值> - 修改能力值").toString();
+            return "!MP <能力值> - 修改能力值";
         }
     }
 }

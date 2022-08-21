@@ -48,9 +48,9 @@ public enum ItemLoader {
 
     private final int value;
     private final String table, table_equip;
-    private List<String> arg;
+    private final List<String> arg;
 
-    private ItemLoader(String table, String table_equip, int value, String... arg) {
+    ItemLoader(String table, String table_equip, int value, String... arg) {
         this.table = table;
         this.table_equip = table_equip;
         this.value = value;

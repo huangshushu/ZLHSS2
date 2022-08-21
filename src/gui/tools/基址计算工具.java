@@ -162,7 +162,7 @@ public class 基址计算工具 extends javax.swing.JFrame {
             return;
         }
         int value = Integer.parseInt(valueStr);
-        long buffstat = 1 << (31 - (value % 32));
+        long buffstat = 1L << (31 - (value % 32));
         if (buffstat > 2147483648L) {
             return;
         }
@@ -170,7 +170,7 @@ public class 基址计算工具 extends javax.swing.JFrame {
         byte[] code = new byte[4];
         String buffstatStr = Long.toHexString(buffstat);
         if (buffstatStr.length() > 8) {
-            buffstatStr = buffstatStr.substring(buffstatStr.length() - 8, buffstatStr.length());
+            buffstatStr = buffstatStr.substring(buffstatStr.length() - 8);
         }
         jTextField1.setText(buffstatStr);
         jTextField2.setText(String.valueOf(first));
@@ -217,7 +217,7 @@ public class 基址计算工具 extends javax.swing.JFrame {
         }
         buffstatStr = Long.toHexString(buffstat);
         if (buffstatStr.length() > 8) {
-            buffstatStr = buffstatStr.substring(buffstatStr.length() - 8, buffstatStr.length());
+            buffstatStr = buffstatStr.substring(buffstatStr.length() - 8);
         }
         jTextField1.setText(buffstatStr);
         int value = 0;

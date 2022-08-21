@@ -68,52 +68,49 @@ public class PiPiConfig {
                 return false;
             }
         }
-        if ((message.contains("垃") && message.contains("圾"))
-                || (message.contains("虽") && message.contains("小"))
-                || (message.contains("沙") && message.contains("小"))
-                || (message.contains("杀") && message.contains("小"))
-                || (message.contains("三") && message.contains("小"))
+        //|| (message.contains("m") && message.contains("d"))
+        // || (message.contains("m") && message.contains("b"))
+        return (!message.contains("垃") || !message.contains("圾"))
+                && (!message.contains("虽") || !message.contains("小"))
+                && (!message.contains("沙") || !message.contains("小"))
+                && (!message.contains("杀") || !message.contains("小"))
+                && (!message.contains("三") || !message.contains("小"))
                 //
-                || (message.contains("北") && message.contains("七"))
-                || (message.contains("北") && message.contains("7"))
-                || (message.contains("巴") && message.contains("七"))
-                || (message.contains("巴") && message.contains("7"))
-                || (message.contains("八") && message.contains("七"))
-                || (message.contains("八") && message.contains("7"))
+                && (!message.contains("北") || !message.contains("七"))
+                && (!message.contains("北") || !message.contains("7"))
+                && (!message.contains("巴") || !message.contains("七"))
+                && (!message.contains("巴") || !message.contains("7"))
+                && (!message.contains("八") || !message.contains("七"))
+                && (!message.contains("八") || !message.contains("7"))
                 //
-                || (message.contains("白") && message.contains("目"))
-                || (message.contains("白") && message.contains("痴"))
-                || (message.contains("白") && message.contains("吃"))
-                || (message.contains("白") && message.contains("ㄔ"))
-                || (message.contains("白") && message.contains("ㄘ"))
+                && (!message.contains("白") || !message.contains("目"))
+                && (!message.contains("白") || !message.contains("痴"))
+                && (!message.contains("白") || !message.contains("吃"))
+                && (!message.contains("白") || !message.contains("ㄔ"))
+                && (!message.contains("白") || !message.contains("ㄘ"))
                 //
-                || (message.contains("机") && message.contains("车"))
-                || (message.contains("机") && message.contains("八"))
+                && (!message.contains("机") || !message.contains("车"))
+                && (!message.contains("机") || !message.contains("八"))
                 //
-                || (message.contains("伶") && message.contains("北"))
-                || (message.contains("林") && message.contains("北"))
+                && (!message.contains("伶") || !message.contains("北"))
+                && (!message.contains("林") || !message.contains("北"))
                 //
-                || (message.contains("废") && message.contains("物"))
-                || (message.contains("妈") && message.contains("的"))
-                || (message.contains("俗") && message.contains("辣"))
-                || (message.contains("智") && message.contains("障"))
-                || (message.contains("低") && message.contains("能"))
-                || (message.contains("乞") && message.contains("丐"))
-                || (message.contains("干") && message.contains("娘"))
+                && (!message.contains("废") || !message.contains("物"))
+                && (!message.contains("妈") || !message.contains("的"))
+                && (!message.contains("俗") || !message.contains("辣"))
+                && (!message.contains("智") || !message.contains("障"))
+                && (!message.contains("低") || !message.contains("能"))
+                && (!message.contains("乞") || !message.contains("丐"))
+                && (!message.contains("干") || !message.contains("娘"))
                 //
-                || (message.contains("ㄎ") && message.contains("ㄅ"))
-                || (message.contains("ㄌ") && message.contains("ㄐ"))
-                || (message.contains("ㄋ") && message.contains("ㄠ") && message.contains("ˇ"))
-                || (message.contains("ㄍ") && message.contains("ˋ"))
+                && (!message.contains("ㄎ") || !message.contains("ㄅ"))
+                && (!message.contains("ㄌ") || !message.contains("ㄐ"))
+                && (!message.contains("ㄋ") || !message.contains("ㄠ") || !message.contains("ˇ"))
+                && (!message.contains("ㄍ") || !message.contains("ˋ"))
                 //
                 //|| (message.contains("0") && message.contains("8"))
                 //|| (message.contains("7") && message.contains("8"))
                 //
-                || (message.contains("e") && message.contains("0") && message.contains("4")) //|| (message.contains("m") && message.contains("d"))
-                // || (message.contains("m") && message.contains("b"))
-                ) {
-            return false;
-        }
-        return true;
+                && (!message.contains("e") || !message.contains("0") || !message.contains("4"));
     }
 }

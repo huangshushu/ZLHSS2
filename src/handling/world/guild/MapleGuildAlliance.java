@@ -32,7 +32,7 @@ import java.util.Collection;
 
 public class MapleGuildAlliance implements java.io.Serializable {
 
-    private static enum GAOp {
+    private enum GAOp {
 
         NONE, DISBAND, NEWGUILD
     }
@@ -41,7 +41,7 @@ public class MapleGuildAlliance implements java.io.Serializable {
     private final int[] guilds = new int[5];
     private int allianceid, leaderid, capacity; //make SQL for this auto-increment
     private String name, notice;
-    private String ranks[] = new String[5];
+    private String[] ranks = new String[5];
 
     public MapleGuildAlliance(final int id) {
         super();
@@ -67,7 +67,6 @@ public class MapleGuildAlliance implements java.io.Serializable {
         } catch (SQLException se) {
             System.err.println("unable to read guild information from sql");
             FileoutputUtil.outError("logs/资料库异常.txt", se);
-            return;
         }
     }
 

@@ -64,7 +64,7 @@ public class 游戏抽奖工具 extends javax.swing.JFrame {
                 "物品代码", "名称"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false
             };
 
@@ -143,7 +143,7 @@ public class 游戏抽奖工具 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_删除游戏抽奖ActionPerformed
     public void 刷新游戏抽奖() {
-        for (int i = ((DefaultTableModel) (this.游戏抽奖.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.游戏抽奖.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.游戏抽奖.getModel())).removeRow(i);
         }
         try {

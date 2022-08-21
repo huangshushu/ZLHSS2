@@ -48,12 +48,12 @@ public enum MapleDisease implements Serializable {
     private final long i;
     private final boolean first;
 
-    private MapleDisease(long i) {
+    MapleDisease(long i) {
         this.i = i;
         first = false;
     }
 
-    private MapleDisease(long i, boolean first) {
+    MapleDisease(long i, boolean first) {
         this.i = i;
         this.first = first;
     }

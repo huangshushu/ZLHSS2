@@ -61,8 +61,8 @@ public class MobSkillFactory {
             }
             ret = new MobSkill(skillId, level);
             ret.addSummons(toSummon);
-            ret.setCoolTime(MapleDataTool.getInt("interval", skillData, 0) * 1000);
-            ret.setDuration(MapleDataTool.getInt("time", skillData, 1) * 1000);
+            ret.setCoolTime(MapleDataTool.getInt("interval", skillData, 0) * 1000L);
+            ret.setDuration(MapleDataTool.getInt("time", skillData, 1) * 1000L);
             ret.setHp(MapleDataTool.getInt("hp", skillData, 100));
             ret.setMpCon(MapleDataTool.getInt(skillData.getChildByPath("mpCon"), 0));
             ret.setSpawnEffect(MapleDataTool.getInt("summonEffect", skillData, 0));

@@ -21,7 +21,7 @@ public class AbsoluteLayout implements LayoutManager2, Serializable
     
     @Override
     public void removeLayoutComponent(final Component comp) {
-        this.constraints.remove((Object)comp);
+        this.constraints.remove(comp);
     }
     
     @Override
@@ -31,7 +31,7 @@ public class AbsoluteLayout implements LayoutManager2, Serializable
         final Enumeration e = this.constraints.keys();
         while (e.hasMoreElements()) {
             final Component comp = (Component)e.nextElement();
-            final AbsoluteConstraints ac = (AbsoluteConstraints)this.constraints.get((Object)comp);
+            final AbsoluteConstraints ac = (AbsoluteConstraints)this.constraints.get(comp);
             final Dimension size = comp.getPreferredSize();
             int width = ac.getWidth();
             if (width == -1) {
@@ -58,7 +58,7 @@ public class AbsoluteLayout implements LayoutManager2, Serializable
         final Enumeration e = this.constraints.keys();
         while (e.hasMoreElements()) {
             final Component comp = (Component)e.nextElement();
-            final AbsoluteConstraints ac = (AbsoluteConstraints)this.constraints.get((Object)comp);
+            final AbsoluteConstraints ac = (AbsoluteConstraints)this.constraints.get(comp);
             final Dimension size = comp.getMinimumSize();
             int width = ac.getWidth();
             if (width == -1) {
@@ -83,7 +83,7 @@ public class AbsoluteLayout implements LayoutManager2, Serializable
         final Enumeration e = this.constraints.keys();
         while (e.hasMoreElements()) {
             final Component comp = (Component)e.nextElement();
-            final AbsoluteConstraints ac = (AbsoluteConstraints)this.constraints.get((Object)comp);
+            final AbsoluteConstraints ac = (AbsoluteConstraints)this.constraints.get(comp);
             final Dimension size = comp.getPreferredSize();
             int width = ac.getWidth();
             if (width == -1) {

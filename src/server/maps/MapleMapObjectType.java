@@ -32,5 +32,5 @@ public enum MapleMapObjectType {
     Kite,
     MIST,
     REACTOR,
-    HIRED_MERCHANT;
+    HIRED_MERCHANT
 }

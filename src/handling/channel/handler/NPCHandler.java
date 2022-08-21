@@ -65,9 +65,8 @@ public class NPCHandler {
             mplew.write(slea.read(length - 13));
         } else {
             if (c.getPlayer().isShowErr()) {
-                c.getPlayer().showInfo("NPC动作", true, "未知NPC动作, Packet:" + slea.toString());
+                c.getPlayer().showInfo("NPC动作", true, "未知NPC动作, Packet:" + slea);
             }
-            return;
         }
 
         // c.sendPacket(mplew.getPacket());

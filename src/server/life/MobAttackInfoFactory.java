@@ -46,7 +46,7 @@ public class MobAttackInfoFactory {
             return ret;
         }
 
-        MapleData mobData = dataSource.getData(StringUtil.getLeftPaddedStr(Integer.toString(mob.getId()) + ".img", '0', 11));
+        MapleData mobData = dataSource.getData(StringUtil.getLeftPaddedStr(mob.getId() + ".img", '0', 11));
         if (mobData != null) {
             MapleData infoData = mobData.getChildByPath("info/link");
             if (infoData != null) {

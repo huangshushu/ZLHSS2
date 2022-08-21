@@ -39,7 +39,7 @@ public class MapleReactorFactory {
         MapleReactorStats stats = reactorStats.get(Integer.valueOf(rid));
         if (stats == null) {
             int infoId = rid;
-            MapleData reactorData = data.getData(StringUtil.getLeftPaddedStr(Integer.toString(infoId) + ".img", '0', 11));
+            MapleData reactorData = data.getData(StringUtil.getLeftPaddedStr(infoId + ".img", '0', 11));
             MapleData link = reactorData.getChildByPath("info/link");
             if (link != null) {
                 infoId = MapleDataTool.getIntConvert("info/link", reactorData);
@@ -47,7 +47,7 @@ public class MapleReactorFactory {
             }
             if (stats == null) {
                 stats = new MapleReactorStats();
-                reactorData = data.getData(StringUtil.getLeftPaddedStr(Integer.toString(infoId) + ".img", '0', 11));
+                reactorData = data.getData(StringUtil.getLeftPaddedStr(infoId + ".img", '0', 11));
                 if (reactorData == null) {
                     return stats;
                 }

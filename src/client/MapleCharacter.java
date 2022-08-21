@@ -1644,10 +1644,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             updateSingleStat(MapleStat.FACE, newFace);
             equipChanged();
         }
-        if (!MapleItemInformationProvider.faceLists.containsKey(color)) {
-            return false;
-        }
-        return true;
+        return MapleItemInformationProvider.faceLists.containsKey(color);
     }
 
     public int getBuffSource(MapleBuffStat stat) {
@@ -1935,6 +1932,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 for (MapleBuffStatValueHolder contained : effectsToCancel) {
                     if (mbsvh.startTime == contained.startTime && contained.effect == mbsvh.effect) {
                         addMbsvh = false;
+                        break;
                     }
                 }
                 if (addMbsvh) {
@@ -2288,7 +2286,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 battleshipHP = 0;
                 final MapleStatEffect effect = getStatForBuff(MapleBuffStat.MONSTER_RIDING);
                 client.sendPacket(MaplePacketCreator.skillCooldown(5221006, effect.getCooldown()));
-                addCooldown(5221006, System.currentTimeMillis(), effect.getCooldown() * 1000);
+                addCooldown(5221006, System.currentTimeMillis(), effect.getCooldown() * 1000L);
                 dispelSkill(5221006);
             }
         }
@@ -2923,13 +2921,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public void gainSP(int sp) {
         this.remainingSp[GameConstants.getSkillBook(job)] += sp; // default
         client.sendPacket(MaplePacketCreator.updateSp(this, false));
-        client.sendPacket(UIPacket.getSPMsg((byte) sp, (short) job));
+        client.sendPacket(UIPacket.getSPMsg((byte) sp, job));
     }
 
     public void gainSP(int sp, final int skillbook) {
         this.remainingSp[skillbook] += sp; // default
         client.sendPacket(MaplePacketCreator.updateSp(this, false));
-        client.sendPacket(UIPacket.getSPMsg((byte) sp, (short) job));
+        client.sendPacket(UIPacket.getSPMsg((byte) sp, job));
     }
 
     public void resetAPSP() {
@@ -2945,7 +2943,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             return;
         }
         changeSkillLevel(skill, newLevel, newMasterlevel,
-                skill.isTimeLimited() ? (System.currentTimeMillis() + (long) (30L * 24L * 60L * 60L * 1000L)) : -1);
+                skill.isTimeLimited() ? (System.currentTimeMillis() + (30L * 24L * 60L * 60L * 1000L)) : -1);
     }
 
     public void changeSkillLevel(final ISkill skill, byte newLevel, byte newMasterlevel, long expiration) {
@@ -2977,9 +2975,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
         client.sendPacket(MaplePacketCreator.updateSkill(skill.getId(), newLevel, newMasterlevel, -1L));
         if (newLevel == 0 && newMasterlevel == 0) {
-            if (skills.containsKey(skill)) {
-                skills.remove(skill);
-            }
+            skills.remove(skill);
         } else {
             skills.put(skill, new SkillEntry(newLevel, newMasterlevel, -1L));
         }
@@ -3659,7 +3655,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         if (clone) {
             return;
         }
-        if (monster != null && controlled.contains(monster)) {
+        if (monster != null) {
             controlled.remove(monster);
         }
     }
@@ -4271,7 +4267,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 } catch (Exception ex) {
                 }
             }
-            client.banMacs(mac);
+            MapleClient.banMacs(mac);
             rs.close();
             stmt.close();
             return true;
@@ -4428,9 +4424,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public void addPet(final MaplePet pet) {
-        if (pets.contains(pet)) {
-            pets.remove(pet);
-        }
+        pets.remove(pet);
         pets.add(pet);
         // So that the pet will be at the last
         // Pet index logic :(
@@ -4476,13 +4470,13 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public final void shiftPetsRight() {
         List<MaplePet> petsz = getSummonedPets();
         if (petsz.size() >= 3 || petsz.size() < 1) {
-            return;
         } else {
             boolean[] indexBool = new boolean[] { false, false, false };
             for (int i = 0; i < 3; i++) {
                 for (MaplePet p : petsz) {
                     if (p.getSummonedValue() == i + 1) {
                         indexBool[i] = true;
+                        break;
                     }
                 }
             }
@@ -4826,7 +4820,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         if (guildid <= 0) {
             return;
         }
-        mgc.setLevel((short) level);
+        mgc.setLevel(level);
         mgc.setJobId(job);
         World.Guild.memberLevelJobUpdate(mgc);
     }
@@ -5058,8 +5052,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
             con.close();
         } catch (SQLException ex) {
-            System.err.println("setmoneyb" + (Object) ex);
-            FileoutputUtil.outputFileError("logs/数据库异常.txt", (Throwable) ex);
+            System.err.println("setmoneyb" + ex);
+            FileoutputUtil.outputFileError("logs/数据库异常.txt", ex);
             ex.getStackTrace();
         }
     }
@@ -5079,14 +5073,14 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             rs.close();
             con.close();
         } catch (SQLException ex) {
-            System.err.println("getmoneyb" + (Object) ex);
-            FileoutputUtil.outputFileError("logs/数据库异常.txt", (Throwable) ex);
+            System.err.println("getmoneyb" + ex);
+            FileoutputUtil.outputFileError("logs/数据库异常.txt", ex);
             ex.getStackTrace();
         }
         return moneyb;
     }
 
-    public static enum FameStatus {
+    public enum FameStatus {
 
         OK, NOT_TODAY, NOT_THIS_MONTH
     }
@@ -5113,9 +5107,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public void removeCooldown(int skillId) {
-        if (coolDowns.containsKey(skillId)) {
-            coolDowns.remove(skillId);
-        }
+        coolDowns.remove(skillId);
     }
 
     public boolean skillisCooling(int skillId) {
@@ -5170,7 +5162,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public final boolean hasDisease(final MapleDisease dis) {
-        return diseases.keySet().contains(dis);
+        return diseases.containsKey(dis);
     }
 
     public void getDiseaseBuff(final MapleDisease disease, MobSkill skill) {
@@ -7062,7 +7054,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public void expandInventory(byte type, int amount) {
         final MapleInventory inv = getInventory(MapleInventoryType.getByType(type));
         inv.addSlot((byte) amount);
-        client.sendPacket(MaplePacketCreator.getSlotUpdate(type, (byte) inv.getSlotLimit()));
+        client.sendPacket(MaplePacketCreator.getSlotUpdate(type, inv.getSlotLimit()));
     }
 
     public boolean allowedToTarget(MapleCharacter other) {
@@ -7197,7 +7189,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
 
         updateInfoQuest(questid,
-                changed ? newQuest.toString().substring(0, newQuest.toString().length() - 1) : newQuest.toString());
+                changed ? newQuest.substring(0, newQuest.toString().length() - 1) : newQuest.toString());
     }
 
     public void recalcPartyQuestRank(final int questid) {
@@ -8447,9 +8439,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         MapleCharacter chr = null;
         if (World.Find.findChannel(cid) >= 1) {
             chr = ChannelServer.getInstance(World.Find.findChannel(cid)).getPlayerStorage().getCharacterById(cid);
-            if (chr != null) {
-                return chr;
-            }
+            return chr;
         }
 
         return null;
@@ -8459,9 +8449,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         MapleCharacter chr = null;
         if (World.Find.findChannel(name) >= 1) {
             chr = ChannelServer.getInstance(World.Find.findChannel(name)).getPlayerStorage().getCharacterByName(name);
-            if (chr != null) {
-                return chr;
-            }
+            return chr;
         }
 
         return null;
@@ -9823,7 +9811,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         for (ISkill skil : SkillFactory.getAllSkills()) {
             if (skil.canBeLearnedBy(job)) {
                 if (skil.getId() >= 1000000) {
-                    changeSkillLevel(skil, skil.getMaxLevel(), (byte) skil.getMaxLevel());
+                    changeSkillLevel(skil, skil.getMaxLevel(), skil.getMaxLevel());
                 }
             }
         }
@@ -10445,7 +10433,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public void gainSP2(int sp) {
         this.remainingSp[GameConstants.getSkillBook(job)] -= sp; // default
         client.sendPacket(MaplePacketCreator.updateSp(this, false));
-        client.sendPacket(UIPacket.getSPMsg((byte) sp, (short) job));
+        client.sendPacket(UIPacket.getSPMsg((byte) sp, job));
     }
 
     public int getHyPay(int type) {
@@ -10546,7 +10534,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
     
     public final int[] StringtoInt(final String str) {
-        int ret[] = new int[100]; //最大支持100个前置条件参数
+        int[] ret = new int[100]; //最大支持100个前置条件参数
         StringTokenizer toKenizer = new StringTokenizer(str, ",");
         String[] strx = new String[toKenizer.countTokens()];
         for (int i = 0; i < toKenizer.countTokens(); i++) {

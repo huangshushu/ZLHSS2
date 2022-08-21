@@ -29,7 +29,7 @@ import java.io.IOException;
 
 public class FileStoredPngMapleCanvas implements MapleCanvas {
 
-    private File file;
+    private final File file;
     private int width;
     private int height;
     private BufferedImage image;

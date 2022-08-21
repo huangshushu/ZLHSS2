@@ -80,28 +80,28 @@ public enum MonsterStatus {
     private final boolean isDefault;
     private final int order; // 解包的顺序
 
-    private MonsterStatus(int i) {
+    MonsterStatus(int i) {
         this.i = 1 << (i % 32);
         this.pos = 3 - (int) Math.floor(i / 32);
         this.order = pos;
         this.isDefault = false;
     }
 
-    private MonsterStatus(int i, int order) {
+    MonsterStatus(int i, int order) {
         this.i = 1 << (i % 32);
         this.pos = 3 - (int) Math.floor(i / 32);
         this.order = order;
         this.isDefault = false;
     }
 
-    private MonsterStatus(int i, boolean isDefault) {
+    MonsterStatus(int i, boolean isDefault) {
         this.i = 1 << (i % 32);
         this.pos = 3 - (int) Math.floor(i / 32);
         this.isDefault = isDefault;
         this.order = i;
     }
 
-    private MonsterStatus(int i, boolean isDefault, int order) {
+    MonsterStatus(int i, boolean isDefault, int order) {
         this.i = 1 << (i % 32);
         this.pos = 3 - (int) Math.floor(i / 32);
         this.isDefault = isDefault;

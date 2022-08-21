@@ -37,7 +37,7 @@ public class BossLogCopyManager {
         Map<String, Integer> info_map = new HashMap<>();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try (Connection con1 = DBConPool.getInstance().getDataSource().getConnection();) {
+        try (Connection con1 = DBConPool.getInstance().getDataSource().getConnection()) {
 
             ps = con1.prepareStatement("SELECT * FROM bosslog_copy WHERE characterid = ? ORDER BY time ASC");
             ps.setInt(1, cid);
@@ -255,7 +255,7 @@ public class BossLogCopyManager {
     }
 
     public void resetBossLog(String boss, int type, MapleCharacter chr) {
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
 
             PreparedStatement ps = con.prepareStatement(
                     "UPDATE bosslog_copy SET count = ?, type = ?, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
@@ -271,7 +271,7 @@ public class BossLogCopyManager {
     }
 
     public void resetBossLog(String boss, int type, int count, MapleCharacter chr) {
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
 
             PreparedStatement ps = con.prepareStatement(
                     "UPDATE bosslog_copy SET count = ?, type = ?, time = CURRENT_TIMESTAMP() WHERE characterid = ? AND bossid = ?");
@@ -286,7 +286,7 @@ public class BossLogCopyManager {
         }
     }
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * @Author: weich
@@ -325,7 +325,7 @@ public class BossLogCopyManager {
      * @Date: 2019/11/24 13:35
      */
     public int getBossLogW(String bossid, int type, MapleCharacter chr) {
-        try (Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
 
             int ret_count;
             PreparedStatement ps;

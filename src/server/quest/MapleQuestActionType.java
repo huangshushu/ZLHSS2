@@ -27,7 +27,7 @@ public enum MapleQuestActionType {
 
     final byte type;
 
-    private MapleQuestActionType(int type) {
+    MapleQuestActionType(int type) {
         this.type = (byte) type;
     }
 

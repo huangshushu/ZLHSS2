@@ -194,7 +194,7 @@ public class DueyHandler {
                 break;
             }
             default: {
-                System.out.println("Unhandled Duey operation : " + slea.toString());
+                System.out.println("Unhandled Duey operation : " + slea);
                 break;
             }
         }

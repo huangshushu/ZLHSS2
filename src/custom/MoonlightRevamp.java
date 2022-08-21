@@ -34,7 +34,7 @@ public class MoonlightRevamp {
     public static final int shopNpc = 9010040; // Conor
     public static final int shopId = 12212012; // random id
 
-    public static enum MoonlightShop {
+    public enum MoonlightShop {
 
         // Example: letter(shopitemid, shopid, itemid, price, position, requiered item,
         // requiered item quantity, rank, how many in a bundle, tab, minimum level to

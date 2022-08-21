@@ -116,7 +116,7 @@ public class ChatHandler {
         if (numRecipients <= 0) {
             return;
         }
-        int recipients[] = new int[numRecipients];
+        int[] recipients = new int[numRecipients];
 
         for (byte i = 0; i < numRecipients; i++) {
             recipients[i] = slea.readInt();

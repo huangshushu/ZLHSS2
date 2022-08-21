@@ -21,6 +21,7 @@
 package tools;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -172,7 +173,7 @@ public class FileoutputUtil {
             if (outputFile.exists() && outputFile.isFile() && outputFile.length() >= 1024000 && size) {
                 outputFile.renameTo(new File(
                         file.substring(0, file.length() - 4) + "_" + sdfT.format(Calendar.getInstance().getTime())
-                                + file.substring(file.length() - 4, file.length())));
+                                + file.substring(file.length() - 4)));
                 outputFile = new File(file);
             }
             if (outputFile.getParentFile() != null) {
@@ -180,7 +181,7 @@ public class FileoutputUtil {
             }
             out = new FileOutputStream(file, true);
             if (!out.toString().contains(msg) || !notExists) {
-                try (OutputStreamWriter osw = new OutputStreamWriter(out, "UTF-8")) {
+                try (OutputStreamWriter osw = new OutputStreamWriter(out, StandardCharsets.UTF_8)) {
                     osw.write(msg);
                     osw.flush();
                 }

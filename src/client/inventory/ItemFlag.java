@@ -30,7 +30,7 @@ public enum ItemFlag {
     KARMA_USE(0x02);
     private final int i;
 
-    private ItemFlag(int i) {
+    ItemFlag(int i) {
         this.i = i;
     }
 

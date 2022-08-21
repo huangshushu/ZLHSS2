@@ -24,9 +24,9 @@ import java.awt.*;
 
 public class MapleFoothold implements Comparable<MapleFoothold> {
 
-    private Point p1;
-    private Point p2;
-    private int id;
+    private final Point p1;
+    private final Point p2;
+    private final int id;
     private short next, prev;
 
     public MapleFoothold(Point p1, Point p2, int id) {
@@ -56,7 +56,7 @@ public class MapleFoothold implements Comparable<MapleFoothold> {
     }
 
     public int compareTo(MapleFoothold o) {
-        MapleFoothold other = (MapleFoothold) o;
+        MapleFoothold other = o;
         if (p2.y < other.getY1()) {
             return -1;
         } else if (p1.y > other.getY2()) {

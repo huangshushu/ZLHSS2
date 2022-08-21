@@ -230,7 +230,7 @@ public class MapleInventoryManipulator {
                     Iterator<IItem> i = existing.iterator();
                     while (quantity > 0) {
                         if (i.hasNext()) {
-                            nItem = (Item) i.next();
+                            nItem = i.next();
                             short oldQ = nItem.getQuantity();
 
                             if (oldQ < slotMax) {
@@ -445,7 +445,7 @@ public class MapleInventoryManipulator {
                     Iterator<IItem> i = existing.iterator();
                     while (quantity > 0) {
                         if (i.hasNext()) {
-                            nItem = (Item) i.next();
+                            nItem = i.next();
                             short oldQ = nItem.getQuantity();
 
                             if (oldQ < slotMax) {
@@ -684,7 +684,7 @@ public class MapleInventoryManipulator {
     }
 
     private static int rand(int min, int max) {
-        return Math.abs((int) Randomizer.rand(min, max));
+        return Math.abs(Randomizer.rand(min, max));
     }
 
     public static boolean checkSpace(final MapleClient c, final int itemid, int quantity, final String owner) {

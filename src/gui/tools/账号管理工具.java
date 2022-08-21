@@ -303,10 +303,10 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "账号ID", "账号", "IP地址", "MAC地址", "绑定QQ", "点券", "抵用", "最近上线", "在线", "封号", "GM"
             }
         ) {
-            Class[] types = new Class [] {
+            final Class[] types = new Class [] {
                 java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
             };
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false, false
             };
 
@@ -595,7 +595,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "角色ID", "账号ID", "角色昵称", "职业", "等级", "力量", "敏捷", "智力", "运气", "MaxHP", "MaxMP", "金币", "所在地图", "状态", "GM", "发型", "脸型"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
@@ -905,7 +905,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序号", "物品代码", "物品名字"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false
             };
 
@@ -977,7 +977,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序号", "物品代码", "物品名字"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false
             };
 
@@ -1049,7 +1049,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序号", "物品代码", "物品名字", "物品数量"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -1121,7 +1121,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序号", "物品代码", "物品名字", "物品数量"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -1193,7 +1193,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序号", "物品代码", "物品名字", "物品数量"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -1265,7 +1265,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序号", "物品代码", "物品名字", "物品数量"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -1337,7 +1337,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序号", "物品代码", "物品名字", "物品数量"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -1409,7 +1409,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序号", "物品代码", "物品名字", "物品数量"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -1480,7 +1480,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序号", "物品代码", "物品名字", "物品数量"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -1552,7 +1552,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序号", "物品代码", "物品名字"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false
             };
 
@@ -1642,7 +1642,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序号", "技能名字", "技能代码", "目前等级", "最高等级"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
 
@@ -1742,7 +1742,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "家族ID", "家族名称", "族长/角色ID", "成员2", "成员3", "成员4", "成员5", "家族GP"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false
             };
 
@@ -1948,7 +1948,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序列号", "IP地址"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false
             };
 
@@ -1967,7 +1967,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 "序列号", "MAC地址"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false
             };
 
@@ -2148,7 +2148,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     private void 离线账号ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_离线账号ActionPerformed
         显示在线账号.setText("账号在线; " + 在线账号() + "");
         账号提示语言.setText("[信息]:显示游戏所有离线玩家账号信息。");
-        for (int i = ((DefaultTableModel) (this.账号信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.账号信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.账号信息.getModel())).removeRow(i);
         }
         try {
@@ -2224,7 +2224,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     private void 已封账号ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_已封账号ActionPerformed
         显示在线账号.setText("账号在线; " + 在线账号() + "");
         账号提示语言.setText("[信息]:显示游戏所有已被封禁的玩家账号信息。");
-        for (int i = ((DefaultTableModel) (this.账号信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.账号信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.账号信息.getModel())).removeRow(i);
         }
         try {
@@ -2276,7 +2276,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     private void 在线账号ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_在线账号ActionPerformed
         显示在线账号.setText("账号在线; " + 在线账号() + "");
         账号提示语言.setText("[信息]:显示游戏所有在线玩家账号信息。");
-        for (int i = ((DefaultTableModel) (this.账号信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.账号信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.账号信息.getModel())).removeRow(i);
         }
         try {
@@ -2406,7 +2406,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
     private void 显示管理角色ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_显示管理角色ActionPerformed
         显示在线玩家.setText("在线玩家; " + 在线玩家() + "");
-        for (int i = ((DefaultTableModel) (this.角色信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色信息.getModel())).removeRow(i);
         }
         try {
@@ -2783,7 +2783,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
     private void 离线角色ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_离线角色ActionPerformed
         显示在线玩家.setText("在线玩家; " + 在线玩家() + "");
-        for (int i = ((DefaultTableModel) (this.角色信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色信息.getModel())).removeRow(i);
         }
         try {
@@ -2826,7 +2826,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
     private void 在线角色ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_在线角色ActionPerformed
         显示在线玩家.setText("在线玩家; " + 在线玩家() + "");
-        for (int i = ((DefaultTableModel) (this.角色信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色信息.getModel())).removeRow(i);
         }
         try {
@@ -2882,7 +2882,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
         PreparedStatement ps1 = null;
         ResultSet rs = null;
         boolean result = this.身上穿戴序号1.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             try {
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM inventoryitems WHERE inventoryitemid = ?");
                 ps1.setInt(1, Integer.parseInt(this.身上穿戴序号1.getText()));
@@ -2916,7 +2916,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
         PreparedStatement ps1 = null;
         ResultSet rs = null;
         boolean result = this.装备背包物品序号.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             try {
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM inventoryitems WHERE inventoryitemid = ?");
                 ps1.setInt(1, Integer.parseInt(this.装备背包物品序号.getText()));
@@ -2950,7 +2950,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
         PreparedStatement ps1 = null;
         ResultSet rs = null;
         boolean result = this.消耗背包物品序号.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             try {
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM inventoryitems WHERE inventoryitemid = ?");
                 ps1.setInt(1, Integer.parseInt(this.消耗背包物品序号.getText()));
@@ -2984,7 +2984,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
         PreparedStatement ps1 = null;
         ResultSet rs = null;
         boolean result = this.设置背包物品序号.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             try {
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM inventoryitems WHERE inventoryitemid = ?");
                 ps1.setInt(1, Integer.parseInt(this.设置背包物品序号.getText()));
@@ -3018,7 +3018,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
         PreparedStatement ps1 = null;
         ResultSet rs = null;
         boolean result = this.其他背包物品序号.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             try {
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM inventoryitems WHERE inventoryitemid = ?");
                 ps1.setInt(1, Integer.parseInt(this.其他背包物品序号.getText()));
@@ -3052,7 +3052,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
         PreparedStatement ps1 = null;
         ResultSet rs = null;
         boolean result = this.特殊背包物品序号.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             try {
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM inventoryitems WHERE inventoryitemid = ?");
                 ps1.setInt(1, Integer.parseInt(this.特殊背包物品序号.getText()));
@@ -3102,7 +3102,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
         PreparedStatement ps1 = null;
         ResultSet rs = null;
         boolean result = this.商城仓库物品序号.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             try {
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM csitems WHERE inventoryitemid = ?");
                 ps1.setInt(1, Integer.parseInt(this.商城仓库物品序号.getText()));
@@ -3262,7 +3262,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
         try {
 
             Connection con = DBConPool.getInstance().getDataSource().getConnection();
-            PreparedStatement ps = con.prepareStatement("UPDATE guilds SET GP =" + 家族GP.getText().toString() + " WHERE guildid = " + 家族ID.getText().toString() + "");
+            PreparedStatement ps = con.prepareStatement("UPDATE guilds SET GP =" + 家族GP.getText() + " WHERE guildid = " + 家族ID.getText() + "");
             ps.executeUpdate();
             ps.close();
             System.out.println("update guild gp !");
@@ -3343,7 +3343,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (int i = ((DefaultTableModel) (this.家族信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.家族信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.家族信息.getModel())).removeRow(i);
         }
         try {
@@ -3394,7 +3394,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     public void 刷新封MAC() {
-        for (int i = ((DefaultTableModel) (this.封MAC.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.封MAC.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.封MAC.getModel())).removeRow(i);
         }
         try {
@@ -3418,7 +3418,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     public void 刷新封IP() {
-        for (int i = ((DefaultTableModel) (this.封IP.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.封IP.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.封IP.getModel())).removeRow(i);
         }
         try {
@@ -3529,7 +3529,6 @@ public class 账号管理工具 extends javax.swing.JFrame {
         boolean result2 = this.注册的密码.getText().matches("[0-9]+");
         if (注册的账号.getText().equals("") || 注册的密码.getText().equals("")) {
             账号提示语言.setText("[信息]:请填写注册的账号密码");
-            return;
         } else {
             Connection con;
             String account = 注册的账号.getText();
@@ -3558,13 +3557,12 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 账号提示语言.setText("[信息]:注册成功。账号: " + account + " 密码: " + password + "");
             } catch (SQLException ex) {
                 System.out.println(ex);
-                return;
             }
         }
     }
 
     private void 刷新账号信息() {
-        for (int i = ((DefaultTableModel) (this.账号信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.账号信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.账号信息.getModel())).removeRow(i);
         }
         try {
@@ -3618,7 +3616,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
     private void 查找QQ() {
 
-        for (int i = ((DefaultTableModel) (this.账号信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.账号信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.账号信息.getModel())).removeRow(i);
         }
         try {
@@ -3684,7 +3682,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
     private void 查找账号() {
 
-        for (int i = ((DefaultTableModel) (this.账号信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.账号信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.账号信息.getModel())).removeRow(i);
         }
         try {
@@ -3745,7 +3743,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     private void 刷新技能信息() {
         boolean result1 = this.角色ID.getText().matches("[0-9]+");
         if (result1) {
-            for (int i = ((DefaultTableModel) (this.技能信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.技能信息.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.技能信息.getModel())).removeRow(i);
             }
             try {
@@ -3802,7 +3800,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
     private void 刷新角色信息() {
         String 输出 = "";
-        for (int i = ((DefaultTableModel) (this.角色信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色信息.getModel())).removeRow(i);
         }
         try {
@@ -3882,7 +3880,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     private void 刷新角色背包穿戴() {
-        for (int i = ((DefaultTableModel) (this.角色背包穿戴.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色背包穿戴.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色背包穿戴.getModel())).removeRow(i);
         }
         try {
@@ -3917,7 +3915,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     private void 刷新角色装备背包() {
-        for (int i = ((DefaultTableModel) (this.角色装备背包.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色装备背包.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色装备背包.getModel())).removeRow(i);
         }
         try {
@@ -3952,7 +3950,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     private void 刷新角色消耗背包() {
-        for (int i = ((DefaultTableModel) (this.角色消耗背包.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色消耗背包.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色消耗背包.getModel())).removeRow(i);
         }
         try {
@@ -3987,7 +3985,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     private void 刷新角色特殊背包() {
-        for (int i = ((DefaultTableModel) (this.角色特殊背包.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色特殊背包.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色特殊背包.getModel())).removeRow(i);
         }
         try {
@@ -4021,7 +4019,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     private void 刷新角色游戏仓库() {
-        for (int i = ((DefaultTableModel) (this.角色游戏仓库.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色游戏仓库.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色游戏仓库.getModel())).removeRow(i);
         }
         try {
@@ -4055,7 +4053,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     private void 刷新角色商城仓库() {
-        for (int i = ((DefaultTableModel) (this.角色商城仓库.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色商城仓库.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色商城仓库.getModel())).removeRow(i);
         }
         try {
@@ -4089,7 +4087,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     private void 刷新角色点券拍卖行() {
-        for (int i = ((DefaultTableModel) (this.角色点券拍卖行.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色点券拍卖行.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色点券拍卖行.getModel())).removeRow(i);
         }
         try {
@@ -4119,7 +4117,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     private void 刷新角色金币拍卖行() {
-        for (int i = ((DefaultTableModel) (this.角色金币拍卖行.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色金币拍卖行.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色金币拍卖行.getModel())).removeRow(i);
         }
         try {
@@ -4149,7 +4147,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     private void 刷新角色其他背包() {
-        for (int i = ((DefaultTableModel) (this.角色其他背包.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色其他背包.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色其他背包.getModel())).removeRow(i);
         }
         try {
@@ -4183,7 +4181,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     private void 刷新角色设置背包() {
-        for (int i = ((DefaultTableModel) (this.角色设置背包.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色设置背包.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色设置背包.getModel())).removeRow(i);
         }
         try {
@@ -4217,7 +4215,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
     }
 
     private void 刷新角色信息2() {
-        for (int i = ((DefaultTableModel) (this.角色信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.角色信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.角色信息.getModel())).removeRow(i);
         }
         try {

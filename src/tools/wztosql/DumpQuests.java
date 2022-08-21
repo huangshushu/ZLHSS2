@@ -20,7 +20,7 @@ import java.util.List;
 
 public class DumpQuests {
 
-    private MapleDataProvider quest;
+    private final MapleDataProvider quest;
     protected boolean hadError = false;
     protected boolean update = false;
     protected int id = 0;
@@ -343,6 +343,7 @@ public class DumpQuests {
         for (String file : args) {
             if (file.equalsIgnoreCase("-update")) {
                 update = true;
+                break;
             }
         }
         int currentQuest = 0;

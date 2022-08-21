@@ -46,7 +46,7 @@ public class MapScriptMethods {
         "如果你想品尝失利的苦涩，进来吧！",
         "我会让你后悔彻底挑战睦隆道场！快点！"};
 
-    private static enum onFirstUserEnter {
+    private enum onFirstUserEnter {
 
         dojang_Eff,
         PinkBeen_before,
@@ -80,9 +80,9 @@ public class MapScriptMethods {
                 return NULL;
             }
         }
-    };
+    }
 
-    private static enum onUserEnter {
+    private enum onUserEnter {
 
         babyPigMap,
         crash_Dragon,
@@ -173,7 +173,7 @@ public class MapScriptMethods {
                 return NULL;
             }
         }
-    };
+    }
 
     public static void startScript_FirstUser(MapleClient c, String scriptName) {
         if (c.getPlayer() == null) {
@@ -185,7 +185,7 @@ public class MapScriptMethods {
         switch (onFirstUserEnter.fromString(scriptName)) {
             case dojang_Eff: {
                 int temp = (c.getPlayer().getMapId() - 925000000) / 100;
-                int stage = (int) (temp - ((temp / 100) * 100));
+                int stage = temp - ((temp / 100) * 100);
 
                 sendDojoClock(c, getTiming(stage) * 60);
                 sendDojoStart(c, stage - getDojoStageDec(stage));
@@ -326,7 +326,7 @@ public class MapScriptMethods {
                 }
                 final EventManager em = c.getChannelServer().getEventSM().getEventManager("Pirate");
                 if (c.getPlayer().getMapId() == 925100500 && em != null && em.getProperty("stage5") != null) {
-                    int mobId = Randomizer.nextBoolean() ? 9300119 : 9300119; //lord pirate
+                    int mobId = 9300119; //lord pirate
                     final int st = Integer.parseInt(em.getProperty("stage5"));
                     switch (st) {
                         case 1:
@@ -672,14 +672,14 @@ public class MapScriptMethods {
                         try {
                             boolean changed = false;
                             if (c.getPlayer().getMapId() == m.maps[i]) {
-                                if (!quest.trim().equals("") && quest.substring(i + 6, i + 7).equals("0")) {
+                                if (!quest.trim().equals("") && quest.charAt(i + 6) == '0') {
                                     sb.append("1");
                                     changed = true;
                                     changedd = true;
                                 }
                             }
                             if (!quest.trim().equals("") && !changed) {
-                                sb.append(quest.substring(i + 6, i + 7));
+                                sb.append(quest.charAt(i + 6));
                             }
                         } catch (Exception e) {
                             FilePrinter.printError("MSMethod Length Error", e, quest);
@@ -690,8 +690,8 @@ public class MapScriptMethods {
                         c.getPlayer().updateInfoQuest(m.questid - 2005, sb.toString());
                         MapleQuest.getInstance(m.questid - 1995).forceStart(c.getPlayer(), 0, String.valueOf(number));
                         c.getPlayer().dropMessage(-1, "访问 " + number + "/" + m.maps.length + " 个地区.");
-                        c.getPlayer().dropMessage(-1, "称号 " + String.valueOf(m) + " 已完成了");
-                        c.sendPacket(MaplePacketCreator.showQuestMsg("称号 " + String.valueOf(m) + " 已完成访问 " + number + "/" + m.maps.length + " 个地区"));
+                        c.getPlayer().dropMessage(-1, "称号 " + m + " 已完成了");
+                        c.sendPacket(MaplePacketCreator.showQuestMsg("称号 " + m + " 已完成访问 " + number + "/" + m.maps.length + " 个地区"));
                     }
                 }
                 break;

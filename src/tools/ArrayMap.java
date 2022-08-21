@@ -120,7 +120,7 @@ public class ArrayMap<K, V> extends AbstractMap<K, V> implements Serializable {
     }
 
     private transient Set<? extends java.util.Map.Entry<K, V>> entries = null;
-    private ArrayList<Entry<K, V>> list;
+    private final ArrayList<Entry<K, V>> list;
 
     /**
      * Class constructor

@@ -368,7 +368,7 @@ public class MapleQuest implements Serializable {
         return viewMedalItem;
     }
 
-    public static enum MedalQuest {
+    public enum MedalQuest {
 
         新手冒险家(29005, 29015, 15,
                 new int[] { 104000000, 104010001, 100000006, 104020000, 100000000, 100010000, 100040000, 100040100,
@@ -398,7 +398,7 @@ public class MapleQuest implements Serializable {
         public int questid, level, lquestid;
         public int[] maps;
 
-        private MedalQuest(int questid, int lquestid, int level, int[] maps) {
+        MedalQuest(int questid, int lquestid, int level, int[] maps) {
             this.questid = questid; // infoquest = questid -2005, customdata = questid -1995
             this.level = level;
             this.lquestid = lquestid;

@@ -64,43 +64,43 @@ public interface ISkill {
      * @param job 角色职业
      * @return 是否能学习
      */
-    public boolean canBeLearnedBy(int job);
+    boolean canBeLearnedBy(int job);
 
     /**
      * 用于确认四转职业的技能
      *
      * @return 是否为四转技能
      */
-    public boolean isFourthJob();
+    boolean isFourthJob();
 
     /**
      * 回传技能是否含有action值
      *
      * @return 是否含有action值
      */
-    public boolean hasAction();
+    boolean hasAction();
 
     /**
      *
      * @return
      */
-    public boolean isTimeLimited();
+    boolean isTimeLimited();
 
-    public int getMasterLevel();
+    int getMasterLevel();
 
-    public Element getElement();
+    Element getElement();
 
-    public boolean isBeginnerSkill();
+    boolean isBeginnerSkill();
 
-    public boolean hasRequiredSkill();
+    boolean hasRequiredSkill();
 
-    public boolean isInvisible();
+    boolean isInvisible();
 
-    public boolean isChargeSkill();
+    boolean isChargeSkill();
 
-    public int getRequiredSkillLevel();
+    int getRequiredSkillLevel();
 
-    public int getRequiredSkillId();
+    int getRequiredSkillId();
 
-    public String getName();
+    String getName();
 }

@@ -39,7 +39,7 @@ public class ItemActionManager extends NPCConversationManager {
 
     public boolean usedAll() {
         return MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.getByType(item.getType()),
-                item.getPosition(), (short) item.getQuantity(), true, false, 0);
+                item.getPosition(), item.getQuantity(), true, false, 0);
     }
 
     public void dispose(int remove) {

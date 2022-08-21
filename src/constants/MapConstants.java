@@ -23,21 +23,17 @@ public class MapConstants {
         if (header == 1090) {
             return true;
         }
-        switch (mapid) {
-            case 702060000:
-                return true;
-            default:
-                return false;
+        if (mapid == 702060000) {
+            return true;
         }
+        return false;
     }
 
     public static boolean isForceRespawn(int mapid) {
-        switch (mapid) {
-            case 925100100: // crocs and stuff
-                return true;
-            default:
-                return false;
+        if (mapid == 925100100) { // crocs and stuff
+            return true;
         }
+        return false;
     }
 
     public static boolean isCar(final int mapid) {

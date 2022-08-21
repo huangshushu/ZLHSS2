@@ -99,11 +99,7 @@ public class BossRankManager {
             ps.setInt(2, points);
             ps.setInt(3, count);
             rs = ps.executeQuery();
-            if (rs.next()) {
-                return true;
-            }else {
-                return false;
-            }
+            return rs.next();
         } catch (Exception Ex) {
             Ex.printStackTrace();
         } finally {
@@ -511,7 +507,7 @@ public class BossRankManager {
         infos.add(info);
     }
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * @Author: weich

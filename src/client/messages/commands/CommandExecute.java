@@ -24,7 +24,7 @@ public abstract class CommandExecute {
     enum ReturnValue {
 
         DONT_LOG,
-        LOG;
+        LOG
     }
 
     public CommandType getType() {

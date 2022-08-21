@@ -166,7 +166,7 @@ public class 爆率设置 extends javax.swing.JFrame {
                 "序列号", "反应堆", "物品代码", "概率", "物品名字"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
 
@@ -343,7 +343,7 @@ public class 爆率设置 extends javax.swing.JFrame {
                 "序列号", "物品代码", "爆率", "物品名"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -513,7 +513,7 @@ public class 爆率设置 extends javax.swing.JFrame {
                 "序列号", "怪物代码", "物品代码", "爆率", "物品名字"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
 
@@ -765,7 +765,7 @@ public class 爆率设置 extends javax.swing.JFrame {
                 "序号", "代码", "概率", "物品名称"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -966,7 +966,7 @@ public class 爆率设置 extends javax.swing.JFrame {
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
         boolean result2 = this.查找反应堆掉落.getText().matches("[0-9]+");
         if (result2) {
-            for (int i = ((DefaultTableModel) (this.反应堆.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.反应堆.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.反应堆.getModel())).removeRow(i);
             }
             try {
@@ -991,7 +991,7 @@ public class 爆率设置 extends javax.swing.JFrame {
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
         boolean result2 = this.查找反应堆掉落.getText().matches("[0-9]+");
         if (result2) {
-            for (int i = ((DefaultTableModel) (this.反应堆.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.反应堆.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.反应堆.getModel())).removeRow(i);
             }
             try {
@@ -1150,7 +1150,7 @@ public class 爆率设置 extends javax.swing.JFrame {
         PreparedStatement ps1 = null;
         ResultSet rs = null;
         boolean result = this.世界爆物序列号.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             int 商城SN编码 = Integer.parseInt(this.世界爆物序列号.getText());
             try {
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM drop_data_global WHERE id = ?");
@@ -1227,7 +1227,7 @@ public class 爆率设置 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "[信息]:请填写正确的值。");
                 return;
             }
-            for (int i = ((DefaultTableModel) (this.怪物爆物.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.怪物爆物.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.怪物爆物.getModel())).removeRow(i);
             }
             try {
@@ -1277,7 +1277,7 @@ public class 爆率设置 extends javax.swing.JFrame {
         ResultSet rs = null;
 
         boolean result = this.删除指定的掉落.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             int 商城SN编码 = Integer.parseInt(this.删除指定的掉落.getText());
             try {
                 // for (int i = ((DefaultTableModel) (this.怪物爆物.getModel())).getRowCount() - 1; i >= 0; i--) {
@@ -1342,12 +1342,12 @@ public class 爆率设置 extends javax.swing.JFrame {
         ResultSet rs = null;
 
         boolean result = this.怪物爆物序列号.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             int 商城SN编码 = Integer.parseInt(this.怪物爆物序列号.getText());
 
             try {
                 //清楚table数据
-                for (int i = ((DefaultTableModel) (this.怪物爆物.getModel())).getRowCount() - 1; i >= 0; i--) {
+                for (int i = this.怪物爆物.getModel().getRowCount() - 1; i >= 0; i--) {
                     ((DefaultTableModel) (this.怪物爆物.getModel())).removeRow(i);
                 }
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM drop_data WHERE id = ?");
@@ -1416,7 +1416,7 @@ public class 爆率设置 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "[信息]:请填写正确的值。");
                 return;
             }
-            for (int i = ((DefaultTableModel) (this.怪物爆物.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.怪物爆物.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.怪物爆物.getModel())).removeRow(i);
             }
             try {
@@ -1466,7 +1466,7 @@ public class 爆率设置 extends javax.swing.JFrame {
         ResultSet rs = null;
 
         boolean result = this.删除指定的掉落.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             int 商城SN编码 = Integer.parseInt(this.删除指定的掉落.getText());
             try {
                 // for (int i = ((DefaultTableModel) (this.怪物爆物.getModel())).getRowCount() - 1; i >= 0; i--) {
@@ -1498,7 +1498,7 @@ public class 爆率设置 extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "[信息]:请填写正确的值。");
                 return;
             }
-            for (int i = ((DefaultTableModel) (this.怪物爆物.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.怪物爆物.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.怪物爆物.getModel())).removeRow(i);
             }
             try {
@@ -1621,7 +1621,7 @@ public class 爆率设置 extends javax.swing.JFrame {
         if (result1) {
             try {
                 //清楚table数据
-                for (int i = ((DefaultTableModel) (this.钓鱼物品.getModel())).getRowCount() - 1; i >= 0; i--) {
+                for (int i = this.钓鱼物品.getModel().getRowCount() - 1; i >= 0; i--) {
                     ((DefaultTableModel) (this.钓鱼物品.getModel())).removeRow(i);
                 }
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM 钓鱼物品 WHERE id = ?");
@@ -1648,7 +1648,7 @@ public class 爆率设置 extends javax.swing.JFrame {
     }//GEN-LAST:event_钓鱼物品序号ActionPerformed
 
 public void 刷新反应堆() {
-        for (int i = ((DefaultTableModel) (this.反应堆.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.反应堆.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.反应堆.getModel())).removeRow(i);
         }
         try {
@@ -1679,7 +1679,7 @@ public void 刷新反应堆() {
         });
     }
     public void 刷新怪物卡片() {
-        for (int i = ((DefaultTableModel) (this.怪物爆物.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.怪物爆物.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.怪物爆物.getModel())).removeRow(i);
         }
         try {
@@ -1720,7 +1720,7 @@ public void 刷新反应堆() {
 
     public void 刷新世界爆物() {
 
-        for (int i = ((DefaultTableModel) (this.世界爆物.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.世界爆物.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.世界爆物.getModel())).removeRow(i);
         }
         try {
@@ -1762,7 +1762,7 @@ public void 刷新反应堆() {
             if (Integer.parseInt(this.查询怪物掉落代码.getText()) < 0) {
                 JOptionPane.showMessageDialog(null, "请填写正确的值");
             }
-            for (int i = ((DefaultTableModel) (this.怪物爆物.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.怪物爆物.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.怪物爆物.getModel())).removeRow(i);
             }
             try {
@@ -1799,7 +1799,7 @@ public void 刷新反应堆() {
     }
 
     public void 刷新怪物爆物() {
-        for (int i = ((DefaultTableModel) (this.怪物爆物.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.怪物爆物.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.怪物爆物.getModel())).removeRow(i);
         }
         try {
@@ -1839,7 +1839,7 @@ public void 刷新反应堆() {
         });
     }
     private void 刷新钓鱼() {
-        for (int i = ((DefaultTableModel) (this.钓鱼物品.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.钓鱼物品.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.钓鱼物品.getModel())).removeRow(i);
         }
         try {

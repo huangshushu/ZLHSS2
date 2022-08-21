@@ -37,7 +37,7 @@ public class MapleMapItem extends AbstractMapleMapObject {
     protected byte type;
     protected boolean pickedUp = false, playerDrop, randDrop = false;
     protected long nextExpiry = 0, nextFFA = 0;
-    private ReentrantLock lock = new ReentrantLock();
+    private final ReentrantLock lock = new ReentrantLock();
 
     public MapleMapItem(IItem item, Point position, MapleMapObject dropper, MapleCharacter owner, byte type, boolean playerDrop) {
         setPosition(position);

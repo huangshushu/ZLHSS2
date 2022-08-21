@@ -163,6 +163,7 @@ public class CommandProcessor {
                                     String it = splitted[0].substring(r, r + 1);
                                     if (st.equals(it)) {
                                         next[i] = "true";
+                                        break;
                                     }
                                 }
                             }
@@ -170,6 +171,7 @@ public class CommandProcessor {
                             for (int i = 0; i < next.length; i++) {// 阵列内所有值皆为true即正确
                                 if ("false".equals(next[i])) {
                                     last = false;
+                                    break;
                                 }
                             }
                             if (last) {
@@ -202,10 +204,7 @@ public class CommandProcessor {
                         return true;
                     }
 
-                    boolean CanUseCommand = false;
-                    if (c.getPlayer().getGMLevel() >= co.getReqGMLevel()) {
-                        CanUseCommand = true;
-                    }
+                    boolean CanUseCommand = c.getPlayer().getGMLevel() >= co.getReqGMLevel();
                     if (!CanUseCommand) {
                         sendDisplayMessage(c, "你没有权限可以使用指令.", type);
                         return true;

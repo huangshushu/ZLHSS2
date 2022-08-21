@@ -91,11 +91,7 @@ public class SpawnPoint extends Spawns {
 
     @Override
     public final boolean shouldSpawn2() {
-        if (mobTime < 0) {
-            return false;
-        }
-
-        return true;
+        return mobTime >= 0;
     }
 
     @Override

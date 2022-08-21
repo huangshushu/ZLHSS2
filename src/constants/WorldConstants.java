@@ -30,18 +30,18 @@ public class WorldConstants {
             : "        Join " + getById(recommended).name()
                     + ",       the newest world! (If youhave friends who play, consider joining their worldinstead. Characters can`t move between worlds.)";
 
-    public static interface Option {
+    public interface Option {
 
-        public int getWorld();
+        int getWorld();
 
-        public String name();
+        String name();
     }
 
     /**
      *
      * @Warning: World will be duplicated if it's the same as the gm server
      */
-    public static enum WorldOption implements Option {
+    public enum WorldOption implements Option {
 
         泰勒熊(16),
         神兽(15),
@@ -73,7 +73,7 @@ public class WorldConstants {
         }
     }
 
-    public static enum TespiaWorldOption implements Option {
+    public enum TespiaWorldOption implements Option {
 
         测试机("t0");
 

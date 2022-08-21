@@ -69,7 +69,7 @@ public class 代码查询工具 extends javax.swing.JFrame {
         if (type == 0) {
             boolean find = false;
             for (int i = 1; i <= SearchGenerator.职业; i++) {
-                boolean show = addModel(i, SearchGenerator.getSearchData(i, str), i == SearchGenerator.职业 ? !find : false);
+                boolean show = addModel(i, SearchGenerator.getSearchData(i, str), i == SearchGenerator.职业 && !find);
                 if (!find) {
                     find = show;
                 }
@@ -128,10 +128,10 @@ public class 代码查询工具 extends javax.swing.JFrame {
                 "类型", "名称或ID", "值"
             }
         ) {
-            Class[] types = new Class [] {
+            final Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, true, true
             };
 

@@ -98,7 +98,7 @@ public class 商店管理控制台 extends javax.swing.JFrame {
                 "序号", "商店ID", "物品代码", "销售金币", "物品名称"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
 
@@ -256,7 +256,7 @@ public class 商店管理控制台 extends javax.swing.JFrame {
         PreparedStatement ps1 = null;
         ResultSet rs = null;
         boolean result = this.商品序号.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
             int 商城SN编码 = Integer.parseInt(this.商品序号.getText());
             try {
                 ps1 = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("SELECT * FROM shopitems WHERE shopitemid = ?");
@@ -385,7 +385,7 @@ public class 商店管理控制台 extends javax.swing.JFrame {
                     return;
                 }
             }
-            for (int i = ((DefaultTableModel) (this.游戏商店2.getModel())).getRowCount() - 1; i >= 0; i--) {
+            for (int i = this.游戏商店2.getModel().getRowCount() - 1; i >= 0; i--) {
                 ((DefaultTableModel) (this.游戏商店2.getModel())).removeRow(i);
             }
             try {

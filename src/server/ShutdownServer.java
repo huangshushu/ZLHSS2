@@ -62,7 +62,7 @@ public class ShutdownServer implements Runnable, ShutdownServerMBean {
                 cs.setPrepareShutdown();
                 cs.shutdown();
             } catch (Exception e) {
-                System.out.println("频道" + String.valueOf(channel) + " 关闭失败.");
+                System.out.println("频道" + channel + " 关闭失败.");
             }
         }
 

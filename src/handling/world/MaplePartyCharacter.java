@@ -82,20 +82,12 @@ public class MaplePartyCharacter implements Serializable {
     }
 
     public boolean isCs() {
-        if (CashShopServer.getPlayerStorage().getCharacterByName(name) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return CashShopServer.getPlayerStorage().getCharacterByName(name) != null;
     }
 
     public boolean isHp0() {
         MapleCharacter victim = MapleCharacter.getCharacterByName(name);
-        if (victim.getStat().getHp() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return victim.getStat().getHp() == 0;
     }
 
     public boolean haveItem(int itemid, int quantity) {
@@ -165,12 +157,7 @@ public class MaplePartyCharacter implements Serializable {
         }
         final MaplePartyCharacter other = (MaplePartyCharacter) obj;
         if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
+            return other.name == null;
+        } else return name.equals(other.name);
     }
 }

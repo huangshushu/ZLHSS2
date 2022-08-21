@@ -30,7 +30,7 @@ public enum SummonMovementType {
     //3, 6,7, etc is tele follow. idk any skills that use
     private final int val;
 
-    private SummonMovementType(int val) {
+    SummonMovementType(int val) {
         this.val = val;
     }
 

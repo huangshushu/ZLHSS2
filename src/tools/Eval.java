@@ -21,7 +21,7 @@ import java.util.Map;
 
 public final class Eval {
 
-    public static enum Type {
+    public enum Type {
 
         ARITHMETIC("arithmetic"), BOOLEAN("boolean");
 
@@ -261,7 +261,7 @@ public final class Eval {
         }
     }
 
-    public static enum Operator {
+    public enum Operator {
 
         /**
          * End of string reached.
@@ -500,7 +500,7 @@ public final class Eval {
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
                     BigDecimal value3) {
-                return new BigDecimal(Math.ceil(value1.doubleValue()));
+                return BigDecimal.valueOf(Math.ceil(value1.doubleValue()));
             }
         },
         FLOOR(4, 1, "floor ", Type.ARITHMETIC, Type.ARITHMETIC) {
@@ -508,7 +508,7 @@ public final class Eval {
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
                     BigDecimal value3) {
-                return new BigDecimal(Math.floor(value1.doubleValue()));
+                return BigDecimal.valueOf(Math.floor(value1.doubleValue()));
             }
         },
         /**

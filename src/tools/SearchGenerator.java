@@ -38,7 +38,7 @@ public class SearchGenerator {
         脸型(11),
         未知;
 
-        private int value;
+        private final int value;
 
         SearchType() {
             this.value = 0;

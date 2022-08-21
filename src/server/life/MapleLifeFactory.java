@@ -55,7 +55,7 @@ public class MapleLifeFactory {
         if (NPCLoc.containsKey(npcid)) {
             return NPCLoc.get(npcid);
         }
-        final int map = MapleDataTool.getIntConvert(Integer.toString(npcid) + "/0", npclocData, -1);
+        final int map = MapleDataTool.getIntConvert(npcid + "/0", npclocData, -1);
         NPCLoc.put(npcid, map);
         return map;
     }
@@ -91,7 +91,7 @@ public class MapleLifeFactory {
         MapleMonsterStats stats = monsterStats.get(Integer.valueOf(mid));
 
         if (stats == null) {
-            MapleData monsterData = data.getData(StringUtil.getLeftPaddedStr(Integer.toString(mid) + ".img", '0', 11));
+            MapleData monsterData = data.getData(StringUtil.getLeftPaddedStr(mid + ".img", '0', 11));
             if (monsterData == null) {
                 return null;
             }

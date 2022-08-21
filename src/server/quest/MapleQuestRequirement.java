@@ -20,8 +20,8 @@ import java.util.List;
 public class MapleQuestRequirement implements Serializable {
 
     private static final long serialVersionUID = 9179541993413738569L;
-    private MapleQuest quest;
-    private MapleQuestRequirementType type;
+    private final MapleQuest quest;
+    private final MapleQuestRequirementType type;
     private int intStore;
     private String stringStore;
     private List<Pair<Integer, Integer>> dataStore;

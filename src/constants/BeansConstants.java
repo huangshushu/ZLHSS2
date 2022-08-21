@@ -17,26 +17,26 @@ public class BeansConstants {
 
     private static BeansConstants instance = null;
     private static boolean CANLOG;
-    private Properties itempb_cfg = new Properties();
+    private final Properties itempb_cfg = new Properties();
     // private final String 豆豆装备[];
     // private final String 豆豆坐骑[];
     // private final String 消耗品[];
     private final int 海洋帽子几率;// （百分比 = 固定值）
     private final String[] 黄金狗几率;// = （1,2 = 出的概率）
-    private final String 小白怪[];// > （1,2 = 出的概率 3,4 = 中奖概率）
-    private final String 大白怪[];// > （1,2 = 出的概率 3,4 = 中奖概率）
-    private final String 紫色怪[];// > （1,2 = 出的概率 3,4 = 中奖概率）
-    private final String 粉色怪[];// > （1,2 = 出的概率 3,4 = 中奖概率）
-    private final String 飞侠[];// > （1,2 = 出的概率 3,4 = 中奖概率）
-    private final String 海盗[];// > （1,2 = 出的概率 3,4 = 中奖概率）
-    private final String 法师[];// > （1,2 = 出的概率 3,4 = 中奖概率）
-    private final String 战士[];// > （1,2 = 出的概率 3,4 = 中奖概率）
-    private final String 弓箭手[];// > （1,2 = 出的概率 3,4 = 中奖概率）
-    private final String 女皇[];// > （1,2 = 出的概率 3,4 = 中奖概率）
-    private final String 白怪奖励[];// > （1,2 经验 3,4药水）
-    private final String 色怪奖励[];// > （1,2 经验 3,4药水 5,6装备）
-    private final String 五职业奖励[];// > （1,2 经验 3,4药水 5,6装备 7,8坐骑）
-    private final String 女皇奖励[];// > （1,2 经验 3,4药水 5,6装备 7,8坐骑）
+    private final String[] 小白怪;// > （1,2 = 出的概率 3,4 = 中奖概率）
+    private final String[] 大白怪;// > （1,2 = 出的概率 3,4 = 中奖概率）
+    private final String[] 紫色怪;// > （1,2 = 出的概率 3,4 = 中奖概率）
+    private final String[] 粉色怪;// > （1,2 = 出的概率 3,4 = 中奖概率）
+    private final String[] 飞侠;// > （1,2 = 出的概率 3,4 = 中奖概率）
+    private final String[] 海盗;// > （1,2 = 出的概率 3,4 = 中奖概率）
+    private final String[] 法师;// > （1,2 = 出的概率 3,4 = 中奖概率）
+    private final String[] 战士;// > （1,2 = 出的概率 3,4 = 中奖概率）
+    private final String[] 弓箭手;// > （1,2 = 出的概率 3,4 = 中奖概率）
+    private final String[] 女皇;// > （1,2 = 出的概率 3,4 = 中奖概率）
+    private final String[] 白怪奖励;// > （1,2 经验 3,4药水）
+    private final String[] 色怪奖励;// > （1,2 经验 3,4药水 5,6装备）
+    private final String[] 五职业奖励;// > （1,2 经验 3,4药水 5,6装备 7,8坐骑）
+    private final String[] 女皇奖励;// > （1,2 经验 3,4药水 5,6装备 7,8坐骑）
     private final int 力度搞假;// 大概范围在500-1000左右
     private final int 豆豆奖励范围;// 1-10 * 豆豆奖励范围 = 给与奖励
 

@@ -25,11 +25,11 @@ import provider.MapleDataEntry;
 
 public class WZEntry implements MapleDataEntry {
 
-    private String name;
-    private int size;
-    private int checksum;
+    private final String name;
+    private final int size;
+    private final int checksum;
     private int offset;
-    private MapleDataEntity parent;
+    private final MapleDataEntity parent;
 
     public WZEntry(String name, int size, int checksum, MapleDataEntity parent) {
         super();

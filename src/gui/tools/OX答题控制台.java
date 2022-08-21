@@ -75,7 +75,7 @@ public class OX答题控制台 extends javax.swing.JFrame {
                 "序号", "问题", "答案"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false
             };
 
@@ -210,7 +210,7 @@ public class OX答题控制台 extends javax.swing.JFrame {
         刷新题库();
     }//GEN-LAST:event_录入问题按钮ActionPerformed
     public void 刷新题库() {
-        for (int i = ((DefaultTableModel) (this.OX答题题库.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.OX答题题库.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.OX答题题库.getModel())).removeRow(i);
         }
         try {

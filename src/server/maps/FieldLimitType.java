@@ -40,7 +40,7 @@ public enum FieldLimitType {
     ;
     private final int i;
 
-    private FieldLimitType(int i) {
+    FieldLimitType(int i) {
         this.i = i;
     }
 

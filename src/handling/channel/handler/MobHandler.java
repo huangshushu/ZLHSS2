@@ -117,7 +117,7 @@ public class MobHandler {
                 int reduce_y = 0;
                 for (LifeMovementFragment move : res) {
                     if ((move instanceof AbstractLifeMovement)) {
-                        endPos = ((LifeMovement) move).getPosition();
+                        endPos = move.getPosition();
                         //System.out.println(startPos+ " || " + endPos);
                         try {
                             reduce_x = Math.abs(startPos.x - endPos.x);
@@ -171,33 +171,32 @@ public class MobHandler {
                         if (c.getPlayer().get吸怪() % 50 == 0 || reduce_x > max_x) {
                             c.getPlayer().getCheatTracker().registerOffense(CheatingOffense.MOB_VAC, "(地图: " + chr.getMapId() + " 怪物数量:" + chr.get吸怪() + ")");
                             World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + chr.getName() + " (编号: " + chr.getId() + ")使用吸怪(" + chr.get吸怪() + ")! - 地图:" + chr.getMapId() + "(" + chr.getMap().getMapName() + ")"), true);
-                            StringBuilder sb = new StringBuilder();
-                            sb.append("\r\n");
-                            sb.append(FileoutputUtil.NowTime());
-                            sb.append(" 玩家: ");
-                            sb.append(StringUtil.getRightPaddedStr(c.getPlayer().getName(), ' ', 13));
-                            sb.append("(编号:");
-                            sb.append(StringUtil.getRightPaddedStr(String.valueOf(c.getPlayer().getId()), ' ', 5));
-                            sb.append(" )怪物: ");
-                            sb.append(StringUtil.getRightPaddedStr(String.valueOf(monster.getId()), ' ', 7));
-                            sb.append("(");
-                            sb.append(StringUtil.getRightPaddedStr(String.valueOf(monster.getObjectId()), ' ', 6));
-                            sb.append(")");
-                            sb.append(" 地图: ");
-                            sb.append(StringUtil.getRightPaddedStr(String.valueOf(c.getPlayer().getMapId()), ' ', 9));
-                            sb.append(" 初始座标:");
-                            sb.append(StringUtil.getRightPaddedStr(String.valueOf(startPos.x), ' ', 4));
-                            sb.append(",");
-                            sb.append(StringUtil.getRightPaddedStr(String.valueOf(startPos.y), ' ', 4));
-                            sb.append(" 移动座标:");
-                            sb.append(StringUtil.getRightPaddedStr(String.valueOf(endPos.x), ' ', 4));
-                            sb.append(",");
-                            sb.append(StringUtil.getRightPaddedStr(String.valueOf(endPos.y), ' ', 4));
-                            sb.append(" 相差座标:");
-                            sb.append(StringUtil.getRightPaddedStr(String.valueOf(reduce_x), ' ', 4));
-                            sb.append(",");
-                            sb.append(StringUtil.getRightPaddedStr(String.valueOf(reduce_y), ' ', 4));
-                            FileoutputUtil.logToFile("logs/Hack/吸怪.txt", sb.toString());
+                            String sb = "\r\n" +
+                                    FileoutputUtil.NowTime() +
+                                    " 玩家: " +
+                                    StringUtil.getRightPaddedStr(c.getPlayer().getName(), ' ', 13) +
+                                    "(编号:" +
+                                    StringUtil.getRightPaddedStr(String.valueOf(c.getPlayer().getId()), ' ', 5) +
+                                    " )怪物: " +
+                                    StringUtil.getRightPaddedStr(String.valueOf(monster.getId()), ' ', 7) +
+                                    "(" +
+                                    StringUtil.getRightPaddedStr(String.valueOf(monster.getObjectId()), ' ', 6) +
+                                    ")" +
+                                    " 地图: " +
+                                    StringUtil.getRightPaddedStr(String.valueOf(c.getPlayer().getMapId()), ' ', 9) +
+                                    " 初始座标:" +
+                                    StringUtil.getRightPaddedStr(String.valueOf(startPos.x), ' ', 4) +
+                                    "," +
+                                    StringUtil.getRightPaddedStr(String.valueOf(startPos.y), ' ', 4) +
+                                    " 移动座标:" +
+                                    StringUtil.getRightPaddedStr(String.valueOf(endPos.x), ' ', 4) +
+                                    "," +
+                                    StringUtil.getRightPaddedStr(String.valueOf(endPos.y), ' ', 4) +
+                                    " 相差座标:" +
+                                    StringUtil.getRightPaddedStr(String.valueOf(reduce_x), ' ', 4) +
+                                    "," +
+                                    StringUtil.getRightPaddedStr(String.valueOf(reduce_y), ' ', 4);
+                            FileoutputUtil.logToFile("logs/Hack/吸怪.txt", sb);
                             if (!chr.hasGmLevel(1)) {
                                 for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                                     for (MapleCharacter chr_ : cserv.getPlayerStorage().getAllCharactersThreadSafe()) {

@@ -342,7 +342,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void Delete(String a, int b) {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from " + a + "");
             ps.executeUpdate();
             ps.close();
@@ -353,7 +353,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空个人设置() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from characterz");
             ps.executeUpdate();
             ps.close();
@@ -363,7 +363,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空qqgame() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from qqstem");
             ps.executeUpdate();
             ps.close();
@@ -373,7 +373,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空qqlog() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from qqlog");
             ps.executeUpdate();
             ps.close();
@@ -383,7 +383,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空养殖() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from character7");
             ps.executeUpdate();
             ps.close();
@@ -394,7 +394,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空B1() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bossrank1");
             ps.executeUpdate();
             ps.close();
@@ -405,7 +405,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空B2() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bossrank2");
             ps.executeUpdate();
             ps.close();
@@ -416,7 +416,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空B3() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bossrank3");
             ps.executeUpdate();
             ps.close();
@@ -428,7 +428,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空B4() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bossrank4");
             ps.executeUpdate();
             ps.close();
@@ -440,7 +440,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空B5() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bossrank5");
             ps.executeUpdate();
             ps.close();
@@ -452,7 +452,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空B6() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bossrank6");
             ps.executeUpdate();
             ps.close();
@@ -464,7 +464,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空B7() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bossrank7");
             ps.executeUpdate();
             ps.close();
@@ -476,7 +476,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空B8() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bossrank8");
             ps.executeUpdate();
             ps.close();
@@ -491,7 +491,7 @@ public class 一键还原 extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "金币拍卖行清理完成");
     }//GEN-LAST:event_清除金币拍卖行ActionPerformed
     private void 清空拍卖b1() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from auctionitems1");
             ps.executeUpdate();
             ps.close();
@@ -502,7 +502,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空拍卖b2() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from auctionpoint1");
             ps.executeUpdate();
             ps.close();
@@ -562,7 +562,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清除商城所有商品() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from cashshop_modified_items");
             ps.executeUpdate();
             ps.close();
@@ -573,7 +573,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空个人随身仓库() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bank_item");
             ps.executeUpdate();
             ps.close();
@@ -584,7 +584,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空家族随身仓库() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bank_item1");
             ps.executeUpdate();
             ps.close();
@@ -595,7 +595,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空拍卖a1() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from auctionitems");
             ps.executeUpdate();
             ps.close();
@@ -606,7 +606,7 @@ public class 一键还原 extends javax.swing.JFrame {
     }
 
     private void 清空拍卖a2() {
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from auctionpoint");
             ps.executeUpdate();
             ps.close();
@@ -618,7 +618,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清理雇佣金币() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from hiredmerch");
             ps.executeUpdate();
             ps.close();
@@ -630,7 +630,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空记录角色人数() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from z角色统计");
             ps.executeUpdate();
             ps.close();
@@ -642,7 +642,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空商城() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from csitems");
             ps.executeUpdate();
             ps.close();
@@ -655,7 +655,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空技能2() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from skills");
             ps.executeUpdate();
             ps.close();
@@ -668,7 +668,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空技能1() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from skillmacros");
             ps.executeUpdate();
             ps.close();
@@ -681,7 +681,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空任务2() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from queststatusmobs");
             ps.executeUpdate();
             ps.close();
@@ -694,7 +694,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空任务1() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from queststatus");
             ps.executeUpdate();
             ps.close();
@@ -707,7 +707,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空D() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from mountdata");
             ps.executeUpdate();
             ps.close();
@@ -720,7 +720,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空C() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from keymap");
             ps.executeUpdate();
             ps.close();
@@ -733,7 +733,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空B() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from inventoryslot");
             ps.executeUpdate();
             ps.close();
@@ -746,7 +746,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空论坛1() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from forum_thread");
             ps.executeUpdate();
             ps.close();
@@ -759,7 +759,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空A() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from hypay");
             ps.executeUpdate();
             ps.close();
@@ -772,7 +772,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空武器2() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from inventoryitems");
             ps.executeUpdate();
             ps.close();
@@ -785,7 +785,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空武器1() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from inventoryequipment");
             ps.executeUpdate();
             ps.close();
@@ -798,7 +798,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空论坛2() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from forum_section");
             ps.executeUpdate();
             ps.close();
@@ -811,7 +811,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空论坛3() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from forum_reply");
             ps.executeUpdate();
             ps.close();
@@ -824,7 +824,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空世界爆物() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from drop_data_global");
             ps.executeUpdate();
             ps.close();
@@ -837,7 +837,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空家族表() {
         Z(6);
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from guilds");
             ps.executeUpdate();
             ps.close();
@@ -850,7 +850,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空角色表() {
         Z(10);
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from characters");
             ps.executeUpdate();
             ps.close();
@@ -862,7 +862,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空核心数据库() {
         Z(14);
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bossrank");
             ps.executeUpdate();
             ps.close();
@@ -874,7 +874,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空每日列表() {
         Z(18);
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bosslog");
             ps.executeUpdate();
             ps.close();
@@ -886,7 +886,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空随身仓库() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from bank_item");
             ps.executeUpdate();
             ps.close();
@@ -898,7 +898,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空拍卖1() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from auctionitems");
             ps.executeUpdate();
             ps.close();
@@ -911,7 +911,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空拍卖2() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from auctionpoint");
             ps.executeUpdate();
             ps.close();
@@ -924,7 +924,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空账号() {
         Z(2);
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from accounts");
             ps.executeUpdate();
             ps.close();
@@ -936,7 +936,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空雇佣1() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from hiredmerch");
             ps.executeUpdate();
             ps.close();
@@ -948,7 +948,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空雇佣2() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from hiredmerchequipment");
             ps.executeUpdate();
             ps.close();
@@ -960,7 +960,7 @@ public class 一键还原 extends javax.swing.JFrame {
 
     private void 清空雇佣3() {
 
-        try(Connection con = DBConPool.getInstance().getDataSource().getConnection();) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("Delete from hiredmerchitems");
             ps.executeUpdate();
             ps.close();

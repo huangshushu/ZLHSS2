@@ -72,7 +72,7 @@ public class 药水冷却时间控制台 extends javax.swing.JFrame {
                 "序号", "药水", "冷却"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false
             };
 
@@ -129,7 +129,7 @@ public class 药水冷却时间控制台 extends javax.swing.JFrame {
         刷新药水冷却();
     }//GEN-LAST:event_jButton5ActionPerformed
     private void 刷新药水冷却() {
-        for (int i = ((DefaultTableModel) (this.药水冷却.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.药水冷却.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.药水冷却.getModel())).removeRow(i);
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {

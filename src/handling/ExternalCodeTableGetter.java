@@ -39,7 +39,7 @@ public class ExternalCodeTableGetter {
             } else {
                 offset = args[0];
             }
-            if (offset.length() > 2 && offset.substring(0, 2).equals("0x")) {
+            if (offset.length() > 2 && offset.startsWith("0x")) {
                 return (short) (Short.parseShort(offset.substring(2), 16) + base);
             } else {
                 return (short) (Short.parseShort(offset) + base);

@@ -19,10 +19,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Administrator
- */
 public class 永恒重生装备控制台 extends javax.swing.JFrame {
 
     /**
@@ -179,7 +175,7 @@ public class 永恒重生装备控制台 extends javax.swing.JFrame {
                 "*", "等级", "经验"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false
             };
 
@@ -243,7 +239,7 @@ public class 永恒重生装备控制台 extends javax.swing.JFrame {
                 "1", "信息", "值"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false
             };
 
@@ -307,7 +303,7 @@ public class 永恒重生装备控制台 extends javax.swing.JFrame {
         刷新重生升级开关();
     }//GEN-LAST:event_重生升级开关ActionPerformed
     public void 刷新装备升级经验表() {
-        for (int i = ((DefaultTableModel) (this.升级经验信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.升级经验信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.升级经验信息.getModel())).removeRow(i);
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
@@ -339,7 +335,7 @@ public class 永恒重生装备控制台 extends javax.swing.JFrame {
     }
 
     public void 刷新装备升级设置表() {
-        for (int i = ((DefaultTableModel) (this.装备升级设置.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.装备升级设置.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.装备升级设置.getModel())).removeRow(i);
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {

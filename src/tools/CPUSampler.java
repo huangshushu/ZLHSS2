@@ -28,11 +28,11 @@ import java.util.Map.Entry;
 
 public class CPUSampler {
 
-    private List<String> included = new LinkedList<>();
-    private static CPUSampler instance = new CPUSampler();
+    private final List<String> included = new LinkedList<>();
+    private static final CPUSampler instance = new CPUSampler();
     private long interval = 5;
     private SamplerThread sampler = null;
-    private Map<StackTrace, Integer> recorded = new HashMap<>();
+    private final Map<StackTrace, Integer> recorded = new HashMap<>();
     private int totalSamples = 0;
 
     public static CPUSampler getInstance() {
@@ -137,8 +137,8 @@ public class CPUSampler {
 
     private static class StackTrace {
 
-        private StackTraceElement[] trace;
-        private State state;
+        private final StackTraceElement[] trace;
+        private final State state;
 
         public StackTrace(StackTraceElement[] trace, int startAt, State state) {
             this.state = state;
@@ -253,8 +253,8 @@ public class CPUSampler {
 
     public static class StacktraceWithCount implements Comparable<StacktraceWithCount> {
 
-        private int count;
-        private StackTrace trace;
+        private final int count;
+        private final StackTrace trace;
 
         public StacktraceWithCount(int count, StackTrace trace) {
             super();

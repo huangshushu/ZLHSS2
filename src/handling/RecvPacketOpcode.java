@@ -189,23 +189,23 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
         return code;
     }
 
-    private boolean CheckState;
+    private final boolean CheckState;
 
-    private RecvPacketOpcode() {
+    RecvPacketOpcode() {
         this.CheckState = true;
     }
 
-    private RecvPacketOpcode(int code) {
+    RecvPacketOpcode(int code) {
         this.code = (short) code;
         this.CheckState = false;
     }
 
-    private RecvPacketOpcode(short code, final boolean CheckState) {
+    RecvPacketOpcode(short code, final boolean CheckState) {
         this.code = code;
         this.CheckState = CheckState;
     }
 
-    private RecvPacketOpcode(final boolean CheckState) {
+    RecvPacketOpcode(final boolean CheckState) {
         this.CheckState = CheckState;
     }
 

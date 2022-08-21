@@ -318,7 +318,7 @@ public class StatsHandling {
             extras += gainStatByType(chr, MapleStat.getByValue(type), tempVal);
         }
         short remainingAp = (short) ((chr.getRemainingAp() - total) + extras);
-        chr.setRemainingAp((short) remainingAp);
+        chr.setRemainingAp(remainingAp);
         chr.updateSingleStat(MapleStat.AVAILABLEAP, remainingAp);
         c.sendPacket(MaplePacketCreator.enableActions());
     }
@@ -331,7 +331,7 @@ public class StatsHandling {
                 if (newVal > 999) {
                     chr.getStat().setStr((short) 999);
                 } else {
-                    chr.getStat().setStr((short) newVal);
+                    chr.getStat().setStr(newVal);
                 }
             } else if (type.equals(MapleStat.INT)) {
                 newVal = (short) (chr.getStat().getInt() + gain);

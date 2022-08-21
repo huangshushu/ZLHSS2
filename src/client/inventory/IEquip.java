@@ -22,76 +22,76 @@ package client.inventory;
 
 public interface IEquip extends IItem {
 
-    public static enum ScrollResult {
+    enum ScrollResult {
 
         SUCCESS, FAIL, CURSE
     }
-    public static final int ARMOR_RATIO = 350000;
-    public static final int WEAPON_RATIO = 700000;
+    int ARMOR_RATIO = 350000;
+    int WEAPON_RATIO = 700000;
 
     byte getUpgradeSlots();
 
     byte getLevel();
 
-    public byte getViciousHammer();
+    byte getViciousHammer();
 
-    public int getItemEXP();
+    int getItemEXP();
 
-    public int getExpPercentage();
+    int getExpPercentage();
 
-    public int getEquipLevel();
+    int getEquipLevel();
 
-    public int getEquipExp();
+    int getEquipExp();
 
-    public int getEquipExpForLevel();
+    int getEquipExpForLevel();
 
-    public int getBaseLevel();
+    int getBaseLevel();
 
-    public short getStr();
+    short getStr();
 
-    public short getDex();
+    short getDex();
 
-    public short getInt();
+    short getInt();
 
-    public short getLuk();
+    short getLuk();
 
-    public short getHp();
+    short getHp();
 
-    public short getMp();
+    short getMp();
 
-    public short getWatk();
+    short getWatk();
 
-    public short getMatk();
+    short getMatk();
 
-    public short getWdef();
+    short getWdef();
 
-    public short getMdef();
+    short getMdef();
 
-    public short getAcc();
+    short getAcc();
 
-    public short getAvoid();
+    short getAvoid();
 
-    public short getHands();
+    short getHands();
 
-    public short getSpeed();
+    short getSpeed();
 
-    public short getJump();
+    short getJump();
 
-    public int getDurability();
+    int getDurability();
 
-    public byte getEnhance();
+    byte getEnhance();
 
-    public byte getState();
+    byte getState();
 
-    public short getPotential1();
+    short getPotential1();
 
-    public short getPotential2();
+    short getPotential2();
 
-    public short getPotential3();
+    short getPotential3();
 
-    public short getHpR();
+    short getHpR();
 
-    public short getMpR();
+    short getMpR();
 
     int getGrade();
     

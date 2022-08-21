@@ -314,11 +314,11 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             sendNextS(text, type);
             return;
         }
-        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 4, text, "", (byte) type));
+        c.sendPacket(MaplePacketCreator.getNPCTalk(npc, (byte) 4, text, "", type));
         lastMsg = 4;
     }
 
-    public void sendStyle(String text, int styles[]) {
+    public void sendStyle(String text, int[] styles) {
         if (lastMsg > -1) {
             return;
         }
@@ -326,7 +326,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         lastMsg = 7;
     }
 
-    public void sendStyle(String text, int caid, int styles[]) {
+    public void sendStyle(String text, int caid, int[] styles) {
         if (lastMsg > -1) {
             return;
         }
@@ -957,7 +957,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         double range = Double.POSITIVE_INFINITY;
         MapleMonster mob;
         for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
-                Arrays.asList(MapleMapObjectType.MONSTER))) {
+                Collections.singletonList(MapleMapObjectType.MONSTER))) {
             mob = (MapleMonster) monstermo;
             if (mob.getStats().isBoss()) {
                 map.killMonster(mob, c.getPlayer(), false, false, (byte) 1);
@@ -973,7 +973,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     public void giveMerchantMesos() {
         long mesos = 0;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
-            PreparedStatement ps = (PreparedStatement) con
+            PreparedStatement ps = con
                     .prepareStatement("SELECT mesos FROM hiredmerchants WHERE merchantid = ?");
             ps.setInt(1, getPlayer().getId());
             ResultSet rs = ps.executeQuery();
@@ -986,7 +986,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             rs.close();
             ps.close();
 
-            ps = (PreparedStatement) con.prepareStatement("UPDATE hiredmerchants SET mesos = 0 WHERE merchantid = ?");
+            ps = con.prepareStatement("UPDATE hiredmerchants SET mesos = 0 WHERE merchantid = ?");
             ps.setInt(1, getPlayer().getId());
             ps.executeUpdate();
             ps.close();
@@ -1007,7 +1007,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     public long getMerchantMesos() {
         long mesos = 0;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = (PreparedStatement) con
+                PreparedStatement ps = con
                         .prepareStatement("SELECT mesos FROM hiredmerchants WHERE merchantid = ?")) {
             ps.setInt(1, getPlayer().getId());
             try (ResultSet rs = ps.executeQuery()) {
@@ -1262,7 +1262,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             } else if (type.equalsIgnoreCase("ItemEXP")) {
                 eq.setItemEXP(eq.getItemEXP() + offset);
             } else if (type.equalsIgnoreCase("Expiration")) {
-                eq.setExpiration((long) (eq.getExpiration() + offset));
+                eq.setExpiration(eq.getExpiration() + offset);
             } else if (type.equalsIgnoreCase("Flag")) {
                 eq.setFlag((byte) (eq.getFlag() + offset));
             }
@@ -1581,7 +1581,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                     c.getPlayer().dropMessage(6, "已经到达目的地了!");
                 }
             }
-        }, 1000 * time); // 设定时间, (1 秒 = 1000)
+        }, 1000L * time); // 设定时间, (1 秒 = 1000)
     }
 
     public void ChangeName(String name) {
@@ -1815,7 +1815,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                                 + (de.Maximum * getClient().getChannelServer().getMesoRate()) + " #b金币#l#k";
                     } else if (itemId != 0 && ii.itemExists(itemId)) {
                         ch = de.chance * getClient().getChannelServer().getDropRate();
-                        if (GM == false) {
+                        if (!GM) {
                             name.append("#k" + (num + 1) + ": #v" + itemId + "# " + namez
                                     + ((chr.isGM()) ? "#d  掉落机率："
                                             + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0)
@@ -1849,11 +1849,11 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                     }
                 }
             }
-            if (GM == true) {
+            if (GM) {
                 name.append("\r\n#L" + 10000 + "##k" + (num + 1) + ": #b我要额外新增掉落物品!");
             }
             if (error.length() > 0) {
-                chr.dropMessage(1, "无效的物品ID:\r\n" + error.toString());
+                chr.dropMessage(1, "无效的物品ID:\r\n" + error);
             }
             if (name.length() > 0) {
                 return name.toString();
@@ -2042,8 +2042,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         item.setLuk((short) (item.getLuk() + luk));
         item.setHp((short) (item.getHp() + hp));
         item.setMp((short) (item.getMp() + mp));
-        item.setAcc((short) (byte) (item.getAcc() + acc));
-        item.setAvoid((short) (byte) (item.getAvoid() + avoid));
+        item.setAcc((byte) (item.getAcc() + acc));
+        item.setAvoid((byte) (item.getAvoid() + avoid));
         MapleInventoryManipulator.removeFromSlot(getC(), MapleInventoryType.EQUIP, (short) 1, (short) 1, true);
         MapleInventoryManipulator.addFromDrop(getChar().getClient(), item, false);
     }
@@ -2202,14 +2202,14 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         return count;
     }
 
-    private Point position = new Point();
+    private final Point position = new Point();
 
     public void 清怪() {
         MapleMap map = c.getPlayer().getMap();
         double range = Double.POSITIVE_INFINITY;
         MapleMonster mob;
         for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
-                Arrays.asList(MapleMapObjectType.MONSTER))) {
+                Collections.singletonList(MapleMapObjectType.MONSTER))) {
             mob = (MapleMonster) monstermo;
             map.killMonster(mob, c.getPlayer(), true, false, (byte) 1);
         }
@@ -2436,11 +2436,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 
     public boolean 百分率(int q) {
         int a = (int) Math.ceil(Math.random() * 100);
-        if (a <= q) {
-            return true;
-        } else {
-            return false;
-        }
+        return a <= q;
     }
 
     public void 重置目标地图(int a) {
@@ -2452,13 +2448,9 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         double range = Double.POSITIVE_INFINITY;
         MapleMap map = getMap(a);
         boolean drop = false;
-        if (b == 0) {
-            drop = true;
-        } else {
-            drop = false;
-        }
+        drop = b == 0;
         for (MapleMapObject monstermo : map.getMapObjectsInRange(c.getPlayer().getPosition(), range,
-                Arrays.asList(MapleMapObjectType.MONSTER))) {
+                Collections.singletonList(MapleMapObjectType.MONSTER))) {
             mob = (MapleMonster) monstermo;
             map.killMonster(mob, c.getPlayer(), drop, false, (byte) 1);
         }
@@ -2655,7 +2647,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                     for (int j = 13 - 玩家名字.getBytes().length; j > 0; j--) {
                         name.append(" ");
                     }
-                    name.append("  ").append(职业).append("");
+                    name.append("  ").append(职业);
                     for (int j = 15 - 职业.getBytes().length; j > 0; j--) {
                         name.append(" ");
                     }
@@ -2929,7 +2921,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             ps.close();
         } catch (SQLException Ex) {
-            System.err.println("获取角色ID取名字出错 - 数据库查询失败：" + (Object) Ex);
+            System.err.println("获取角色ID取名字出错 - 数据库查询失败：" + Ex);
         }
         if (data == null) {
             data = "匿名人士";
@@ -2950,7 +2942,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             ps.close();
         } catch (SQLException Ex) {
-            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + (Object) Ex);
+            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + Ex);
         }
         return data;
     }
@@ -2968,7 +2960,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             ps.close();
         } catch (SQLException Ex) {
-            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + (Object) Ex);
+            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + Ex);
         }
         return data;
     }
@@ -2987,7 +2979,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             ps.close();
         } catch (SQLException Ex) {
-            System.err.println("获取角色ID取名字出错 - 数据库查询失败：" + (Object) Ex);
+            System.err.println("获取角色ID取名字出错 - 数据库查询失败：" + Ex);
         }
         if (data == null) {
             data = "匿名人士";
@@ -3008,7 +3000,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             ps.close();
         } catch (SQLException Ex) {
-            System.err.println("获取角色ID取名字出错 - 数据库查询失败：" + (Object) Ex);
+            System.err.println("获取角色ID取名字出错 - 数据库查询失败：" + Ex);
         }
         if (data == null) {
             data = "匿名人士";
@@ -3029,7 +3021,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             ps.close();
         } catch (SQLException Ex) {
-            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + (Object) Ex);
+            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + Ex);
         }
         return data;
     }
@@ -3047,7 +3039,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             ps.close();
         } catch (SQLException Ex) {
-            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + (Object) Ex);
+            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + Ex);
         }
         return data;
     }
@@ -3065,7 +3057,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             ps.close();
         } catch (SQLException Ex) {
-            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + (Object) Ex);
+            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + Ex);
         }
         if (data == null) {
             data = "匿名人士";
@@ -3086,7 +3078,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             ps.close();
         } catch (SQLException Ex) {
-            System.err.println("获取物品获取掉落怪物出错 - 数据库查询失败：" + (Object) Ex);
+            System.err.println("获取物品获取掉落怪物出错 - 数据库查询失败：" + Ex);
         }
         return data;
     }
@@ -3105,7 +3097,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             }
             ps.close();
         } catch (SQLException Ex) {
-            System.err.println("获取家族名称出错 - 数据库查询失败：" + (Object) Ex);
+            System.err.println("获取家族名称出错 - 数据库查询失败：" + Ex);
         }
         return String.format("%s", name);
     }

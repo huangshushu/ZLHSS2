@@ -75,21 +75,21 @@ public class BeanGame {
         int 海洋帽子几率 = Beans.get海洋帽子几率();
         int 力度搞假 = Beans.get力度搞假();
         int 豆豆奖励范围 = Beans.get豆豆奖励范围();
-        String 黄金狗几率[] = Beans.get黄金狗几率();
-        String 大白怪[] = Beans.get大白怪();
-        String 小白怪[] = Beans.get小白怪();
-        String 紫色怪[] = Beans.get紫色怪();
-        String 粉色怪[] = Beans.get粉色怪();
-        String 飞侠[] = Beans.get飞侠();
-        String 海盗[] = Beans.get海盗();
-        String 法师[] = Beans.get法师();
-        String 战士[] = Beans.get战士();
-        String 弓箭手[] = Beans.get弓箭手();
-        String 女皇[] = Beans.get女皇();
-        String 白怪奖励[] = Beans.get白怪奖励();
-        String 色怪奖励[] = Beans.get色怪奖励();
-        String 五职业奖励[] = Beans.get五职业奖励();
-        String 女皇奖励[] = Beans.get女皇奖励();
+        String[] 黄金狗几率 = Beans.get黄金狗几率();
+        String[] 大白怪 = Beans.get大白怪();
+        String[] 小白怪 = Beans.get小白怪();
+        String[] 紫色怪 = Beans.get紫色怪();
+        String[] 粉色怪 = Beans.get粉色怪();
+        String[] 飞侠 = Beans.get飞侠();
+        String[] 海盗 = Beans.get海盗();
+        String[] 法师 = Beans.get法师();
+        String[] 战士 = Beans.get战士();
+        String[] 弓箭手 = Beans.get弓箭手();
+        String[] 女皇 = Beans.get女皇();
+        String[] 白怪奖励 = Beans.get白怪奖励();
+        String[] 色怪奖励 = Beans.get色怪奖励();
+        String[] 五职业奖励 = Beans.get五职业奖励();
+        String[] 女皇奖励 = Beans.get女皇奖励();
         //System.out.println("豆豆出现包" +slea.toString());
         MapleCharacter chr = c.getPlayer();
         List<MapleBeans> beansInfo = new ArrayList<>();
@@ -412,7 +412,7 @@ public class BeanGame {
                             c.sendPacket(MaplePacketCreator.enableActions());
                             break;
                         default:
-                            System.out.println("未处理的类型A【" + type + "】\n包" + slea.toString());
+                            System.out.println("未处理的类型A【" + type + "】\n包" + slea);
                             break;
                     }
                     /*if (c.getPlayer().getInventory(GameConstants.getInventoryType(itemId)).getNextFreeSlot() > -1 && itemId != 0) {
@@ -424,7 +424,7 @@ public class BeanGame {
                         MapleInventoryManipulator.addById(c, itemId, (short) count, "豆豆机奖励");
                     }*/
                     // int 奖励豆豆 = Randomizer.nextInt(150) + 50;
-                    int 奖励豆豆 = (/*第二排 +*/1) * 豆豆奖励范围;
+                    int 奖励豆豆 = /*第二排 +*/ 豆豆奖励范围;
                     //chr.gainBeans(奖励豆豆);
                     chr.modifyJF(4, 奖励豆豆);
                     c.getPlayer().dropMessage(5, "在小钢珠中获得: " + 奖励豆豆 + "小钢珠积分！");
@@ -478,9 +478,9 @@ public class BeanGame {
                 chr.setCanSetBeansNum(true);
                 break;
             default:
-                System.out.println("未处理未知类型【" + type + "】\n包" + slea.toString());
+                System.out.println("未处理未知类型【" + type + "】\n包" + slea);
                 //FileoutputUtil.log("logs/小钢珠未知类型.txt", "类型【" + type + "】\n包" + slea.toString());
-                FileoutputUtil.logToFile("logs/小钢珠未知类型.txt", "时间: " + FileoutputUtil.NowTime() + " IP: " + chr.getClient().getSessionIPAddress() + " MAC: " + chr.getNowMacs() + chr.getName() + "类型【" + type + "】\n包" + slea.toString() + "\r\n");
+                FileoutputUtil.logToFile("logs/小钢珠未知类型.txt", "时间: " + FileoutputUtil.NowTime() + " IP: " + chr.getClient().getSessionIPAddress() + " MAC: " + chr.getNowMacs() + chr.getName() + "类型【" + type + "】\n包" + slea + "\r\n");
                 break;
         }
         if (type == 0x0B || type == 6) {

@@ -33,7 +33,7 @@ public class PlayerRandomStream {
 
     public PlayerRandomStream() {
         final int v4 = 5;
-        this.CRand32__Seed(Randomizer.nextLong(), 1170746341 * v4 - 755606699, 1170746341 * v4 - 755606699);
+        this.CRand32__Seed(Randomizer.nextLong(), 1170746341L * v4 - 755606699, 1170746341L * v4 - 755606699);
     }
 
     public final void CRand32__Seed(final long s1, final long s2, final long s3) {

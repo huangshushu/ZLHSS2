@@ -203,7 +203,7 @@ public class PlayerHandler {
             chr.setChair(id);
             c.sendPacket(MaplePacketCreator.cancelChair(id));
         }
-        chr.cancelBuffStats(new MapleBuffStat[] { MapleBuffStat.MONSTER_RIDING });
+        chr.cancelBuffStats(MapleBuffStat.MONSTER_RIDING);
     }
 
     public static final void TrockAddMap(final LittleEndianAccessor slea, final MapleClient c,
@@ -355,7 +355,7 @@ public class PlayerHandler {
                                 ? chr.getBuffedValue(MapleBuffStat.POWERGUARD)
                                 : 0);
                 if (bouncedam_ > 0 && attacker != null) {
-                    long bouncedamage = (long) (damage * bouncedam_ / 100);
+                    long bouncedamage = (long) damage * bouncedam_ / 100;
                     chr.getMap().broadcastMessage(chr, MobPacket.damageMonster(oid, bouncedamage), chr.getPosition());
                     bouncedamage = Math.min(bouncedamage, attacker.getMobMaxHp() / 10);
                     attacker.damage(chr, bouncedamage, true);
@@ -554,7 +554,7 @@ public class PlayerHandler {
             }
             if (skillid != 5221006) { // Battleship
                 c.sendPacket(MaplePacketCreator.skillCooldown(skillid, effect.getCooldown()));
-                chr.addCooldown(skillid, System.currentTimeMillis(), effect.getCooldown() * 1000);
+                chr.addCooldown(skillid, System.currentTimeMillis(), effect.getCooldown() * 1000L);
             }
         }
         // chr.checkFollow(); //not msea-like but ALEX'S WISHES
@@ -692,7 +692,7 @@ public class PlayerHandler {
                     return;
                 }
                 c.sendPacket(MaplePacketCreator.skillCooldown(attack.skill, effect.getCooldown()));
-                chr.addCooldown(attack.skill, System.currentTimeMillis(), effect.getCooldown() * 1000);
+                chr.addCooldown(attack.skill, System.currentTimeMillis(), effect.getCooldown() * 1000L);
             }
         }
         attackCount *= (mirror ? 2 : 1);
@@ -820,7 +820,7 @@ public class PlayerHandler {
                         DamageParse.applyAttack(attack2, skil2, chr, attackCount2, maxdamage2, eff2,
                                 mirror ? AttackType.NON_RANGED_WITH_MIRROR : AttackType.NON_RANGED);
                     }
-                }, 500 * i + 500);
+                }, 500L * i + 500);
             }
         }
     }
@@ -888,7 +888,7 @@ public class PlayerHandler {
                     return;
                 }
                 c.sendPacket(MaplePacketCreator.skillCooldown(attack.skill, effect.getCooldown()));
-                chr.addCooldown(attack.skill, System.currentTimeMillis(), effect.getCooldown() * 1000);
+                chr.addCooldown(attack.skill, System.currentTimeMillis(), effect.getCooldown() * 1000L);
             }
         }
         final Integer ShadowPartner = chr.getBuffedValue(MapleBuffStat.SHADOWPARTNER);
@@ -979,8 +979,8 @@ public class PlayerHandler {
             case 夜使者.三飞闪: // Triple Throw
             case 暗夜行者1.双飞斩: // Lucky seven
             case 暗夜行者3.三飞闪: // Triple Throw
-                basedamage = (float) ((float) ((statst.getTotalLuk() * 5.0f) * (statst.getTotalWatk() + projectileWatk))
-                        / 100);
+                basedamage = ((statst.getTotalLuk() * 5.0f) * (statst.getTotalWatk() + projectileWatk))
+                        / 100;
                 break;
             case 暗杀者.枫币攻击: // Shadow Meso
                 basedamage = 13000;
@@ -992,12 +992,10 @@ public class PlayerHandler {
                 } else {
                     basedamage = statst.getCurrentMaxBaseDamage();
                 }
-                switch (attack.skill) {
-                    case 破风使者2.暴风射击: // arrowbomb is hardcore like that
-                        if (effect != null) {
-                            basedamage *= effect.getX() / 100.0;
-                        }
-                        break;
+                if (attack.skill == 破风使者2.暴风射击) { // arrowbomb is hardcore like that
+                    if (effect != null) {
+                        basedamage *= effect.getX() / 100.0;
+                    }
                 }
                 break;
         }
@@ -1043,7 +1041,7 @@ public class PlayerHandler {
                         DamageParse.applyAttack(attack2, skil2, chr, bulletCount2, basedamage2, eff2,
                                 AttackType.RANGED);
                     }
-                }, 500 * i + 500);
+                }, 500L * i + 500);
             }
         }
     }
@@ -1088,7 +1086,7 @@ public class PlayerHandler {
                 return;
             }
             c.sendPacket(MaplePacketCreator.skillCooldown(attack.skill, effect.getCooldown()));
-            chr.addCooldown(attack.skill, System.currentTimeMillis(), effect.getCooldown() * 1000);
+            chr.addCooldown(attack.skill, System.currentTimeMillis(), effect.getCooldown() * 1000L);
         }
         chr.checkFollow();
         chr.getMap().broadcastMessage(chr,
@@ -1114,7 +1112,7 @@ public class PlayerHandler {
                                         attack2.allDamage, attack2.charge, clone.getLevel(), attack2.unk));
                         DamageParse.applyAttackMagic(attack2, skil2, chr, eff2);
                     }
-                }, 500 * i + 500);
+                }, 500L * i + 500);
             }
         }
     }
@@ -1149,7 +1147,7 @@ public class PlayerHandler {
                         public void run() {
                             clone.getMap().broadcastMessage(MaplePacketCreator.facialExpression(clone, emote));
                         }
-                    }, 500 * i + 500);
+                    }, 500L * i + 500);
                 }
             }
         }
@@ -1178,7 +1176,7 @@ public class PlayerHandler {
             }
             if (healHP > check * 5) {
                 chr.getCheatTracker().registerOffense(CheatingOffense.REGEN_HIGH_HP,
-                        String.valueOf(healHP) + "服务端:" + stats.getHealHP());
+                        healHP + "服务端:" + stats.getHealHP());
                 healHP = (int) stats.getHealHP();
             }
             chr.addHP(healHP);
@@ -1292,7 +1290,7 @@ public class PlayerHandler {
                                 // very rarely swallowed
                             }
                         }
-                    }, 500 * i + 500);
+                    }, 500L * i + 500);
                 }
             }
             int count = c.getPlayer().getFallCounter();

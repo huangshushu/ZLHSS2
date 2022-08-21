@@ -29,7 +29,7 @@ public enum MapleGuildResponse {
     NOT_IN_GUILD(0x2d);
     private final int value;
 
-    private MapleGuildResponse(int val) {
+    MapleGuildResponse(int val) {
         value = val;
     }
 

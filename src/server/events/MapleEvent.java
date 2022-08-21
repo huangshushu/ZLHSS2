@@ -187,7 +187,7 @@ public abstract class MapleEvent {
                 for (int i : e.mapid) {
                     if (chr.getMapId() == i) {
                         e.startEvent();
-                        chr.getMap().broadcastMessage(MaplePacketCreator.serverNotice(5, String.valueOf(t) + " 活动开始。"));
+                        chr.getMap().broadcastMessage(MaplePacketCreator.serverNotice(5, t + " 活动开始。"));
                     }
                 }
             }
@@ -205,7 +205,7 @@ public abstract class MapleEvent {
         }
         cserv.setEvent(cserv.getEvent(event).mapid[0]);
         cserv.getEvent(event).reset();
-        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "活动 " + String.valueOf(event) + " 即将在频道 "
+        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "活动 " + event + " 即将在频道 "
                 + cserv.getChannel() + " 举行 , 参加指令@event 要参加的玩家请到频道 " + cserv.getChannel()));
         return "";
     }

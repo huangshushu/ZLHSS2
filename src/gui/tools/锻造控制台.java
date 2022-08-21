@@ -191,7 +191,7 @@ public class 锻造控制台 extends javax.swing.JFrame {
                 "序号", "编号", "物品代码", "材料名称", "材料数量"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
 
@@ -337,7 +337,7 @@ public class 锻造控制台 extends javax.swing.JFrame {
                 "序号", "编号", "物品代码", "材料名称", "材料数量", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
@@ -715,7 +715,7 @@ public class 锻造控制台 extends javax.swing.JFrame {
         PreparedStatement ps1 = null;
         ResultSet rs = null;
         boolean result = this.锻造序号.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
 
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
                 ps1 = con.prepareStatement("SELECT * FROM 锻造材料表 WHERE id = ?");
@@ -738,7 +738,7 @@ public class 锻造控制台 extends javax.swing.JFrame {
         PreparedStatement ps1 = null;
         ResultSet rs = null;
         boolean result = this.锻造序号1.getText().matches("[0-9]+");
-        if (result == true) {
+        if (result) {
 
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
                 ps1 = con.prepareStatement("SELECT * FROM 锻造物品表 WHERE id = ?");
@@ -802,7 +802,7 @@ public class 锻造控制台 extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "请在应用下载区域，下载“锻造模板”脚本。");
     }//GEN-LAST:event_jButton2ActionPerformed
     public void 刷新锻造所需材料() {
-        for (int i = ((DefaultTableModel) (this.锻造所需材料.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.锻造所需材料.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.锻造所需材料.getModel())).removeRow(i);
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
@@ -839,7 +839,7 @@ public class 锻造控制台 extends javax.swing.JFrame {
     }
 
     public void 刷新锻造奖励() {
-        for (int i = ((DefaultTableModel) (this.锻造完成物品.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.锻造完成物品.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.锻造完成物品.getModel())).removeRow(i);
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {

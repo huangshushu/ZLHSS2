@@ -312,7 +312,7 @@ public class InventoryHandler {
             if (MapleItemInformationProvider.getInstance().getItemEffect(toUse.getItemId()).applyTo(chr)) {
                 MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (short) 1, false);
                 if (chr.getMap().getConsumeItemCoolTime() > 0) {
-                    chr.setNextConsume(time + (chr.getMap().getConsumeItemCoolTime() * 1000));
+                    chr.setNextConsume(time + (chr.getMap().getConsumeItemCoolTime() * 1000L));
                 }
             }
 
@@ -923,7 +923,7 @@ public class InventoryHandler {
             } else if (expiration_days > 0) {
                 MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (byte) 1, false);
                 c.getPlayer().changeSkillLevel(SkillFactory.getSkill(mountid), (byte) 1, (byte) 1,
-                        System.currentTimeMillis() + (long) (expiration_days * 24 * 60 * 60 * 1000));
+                        System.currentTimeMillis() + (expiration_days * 24 * 60 * 60 * 1000));
                 c.getPlayer().dropMessage(5, "已经学会这个技能了。");
             }
         }
@@ -1791,7 +1791,7 @@ public class InventoryHandler {
                     flag |= ItemFlag.LOCK.getValue();
                     item.setFlag(flag);
 
-                    item.setExpiration(System.currentTimeMillis() + (30 * 24 * 60 * 60 * 1000));
+                    item.setExpiration(System.currentTimeMillis() + (30L * 24 * 60 * 60 * 1000));
 
                     c.getPlayer().forceReAddItem_Flag(item, type);
                     used = true;
@@ -1807,7 +1807,7 @@ public class InventoryHandler {
                     flag |= ItemFlag.LOCK.getValue();
                     item.setFlag(flag);
 
-                    item.setExpiration(System.currentTimeMillis() + (90 * 24 * 60 * 60 * 1000));
+                    item.setExpiration(System.currentTimeMillis() + (90L * 24 * 60 * 60 * 1000));
 
                     c.getPlayer().forceReAddItem_Flag(item, type);
                     used = true;
@@ -2787,7 +2787,7 @@ public class InventoryHandler {
             return;
         }
 
-        final byte petz = (byte) c.getPlayer().getPetIndex((int) slea.readLong/* Int */());
+        final byte petz = c.getPlayer().getPetIndex((int) slea.readLong/* Int */());
         final MaplePet pet = chr.getPet(petz);
         slea.skip(1); // [4] Zero, [4] Seems to be tickcount, [1] Always zero
         chr.updateTick(slea.readInt());
@@ -2886,7 +2886,7 @@ public class InventoryHandler {
 
     public static final boolean useItem(final MapleClient c, final int id) {
         //怪物卡自动注册
-        if(WorldConstants.AutoRegisterMonsterCard == false && GameConstants.isMonsterCard(id)){
+        if(!WorldConstants.AutoRegisterMonsterCard && GameConstants.isMonsterCard(id)){
             return false;
         }
         if (GameConstants.isUse(id)) { // TO prevent caching of everything, waste of mem

@@ -944,7 +944,7 @@ public class MapleStatEffect implements Serializable {
         } else if (isPartyBuff() && (applyfrom.getParty() != null || isGmBuff())) {
             final Rectangle bounds = calculateBoundingBox(applyfrom.getPosition(), applyfrom.isFacingLeft());
             final List<MapleMapObject> affecteds = applyfrom.getMap().getMapObjectsInRect(bounds,
-                    Arrays.asList(MapleMapObjectType.PLAYER));
+                    Collections.singletonList(MapleMapObjectType.PLAYER));
 
             for (final MapleMapObject affectedmo : affecteds) {
                 final MapleCharacter affected = (MapleCharacter) affectedmo;
@@ -1016,8 +1016,8 @@ public class MapleStatEffect implements Serializable {
         final MapleMapObjectType objType = MapleMapObjectType.MONSTER;
         final List<MapleMapObject> affected = sourceid == 35111005
                 ? applyfrom.getMap().getMapObjectsInRange(applyfrom.getTruePosition(), Double.POSITIVE_INFINITY,
-                        Arrays.asList(objType))
-                : applyfrom.getMap().getMapObjectsInRect(bounds, Arrays.asList(objType));
+                Collections.singletonList(objType))
+                : applyfrom.getMap().getMapObjectsInRect(bounds, Collections.singletonList(objType));
         int i = 0;
 
         for (final MapleMapObject mo : affected) {
@@ -1320,7 +1320,7 @@ public class MapleStatEffect implements Serializable {
                     Selfstat.add((new Pair<>(MapleBuffStat.WDEF, (int) getWdef())));
                     Selfstat.add((new Pair<>(MapleBuffStat.MDEF, (int) getWdef())));
                     Selfstat.add((new Pair<>(MapleBuffStat.SPEED, (int) getSpeed())));
-                    Selfstat.add((new Pair<>(MapleBuffStat.MORPH, (int) getMorph(applyto))));
+                    Selfstat.add((new Pair<>(MapleBuffStat.MORPH, getMorph(applyto))));
                 } else if (isMonsterRiding()) {
                     localDuration = 2100000000;
                     final int mountid = parseMountInfo(applyto, sourceid);
@@ -1449,14 +1449,12 @@ public class MapleStatEffect implements Serializable {
                 hpchange -= hpCon;
             }
         }
-        switch (this.sourceid) {
-            case 4211001: // Chakra
-                final PlayerStats stat = applyfrom.getStat();
-                int v42 = getY() + 100;
-                int v38 = Randomizer.rand(1, 100) + 100;
-                hpchange = (int) ((v38 * stat.getLuk() * 0.033 + stat.getDex()) * v42 * 0.002);
-                hpchange += makeHealHP(getY() / 100.0, applyfrom.getStat().getTotalLuk(), 2.3, 3.5);
-                break;
+        if (this.sourceid == 4211001) { // Chakra
+            final PlayerStats stat = applyfrom.getStat();
+            int v42 = getY() + 100;
+            int v38 = Randomizer.rand(1, 100) + 100;
+            hpchange = (int) ((v38 * stat.getLuk() * 0.033 + stat.getDex()) * v42 * 0.002);
+            hpchange += makeHealHP(getY() / 100.0, applyfrom.getStat().getTotalLuk(), 2.3, 3.5);
         }
         return hpchange;
     }
@@ -2053,9 +2051,9 @@ public class MapleStatEffect implements Serializable {
 
     public static class CancelEffectAction implements Runnable {
 
-        private MapleStatEffect effect;
-        private WeakReference<MapleCharacter> target;
-        private long startTime;
+        private final MapleStatEffect effect;
+        private final WeakReference<MapleCharacter> target;
+        private final long startTime;
 
         public CancelEffectAction(final MapleCharacter target, final MapleStatEffect effect, final long startTime) {
             this.effect = effect;

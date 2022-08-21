@@ -27,11 +27,11 @@ package provider;
 public interface MapleDataEntry extends MapleDataEntity {
 
     @Override
-    public String getName();
+    String getName();
 
-    public int getSize();
+    int getSize();
 
-    public int getChecksum();
+    int getChecksum();
 
-    public int getOffset();
+    int getOffset();
 }

@@ -31,10 +31,10 @@ public class MapleFootholdTree {
     private MapleFootholdTree ne = null;
     private MapleFootholdTree sw = null;
     private MapleFootholdTree se = null;
-    private List<MapleFoothold> footholds = new LinkedList<>();
-    private Point p1;
-    private Point p2;
-    private Point center;
+    private final List<MapleFoothold> footholds = new LinkedList<>();
+    private final Point p1;
+    private final Point p2;
+    private final Point center;
     private int depth = 0;
     private static final byte maxDepth = 8;
     private int maxDropX;
@@ -138,9 +138,7 @@ public class MapleFootholdTree {
             }
             if ((p1.x > center.x || p2.x > center.x) && p1.y > center.y) {
                 ret = se.findWallR(p1, p2);
-                if (ret != null) {
-                    return ret;
-                }
+                return ret;
             }
         }
         return null;

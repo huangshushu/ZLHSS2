@@ -40,6 +40,7 @@ import tools.packet.LoginPacket;
 
 import javax.script.ScriptEngine;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -55,13 +56,13 @@ import java.util.logging.Logger;
 
 public class MapleClient {
 
-    public static final transient byte LOGIN_NOTLOGGEDIN = 0;
-    public static final transient byte LOGIN_SERVER_TRANSITION = 1;
-    public static final transient byte LOGIN_LOGGEDIN = 2;
-    public static final transient byte LOGIN_WAITING = 3;
-    public static final transient byte CASH_SHOP_TRANSITION = 4;
-    public static final transient byte LOGIN_CS_LOGGEDIN = 5;
-    public static final transient byte CHANGE_CHANNEL = 6;
+    public static final byte LOGIN_NOTLOGGEDIN = 0;
+    public static final byte LOGIN_SERVER_TRANSITION = 1;
+    public static final byte LOGIN_LOGGEDIN = 2;
+    public static final byte LOGIN_WAITING = 3;
+    public static final byte CASH_SHOP_TRANSITION = 4;
+    public static final byte LOGIN_CS_LOGGEDIN = 5;
+    public static final byte CHANGE_CHANNEL = 6;
     public static final int DEFAULT_CHARSLOT = 3;
     public static final AttributeKey<MapleClient> CLIENT_KEY = AttributeKey.valueOf("Client");
     private final MapleAESOFB send, receive;
@@ -373,7 +374,7 @@ public class MapleClient {
     public final void update2ndPassword() {
         try {
             MessageDigest digester = MessageDigest.getInstance("SHA-1");
-            digester.update(secondPassword.getBytes("UTF-8"), 0, secondPassword.length());
+            digester.update(secondPassword.getBytes(StandardCharsets.UTF_8), 0, secondPassword.length());
             String hash = HexTool.toString(digester.digest()).replace(" ", "").toLowerCase();
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
                     PreparedStatement ps = con
@@ -387,7 +388,7 @@ public class MapleClient {
                 FileoutputUtil.outError("logs/资料库异常.txt", ex);
 
             }
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
+        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(MapleClient.class.getName()).log(Level.SEVERE, null, ex);
             FileoutputUtil.outError("logs/资料库异常.txt", ex);
 
@@ -903,10 +904,7 @@ public class MapleClient {
     }
 
     public boolean getCheckSecondPassword(String in) {
-        boolean allow = false;
-        if (LoginCrypto.checkSha1Hash(secondPassword, in)) {
-            allow = true;
-        }
+        boolean allow = LoginCrypto.checkSha1Hash(secondPassword, in);
         return allow;
     }
 
@@ -937,20 +935,17 @@ public class MapleClient {
     }
 
     public boolean check2ndPassword(String secondPassword) {
-        boolean allow = false;
+        boolean allow = checkHash(this.secondPassword, "SHA-1", secondPassword);
         // Check if the passwords are correct here. :B
-        if (checkHash(this.secondPassword, "SHA-1", secondPassword)) {
-            allow = true;
-        }
         return allow;
     }
 
     public static boolean checkHash(String hash, String type, String password) {
         try {
             MessageDigest digester = MessageDigest.getInstance(type);
-            digester.update(password.getBytes("UTF-8"), 0, password.length());
+            digester.update(password.getBytes(StandardCharsets.UTF_8), 0, password.length());
             return HexTool.toString(digester.digest()).replace(" ", "").toLowerCase().equals(hash);
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Encoding the string failed", e);
         }
     }

@@ -22,5 +22,5 @@ package scripting;
 
 public interface PortalScript {
 
-    public void enter(PortalPlayerInteraction ppi);
+    void enter(PortalPlayerInteraction ppi);
 }

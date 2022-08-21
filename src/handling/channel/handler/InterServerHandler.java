@@ -48,12 +48,12 @@ public class InterServerHandler {
         if (c.getCloseSession()) {
             return;
         }
-        if (World.isShutDown && chr.isGM() == false) {
+        if (World.isShutDown && !chr.isGM()) {
             c.sendPacket(MaplePacketCreator.serverBlocked(2));
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
         }
-        if (!WorldConstants.CS_ENABLE && chr.isGM() == false) {
+        if (!WorldConstants.CS_ENABLE && !chr.isGM()) {
             c.sendPacket(MaplePacketCreator.serverBlocked(2));
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
@@ -293,7 +293,7 @@ public class InterServerHandler {
         channelServer.addPlayer(player);
         c.loadVip(player.getAccountID());
         c.sendPacket(MaplePacketCreator.getCharInfo(player));
-        if (player.getCharacterNameById2(playerid) == null) {
+        if (MapleCharacter.getCharacterNameById2(playerid) == null) {
             FileoutputUtil.logToFile("logs/Data/角色不存在.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
                     + c.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " + c.getAccountName() + "登录");
             World.Broadcast.broadcastGMMessage(

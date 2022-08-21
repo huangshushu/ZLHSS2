@@ -135,10 +135,7 @@ public class DumpCashShop {
                     if (dics.get(cat) == null) {
                         dics.put(cat, new ArrayList());
                     }
-                    boolean check = false;
-                    if (meso > 0) {
-                        check = true;
-                    }
+                    boolean check = meso > 0;
                     if (MapleItemInformationProvider.getInstance().getInventoryTypeCS(itemId) == MapleInventoryType.EQUIP) {
                         if (!MapleItemInformationProvider.getInstance().isCashItem(itemId)) {
                             check = true;

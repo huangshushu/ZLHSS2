@@ -290,11 +290,11 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
 
     private short code = -2;
 
-    private SendPacketOpcode() {
+    SendPacketOpcode() {
         this.code = -2;
     }
 
-    private SendPacketOpcode(int code) {
+    SendPacketOpcode(int code) {
         this.code = (short) code;
     }
 

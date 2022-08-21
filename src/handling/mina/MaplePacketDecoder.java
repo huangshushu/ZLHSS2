@@ -45,8 +45,8 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
 
     @Override
     protected void decode(ChannelHandlerContext chc, ByteBuf in, List<Object> message) throws Exception {
-        final MapleClient client = (MapleClient) chc.channel().attr(MapleClient.CLIENT_KEY).get();
-        final DecoderState decoderState = (DecoderState) chc.channel().attr(DECODER_STATE_KEY).get();
+        final MapleClient client = chc.channel().attr(MapleClient.CLIENT_KEY).get();
+        final DecoderState decoderState = chc.channel().attr(DECODER_STATE_KEY).get();
 
         if (in.readableBytes() >= 4 && decoderState.packetlength == -1) {
             int packetHeader = in.readInt();
@@ -60,7 +60,7 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
             return;
         }
         if (in.readableBytes() >= decoderState.packetlength) {
-            byte decryptedPacket[] = new byte[decoderState.packetlength];
+            byte[] decryptedPacket = new byte[decoderState.packetlength];
             in.readBytes(decryptedPacket);
             decoderState.packetlength = -1;
             client.getReceiveCrypto().crypt(decryptedPacket);
@@ -83,16 +83,16 @@ public class MaplePacketDecoder extends ByteToMessageDecoder {
                 final StringBuilder sb = new StringBuilder("[接收]\t" + op + tab + "\t包头:"
                         + HexTool.getOpcodeToString(pHeader) + t + "[" + packetLen + "字元]");
                 if (ServerConfig.LOG_PACKETS) {
-                    System.out.println(sb.toString());
+                    System.out.println(sb);
                 }
                 sb.append("\r\n\r\n").append(HexTool.toString(decryptedPacket)).append("\r\n")
                         .append(HexTool.toStringFromAscii(decryptedPacket));
                 if (ServerConfig.LOG_PACKETS) {
-                    FileoutputUtil.log(FileoutputUtil.Packet_Log, "\r\n\r\n" + sb.toString() + "\r\n\r\n");
+                    FileoutputUtil.log(FileoutputUtil.Packet_Log, "\r\n\r\n" + sb + "\r\n\r\n");
                 } else if (ServerConfig.CHRLOG_PACKETS) {
                     if (client.getPlayer() != null) {
                         FilePrinter.print("封包记录/" + client.getPlayer().getName() + ".txt",
-                                "\r\n\r\n" + sb.toString() + "\r\n\r\n");
+                                "\r\n\r\n" + sb + "\r\n\r\n");
                     }
                 }
             }

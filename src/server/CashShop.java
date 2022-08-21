@@ -41,10 +41,11 @@ import java.util.List;
 public class CashShop implements Serializable {
 
     private static final long serialVersionUID = 231541893513373579L;
-    private int accountId, characterId;
-    private ItemLoader factory;
-    private List<IItem> inventory = new ArrayList<>();
-    private List<Integer> uniqueids = new ArrayList<>();
+    private final int accountId;
+    private final int characterId;
+    private final ItemLoader factory;
+    private final List<IItem> inventory = new ArrayList<>();
+    private final List<Integer> uniqueids = new ArrayList<>();
 
     public CashShop(int accountId, int characterId, int jobType) throws SQLException {
         this.accountId = accountId;
@@ -135,10 +136,7 @@ public class CashShop implements Serializable {
         if (period <= 0) {
             period = 45;
         }
-        boolean 加倍卡 = false;
-        if ((cItem.getId() >= 5210000 && cItem.getId() <= 5210011) || (cItem.getId() >= 5360000 && cItem.getId() <= 5360015)) {
-            加倍卡 = true;
-        }
+        boolean 加倍卡 = (cItem.getId() >= 5210000 && cItem.getId() <= 5210011) || (cItem.getId() >= 5360000 && cItem.getId() <= 5360015);
         // if (chr != null) {
         //if (chr.isVip()) {
         // if (chr.isVip(chr.getClient().getAccID())) {
@@ -189,7 +187,7 @@ public class CashShop implements Serializable {
         if (GameConstants.getInventoryType(cItem.getId()) == MapleInventoryType.EQUIP) {
             Equip eq = (Equip) MapleItemInformationProvider.getInstance().getEquipById(cItem.getId());
             eq.setUniqueId(uniqueid);
-            eq.setExpiration((long) (System.currentTimeMillis() + (long) (period * 24 * 60 * 60 * 1000)));
+            eq.setExpiration(System.currentTimeMillis() + (period * 24 * 60 * 60 * 1000));
             eq.setGiftFrom(gift);
             if (GameConstants.isEffectRing(cItem.getId()) && uniqueid > 0) {
                 MapleRing ring = MapleRing.loadFromDb(uniqueid);
@@ -200,7 +198,7 @@ public class CashShop implements Serializable {
             ret = eq.copy();
         } else {
             Item item = new Item(cItem.getId(), (byte) 0, (short) cItem.getCount(), (byte) 0, uniqueid);
-            item.setExpiration((long) (System.currentTimeMillis() + (long) (period * 24 * 60 * 60 * 1000)));
+            item.setExpiration(System.currentTimeMillis() + (period * 24 * 60 * 60 * 1000));
             item.setGiftFrom(gift);
             if (GameConstants.isPet(cItem.getId())) {
                 final MaplePet pet = MaplePet.createPet(cItem.getId(), uniqueid);

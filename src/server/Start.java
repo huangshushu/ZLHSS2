@@ -116,7 +116,7 @@ public class Start {
          */
     }
 
-    public final static void main(final String args[]) {
+    public final static void main(final String[] args) {
         System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
         System.setProperty("file.encoding", "utf-8");
         System.setProperty("path", "");
@@ -246,6 +246,6 @@ public class Start {
                 } catch (Exception e) {
                 }
             }
-        }, 60000 * time);
+        }, 60000L * time);
     }
 }

@@ -388,7 +388,7 @@ public class MTSStorage {
         }
 
         public int getTaxes() {
-            return ServerConstants.MTS_BASE + (int) (price * ServerConstants.MTS_TAX / 100);
+            return ServerConstants.MTS_BASE + (price * ServerConstants.MTS_TAX / 100);
         }
 
         public int getId() {

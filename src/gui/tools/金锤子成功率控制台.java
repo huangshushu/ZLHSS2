@@ -127,7 +127,7 @@ public class 金锤子成功率控制台 extends javax.swing.JFrame {
                 "序号", "类型", "成功率/%"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false
             };
 
@@ -226,7 +226,7 @@ public class 金锤子成功率控制台 extends javax.swing.JFrame {
     }
 
     public void 刷新金锤子() {
-        for (int i = ((DefaultTableModel) (this.金锤子表.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.金锤子表.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.金锤子表.getModel())).removeRow(i);
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {

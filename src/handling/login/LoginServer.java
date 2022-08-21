@@ -68,7 +68,7 @@ public class LoginServer {
         ServerConfig.Gateway_IP2 = bytes;
         acceptor = new ServerConnection(port, 0, MapleServerHandler.LOGIN_SERVER);
         acceptor.run();
-        System.out.println("\n【登入服务器】  - 监听端口: " + Short.toString(port) + " \n");
+        System.out.println("\n【登入服务器】  - 监听端口: " + port + " \n");
     }
 
     public static final void shutdown() {
@@ -163,9 +163,7 @@ public class LoginServer {
 
     public static final String removeLoginMac(final MapleClient c) {
         String macs = null;
-        if (LoginMacs.containsKey(c.getAccID())) {
-            LoginMacs.remove(c.getAccID());
-        }
+        LoginMacs.remove(c.getAccID());
         return macs;
     }
 
@@ -174,9 +172,7 @@ public class LoginServer {
             return true;
         }
         if (LoginKey.containsValue(key)) {
-            if (LoginKey.get(AccID).equals(key)) {
-                return true;
-            }
+            return LoginKey.get(AccID).equals(key);
         }
         return false;
     }
@@ -213,9 +209,7 @@ public class LoginServer {
             return true;
         }
         if (ServerKey.containsValue(key)) {
-            if (ServerKey.get(AccID).equals(key)) {
-                return true;
-            }
+            return ServerKey.get(AccID).equals(key);
         }
         return false;
     }
@@ -252,9 +246,7 @@ public class LoginServer {
             return true;
         }
         if (ClientKey.containsValue(key)) {
-            if (ClientKey.get(AccID).equals(key)) {
-                return true;
-            }
+            return ClientKey.get(AccID).equals(key);
         }
         return false;
     }
@@ -335,9 +327,7 @@ public class LoginServer {
         long lastTime = System.currentTimeMillis();
         if (ChangeChannelTime.containsKey(accid)) {
             long lastSelectCharTime = ChangeChannelTime.get(accid);
-            if (lastSelectCharTime + 40 * 1000 > lastTime) {
-                return false;
-            }
+            return lastSelectCharTime + 40 * 1000 <= lastTime;
         }
         return true;
     }
@@ -354,9 +344,7 @@ public class LoginServer {
         long lastTime = System.currentTimeMillis();
         if (EnterGameTime.containsKey(accid)) {
             long lastSelectCharTime = EnterGameTime.get(accid);
-            if (lastSelectCharTime + 60 * 1000 > lastTime) {
-                return false;
-            }
+            return lastSelectCharTime + 60 * 1000 <= lastTime;
         }
         return true;
     }

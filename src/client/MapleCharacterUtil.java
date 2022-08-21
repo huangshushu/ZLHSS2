@@ -159,10 +159,7 @@ public class MapleCharacterUtil {
             return true;
         } else if (salt == null && LoginCrypto.checkSha1Hash(passhash, pwd)) {
             return true;
-        } else if (LoginCrypto.checkSaltedSha512Hash(passhash, pwd, salt)) {
-            return true;
-        }
-        return false;
+        } else return LoginCrypto.checkSaltedSha512Hash(passhash, pwd, salt);
     }
 
     // id accountid gender

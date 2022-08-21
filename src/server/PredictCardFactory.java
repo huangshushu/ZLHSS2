@@ -58,14 +58,14 @@ public class PredictCardFactory {
         if (!this.predictCard.containsKey(Integer.valueOf(id))) {
             return null;
         }
-        return (PredictCard) this.predictCard.get(Integer.valueOf(id));
+        return this.predictCard.get(Integer.valueOf(id));
     }
 
     public PredictCardComment getPredictCardComment(int id) {
         if (!this.predictCardComment.containsKey(Integer.valueOf(id))) {
             return null;
         }
-        return (PredictCardComment) this.predictCardComment.get(Integer.valueOf(id));
+        return this.predictCardComment.get(Integer.valueOf(id));
     }
 
     public PredictCardComment RandomCardComment() {

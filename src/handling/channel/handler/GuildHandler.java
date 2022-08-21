@@ -51,7 +51,7 @@ public class GuildHandler {
 
         byte value;
 
-        private GuildOperation(byte op) {
+        GuildOperation(byte op) {
             this.value = op;
         }
 
@@ -109,7 +109,7 @@ public class GuildHandler {
         }
 
         @Override
-        public final boolean equals(Object other) {
+        public boolean equals(Object other) {
             if (!(other instanceof Invited)) {
                 return false;
             }
@@ -289,7 +289,7 @@ public class GuildHandler {
                 if (c.getPlayer().getGuildId() <= 0 || c.getPlayer().getGuildRank() != 1) {
                     return;
                 }
-                String ranks[] = new String[5];
+                String[] ranks = new String[5];
                 for (int i = 0; i < 5; i++) {
                     ranks[i] = slea.readMapleAsciiString();
                 }

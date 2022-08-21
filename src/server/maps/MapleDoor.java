@@ -116,7 +116,7 @@ public class MapleDoor extends AbstractMapleMapObject {
         Collections.sort(freePortals, new Comparator<MaplePortal>() {
 
             @Override
-            public final int compare(final MaplePortal o1, final MaplePortal o2) {
+            public int compare(final MaplePortal o1, final MaplePortal o2) {
                 if (o1.getId() < o2.getId()) {
                     return -1;
                 } else if (o1.getId() == o2.getId()) {

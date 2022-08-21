@@ -21,6 +21,7 @@
 package client;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
@@ -85,7 +86,7 @@ public class LoginCryptoLegacy {
     }
 
     public static final boolean isLegacyPassword(String hash) {
-        return hash.substring(0, 3).equals("$H$");
+        return hash.startsWith("$H$");
     }
 
     /**
@@ -102,7 +103,7 @@ public class LoginCryptoLegacy {
         MessageDigest digester;
 
         // Check for correct Seed
-        if (!seed.substring(0, 3).equals("$H$")) {
+        if (!seed.startsWith("$H$")) {
             // Oh noes! Generate a seed and continue.
             byte[] randomBytes = new byte[6];
             rand.nextBytes(randomBytes);
@@ -116,19 +117,19 @@ public class LoginCryptoLegacy {
         try {
             digester = MessageDigest.getInstance("SHA-1");
 
-            digester.update((salt + password).getBytes("iso-8859-1"), 0, (salt + password).length());
+            digester.update((salt + password).getBytes(StandardCharsets.ISO_8859_1), 0, (salt + password).length());
             byte[] sha1Hash = digester.digest();
             do {
                 byte[] CombinedBytes = new byte[sha1Hash.length + password.length()];
                 System.arraycopy(sha1Hash, 0, CombinedBytes, 0, sha1Hash.length);
-                System.arraycopy(password.getBytes("iso-8859-1"), 0, CombinedBytes, sha1Hash.length,
-                        password.getBytes("iso-8859-1").length);
+                System.arraycopy(password.getBytes(StandardCharsets.ISO_8859_1), 0, CombinedBytes, sha1Hash.length,
+                        password.getBytes(StandardCharsets.ISO_8859_1).length);
                 digester.update(CombinedBytes, 0, CombinedBytes.length);
                 sha1Hash = digester.digest();
             } while (--count > 0);
             out = seed.substring(0, 12);
             out += encode64(sha1Hash);
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException Ex) {
+        } catch (NoSuchAlgorithmException Ex) {
             System.err.println("Error hashing password." + Ex);
         }
         if (out == null) {
@@ -145,11 +146,10 @@ public class LoginCryptoLegacy {
      * @return Salt string.
      */
     private static String genSalt(final byte[] Random) {
-        final StringBuilder Salt = new StringBuilder("$H$");
-        Salt.append(iota64[30]);
-        Salt.append(encode64(Random));
+        String Salt = "$H$" + iota64[30] +
+                encode64(Random);
 
-        return Salt.toString();
+        return Salt;
     }
 
     private static String convertToHex(byte[] data) {
@@ -172,7 +172,7 @@ public class LoginCryptoLegacy {
     public static final String encodeSHA1(final String text)
             throws NoSuchAlgorithmException, UnsupportedEncodingException {
         final MessageDigest md = MessageDigest.getInstance("SHA-1");
-        md.update(text.getBytes("iso-8859-1"), 0, text.length());
+        md.update(text.getBytes(StandardCharsets.ISO_8859_1), 0, text.length());
         return convertToHex(md.digest());
     }
 

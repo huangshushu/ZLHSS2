@@ -16,7 +16,7 @@ import java.util.concurrent.ScheduledFuture;
 
 public class MapleSquad {
 
-    public static enum MapleSquadType {
+    public enum MapleSquadType {
 
         bossbalrog(2),
         zak(2),
@@ -36,7 +36,7 @@ public class MapleSquad {
         scartar(2),
         cygnus(3);
 
-        private MapleSquadType(int i) {
+        MapleSquadType(int i) {
             this.i = i;
         }
         public int i;
@@ -279,15 +279,11 @@ public class MapleSquad {
     }
 
     public void removeMember(MapleCharacter chr) {
-        if (members.containsKey(chr.getName())) {
-            members.remove(chr.getName());
-        }
+        members.remove(chr.getName());
     }
 
     public void removeMember(String chr) {
-        if (members.containsKey(chr)) {
-            members.remove(chr);
-        }
+        members.remove(chr);
     }
 
     public void banMember(int pos) {

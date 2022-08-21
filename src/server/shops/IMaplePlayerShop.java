@@ -29,79 +29,79 @@ import java.util.List;
 
 public interface IMaplePlayerShop {
 
-    public final static byte HIRED_FISHING = -1;
-    public final static byte HIRED_MERCHANT = 1;
-    public final static byte PLAYER_SHOP = 2;
-    public final static byte OMOK = 3;
-    public final static byte MATCH_CARD = 4;
+    byte HIRED_FISHING = -1;
+    byte HIRED_MERCHANT = 1;
+    byte PLAYER_SHOP = 2;
+    byte OMOK = 3;
+    byte MATCH_CARD = 4;
 
-    public String getOwnerName();
+    String getOwnerName();
 
-    public String getDescription();
+    String getDescription();
 
-    public List<Pair<Byte, MapleCharacter>> getVisitors();
+    List<Pair<Byte, MapleCharacter>> getVisitors();
 
-    public List<MaplePlayerShopItem> getItems();
+    List<MaplePlayerShopItem> getItems();
 
-    public List<Pair<String, Byte>> getMessages();
+    List<Pair<String, Byte>> getMessages();
 
-    public boolean isOpen();
+    boolean isOpen();
 
-    public boolean removeItem(int item);
+    boolean removeItem(int item);
 
-    public boolean isOwner(MapleCharacter chr);
+    boolean isOwner(MapleCharacter chr);
 
-    public byte getShopType();
+    byte getShopType();
 
-    public byte getVisitorSlot(MapleCharacter visitor);
+    byte getVisitorSlot(MapleCharacter visitor);
 
-    public byte getFreeSlot();
+    byte getFreeSlot();
 
-    public int getItemId();
+    int getItemId();
 
-    public int getMeso();
+    int getMeso();
 
-    public int getOwnerId();
+    int getOwnerId();
 
-    public int getOwnerAccId();
+    int getOwnerAccId();
 
-    public void setOpen(boolean open);
+    void setOpen(boolean open);
 
-    public void setMeso(int meso);
+    void setMeso(int meso);
 
-    public void addItem(MaplePlayerShopItem item);
+    void addItem(MaplePlayerShopItem item);
 
-    public void removeFromSlot(int slot);
+    void removeFromSlot(int slot);
 
-    public void broadcastToVisitors(byte[] packet);
+    void broadcastToVisitors(byte[] packet);
 
-    public void addVisitor(MapleCharacter visitor);
+    void addVisitor(MapleCharacter visitor);
 
-    public void removeVisitor(MapleCharacter visitor);
+    void removeVisitor(MapleCharacter visitor);
 
-    public void removeAllVisitors(int error, int type);
+    void removeAllVisitors(int error, int type);
 
-    public void buy(MapleClient c, int item, short quantity);
+    void buy(MapleClient c, int item, short quantity);
 
-    public void closeShop(boolean saveItems, boolean remove);
+    void closeShop(boolean saveItems, boolean remove);
 
-    public String getPassword();
+    String getPassword();
 
-    public int getMaxSize();
+    int getMaxSize();
 
-    public int getSize();
+    int getSize();
 
-    public int getGameType();
+    int getGameType();
 
-    public void update();
+    void update();
 
-    public void setAvailable(boolean b);
+    void setAvailable(boolean b);
 
-    public boolean isAvailable();
+    boolean isAvailable();
 
-    public List<BoughtItem> getBoughtItems();
+    List<BoughtItem> getBoughtItems();
 
-    public boolean getCanShop();
+    boolean getCanShop();
 
-    public void setCanShop(boolean CanShop);
+    void setCanShop(boolean CanShop);
 }

@@ -381,7 +381,7 @@ public class MapleItemInformationProvider {
 
     protected final MapleData getItemData(final int itemId) {
         MapleData ret = null;
-        final String idStr = "0" + String.valueOf(itemId);
+        final String idStr = "0" + itemId;
         MapleDataDirectoryEntry root = itemData.getRoot();
         for (final MapleDataDirectoryEntry topDir : root.getSubdirectories()) {
             // we should have .img files here beginning with the first 4 IID
@@ -479,14 +479,14 @@ public class MapleItemInformationProvider {
             try {
                 pEntry = MapleDataTool.getDouble(pData);
             } catch (Exception e) {
-                pEntry = (double) MapleDataTool.getIntConvert(pData);
+                pEntry = MapleDataTool.getIntConvert(pData);
             }
         } else {
             pData = item.getChildByPath("info/price");
             if (pData == null) {
                 return -1;
             }
-            pEntry = (double) MapleDataTool.getIntConvert(pData);
+            pEntry = MapleDataTool.getIntConvert(pData);
         }
         if (itemId == 2070019 || itemId == 2330007) {
             pEntry = 1.0;
@@ -532,7 +532,7 @@ public class MapleItemInformationProvider {
     }
 
     private int rand(int min, int max) {
-        return Math.abs((int) Randomizer.rand(min, max));
+        return Math.abs(Randomizer.rand(min, max));
     }
 
     public Equip levelUpEquip(Equip equip, Map<String, Integer> sta) {
@@ -1316,11 +1316,8 @@ public class MapleItemInformationProvider {
         }
         final MapleData data = getItemData(itemId);
 
-        boolean trade = false;
-        if (MapleDataTool.getIntConvert("info/tradeBlock", data, 0) == 1
-                || MapleDataTool.getIntConvert("info/quest", data, 0) == 1) {
-            trade = true;
-        }
+        boolean trade = MapleDataTool.getIntConvert("info/tradeBlock", data, 0) == 1
+                || MapleDataTool.getIntConvert("info/quest", data, 0) == 1;
         dropRestrictionCache.put(itemId, trade);
         return trade;
     }
@@ -1647,10 +1644,7 @@ public class MapleItemInformationProvider {
 
     public final boolean isOnlyTradeBlock(final int itemId) {
         final MapleData data = getItemData(itemId);
-        boolean tradeblock = false;
-        if (MapleDataTool.getIntConvert("info/tradeBlock", data, 0) == 1) {
-            tradeblock = true;
-        }
+        boolean tradeblock = MapleDataTool.getIntConvert("info/tradeBlock", data, 0) == 1;
         return tradeblock;
     }
 
@@ -1691,7 +1685,7 @@ public class MapleItemInformationProvider {
             return inventoryTypeCache.get(itemId);
         }
         MapleInventoryType ret;
-        String idStr = "0" + String.valueOf(itemId);
+        String idStr = "0" + itemId;
         MapleDataDirectoryEntry root = itemData.getRoot();
         for (MapleDataDirectoryEntry topDir : root.getSubdirectories()) {
             for (MapleDataFileEntry iFile : topDir.getFiles()) {
@@ -1747,7 +1741,7 @@ public class MapleItemInformationProvider {
             if (smEntry == null) {
                 ret = 0;
             } else {
-                ret = (int) MapleDataTool.getInt(smEntry);
+                ret = MapleDataTool.getInt(smEntry);
             }
         }
         chairMountId.put(itemId, ret);

@@ -208,10 +208,10 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
         }
 
         // IV used to decrypt packets from client.
-        final byte ivRecv[] = new byte[] { (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255),
+        final byte[] ivRecv = new byte[] { (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255),
                 (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255) };
         // IV used to encrypt packets for client.
-        final byte ivSend[] = new byte[] { (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255),
+        final byte[] ivSend = new byte[] { (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255),
                 (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255) };
 
         final MapleClient client = new MapleClient(
@@ -262,7 +262,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
          * }
          */
         try {
-            final MapleClient client = (MapleClient) ctx.channel().attr(MapleClient.CLIENT_KEY).get();
+            final MapleClient client = ctx.channel().attr(MapleClient.CLIENT_KEY).get();
 
             if (client != null) {
                 try {
@@ -289,7 +289,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
         if (slea.available() < 2) {
             return;
         }
-        final MapleClient c = (MapleClient) ctx.channel().attr(MapleClient.CLIENT_KEY).get();
+        final MapleClient c = ctx.channel().attr(MapleClient.CLIENT_KEY).get();
         if (c == null || !c.isReceiving()) {
             return;
         }
@@ -314,8 +314,8 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 }
                 if (c.getPlayer() != null && c.isMonitored()) {
                     if (!blocked.contains(recv)) {
-                        FilePrinter.print("Monitored/" + c.getPlayer().getName() + ".txt", String.valueOf(recv) + " ("
-                                + Integer.toHexString(header_num) + ") Handled: \r\n" + slea.toString() + "\r\n");
+                        FilePrinter.print("Monitored/" + c.getPlayer().getName() + ".txt", recv + " ("
+                                + Integer.toHexString(header_num) + ") Handled: \r\n" + slea + "\r\n");
                     }
                 }
                 try {
@@ -337,7 +337,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
         if (ServerConfig.LOG_PACKETS) {
             final byte[] packet = slea.read((int) slea.available());
             final StringBuilder sb = new StringBuilder("发现未知用户端数据包 - (包头:0x" + Integer.toHexString(header_num) + ")");
-            System.err.println(sb.toString());
+            System.err.println(sb);
             sb.append(":\r\n").append(HexTool.toString(packet)).append("\r\n")
                     .append(HexTool.toStringFromAscii(packet));
             FileoutputUtil.log(FileoutputUtil.UnknownPacket_Log, sb.toString());
@@ -346,7 +346,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void userEventTriggered(final ChannelHandlerContext ctx, final Object status) throws Exception {
-        MapleClient client = (MapleClient) ctx.channel().attr(MapleClient.CLIENT_KEY).get();
+        MapleClient client = ctx.channel().attr(MapleClient.CLIENT_KEY).get();
 
         if (client != null) {
             client.sendPing();

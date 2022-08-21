@@ -71,7 +71,7 @@ public class PetHandler {
             if (MapleItemInformationProvider.getInstance().getItemEffect(toUse.getItemId()).applyTo(chr)) {
                 MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (short) 1, false);
                 if (chr.getMap().getConsumeItemCoolTime() > 0) {
-                    chr.setNextConsume(time + (chr.getMap().getConsumeItemCoolTime() * 1000));
+                    chr.setNextConsume(time + (chr.getMap().getConsumeItemCoolTime() * 1000L));
                 }
             }
         } else {
@@ -100,7 +100,7 @@ public class PetHandler {
         }
         slea.skip(5);
         final byte command = slea.readByte();
-        final PetCommand petCommand = PetDataFactory.getPetCommand(pet.getPetItemId(), (int) command);
+        final PetCommand petCommand = PetDataFactory.getPetCommand(pet.getPetItemId(), command);
 
         boolean success = false;
         if (Randomizer.nextInt(99) <= petCommand.getProbability()) {
@@ -150,11 +150,8 @@ public class PetHandler {
             c.getSession().writeAndFlush(MaplePacketCreator.enableActions());
             return;
         }
-        boolean gainCloseness = false;
+        boolean gainCloseness = Randomizer.nextInt(99) <= 50;
 
-        if (Randomizer.nextInt(99) <= 50) {
-            gainCloseness = true;
-        }
         if (pet.getFullness() < 100) {
             int newFullness = pet.getFullness() + 30;
             if (newFullness > 100) {

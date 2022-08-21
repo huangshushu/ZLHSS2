@@ -234,7 +234,7 @@ public class BuddyListHandler {
             }
             default: {
                 FilePrinter.printError("BuddyListHandler.txt",
-                        "Unknown Buddylist Operation " + String.valueOf(mode) + " " + slea.toString());
+                        "Unknown Buddylist Operation " + mode + " " + slea);
                 break;
             }
         }

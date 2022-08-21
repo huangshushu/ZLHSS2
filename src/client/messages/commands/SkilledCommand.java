@@ -41,7 +41,7 @@ public class SkilledCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Level <等级> - 改变等级").toString();
+            return "!Level <等级> - 改变等级";
         }
     }
 
@@ -49,7 +49,7 @@ public class SkilledCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!黑单 <玩家名称> - 将玩家设定为无法回报的黑名单").toString();
+            return "!黑单 <玩家名称> - 将玩家设定为无法回报的黑名单";
         }
     }
 
@@ -82,14 +82,14 @@ public class SkilledCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!FakeReport <玩家名称> - 将玩家设定为无法回报的黑名单").toString();
+            return "!FakeReport <玩家名称> - 将玩家设定为无法回报的黑名单";
         }
     }
 
     public static class Heal extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().getStat().setHp(c.getPlayer().getStat().getCurrentMaxHp());
             c.getPlayer().getStat().setMp(c.getPlayer().getStat().getCurrentMaxMp());
             c.getPlayer().updateSingleStat(MapleStat.HP, c.getPlayer().getStat().getCurrentMaxHp());
@@ -100,14 +100,14 @@ public class SkilledCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!heal - 补满血魔").toString();
+            return "!heal - 补满血魔";
         }
     }
 
     public static class HealMap extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter player = c.getPlayer();
             for (MapleCharacter mch : player.getMap().getCharacters()) {
                 if (mch != null) {
@@ -124,7 +124,7 @@ public class SkilledCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!healmap  - 治愈地图上所有的人").toString();
+            return "!healmap  - 治愈地图上所有的人";
         }
     }
 }

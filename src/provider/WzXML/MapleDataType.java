@@ -38,5 +38,5 @@ public enum MapleDataType {
     SOUND,
     UOL,
     UNKNOWN_TYPE,
-    UNKNOWN_EXTENDED_TYPE;
+    UNKNOWN_EXTENDED_TYPE
 }

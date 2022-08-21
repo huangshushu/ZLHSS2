@@ -21,6 +21,7 @@ import tools.StringUtil;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 
 /**
  *
@@ -36,7 +37,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@帮助 - 帮助").toString();
+            return "@帮助 - 帮助";
         }
     }
 
@@ -80,7 +81,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@help - 帮助").toString();
+            return "@help - 帮助";
         }
     }
 
@@ -135,7 +136,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@丢装 - 呼叫清除现金道具npc").toString();
+            return "@丢装 - 呼叫清除现金道具npc";
         }
     }
 
@@ -147,7 +148,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@dropbash - 呼叫清除现金道具npc").toString();
+            return "@dropbash - 呼叫清除现金道具npc";
         }
 
     }
@@ -160,7 +161,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@event - 呼叫活动npc").toString();
+            return "@event - 呼叫活动npc";
         }
     }
 
@@ -238,7 +239,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@expfix - 经验归零").toString();
+            return "@expfix - 经验归零";
         }
     }
 
@@ -280,7 +281,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@TSmega - 开/关闭广播").toString();
+            return "@TSmega - 开/关闭广播";
         }
     }
 
@@ -294,7 +295,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@Gashponmega - 开/关闭转蛋广播").toString();
+            return "@Gashponmega - 开/关闭转蛋广播";
         }
     }
 
@@ -302,7 +303,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@解卡 - 解卡").toString();
+            return "@解卡 - 解卡";
         }
     }
 
@@ -310,7 +311,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@查看 - 解卡").toString();
+            return "@查看 - 解卡";
         }
     }
 
@@ -343,7 +344,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@ea - 解卡").toString();
+            return "@ea - 解卡";
         }
 
         public static String getDayOfWeek() {
@@ -396,7 +397,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@查看 - 解卡").toString();
+            return "@查看 - 解卡";
         }
     }
 
@@ -443,7 +444,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@怪物 - 查看怪物状态").toString();
+            return "@怪物 - 查看怪物状态";
         }
     }
 
@@ -453,10 +454,10 @@ public class PlayerCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             MapleMonster monster = null;
             for (final MapleMapObject monstermo : c.getPlayer().getMap().getMapObjectsInRange(
-                    c.getPlayer().getPosition(), 100000, Arrays.asList(MapleMapObjectType.MONSTER))) {
+                    c.getPlayer().getPosition(), 100000, Collections.singletonList(MapleMapObjectType.MONSTER))) {
                 monster = (MapleMonster) monstermo;
                 if (monster.isAlive()) {
-                    c.getPlayer().dropMessage(6, "怪物 " + monster.toString());
+                    c.getPlayer().dropMessage(6, "怪物 " + monster);
                 }
             }
             if (monster == null) {
@@ -467,7 +468,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@mob - 查看怪物状态").toString();
+            return "@mob - 查看怪物状态";
         }
     }
 
@@ -559,7 +560,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@cgm - 跟GM回报").toString();
+            return "@cgm - 跟GM回报";
         }
     }
 
@@ -634,7 +635,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@清除道具 <装备栏/消耗栏/装饰栏/其他栏/特殊栏> <开始格数> <结束格数>").toString();
+            return "@清除道具 <装备栏/消耗栏/装饰栏/其他栏/特殊栏> <开始格数> <结束格数>";
         }
     }
 
@@ -649,7 +650,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@jk_hm - 卡精灵商人解除").toString();
+            return "@jk_hm - 卡精灵商人解除";
         }
     }
 
@@ -677,7 +678,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@jcds - 领取在线点数").toString();
+            return "@jcds - 领取在线点数";
         }
     }
 
@@ -705,7 +706,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@在线点数 - 领取在线点数").toString();
+            return "@在线点数 - 领取在线点数";
         }
     }
 
@@ -1159,8 +1160,8 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("@").append(getClass().getSimpleName().toLowerCase())
-                    .append("丢弃点装 [点装在装备栏的位置]").toString();
+            return "@" + getClass().getSimpleName().toLowerCase() +
+                    "丢弃点装 [点装在装备栏的位置]";
         }
     }
 
@@ -1177,7 +1178,7 @@ public class PlayerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!MobDrop").toString();
+            return "!MobDrop";
         }
     }
 }

@@ -759,12 +759,12 @@ public class ChannelServer implements Serializable {
         try {
             final Iterator<Map.Entry<Integer, HiredMerchant>> hmit = this.merchants.entrySet().iterator();
             while (hmit.hasNext()) {
-                ((HiredMerchant) (hmit.next()).getValue()).closeShop(true, false);
+                (hmit.next()).getValue().closeShop(true, false);
                 hmit.remove();
                 ++ret;
             }
         } catch (Exception e) {
-            System.out.println("关闭雇佣商店出现错误" + (Object) e);
+            System.out.println("关闭雇佣商店出现错误" + e);
         } finally {
             this.merchLock.writeLock().unlock();
         }

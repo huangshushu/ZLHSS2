@@ -29,7 +29,7 @@ public class BitTools {
      * @param index Where reading begins.
      * @return The short integer value.
      */
-    public static final int getShort(final byte array[], final int index) {
+    public static final int getShort(final byte[] array, final int index) {
         int ret = array[index];
         ret &= 0xFF;
         ret |= ((int) (array[index + 1]) << 8) & 0xFF00;
@@ -45,7 +45,7 @@ public class BitTools {
      * @param length The number of bytes to read.
      * @return The string read.
      */
-    public static final String getString(final byte array[], final int index, final int length) {
+    public static final String getString(final byte[] array, final int index, final int length) {
         char[] cret = new char[length];
         for (int x = 0; x < length; x++) {
             cret[x] = (char) array[x + index];
@@ -61,8 +61,8 @@ public class BitTools {
      * @param index Where reading begins.
      * @return The string read.
      */
-    public static final String getMapleString(final byte array[], final int index) {
-        final int length = ((int) (array[index]) & 0xFF) | ((int) (array[index + 1] << 8) & 0xFF00);
+    public static final String getMapleString(final byte[] array, final int index) {
+        final int length = ((int) (array[index]) & 0xFF) | ((array[index + 1] << 8) & 0xFF00);
         return BitTools.getString(array, index + 2, length);
     }
 

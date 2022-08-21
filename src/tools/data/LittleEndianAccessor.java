@@ -151,7 +151,7 @@ public class LittleEndianAccessor {
      */
     public final String readAsciiString(final int n) {
         try {
-            final byte ret[] = new byte[n];
+            final byte[] ret = new byte[n];
             for (int x = 0; x < n; x++) {
                 ret[x] = readByte();
             }
@@ -283,9 +283,9 @@ public class LittleEndianAccessor {
                 + (byte7 << 48)
                 + (byte6 << 40)
                 + (byte5 << 32)
-                + (byte4 << 24)
-                + (byte3 << 16)
-                + (byte2 << 8)
+                + ((long) byte4 << 24)
+                + ((long) byte3 << 16)
+                + ((long) byte2 << 8)
                 + byte1;
     }
 
@@ -294,9 +294,9 @@ public class LittleEndianAccessor {
             for (int y = 0; y < n; y++) {
                 unReadByte();
             }
-            final byte ret[] = new byte[n];
+            final byte[] ret = new byte[n];
             for (int x = 0; x < n; x++) {
-                ret[x] = (byte) readByte();
+                ret[x] = readByte();
             }
             return new String(ret, ServerConstants.MAPLE_TYPE.getANSI());
         } catch (UnsupportedEncodingException ex) {

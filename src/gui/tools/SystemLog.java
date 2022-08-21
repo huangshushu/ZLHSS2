@@ -26,7 +26,7 @@ public class SystemLog {
             filepath = "./System.log";       //得到文本文件的路径
             filecontent = content; //需要写入的内容
             writefile = new File(filepath);
-            if (writefile.exists() == false) //如果文本文件不存在则创建它
+            if (!writefile.exists()) //如果文本文件不存在则创建它
             {
                 writefile.createNewFile();
                 writefile = new File(filepath);  //重新实例化
@@ -47,7 +47,7 @@ public class SystemLog {
             filepath = "./Packet.log";       //得到文本文件的路径
             filecontent = content; //需要写入的内容
             writefile = new File(filepath);
-            if (writefile.exists() == false) //如果文本文件不存在则创建它
+            if (!writefile.exists()) //如果文本文件不存在则创建它
             {
                 writefile.createNewFile();
                 writefile = new File(filepath);  //重新实例化
@@ -69,7 +69,7 @@ public class SystemLog {
             filepath = "./NPC.log";       //得到文本文件的路径
             filecontent = content; //需要写入的内容
             writefile = new File(filepath);
-            if (writefile.exists() == false) //如果文本文件不存在则创建它
+            if (!writefile.exists()) //如果文本文件不存在则创建它
             {
                 writefile.createNewFile();
                 writefile = new File(filepath);  //重新实例化
@@ -100,7 +100,7 @@ public class SystemLog {
             }
             filecontent = content; //需要写入的内容
             writefile = new File(filepath);
-            if (writefile.exists() == false) //如果文本文件不存在则创建它
+            if (!writefile.exists()) //如果文本文件不存在则创建它
             {
                 writefile.createNewFile();
                 writefile = new File(filepath);  //重新实例化

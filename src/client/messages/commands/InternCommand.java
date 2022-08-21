@@ -30,7 +30,7 @@ public class InternCommand {
     public static class 发勋章 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -62,7 +62,7 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!发勋章 <玩家名称> - 将勋章领取名单添加玩家").toString();
+            return "!发勋章 <玩家名称> - 将勋章领取名单添加玩家";
         }
 
         public int createPlayer(int accountid, int id, String name) {
@@ -117,7 +117,7 @@ public class InternCommand {
     public static class Mute extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -140,31 +140,30 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Mute 	玩家名称 - 让玩家闭嘴或可以说话").toString();
+            return "!Mute 	玩家名称 - 让玩家闭嘴或可以说话";
         }
     }
 
     public static class MuteMap extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             for (MapleCharacter chr : c.getPlayer().getMap().getCharactersThreadsafe()) {
                 chr.canTalk(!chr.getCanTalk());
-                StringBuilder ret = new StringBuilder();
-                ret.append(" 角色暱称 ");
-                ret.append(StringUtil.getRightPaddedStr(chr.getName(), ' ', 13));
-                ret.append(" ID: ");
-                ret.append(StringUtil.getRightPaddedStr(chr.getId() + "", ' ', 5));
-                ret.append(" 目前已经: ");
-                ret.append(chr.getCanTalk() ? "可以说话" : "闭嘴");
-                c.getPlayer().dropMessage(ret.toString());
+                String ret = " 角色暱称 " +
+                        StringUtil.getRightPaddedStr(chr.getName(), ' ', 13) +
+                        " ID: " +
+                        StringUtil.getRightPaddedStr(chr.getId() + "", ' ', 5) +
+                        " 目前已经: " +
+                        (chr.getCanTalk() ? "可以说话" : "闭嘴");
+                c.getPlayer().dropMessage(ret);
             }
             return true;
         }
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!MuteMap 	- 让地图玩家闭嘴或可以说话").toString();
+            return "!MuteMap 	- 让地图玩家闭嘴或可以说话";
         }
     }
 
@@ -176,14 +175,14 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!hellban <玩家名称> <原因> - hellban").toString();
+            return "!hellban <玩家名称> <原因> - hellban";
         }
     }
 
     public static class CC extends ChangeChannel {
 
         public String getMessage() {
-            return new StringBuilder().append("!cc <频道> - 更换频道").toString();
+            return "!cc <频道> - 更换频道";
         }
     }
 
@@ -205,7 +204,7 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!changechannel <频道> - 更换频道").toString();
+            return "!changechannel <频道> - 更换频道";
         }
     }
 
@@ -275,8 +274,8 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase())
-                    .append(" <玩家名字> - 观察玩家").toString();
+            return "!" + getClass().getSimpleName().toLowerCase() +
+                    " <玩家名字> - 观察玩家";
         }
     }
 
@@ -347,15 +346,15 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase())
-                    .append(" <玩家ID> - 观察玩家").toString();
+            return "!" + getClass().getSimpleName().toLowerCase() +
+                    " <玩家ID> - 观察玩家";
         }
     }
 
     public static class Map extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -388,14 +387,14 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!map <mapid|charname> [portal] - 传送到某地图/人").toString();
+            return "!map <mapid|charname> [portal] - 传送到某地图/人";
         }
     }
 
     public static class WarpMap extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             try {
                 final MapleMap target = c.getChannelServer().getMapFactory().getMap(Integer.parseInt(splitted[1]));
                 if (target == null) {
@@ -414,28 +413,28 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!WarpMap 	地图代码 - 把地图上的人全部传到那张地图").toString();
+            return "!WarpMap 	地图代码 - 把地图上的人全部传到那张地图";
         }
     }
 
     public static class Debug extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().setDebugMessage(!c.getPlayer().getDebugMessage());
             c.getPlayer().dropMessage("DeBug讯息已经" + (c.getPlayer().getDebugMessage() ? "开启" : "关闭"));
             return true;
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!Debug - 开启Debug讯息").toString();
+            return "!Debug - 开启Debug讯息";
         }
     }
 
     public static class CharInfo extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
 
             if (splitted.length < 2) {
                 return false;
@@ -525,7 +524,7 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!charinfo <角色名称> - 查看角色状态").toString();
+            return "!charinfo <角色名称> - 查看角色状态";
 
         }
     }
@@ -533,7 +532,7 @@ public class InternCommand {
     public static class Cheaters extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             List<CheaterData> cheaters = World.getCheaters();
             for (int x = cheaters.size() - 1; x >= 0; x--) {
                 CheaterData cheater = cheaters.get(x);
@@ -544,7 +543,7 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!cheaters - 查看作弊角色").toString();
+            return "!cheaters - 查看作弊角色";
 
         }
     }
@@ -552,7 +551,7 @@ public class InternCommand {
     public static class ItemCheck extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 3 || splitted[1] == null || splitted[1].equals("") || splitted[2] == null
                     || splitted[2].equals("")) {
                 return false;
@@ -579,14 +578,14 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!itemcheck <playername> <itemid> - 检查物品").toString();
+            return "!itemcheck <playername> <itemid> - 检查物品";
         }
     }
 
     public static class CheckGash extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -608,14 +607,14 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!checkgash <玩家名称> - 检查点数").toString();
+            return "!checkgash <玩家名称> - 检查点数";
         }
     }
 
     public static class whoishere extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             StringBuilder builder = new StringBuilder("在此地图的玩家: ");
             for (MapleCharacter chr : c.getPlayer().getMap().getCharactersThreadsafe()) {
                 if (builder.length() > 150) { // wild guess :o
@@ -633,7 +632,7 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!whoishere - 查看目前地图上的玩家").toString();
+            return "!whoishere - 查看目前地图上的玩家";
 
         }
     }
@@ -641,7 +640,7 @@ public class InternCommand {
     public static class Connected extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             java.util.Map<Integer, Integer> connected = World.getConnected();
             StringBuilder conStr = new StringBuilder("已连接的客户端: ");
             boolean first = true;
@@ -667,7 +666,7 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!connected - 查看已连线的客户端").toString();
+            return "!connected - 查看已连线的客户端";
         }
     }
 
@@ -694,7 +693,7 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!openmap - 开放地图").toString();
+            return "!openmap - 开放地图";
         }
     }
 
@@ -724,7 +723,7 @@ public class InternCommand {
         }
 
         public String getMessage() {
-            return new StringBuilder().append("!closemap - 关闭地图").toString();
+            return "!closemap - 关闭地图";
         }
     }
 
@@ -754,7 +753,7 @@ public class InternCommand {
                         c.getPlayer().dropMessage(5, "HP: " + victim.getHp() + " 最大HP: " + victim.getMaxHp() + " MP: "
                                 + victim.getMp() + " 最大MP: " + victim.getMaxMp());
                         c.getPlayer().dropMessage(5, "Buff技能数量: " + victim.getSkillID().size());
-                        c.getPlayer().dropMessage(5, "技能ID: " + victim.getSkillID().keySet().toString());
+                        c.getPlayer().dropMessage(5, "技能ID: " + victim.getSkillID().keySet());
                     }
                 } else {
                     c.getPlayer().dropMessage(5, "找不到此玩家.");
@@ -765,8 +764,8 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase())
-                    .append(" <玩家名字> - 查看玩家技能数据").toString();
+            return "!" + getClass().getSimpleName().toLowerCase() +
+                    " <玩家名字> - 查看玩家技能数据";
         }
     }
 
@@ -807,8 +806,8 @@ public class InternCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!").append(getClass().getSimpleName().toLowerCase())
-                    .append(" <1干死右边，2干死左边>").toString();
+            return "!" + getClass().getSimpleName().toLowerCase() +
+                    " <1干死右边，2干死左边>";
         }
     }
 }

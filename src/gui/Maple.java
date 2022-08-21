@@ -40,6 +40,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.rmi.NotBoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -61,14 +62,14 @@ public class Maple extends javax.swing.JFrame {
     private final ImageIcon bgImg = new ImageIcon(Objects.requireNonNull(this.getClass().getClassLoader().getResource("image/qqq.jpg")));// 图片路径不要写错了
     public static Map<String, Integer> ConfigValuesMap = new HashMap<>();
     private final ReentrantReadWriteLock mutex = new ReentrantReadWriteLock();
-    private static Maple instance = new Maple();
-    private Map<Windows, javax.swing.JFrame> windows = new HashMap<>();
+    private static final Maple instance = new Maple();
+    private final Map<Windows, javax.swing.JFrame> windows = new HashMap<>();
     private ScheduledFuture<?> shutdownServer, updateplayer;
     private static long startRunTime = 0;
-    private static long starttime = 0;
-    private ArrayList<Tools> tools = new ArrayList<>();
+    private static final long starttime = 0;
+    private final ArrayList<Tools> tools = new ArrayList<>();
     private final Lock writeLock = mutex.writeLock();
-    private Vector<Vector<String>> playerTableRom = new Vector<>();
+    private final Vector<Vector<String>> playerTableRom = new Vector<>();
     boolean 调试模式 = false;
     boolean 自动注册 = false;
     String 服务器名字 = "获取中";
@@ -176,7 +177,7 @@ public class Maple extends javax.swing.JFrame {
         try {
             is = new FileInputStream("settings.ini");
             //这个要看你dd.properties文件的编码格式，如果编码格式是gbk的要用gbk的InputStreamReader读取，如果utf8的就不用特殊设置了，如果你手工输入的dd的信息应该是gbk的编码
-            bf = new BufferedReader(new InputStreamReader(is, "utf-8"));
+            bf = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             p = new Properties();
             p.load(bf);
 
@@ -829,49 +830,97 @@ public class Maple extends javax.swing.JFrame {
 
         角色名称编辑框.setEditable(false);
         角色名称编辑框.setForeground(new java.awt.Color(51, 153, 255));
-        角色名称编辑框.addActionListener(evt -> 角色名称编辑框ActionPerformed(evt));
+        角色名称编辑框.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                角色名称编辑框ActionPerformed(evt);
+            }
+        });
 
         jLabel23.setText("角色点券：");
 
         角色点券编辑框.setForeground(new java.awt.Color(51, 153, 255));
-        角色点券编辑框.addActionListener(evt -> 角色点券编辑框ActionPerformed(evt));
+        角色点券编辑框.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                角色点券编辑框ActionPerformed(evt);
+            }
+        });
 
         角色抵用编辑框.setForeground(new java.awt.Color(51, 153, 255));
-        角色抵用编辑框.addActionListener(evt -> 角色抵用编辑框ActionPerformed(evt));
+        角色抵用编辑框.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                角色抵用编辑框ActionPerformed(evt);
+            }
+        });
 
         jLabel24.setText("角色抵用：");
 
         角色所在地图编辑.setForeground(new java.awt.Color(51, 153, 255));
         角色所在地图编辑.setText("填写地图代码");
-        角色所在地图编辑.addActionListener(this::角色所在地图编辑ActionPerformed);
+        角色所在地图编辑.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                角色所在地图编辑ActionPerformed(evt);
+            }
+        });
 
         jLabel25.setText("所在地图：");
 
         修改玩家信息.setText("修改信息");
-        修改玩家信息.addActionListener(this::修改玩家信息ActionPerformed);
+        修改玩家信息.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                修改玩家信息ActionPerformed(evt);
+            }
+        });
 
         个人玩家下线.setText("强制下线");
-        个人玩家下线.addActionListener(this::个人玩家下线ActionPerformed);
+        个人玩家下线.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                个人玩家下线ActionPerformed(evt);
+            }
+        });
 
         传送玩家到自由.setText("传送自由");
-        传送玩家到自由.addActionListener(this::传送玩家到自由ActionPerformed);
+        传送玩家到自由.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                传送玩家到自由ActionPerformed(evt);
+            }
+        });
 
         全员下线.setText("全部下线");
-        全员下线.addActionListener(this::全员下线ActionPerformed);
+        全员下线.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                全员下线ActionPerformed(evt);
+            }
+        });
 
         关玩家到小黑屋.setText("关小黑屋");
-        关玩家到小黑屋.addActionListener(this::关玩家到小黑屋ActionPerformed);
+        关玩家到小黑屋.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                关玩家到小黑屋ActionPerformed(evt);
+            }
+        });
 
         传送玩家到指定地图.setText("传送地图");
-        传送玩家到指定地图.addActionListener(this::传送玩家到指定地图ActionPerformed);
+        传送玩家到指定地图.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                传送玩家到指定地图ActionPerformed(evt);
+            }
+        });
 
         一键满技能.setText("一键满技");
-        一键满技能.addActionListener(this::一键满技能ActionPerformed);
+        一键满技能.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                一键满技能ActionPerformed(evt);
+            }
+        });
 
         jLabel27.setText("角色元宝：");
 
         角色元宝编辑框.setForeground(new java.awt.Color(51, 153, 255));
-        角色元宝编辑框.addActionListener(this::角色元宝编辑框ActionPerformed);
+        角色元宝编辑框.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                角色元宝编辑框ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
         jPanel38.setLayout(jPanel38Layout);
@@ -972,7 +1021,7 @@ public class Maple extends javax.swing.JFrame {
                 .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane2.addTab("在线玩家监控", new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/信息日志.png"))), jPanel5); // NOI18N
+        jTabbedPane2.addTab("在线玩家监控", new javax.swing.ImageIcon(getClass().getResource("/image2/信息日志.png")), jPanel5); // NOI18N
 
         首页功能.add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 540));
 
@@ -980,37 +1029,69 @@ public class Maple extends javax.swing.JFrame {
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "重载系列", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
         jPanel15.setPreferredSize(new java.awt.Dimension(320, 250));
 
-        重载副本按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/更新.png")))); // NOI18N
+        重载副本按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/更新.png"))); // NOI18N
         重载副本按钮2.setText("重载副本");
-        重载副本按钮2.addActionListener(this::重载副本按钮2ActionPerformed);
+        重载副本按钮2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                重载副本按钮2ActionPerformed(evt);
+            }
+        });
 
-        重载爆率按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/4031041.png")))); // NOI18N
+        重载爆率按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/4031041.png"))); // NOI18N
         重载爆率按钮2.setText("重载爆率");
-        重载爆率按钮2.addActionListener(evt -> 重载爆率按钮2ActionPerformed(evt));
+        重载爆率按钮2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                重载爆率按钮2ActionPerformed(evt);
+            }
+        });
 
-        重载反应堆按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/更多设置.png")))); // NOI18N
+        重载反应堆按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/更多设置.png"))); // NOI18N
         重载反应堆按钮2.setText("重载反应堆");
-        重载反应堆按钮2.addActionListener(this::重载反应堆按钮2ActionPerformed);
+        重载反应堆按钮2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                重载反应堆按钮2ActionPerformed(evt);
+            }
+        });
 
-        重载传送门按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/1802034.png")))); // NOI18N
+        重载传送门按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/1802034.png"))); // NOI18N
         重载传送门按钮2.setText("重载传送门");
-        重载传送门按钮2.addActionListener(this::重载传送门按钮2ActionPerformed);
+        重载传送门按钮2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                重载传送门按钮2ActionPerformed(evt);
+            }
+        });
 
-        重载商城按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/自定义购物中心.png")))); // NOI18N
+        重载商城按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/自定义购物中心.png"))); // NOI18N
         重载商城按钮2.setText("重载商城");
-        重载商城按钮2.addActionListener(this::重载商城按钮2ActionPerformed);
+        重载商城按钮2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                重载商城按钮2ActionPerformed(evt);
+            }
+        });
 
-        重载商店按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/商店管理.png")))); // NOI18N
+        重载商店按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/商店管理.png"))); // NOI18N
         重载商店按钮2.setText("重载商店");
-        重载商店按钮2.addActionListener(this::重载商店按钮2ActionPerformed);
+        重载商店按钮2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                重载商店按钮2ActionPerformed(evt);
+            }
+        });
 
-        重载任务2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/信息日志.png")))); // NOI18N
+        重载任务2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/信息日志.png"))); // NOI18N
         重载任务2.setText("重载任务");
-        重载任务2.addActionListener(this::重载任务2ActionPerformed);
+        重载任务2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                重载任务2ActionPerformed(evt);
+            }
+        });
 
-        重载包头按钮2.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/更多设置.png")))); // NOI18N
+        重载包头按钮2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/更多设置.png"))); // NOI18N
         重载包头按钮2.setText("重载包头");
-        重载包头按钮2.addActionListener(this::重载包头按钮2ActionPerformed);
+        重载包头按钮2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                重载包头按钮2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -1057,7 +1138,7 @@ public class Maple extends javax.swing.JFrame {
 
         首页功能.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, 290, 250));
 
-        jLabel28.setFont(new java.awt.Font("微软雅黑", Font.PLAIN, 12)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("微软雅黑", 0, 12)); // NOI18N
         jLabel28.setText("【运行时长】：");
         首页功能.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 500, -1, -1));
 
@@ -1065,10 +1146,14 @@ public class Maple extends javax.swing.JFrame {
         jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder("游戏开关"));
 
         startserverbutton.setBackground(new java.awt.Color(51, 51, 255));
-        startserverbutton.setFont(new java.awt.Font("微软雅黑", Font.BOLD, 12)); // NOI18N
-        startserverbutton.setIcon(new javax.swing.ImageIcon(Objects.requireNonNull(getClass().getResource("/image2/常用功能.png")))); // NOI18N
+        startserverbutton.setFont(new java.awt.Font("微软雅黑", 1, 12)); // NOI18N
+        startserverbutton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image2/常用功能.png"))); // NOI18N
         startserverbutton.setText("启动服务端");
-        startserverbutton.addActionListener(this::startserverbuttonActionPerformed);
+        startserverbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startserverbuttonActionPerformed(evt);
+            }
+        });
 
         ActiveThread.setText("【游戏线程】:0个进程");
 
@@ -1083,7 +1168,7 @@ public class Maple extends javax.swing.JFrame {
         jLabel44.setText("关闭时间/ 分钟");
 
         jTextField22.setForeground(new java.awt.Color(255, 51, 51));
-        jTextField22.setText("5");
+        jTextField22.setText("0");
         jTextField22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField22ActionPerformed(evt);
@@ -2932,12 +3017,12 @@ public class Maple extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField22ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        // TODO add your handling code here:
-        重启服务器();
+        // 关闭服务端按钮:
+         重启服务器();
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void startserverbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startserverbuttonActionPerformed
-        if (开启服务端 == false) {
+        if (!开启服务端) {
             开启服务端 = true;
         } else {
             System.out.println("服务端正在运行中！");
@@ -3307,7 +3392,6 @@ public class Maple extends javax.swing.JFrame {
     private void jButton40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton40ActionPerformed
         openWindow(Windows.代码查询工具);
         if (!LoginServer.isShutdown() || searchServer) {
-            return;
         }
     }//GEN-LAST:event_jButton40ActionPerformed
 
@@ -3462,7 +3546,6 @@ public class Maple extends javax.swing.JFrame {
             }
             System.exit(0);
         }
-        return;
     }//GEN-LAST:event_formWindowClosing
 
     private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
@@ -3472,6 +3555,9 @@ public class Maple extends javax.swing.JFrame {
 
     private void playerTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerTableMouseClicked
         int i = playerTable.getSelectedRow();
+        if(playerTable.getValueAt(i, 1) == null){
+            return;
+        }
         String a = playerTable.getValueAt(i, 1).toString();//名字
         String a0 = playerTable.getValueAt(i, 5).toString();//地图
         String a1 = playerTable.getValueAt(i, 7).toString();//点券
@@ -3834,7 +3920,7 @@ public class Maple extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
             }
-            String 弓标子弹叠加代码[] = Maple.弓标子弹叠加上限突破.getText().split(",");
+            String[] 弓标子弹叠加代码 = Maple.弓标子弹叠加上限突破.getText().split(",");
             for (int i = 0; i < 弓标子弹叠加代码.length; ++i) {
                 MapleItemInformationProvider.slotMaxCache.put(Integer.valueOf(弓标子弹叠加代码[i]), Short.valueOf(物品叠加数量.getText()));
             }
@@ -3928,13 +4014,13 @@ public class Maple extends javax.swing.JFrame {
     }//GEN-LAST:event_给予装备2ActionPerformed
 
     public void 发放其他() {
-        int 道具数量 = 0;
+        int 道具数量;
         if ("输入数字".equals(发放其他数量.getText())) {
             道具数量 = 0;
         } else {
             道具数量 = Integer.parseInt(发放其他数量.getText());
         }
-        int 发放范围 = 0;
+        int 发放范围;
         String 名字 = "";
         String 玩家的名字 = "";
         if ("输入数字".equals(Integer.valueOf(发放其他范围.getSelectedIndex()))) {
@@ -4421,7 +4507,7 @@ public class Maple extends javax.swing.JFrame {
         DumpNpcNames,
         DumpOxQuizData,
         DumpQuests,
-        MonsterDropCreator;
+        MonsterDropCreator
     }
 
     public void openWindow(final Windows w) {
@@ -4848,7 +4934,7 @@ public class Maple extends javax.swing.JFrame {
     public void updateThreadNum() {
         writeLock.lock();
         try {
-            server.Timer.WorldTimer.GuiTimer.getInstance().register(() -> ActiveThread.setText("<html>【线程个数】：<span style='color:red;'>" + Thread.activeCount() + "</span>"), 1 * 1000);
+            server.Timer.WorldTimer.GuiTimer.getInstance().register(() -> ActiveThread.setText("<html>【线程个数】：<span style='color:red;'>" + Thread.activeCount() + "</span>"), 1000);
         } finally {
             writeLock.unlock();
         }

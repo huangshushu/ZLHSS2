@@ -50,8 +50,6 @@ public class ServerConnection {
                 channel = boot.bind(port).sync().channel().closeFuture().channel();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            } finally {
-//                System.out.println("Listening to port: " + port);
             }
         } catch (Exception e) {
             System.out.printf("Connection to %s failed.", channel == null ? e.toString() : channel.remoteAddress());

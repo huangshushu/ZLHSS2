@@ -138,7 +138,7 @@ public class 卡密制作工具 extends javax.swing.JFrame {
                 "卡号", "类型", "领取", "额度"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -315,7 +315,7 @@ public class 卡密制作工具 extends javax.swing.JFrame {
     }
 
     public void 刷新充值卡信息() {
-        for (int i = ((DefaultTableModel) (this.充值卡信息.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.充值卡信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.充值卡信息.getModel())).removeRow(i);
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {

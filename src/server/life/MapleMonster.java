@@ -454,7 +454,7 @@ public class MapleMonster extends AbstractLoadedMapleLife {
             // exp *= attacker.getEXPMod() * (int) (attacker.getStat().expBuff / 100.0);
             double lastexp = attacker.getStat().realExpBuff - 100.0 <= 0 ? 100 : attacker.getStat().realExpBuff - 100;
             exp *= attacker.getEXPMod() * (int) (lastexp / 100.0);
-            exp = (int) Math.min(Integer.MAX_VALUE, exp * (attacker.getLevel() < 10 ? GameConstants.getExpRate_Below10(attacker.getJob()) : ChannelServer.getInstance(map.getChannel()).getExpRate()));
+            exp = Math.min(Integer.MAX_VALUE, exp * (attacker.getLevel() < 10 ? GameConstants.getExpRate_Below10(attacker.getJob()) : ChannelServer.getInstance(map.getChannel()).getExpRate()));
             //do this last just incase someone has a 2x exp card and its set to max value
             int classBonusExp = 0;
             if (classBounsExpPercent > 0) {
@@ -1055,9 +1055,8 @@ public class MapleMonster extends AbstractLoadedMapleLife {
             case SkillType.暗夜行者3.飞毒杀:
             case SkillType.夜使者.飞毒杀:
             case SkillType.暗影神偷.飞毒杀: {
-                switch (stats.getEffectiveness(Element.POISON)) {
-                    case WEAK:
-                        return;
+                if (stats.getEffectiveness(Element.POISON) == ElementalEffectiveness.WEAK) {
+                    return;
                 }
                 break;
             }
@@ -1131,7 +1130,7 @@ public class MapleMonster extends AbstractLoadedMapleLife {
         if (poison && getHp() > 1 && eff != null) {
             duration = Math.max(duration, eff.getDOTTime() * 1000);
         }
-        duration += from.getStat().dotTime * 1000;
+        duration += from.getStat().dotTime * 1000L;
 
         long aniTime = duration;
         //if (skilz != null) {
@@ -1537,13 +1536,13 @@ public class MapleMonster extends AbstractLoadedMapleLife {
 
         List<AttackingMapleCharacter> getAttackers();
 
-        public void addDamage(MapleCharacter from, long damage, boolean updateAttackTime);
+        void addDamage(MapleCharacter from, long damage, boolean updateAttackTime);
 
-        public long getDamage();
+        long getDamage();
 
-        public boolean contains(MapleCharacter chr);
+        boolean contains(MapleCharacter chr);
 
-        public void killedMob(MapleMap map, int baseExp, boolean mostDamage, int lastSkill);
+        void killedMob(MapleMap map, int baseExp, boolean mostDamage, int lastSkill);
     }
 
     private final class SingleAttackerEntry implements AttackerEntry {
@@ -1569,7 +1568,7 @@ public class MapleMonster extends AbstractLoadedMapleLife {
         }
 
         @Override
-        public final List<AttackingMapleCharacter> getAttackers() {
+        public List<AttackingMapleCharacter> getAttackers() {
             final MapleCharacter chr = map.getCharacterById(chrid);
             if (chr != null) {
                 return Collections.singletonList(new AttackingMapleCharacter(chr, lastAttackTime));
@@ -1602,7 +1601,7 @@ public class MapleMonster extends AbstractLoadedMapleLife {
         }
 
         @Override
-        public final boolean equals(Object obj) {
+        public boolean equals(Object obj) {
             if (this == obj) {
                 return true;
             }
@@ -1797,7 +1796,7 @@ public class MapleMonster extends AbstractLoadedMapleLife {
             ExpMap expmap;
             for (final Entry<MapleCharacter, ExpMap> expReceiver : expMap.entrySet()) {
                 expmap = expReceiver.getValue();
-                giveExpToCharacter(expReceiver.getKey(), expmap.exp, mostDamage ? expReceiver.getKey() == highest : false, expMap.size(), expmap.ptysize, expmap.Class_Bonus_EXP, expmap.Premium_Bonus_EXP, lastSkill);
+                giveExpToCharacter(expReceiver.getKey(), expmap.exp, mostDamage && expReceiver.getKey() == highest, expMap.size(), expmap.ptysize, expmap.Class_Bonus_EXP, expmap.Premium_Bonus_EXP, lastSkill);
             }
         }
 
@@ -2019,7 +2018,7 @@ public class MapleMonster extends AbstractLoadedMapleLife {
                     }
                 }
             }
-        }, stats.getDropItemPeriod() * 1000);
+        }, stats.getDropItemPeriod() * 1000L);
     }
 
     //得到当前节点封包 传回节点封包

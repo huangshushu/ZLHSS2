@@ -62,7 +62,7 @@ public class ServerConstants {
     public static int SQL_REMOVEABANDONEDTIMEOUT = 5;
     public static boolean SQL_LOGABANDONED = false;
 
-    public static enum PlayerGMRank {
+    public enum PlayerGMRank {
 
         普通玩家(0),
         新实习生(1),
@@ -88,7 +88,7 @@ public class ServerConstants {
         }
     }
 
-    public static enum VIPRank {
+    public enum VIPRank {
 
         普通VIP(1),
         进阶VIP(2),
@@ -111,7 +111,7 @@ public class ServerConstants {
             return level;
         }
     }
-    public static enum CommandType {
+    public enum CommandType {
 
         NORMAL(0),
         TRADE(1);
@@ -126,7 +126,7 @@ public class ServerConstants {
         }
     }
 
-    public static enum MapleType {
+    public enum MapleType {
 
         UNKNOWN(-1, "UTF-8"),
         한국(1, "EUC_KR"),
@@ -141,7 +141,7 @@ public class ServerConstants {
         byte type;
         final String ANSI;
 
-        private MapleType(int type, String ANSI) {
+        MapleType(int type, String ANSI) {
             this.type = (byte) type;
             this.ANSI = ANSI;
         }

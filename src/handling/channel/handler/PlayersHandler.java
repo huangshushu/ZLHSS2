@@ -166,16 +166,14 @@ public class PlayersHandler {
             c.getSession().writeAndFlush(MaplePacketCreator.enableActions());
             return;
         }
-        switch (itemId) {
-            case 2212000:
-                for (final MapleCharacter search_chr : c.getPlayer().getMap().getCharactersThreadsafe()) {
-                    if (search_chr.getName().toLowerCase().equals(target)) {
-                        MapleItemInformationProvider.getInstance().getItemEffect(2210023).applyTo(search_chr);
-                        search_chr.dropMessage(6, chr.getName() + " has played a prank on you!");
-                        MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (short) 1, false);
-                    }
+        if (itemId == 2212000) {
+            for (final MapleCharacter search_chr : c.getPlayer().getMap().getCharactersThreadsafe()) {
+                if (search_chr.getName().toLowerCase().equals(target)) {
+                    MapleItemInformationProvider.getInstance().getItemEffect(2210023).applyTo(search_chr);
+                    search_chr.dropMessage(6, chr.getName() + " has played a prank on you!");
+                    MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (short) 1, false);
                 }
-                break;
+            }
         }
     }
 
@@ -204,8 +202,8 @@ public class PlayersHandler {
         }
 
         if (c.getPlayer().isAdmin()) {
-            c.getPlayer().dropMessage(5, new StringBuilder().append("反应堆信息 - oid: ").append(oid).append(" 是否定时出现: ")
-                    .append(reactor.isTimerActive()).append(" 反应堆类型: ").append(reactor.getReactorType()).toString());
+            c.getPlayer().dropMessage(5, "反应堆信息 - oid: " + oid + " 是否定时出现: " +
+                    reactor.isTimerActive() + " 反应堆类型: " + reactor.getReactorType());
         }
 
         ReactorScriptManager.getInstance().act(c, reactor); // not sure how touched boolean comes into play
@@ -527,7 +525,7 @@ public class PlayersHandler {
             }
             slot = (byte) slea.readShort();
             int itemId = slea.readInt();
-            IItem toUse = chr.getInventory(MapleInventoryType.USE).getItem((short) slot);
+            IItem toUse = chr.getInventory(MapleInventoryType.USE).getItem(slot);
             if ((toUse == null) || (toUse.getQuantity() <= 0) || (toUse.getItemId() != itemId) || (itemId != 2190000)) {
                 c.getSession().writeAndFlush(MaplePacketCreator.enableActions());
                 return;
@@ -578,9 +576,9 @@ public class PlayersHandler {
             return;
         }
         if (isItem) {
-            MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, (short) slot, (short) 1, false);
+            MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (short) 1, false);
         }
-        search_chr.dropMessage(5, new StringBuilder().append(chr.getName()).append(" 对你使用测谎仪").toString());
+        search_chr.dropMessage(5, chr.getName() + " 对你使用测谎仪");
     }
 
     public static void LieDetectorResponse(LittleEndianAccessor slea, MapleClient c) {
@@ -598,21 +596,21 @@ public class PlayersHandler {
             MapleCharacter search_chr = c.getPlayer().getMap().getCharacterByName(ld.getTester());
             if ((search_chr != null) && (search_chr.getId() != c.getPlayer().getId())) {
                 search_chr.dropMessage(1,
-                        new StringBuilder().append(c.getPlayer().getName()).append(" 通过测谎仪的检测。").toString());
+                        c.getPlayer().getName() + " 通过测谎仪的检测。");
             }
             ld.end();
             c.getSession().writeAndFlush(MaplePacketCreator.LieDetectorResponse((byte) 9, (byte) 0));
             // c.getPlayer().gainMeso(5000, true);
             World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6,
-                    new StringBuilder().append("[GM密语] 玩家: ").append(c.getPlayer().getName()).append(" (等级 ")
-                            .append(c.getPlayer().getLevel()).append(") 通过了测谎仪检测。").toString()));
+                    "[GM密语] 玩家: " + c.getPlayer().getName() + " (等级 " +
+                            c.getPlayer().getLevel() + ") 通过了测谎仪检测。"));
         } else if (ld.getAttempt() < 2) {
             ld.startLieDetector(ld.getTester(), ld.getLastType() == 0, true);
         } else {
             MapleCharacter search_chr = c.getPlayer().getMap().getCharacterByName(ld.getTester());
             if ((search_chr != null) && (search_chr.getId() != c.getPlayer().getId())) {
                 search_chr.dropMessage(1,
-                        new StringBuilder().append(c.getPlayer().getName()).append(" 没有通过测谎仪检测。").toString());
+                        c.getPlayer().getName() + " 没有通过测谎仪检测。");
                 // FileoutputUtil.logToFile("logs/Data/测谎失败.txt", "\r\n " +
                 // FileoutputUtil.NowTime() + " IP: " +
                 // c.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " +
@@ -628,8 +626,8 @@ public class PlayersHandler {
             MapleMap map = c.getPlayer().getMap().getReturnMap();
             c.getPlayer().changeMap(map, map.getPortal(0));
             World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6,
-                    new StringBuilder().append("[GM密语] 玩家: ").append(c.getPlayer().getName()).append(" (等级 ")
-                            .append(c.getPlayer().getLevel()).append(") 未通过测谎仪检测，疑似使用脚本外挂！").toString()));
+                    "[GM密语] 玩家: " + c.getPlayer().getName() + " (等级 " +
+                            c.getPlayer().getLevel() + ") 未通过测谎仪检测，疑似使用脚本外挂！"));
         }
     }
 

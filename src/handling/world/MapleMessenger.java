@@ -132,10 +132,7 @@ public final class MapleMessenger {
             return false;
         }
         final MapleMessenger other = (MapleMessenger) obj;
-        if (id != other.id) {
-            return false;
-        }
-        return true;
+        return id == other.id;
     }
 
     public Collection<MapleMessengerCharacter> getMembers() {

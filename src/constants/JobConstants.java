@@ -16,7 +16,7 @@ public class JobConstants {
         private final int jobType;
         private final boolean enableCreate = true;
 
-        private LoginJob(int jobType) {
+        LoginJob(int jobType) {
             this.jobType = jobType;
         }
 

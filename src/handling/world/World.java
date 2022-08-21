@@ -143,26 +143,26 @@ public class World {
     }
 
     public static void scheduleRateDelay(final String type, final long delay) {
-        WorldTimer.getInstance().schedule((Runnable) new Runnable() {
+        WorldTimer.getInstance().schedule(new Runnable() {
             @Override
             public void run() {
                 final String rate = type;
-                if (rate.equals((Object) "经验")) {
+                if (rate.equals("经验")) {
                     for (final ChannelServer cservs : ChannelServer.getAllInstances()) {
                         cservs.setExpRate((int) Double.parseDouble(ServerProperties.getProperty("server.settings.expRate")));
                         cservs.broadcastPacket(MaplePacketCreator.serverNotice(6, "[系统公告]：经验倍率活动已经结束，已经恢复正常值。"));
                     }
-                } else if (rate.equals((Object) "爆率")) {
+                } else if (rate.equals("爆率")) {
                     for (final ChannelServer cservs : ChannelServer.getAllInstances()) {
                         cservs.setDropRate(Integer.parseInt(ServerProperties.getProperty("server.settings.dropRate")));
                         cservs.broadcastPacket(MaplePacketCreator.serverNotice(6, "[系统公告]：爆物倍率活动已经结束，已经恢复正常值。"));
                     }
-                } else if (rate.equals((Object) "金币")) {
+                } else if (rate.equals("金币")) {
                     for (final ChannelServer cservs : ChannelServer.getAllInstances()) {
                         cservs.setMesoRate(Integer.parseInt(ServerProperties.getProperty("server.settings.mesoRate")));
                         cservs.broadcastPacket(MaplePacketCreator.serverNotice(6, "[系统公告]：金币倍率活动已经结束，已经恢复正常值。"));
                     }
-                } else if (rate.equals((Object) "宠物经验")) {
+                } else if (rate.equals("宠物经验")) {
                 }
                 for (final ChannelServer cservs : ChannelServer.getAllInstances()) {
                     cservs.broadcastPacket(MaplePacketCreator.serverNotice(6, " 系统双倍活动已经结束。系统已成功自动切换为正常游戏模式！"));
@@ -173,7 +173,7 @@ public class World {
 
     public static class Party {
 
-        private static Map<Integer, MapleParty> parties = new HashMap<>();
+        private static final Map<Integer, MapleParty> parties = new HashMap<>();
         private static final AtomicInteger runningPartyId = new AtomicInteger();
 
         static {
@@ -1546,10 +1546,7 @@ public class World {
                     // 宠物自动吃食物
                     if (chr.isPetAutoFood()) {
                         if (newFullness <= 70) {
-                            boolean gainCloseness = false;
-                            if (Randomizer.nextInt(99) <= 50) {
-                                gainCloseness = true;
-                            }
+                            boolean gainCloseness = Randomizer.nextInt(99) <= 50;
                             if (chr.haveItem(2120000, 1) || chr.haveItem(2120008, 1)) {
                                 newFullness = pet.getFullness() + 30;
                                 if (newFullness > 100) {
@@ -1685,7 +1682,7 @@ public class World {
                     }
                 }
             }
-        }, min * 60 * 1000, min * 60 * 1000);
+        }, (long) min * 60 * 1000, (long) min * 60 * 1000);
     }
 
     public static void GainNX(int min) {
@@ -1764,7 +1761,7 @@ public class World {
                     MapleCharacter.setMP(GiveList, true);
                 }
             }
-        }, min * 60 * 1000, min * 60 * 1000);
+        }, (long) min * 60 * 1000, (long) min * 60 * 1000);
     }
 
     /*

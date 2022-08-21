@@ -26,13 +26,13 @@ import java.util.List;
 
 public interface MapleData extends MapleDataEntity, Iterable<MapleData> {
 
-    public String getName();
+    String getName();
 
-    public MapleDataType getType();
+    MapleDataType getType();
 
-    public List<MapleData> getChildren();
+    List<MapleData> getChildren();
 
-    public MapleData getChildByPath(String path);
+    MapleData getChildByPath(String path);
 
-    public Object getData();
+    Object getData();
 }

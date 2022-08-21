@@ -91,7 +91,7 @@ public class AramiaFireWorks {
         EventTimer.getInstance().schedule(new Runnable() {
 
             @Override
-            public final void run() {
+            public void run() {
                 startEvent(c.getClient().getChannelServer().getMapFactory().getMap(741000000));
             }
         }, 10000);
@@ -101,7 +101,7 @@ public class AramiaFireWorks {
         map.startMapEffect("可以进行新年活动的表演了！！", 5121020);
         EventTimer.getInstance().schedule(new Runnable() {
             @Override
-            public final void run() {
+            public void run() {
                 spawnMonster(map);
             }
         }, 5000);
@@ -157,7 +157,7 @@ public class AramiaFireWorks {
         EventTimer.getInstance().schedule(new Runnable() {
 
             @Override
-            public final void run() {
+            public void run() {
                 startSun(c.getClient().getChannelServer().getMapFactory().getMap(970010000));
             }
         }, 10000);
@@ -169,7 +169,7 @@ public class AramiaFireWorks {
             EventTimer.getInstance().schedule(new Runnable() {
 
                 @Override
-                public final void run() {
+                public void run() {
                     spawnItem(map);
                 }
             }, 5000 + (i * 10000));
@@ -225,7 +225,7 @@ public class AramiaFireWorks {
         EventTimer.getInstance().schedule(new Runnable() {
 
             @Override
-            public final void run() {
+            public void run() {
                 startDec(c.getClient().getChannelServer().getMapFactory().getMap(555000000));
             }
         }, 10000); //no msg
@@ -237,7 +237,7 @@ public class AramiaFireWorks {
             EventTimer.getInstance().schedule(new Runnable() {
 
                 @Override
-                public final void run() {
+                public void run() {
                     spawnDec(map);
                 }
             }, 5000 + (i * 10000));
@@ -249,7 +249,7 @@ public class AramiaFireWorks {
 
         for (int i = 0; i < Randomizer.nextInt(10) + 40; i++) {
             pos = new Point(Randomizer.nextInt(800) - 400, flake_Y);
-            map.spawnAutoDrop(Randomizer.nextInt(15) == 1 ? 2060006 : 2060006, pos);
+            map.spawnAutoDrop(2060006, pos);
         }
     }
 }

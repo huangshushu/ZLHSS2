@@ -34,7 +34,7 @@ public enum MapleQuestRequirementType {
 
     final byte type;
 
-    private MapleQuestRequirementType(int type) {
+    MapleQuestRequirementType(int type) {
         this.type = (byte) type;
     }
 

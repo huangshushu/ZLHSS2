@@ -15,7 +15,7 @@ public class ItemConstants {
 
     public static class 伤害字型 {
 
-        private static Map<Integer, Integer> damageSkin = new TreeMap();
+        private static final Map<Integer, Integer> damageSkin = new TreeMap();
 
         public static Map<Integer, Integer> getDamageSkin() {
             if (damageSkin.isEmpty()) {
@@ -100,16 +100,13 @@ public class ItemConstants {
                     skins.add(s);
                 }
             }
-            Integer list[] = new Integer[skins.size()];
+            Integer[] list = new Integer[skins.size()];
             return skins.toArray(list);
         }
 
         public static boolean isDamageSkin(int itemid) {
             Map<Integer, Integer> skin = getDamageSkin();
-            if (skin.containsKey(itemid)) {
-                return true;
-            }
-            return false;
+            return skin.containsKey(itemid);
         }
     }
 
@@ -1361,12 +1358,10 @@ public class ItemConstants {
                 return true;
             } else if (itemid / 10 == 112212 && (itemid % 10 >= 2 && itemid % 10 <= 6)) {// 真. 枫叶之心
                 return true;
-            } else if (itemid >= 1122224 && itemid <= 1122245) {// 心之项炼
+            } else // 卡尔顿的胡子
+                if (itemid >= 1122224 && itemid <= 1122245) {// 心之项炼
                 return true;
-            } else if (itemid / 10 == 101244) {// 卡尔顿的胡子
-                return true;
-            }
-            return false;
+            } else return itemid / 10 == 101244;
         }
 
         public static boolean 无法潜能道具(final int itemid) {
@@ -1757,9 +1752,8 @@ public class ItemConstants {
     }
 
     public static boolean is透明短刀(int itemID) {
-        switch (itemID) {
-            case 1342069:
-                return true;
+        if (itemID == 1342069) {
+            return true;
         }
         return false;
     }

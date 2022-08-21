@@ -29,9 +29,18 @@ import java.util.List;
 public class MapleFamilyCharacter implements java.io.Serializable {
 
     public static final long serialVersionUID = 2058609046116597760L;
-    private int level, id, channel = -1, jobid, familyid, seniorid, currentrep, totalrep, junior1, junior2;
+    private int level;
+    private final int id;
+    private int channel = -1;
+    private int jobid;
+    private int familyid;
+    private int seniorid;
+    private int currentrep;
+    private int totalrep;
+    private int junior1;
+    private int junior2;
     private boolean online;
-    private String name;
+    private final String name;
     private List<Integer> pedigree = new ArrayList<>(); //recalculate
     private int descendants = 0;
 

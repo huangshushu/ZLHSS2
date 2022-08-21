@@ -79,7 +79,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!WarpT [玩家名称片段] - 移动到某个地图或某个玩家所在的地方").toString();
+            return "!WarpT [玩家名称片段] - 移动到某个地图或某个玩家所在的地方";
         }
     }
 
@@ -156,7 +156,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!warp [玩家名称] <地图ID> - 移动到某个地图或某个玩家所在的地方").toString();
+            return "!warp [玩家名称] <地图ID> - 移动到某个地图或某个玩家所在的地方";
         }
     }
 
@@ -217,7 +217,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!warpID [玩家编号] - 移动到某个玩家所在的地方").toString();
+            return "!warpID [玩家编号] - 移动到某个玩家所在的地方";
         }
     }
 
@@ -279,7 +279,7 @@ public class PracticerCommand {
             }
             FileoutputUtil.logToFile("logs/Hack/指令封锁名单.txt",
                     "\r\n " + FileoutputUtil.NowTime() + " " + c.getPlayer().getName() + " 封锁了 " + splitted[1] + " 原因: "
-                            + sb.toString() + " 是否离线封锁: " + offline);
+                            + sb + " 是否离线封锁: " + offline);
             String reason = "null".equals(input) ? "使用违法程式练功" : StringUtil.joinStringFrom(splitted, 2);
             World.Broadcast.broadcastMessage(
                     MaplePacketCreator.serverNotice(6, "[封锁系统] " + splitted[1] + " 因为" + reason + "而被管理员永久停权。"));
@@ -292,7 +292,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!ban <玩家> <原因> - 封锁玩家").toString();
+            return "!ban <玩家> <原因> - 封锁玩家";
         }
     }
 
@@ -323,7 +323,7 @@ public class PracticerCommand {
 
             }
             int ch = World.Find.findChannel(id);
-            String name = c.getPlayer().getCharacterNameById(id);
+            String name = MapleCharacter.getCharacterNameById(id);
             if (ch <= 0) {
                 if (c.getPlayer().OfflineBanById(id, sb.toString())) {
                     c.getPlayer().dropMessage(6, "[" + getCommand() + "] 成功离线封锁 " + name + ".");
@@ -359,7 +359,7 @@ public class PracticerCommand {
             FileoutputUtil.logToFile("logs/Hack/指令封锁名单.txt",
                     "\r\n " + FileoutputUtil.NowTime() + " IP: "
                             + c.getSession().remoteAddress().toString().split(":")[0] + " " + c.getPlayer().getName()
-                            + " 封锁了 " + name + " 原因: " + sb.toString() + " 是否离线封锁: " + offline);
+                            + " 封锁了 " + name + " 原因: " + sb + " 是否离线封锁: " + offline);
             String reason = "null".equals(input) ? "使用违法程式练功" : StringUtil.joinStringFrom(splitted, 2);
             World.Broadcast.broadcastMessage(
                     MaplePacketCreator.serverNotice(6, "[封锁系统] " + name + " 因为" + reason + "而被管理员永久停权。"));
@@ -372,7 +372,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!BanID <玩家ID> <原因> - 封锁玩家").toString();
+            return "!BanID <玩家ID> <原因> - 封锁玩家";
         }
     }
 
@@ -391,7 +391,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!cngm <讯息> - GM聊天").toString();
+            return "!cngm <讯息> - GM聊天";
         }
     }
 
@@ -406,7 +406,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!hide - 隐藏").toString();
+            return "!hide - 隐藏";
         }
     }
 
@@ -421,7 +421,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!unhide - 解除隐藏").toString();
+            return "!unhide - 解除隐藏";
         }
     }
 
@@ -431,11 +431,7 @@ public class PracticerCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter p = c.getPlayer();
             boolean x = p.get_control_精灵商人();
-            if (x) {
-                p.control_精灵商人(false);
-            } else {
-                p.control_精灵商人(true);
-            }
+            p.control_精灵商人(!x);
             x = p.get_control_精灵商人();
             p.dropMessage("目前精灵商人购买讯息状态: " + (x ? "开启 " : " 关闭 ") + "");
             return true;
@@ -443,7 +439,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!精灵商人讯息 - 开启精灵商人购买讯息显示").toString();
+            return "!精灵商人讯息 - 开启精灵商人购买讯息显示";
         }
     }
 
@@ -453,11 +449,7 @@ public class PracticerCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter p = c.getPlayer();
             boolean x = p.get_control_玩家私聊();
-            if (x) {
-                p.control_玩家私聊(false);
-            } else {
-                p.control_玩家私聊(true);
-            }
+            p.control_玩家私聊(!x);
             x = p.get_control_玩家私聊();
             p.dropMessage("目前玩家私聊状态: " + (x ? "开启 " : "关闭 ") + "");
             return true;
@@ -465,7 +457,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!玩家私聊 - 开启玩家讯息显示").toString();
+            return "!玩家私聊 - 开启玩家讯息显示";
         }
     }
 
@@ -475,11 +467,7 @@ public class PracticerCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter p = c.getPlayer();
             boolean x = p.get_control_玩家密语();
-            if (x) {
-                p.control_玩家密语(false);
-            } else {
-                p.control_玩家密语(true);
-            }
+            p.control_玩家密语(!x);
             x = p.get_control_玩家私聊();
             p.dropMessage("目前玩家密语状态: " + (x ? "开启 " : "关闭 ") + "");
             return true;
@@ -487,7 +475,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!玩家密语 - 开启玩家讯息显示").toString();
+            return "!玩家密语 - 开启玩家讯息显示";
         }
     }
 
@@ -497,11 +485,7 @@ public class PracticerCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter p = c.getPlayer();
             boolean x = p.get_control_好友聊天();
-            if (x) {
-                p.control_好友聊天(false);
-            } else {
-                p.control_好友聊天(true);
-            }
+            p.control_好友聊天(!x);
             x = p.get_control_好友聊天();
             p.dropMessage("目前好友聊天状态: " + (x ? "开启 " : "关闭 ") + "");
             return true;
@@ -509,7 +493,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!好友聊天 - 开启玩家讯息显示").toString();
+            return "!好友聊天 - 开启玩家讯息显示";
         }
     }
 
@@ -519,11 +503,7 @@ public class PracticerCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter p = c.getPlayer();
             boolean x = p.get_control_队伍聊天();
-            if (x) {
-                p.control_队伍聊天(false);
-            } else {
-                p.control_队伍聊天(true);
-            }
+            p.control_队伍聊天(!x);
             x = p.get_control_队伍聊天();
             p.dropMessage("目前队伍聊天状态: " + (x ? "开启 " : "关闭 ") + "");
             return true;
@@ -531,7 +511,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!队伍聊天 - 开启玩家讯息显示").toString();
+            return "!队伍聊天 - 开启玩家讯息显示";
         }
     }
 
@@ -541,11 +521,7 @@ public class PracticerCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter p = c.getPlayer();
             boolean x = p.get_control_公会聊天();
-            if (x) {
-                p.control_公会聊天(false);
-            } else {
-                p.control_公会聊天(true);
-            }
+            p.control_公会聊天(!x);
             x = p.get_control_公会聊天();
             p.dropMessage("目前公会聊天状态: " + (x ? "开启 " : "关闭 ") + "");
             return true;
@@ -553,7 +529,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!公会聊天 - 开启玩家讯息显示").toString();
+            return "!公会聊天 - 开启玩家讯息显示";
         }
     }
 
@@ -563,11 +539,7 @@ public class PracticerCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter p = c.getPlayer();
             boolean x = p.get_control_联盟聊天();
-            if (x) {
-                p.control_联盟聊天(false);
-            } else {
-                p.control_联盟聊天(true);
-            }
+            p.control_联盟聊天(!x);
             x = p.get_control_联盟聊天();
             p.dropMessage("目前联盟聊天状态: " + (x ? "开启 " : "关闭 ") + "");
             return true;
@@ -575,7 +547,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!联盟聊天 - 开启玩家讯息显示").toString();
+            return "!联盟聊天 - 开启玩家讯息显示";
         }
     }
 
@@ -587,8 +559,8 @@ public class PracticerCommand {
             int curConnected = c.getChannelServer().getConnectedClients();
             c.getPlayer().dropMessage(6,
                     "-------------------------------------------------------------------------------------");
-            c.getPlayer().dropMessage(6, new StringBuilder().append("频道: ").append(c.getChannelServer().getChannel())
-                    .append(" 线上人数: ").append(curConnected).toString());
+            c.getPlayer().dropMessage(6, "频道: " + c.getChannelServer().getChannel() +
+                    " 线上人数: " + curConnected);
             total += curConnected;
             for (MapleCharacter chr : c.getChannelServer().getPlayerStorage().getAllCharactersThreadSafe()) {
                 if (chr != null && c.getPlayer().getGMLevel() >= chr.getGMLevel()) {
@@ -608,7 +580,7 @@ public class PracticerCommand {
                     }
                 }
             }
-            c.getPlayer().dropMessage(6, new StringBuilder().append("当前频道总计线上人数: ").append(total).toString());
+            c.getPlayer().dropMessage(6, "当前频道总计线上人数: " + total);
             c.getPlayer().dropMessage(6,
                     "-------------------------------------------------------------------------------------");
             int channelOnline = c.getChannelServer().getConnectedClients();
@@ -618,7 +590,7 @@ public class PracticerCommand {
                 totalOnline += cserv.getConnectedClients();
             }
             c.getPlayer().dropMessage(6,
-                    new StringBuilder().append("当前服务器总计线上人数: ").append(totalOnline).append("个").toString());
+                    "当前服务器总计线上人数: " + totalOnline + "个");
             c.getPlayer().dropMessage(6,
                     "-------------------------------------------------------------------------------------");
 
@@ -627,7 +599,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!online - 查看线上人数").toString();
+            return "!online - 查看线上人数";
         }
     }
 
@@ -644,8 +616,7 @@ public class PracticerCommand {
                     "---------------------------------------------------------------------------------------");
             for (ChannelServer cserv : ChannelServer.getAllInstances()) {
                 int curConnected = cserv.getConnectedClients();
-                c.getPlayer().dropMessage(6, new StringBuilder().append("频道: ").append(cserv.getChannel())
-                        ./* append(" 线上人数: ").append(curConnected). */toString());
+                c.getPlayer().dropMessage(6, "频道: " + cserv.getChannel()/* append(" 线上人数: ").append(curConnected). */);
                 total += curConnected;
                 for (MapleCharacter chr : cserv.getPlayerStorage().getAllCharacters()) {
                     if (chr != null && c.getPlayer().getGMLevel() >= chr.getGMLevel()) {
@@ -681,7 +652,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!全频道地图人数 - 全频道地图人数").toString();
+            return "!全频道地图人数 - 全频道地图人数";
         }
     }
 
@@ -718,29 +689,28 @@ public class PracticerCommand {
                 }
                 GmInChannel = chrs.size();
                 if (GmInChannel > 0) {
-                    c.getPlayer().dropMessage(6, new StringBuilder().append("频道: ").append(cserv.getChannel())
-                            .append(" 线上GM人数: ").append(GmInChannel).toString());
+                    c.getPlayer().dropMessage(6, "频道: " + cserv.getChannel() +
+                            " 线上GM人数: " + GmInChannel);
                     for (MapleCharacter chr : chrs) {
                         if (chr != null) {
-                            StringBuilder ret = new StringBuilder();
-                            ret.append(" GM暱称 ");
-                            ret.append(StringUtil.getRightPaddedStr(chr.getName(), ' ', 13));
-                            ret.append(" ID: ");
-                            ret.append(StringUtil.getRightPaddedStr(chr.getId() + "", ' ', 5));
-                            ret.append(" 权限: ");
-                            ret.append(StringUtil.getRightPaddedStr(String.valueOf(chr.getGMLevel()), ' ', 3));
-                            c.getPlayer().dropMessage(6, ret.toString());
+                            String ret = " GM暱称 " +
+                                    StringUtil.getRightPaddedStr(chr.getName(), ' ', 13) +
+                                    " ID: " +
+                                    StringUtil.getRightPaddedStr(chr.getId() + "", ' ', 5) +
+                                    " 权限: " +
+                                    StringUtil.getRightPaddedStr(String.valueOf(chr.getGMLevel()), ' ', 3);
+                            c.getPlayer().dropMessage(6, ret);
                         }
                     }
                 }
                 chrs = new LinkedList<>();
             }
-            c.getPlayer().dropMessage(6, new StringBuilder().append("当前频道总计GM线上人数: ").append(channelOnline).toString());
+            c.getPlayer().dropMessage(6, "当前频道总计GM线上人数: " + channelOnline);
             c.getPlayer().dropMessage(6,
                     "-------------------------------------------------------------------------------------");
 
             c.getPlayer().dropMessage(6,
-                    new StringBuilder().append("当前服务器GM总计线上人数: ").append(totalOnline).append("个").toString());
+                    "当前服务器GM总计线上人数: " + totalOnline + "个");
             c.getPlayer().dropMessage(6,
                     "-------------------------------------------------------------------------------------");
             return true;
@@ -748,14 +718,14 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!onlineGM - 查看线上人数GM").toString();
+            return "!onlineGM - 查看线上人数GM";
         }
     }
 
     public static class WarpHere extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -785,7 +755,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!warphere 把玩家传送到这里").toString();
+            return "!warphere 把玩家传送到这里";
         }
     }
 
@@ -811,7 +781,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!Whoshere - 查地图上玩家").toString();
+            return "!Whoshere - 查地图上玩家";
         }
     }
 
@@ -821,11 +791,7 @@ public class PracticerCommand {
         public boolean execute(MapleClient c, String[] splitted) {
             MapleCharacter p = c.getPlayer();
             boolean x = p.get_control_吸怪讯息();
-            if (x) {
-                p.control_吸怪讯息(false);
-            } else {
-                p.control_吸怪讯息(true);
-            }
+            p.control_吸怪讯息(!x);
             x = p.get_control_吸怪讯息();
             p.dropMessage("目前吸怪讯息状态: " + (x ? "开启 " : "关闭 ") + "");
             return true;
@@ -833,7 +799,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!吸怪讯息 - 开启玩家吸怪讯息讯息显示").toString();
+            return "!吸怪讯息 - 开启玩家吸怪讯息讯息显示";
         }
     }
 
@@ -845,7 +811,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!UnHellBan <玩家> - 解锁玩家").toString();
+            return "!UnHellBan <玩家> - 解锁玩家";
         }
     }
 
@@ -898,7 +864,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!unban <玩家> - 解锁玩家").toString();
+            return "!unban <玩家> - 解锁玩家";
         }
     }
 
@@ -928,7 +894,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!DCID <玩家ID> - 让玩家断线").toString();
+            return "!DCID <玩家ID> - 让玩家断线";
         }
     }
 
@@ -950,7 +916,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!dc <玩家> - 让玩家断线").toString();
+            return "!dc <玩家> - 让玩家断线";
         }
     }
 
@@ -980,7 +946,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!dc <玩家> - 让玩家断线").toString();
+            return "!dc <玩家> - 让玩家断线";
         }
     }
 
@@ -1011,7 +977,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!商城DC <玩家> - 让玩家断线").toString();
+            return "!商城DC <玩家> - 让玩家断线";
         }
     }
 
@@ -1042,7 +1008,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!商城DC2 <玩家> - 让玩家断线").toString();
+            return "!商城DC2 <玩家> - 让玩家断线";
         }
     }
 
@@ -1072,7 +1038,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!特殊商城DC <玩家> - 让玩家断线").toString();
+            return "!特殊商城DC <玩家> - 让玩家断线";
         }
     }
 
@@ -1102,7 +1068,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!商城DC2 <玩家> - 让玩家断线").toString();
+            return "!商城DC2 <玩家> - 让玩家断线";
         }
     }
 
@@ -1132,7 +1098,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!频道DC <玩家> - 让玩家断线").toString();
+            return "!频道DC <玩家> - 让玩家断线";
         }
     }
 
@@ -1162,7 +1128,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!特殊频道DC <玩家> - 让玩家断线").toString();
+            return "!特殊频道DC <玩家> - 让玩家断线";
         }
     }
 
@@ -1200,7 +1166,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!特殊DC <玩家> - 让玩家断线").toString();
+            return "!特殊DC <玩家> - 让玩家断线";
         }
     }
 
@@ -1256,7 +1222,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!卡登处理 <玩家名字> - 修改资料库玩家登录状态").toString();
+            return "!卡登处理 <玩家名字> - 修改资料库玩家登录状态";
         }
     }
 
@@ -1347,7 +1313,7 @@ public class PracticerCommand {
     public static class Job extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             int jobid = 0;
             try {
                 jobid = Integer.parseInt(splitted[1]);
@@ -1361,14 +1327,14 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!job <职业代码> - 更换职业").toString();
+            return "!job <职业代码> - 更换职业";
         }
     }
 
     public static class 吸怪自动传送 extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().setAuto吸怪(!c.getPlayer().getAuto吸怪());
             c.getPlayer().dropMessage("自动吸怪传送已经: " + (c.getPlayer().getAuto吸怪() ? "开启" : "关闭") + "");
             return true;
@@ -1376,30 +1342,30 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!吸怪自动传送 - 吸怪自动传送").toString();
+            return "!吸怪自动传送 - 吸怪自动传送";
         }
     }
 
     public static class WhereAmI extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             c.getPlayer().dropMessage(5,
-                    "目前地图 " + c.getPlayer().getMap().getId() + "座标 (" + String.valueOf(c.getPlayer().getPosition().x)
-                            + " , " + String.valueOf(c.getPlayer().getPosition().y) + ")");
+                    "目前地图 " + c.getPlayer().getMap().getId() + "座标 (" + c.getPlayer().getPosition().x
+                            + " , " + c.getPlayer().getPosition().y + ")");
             return true;
         }
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!whereami - 目前地图").toString();
+            return "!whereami - 目前地图";
         }
     }
 
     public static class BanStatus extends CommandExecute {
 
         @Override
-        public boolean execute(MapleClient c, String splitted[]) {
+        public boolean execute(MapleClient c, String[] splitted) {
             if (splitted.length < 2) {
                 return false;
             }
@@ -1460,7 +1426,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!BanStatus <玩家名称> - 查看玩家是否被封锁及原因").toString();
+            return "!BanStatus <玩家名称> - 查看玩家是否被封锁及原因";
         }
     }
 
@@ -1492,7 +1458,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!BanMAC <MAC> - 封锁MAC ").toString();
+            return "!BanMAC <MAC> - 封锁MAC ";
         }
     }
 
@@ -1589,7 +1555,7 @@ public class PracticerCommand {
 
         @Override
         public String getMessage() {
-            return new StringBuilder().append("!个人公告 <类型> <玩家> <内容>- 给玩家发送公告").toString();
+            return "!个人公告 <类型> <玩家> <内容>- 给玩家发送公告";
         }
     }
 

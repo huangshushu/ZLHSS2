@@ -25,7 +25,7 @@ public abstract class Timer {
 
     public static class GuiTimer extends Timer {
 
-        private static GuiTimer instance = new GuiTimer();
+        private static final GuiTimer instance = new GuiTimer();
 
         private GuiTimer() {
             name = "GuiTimer";

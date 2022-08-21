@@ -29,9 +29,9 @@ import java.util.*;
 
 public class WZDirectoryEntry extends WZEntry implements MapleDataDirectoryEntry {
 
-    private List<MapleDataDirectoryEntry> subdirs = new ArrayList<>();
-    private List<MapleDataFileEntry> files = new ArrayList<>();
-    private Map<String, MapleDataEntry> entries = new HashMap<>();
+    private final List<MapleDataDirectoryEntry> subdirs = new ArrayList<>();
+    private final List<MapleDataFileEntry> files = new ArrayList<>();
+    private final Map<String, MapleDataEntry> entries = new HashMap<>();
 
     public WZDirectoryEntry(String name, int size, int checksum, MapleDataEntity parent) {
         super(name, size, checksum, parent);

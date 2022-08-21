@@ -22,5 +22,5 @@ package server.life;
 
 public interface MonsterListener {
 
-    public void monsterKilled();
+    void monsterKilled();
 }

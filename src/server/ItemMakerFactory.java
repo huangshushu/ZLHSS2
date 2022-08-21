@@ -101,10 +101,12 @@ public class ItemMakerFactory {
 
     public static class GemCreateEntry {
 
-        private int reqLevel, reqMakerLevel;
-        private int cost, quantity;
-        private List<Pair<Integer, Integer>> randomReward = new ArrayList<>();
-        private List<Pair<Integer, Integer>> reqRecipe = new ArrayList<>();
+        private final int reqLevel;
+        private final int reqMakerLevel;
+        private final int cost;
+        private final int quantity;
+        private final List<Pair<Integer, Integer>> randomReward = new ArrayList<>();
+        private final List<Pair<Integer, Integer>> reqRecipe = new ArrayList<>();
 
         public GemCreateEntry(int cost, int reqLevel, int reqMakerLevel, int quantity) {
             this.cost = cost;
@@ -148,11 +150,14 @@ public class ItemMakerFactory {
 
     public static class ItemMakerCreateEntry {
 
-        private int reqLevel;
-        private int cost, quantity, stimulator;
-        private byte tuc, reqMakerLevel;
-        private List<Pair<Integer, Integer>> reqItems = new ArrayList<>(); // itemId / amount
-        private List<Integer> reqEquips = new ArrayList<>();
+        private final int reqLevel;
+        private final int cost;
+        private final int quantity;
+        private final int stimulator;
+        private final byte tuc;
+        private final byte reqMakerLevel;
+        private final List<Pair<Integer, Integer>> reqItems = new ArrayList<>(); // itemId / amount
+        private final List<Integer> reqEquips = new ArrayList<>();
 
         public ItemMakerCreateEntry(int cost, int reqLevel, byte reqMakerLevel, int quantity, byte tuc, int stimulator) {
             this.cost = cost;

@@ -243,10 +243,7 @@ public class HiredMerchantHandler {
              }*/
         }
 
-        boolean slot = true;
-        if (chr.getInventory(MapleInventoryType.EQUIP).getNumFreeSlot() <= eq && eq != 0) {
-            slot = false;
-        }
+        boolean slot = chr.getInventory(MapleInventoryType.EQUIP).getNumFreeSlot() > eq || eq == 0;
         if (chr.getInventory(MapleInventoryType.USE).getNumFreeSlot() <= use && use != 0) {
             slot = false;
         }

@@ -216,7 +216,6 @@ public class ItemMakerHandler {
             short i = slea2.readShort();
             if (i < 1 || i > 96) {
                 c.getPlayer().dropMessage(5, "使用迷之蛋错误");
-                return;
             } else {
                 // 蛋的id
                 int itemid = slea2.readInt();
@@ -241,7 +240,6 @@ public class ItemMakerHandler {
                         player.dropMessage(1, "使用成功");
                     } else {
                         c.getPlayer().dropMessage(5, "你没有永恒的热度");
-                        return;
                     }
                 } else if (itemid == 4280001) {
                     // 重生
@@ -258,7 +256,6 @@ public class ItemMakerHandler {
                         player.dropMessage(1, "使用成功");
                     } else {
                         c.getPlayer().dropMessage(5, "你没有重生的热度");
-                        return;
                     }
                 }
             }

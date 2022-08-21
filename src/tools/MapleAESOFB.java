@@ -30,9 +30,9 @@ import java.security.NoSuchAlgorithmException;
 
 public class MapleAESOFB {
 
-    private byte iv[];
+    private byte[] iv;
     private Cipher cipher;
-    private short mapleVersion;
+    private final short mapleVersion;
     private final static SecretKeySpec skey = new SecretKeySpec(new byte[] {
             0x13, 0x00, 0x00, 0x00,
             0x08, 0x00, 0x00, 0x00,
@@ -137,7 +137,7 @@ public class MapleAESOFB {
      * 0x05, (byte) 0xC6, (byte) 0xE5, 0x08, 0x49, 0x4F, 0x64, 0x69, 0x6E, 0x4D,
      * 0x53, 0x7E, 0x46, 0x72, 0x7A };
      */
-    private static byte[] rammyByte = new byte[] { (byte) 0xEC, (byte) 0x3F, (byte) 0x77, (byte) 0xA4, (byte) 0x45,
+    private static final byte[] rammyByte = new byte[] { (byte) 0xEC, (byte) 0x3F, (byte) 0x77, (byte) 0xA4, (byte) 0x45,
             (byte) 0xD0, (byte) 0x71, (byte) 0xBF, (byte) 0xB7, (byte) 0x98, (byte) 0x20, (byte) 0xFC,
             (byte) 0x4B, (byte) 0xE9, (byte) 0xB3, (byte) 0xE1, (byte) 0x5C, (byte) 0x22, (byte) 0xF7, (byte) 0x0C,
             (byte) 0x44, (byte) 0x1B, (byte) 0x81, (byte) 0xBD, (byte) 0x63, (byte) 0x8D, (byte) 0xD4, (byte) 0xC3,
@@ -178,7 +178,7 @@ public class MapleAESOFB {
      * @param key The 256 bit AES key to use.
      * @param iv  The 4-byte IV to use.
      */
-    public MapleAESOFB(byte iv[], short mapleVersion) {
+    public MapleAESOFB(byte[] iv, short mapleVersion) {
         try {
             cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, skey);
@@ -317,7 +317,7 @@ public class MapleAESOFB {
      * @param oldIv The old IV to get a new IV from.
      * @return The new IV.
      */
-    public static byte[] getNewIv(byte oldIv[]) {
+    public static byte[] getNewIv(byte[] oldIv) {
         byte[] in = { (byte) 0xf2, 0x53, (byte) 0x50, (byte) 0xc6 }; // magic
         // ;)
         for (int x = 0; x < 4; x++) {

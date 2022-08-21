@@ -144,7 +144,7 @@ public class CashShopOperation {
             client.sendPacket(MTSCSPacket.warpCS(client));
             sendCashShopUpdate(client);
         }
-        if (client.getPlayer().getCharacterNameById2(playerid) == null) {
+        if (MapleCharacter.getCharacterNameById2(playerid) == null) {
             FileoutputUtil.logToFile("logs/Data/角色不存在.txt",
                     "\r\n " + FileoutputUtil.NowTime() + " IP: "
                             + client.getSession().remoteAddress().toString().split(":")[0] + " 帐号 "
@@ -189,7 +189,6 @@ public class CashShopOperation {
             World.Broadcast.broadcastGMMessage(
                     MaplePacketCreator.serverNotice(6, "[GM 密语系统] 非法登录 帐号 " + client.getAccountName()));
             client.getSession().close();
-            return;
         }
     }
 

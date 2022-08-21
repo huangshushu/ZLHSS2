@@ -32,7 +32,7 @@ public class CheatTracker {
     private long lastAttackTime = 0;
     private int inMapIimeCount = 0;
     private int lastAttackTickCount = 0;
-    private byte Attack_tickResetCount = 0;
+    private final byte Attack_tickResetCount = 0;
     private long Server_ClientAtkTickDiff = 0;
     private long lastDamage = 0;
     private long takingDamageSince;
@@ -53,11 +53,12 @@ public class CheatTracker {
     private int gm_message = 100;
     private int lastTickCount = 0, tickSame = 0;
     private long lastASmegaTime = 0;
-    private long[] lastTime = new long[6];
+    private final long[] lastTime = new long[6];
     private long lastSaveTime = 0;
     private long lastLieDetectorTime = 0;
-    private long lastLieTime = 0;
-    private long lastPickupkTime = 0, lastPickupkCount = 0;
+    private final long lastLieTime = 0;
+    private final long lastPickupkTime = 0;
+    private final long lastPickupkCount = 0;
 
     public CheatTracker(final MapleCharacter chr) {
         this.chr = new WeakReference<>(chr);
@@ -112,12 +113,12 @@ public class CheatTracker {
         if (WorldConstants.LieDetector) {
             this.lastAttackTime = System.currentTimeMillis();
             if ((this.chr.get() != null)
-                    && (this.lastAttackTime - ((MapleCharacter) this.chr.get()).getChangeTime() > 60000)) {
-                ((MapleCharacter) this.chr.get()).setChangeTime(false);
+                    && (this.lastAttackTime - this.chr.get().getChangeTime() > 60000)) {
+                this.chr.get().setChangeTime(false);
 
                 if ((!GameConstants.isBossMap(chr.get().getMapId()))
-                        && (((MapleCharacter) this.chr.get()).getEventInstance() == null)
-                        && (((MapleCharacter) this.chr.get()).getMap().getMobsSize() >= 1)) {
+                        && (this.chr.get().getEventInstance() == null)
+                        && (this.chr.get().getMap().getMobsSize() >= 1)) {
                     this.inMapIimeCount += 1;
                     if (this.inMapIimeCount >= 30) {
                         World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + " ID "
@@ -125,7 +126,7 @@ public class CheatTracker {
                     }
                     if (this.inMapIimeCount >= 30) {
                         this.inMapIimeCount = 0;
-                        ((MapleCharacter) this.chr.get()).startLieDetector(false);
+                        this.chr.get().startLieDetector(false);
                         World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + " ID "
                                 + chr.get().getId() + " " + chr.get().getName() + " 打怪时间超过 30 分钟，系统启动测谎仪系统。 "));
                     }
@@ -368,9 +369,9 @@ public class CheatTracker {
             } else if (type == 2) {
                 outputFileName = "断线";
                 World.Broadcast.broadcastGMMessage(MaplePacketCreator.serverNotice(6, "[GM密语] " + chrhardref.getName()
-                        + " 自动断线 类别: " + offense.toString() + " 原因: " + (param == null ? "" : (" - " + param))));
+                        + " 自动断线 类别: " + offense + " 原因: " + (param == null ? "" : (" - " + param))));
                 FileoutputUtil.logToFile("logs/Hack/" + outputFileName + ".txt",
-                        "\r\n " + FileoutputUtil.NowTime() + " 玩家：" + chr.get().getName() + " 项目：" + offense.toString()
+                        "\r\n " + FileoutputUtil.NowTime() + " 玩家：" + chr.get().getName() + " 项目：" + offense
                                 + " 原因： " + (param == null ? "" : (" - " + param)));
                 chrhardref.getClient().getSession().close();
             } else if (type == 3) {
@@ -409,7 +410,7 @@ public class CheatTracker {
 
                 if (chr.get().hasGmLevel(1)) {
                     chr.get().dropMessage("触发违规: " + real + " param: " + (param == null ? "" : (" - " + param)));
-                } else if (false && ban) {
+                } else if (false) {
                     FileoutputUtil.logToFile("logs/Hack/Ban/" + outputFileName + ".txt",
                             "\r\n " + FileoutputUtil.NowTime() + " 玩家：" + chr.get().getName() + " 项目："
                                     + offense.toString() + " 原因： " + (param == null ? "" : (" - " + param)));
@@ -422,7 +423,7 @@ public class CheatTracker {
                 } else {
                     FileoutputUtil.logToFile("logs/Hack/" + outputFileName + ".txt",
                             "\r\n " + FileoutputUtil.NowTime() + " 玩家：" + chr.get().getName() + " 项目："
-                                    + offense.toString() + " 原因： " + (param == null ? "" : (" - " + param)));
+                                    + offense + " 原因： " + (param == null ? "" : (" - " + param)));
                 }
             }
             gm_message = 100;
@@ -553,7 +554,7 @@ public class CheatTracker {
         Collections.sort(offenseList, new Comparator<CheatingOffenseEntry>() {
 
             @Override
-            public final int compare(final CheatingOffenseEntry o1, final CheatingOffenseEntry o2) {
+            public int compare(final CheatingOffenseEntry o1, final CheatingOffenseEntry o2) {
                 final int thisVal = o1.getPoints();
                 final int anotherVal = o2.getPoints();
                 return (thisVal < anotherVal ? 1 : (thisVal == anotherVal ? 0 : -1));
@@ -582,7 +583,7 @@ public class CheatTracker {
     private final class InvalidationTask implements Runnable {
 
         @Override
-        public final void run() {
+        public void run() {
             CheatingOffenseEntry[] offenses_copy;
             rL.lock();
             try {

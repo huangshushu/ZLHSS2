@@ -2,7 +2,7 @@ package handling;
 
 public interface WritableIntValueHolder {
 
-    public short getValue();
+    short getValue();
 
-    public void setValue(short newval);
+    void setValue(short newval);
 }

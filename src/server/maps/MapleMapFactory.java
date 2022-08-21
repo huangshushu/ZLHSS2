@@ -192,6 +192,7 @@ public class MapleMapFactory {
                             for (int id : CustomConstants.noSpawnNPC) {
                                 if (myLife.getId() == id) {
                                     spawn = false;
+                                    break;
                                 }
                             }
                             /*
@@ -245,10 +246,8 @@ public class MapleMapFactory {
                 final List<AbstractLoadedMapleLife> custom = customLife.get(mapid);
                 if (custom != null) {
                     for (AbstractLoadedMapleLife n : custom) {
-                        switch (n.getCType()) {
-                            case "n":
-                                map.addMapObject(n);
-                                break;
+                        if ("n".equals(n.getCType())) {
+                            map.addMapObject(n);
                             // case "m":
                             // final MapleMonster monster = (MapleMonster) n;
                             // map.addMonsterSpawn(monster, n.getMTime(), (byte) -1, null);
@@ -311,10 +310,8 @@ public class MapleMapFactory {
             final List<AbstractLoadedMapleLife> custom = customLife.get(mapid);
             if (custom != null) {
                 for (AbstractLoadedMapleLife n : custom) {
-                    switch (n.getCType()) {
-                        case "n":
-                            map.addMapObject(n);
-                            break;
+                    if ("n".equals(n.getCType())) {
+                        map.addMapObject(n);
                         // case "m":
                         // final MapleMonster monster = (MapleMonster) n;
                         // map.addMonsterSpawn(monster, n.getMTime(), (byte) -1, null);
@@ -549,13 +546,12 @@ public class MapleMapFactory {
 
     private String getMapName(int mapid) {
         String mapName = StringUtil.getLeftPaddedStr(Integer.toString(mapid), '0', 9);
-        StringBuilder builder = new StringBuilder("Map/Map");
-        builder.append(mapid / 100000000);
-        builder.append("/");
-        builder.append(mapName);
-        builder.append(".img");
+        String builder = "Map/Map" + mapid / 100000000 +
+                "/" +
+                mapName +
+                ".img";
 
-        mapName = builder.toString();
+        mapName = builder;
         return mapName;
     }
 
@@ -871,10 +867,8 @@ public class MapleMapFactory {
             final List<AbstractLoadedMapleLife> custom = RemovecustomLife.get(mid);
             if (custom != null) {
                 for (AbstractLoadedMapleLife n : custom) {
-                    switch (n.getCType()) {
-                        case "n":
-                            map.removeNpc_(n.getId());
-                            break;
+                    if ("n".equals(n.getCType())) {
+                        map.removeNpc_(n.getId());
                     }
                 }
             }
@@ -957,9 +951,7 @@ public class MapleMapFactory {
 
     public void HealMap(int mapid) {
         synchronized (this.maps) {
-            if (this.DeStorymaps.containsKey(mapid)) {
-                this.DeStorymaps.remove(mapid);
-            }
+            this.DeStorymaps.remove(mapid);
         }
     }
 

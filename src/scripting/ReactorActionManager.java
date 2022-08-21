@@ -79,7 +79,7 @@ public class ReactorActionManager extends AbstractPlayerInteraction {
         final Iterator<ReactorDropEntry> iter = chances.iterator();
         // for (DropEntry d : chances){
         while (iter.hasNext()) {
-            ReactorDropEntry d = (ReactorDropEntry) iter.next();
+            ReactorDropEntry d = iter.next();
             if (Math.random() < (1 / (double) d.chance)
                     && (d.questid <= 0 || getPlayer().getQuestStatus(d.questid) == 1)) {
                 numItems++;

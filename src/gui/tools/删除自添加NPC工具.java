@@ -64,7 +64,7 @@ public class 删除自添加NPC工具 extends javax.swing.JFrame {
                 "地图代码", "NPC代码"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false
             };
 
@@ -143,7 +143,7 @@ public class 删除自添加NPC工具 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_删除自添加npcActionPerformed
     public void 刷新自添加NPC() {
-        for (int i = ((DefaultTableModel) (this.自添加NPC.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.自添加NPC.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.自添加NPC.getModel())).removeRow(i);
         }
         try {

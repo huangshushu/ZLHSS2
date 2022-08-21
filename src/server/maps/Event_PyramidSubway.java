@@ -35,7 +35,12 @@ import java.util.concurrent.ScheduledFuture;
 
 public class Event_PyramidSubway {
 
-    private int kill = 0, cool = 0, miss = 0, skill = 0, type, energybar = 100;
+    private int kill = 0;
+    private int cool = 0;
+    private int miss = 0;
+    private int skill = 0;
+    private final int type;
+    private int energybar = 100;
     private boolean broaded = false;
     private ScheduledFuture<?> energyBarDecrease, timerSchedule, yetiSchedule;
     //type: -1 = subway, 0-3 = difficulty of nett's pyramid.
@@ -184,10 +189,8 @@ public class Event_PyramidSubway {
         } else {
             if (type == -1 && (newmapid < 910320100 || newmapid > 910320304)) {
                 dispose(c);
-                return;
             } else if (type != -1 && (newmapid < 926010100 || newmapid > 926013504)) {
                 dispose(c);
-                return;
             } else if (c.getParty() == null || c.getParty().getLeader().equals(new MaplePartyCharacter(c))) {
                 energybar = 100;
                 commenceTimerNextMap(c, newmapid % 1000 / 100);

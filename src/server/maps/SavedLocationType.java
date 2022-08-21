@@ -44,9 +44,9 @@ public enum SavedLocationType {
     MONSTER_CARNIVAL(19),
     DUTY_JOIN(20),//进入副本
     DUTY_LEAVE(21);//离开副本
-    private int index;
+    private final int index;
 
-    private SavedLocationType(int index) {
+    SavedLocationType(int index) {
         this.index = index;
     }
 

@@ -10,7 +10,7 @@ import java.io.*;
 /*  12:    */
 /*  13:    */ public class WzStringDumper /*  14:    */ {
     /*  15:    */ public static void main(String[] args)
-            /*  16:    */ throws FileNotFoundException, IOException /*  17:    */ {
+            /*  16:    */ throws IOException /*  17:    */ {
         /*  19: 23 */ MapleDataProvider stringProvider = MapleDataProviderFactory.getDataProvider("string.wz");
         /*  20:    */
         /*  21: 25 */ MapleData cash = stringProvider.getData("Cash.img");

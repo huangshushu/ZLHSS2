@@ -17,7 +17,7 @@ public enum EquipAdditions {
     private final String i3, i4, i5, i6;
     private final boolean element;
 
-    private EquipAdditions(String i1, String i2) {
+    EquipAdditions(String i1, String i2) {
         this.i1 = i1;
         this.i2 = i2;
         this.i3 = ""; // temp until it fixed
@@ -27,7 +27,7 @@ public enum EquipAdditions {
         element = false;
     }
 
-    private EquipAdditions(String i1, String i2, boolean element) {
+    EquipAdditions(String i1, String i2, boolean element) {
         this.i1 = i1;
         this.i2 = i2;
         this.i3 = "";// temp until it fixed
@@ -37,7 +37,7 @@ public enum EquipAdditions {
         this.element = element;
     }
 
-    private EquipAdditions(String i1, String i2, String i3, String i4, String i5, String i6) {
+    EquipAdditions(String i1, String i2, String i3, String i4, String i5, String i6) {
         this.i1 = i1;
         this.i2 = i2;
         this.i3 = i3;
@@ -84,7 +84,7 @@ public enum EquipAdditions {
         return null;
     }
 
-    public static enum RingSet {
+    public enum RingSet {
         // 不速之客戒指(1112435, 1112436, 1112437, 1112438, 1112439),
         天使的祝福戒指(1112585, 1112586, 1112594),
         职业戒指(1112427, 1112428, 1112429, 1112405, 1112445, 1112591, 1112592),
@@ -99,7 +99,7 @@ public enum EquipAdditions {
 
         public List<Integer> id;
 
-        private RingSet(Integer... ids) {
+        RingSet(Integer... ids) {
             this.id = Arrays.asList(ids);
         }
     }

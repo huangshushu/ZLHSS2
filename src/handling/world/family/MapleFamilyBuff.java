@@ -146,7 +146,7 @@ public class MapleFamilyBuff {
             chr.cancelEffect(eff, true, -1, effects);
             final long starttime = System.currentTimeMillis();
             final CancelEffectAction cancelAction = new CancelEffectAction(chr, eff, starttime);
-            final ScheduledFuture<?> schedule = BuffTimer.getInstance().schedule(cancelAction, ((starttime + (duration * 60000)) - starttime));
+            final ScheduledFuture<?> schedule = BuffTimer.getInstance().schedule(cancelAction, ((starttime + (duration * 60000L)) - starttime));
             chr.registerEffect(eff, starttime, schedule, effects, false, duration, chr.getId());
         }
     }

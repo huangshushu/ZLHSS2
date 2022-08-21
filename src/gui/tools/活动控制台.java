@@ -264,7 +264,7 @@ public class 活动控制台 extends javax.swing.JFrame {
                 "序号", "野外BOSS", "刷新时间/分"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                 false, false, false
             };
 
@@ -485,7 +485,7 @@ public class 活动控制台 extends javax.swing.JFrame {
     }
 
     public void 刷新野外BOSS刷新时间() {
-        for (int i = ((DefaultTableModel) (this.野外BOSS刷新时间.getModel())).getRowCount() - 1; i >= 0; i--) {
+        for (int i = this.野外BOSS刷新时间.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.野外BOSS刷新时间.getModel())).removeRow(i);
         }
         try {
@@ -560,7 +560,7 @@ public class 活动控制台 extends javax.swing.JFrame {
         }
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

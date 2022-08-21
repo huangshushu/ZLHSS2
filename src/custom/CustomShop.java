@@ -10,7 +10,7 @@ public class CustomShop {
     public static final int shopId = 15739;
     public static final int shopNpc = 2159337;
 
-    public static enum CustomShopData {
+    public enum CustomShopData {
 
         I0(0, 2000005, 1, 0, 0, 0),
         // I1(1, 5062000, 1, 1, 0, 0),

@@ -17,5 +17,5 @@ public enum SpeedRunType {
     Targa,
     Pink_Bean,
     Zakum,
-    Chaos_Zakum;
+    Chaos_Zakum
 }

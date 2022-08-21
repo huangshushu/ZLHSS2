@@ -27,14 +27,14 @@ import java.util.Map;
     /*     */    private static final int SUPER_BOSS_ITEM_RATE = 300000;
     /*     */    private static final int POTION_RATE = 20000;
     /*     */    private static final int ARROWS_RATE = 25000;
-    /*  35 */    private static int lastmonstercardid = 2388070;
+    /*  35 */    private static final int lastmonstercardid = 2388070;
     /*  36 */    private static boolean addFlagData = false;
     /*  37 */    protected static String monsterQueryData = "drop_data";
     /*  38 */    protected static List<Pair<Integer, String>> itemNameCache = new ArrayList();
     /*  39 */    protected static List<Pair<Integer, MobInfo>> mobCache = new ArrayList();
     /*  40 */    protected static Map<Integer, Boolean> bossCache = new HashMap();
     /*     */
-    /*     */ public static void main(String[] args) throws FileNotFoundException, IOException, NotBoundException, InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException, MalformedObjectNameException {
+    /*     */ public static void main(String[] args) throws IOException, NotBoundException, InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException, MalformedObjectNameException {
         /*  43 */ MapleData data = MapleDataProviderFactory.getDataProvider("String.wz").getData("MonsterBook.img");
         /*     */
         /*  45 */ System.out.println("准备提取数据!");
@@ -267,7 +267,7 @@ import java.util.Map;
         /* 274 */ long time = System.currentTimeMillis() - currtime;
         /* 275 */ time /= 1000L;
         /*     */
-        /* 277 */ System.out.println(new StringBuilder().append("Time taken : ").append(time).toString());
+        /* 277 */ System.out.println("Time taken : " + time);
         /*     */    }
     /*     */
     /*     */ private static void retriveNLogItemName(StringBuilder sb, int id) {
@@ -402,25 +402,28 @@ import java.util.Map;
                     /*     */                }
                 /* 415 */ return 900;
             /*     */ case 103:
-                /* 417 */ switch (id) {
-                    /*     */ case 1032062:
-                        /* 419 */ return 100;
-                    /*     */                }
+                /* 417 */ /*     */
+                if (id == 1032062) {/* 419 */
+                    return 100;
+                    /*     */
+                }
                 /* 421 */ return 1000;
             /*     */ case 105:
             /*     */ case 109:
-                /* 424 */ switch (id) {
-                    /*     */ case 1092049:
-                        /* 426 */ return 100;
-                    /*     */                }
+                /* 424 */ /*     */
+                if (id == 1092049) {/* 426 */
+                    return 100;
+                    /*     */
+                }
                 /* 428 */ return 700;
             /*     */ case 104:
             /*     */ case 106:
             /*     */ case 107:
-                /* 432 */ switch (id) {
-                    /*     */ case 1072369:
-                        /* 434 */ return 300000;
-                    /*     */                }
+                /* 432 */ /*     */
+                if (id == 1072369) {/* 434 */
+                    return 300000;
+                    /*     */
+                }
                 /* 436 */ return 800;
             /*     */ case 108:
             /*     */ case 110:
@@ -437,10 +440,11 @@ import java.util.Map;
             /*     */ case 131:
             /*     */ case 132:
             /*     */ case 137:
-                /* 452 */ switch (id) {
-                    /*     */ case 1372049:
-                        /* 454 */ return 999999;
-                    /*     */                }
+                /* 452 */ /*     */
+                if (id == 1372049) {/* 454 */
+                    return 999999;
+                    /*     */
+                }
                 /* 456 */ return 700;
             /*     */ case 138:
             /*     */ case 140:
@@ -457,10 +461,11 @@ import java.util.Map;
             /*     */ case 149:
                 /* 470 */ return 500;
             /*     */ case 204:
-                /* 472 */ switch (id) {
-                    /*     */ case 2049000:
-                        /* 474 */ return 150;
-                    /*     */                }
+                /* 472 */ /*     */
+                if (id == 2049000) {/* 474 */
+                    return 150;
+                    /*     */
+                }
                 /* 476 */ return 300;
             /*     */ case 205:
                 /* 478 */ return 50000;
@@ -477,10 +482,11 @@ import java.util.Map;
                     /*     */                }
                 /* 490 */ return 500;
             /*     */ case 233:
-                /* 492 */ switch (id) {
-                    /*     */ case 2330007:
-                        /* 494 */ return 50;
-                    /*     */                }
+                /* 492 */ /*     */
+                if (id == 2330007) {/* 494 */
+                    return 50;
+                    /*     */
+                }
                 /* 496 */ return 500;
             /*     */ case 400:
                 /* 498 */ switch (id) {
@@ -637,7 +643,7 @@ import java.util.Map;
                     /*     */                }
                 /* 652 */ return 2000;
             /*     */        }
-        /* 654 */ System.out.println(new StringBuilder().append("未处理的数据, ID : ").append(id).toString());
+        /* 654 */ System.out.println("未处理的数据, ID : " + id);
         /* 655 */ return 999999;
         /*     */    }
     /*     */
@@ -844,7 +850,7 @@ import java.util.Map;
         /* 870 */ for (MapleData itemFolder : mob.getChildren()) {
             /* 871 */ int id = Integer.parseInt(itemFolder.getName());
             /*     */ try /*     */ {
-                /* 874 */ MapleData monsterData = mobData.getData(StringUtil.getLeftPaddedStr(new StringBuilder().append(Integer.toString(id)).append(".img").toString(), '0', 11));
+                /* 874 */ MapleData monsterData = mobData.getData(StringUtil.getLeftPaddedStr(id + ".img", '0', 11));
                 /* 875 */ int boss = id == 8810018 ? 1 : MapleDataTool.getIntConvert("boss", monsterData.getChildByPath("info"), 0);
                 /*     */
                 /* 877 */ if (boss > 0) {

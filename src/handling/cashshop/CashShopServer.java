@@ -36,7 +36,7 @@ public class CashShopServer {
     private static int port = 15555;
     private static ServerConnection acceptor;
     private static PlayerStorage players, playersMTS;
-    private static boolean finishedShutdown = false;
+    private static final boolean finishedShutdown = false;
 
     public static final void setup() {
         System.out.println("【启动中】 购物商城:::");

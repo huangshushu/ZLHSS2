@@ -57,7 +57,7 @@ public enum MapleWeaponType {
     private final float damageMultiplier; // 武器系数
     private final int baseMastery; // 初始武器熟练度
 
-    private MapleWeaponType(final float maxDamageMultiplier, int baseMastery) {
+    MapleWeaponType(final float maxDamageMultiplier, int baseMastery) {
         this.damageMultiplier = maxDamageMultiplier;
         this.baseMastery = baseMastery;
     }
@@ -69,4 +69,4 @@ public enum MapleWeaponType {
     public final int getBaseMastery() {
         return baseMastery;
     }
-};
+}

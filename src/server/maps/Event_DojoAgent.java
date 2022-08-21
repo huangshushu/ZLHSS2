@@ -141,7 +141,7 @@ public class Event_DojoAgent {
         try {
             final MapleMap currentmap = c.getMap();
             final int temp = (currentmap.getId() - 925000000) / 100;
-            final int thisStage = (int) (temp - ((temp / 100) * 100));
+            final int thisStage = temp - ((temp / 100) * 100);
             final int points = getDojoPoints(thisStage);
 
             final ChannelServer ch = c.getClient().getChannelServer();

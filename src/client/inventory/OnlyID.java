@@ -23,7 +23,7 @@ import java.util.*;
 public class OnlyID {
 
     private final static OnlyID instance = new OnlyID();
-    private static List<Triple<Integer, Long, Long>> OnlyIDList = new ArrayList();
+    private static final List<Triple<Integer, Long, Long>> OnlyIDList = new ArrayList();
 
     public static OnlyID getInstance() {
         return instance;
@@ -156,7 +156,7 @@ public class OnlyID {
                 rs.close();
                 String itemname = "null";
                 itemname = MapleItemInformationProvider.getInstance().getName(item);
-                String msg = "发现复制,唯一ID [" + itemonly + "] " + chrs.toString() + " 物品[" + itemname + "](" + item + ")";
+                String msg = "发现复制,唯一ID [" + itemonly + "] " + chrs + " 物品[" + itemname + "](" + item + ")";
                 System.out.println(msg);
                 World.Broadcast.broadcastGMMessage((MaplePacketCreator.serverNotice(6, msg)));
                 FileoutputUtil.logToFile("Hack/复制装备.txt",
