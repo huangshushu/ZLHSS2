@@ -19,7 +19,7 @@ public class DBConPool {
     static {
         InitDB();
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.out.println("[数据库信息] 找不到JDBC驱动.");
             System.exit(0);
@@ -57,7 +57,7 @@ public class DBConPool {
     private void InitDBConPool() {
         dataSource = new DruidDataSource();
         dataSource.setName("mysql_pool");
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://" + "127.0.0.1" + ":" + dbport + "/" + dbName
                 + "?useUnicode=true&characterEncoding=UTF8");
         dataSource.setUsername(dbUser);
