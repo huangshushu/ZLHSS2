@@ -4686,6 +4686,7 @@ public class Maple extends javax.swing.JFrame {
                             ts.cancel(false);
                             开启服务端 = false;
                             startserverbutton.setText("启动服务端");
+                            System.exit(0);
                             return;
                         }
                         World.isShutDown = true;
