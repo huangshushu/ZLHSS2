@@ -100,9 +100,16 @@ function action(mode, type, selection) {
         case 3:
         case 4:
         case 5:
+        case 6:
+        case 7:
           inx = (parseInt(job / 100) % 10) - 1;
           break;
+        default:
+          inx = 0;
+          break;
       }
+    }else{
+      inx = 0;//新手职业
     }
     if (inx < 0) {
       cm.getPlayer().dropMessage(

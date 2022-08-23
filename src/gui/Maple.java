@@ -4666,7 +4666,6 @@ public class Maple extends javax.swing.JFrame {
         }
     }
 
-    //新增结束
     private static ScheduledFuture<?> ts = null;
     private int minutesLeft = 0;
     private static Thread t = null;
@@ -4677,20 +4676,27 @@ public class Maple extends javax.swing.JFrame {
             minutesLeft = Integer.parseInt(jTextField22.getText());
             if (ts == null && (t == null || !t.isAlive())) {
                 t = new Thread(ShutdownServer.getInstance());
-                ts = EventTimer.getInstance().register(() -> {
-                    if (minutesLeft == 0) {
-                        ShutdownServer.getInstance();
-                        t.start();
-                        ts.cancel(false);
-                        return;
+                ts = EventTimer.getInstance().register(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        if (minutesLeft == 0) {
+                            ShutdownServer.getInstance();
+                            t.start();
+                            ts.cancel(false);
+                            开启服务端 = false;
+                            startserverbutton.setText("启动服务端");
+                            return;
+                        }
+                        World.isShutDown = true;
+                        World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "服务器将在 " + minutesLeft + "分钟后关闭. 请所有玩家立即下线."));;
+                        System.out.println("服务器将在 " + minutesLeft + "分钟后关闭.");
+                        minutesLeft--;
                     }
-                    World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(0, "本私服器將在 " + minutesLeft + "分钟后关闭. 请尽速关闭雇佣商人 并下线，以免造成损失."));
-                    System.out.println("本私服器將在 " + minutesLeft + "分钟后关闭.");
-                    minutesLeft--;
                 }, 60000);
+            }else{
+                printChatLog("服务端尚未启动.");
             }
-            jTextField22.setText("关闭服务器倒数时间");
-            printChatLog(输出);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "错误!\r\n" + e);
         }

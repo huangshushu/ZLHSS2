@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class ShutdownServer implements Runnable, ShutdownServerMBean {
 
-    private static final ShutdownServer instance = new ShutdownServer();
+    private static ShutdownServer instance = new ShutdownServer();
     public static boolean running = false;
 
     public static ShutdownServer getInstance() {
@@ -53,41 +53,36 @@ public class ShutdownServer implements Runnable, ShutdownServerMBean {
         System.out.println("Timer 关闭完成");
 
 
-        Set<Integer> channels = ChannelServer.getAllChannels();
-
-        for (Integer channel : channels) {
+        final Set<Integer> channels = ChannelServer.getAllChannels();
+        for (final Integer channel : channels) {
             try {
-                ChannelServer cs = ChannelServer.getInstance(channel);
+                final ChannelServer cs = ChannelServer.getInstance((int) channel);
                 cs.saveAll();
                 cs.setPrepareShutdown();
                 cs.shutdown();
             } catch (Exception e) {
-                System.out.println("频道" + channel + " 关闭失败.");
+                System.out.println("频道" + String.valueOf((Object) channel) + " 关闭失败");
             }
         }
-
         try {
             LoginServer.shutdown();
-            System.out.println("登陆服务器关闭完成.");
-        } catch (Exception e) {
-            System.out.println("登陆服务器关闭失败");
+            System.out.println("[登陆本地服务器关闭完成]");
+        } catch (Exception e2) {
+            System.out.println("[登陆本地服务器关闭失败]");
         }
         try {
             CashShopServer.shutdown();
-            System.out.println("购物商城服务器关闭完成.");
-        } catch (Exception e) {
-            System.out.println("购物商城服务器关闭失败");
+            System.out.println("[购物商城关闭完成]");
+        } catch (Exception e2) {
+            System.out.println("[购物商城关闭失败]");
         }
-//        try {
-//            Thread.sleep(5000);
-//        } catch (Exception e) {
-//
-//        }
-//        System.exit(0);
-    }
-
+}
     @Override
     public void shutdown() {
         this.run();
+    }  
+    static {
+        instance = new ShutdownServer();
+        ShutdownServer.running = false;
     }
 }
