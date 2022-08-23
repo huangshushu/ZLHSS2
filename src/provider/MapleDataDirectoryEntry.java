@@ -23,7 +23,6 @@ package provider;
 import java.util.List;
 
 /**
- *
  * @author Matze
  */
 public interface MapleDataDirectoryEntry extends MapleDataEntry {

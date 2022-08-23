@@ -60,7 +60,6 @@ public class HiredMerchant extends AbstractPlayerStore {
     }
 
     /**
-     *
      * @return
      */
     @Override

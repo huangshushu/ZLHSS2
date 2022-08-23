@@ -305,7 +305,7 @@ public class CheatTracker {
 
     public final void checkMsg() { // ALL types of msg. caution with number of msgsPerSecond
         if ((System.currentTimeMillis() - lastMsgTime) < 1000) { // luckily maplestory has auto-check for too much
-                                                                 // msging
+            // msging
             msgsPerSecond++;
             /*
              * if (msgsPerSecond > 10 && chr.get() != null) {

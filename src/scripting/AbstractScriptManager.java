@@ -33,7 +33,6 @@ import java.io.*;
 import java.util.stream.Collectors;
 
 /**
- *
  * @author Matze
  */
 public abstract class AbstractScriptManager {

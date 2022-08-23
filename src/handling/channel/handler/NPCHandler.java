@@ -117,7 +117,7 @@ public class NPCHandler {
     }
 
     public static final void handleNPCTalk(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                           final MapleCharacter chr) {
         if (c == null || chr == null || chr.getMap() == null) {
             return;
         }
@@ -162,7 +162,7 @@ public class NPCHandler {
     }
 
     public static final void QuestAction(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                         final MapleCharacter chr) {
         final byte action = slea.readByte();
         // short quest = slea.readShort();
         int quest = slea.readUShort();
@@ -570,7 +570,7 @@ public class NPCHandler {
         Map<String, Integer> eqStats;
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         final Map<Equip, Integer> eqs = new ArrayMap<>();
-        final MapleInventoryType[] types = { MapleInventoryType.EQUIP, MapleInventoryType.EQUIPPED };
+        final MapleInventoryType[] types = {MapleInventoryType.EQUIP, MapleInventoryType.EQUIPPED};
         for (MapleInventoryType type : types) {
             for (IItem item : c.getPlayer().getInventory(type)) {
                 if (item instanceof Equip) { // redundant
@@ -624,10 +624,10 @@ public class NPCHandler {
         // explorer level 30 weapons - ~10 mesos per %
         final int price = (int) Math
                 .ceil(rPercentage * ii.getPrice(eq.getItemId()) / (ii.getReqLevel(eq.getItemId()) < 70 ? 100.0 : 1.0)); // /
-                                                                                                                        // 100
-                                                                                                                        // for
-                                                                                                                        // level
-                                                                                                                        // 30?
+        // 100
+        // for
+        // level
+        // 30?
         if (c.getPlayer().getMeso() < price) {
             return;
         }

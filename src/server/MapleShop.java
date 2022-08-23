@@ -156,7 +156,7 @@ public class MapleShop {
             if (item.getItemId() == 4031348) {
                 price = 1;
             }
-            
+
             int recvMesos = (int) Math.max(Math.ceil(price * quantity), 0);
             if (price != -1.0 && recvMesos > 0) {
                 if (recvMesos > PiPiConfig.商店一次拍卖获得最大枫币) {

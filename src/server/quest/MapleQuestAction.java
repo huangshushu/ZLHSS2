@@ -57,7 +57,7 @@ public class MapleQuestAction implements Serializable {
      * Creates a new instance of MapleQuestAction
      */
     public MapleQuestAction(MapleQuestActionType type, ResultSet rse, MapleQuest quest, PreparedStatement pss,
-            PreparedStatement psq, PreparedStatement psi) throws SQLException {
+                            PreparedStatement psq, PreparedStatement psi) throws SQLException {
         this.type = type;
         this.quest = quest;
 

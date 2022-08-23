@@ -36,6 +36,7 @@ public class AutobanManager implements Runnable {
             return (time == ee.time && points == ee.points && acc == ee.acc);
         }
     }
+
     private final Map<Integer, Integer> points = new HashMap<>();
     private final Map<Integer, List<String>> reasons = new HashMap<>();
     private final Set<ExpirationEntry> expirations = new TreeSet<>();

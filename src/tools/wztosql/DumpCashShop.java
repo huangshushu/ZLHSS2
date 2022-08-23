@@ -24,7 +24,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 /**
- *
  * @author XiaoMaDengDengWo
  */
 public class DumpCashShop {

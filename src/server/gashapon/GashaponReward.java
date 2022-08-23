@@ -6,7 +6,6 @@
 package server.gashapon;
 
 /**
- *
  * @author TEST
  */
 public class GashaponReward {

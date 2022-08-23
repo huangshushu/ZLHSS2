@@ -57,11 +57,11 @@ public class CharacterTransfer implements Externalizable {
     public final List<Integer> finishedAchievements = new ArrayList<>(), famedcharacters = new ArrayList<>();
     public final Map<BuddyEntry, Boolean> buddies = new LinkedHashMap<>();
     public final Map<Integer, Object> Quest = new LinkedHashMap<>(); // Questid instead of MapleQuest, as it's huge.
-                                                                     // Cant be transporting MapleQuest.java
+    // Cant be transporting MapleQuest.java
     public Map<Integer, String> InfoQuest = new LinkedHashMap<>();
     public final Map<Integer, SkillEntry> Skills = new LinkedHashMap<>(); // Skillid instead of Skill.java, as it's
-                                                                          // huge. Cant be transporting Skill.java and
-                                                                          // MapleStatEffect.java
+    // huge. Cant be transporting Skill.java and
+    // MapleStatEffect.java
     public boolean 精灵商人购买开关, 玩家私聊开关, 玩家密语开关, 好友聊天开关, 队伍聊天开关, 公会聊天开关, 联盟聊天开关, GM吸怪讯息开关, Vip_Medal, auto吸怪, DebugMessage,
             canTalk, smega, gashponmega;
 

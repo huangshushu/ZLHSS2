@@ -42,9 +42,9 @@ public class MapScriptMethods {
 
     private static final Point witchTowerPos = new Point(-60, 184);
     private static final String[] mulungEffects = {
-        "你的勇气的挑战睦隆道场是难能可贵的！",
-        "如果你想品尝失利的苦涩，进来吧！",
-        "我会让你后悔彻底挑战睦隆道场！快点！"};
+            "你的勇气的挑战睦隆道场是难能可贵的！",
+            "如果你想品尝失利的苦涩，进来吧！",
+            "我会让你后悔彻底挑战睦隆道场！快点！"};
 
     private enum onFirstUserEnter {
 

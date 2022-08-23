@@ -39,6 +39,7 @@ public class MapleSquad {
         MapleSquadType(int i) {
             this.i = i;
         }
+
         public int i;
         public HashMap<Integer, ArrayList<Pair<String, String>>> queuedPlayers = new HashMap<>();
         public HashMap<Integer, ArrayList<Pair<String, Long>>> queue = new HashMap<>();

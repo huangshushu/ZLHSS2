@@ -429,7 +429,7 @@ public class EventManager {
      * return false;
      * }
      * EventTimer.getInstance().schedule(new Runnable() {
-     * 
+     *
      * @Override
      * public void run() {
      * if (cs.getEvent() >= 0) {

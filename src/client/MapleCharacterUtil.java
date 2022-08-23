@@ -80,7 +80,7 @@ public class MapleCharacterUtil {
     public static final int getIdByName(final String name) {
         final int id;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT id FROM characters WHERE name = ?")) {
+             PreparedStatement ps = con.prepareStatement("SELECT id FROM characters WHERE name = ?")) {
             ps.setString(1, name);
             try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next()) {
@@ -167,7 +167,7 @@ public class MapleCharacterUtil {
 
         Pair<Integer, Pair<Integer, Integer>> id;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM characters WHERE name = ? AND world = ?")) {
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM characters WHERE name = ? AND world = ?")) {
             ps.setString(1, name);
             ps.setInt(2, world);
             try (ResultSet rs = ps.executeQuery()) {
@@ -189,8 +189,8 @@ public class MapleCharacterUtil {
 
     public static void setNXCodeUsed(String name, String code) throws SQLException {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con
-                        .prepareStatement("UPDATE nxcode SET `user` = ?, `valid` = 0 WHERE code = ?")) {
+             PreparedStatement ps = con
+                     .prepareStatement("UPDATE nxcode SET `user` = ?, `valid` = 0 WHERE code = ?")) {
             ps.setString(1, name);
             ps.setString(2, code);
             boolean execute = ps.execute();
@@ -203,8 +203,8 @@ public class MapleCharacterUtil {
     public static void sendNote(String to, String name, String msg, int fame) {
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement(
-                        "INSERT INTO notes (`to`, `from`, `message`, `timestamp`, `gift`) VALUES (?, ?, ?, ?, ?)")) {
+             PreparedStatement ps = con.prepareStatement(
+                     "INSERT INTO notes (`to`, `from`, `message`, `timestamp`, `gift`) VALUES (?, ?, ?, ?, ?)")) {
             ps.setString(1, to);
             ps.setString(2, name);
             ps.setString(3, msg);
@@ -220,7 +220,7 @@ public class MapleCharacterUtil {
 
     public static boolean getNXCodeValid(String code, boolean validcode) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT `valid` FROM nxcode WHERE code = ?")) {
+             PreparedStatement ps = con.prepareStatement("SELECT `valid` FROM nxcode WHERE code = ?")) {
             ps.setString(1, code);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -256,7 +256,7 @@ public class MapleCharacterUtil {
     public static int getNXCodeItem(String code) {
         int item = -1;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT `item` FROM nxcode WHERE code = ?")) {
+             PreparedStatement ps = con.prepareStatement("SELECT `item` FROM nxcode WHERE code = ?")) {
             ps.setString(1, code);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -274,7 +274,7 @@ public class MapleCharacterUtil {
     public static int getNXCodeSize(String code) {
         int item = -1;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT `size` FROM nxcode WHERE code = ?")) {
+             PreparedStatement ps = con.prepareStatement("SELECT `size` FROM nxcode WHERE code = ?")) {
             ps.setString(1, code);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -292,7 +292,7 @@ public class MapleCharacterUtil {
     public static int getNXCodeTime(String code) {
         int item = -1;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT `time` FROM nxcode WHERE code = ?")) {
+             PreparedStatement ps = con.prepareStatement("SELECT `time` FROM nxcode WHERE code = ?")) {
             ps.setString(1, code);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {

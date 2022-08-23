@@ -116,7 +116,6 @@ public class InterServerHandler {
     }
 
     /**
-     *
      * @param playerid - 玩家ID
      * @param c        - 客户端 Client
      */
@@ -413,8 +412,8 @@ public class InterServerHandler {
                     player.setAllianceRank((byte) 5);
                     player.saveGuildStatus();
                 }
-            } else if(WorldConstants.ShowBattlePower){
-                if(player.getBattlePowerPoint() == -1){
+            } else if (WorldConstants.ShowBattlePower) {
+                if (player.getBattlePowerPoint() == -1) {
 
                 }
                 c.sendPacket(MaplePacketCreator.勋章(player));
@@ -601,7 +600,7 @@ public class InterServerHandler {
     }
 
     public static final void ChangeChannel(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                           final MapleCharacter chr) {
         if (c.getPlayer().getChair() > 0) {
             c.getPlayer().dropMessage(5, "请解除座椅状态后进入商城.");
             return;

@@ -27,7 +27,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
  * @author Windyboy
  */
 public class PracticerCommand {
@@ -1228,7 +1227,7 @@ public class PracticerCommand {
 
     /*
      * public static class fixch extends CommandExecute {
-     * 
+     *
      * @Override
      * public boolean execute(MapleClient c, String[] splitted) {
      * if (splitted.length < 2) {
@@ -1238,7 +1237,7 @@ public class PracticerCommand {
      * c.getPlayer().dropMessage("已经解卡玩家<" + splitted[1] + ">");
      * return true;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new StringBuilder().append("!fixch <玩家名称> - 解卡角").toString();
@@ -1248,7 +1247,7 @@ public class PracticerCommand {
 
     /*
      * public static class fixac extends CommandExecute {
-     * 
+     *
      * @Override
      * public boolean execute(MapleClient c, String[] splitted) {
      * if (splitted.length < 2) {
@@ -1257,7 +1256,7 @@ public class PracticerCommand {
      * String input = splitted[1];
      * int Accountid = 0;
      * int times = 0;
-     * 
+     *
      * try (Connection con =
      * DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps
      * = con.prepareStatement("SELECT accountid FROM characters WHERE name = ?")) {
@@ -1275,7 +1274,7 @@ public class PracticerCommand {
      * ex);
      * FileoutputUtil.outError("logs/资料库异常.txt", ex);
      * }
-     * 
+     *
      * try (Connection con =
      * DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps
      * = con.prepareStatement("SELECT name FROM characters WHERE accountid = ?")) {
@@ -1303,7 +1302,7 @@ public class PracticerCommand {
      * }
      * return true;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new StringBuilder().append("!fixac <玩家名称> - 解帐号卡角").toString();
@@ -1444,7 +1443,7 @@ public class PracticerCommand {
             }
             c.getPlayer().dropMessage("封锁MAC [" + mac + "] 成功");
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                    PreparedStatement ps = con.prepareStatement("INSERT INTO macbans (mac) VALUES (?)")) {
+                 PreparedStatement ps = con.prepareStatement("INSERT INTO macbans (mac) VALUES (?)")) {
                 ps.setString(1, mac);
                 ps.executeUpdate();
                 ps.close();
@@ -1464,7 +1463,7 @@ public class PracticerCommand {
 
     /*
      * public static class BanIP extends CommandExecute {
-     * 
+     *
      * @Override
      * public boolean execute(MapleClient c, String[] splitted) {
      * if (splitted.length < 2) {
@@ -1505,7 +1504,7 @@ public class PracticerCommand {
      * c.getPlayer().dropMessage("封锁IP [" + IP + "] " + (error ? "成功 " : "失败"));
      * return true;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new StringBuilder().append("!BanIP <IP> - 封锁IP ").toString();

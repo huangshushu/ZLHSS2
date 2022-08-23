@@ -58,8 +58,8 @@ public class SpeedRunner {
         Map<Integer, String> rett;
         boolean changed;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con
-                        .prepareStatement("SELECT * FROM speedruns WHERE type = ? ORDER BY time LIMIT 25")) {
+             PreparedStatement ps = con
+                     .prepareStatement("SELECT * FROM speedruns WHERE type = ? ORDER BY time LIMIT 25")) {
             ps.setString(1, type.name());
             ret = new StringBuilder("#rThese are the speedrun times for "
                     + StringUtil.makeEnumHumanReadable(type.name()) + ".#k\r\n\r\n");
@@ -84,7 +84,7 @@ public class SpeedRunner {
     }
 
     public final Pair<StringBuilder, Map<Integer, String>> addSpeedRunData(StringBuilder ret, Map<Integer, String> rett,
-            String members, String leader, int rank, String timestring) {
+                                                                           String members, String leader, int rank, String timestring) {
         StringBuilder rettt = new StringBuilder();
 
         String[] membrz = members.split(",");

@@ -34,7 +34,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class MapleMonster extends AbstractLoadedMapleLife {
 
     /**
-     *
      * @param MapleMonsterStats 怪物状态
      * @param OverrideMonsterStats 改写怪物能力值
      * @param hp 怪物HP
@@ -239,10 +238,10 @@ public class MapleMonster extends AbstractLoadedMapleLife {
     /**
      * 攻击怪物
      *
-     * @param from 攻击怪物角色
-     * @param damage 攻击的数字
+     * @param from             攻击怪物角色
+     * @param damage           攻击的数字
      * @param updateAttackTime 攻击时间
-     * @param lastSkill 最后一次攻击的技能是什么
+     * @param lastSkill        最后一次攻击的技能是什么
      */
     public final void damage(final MapleCharacter from, final long damage, final boolean updateAttackTime, final int lastSkill) {
 
@@ -372,8 +371,8 @@ public class MapleMonster extends AbstractLoadedMapleLife {
     /**
      * 怪物补血
      *
-     * @param hp 补血的血量
-     * @param mp 补血的魔量
+     * @param hp        补血的血量
+     * @param mp        补血的魔量
      * @param broadcast 是否要通知地图上的角色
      */
     public final void heal(int hp, int mp, final boolean broadcast) {
@@ -404,10 +403,10 @@ public class MapleMonster extends AbstractLoadedMapleLife {
     /**
      * 依照怪物总伤害给角色经验值
      *
-     * @param attacker 攻击此怪物的角色
-     * @param exp 获得经验值
-     * @param highestDamage 是否为最高攻击
-     * @param numExpSharers 多少人分享
+     * @param attacker                  攻击此怪物的角色
+     * @param exp                       获得经验值
+     * @param highestDamage             是否为最高攻击
+     * @param numExpSharers             多少人分享
      * @param pty
      * @param classBounsExpPercent
      * @param Premium_Bonus_EXP_PERCENT
@@ -538,10 +537,11 @@ public class MapleMonster extends AbstractLoadedMapleLife {
         }
         attacker.mobKilled(getId(), lastskillID);
     }*/
+
     /**
      * 怪物被谁杀的
      *
-     * @param killer 杀掉此怪物的角色
+     * @param killer    杀掉此怪物的角色
      * @param lastSkill 最后一个技能
      * @return
      */
@@ -577,15 +577,15 @@ public class MapleMonster extends AbstractLoadedMapleLife {
         //int achievement = 0;
         switch (getId()) {
             case 9400121:
-            //achievement = 12;
-            //break;
+                //achievement = 12;
+                //break;
             case 8500002:
-            //achievement = 13;
-            //break;
+                //achievement = 13;
+                //break;
             case 8510000:
             case 8520000:
-            //achievement = 14;
-            //break;
+                //achievement = 14;
+                //break;
             default:
                 break;
         }
@@ -605,7 +605,7 @@ public class MapleMonster extends AbstractLoadedMapleLife {
          if (killer != null && stats.isBoss()) {
          killer.finishAchievement(18);
          }*/
- /* 召唤小弟囉 */
+        /* 召唤小弟囉 */
         this.spawnRevives(getMap());
 
         /**
@@ -1455,7 +1455,6 @@ public class MapleMonster extends AbstractLoadedMapleLife {
     private final class PoisonTask implements Runnable {
 
         /**
-         *
          * @param poisonDamage 毒伤害
          * @param chr 角色
          * @param status 状态
@@ -1503,7 +1502,6 @@ public class MapleMonster extends AbstractLoadedMapleLife {
     private static class AttackingMapleCharacter {
 
         /**
-         *
          * @param attacker 攻击者
          * @param lastAttackTime 最后攻击时间
          */

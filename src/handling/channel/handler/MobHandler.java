@@ -14,7 +14,6 @@ import server.life.MobSkillFactory;
 import server.maps.MapleMap;
 import server.maps.MapleNodes.MapleNodeInfo;
 import server.movement.AbstractLifeMovement;
-import server.movement.LifeMovement;
 import server.movement.LifeMovementFragment;
 import tools.FileoutputUtil;
 import tools.MaplePacketCreator;

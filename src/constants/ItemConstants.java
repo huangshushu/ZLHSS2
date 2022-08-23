@@ -328,8 +328,8 @@ public class ItemConstants {
     public static class 套装 {
 
         public static ArrayList<Integer> get6YearSet() {
-            int[] set = { 1462116, 1342039, 1402109, 1472139, 1332147, 1322105, 1442135, 1452128, 1312071, 1382123,
-                    1492100, 1372099, 1432098, 1422072, 1302172, 1482101, 1412070 };
+            int[] set = {1462116, 1342039, 1402109, 1472139, 1332147, 1322105, 1442135, 1452128, 1312071, 1382123,
+                    1492100, 1372099, 1432098, 1422072, 1302172, 1482101, 1412070};
             ArrayList<Integer> list = new ArrayList();
             for (int i : set) {
                 list.add(i);
@@ -338,9 +338,9 @@ public class ItemConstants {
         }
 
         public static ArrayList<Integer> get7YearSet() {
-            int[] set = { 1003243, 1052358, 1072522, 1082315, 1102295, 1132093, 1152061, 1332145, 1402107, 1442133,
+            int[] set = {1003243, 1052358, 1072522, 1082315, 1102295, 1132093, 1152061, 1332145, 1402107, 1442133,
                     1462114, 1472137, 1532070, 1522066, 1452126, 1312069, 1382121, 1492098, 1372097, 1362058, 1432096,
-                    1422070, 1302170, 1482099, 1412068 };
+                    1422070, 1302170, 1482099, 1412068};
             ArrayList<Integer> list = new ArrayList();
             for (int i : set) {
                 list.add(i);
@@ -349,12 +349,12 @@ public class ItemConstants {
         }
 
         public static ArrayList<Integer> get8YearSet() {
-            int[] set = { 1462159, 1462156, 1402145, 1402151, 1052461, 1052457, 1532073, 1532074, 1472177, 1472179,
+            int[] set = {1462159, 1462156, 1402145, 1402151, 1052461, 1052457, 1532073, 1532074, 1472177, 1472179,
                     1332186, 1332193, 1322154, 1322162, 1442173, 1442182, 1522068, 1522071, 1452165, 1312114, 1312116,
                     1382160, 1132154, 1132151, 1072666, 1072660, 1212069, 1212068, 1492152, 1492138, 1372139, 1372131,
                     1222063, 1222064, 1082433, 1082430, 1362060, 1362067, 1432138, 1432135, 1152088, 1152089, 1003529,
                     1003552, 1422107, 1422105, 1232070, 1232063, 1302227, 1302212, 1113036, 1113035, 1112743, 1112742,
-                    1482140, 1482138, 1242048, 1242075, 1412102, 1412014, 1102394, 1102441 };
+                    1482140, 1482138, 1242048, 1242075, 1412102, 1412014, 1102394, 1102441};
             ArrayList<Integer> list = new ArrayList();
             for (int i : set) {
                 list.add(i);
@@ -1360,8 +1360,8 @@ public class ItemConstants {
                 return true;
             } else // 卡尔顿的胡子
                 if (itemid >= 1122224 && itemid <= 1122245) {// 心之项炼
-                return true;
-            } else return itemid / 10 == 101244;
+                    return true;
+                } else return itemid / 10 == 101244;
         }
 
         public static boolean 无法潜能道具(final int itemid) {
@@ -1618,120 +1618,120 @@ public class ItemConstants {
         boolean isCash = MapleItemInformationProvider.getInstance().isCash(itemId);
         if (类型.帽子(itemId)) {
             if (isCash) {
-                return new short[] { -101 };
+                return new short[]{-101};
             } else {
-                return new short[] { -1 };
+                return new short[]{-1};
             }
         } else if (类型.脸饰(itemId)) {
             if (isCash) {
-                return new short[] { -102 };
+                return new short[]{-102};
             } else {
-                return new short[] { -2 };
+                return new short[]{-2};
             }
         } else if (类型.眼饰(itemId)) {
             if (isCash) {
-                return new short[] { -103 };
+                return new short[]{-103};
             } else {
-                return new short[] { -3 };
+                return new short[]{-3};
             }
         } else if (类型.耳环(itemId)) {
             if (isCash) {
-                return new short[] { -104 };
+                return new short[]{-104};
             } else {
-                return new short[] { -4 };
+                return new short[]{-4};
             }
         } else if (类型.上衣(itemId) || 类型.套服(itemId)) {
             if (isCash) {
-                return new short[] { -105 };
+                return new short[]{-105};
             } else {
-                return new short[] { -5 };
+                return new short[]{-5};
             }
         } else if (类型.裤裙(itemId)) {
             if (isCash) {
-                return new short[] { -106 };
+                return new short[]{-106};
             } else {
-                return new short[] { -6 };
+                return new short[]{-6};
             }
         } else if (类型.鞋子(itemId)) {
             if (isCash) {
-                return new short[] { -107 };
+                return new short[]{-107};
             } else {
-                return new short[] { -7 };
+                return new short[]{-7};
             }
         } else if (类型.手套(itemId)) {
             if (isCash) {
-                return new short[] { -108 };
+                return new short[]{-108};
             } else {
-                return new short[] { -8 };
+                return new short[]{-8};
             }
         } else if (类型.披风(itemId)) {
             if (isCash) {
-                return new short[] { -109 };
+                return new short[]{-109};
             } else {
-                return new short[] { -9 };
+                return new short[]{-9};
             }
         } else if (类型.副手(itemId)) {
             if (isCash) {
-                return new short[] { -110 };
+                return new short[]{-110};
             } else {
-                return new short[] { -10 };
+                return new short[]{-10};
             }
         } else if (类型.武器(itemId)) {
             if (isCash) {
-                return new short[] { -111 };
+                return new short[]{-111};
             } else {
-                return new short[] { -11 };
+                return new short[]{-11};
             }
         } else if (类型.戒指(itemId)) {
             if (isCash) {
-                return new short[] { -112, -113, -115, -116 };
+                return new short[]{-112, -113, -115, -116};
             } else {
-                return new short[] { -12, -13, -15, -16 };
+                return new short[]{-12, -13, -15, -16};
             }
         } else if (类型.坠饰(itemId)) {
-            return new short[] { -17, -36 };
+            return new short[]{-17, -36};
         } else if (类型.骑宠(itemId)) {
-            return new short[] { -18 };
+            return new short[]{-18};
         } else if (类型.马鞍(itemId)) {
-            return new short[] { -19 };
+            return new short[]{-19};
         } else if (类型.勋章(itemId)) {
-            return new short[] { -21 };
+            return new short[]{-21};
         } else if (类型.腰带(itemId)) {
-            return new short[] { -22 };
+            return new short[]{-22};
         } else if (类型.肩饰(itemId)) {
-            return new short[] { -28 };
+            return new short[]{-28};
         } else if (类型.口袋道具(itemId)) {
-            return new short[] { -31 };
+            return new short[]{-31};
         } else if (类型.机器人(itemId)) {
-            return new short[] { -32 };
+            return new short[]{-32};
         } else if (类型.心脏(itemId)) {
-            return new short[] { -33 };
+            return new short[]{-33};
         } else if (类型.胸章(itemId)) {
-            return new short[] { -34 };
+            return new short[]{-34};
         } else if (类型.能源(itemId)) {
-            return new short[] { -35 };
+            return new short[]{-35};
         } else if (类型.宠物装备(itemId)) {
-            return new short[] { -114, -124, -126 };
+            return new short[]{-114, -124, -126};
         } else if (类型.龙面具(itemId)) {
-            return new short[] { -1000 };
+            return new short[]{-1000};
         } else if (类型.龙坠饰(itemId)) {
-            return new short[] { -1001 };
+            return new short[]{-1001};
         } else if (类型.龙之翼(itemId)) {
-            return new short[] { -1002 };
+            return new short[]{-1002};
         } else if (类型.龙尾巴(itemId)) {
-            return new short[] { -1003 };
+            return new short[]{-1003};
         } else if (类型.引擎(itemId)) {
-            return new short[] { -1100 };
+            return new short[]{-1100};
         } else if (类型.手臂(itemId)) {
-            return new short[] { -1101 };
+            return new short[]{-1101};
         } else if (类型.腿(itemId)) {
-            return new short[] { -1102 };
+            return new short[]{-1102};
         } else if (类型.机壳(itemId)) {
-            return new short[] { -1103 };
+            return new short[]{-1103};
         } else if (类型.晶体管(itemId)) {
-            return new short[] { -1104 };
+            return new short[]{-1104};
         } else if (类型.图腾(itemId)) {
-            return new short[] { -5000, -5001, -5002 };
+            return new short[]{-5000, -5001, -5002};
         } else {
             return new short[0];
         }
@@ -1752,10 +1752,7 @@ public class ItemConstants {
     }
 
     public static boolean is透明短刀(int itemID) {
-        if (itemID == 1342069) {
-            return true;
-        }
-        return false;
+        return itemID == 1342069;
     }
 
     /*

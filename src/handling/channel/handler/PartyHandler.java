@@ -79,7 +79,7 @@ public class PartyHandler {
                         c.sendPacket(MaplePacketCreator.partyStatusMessage(10));
                     }
                 } else if (partyplayer.equals(party.getLeader()) && party.getMembers().size() == 1) { // only one,
-                                                                                                      // reupdate
+                    // reupdate
                     c.sendPacket(MaplePacketCreator.partyCreated(party.getId()));
                 } else {
                     c.getPlayer().dropMessage(5, "不能创建组队，因为已经有组队了。");

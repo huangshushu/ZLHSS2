@@ -90,7 +90,7 @@ public class InventoryHandler {
             return;
         }
         final MapleInventory pInv = c.getPlayer().getInventory(pInvType); // Mode should correspond with
-                                                                          // MapleInventoryType
+        // MapleInventoryType
         boolean sorted = false;
 
         while (!sorted) {
@@ -170,7 +170,7 @@ public class InventoryHandler {
     }
 
     public static final boolean UseRewardItem(final byte slot, final int itemId, final MapleClient c,
-            final MapleCharacter chr) {
+                                              final MapleCharacter chr) {
         /*
          * final IItem toUse =
          * c.getPlayer().getInventory(GameConstants.getInventoryType(itemId)).getItem(
@@ -183,12 +183,12 @@ public class InventoryHandler {
          * chr.getInventory(MapleInventoryType.SETUP).getNextFreeSlot() > -1 &&
          * chr.getInventory(MapleInventoryType.ETC).getNextFreeSlot() > -1) {
          * if (toUse.getItemId() != 2022428) {
-         * 
+         *
          * final MapleItemInformationProvider ii =
          * MapleItemInformationProvider.getInstance();
          * final Pair<Integer, List<StructRewardItem>> rewards =
          * ii.getRewardItem(itemId);
-         * 
+         *
          * if (rewards != null && rewards.getLeft() > 0) {
          * boolean rewarded = false;
          * while (!rewarded) {
@@ -209,7 +209,7 @@ public class InventoryHandler {
          * }
          * MapleInventoryManipulator.removeById(c,
          * GameConstants.getInventoryType(itemId), itemId, 1, false, false);
-         * 
+         *
          * c.sendPacket(MaplePacketCreator.showRewardItemAnimation(reward.getItemid(),
          * reward.getEffect()));
          * chr.getMap().broadcastMessage(chr,
@@ -226,7 +226,7 @@ public class InventoryHandler {
          * } else {
          * int reward;
          * String box;
-         * 
+         *
          * switch (toUse.getItemId()) {
          * case 2022428: //
          * reward = RandomRewards.getInstance().getJxBoxReward();
@@ -235,7 +235,7 @@ public class InventoryHandler {
          * default: // 其他代码 ?
          * return false;
          * }
-         * 
+         *
          * // 得到的数量
          * int amount = 1;
          * switch (reward) {
@@ -246,16 +246,16 @@ public class InventoryHandler {
          * amount = 100; // 超级药水 100个
          * break;
          * }
-         * 
+         *
          * if (chr.getInventory(MapleInventoryType.EQUIP).getNextFreeSlot() > -1 &&
          * chr.getInventory(MapleInventoryType.USE).getNextFreeSlot() > -1 &&
          * chr.getInventory(MapleInventoryType.SETUP).getNextFreeSlot() > -1 &&
          * chr.getInventory(MapleInventoryType.ETC).getNextFreeSlot() > -1) {
-         * 
+         *
          * final IItem item = MapleInventoryManipulator.addbyId_Gachapon(c, reward,
          * (short) amount);
          * final byte rareness = GameConstants.gachaponRareItem(item.getItemId());
-         * 
+         *
          * //MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.ETC, (byte)
          * slot, (short) 1, true);
          * MapleInventoryManipulator.removeById(c,
@@ -286,9 +286,9 @@ public class InventoryHandler {
 
     public static final void UseItem(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr) {
         if (chr == null || !chr.isAlive() || chr.getMapId() == 749040100 || chr.getMap() == null/*
-                                                                                                 * || chr.hasDisease(
-                                                                                                 * MapleDisease.POTION)
-                                                                                                 */) {
+         * || chr.hasDisease(
+         * MapleDisease.POTION)
+         */) {
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
         }
@@ -308,7 +308,7 @@ public class InventoryHandler {
             return;
         }
         if (!FieldLimitType.PotionUse.check(chr.getMap().getFieldLimit()) || chr.getMapId() == 610030600) { // cwk quick
-                                                                                                            // hack
+            // hack
             if (MapleItemInformationProvider.getInstance().getItemEffect(toUse.getItemId()).applyTo(chr)) {
                 MapleInventoryManipulator.removeFromSlot(c, MapleInventoryType.USE, slot, (short) 1, false);
                 if (chr.getMap().getConsumeItemCoolTime() > 0) {
@@ -322,7 +322,7 @@ public class InventoryHandler {
     }
 
     public static final void UseReturnScroll(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                             final MapleCharacter chr) {
         if (!chr.isAlive() || chr.getMapId() == 749040100 || GameConstants.isNotToMap(chr.getMapId())) {
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
@@ -403,12 +403,12 @@ public class InventoryHandler {
     }
 
     public static final boolean UseUpgradeScroll(final byte slot, final byte dst, final byte ws, final MapleClient c,
-            final MapleCharacter chr) {
+                                                 final MapleCharacter chr) {
         return UseUpgradeScroll(slot, dst, ws, c, chr, 0);
     }
 
     public static final boolean UseUpgradeScroll(final byte slot, final byte dst, final byte ws, final MapleClient c,
-            final MapleCharacter chr, final int vegas) {
+                                                 final MapleCharacter chr, final int vegas) {
         boolean whiteScroll = false; // white scroll being used?
         boolean legendarySpirit = false; // legendary spirit skill
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
@@ -599,7 +599,7 @@ public class InventoryHandler {
     }
 
     public static final void UseCatchItem(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                          final MapleCharacter chr) {
         c.getPlayer().updateTick(slea.readInt());
         final byte slot = (byte) slea.readShort();
         final int itemid = slea.readInt();
@@ -669,7 +669,7 @@ public class InventoryHandler {
     }
 
     public static final void UseMountFood(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                          final MapleCharacter chr) {
         c.getPlayer().updateTick(slea.readInt());
         final byte slot = (byte) slea.readShort();
         final int itemid = slea.readInt(); // 2260000 usually
@@ -697,7 +697,7 @@ public class InventoryHandler {
     }
 
     public static final void UseScriptedNPCItem(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                                final MapleCharacter chr) {
         c.getPlayer().updateTick(slea.readInt());
         final byte slot = (byte) slea.readShort();
         final int itemId = slea.readInt();
@@ -931,7 +931,7 @@ public class InventoryHandler {
     }
 
     public static final void UseSummonBag(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                          final MapleCharacter chr) {
         if (!chr.isAlive()) {
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
@@ -979,7 +979,7 @@ public class InventoryHandler {
     }
 
     public static final void UseTreasureChest(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                              final MapleCharacter chr) {
         final short slot = slea.readShort();
         final int itemid = slea.readInt();
 
@@ -1131,7 +1131,7 @@ public class InventoryHandler {
                         if (!FieldLimitType.VipRock.check(c.getPlayer().getMap().getFieldLimit())
                                 && !FieldLimitType.VipRock.check(target.getFieldLimit())
                                 && c.getPlayer().getEventInstance() == null) { // Makes sure this map doesn't have a
-                                                                               // forced return map
+                            // forced return map
                             c.getPlayer().changeMap(target, target.getPortal(0));
                             used = true;
                         }
@@ -1690,7 +1690,7 @@ public class InventoryHandler {
                     if ((itemId == 5520000
                             && MapleItemInformationProvider.getInstance().isKarmaEnabled(item.getItemId()))
                             || (itemId == 5520000
-                                    && MapleItemInformationProvider.getInstance().isPKarmaEnabled(item.getItemId()))) {
+                            && MapleItemInformationProvider.getInstance().isPKarmaEnabled(item.getItemId()))) {
                         byte flag = item.getFlag();
                         if (type == MapleInventoryType.EQUIP) {
                             if (MapleItemInformationProvider.getInstance().isUntradeableOnEquip(item.getItemId())
@@ -1749,7 +1749,7 @@ public class InventoryHandler {
                 slea.readInt(); // Inventory type, always use
                 final byte src = (byte) slea.readInt();
                 used = UseUpgradeScroll(src, dst, (byte) 2, c, c.getPlayer(), itemId); // cannot use ws with vega but we
-                                                                                       // dont care
+                // dont care
                 cc = used;
                 break;
             }
@@ -1825,7 +1825,7 @@ public class InventoryHandler {
                     used = true;
                 }
             }
-                break;
+            break;
             case 5070000: { // Megaphone
                 if (c.getPlayer().getLevel() < 10) {
                     c.getPlayer().dropMessage(5, "必须等级10级以上才可以使用.");
@@ -2126,7 +2126,7 @@ public class InventoryHandler {
                 final String victimName = slea.readMapleAsciiString();
                 MapleCharacter victim = tvType == 1 || tvType == 4 ? null
                         : c.getChannelServer().getPlayerStorage().getCharacterByName(victimName); // for tvType 4, there
-                                                                                                  // is no string.
+                // is no string.
                 if (tvType == 0 || tvType == 3) { // doesn't allow two
                     victim = null;
                 } else if (victim == null) {
@@ -2886,7 +2886,7 @@ public class InventoryHandler {
 
     public static final boolean useItem(final MapleClient c, final int id) {
         //怪物卡自动注册
-        if(!WorldConstants.AutoRegisterMonsterCard && GameConstants.isMonsterCard(id)){
+        if (!WorldConstants.AutoRegisterMonsterCard && GameConstants.isMonsterCard(id)) {
             return false;
         }
         if (GameConstants.isUse(id)) { // TO prevent caching of everything, waste of mem
@@ -2950,7 +2950,7 @@ public class InventoryHandler {
             c.getPlayer().dropMessage(5, "Please make room in your inventory.");
             return false;
         }
-        final int[] ids = { 2430091, 2430092, 2430093, 2430101, 2430102, // mounts
+        final int[] ids = {2430091, 2430092, 2430093, 2430101, 2430102, // mounts
                 2340000, // rares
                 1152000, 1152001, 1152004, 1152005, 1152006, 1152007, 1152008, // toenail only comes when db is out.
                 1000040, 1102246, 1082276, 1050169, 1051210, 1072447, 1442106, // blizzard
@@ -2964,12 +2964,12 @@ public class InventoryHandler {
                 2049000, 2049001, 2049002, 2049003, // clean slate
                 1012058, 1012059, 1012060, 1012061, // pinocchio nose msea only.
                 1332100, 1382058, 1402073, 1432066, 1442090, 1452058, 1462076, 1472069, 1482051, 1492024, 1342009, // durability
-                                                                                                                   // weapons
-                                                                                                                   // level
-                                                                                                                   // 105
-                2049400, 2049401, 2049301 };
+                // weapons
+                // level
+                // 105
+                2049400, 2049401, 2049301};
         // out of 1000
-        final int[] chances = { 100, 100, 100, 100, 100,
+        final int[] chances = {100, 100, 100, 100, 100,
                 1,
                 10, 10, 10, 10, 10, 10, 10,
                 5, 5, 5, 5, 5, 5, 5,
@@ -2981,7 +2981,7 @@ public class InventoryHandler {
                 10, 10, 10, 10,
                 5, 5, 5, 5,
                 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-                1, 2, 1, 2 };
+                1, 2, 1, 2};
         int z = Randomizer.nextInt(ids.length);
         while (chances[z] < Randomizer.nextInt(1000)) {
             z = Randomizer.nextInt(ids.length);
@@ -3027,7 +3027,7 @@ public class InventoryHandler {
     public static final int OWL_ID = 2; // don't change. 0 = owner ID, 1 = store ID, 2 = object ID
 
     public static final void UseSkillBook(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                          final MapleCharacter chr) {
         slea.skip(4);
         final byte slot = (byte) slea.readShort();
         final int itemId = slea.readInt();
@@ -3050,7 +3050,7 @@ public class InventoryHandler {
 
         byte i = 0;
         Integer CurrentLoopedSkillId;
-        for (;;) {
+        for (; ; ) {
             CurrentLoopedSkillId = skilldata.get("skillid" + i);
             i++;
             if (CurrentLoopedSkillId == null) {
@@ -3169,7 +3169,7 @@ public class InventoryHandler {
                 if (!FieldLimitType.VipRock.check(c.getPlayer().getMap().getFieldLimit())
                         && !FieldLimitType.VipRock.check(target.getFieldLimit())
                         && c.getPlayer().getEventInstance() == null) { // Makes sure this map doesn't have a forced
-                                                                       // return map
+                    // return map
 
                     c.getPlayer().changeMap(target, target.getPortal(0));
                     used = true;
@@ -3184,8 +3184,8 @@ public class InventoryHandler {
                         .check(c.getChannelServer().getMapFactory().getMap(victim.getMapId()).getFieldLimit())) {
                     if (itemId == 5041000 || itemId == 5040004 || itemId == 5041001
                             || (victim.getMapId() / 100000000) == (c.getPlayer().getMapId() / 100000000)) { // Viprock
-                                                                                                            // or same
-                                                                                                            // continent
+                        // or same
+                        // continent
                         c.getPlayer().changeMap(victim.getMap(),
                                 victim.getMap().findClosestSpawnpoint(victim.getPosition()));
                         used = true;

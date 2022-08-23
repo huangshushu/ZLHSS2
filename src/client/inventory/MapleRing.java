@@ -21,7 +21,6 @@
 package client.inventory;
 
 import client.MapleCharacter;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import database.DBConPool;
 import server.MapleInventoryManipulator;
 import tools.FilePrinter;
@@ -59,7 +58,7 @@ public class MapleRing implements Serializable {
     public static MapleRing loadFromDb(int ringId, boolean equipped) {
         MapleRing ret;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM rings WHERE ringId = ?")) {
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM rings WHERE ringId = ?")) {
             ps.setInt(1, ringId);
             try (ResultSet rs = ps.executeQuery()) {
                 ret = null;
@@ -121,13 +120,9 @@ public class MapleRing implements Serializable {
 
     public static int makeRing(int itemid, MapleCharacter partner1, String partner2, int id2, String msg, int sn)
             throws Exception { // return partner1 the id
-        int[] ringID = { MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance() };
+        int[] ringID = {MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance()};
         // [1] = partner1, [0] = partner2
-        try {
-            addToDB(itemid, partner1, partner2, id2, ringID);
-        } catch (MySQLIntegrityConstraintViolationException mslcve) {
-            return 0;
-        }
+        addToDB(itemid, partner1, partner2, id2, ringID);
         MapleInventoryManipulator.addRing(partner1, itemid, ringID[1], sn);
         partner1.getCashInventory().gift(id2, partner1.getName(), msg, sn, ringID[0]);
         return 1;
@@ -209,13 +204,7 @@ public class MapleRing implements Serializable {
 
         @Override
         public int compare(MapleRing o1, MapleRing o2) {
-            if (o1.ringId < o2.ringId) {
-                return -1;
-            } else if (o1.ringId == o2.ringId) {
-                return 0;
-            } else {
-                return 1;
-            }
+            return Integer.compare(o1.ringId, o2.ringId);
         }
     }
 }

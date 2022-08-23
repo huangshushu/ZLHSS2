@@ -179,8 +179,8 @@ public abstract class AbstractPlayerInteraction {
         if (portal != 0 && map == c.getPlayer().getMapId()) { // test
             final Point portalPos = new Point(c.getPlayer().getMap().getPortal(portal).getPosition());
             c.getSession().writeAndFlush(MaplePacketCreator.instantMapWarp((byte) portal)); // until we get packet for
-                                                                                            // far movement, this will
-                                                                                            // do
+            // far movement, this will
+            // do
             c.getPlayer().checkFollow();
             c.getPlayer().getMap().movePlayer(c.getPlayer(), portalPos);
 
@@ -195,7 +195,7 @@ public abstract class AbstractPlayerInteraction {
             final Point portalPos = new Point(c.getPlayer().getMap().getPortal(portal).getPosition());
             if (portalPos.distanceSq(getPlayer().getPosition()) < 90000.0) { // estimation
                 getClient().sendPacket(MaplePacketCreator.instantMapWarp((byte) portal)); // until we get packet for far
-                                                                                          // movement, this will do
+                // movement, this will do
                 getClient().getPlayer().checkFollow();
                 getClient().getPlayer().getMap().movePlayer(c.getPlayer(), portalPos);
             } else {
@@ -397,7 +397,7 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final boolean haveItem(final int itemid, final int quantity, final boolean checkEquipped,
-            final boolean greaterOrEquals) {
+                                  final boolean greaterOrEquals) {
         return getClient().getPlayer().haveItem(itemid, quantity, checkEquipped, greaterOrEquals);
     }
 
@@ -552,9 +552,9 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final void gainItemPeriod(final int id, final short quantity, final long period, final String owner) { // period
-                                                                                                                  // is
-                                                                                                                  // in
-                                                                                                                  // days
+        // is
+        // in
+        // days
         gainItem(id, quantity, false, period, -1, owner);
     }
 
@@ -584,17 +584,17 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period,
-            final int slots) {
+                               final int slots) {
         gainItem(id, quantity, randomStats, period, slots, "");
     }
 
     public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period,
-            final int slots, final String owner) {
+                               final int slots, final String owner) {
         gainItem(id, quantity, randomStats, period, slots, owner, c);
     }
 
     public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period,
-            final int slots, final String owner, final MapleClient cg, byte Flag) {
+                               final int slots, final String owner, final MapleClient cg, byte Flag) {
         if (id == 2070018) {
             return;
         }
@@ -640,12 +640,12 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period,
-            final int slots, final String owner, byte Flag) {
+                               final int slots, final String owner, byte Flag) {
         gainItem(id, quantity, randomStats, period, slots, owner, c, Flag);
     }
 
     public final void gainItem(final int id, final short quantity, final boolean randomStats, final long period,
-            final int slots, final String owner, final MapleClient cg) {
+                               final int slots, final String owner, final MapleClient cg) {
         if (quantity >= 0) {
             final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
             final MapleInventoryType type = GameConstants.getInventoryType(id);
@@ -693,12 +693,12 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final void gainItemStatus(final int id, final short quantity, final boolean randomStats, final long period,
-            final int slots, final String owner) {
+                                     final int slots, final String owner) {
         gainItemStatus(id, quantity, randomStats, period, slots, owner, c);
     }
 
     public final void gainItemStatus(final int id, final short quantity, final boolean randomStats, final long period,
-            final int slots, final String owner, final MapleClient cg) {
+                                     final int slots, final String owner, final MapleClient cg) {
         if (quantity >= 0) {
             final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
             final MapleInventoryType type = GameConstants.getInventoryType(id);
@@ -1610,9 +1610,9 @@ public abstract class AbstractPlayerInteraction {
         if (c.getPlayer().hasBlockedInventory(true) || c.getPlayer().getMap().getSquadByMap() != null
                 || c.getPlayer().getEventInstance() != null || c.getPlayer().getMap().getEMByMap() != null
                 || c.getPlayer().getMapId() >= 990000000/*
-                                                         * || FieldLimitType.VipRock.check(c.getPlayer().getMap().
-                                                         * getFieldLimit())
-                                                         */) {
+         * || FieldLimitType.VipRock.check(c.getPlayer().getMap().
+         * getFieldLimit())
+         */) {
             c.getPlayer().dropMessage(5, "请稍后再试");
             return false;
         }
@@ -1734,6 +1734,7 @@ public abstract class AbstractPlayerInteraction {
     }
 
     // bossrank
+
     /**
      * 积分排行
      *
@@ -1968,9 +1969,9 @@ public abstract class AbstractPlayerInteraction {
             if (fff == null) {
                 c.getPlayer().dropMessage(6, "Player must be online");
             } else {
-                int[] ringID = { MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance() };
+                int[] ringID = {MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance()};
                 try {
-                    MapleCharacter[] chrz = { fff, c.getPlayer() };
+                    MapleCharacter[] chrz = {fff, c.getPlayer()};
                     for (int i = 0; i < chrz.length; i++) {
                         Equip eq = (Equip) MapleItemInformationProvider.getInstance().getEquipById(itemId, ringID[i]);
                         if (eq == null) {
@@ -2380,7 +2381,7 @@ public abstract class AbstractPlayerInteraction {
     // min 新手玩家最小等级 max 新手玩家最大等级 Members 新手玩家数量 itemID 奖励物品 quantity 奖励数量
     // Members 新手玩家数量 意思是。不包含带人的玩家。 比如说我要求 高等级带新手必须要2人以上。我就写 2 就行。最多写5.
     public final void givePartyLevelItems(final int min, final int max, final int Members, final int itemID,
-            final int quantity) {
+                                          final int quantity) {
         if (getPlayer().getParty() == null || getPlayer().getParty().getMembers().size() == 1
                 || getPlayer().getParty().getMembers().size() <= Members) {
             return;
@@ -2548,7 +2549,7 @@ public abstract class AbstractPlayerInteraction {
 
     /***
      * 增加FullPoint点数
-     * 
+     *
      * @param Name
      * @param Channale
      * @param Piot
@@ -2720,7 +2721,7 @@ public abstract class AbstractPlayerInteraction {
      * @param owner  道具签名
      */
     public void makeitem(int id, short str, short dex, short ints, short luk, short watk, short matk, long period,
-            String owner) {
+                         String owner) {
         if (!canHold(id) || !GameConstants.isEquip(id)) {
             playerMessage("装备栏空间不足或添加的道具不是装备isEquip");
             return;

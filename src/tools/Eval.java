@@ -175,15 +175,14 @@ public final class Eval {
          * Called when an operand is expected next.
          *
          * @return one of:
-         *         <UL>
-         *         <LI>a {@link BigDecimal} value;</LI>
-         *         <LI>the {@link String} name of a variable;</LI>
-         *         <LI>{@link Tokeniser#START_NEW_EXPRESSION} when an opening
-         *         parenthesis is found:</LI>
-         *         <LI>or {@link Operator} when a unary operator is found in front of an
-         *         operand</LI>
-         *         </UL>
-         *
+         * <UL>
+         * <LI>a {@link BigDecimal} value;</LI>
+         * <LI>the {@link String} name of a variable;</LI>
+         * <LI>{@link Tokeniser#START_NEW_EXPRESSION} when an opening
+         * parenthesis is found:</LI>
+         * <LI>or {@link Operator} when a unary operator is found in front of an
+         * operand</LI>
+         * </UL>
          * @throws RuntimeException if the end of the string is reached
          *                          unexpectedly.
          */
@@ -267,10 +266,9 @@ public final class Eval {
          * End of string reached.
          */
         END(-1, 0, null, null, null) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 throw new RuntimeException("END is a dummy operation");
             }
         },
@@ -278,10 +276,9 @@ public final class Eval {
          * condition ? (expression if true) : (expression if false)
          */
         TERNARY(0, 3, "?", null, null) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return (value1.signum() != 0) ? value2 : value3;
             }
         },
@@ -289,10 +286,9 @@ public final class Eval {
          * &amp;&amp;
          */
         AND(0, 2, "&&", Type.BOOLEAN, Type.BOOLEAN) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.signum() != 0 && value2.signum() != 0 ? BigDecimal.ONE
                         : BigDecimal.ZERO;
             }
@@ -301,10 +297,9 @@ public final class Eval {
          * ||
          */
         OR(0, 2, "||", Type.BOOLEAN, Type.BOOLEAN) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.signum() != 0 || value2.signum() != 0 ? BigDecimal.ONE
                         : BigDecimal.ZERO;
             }
@@ -313,10 +308,9 @@ public final class Eval {
          * &gt;
          */
         GT(1, 2, ">", Type.BOOLEAN, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.compareTo(value2) > 0 ? BigDecimal.ONE
                         : BigDecimal.ZERO;
             }
@@ -325,10 +319,9 @@ public final class Eval {
          * &gt;=
          */
         GE(1, 2, ">=", Type.BOOLEAN, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.compareTo(value2) >= 0 ? BigDecimal.ONE
                         : BigDecimal.ZERO;
             }
@@ -337,10 +330,9 @@ public final class Eval {
          * &lt;
          */
         LT(1, 2, "<", Type.BOOLEAN, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.compareTo(value2) < 0 ? BigDecimal.ONE
                         : BigDecimal.ZERO;
             }
@@ -349,10 +341,9 @@ public final class Eval {
          * &lt;=
          */
         LE(1, 2, "<=", Type.BOOLEAN, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.compareTo(value2) <= 0 ? BigDecimal.ONE
                         : BigDecimal.ZERO;
             }
@@ -361,10 +352,9 @@ public final class Eval {
          * ==
          */
         EQ(1, 2, "==", Type.BOOLEAN, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.compareTo(value2) == 0 ? BigDecimal.ONE
                         : BigDecimal.ZERO;
             }
@@ -373,10 +363,9 @@ public final class Eval {
          * != or &lt;&gt;
          */
         NE(1, 2, "!=", Type.BOOLEAN, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.compareTo(value2) != 0 ? BigDecimal.ONE
                         : BigDecimal.ZERO;
             }
@@ -385,10 +374,9 @@ public final class Eval {
          * +
          */
         ADD(2, 2, "+", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.add(value2);
             }
         },
@@ -396,10 +384,9 @@ public final class Eval {
          * -
          */
         SUB(2, 2, "-", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.subtract(value2);
             }
         },
@@ -407,10 +394,9 @@ public final class Eval {
          * /
          */
         DIV(3, 2, "/", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.divide(value2, MathContext.DECIMAL128);
             }
         },
@@ -418,10 +404,9 @@ public final class Eval {
          * %
          */
         REMAINDER(3, 2, "%", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.remainder(value2, MathContext.DECIMAL128);
             }
         },
@@ -429,10 +414,9 @@ public final class Eval {
          * *
          */
         MUL(3, 2, "*", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.multiply(value2);
             }
         },
@@ -440,10 +424,9 @@ public final class Eval {
          * -negate
          */
         NEG(4, 1, "-", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.negate();
             }
         },
@@ -451,10 +434,9 @@ public final class Eval {
          * +plus
          */
         PLUS(4, 1, "+", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1;
             }
         },
@@ -462,10 +444,9 @@ public final class Eval {
          * abs
          */
         ABS(4, 1, " abs ", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1.abs();
             }
         },
@@ -473,10 +454,9 @@ public final class Eval {
          * pow
          */
         POW(4, 2, " pow ", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 try {
                     return value1.pow(value2.intValueExact());
                 } catch (ArithmeticException ae) {
@@ -488,26 +468,23 @@ public final class Eval {
          * int
          */
         INT(4, 1, "int ", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return new BigDecimal(value1.toBigInteger());
             }
         },
         CEIL(4, 1, "ceil ", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return BigDecimal.valueOf(Math.ceil(value1.doubleValue()));
             }
         },
         FLOOR(4, 1, "floor ", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return BigDecimal.valueOf(Math.floor(value1.doubleValue()));
             }
         },
@@ -516,10 +493,9 @@ public final class Eval {
          * reference to a variable.
          */
         NOP(4, 1, "", Type.ARITHMETIC, Type.ARITHMETIC) {
-
             @Override
             BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                    BigDecimal value3) {
+                               BigDecimal value3) {
                 return value1;
             }
         };
@@ -531,7 +507,7 @@ public final class Eval {
         final Type operandType;
 
         Operator(final int precedence, final int numberOfOperands,
-                final String string, final Type resultType, final Type operandType) {
+                 final String string, final Type resultType, final Type operandType) {
             this.precedence = precedence;
             this.numberOfOperands = numberOfOperands;
             this.string = string;
@@ -540,7 +516,7 @@ public final class Eval {
         }
 
         abstract BigDecimal perform(BigDecimal value1, BigDecimal value2,
-                BigDecimal value3);
+                                    BigDecimal value3);
     }
 
     public static final class Operation {
@@ -552,7 +528,7 @@ public final class Eval {
         final Object operand3;
 
         private Operation(Type type, Operator operator, Object operand1,
-                Object operand2, Object operand3) {
+                          Object operand2, Object operand3) {
             this.type = type;
             this.operator = operator;
             this.operand1 = operand1;
@@ -579,7 +555,7 @@ public final class Eval {
         }
 
         static Object binaryOperationfactory(Operator operator, Object operand1,
-                Object operand2) {
+                                             Object operand2) {
             validateOperandType(operand1, operator.operandType);
             validateOperandType(operand2, operator.operandType);
 
@@ -596,7 +572,7 @@ public final class Eval {
         }
 
         static Object tenaryOperationFactory(Operator operator, Object operand1,
-                Object operand2, Object operand3) {
+                                             Object operand2, Object operand3) {
             validateOperandType(operand1, Type.BOOLEAN);
             validateOperandType(operand2, Type.ARITHMETIC);
             validateOperandType(operand3, Type.ARITHMETIC);
@@ -616,11 +592,11 @@ public final class Eval {
             switch (this.operator.numberOfOperands) {
                 case 3:
                     return this.operator.perform(evaluateOperand(this.operand1,
-                            variables), evaluateOperand(this.operand2, variables),
+                                    variables), evaluateOperand(this.operand2, variables),
                             evaluateOperand(this.operand3, variables));
                 case 2:
                     return this.operator.perform(evaluateOperand(this.operand1,
-                            variables), evaluateOperand(this.operand2, variables),
+                                    variables), evaluateOperand(this.operand2, variables),
                             null);
                 default:
                     return this.operator.perform(evaluateOperand(this.operand1,
@@ -629,7 +605,7 @@ public final class Eval {
         }
 
         private BigDecimal evaluateOperand(Object operand,
-                Map<String, BigDecimal> variables) {
+                                           Map<String, BigDecimal> variables) {
             if (operand instanceof Operation) {
                 return ((Operation) operand).eval(variables);
             } else if (operand instanceof String) {
@@ -691,7 +667,7 @@ public final class Eval {
         }
 
         private Object compile(Object preReadOperand, Operator preReadOperator,
-                int nestingLevel, char endOfExpressionChar, int terminatePrecedence) {
+                               int nestingLevel, char endOfExpressionChar, int terminatePrecedence) {
             Object operand = preReadOperand != null ? preReadOperand
                     : getOperand(nestingLevel);
             Operator operator = preReadOperator != null ? preReadOperator
@@ -808,7 +784,7 @@ public final class Eval {
      * @return the result of the evaluation
      */
     public static BigDecimal eval(String expression,
-            Map<String, BigDecimal> variables) {
+                                  Map<String, BigDecimal> variables) {
         return new Eval(expression).eval(variables);
     }
 

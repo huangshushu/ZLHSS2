@@ -19,7 +19,6 @@ import java.sql.ResultSet;
 import java.util.*;
 
 /**
- *
  * @author user
  */
 public class CashItemFactory {

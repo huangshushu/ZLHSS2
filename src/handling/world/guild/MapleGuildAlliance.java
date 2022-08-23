@@ -36,6 +36,7 @@ public class MapleGuildAlliance implements java.io.Serializable {
 
         NONE, DISBAND, NEWGUILD
     }
+
     public static final long serialVersionUID = 24081985245L;
     public static final int CHANGE_CAPACITY_COST = 10000000;
     private final int[] guilds = new int[5];

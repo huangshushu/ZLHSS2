@@ -74,7 +74,8 @@ public enum MapleJob {
     狂狼勇士2转(2110),
     狂狼勇士3转(2111),
     狂狼勇士4转(2112),
-    未知(999999),;
+    未知(999999),
+    ;
 
     private final int jobid;
 

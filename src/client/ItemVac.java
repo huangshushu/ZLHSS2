@@ -34,10 +34,10 @@ public class ItemVac extends Thread {
         try {
             if (mapitem.isPickedUp() || mapitem.getQuest() > 0 && this.chr.getQuestStatus(mapitem.getQuest()) != 1
                     || mapitem.getOwner() != this.chr.getId()
-                            && ((!mapitem.isPlayerDrop() && mapitem.getDropType() == 0)
-                                    || (mapitem.isPlayerDrop() && this.chr.getMap().getEverlast()))
+                    && ((!mapitem.isPlayerDrop() && mapitem.getDropType() == 0)
+                    || (mapitem.isPlayerDrop() && this.chr.getMap().getEverlast()))
                     || !mapitem.isPlayerDrop() && mapitem.getDropType() == 1
-                            && mapitem.getOwner() != this.chr.getId()) {
+                    && mapitem.getOwner() != this.chr.getId()) {
                 return;
             }
             if (mapitem.getMeso() > 0) {

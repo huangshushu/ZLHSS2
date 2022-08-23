@@ -67,7 +67,7 @@ public class GameConstants {
             MapleMapObjectType.SUMMON,
             MapleMapObjectType.NPC,
             MapleMapObjectType.MIST));
-    private static final int[] ExpTable = { 0, 15, 34, 57, 92, 135, 372, 560, 840, 1242, 1716,
+    private static final int[] ExpTable = {0, 15, 34, 57, 92, 135, 372, 560, 840, 1242, 1716,
             2360, 3216, 4200, 5460, 7050, 8840, 11040, 13716, 16680, 20216,
             24402, 28980, 34320, 40512, 47216, 54900, 63666, 73080, 83720, 95700,
             108480, 122760, 138666, 155540, 174216, 194832, 216600, 240500, 266682, 294216,
@@ -91,35 +91,35 @@ public class GameConstants {
             769777027, 811960808, 856456260, 903390063, 952895838, 1005114529, 1060194805, 1118293480, 1179575962,
             1244216724,
             1312399800, 1384319309, 1460180007, 1540197871, 1624600714, 1713628833, 1807535693, 1906588648, 2011069705,
-            2121276324 };
-    private static final int[] ClosenessTable = { 0, 1, 3, 6, 14, 31, 60, 108, 181, 287, 434, 632, 891, 1224, 1642,
+            2121276324};
+    private static final int[] ClosenessTable = {0, 1, 3, 6, 14, 31, 60, 108, 181, 287, 434, 632, 891, 1224, 1642,
             2161, 2793,
             3557, 4467, 5542, 6801, 8263, 9950, 11882, 14084, 16578, 19391, 22547, 26074,
-            30000 };
-    private static final int[] MountExpTable = { 0, 6, 25, 50, 105, 134, 196, 254, 263, 315, 367, 430, 543, 587, 679,
+            30000};
+    private static final int[] MountExpTable = {0, 6, 25, 50, 105, 134, 196, 254, 263, 315, 367, 430, 543, 587, 679,
             725, 897, 1146, 1394, 1701, 2247,
-            2543, 2898, 3156, 3313, 3584, 3923, 4150, 4305, 4550 };
+            2543, 2898, 3156, 3313, 3584, 3923, 4150, 4305, 4550};
 
-    public static final int[] itemBlock = { 2340000, 2049100, 4001129, 2040037, 2040006, 2040007, 2040303, 2040403,
+    public static final int[] itemBlock = {2340000, 2049100, 4001129, 2040037, 2040006, 2040007, 2040303, 2040403,
             2040506, 2040507, 2040603, 2040709, 2040710, 2040711, 2040806, 2040903, 2041024, 2041025, 2043003, 2043103,
             2043203, 2043303, 2043703, 2043803, 2044003, 2044103, 2044203, 2044303, 2044403, 2044503, 2044603, 2044908,
-            2044815, 2044019, 2044703, 1004001, 4007008, 1004002, 5152053, 5150040 };
-    public static final int[] cashBlock = { 5500001, 5500002, 5600001, 5350003, 5401000, 5500000, 5252001, 5252003,
-            5220001, 5220002, 5200000, 5200001, 5200002, 5320000, 5440000 };
+            2044815, 2044019, 2044703, 1004001, 4007008, 1004002, 5152053, 5150040};
+    public static final int[] cashBlock = {5500001, 5500002, 5600001, 5350003, 5401000, 5500000, 5252001, 5252003,
+            5220001, 5220002, 5200000, 5200001, 5200002, 5320000, 5440000};
 
     public static final int OMOK_SCORE = 122200;
     public static final int MATCH_SCORE = 122210;
     public static final int HP_ITEM = 122221;
     public static final int MP_ITEM = 122223;
-    public static final int[] blockedSkills = { 4341003 };
-    public static int[] blockedMaps = { 109050000, 200000112, 200090020, 240060200, 280030000, 280090000, 280030001,
-            240060201, 900090021, 950101100, 950101010 };
-    public static int[] Equipments_Bonus = { 1122017, 1122086, 1122207, 1122215 };
-    public static final String[] RESERVED = { "Rental" };
-    public static final String[] stats = { "tuc", "reqLevel", "reqJob", "reqSTR", "reqDEX", "reqINT", "reqLUK",
+    public static final int[] blockedSkills = {4341003};
+    public static int[] blockedMaps = {109050000, 200000112, 200090020, 240060200, 280030000, 280090000, 280030001,
+            240060201, 900090021, 950101100, 950101010};
+    public static int[] Equipments_Bonus = {1122017, 1122086, 1122207, 1122215};
+    public static final String[] RESERVED = {"Rental"};
+    public static final String[] stats = {"tuc", "reqLevel", "reqJob", "reqSTR", "reqDEX", "reqINT", "reqLUK",
             "reqPOP", "cash", "cursed", "success", "setItemID", "equipTradeBlock", "durability", "randOption",
             "randStat", "masterLevel", "reqSkillLevel", "elemDefault", "incRMAS", "incRMAF", "incRMAI", "incRMAL",
-            "canLevel", "skill", "charmEXP" };
+            "canLevel", "skill", "charmEXP"};
 
     public static int getExpNeededForLevel(final int level) {
         if (level < 0 || level >= ExpTable.length) {
@@ -1202,7 +1202,7 @@ public class GameConstants {
             2210028, 4, // 吉祥红包 *
             2022133, 10, // 年年有余 *
             5121020, 10, // 红包 *
-            4001188, 4 }; // 舞痴鱼 *
+            4001188, 4}; // 舞痴鱼 *
 
     public final static int[] goldrewards = {
             2340000, 1, // white scroll
@@ -1264,7 +1264,7 @@ public class GameConstants {
             2040900, 4, // Shield for DEF
             2000005, 10, // Power Elixir
             2000004, 10, // Elixir
-            4280000, 4 }; // Gold Box
+            4280000, 4}; // Gold Box
     public final static int[] silverrewards = {
             3010041, 1, // skull throne
             1002452, 3, // Starry Bandana
@@ -1317,7 +1317,7 @@ public class GameConstants {
             // 1432036, 1, // Fishing Pole 没用的物品
             2000005, 10, // Power Elixir
             2000004, 10, // Elixir
-            4280001, 4 }; // Silver Box
+            4280001, 4}; // Silver Box
     public static int[] eventCommonReward = {
             0, 40,
             1, 10,
@@ -1366,7 +1366,7 @@ public class GameConstants {
             5150042, 5,
             2022463, 5,
             2022463, 5,
-            2450000, 2, };
+            2450000, 2,};
     public static int[] eventRareReward = {
             4031019, 5,
             2049100, 5,
@@ -1522,16 +1522,16 @@ public class GameConstants {
         }
     }
 
-    public final static int[] 重生装备 = { 1002790, 1002791, 1002792, 1002793, 1002794, 1082239, 1082240, 1082241, 1082242,
+    public final static int[] 重生装备 = {1002790, 1002791, 1002792, 1002793, 1002794, 1082239, 1082240, 1082241, 1082242,
             1082243, 1052160, 1052161, 1052162, 1052163, 1052164, 1072361, 1072362, 1072363, 1072364, 1072365, 1302086,
             1312038, 1322061, 1332075, 1332076, 1372045, 1382059, 1402047, 1412034, 1422038, 1432049, 1442067, 1452059,
-            1462051, 1472071, 1482024, 1492025, 1342012 };
+            1462051, 1472071, 1482024, 1492025, 1342012};
 
-    public final static int[] 永恒装备 = { 1032031, 1102172, 1002776, 1002777, 1002778, 1002779, 1002780, 1082234, 1082235,
+    public final static int[] 永恒装备 = {1032031, 1102172, 1002776, 1002777, 1002778, 1002779, 1002780, 1082234, 1082235,
             1082236, 1082237, 1082238, 1052155, 1052156, 1052157, 1052158, 1052159, 1072355, 1072356, 1072357, 1072358,
             1072359, 1092057, 1092058, 1092059, 1122011, 1122012, 1302081, 1312037, 1322060, 1332073, 1332074, 1372044,
             1382057, 1402046, 1412033, 1422037, 1432047, 1442063, 1452057, 1462050, 1472068, 1482023, 1492023,
-            1342011 };
+            1342011};
 
     public final static int[] 迷之蛋随机物品 = {
             1142270, // 妖精的瞳孔
@@ -2293,7 +2293,7 @@ public class GameConstants {
             3994103,
             3994104,
             3994105,
-            2430007 }; // end
+            2430007}; // end
     public final static int[] rareDrops = {
             2049100,
             2049301,
@@ -2302,11 +2302,11 @@ public class GameConstants {
             2022193,
             2049000,
             2049001,
-            2049002 };
+            2049002};
     public final static int[] superDrops = {
             2040804,
             2049400,
-            2049100 };
+            2049100};
 
     public static int getSkillBook(final int job) {
         return 0;
@@ -2932,7 +2932,7 @@ public class GameConstants {
         return canScroll(itemId);
     }
 
-    public static int[] owlItems = new int[] {
+    public static int[] owlItems = new int[]{
             1082002, // work gloves
             2070005,
             2070006,
@@ -2942,7 +2942,7 @@ public class GameConstants {
             2340000, // white scroll
             2040017,
             1092030,
-            2040804 };
+            2040804};
 
     public static int getMasterySkill(final int job) {
         if (job >= 1410 && job <= 1412) {
@@ -3087,10 +3087,7 @@ public class GameConstants {
 
     public static boolean isExpChair(final int itemid) {
 
-        if (itemid / 10000 == 302) {
-            return true;
-        }
-        return false;
+        return itemid / 10000 == 302;
     }
 
     public static boolean isFishingMap(int mapId) {

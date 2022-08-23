@@ -47,7 +47,7 @@ public class ConsoleCommandProcessor {
                             }
                         }
                     } catch (InstantiationException | IllegalAccessException | SecurityException
-                            | IllegalArgumentException ex) {
+                             | IllegalArgumentException ex) {
                         FilePrinter.printError(FilePrinter.ConsoleCommandProcessor, ex);
                     }
                 }

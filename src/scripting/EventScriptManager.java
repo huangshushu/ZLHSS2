@@ -30,7 +30,6 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- *
  * @author Matze
  */
 public class EventScriptManager extends AbstractScriptManager {

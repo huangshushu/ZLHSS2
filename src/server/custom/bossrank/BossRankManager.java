@@ -157,7 +157,7 @@ public class BossRankManager {
     }
 
     public int setLog(int cid, String cname, String bossname, byte type, int update) {
-        int ret=-1;
+        int ret = -1;
         BossRankInfo info = getInfo(cid, bossname);
         boolean add = false;
         boolean doUpdate = true;
@@ -171,11 +171,11 @@ public class BossRankManager {
         }
         switch (type) {
             case 1://�e��
-                ret=info.getPoints() + update;
+                ret = info.getPoints() + update;
                 info.setPoints(ret);
                 break;
             case 2://�Δ�
-                ret=info.getCount() + update;
+                ret = info.getCount() + update;
                 info.setCount(ret);
                 break;
             default:
@@ -193,7 +193,7 @@ public class BossRankManager {
     }
 
     public int setLog2(int cid, String cname, String bossname, byte type, int update) {
-        int ret=-1;
+        int ret = -1;
         BossRankInfo info = getInfo(cid, bossname);
         boolean add = false;
         boolean doUpdate = true;
@@ -208,11 +208,11 @@ public class BossRankManager {
         }
         switch (type) {
             case 1://�e��
-                ret=info.getPoints() + update;
+                ret = info.getPoints() + update;
                 info.setPoints(ret);
                 break;
             case 12://�Δ�
-                ret=info.getCount() + update;
+                ret = info.getCount() + update;
                 info.setCount(ret);
                 break;
             default:
@@ -230,7 +230,7 @@ public class BossRankManager {
     }
 
     public int setBossRank(int cid, String cname, String bossname, int points, int count) {
-        int ret=-1;
+        int ret = -1;
         BossRankInfo info = getInfo(cid, bossname);
         boolean add = false;
         boolean doUpdate = true;
@@ -243,7 +243,7 @@ public class BossRankManager {
             info.setBossname(bossname);
             info.setPoints(points);
             info.setCount(count);
-        }else {
+        } else {
             info.setPoints(info.getPoints() + points);
             info.setCount(info.getCount() + points);
         }
@@ -317,7 +317,7 @@ public class BossRankManager {
     public List<BossRankInfo> getRank(String bossname, int type) {
         List<BossRankInfo> list = new LinkedList<>();
         PreparedStatement ps = null;
-        ResultSet rs=null;
+        ResultSet rs = null;
         try {
             Connection con = DBConPool.getInstance().getDataSource().getConnection();
             switch (type) {
@@ -332,9 +332,9 @@ public class BossRankManager {
                     break;
             }
             ps.setString(1, bossname);
-             rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
-               BossRankInfo info = new BossRankInfo();
+                BossRankInfo info = new BossRankInfo();
                 info.setCid(rs.getInt("cid"));
                 info.setCname(rs.getString("cname"));
                 info.setBossname(rs.getString("bossname"));
@@ -344,7 +344,7 @@ public class BossRankManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 if (rs != null) {
                     rs.close();
@@ -362,7 +362,7 @@ public class BossRankManager {
     /**
      * @Author: weich
      * @Description:获取每日任务及每周任务
-     * @Params:  * @param cid 玩家id，level 玩家等级
+     * @Params: * @param cid 玩家id，level 玩家等级
      * @Date: 2019/6/3 20:18
      */
     public List<BossRankInfo> getQuests(int cid, int level) {
@@ -383,7 +383,7 @@ public class BossRankManager {
                 while (rs.next()) {
                     fixBossRankInfo(infos, rs, cid);
                 }
-            }else {
+            } else {
                 ps = con1.prepareStatement("SELECT num, id, points, questType, 0 count, note, 0 alnum " +
                         "FROM questparam b WHERE b.questType < 4 AND reqLevel <= ?");//获取每日任务
                 ps.setInt(1, level);
@@ -394,7 +394,7 @@ public class BossRankManager {
                 }
                 infoList = groupRand(infoList);
                 infos.addAll(infoList);
-                for (BossRankInfo info:infoList) {
+                for (BossRankInfo info : infoList) {
                     ps = con1.prepareStatement("INSERT INTO bosslog(characterid,bossid,count,type,time) VALUES(?, ?, ?, ?, CURRENT_TIMESTAMP())");
                     ps.setInt(1, cid);
                     ps.setInt(2, info.getBossid());
@@ -419,7 +419,7 @@ public class BossRankManager {
                 while (rs.next()) {
                     fixBossRankInfo(infos, rs, cid);
                 }
-            }else {
+            } else {
                 ps = con1.prepareStatement("SELECT num, id, points, questType, 0 count, note, 0 alnum " +
                         "FROM questparam b WHERE b.questType = 4 AND reqLevel <= ?");//获取每周任务
                 ps.setInt(1, level);
@@ -455,7 +455,7 @@ public class BossRankManager {
         List<BossRankInfo> result = new ArrayList<>();
         Map<Integer, List<BossRankInfo>> map = new HashMap<>();
         fenZu(list, map);
-        for (Integer type:map.keySet()) {
+        for (Integer type : map.keySet()) {
             List<BossRankInfo> infoList = map.get(type);
             Random random = new Random();
             result.add(infoList.get(random.nextInt(infoList.size())));
@@ -483,7 +483,7 @@ public class BossRankManager {
     /**
      * @Author: weich
      * @Description:完成日/周任务
-     * @Params:  * @param null
+     * @Params: * @param null
      * @Date: 2019/6/4 9:14
      */
     public void completeQuest(MapleCharacter player, int bossid, int type, int points, String bossname) {
@@ -512,7 +512,7 @@ public class BossRankManager {
     /**
      * @Author: weich
      * @Description:根据当前日期获得所在周的日期区间（本周一和下周一日期）
-     * @Params:  * @param null
+     * @Params: * @param null
      * @Date: 2019/6/3 21:03
      */
     public List<String> getTimeInterval(Date date) {

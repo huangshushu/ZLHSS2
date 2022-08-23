@@ -38,6 +38,7 @@ public final class MapleFamily implements java.io.Serializable {
 
         NONE, DISBAND
     }
+
     public static final long serialVersionUID = 6322150443228168192L;
     private final Map<Integer, MapleFamilyCharacter> members = new ConcurrentHashMap<>();
     private String leadername = null, notice;
@@ -360,47 +361,47 @@ public final class MapleFamily implements java.io.Serializable {
      leaveFamily(getMFC(id), true);
      }*/
 
- /*public final void leaveFamily(final MapleFamilyCharacter mgc, final boolean skipLeader) {
-     bDirty = true;
-     if (mgc.getId() == leaderid && !skipLeader) {
-     //disband
-     leadername = null; //to disband family completely
-     World.Family.disbandFamily(id);
-     } else {
-     //we also have to update anyone below us
+    /*public final void leaveFamily(final MapleFamilyCharacter mgc, final boolean skipLeader) {
+        bDirty = true;
+        if (mgc.getId() == leaderid && !skipLeader) {
+        //disband
+        leadername = null; //to disband family completely
+        World.Family.disbandFamily(id);
+        } else {
+        //we also have to update anyone below us
 
-     if (mgc.getJunior1() > 0) {
-     MapleFamilyCharacter j = getMFC(mgc.getJunior1());
-     if (j != null) {
-     j.setSeniorId(0);
-     splitFamily(mgc.getJunior1());
-     }
-     }
-     if (mgc.getJunior2() > 0) {
-     MapleFamilyCharacter j = getMFC(mgc.getJunior2());
-     if (j != null) {
-     j.setSeniorId(0);
-     splitFamily(mgc.getJunior2());
-     }
-     }
-     if (mgc.getSeniorId() > 0) {
-     MapleFamilyCharacter mfc = getMFC(mgc.getSeniorId());
-     if (mfc != null) {
-     if (mfc.getJunior1() == mgc.getId()) {
-     mfc.setJunior1(0);
-     } else {
-     mfc.setJunior2(0);
-     }
-     }
-     }
-     List<Integer> dummy = new ArrayList<Integer>();
-     dummy.add(mgc.getId());
-     broadcast(null, -1, FCOp.DISBAND, dummy);
-     resetPedigree(); //ex but eh
-     }
-     members.remove(mgc.getId());
-     bDirty = true;
-     }*/
+        if (mgc.getJunior1() > 0) {
+        MapleFamilyCharacter j = getMFC(mgc.getJunior1());
+        if (j != null) {
+        j.setSeniorId(0);
+        splitFamily(mgc.getJunior1());
+        }
+        }
+        if (mgc.getJunior2() > 0) {
+        MapleFamilyCharacter j = getMFC(mgc.getJunior2());
+        if (j != null) {
+        j.setSeniorId(0);
+        splitFamily(mgc.getJunior2());
+        }
+        }
+        if (mgc.getSeniorId() > 0) {
+        MapleFamilyCharacter mfc = getMFC(mgc.getSeniorId());
+        if (mfc != null) {
+        if (mfc.getJunior1() == mgc.getId()) {
+        mfc.setJunior1(0);
+        } else {
+        mfc.setJunior2(0);
+        }
+        }
+        }
+        List<Integer> dummy = new ArrayList<Integer>();
+        dummy.add(mgc.getId());
+        broadcast(null, -1, FCOp.DISBAND, dummy);
+        resetPedigree(); //ex but eh
+        }
+        members.remove(mgc.getId());
+        bDirty = true;
+        }*/
  /*public final void leaveFamily(final MapleFamilyCharacter mgc, final boolean skipLeader) {
      bDirty = true;
      if (mgc.getId() == leaderid && !skipLeader) {

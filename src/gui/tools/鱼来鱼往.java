@@ -18,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Administrator
  */
 public class 鱼来鱼往 extends javax.swing.JFrame {
@@ -220,6 +219,7 @@ public class 鱼来鱼往 extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
     public void 按键开关(String a, int b) {
         int 检测开关 = 鱼来鱼往.ConfigValuesMap.get(a);
         PreparedStatement ps = null;
@@ -262,10 +262,12 @@ public class 鱼来鱼往 extends javax.swing.JFrame {
         }
         GetConfigValues();
     }
+
     private void 点券开关ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_点券开关ActionPerformed
         按键开关("飞鱼点券开关", 4003);
         刷新飞鱼点券开关();
     }//GEN-LAST:event_点券开关ActionPerformed
+
     private void 刷新飞鱼点券开关() {
         String 显示 = "";
         int S = ConfigValuesMap.get("飞鱼点券开关");
@@ -276,6 +278,7 @@ public class 鱼来鱼往 extends javax.swing.JFrame {
         }
         点券开关.setText(显示);
     }
+
     private void 金币开关ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_金币开关ActionPerformed
         按键开关("飞鱼金币开关", 4002);
         刷新飞鱼金币开关();
@@ -291,6 +294,7 @@ public class 鱼来鱼往 extends javax.swing.JFrame {
         }
         金币开关.setText(显示);
     }
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         PreparedStatement ps = null;
         PreparedStatement ps1 = null;
@@ -328,6 +332,7 @@ public class 鱼来鱼往 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "？？？？？？？");
         }
     }//GEN-LAST:event_jButton5ActionPerformed
+
     private void 刷新飞鱼设置() {
         飞鱼数量.setText("" + ConfigValuesMap.get("飞鱼数量") + "");
         金币倍率.setText("" + ConfigValuesMap.get("飞鱼金币倍率") + "");
@@ -344,6 +349,7 @@ public class 鱼来鱼往 extends javax.swing.JFrame {
         }
         鱼来鱼往开关.setText(显示);
     }
+
     private void 鱼来鱼往开关ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_鱼来鱼往开关ActionPerformed
         按键开关("鱼来鱼往开关", 2409);
         刷新鱼来鱼往开关();

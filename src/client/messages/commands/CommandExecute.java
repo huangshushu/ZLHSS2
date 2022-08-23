@@ -13,9 +13,8 @@ public abstract class CommandExecute {
     /**
      * The method executed when this command is used.
      *
-     * @param c the client executing this command
+     * @param c        the client executing this command
      * @param splitted the command and any arguments attached
-     *
      * @return true if you want to log the command, false if not. TODO: USE
      * {@link #ReturnValue}
      */

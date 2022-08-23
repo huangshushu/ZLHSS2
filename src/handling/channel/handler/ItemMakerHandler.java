@@ -84,9 +84,9 @@ public class ItemMakerHandler {
                     }
                     c.getPlayer().gainMeso(-gem.getCost(), false);
                     MapleInventoryManipulator.addById(c, randGemGiven, (byte) (taken == randGemGiven ? 9 : 1)); // Gem
-                                                                                                                // is
-                                                                                                                // always
-                                                                                                                // 1
+                    // is
+                    // always
+                    // 1
 
                     c.sendPacket(MaplePacketCreator.ItemMaker_Success());
                     c.getPlayer().getMap().broadcastMessage(c.getPlayer(),

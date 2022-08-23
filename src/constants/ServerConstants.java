@@ -50,17 +50,10 @@ public class ServerConstants {
     public static int MobDropMPointRate = 30;
     public static int MobDropMPointLimit = 2500;
     public static int MobDropMPointMin = 1;
-    public static int MopDropMPointMax = 2;  
+    public static int MopDropMPointMax = 2;
     public static int 攻击上限 = 50000000;
 
     public static int 是否已关服 = 0;
-
-    /*
-     *druid recycle
-     */
-    public static boolean SQL_REMOVEABANDONED = true;
-    public static int SQL_REMOVEABANDONEDTIMEOUT = 5;
-    public static boolean SQL_LOGABANDONED = false;
 
     public enum PlayerGMRank {
 
@@ -111,6 +104,7 @@ public class ServerConstants {
             return level;
         }
     }
+
     public enum CommandType {
 
         NORMAL(0),

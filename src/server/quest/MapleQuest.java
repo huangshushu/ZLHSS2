@@ -27,9 +27,9 @@ public class MapleQuest implements Serializable {
     protected final List<MapleQuestAction> startActs = new LinkedList<MapleQuestAction>();
     protected final List<MapleQuestAction> completeActs = new LinkedList<MapleQuestAction>();
     protected final Map<String, List<Pair<String, Pair<String, Integer>>>> partyQuestInfo = new LinkedHashMap<String, List<Pair<String, Pair<String, Integer>>>>(); // [rank,
-                                                                                                                                                                    // [more/less/equal,
-                                                                                                                                                                    // [property,
-                                                                                                                                                                    // value]]]
+    // [more/less/equal,
+    // [property,
+    // value]]]
     protected final Map<Integer, Integer> relevantMobs = new LinkedHashMap<Integer, Integer>();
     private boolean autoStart = false, autoPreComplete = false, repeatable = false, customend = false, blocked = false,
             autoAccept = false, autoComplete = false, scriptedStart = false;
@@ -44,7 +44,7 @@ public class MapleQuest implements Serializable {
      * Creates a new instance of MapleQuest
      */
     private static MapleQuest loadQuest(ResultSet rs, PreparedStatement psr, PreparedStatement psa,
-            PreparedStatement pss, PreparedStatement psq, PreparedStatement psi, PreparedStatement psp)
+                                        PreparedStatement pss, PreparedStatement psq, PreparedStatement psi, PreparedStatement psp)
             throws SQLException {
         final MapleQuest ret = new MapleQuest(rs.getInt("questid"));
         ret.name = rs.getString("name");
@@ -371,29 +371,29 @@ public class MapleQuest implements Serializable {
     public enum MedalQuest {
 
         新手冒险家(29005, 29015, 15,
-                new int[] { 104000000, 104010001, 100000006, 104020000, 100000000, 100010000, 100040000, 100040100,
+                new int[]{104000000, 104010001, 100000006, 104020000, 100000000, 100010000, 100040000, 100040100,
                         101010103, 101020000, 101000000, 102000000, 101030104, 101030406, 102020300, 103000000,
-                        102050000, 103010001, 103030200, 110000000 }),
+                        102050000, 103010001, 103030200, 110000000}),
         冰原雪域山脉探险家(29006, 29012, 50,
-                new int[] { 200000000, 200010100, 200010300, 200080000, 200080100, 211000000, 211030000, 211040300,
-                        211041200, 211041800 }),
+                new int[]{200000000, 200010100, 200010300, 200080000, 200080100, 211000000, 211030000, 211040300,
+                        211041200, 211041800}),
         路德斯湖探险家(29007, 29012, 40,
-                new int[] { 222000000, 222010400, 222020000, 220000000, 220020300, 220040200, 221020701, 221000000,
-                        221030600, 221040400 }),
+                new int[]{222000000, 222010400, 222020000, 220000000, 220020300, 220040200, 221020701, 221000000,
+                        221030600, 221040400}),
         海底探险家(29008, 29012, 40,
-                new int[] { 230000000, 230010400, 230010200, 230010201, 230020000, 230020201, 230030100, 230040000,
-                        230040200, 230040400 }),
+                new int[]{230000000, 230010400, 230010200, 230010201, 230020000, 230020201, 230030100, 230040000,
+                        230040200, 230040400}),
         武陵桃园探险家(29009, 29012, 50,
-                new int[] { 251000000, 251010200, 251010402, 251010500, 250010500, 250010504, 250000000, 250010300,
-                        250010304, 250020300 }),
+                new int[]{251000000, 251010200, 251010402, 251010500, 250010500, 250010504, 250000000, 250010300,
+                        250010304, 250020300}),
         纳希沙漠探险家(29010, 29012, 70,
-                new int[] { 261030000, 261020401, 261020000, 261010100, 261000000, 260020700, 260020300, 260000000,
-                        260010600, 260010300 }),
+                new int[]{261030000, 261020401, 261020000, 261010100, 261000000, 260020700, 260020300, 260000000,
+                        260010600, 260010300}),
         米纳尔森林探险家(29011, 29012, 70,
-                new int[] { 240000000, 240010200, 240010800, 240020401, 240020101, 240030000, 240040400, 240040511,
-                        240040521, 240050000 }),
-        奇幻村探险家(29014, 29015, 50, new int[] { 105040300, 105070001, 105040305, 105090200, 105090300, 105090301,
-                105090312, 105090500, 105090900, 105080000 });
+                new int[]{240000000, 240010200, 240010800, 240020401, 240020101, 240030000, 240040400, 240040511,
+                        240040521, 240050000}),
+        奇幻村探险家(29014, 29015, 50, new int[]{105040300, 105070001, 105040305, 105090200, 105090300, 105090301,
+                105090312, 105090500, 105090900, 105080000});
 
         public int questid, level, lquestid;
         public int[] maps;

@@ -27,7 +27,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Start {
-        public static boolean 是否控制台启动 = true;
+    public static boolean 是否控制台启动 = true;
     private static int 回收内存;
 
     private static void resetAllLoginState() {
@@ -35,7 +35,7 @@ public class Start {
         int id = 0, vip = 0, size = 0;
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("UPDATE accounts SET loggedin = 0")) {
+             PreparedStatement ps = con.prepareStatement("UPDATE accounts SET loggedin = 0")) {
             ps.executeUpdate();
         } catch (SQLException ex) {
             FileoutputUtil.outError("logs/资料库异常.txt", ex);
@@ -97,7 +97,7 @@ public class Start {
          * FileoutputUtil.outError("logs/资料库异常.txt", ex);
          * throw new RuntimeException("【错误】 请确认资料库是否正确连接");
          * }
-         * 
+         *
          * try (Connection con =
          * DBConPool.getInstance().getDataSource().getConnection()) {
          * try (PreparedStatement ps = con.

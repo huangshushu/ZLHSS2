@@ -42,7 +42,7 @@ public class SpawnPoint extends Spawns {
     private final byte carnivalTeam;
 
     public SpawnPoint(final MapleMonster monster, final Point pos, final int mobTime, final byte carnivalTeam,
-            final String msg) {
+                      final String msg) {
         this.monster = monster;
         this.pos = pos;
         this.mobTime = (mobTime < 0 ? -1 : (mobTime * 1000));
@@ -114,7 +114,7 @@ public class SpawnPoint extends Spawns {
 
         if (carnivalTeam > -1) {
             for (MapleReactor r : map.getAllReactorsThreadsafe()) { // parsing through everytime a monster is spawned?
-                                                                    // not good idea
+                // not good idea
                 if (r.getName().startsWith(String.valueOf(carnivalTeam)) && r.getReactorId() == (9980000 + carnivalTeam)
                         && r.getState() < 5) {
                     final int num = Integer.parseInt(r.getName().substring(1, 2)); // 00, 01, etc

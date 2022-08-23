@@ -67,8 +67,8 @@ public class CashItemInfo {
         private CashItemInfo cii;
 
         public CashModInfo(int sn, int discount, int mark, boolean show, int itemid, int priority, boolean packagez,
-                int period, int gender, int count, int meso, int unk_1, int unk_2, int unk_3, int extra_flags,
-                int mod) {
+                           int period, int gender, int count, int meso, int unk_1, int unk_2, int unk_3, int extra_flags,
+                           int mod) {
             this.sn = sn;
             this.itemid = itemid;
             this.discountPrice = discount;

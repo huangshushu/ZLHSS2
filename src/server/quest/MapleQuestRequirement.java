@@ -201,7 +201,7 @@ public class MapleQuestRequirement implements Serializable {
                 }
                 return false;
             case partyQuest_S:
-                final int[] partyQuests = new int[] { 1200, 1201, 1202, 1203, 1204, 1205, 1206, 1300, 1301, 1302 };
+                final int[] partyQuests = new int[]{1200, 1201, 1202, 1203, 1204, 1205, 1206, 1300, 1301, 1302};
                 int sRankings = 0;
                 for (int i : partyQuests) {
                     final String rank = c.getOneInfo(i, "rank");

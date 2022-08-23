@@ -65,26 +65,26 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
 
     static {
 
-        RecvPacketOpcode[] block = new RecvPacketOpcode[] { RecvPacketOpcode.NPC_ACTION, RecvPacketOpcode.MOVE_PLAYER,
+        RecvPacketOpcode[] block = new RecvPacketOpcode[]{RecvPacketOpcode.NPC_ACTION, RecvPacketOpcode.MOVE_PLAYER,
                 RecvPacketOpcode.MOVE_PET, RecvPacketOpcode.MOVE_SUMMON, RecvPacketOpcode.MOVE_LIFE,
-                RecvPacketOpcode.HEAL_OVER_TIME, RecvPacketOpcode.STRANGE_DATA };
+                RecvPacketOpcode.HEAL_OVER_TIME, RecvPacketOpcode.STRANGE_DATA};
         blocked.addAll(Arrays.asList(block));
     }
 
     /*
      * private static class LoggedPacket {
-     * 
+     *
      * private static final String nl = System.getProperty("line.separator");
      * private String ip, accName, accId, chrName;
      * private LittleEndianAccessor packet;
      * private long timestamp;
      * private RecvPacketOpcode op;
-     * 
+     *
      * public LoggedPacket(LittleEndianAccessor p, RecvPacketOpcode op, String ip,
      * int id, String accName, String chrName) {
      * setInfo(p, op, ip, id, accName, chrName);
      * }
-     * 
+     *
      * public final void setInfo(LittleEndianAccessor p, RecvPacketOpcode op, String
      * ip, int id, String accName, String chrName) {
      * this.ip = ip;
@@ -94,7 +94,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
      * this.chrName = chrName;
      * timestamp = System.currentTimeMillis();
      * }
-     * 
+     *
      * @Override
      * public String toString() {
      * StringBuilder sb = new StringBuilder();
@@ -208,11 +208,11 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
         }
 
         // IV used to decrypt packets from client.
-        final byte[] ivRecv = new byte[] { (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255),
-                (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255) };
+        final byte[] ivRecv = new byte[]{(byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255),
+                (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255)};
         // IV used to encrypt packets for client.
-        final byte[] ivSend = new byte[] { (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255),
-                (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255) };
+        final byte[] ivSend = new byte[]{(byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255),
+                (byte) Randomizer.nextInt(255), (byte) Randomizer.nextInt(255)};
 
         final MapleClient client = new MapleClient(
                 new MapleAESOFB(ivSend, (short) (0xFFFF - ServerConstants.MAPLE_VERSION)), // Sent Cypher
@@ -235,7 +235,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
          * try {
          * MapleClient client = (MapleClient)
          * ctx.channel().attr(MapleClient.CLIENT_KEY).get();
-         * 
+         *
          * if (client != null) {
          * if (client.getPlayer() != null) {
          * client.getPlayer().saveToDB(true, channel ==
@@ -252,11 +252,11 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
          * LoginServer.removeClient(client);
          * }
          * }
-         * 
+         *
          * if (client != null) {
          * ctx.channel().attr(MapleClient.CLIENT_KEY).remove();
          * }
-         * 
+         *
          * } finally {
          * super.channelInactive(ctx);
          * }
@@ -358,7 +358,7 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     public static final void handlePacket(final RecvPacketOpcode header, final LittleEndianAccessor slea,
-            final MapleClient c, final boolean cs) throws Exception {
+                                          final MapleClient c, final boolean cs) throws Exception {
         switch (header) {
             case CLIENT_LOGOUT:
                 // PlayerHandler.handleLogout(slea, c);
@@ -960,8 +960,8 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 // }
                 short data_length = slea.readShort();
                 slea.skip(4); // ?B3 86 01 00 00 00 FF 00 00 00 00 00 9E 05 C8 FF 02 00 CD 05 C9 FF 7D 00 00
-                              // 00 3F 00 00 00 00 00 02 77 01 00 25 06 C9 FF 7D 00 00 00 40 00 00 00 00 00 02
-                              // C1 02
+                // 00 3F 00 00 00 00 00 02 77 01 00 25 06 C9 FF 7D 00 00 00 40 00 00 00 00 00 02
+                // C1 02
                 short opcodeheader = slea.readShort();
                 byte[] opcode = slea.read((int) slea.available());
                 int packetLen = (int) slea.available() + 2;

@@ -6,7 +6,7 @@ package custom;
 
 public class CustomConstants {
 
-    public static int[] noSpawnNPC = { 9310059,
+    public static int[] noSpawnNPC = {9310059,
             // 自由市场牌子
             9310070,
             9310071,
@@ -19,5 +19,5 @@ public class CustomConstants {
             9209008,
             9209001,
             9010009,
-            9209000 };// 屏蔽npc
+            9209000};// 屏蔽npc
 }

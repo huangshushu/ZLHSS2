@@ -43,7 +43,7 @@ public class MonsterStatusEffect {
     private boolean ignoreBoss = false;
 
     public MonsterStatusEffect(final MonsterStatus stat, final Integer x, final int skillId, final MobSkill mobskill,
-            final boolean monsterSkill) {
+                               final boolean monsterSkill) {
         this.stati = stat;
         this.skill = skillId;
         this.monsterSkill = monsterSkill;
@@ -52,7 +52,7 @@ public class MonsterStatusEffect {
     }
 
     public MonsterStatusEffect(final MonsterStatus stat, final Integer x, final int skillId, final MobSkill mobskill,
-            final boolean monsterSkill, final boolean reflect) {
+                               final boolean monsterSkill, final boolean reflect) {
         this.stati = stat;
         this.skill = skillId;
         this.monsterSkill = monsterSkill;

@@ -28,7 +28,7 @@ public class WorldConstants {
     public static final byte recommended = (byte) -1; // -1 = no recommended
     public static final String recommendedmsg = recommended < 0 ? ""
             : "        Join " + getById(recommended).name()
-                    + ",       the newest world! (If youhave friends who play, consider joining their worldinstead. Characters can`t move between worlds.)";
+            + ",       the newest world! (If youhave friends who play, consider joining their worldinstead. Characters can`t move between worlds.)";
 
     public interface Option {
 
@@ -38,7 +38,6 @@ public class WorldConstants {
     }
 
     /**
-     *
      * @Warning: World will be duplicated if it's the same as the gm server
      */
     public enum WorldOption implements Option {

@@ -30,8 +30,8 @@ import java.io.UnsupportedEncodingException;
 /**
  * Provides a interface to a Little Endian stream of bytes.
  *
- * @version 1.0
  * @author Frz
+ * @version 1.0
  * @since Revision 323
  */
 public class LittleEndianAccessor {
@@ -333,6 +333,7 @@ public class LittleEndianAccessor {
     //        readByte();
     //    }
     //}
+
     /**
      * @return @see ByteInputStream#available
      */

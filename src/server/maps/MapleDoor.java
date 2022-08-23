@@ -130,9 +130,9 @@ public class MapleDoor extends AbstractMapleMapObject {
             final MapleDoor door = (MapleDoor) obj;
 
             if (door.getOwner() != null && door.getOwner().getParty() != null && getOwner() != null && getOwner().getParty() != null && getOwner().getParty().getId() == door.getOwner().getParty().getId()) {
-               return null; //one per
+                return null; //one per
             }
-	    freePortals.remove(door.getTownPortal());
+            freePortals.remove(door.getTownPortal());
         }
         if (freePortals.size() <= 0) {
             return null;

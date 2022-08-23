@@ -95,7 +95,7 @@ public class RandomRewards {
     public final int getGoldBoxReward() {
         return compiledGold.get(Randomizer.nextInt(compiledGold.size()));
     }
-    
+
     public final int getJxBoxReward() {
         return compiledJxbox.get(Randomizer.nextInt(compiledJxbox.size()));
     }

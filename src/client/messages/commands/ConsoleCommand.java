@@ -6,21 +6,20 @@
 package client.messages.commands;
 
 /**
- *
  * @author Flower
  */
 public class ConsoleCommand {
 
     /*
      * public static class Info extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] paramArrayOfString) {
      * Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
      * Runtime runtime = Runtime.getRuntime();
-     * 
+     *
      * NumberFormat format = NumberFormat.getInstance();
-     * 
+     *
      * StringBuilder sb = new StringBuilder();
      * Long maxMemory = runtime.maxMemory();
      * Long allocatedMemory = runtime.totalMemory();
@@ -32,18 +31,18 @@ public class ConsoleCommand {
      * System.out.println("记忆体最大限制 :" + Math.round(maxMemory / 1024 / 1024) + "Gb");
      * System.out.println("已申请记忆体 :" + allocatedMemory.toString());
      * System.out.println("尚未使用记忆体 :" + freeMemory.toString());
-     * 
+     *
      * return 1;
      * }
-     * 
+     *
      * }
      */
 
     /*
      * public static class Shutdown extends ConsoleCommandExecute {
-     * 
+     *
      * private static Thread t = null;
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * System.out.println("执行关闭作业");
@@ -57,7 +56,7 @@ public class ConsoleCommand {
      * try {
      * t = new Thread(server.ShutdownServer.getInstance());
      * t.start();
-     * 
+     *
      * } catch (Exception ex) {
      * Logger.getLogger(ConsoleCommand.class.getName()).log(Level.SEVERE, null, ex);
      * }
@@ -65,18 +64,18 @@ public class ConsoleCommand {
      * System.out.println("已在执行中...");
      * }
      * return 1;
-     * 
+     *
      * }
      * }
      */
 
     /*
      * public static class ShutdownTime extends ConsoleCommandExecute {
-     * 
+     *
      * private int minutesLeft = 0;
      * private static Thread t = null;
      * private static ScheduledFuture<?> ts = null;
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * if (splitted.length > 1) {
@@ -84,7 +83,7 @@ public class ConsoleCommand {
      * if (ts == null && (t == null || !t.isAlive())) {
      * t = new Thread(server.ShutdownServer.getInstance());
      * ts = Timer.EventTimer.getInstance().register(new Runnable() {
-     * 
+     *
      * @Override
      * public void run() {
      * if (minutesLeft == 1) {
@@ -118,7 +117,7 @@ public class ConsoleCommand {
      */
     /*
      * public static class Dodown extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * try (Connection con =
@@ -140,7 +139,7 @@ public class ConsoleCommand {
 
     /*
      * public static class ExpRate extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * if (splitted.length > 2) {
@@ -148,7 +147,7 @@ public class ConsoleCommand {
      * try {
      * rate = Integer.parseInt(splitted[1]);
      * } catch (Exception ex) {
-     * 
+     *
      * }
      * if (splitted[2].equalsIgnoreCase("all")) {
      * for (ChannelServer cserv : ChannelServer.getAllInstances()) {
@@ -165,9 +164,9 @@ public class ConsoleCommand {
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class DropRate extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * if (splitted.length > 2) {
@@ -175,7 +174,7 @@ public class ConsoleCommand {
      * try {
      * rate = Integer.parseInt(splitted[1]);
      * } catch (Exception ex) {
-     * 
+     *
      * }
      * if (splitted.length > 2 && splitted[2].equalsIgnoreCase("all")) {
      * for (ChannelServer cserv : ChannelServer.getAllInstances()) {
@@ -192,9 +191,9 @@ public class ConsoleCommand {
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class MesoRate extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * if (splitted.length > 2) {
@@ -202,7 +201,7 @@ public class ConsoleCommand {
      * try {
      * rate = Integer.parseInt(splitted[1]);
      * } catch (Exception ex) {
-     * 
+     *
      * }
      * if (splitted[2].equalsIgnoreCase("all")) {
      * for (ChannelServer cserv : ChannelServer.getAllInstances()) {
@@ -219,9 +218,9 @@ public class ConsoleCommand {
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class Saveall extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * int p = 0;
@@ -237,9 +236,9 @@ public class ConsoleCommand {
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class AutoReg extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * LoginServer.setAutoReg(!LoginServer.getAutoReg());
@@ -247,9 +246,9 @@ public class ConsoleCommand {
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class serverMsg extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * if (splitted.length > 1) {
@@ -267,11 +266,11 @@ public class ConsoleCommand {
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class CrucialTime extends ConsoleCommandExecute {
-     * 
+     *
      * protected static ScheduledFuture<?> ts = null;
-     * 
+     *
      * public int execute(String[] splitted) {
      * if (splitted.length < 1) {
      * return 0;
@@ -288,7 +287,7 @@ public class ConsoleCommand {
      * }
      * if (minutesLeft > 0) {
      * ts = Timer.EventTimer.getInstance().schedule(new Runnable() {
-     * 
+     *
      * @Override
      * public void run() {
      * for (ChannelServer cserv : ChannelServer.getAllInstances()) {
@@ -312,12 +311,12 @@ public class ConsoleCommand {
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class ReloadChannel extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
-     * 
+     *
      * if (splitted[1].equalsIgnoreCase("all")) {
      * for (ChannelServer csrv : ChannelServer.getAllInstances()) {
      * csrv.closeAllMerchant();
@@ -338,14 +337,14 @@ public class ConsoleCommand {
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class ReloadMap extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * try {
      * final int mapId = Integer.parseInt(splitted[1]);
-     * 
+     *
      * for (ChannelServer cserv : ChannelServer.getAllInstances()) {
      * if (cserv.getMapFactory().isMapLoaded(mapId) &&
      * cserv.getMapFactory().getMap(mapId).getCharactersSize() > 0) {
@@ -364,9 +363,9 @@ public class ConsoleCommand {
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class help extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * System.out.println("╭〝☆指令列表〞★╮");
@@ -393,9 +392,9 @@ public class ConsoleCommand {
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class Online extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * int total = 0;
@@ -408,7 +407,7 @@ public class ConsoleCommand {
      * total += ch.getConnectedClients();
      * for (MapleCharacter chr : ch.getPlayerStorage().getAllCharactersThreadSafe())
      * {
-     * 
+     *
      * if (chr != null) {
      * StringBuilder ret = new StringBuilder();
      * ret.append(" 角色暱称 ");
@@ -434,20 +433,20 @@ public class ConsoleCommand {
      * "-------------------------------------------------------------------------------------"
      * );
      * }
-     * 
+     *
      * System.out.println(new
      * StringBuilder().append("当前服务器总计线上人数: ").append(total).append("个").toString())
      * ;
      * System.out.println(
      * "-------------------------------------------------------------------------------------"
      * );
-     * 
+     *
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class Say extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String[] splitted) {
      * if (splitted.length > 1) {
@@ -463,70 +462,70 @@ public class ConsoleCommand {
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class ReloadOps extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String splitted[]) {
      * SendPacketOpcode.reloadValues();
      * RecvPacketOpcode.reloadValues();
      * return 1;
      * }
-     * 
+     *
      * }
-     * 
+     *
      * public static class ReloadDrops extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String splitted[]) {
      * MapleMonsterInformationProvider.getInstance().clearDrops();
      * ReactorScriptManager.getInstance().clearDrops();
      * return 1;
      * }
-     * 
+     *
      * }
-     * 
+     *
      * public static class ReloadPortals extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String splitted[]) {
      * PortalScriptManager.getInstance().clearScripts();
      * return 1;
      * }
      * }
-     * 
+     *
      * public static class ReloadShops extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String splitted[]) {
      * MapleShopFactory.getInstance().clear();
      * return 1;
      * }
-     * 
+     *
      * }
-     * 
+     *
      * public static class ReloadCS extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String splitted[]) {
      * CashItemFactory.getInstance().clearItems();
      * return 1;
      * }
-     * 
+     *
      * }
-     * 
+     *
      * public static class ReloadFishing extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String splitted[]) {
      * FishingRewardFactory.getInstance().reloadItems();
      * return 1;
      * }
-     * 
+     *
      * }
-     * 
+     *
      * public static class ReloadEvents extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String splitted[]) {
      * for (ChannelServer instance : ChannelServer.getAllInstances()) {
@@ -534,11 +533,11 @@ public class ConsoleCommand {
      * }
      * return 1;
      * }
-     * 
+     *
      * }
-     * 
+     *
      * public static class GMmessage extends ConsoleCommandExecute {
-     * 
+     *
      * @Override
      * public int execute(String splitted[]) {
      * String outputMessage = StringUtil.joinStringFrom(splitted, 1);
@@ -546,7 +545,7 @@ public class ConsoleCommand {
      * "[后台GM广播] " + outputMessage));
      * return 1;
      * }
-     * 
+     *
      * }
      */
 }

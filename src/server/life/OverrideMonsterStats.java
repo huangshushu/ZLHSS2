@@ -23,10 +23,8 @@ package server.life;
 public class OverrideMonsterStats {
 
     /**
-     *
      * @param hp 血量
      * @param exp/mp 经验值/魔力
-     *
      */
     private long hp;
     private int exp, mp;

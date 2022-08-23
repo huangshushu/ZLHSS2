@@ -30,7 +30,6 @@ import java.sql.SQLException;
 
 /**
  * 储存好友个别的单位
- *
  */
 public class BuddyEntry {
 

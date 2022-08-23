@@ -39,7 +39,6 @@ import tools.*;
 import tools.packet.LoginPacket;
 
 import javax.script.ScriptEngine;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -160,8 +159,8 @@ public class MapleClient {
     private List<CharNameAndId> loadCharactersInternal(int serverId) {
         List<CharNameAndId> chars = new LinkedList<>();
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con
-                        .prepareStatement("SELECT id, name FROM characters WHERE accountid = ? AND world = ?")) {
+             PreparedStatement ps = con
+                     .prepareStatement("SELECT id, name FROM characters WHERE accountid = ? AND world = ?")) {
             ps.setInt(1, accountId);
             ps.setInt(2, serverId);
 
@@ -209,8 +208,8 @@ public class MapleClient {
     public boolean isBannedIP(String ip) {
         boolean ret = false;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con
-                        .prepareStatement("SELECT COUNT(*) FROM ipbans WHERE ? LIKE CONCAT(ip, '%')")) {
+             PreparedStatement ps = con
+                     .prepareStatement("SELECT COUNT(*) FROM ipbans WHERE ? LIKE CONCAT(ip, '%')")) {
             ps.setString(1, ip);
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
@@ -228,8 +227,8 @@ public class MapleClient {
     public boolean hasBannedIP() {
         boolean ret = false;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con
-                        .prepareStatement("SELECT COUNT(*) FROM ipbans WHERE ? LIKE CONCAT(ip, '%')")) {
+             PreparedStatement ps = con
+                     .prepareStatement("SELECT COUNT(*) FROM ipbans WHERE ? LIKE CONCAT(ip, '%')")) {
             ps.setString(1, getSessionIPAddress());
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
@@ -377,8 +376,8 @@ public class MapleClient {
             digester.update(secondPassword.getBytes(StandardCharsets.UTF_8), 0, secondPassword.length());
             String hash = HexTool.toString(digester.digest()).replace(" ", "").toLowerCase();
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                    PreparedStatement ps = con
-                            .prepareStatement("UPDATE `accounts` SET `2ndpassword` = ? WHERE id = ?")) {
+                 PreparedStatement ps = con
+                         .prepareStatement("UPDATE `accounts` SET `2ndpassword` = ? WHERE id = ?")) {
                 ps.setString(1, hash);
                 ps.setInt(2, accountId);
                 ps.executeUpdate();
@@ -448,8 +447,8 @@ public class MapleClient {
         loginMutex.lock();
         try {
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                    PreparedStatement ps = con.prepareStatement(
-                            "UPDATE accounts SET loggedin = ?, SessionIP = ?, lastlogin = CURRENT_TIMESTAMP() WHERE id = ?")) {
+                 PreparedStatement ps = con.prepareStatement(
+                         "UPDATE accounts SET loggedin = ?, SessionIP = ?, lastlogin = CURRENT_TIMESTAMP() WHERE id = ?")) {
                 ps.setInt(1, newstate);
                 ps.setString(2, SessionID);
                 ps.setInt(3, getAccID());
@@ -490,7 +489,7 @@ public class MapleClient {
      */
     public final void updateGender() {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `gender` = ? WHERE id = ?")) {
+             PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `gender` = ? WHERE id = ?")) {
             ps.setInt(1, gender);
             ps.setInt(2, accountId);
             ps.executeUpdate();
@@ -518,8 +517,8 @@ public class MapleClient {
 
                 if (state == MapleClient.LOGIN_SERVER_TRANSITION || state == MapleClient.CHANGE_CHANNEL) {
                     if (rs.getTimestamp("lastlogin").getTime() + 70000 < System.currentTimeMillis()) { // connecting to
-                                                                                                       // chanserver
-                                                                                                       // timeout
+                        // chanserver
+                        // timeout
                         state = MapleClient.LOGIN_NOTLOGGEDIN;
                         updateLoginState(state, getSessionIPAddress());
                     }
@@ -1024,9 +1023,9 @@ public class MapleClient {
      * public final void sendPing() {
      * lastPing = System.currentTimeMillis();
      * session.writeAndFlush(LoginPacket.getPing());
-     * 
+     *
      * PingTimer.getInstance().schedule(new Runnable() {
-     * 
+     *
      * @Override
      * public void run() {
      * try {
@@ -1411,10 +1410,9 @@ public class MapleClient {
             return false;
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("INSERT INTO macbans (mac) VALUES (?)")) {
+             PreparedStatement ps = con.prepareStatement("INSERT INTO macbans (mac) VALUES (?)")) {
             ps.setString(1, macData);
             ps.executeUpdate();
-            ps.close();
         } catch (SQLException e) {
             System.err.println("Error banning MACs" + e);
             FileoutputUtil.outError("logs/资料库异常.txt", e);
@@ -1433,7 +1431,7 @@ public class MapleClient {
         }
         boolean ret = false;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM macbans WHERE mac = ?")) {
+             PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM macbans WHERE mac = ?")) {
             ps.setString(1, mac);
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
@@ -1441,7 +1439,6 @@ public class MapleClient {
                     ret = true;
                 }
             }
-            ps.close();
         } catch (SQLException ex) {
             System.err.println("Error checking mac bans" + ex);
             FileoutputUtil.outError("logs/资料库异常.txt", ex);
@@ -1487,7 +1484,7 @@ public class MapleClient {
     private void loadMacsIfNescessary() throws SQLException {
         if (macs.isEmpty()) {
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                    PreparedStatement ps = con.prepareStatement("SELECT macs FROM accounts WHERE id = ?")) {
+                 PreparedStatement ps = con.prepareStatement("SELECT macs FROM accounts WHERE id = ?")) {
                 ps.setInt(1, accountId);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
@@ -1525,7 +1522,7 @@ public class MapleClient {
                 }
                 banMacs(macBans);
             }
-        } catch (SQLException e) {
+        } catch (SQLException ignored) {
         }
     }
 
@@ -1581,7 +1578,7 @@ public class MapleClient {
      * ret = true;
      * }
      * }
-     * 
+     *
      * } catch (SQLException ex) {
      * System.err.println("Error ipcheck " + ex);
      * FileoutputUtil.outError("logs/资料库异常.txt", ex);
@@ -1735,7 +1732,7 @@ public class MapleClient {
      * ret = true;
      * }
      * }
-     * 
+     *
      * } catch (SQLException ex) {
      * System.err.println("Error dangerousIp " + ex);
      * FileoutputUtil.outError("logs/资料库异常.txt", ex);
@@ -1743,7 +1740,7 @@ public class MapleClient {
      * return ret;
      * }
      */
-    public static final byte setTGJF(String charname, int x) {
+    public static byte setTGJF(String charname, int x) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT accountid from characters where name = ?");
             ps.setString(1, charname);
@@ -1771,7 +1768,7 @@ public class MapleClient {
         return 0;
     }
 
-    public static final int getTGJF(final int accid) {
+    public static int getTGJF(final int accid) {
         int ret;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT TGJF FROM accounts WHERE id = ?");
@@ -1800,7 +1797,7 @@ public class MapleClient {
         }
     }
 
-    public static final byte setTJJF(String charname, int x) {
+    public static byte setTJJF(String charname, int x) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT accountid from characters where name = ?");
             ps.setString(1, charname);
@@ -1828,7 +1825,7 @@ public class MapleClient {
         return 0;
     }
 
-    public static final int getTJJF(final int accid) {
+    public static int getTJJF(final int accid) {
         int ret;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT TJJF FROM accounts WHERE id = ?");
@@ -1850,8 +1847,8 @@ public class MapleClient {
         String ip = lip.substring(1, lip.lastIndexOf(':'));
         boolean ret = false;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con
-                        .prepareStatement("SELECT COUNT(*) FROM dangerousip WHERE ? LIKE CONCAT(ip, '%')")) {
+             PreparedStatement ps = con
+                     .prepareStatement("SELECT COUNT(*) FROM dangerousip WHERE ? LIKE CONCAT(ip, '%')")) {
             ps.setString(1, ip);
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
@@ -1920,14 +1917,14 @@ public class MapleClient {
             public void run() {
                 try {
                     sleep(3000);
-                } catch (InterruptedException ex) {
+                } catch (InterruptedException ignored) {
                 }
                 client.getSession().close();
             }
         };
         try {
             closeSession.start();
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
     }
 

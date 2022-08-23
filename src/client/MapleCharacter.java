@@ -80,7 +80,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             lastMPTime, lastMDTime, lastStorageTime, mapChangeTime, mrqdTime;
     private byte dojoRecord, gmLevel, gender, initialSpawnPoint, skinColor, guildrank = 5, allianceRank = 5, world,
             fairyExp = 30, numClones, subcategory, fairyHour = 1; // Make this a quest record
-                                                                  // somehow with the current data
+    // somehow with the current data
     private short level, mulung_energy, availableCP, totalCP, fame, hpmpApUsed, job, remainingAp;
     private int accountid, id, meso, exp, hair, face, mapid, bookCover, dojo,
             guildid = 0, fallcounter = 0, maplepoints, chair, itemEffect/* , points */, vpoints,
@@ -267,7 +267,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public final static MapleCharacter ReconstructChr(final CharacterTransfer ct, final MapleClient client,
-            final boolean isChannel) {
+                                                      final boolean isChannel) {
         final MapleCharacter ret = new MapleCharacter(true); // Always true, it's change channel
         ret.client = client;
         if (!isChannel) {
@@ -372,7 +372,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             MaplePortal portal = ret.map.getPortal(ret.initialSpawnPoint);
             if (portal == null) {
                 portal = ret.map.getPortal(0); // char is on a spawnpoint that doesn't exist - select the first
-                                               // spawnpoint instead
+                // spawnpoint instead
                 ret.initialSpawnPoint = 0;
             }
             ret.setPosition(portal.getPosition());
@@ -527,7 +527,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ret.mount = new MapleMount(ret, 0,
                         ret.job > 1000 && ret.job < 2000 ? 10001004
                                 : (ret.job >= 2000 ? (ret.job == 2001 || (ret.job >= 2200 && ret.job <= 2218) ? 20011004
-                                        : (ret.job >= 3000 ? 30001004 : 20001004)) : 1004),
+                                : (ret.job >= 3000 ? 30001004 : 20001004)) : 1004),
                         (byte) 0, (byte) 1, 0);
                 ret.rank = rs.getInt("rank");
                 ret.rankMove = rs.getInt("rankMove");
@@ -564,7 +564,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                     MaplePortal portal = ret.map.getPortal(ret.initialSpawnPoint);
                     if (portal == null) {
                         portal = ret.map.getPortal(0); // char is on a spawnpoint that doesn't exist - select the first
-                                                       // spawnpoint instead
+                        // spawnpoint instead
                         ret.initialSpawnPoint = 0;
                     }
                     ret.setPosition(portal.getPosition());
@@ -723,9 +723,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                             }
 
                         } else if (charid < 17000 && !compensate_previousEvans && ret.job >= 2200 && ret.job <= 2218) { // compensate,
-                                                                                                                        // watch
-                                                                                                                        // max
-                                                                                                                        // charid
+                            // watch
+                            // max
+                            // charid
                             for (int i = 0; i <= GameConstants.getSkillBook(ret.job); i++) {
                                 ret.remainingSp[i] += 2; // 2 that they missed. gg
                             }
@@ -843,7 +843,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                     ret.mount = new MapleMount(ret, mount != null ? mount.getItemId() : 0,
                             ret.job > 1000 && ret.job < 2000 ? 10001004
                                     : (ret.job >= 2000 ? (ret.job == 2001 || ret.job >= 2200 ? 20011004
-                                            : (ret.job >= 3000 ? 30001004 : 20001004)) : 1004),
+                                    : (ret.job >= 3000 ? 30001004 : 20001004)) : 1004),
                             rs.getByte("Fatigue"), rs.getByte("Level"), rs.getInt("Exp"));
                     ps.close();
                     rs.close();
@@ -1004,12 +1004,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
              * 17, 9, 20, 22, 50, 51, 52, 7, 53, 100, 101, 102, 103, 104, 105, 106, 16, 23,
              * 24, 2};
              */
-            int[] array1 = { 2, 3, 4, 5, 6, 7, 16, 17, 18, 19, 23, 25, 26, 27, 29, 31, 34, 35, 37, 38, 40, 41, 43, 44,
-                    45, 46, 48, 50, 56, 57, 59, 60, 61, 62, 63, 64, 65 };
-            int[] array2 = { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 4, 4, 4, 5, 5,
-                    6, 6, 6, 6, 6, 6, 6 };
-            int[] array3 = { 10, 12, 13, 18, 24, 21, 8, 5, 0, 4, 1, 19, 14, 15, 52, 2, 17, 11, 3, 20, 16, 23, 9, 50, 51,
-                    6, 22, 7, 53, 54, 100, 101, 102, 103, 104, 105, 106 };
+            int[] array1 = {2, 3, 4, 5, 6, 7, 16, 17, 18, 19, 23, 25, 26, 27, 29, 31, 34, 35, 37, 38, 40, 41, 43, 44,
+                    45, 46, 48, 50, 56, 57, 59, 60, 61, 62, 63, 64, 65};
+            int[] array2 = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 4, 4, 4, 5, 5,
+                    6, 6, 6, 6, 6, 6, 6};
+            int[] array3 = {10, 12, 13, 18, 24, 21, 8, 5, 0, 4, 1, 19, 14, 15, 52, 2, 17, 11, 3, 20, 16, 23, 9, 50, 51,
+                    6, 22, 7, 53, 54, 100, 101, 102, 103, 104, 105, 106};
 
             ps = con.prepareStatement("INSERT INTO keymap (characterid, `key`, `type`, `action`) VALUES (?, ?, ?, ?)");
             ps.setInt(1, chr.id);
@@ -1836,7 +1836,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public void registerEffect(MapleStatEffect effect, long starttime, ScheduledFuture<?> schedule,
-            List<Pair<MapleBuffStat, Integer>> statups, boolean silent, final int localDuration, final int cid) {
+                               List<Pair<MapleBuffStat, Integer>> statups, boolean silent, final int localDuration, final int cid) {
         if (effect.isHide() && isGM()) {
             this.hidden = true;
             map.broadcastNONGMMessage(this, MaplePacketCreator.removePlayerFromMap(getId()), false);
@@ -1996,7 +1996,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public void cancelEffect(final MapleStatEffect effect, final boolean overwrite, final long startTime,
-            List<Pair<MapleBuffStat, Integer>> statups) {
+                             List<Pair<MapleBuffStat, Integer>> statups) {
         List<MapleBuffStat> buffstats;
         if (!overwrite) {
             buffstats = getBuffStats(effect, startTime);
@@ -2044,10 +2044,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             cancelPlayerBuffs(buffstats);
             if ((isGM() && effect.isHide())
                     && client.getChannelServer().getPlayerStorage().getCharacterById(this.getId()) != null) { // Wow
-                                                                                                              // this is
-                                                                                                              // so
-                                                                                                              // fking
-                                                                                                              // hacky...
+                // this is
+                // so
+                // fking
+                // hacky...
                 this.hidden = false;
                 if (isGod()) {
                     map.broadcastGMMessage(this, MaplePacketCreator.spawnPlayerMapobject(this), false);
@@ -2129,12 +2129,12 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             if (skillid == 0) {
                 if (mbsvh.effect.isSkill()
                         && (mbsvh.effect.getSourceId() == 4331003 || mbsvh.effect.getSourceId() == 4331002
-                                || mbsvh.effect.getSourceId() == 4341002 || mbsvh.effect.getSourceId() == 22131001
-                                || mbsvh.effect.getSourceId() == 1321007 || mbsvh.effect.getSourceId() == 2121005
-                                || mbsvh.effect.getSourceId() == 2221005 || mbsvh.effect.getSourceId() == 2311006
-                                || mbsvh.effect.getSourceId() == 2321003 || mbsvh.effect.getSourceId() == 3111002
-                                || mbsvh.effect.getSourceId() == 3111005 || mbsvh.effect.getSourceId() == 3211002
-                                || mbsvh.effect.getSourceId() == 3211005 || mbsvh.effect.getSourceId() == 4111002)) {
+                        || mbsvh.effect.getSourceId() == 4341002 || mbsvh.effect.getSourceId() == 22131001
+                        || mbsvh.effect.getSourceId() == 1321007 || mbsvh.effect.getSourceId() == 2121005
+                        || mbsvh.effect.getSourceId() == 2221005 || mbsvh.effect.getSourceId() == 2311006
+                        || mbsvh.effect.getSourceId() == 2321003 || mbsvh.effect.getSourceId() == 3111002
+                        || mbsvh.effect.getSourceId() == 3111005 || mbsvh.effect.getSourceId() == 3211002
+                        || mbsvh.effect.getSourceId() == 3211005 || mbsvh.effect.getSourceId() == 4111002)) {
                     cancelEffect(mbsvh.effect, false, mbsvh.startTime);
                     break;
                 }
@@ -3110,8 +3110,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * Convenience function which adds the supplied parameter to the current hp
      * then directly does a updateSingleStat.
      *
-     * @see MapleCharacter#setHp(int)
      * @param delta
+     * @see MapleCharacter#setHp(int)
      */
     public void addHP(int delta) {
         if (stats.setHp(stats.getHp() + delta)) {
@@ -3123,8 +3123,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * Convenience function which adds the supplied parameter to the current mp
      * then directly does a updateSingleStat.
      *
-     * @see MapleCharacter#setMp(int)
      * @param delta
+     * @see MapleCharacter#setMp(int)
      */
     public void addMP(int delta) {
         if (stats.setMp(stats.getMp() + delta)) {
@@ -3243,7 +3243,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public void gainExpMonster(int gain, final boolean show, final boolean white, final byte pty, int Class_Bonus_EXP,
-            int Equipment_Bonus_EXP, int Premium_Bonus_EXP) {
+                               int Equipment_Bonus_EXP, int Premium_Bonus_EXP) {
         if (this == null) {
             return;
         }
@@ -3451,7 +3451,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public void forceReAddItem(IItem item, MapleInventoryType type) { // used for stuff like durability, item exp/level,
-                                                                      // probably owner?
+        // probably owner?
         forceReAddItem_NoUpdate(item, type);
         if (type != MapleInventoryType.UNDEFINED) {
             client.sendPacket(
@@ -3841,10 +3841,10 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         statup.put(MapleStat.LEVEL, (int) level);
 
         if (isGM() || (job != 0 && job != 1000 && job != 2000 && job != 2001 && job != 3000) || (level > 9)) { // Not
-                                                                                                               // Beginner,
-                                                                                                               // Nobless
-                                                                                                               // and
-                                                                                                               // Legend
+            // Beginner,
+            // Nobless
+            // and
+            // Legend
             remainingSp[GameConstants.getSkillBook(this.job)] += 3;
             client.sendPacket(MaplePacketCreator.updateSp(this, false));
         } else if (level <= 10) {
@@ -3885,7 +3885,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
          * + getName() + " 皇家骑士团到达120级。"));
          * }
          * }
-         * 
+         *
          * if (level == 200) {
          * World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, "[恭贺] 玩家"
          * + getName() + " 到达200级。"));
@@ -4078,7 +4078,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
                     if (gmlevel > 100) {
                         try ( // admin ban
-                                PreparedStatement psa = con.prepareStatement("SELECT * FROM accounts WHERE id = ?")) {
+                              PreparedStatement psa = con.prepareStatement("SELECT * FROM accounts WHERE id = ?")) {
                             psa.setInt(1, z);
                             try (ResultSet rsa = psa.executeQuery()) {
                                 if (rsa.next()) {
@@ -4471,7 +4471,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         List<MaplePet> petsz = getSummonedPets();
         if (petsz.size() >= 3 || petsz.size() < 1) {
         } else {
-            boolean[] indexBool = new boolean[] { false, false, false };
+            boolean[] indexBool = new boolean[]{false, false, false};
             for (int i = 0; i < 3; i++) {
                 for (MaplePet p : petsz) {
                     if (p.getSummonedValue() == i + 1) {
@@ -4499,7 +4499,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         if (petsz.size() >= 3) {
             unequipPet(getSummonedPet(0), false);
         } else {
-            boolean[] indexBool = new boolean[] { false, false, false };
+            boolean[] indexBool = new boolean[]{false, false, false};
             for (int i = 0; i < 3; i++) {
                 for (MaplePet p : petsz) {
                     if (p.getSummonedValue() == i + 1) {
@@ -4597,8 +4597,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         lastmonthfameids.add(to.getId());
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con
-                        .prepareStatement("INSERT INTO famelog (characterid, characterid_to) VALUES (?, ?)")) {
+             PreparedStatement ps = con
+                     .prepareStatement("INSERT INTO famelog (characterid, characterid_to) VALUES (?, ?)")) {
             ps.setInt(1, getId());
             ps.setInt(2, to.getId());
             ps.execute();
@@ -4839,8 +4839,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public void saveFamilyStatus() {
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement(
-                        "UPDATE characters SET familyid = ?, seniorid = ?, junior1 = ?, junior2 = ? WHERE id = ?")) {
+             PreparedStatement ps = con.prepareStatement(
+                     "UPDATE characters SET familyid = ?, seniorid = ?, junior1 = ?, junior2 = ? WHERE id = ?")) {
             if (mfc == null) {
                 ps.setInt(1, 0);
                 ps.setInt(2, 0);
@@ -4871,7 +4871,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     /**
-     *
      * @param type     1 = NX点数 2 = 枫叶点数
      * @param quantity 获得点数数量
      * @param show     是否提示获得
@@ -5132,8 +5131,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
             ResultSet rs;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                    PreparedStatement ps = con.prepareStatement(
-                            "SELECT SkillID,StartTime,length FROM skills_cooldowns WHERE charid = ?")) {
+                 PreparedStatement ps = con.prepareStatement(
+                         "SELECT SkillID,StartTime,length FROM skills_cooldowns WHERE charid = ?")) {
                 ps.setInt(1, getId());
                 rs = ps.executeQuery();
                 while (rs.next()) {
@@ -5232,8 +5231,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public void showNote() {
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM notes WHERE `to`=?",
-                        ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM notes WHERE `to`=?",
+                     ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE)) {
             ps.setString(1, getName());
             try (ResultSet rs = ps.executeQuery()) {
                 rs.last();
@@ -5987,7 +5986,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         try {
             int id;
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                    PreparedStatement ps = con.prepareStatement("SELECT id FROM characters WHERE name = ?")) {
+                 PreparedStatement ps = con.prepareStatement("SELECT id FROM characters WHERE name = ?")) {
                 ps.setString(1, name);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (!rs.next()) {
@@ -6036,11 +6035,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * finishedAchievements.add(id);
      * }
      * }
-     * 
+     *
      * public boolean achievementFinished(int achievementid) {
      * return finishedAchievements.contains(achievementid);
      * }
-     * 
+     *
      * public void finishAchievement(int id) {
      * if (!achievementFinished(id)) {
      * if (isAlive() && !isClone()) {
@@ -6048,11 +6047,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * }
      * }
      * }
-     * 
+     *
      * public List<Integer> getFinishedAchievements() {
      * return finishedAchievements;
      * }
-     * 
+     *
      * public void modifyAchievementCSPoints(int type, int quantity) {
      * switch (type) {
      * case 1:
@@ -6202,9 +6201,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                     } else if (frings.isEmpty() && GameConstants.isFriendshipRing(item.getItemId())) {
                         frings.add(ring);
                     } // for 3rd person the actual slot doesnt matter, so we'll use this to have both
-                      // shirt/ring same?
-                      // however there seems to be something else behind this, will have to sniff
-                      // someone with shirt and ring, or more conveniently 3-4 of those
+                    // shirt/ring same?
+                    // however there seems to be something else behind this, will have to sniff
+                    // someone with shirt and ring, or more conveniently 3-4 of those
                 }
             }
         }
@@ -6547,7 +6546,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
         }
         client.sendPacket(PetPacket.petStatUpdate(this));
-        petStore = new byte[] { -1, -1, -1 };
+        petStore = new byte[]{-1, -1, -1};
     }
 
     public final byte[] getPetStores() {
@@ -6696,7 +6695,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * updateBuffTime(2022530, 0);
      * }
      * }
-     * 
+     *
      * if (getBuffTimeCout(2022531) > 0) {
      * long startTime = getBuffTimeStartTime(2022531);
      * int length = getBuffTimeLength(2022531);
@@ -6707,7 +6706,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * updateBuffTime(2022531, 0);
      * }
      * }
-     * 
+     *
      * if (getBuffTimeCout(2001002) > 0) {
      * long startTime = getBuffTimeStartTime(2001002);
      * int length = getBuffTimeLength(2001002);
@@ -6729,7 +6728,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * }
      * }
      * }
-     * 
+     *
      * public void giveBuffTime() {
      * dispelBuff(2450000);
      * if (getBuffTimeCout(2450000) > 0) {
@@ -6804,7 +6803,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * if (startTime + length - System.currentTimeMillis() > 15000) {
      * SkillFactory.getSkill(2001002).getEffect(getSkillLevel(2001002)).applyTo(
      * this, length, true);
-     * 
+     *
      * } else {
      * updateBuffTime(2001002, 0);
      * }
@@ -6821,7 +6820,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * }
      * }
      * }
-     * 
+     *
      * public void cancelBuffTime(int a, int itemid) {
      * if (a < 0) {
      * if (itemid == 2022179) {
@@ -8491,9 +8490,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ps.execute();
                 if (showMessage) {
                     String MSG = "「" + /* ( *//* chr.isVip() *//*
-                                                                * chr.isVip(chr.getClient().getAccID()) ?
-                                                                * chr.getVipName() : "") +
-                                                                */ "在线奖励」获得在线点数 " + MP + " 若要领取请输入 @在线点数/@jcds";
+                     * chr.isVip(chr.getClient().getAccID()) ?
+                     * chr.getVipName() : "") +
+                     */ "在线奖励」获得在线点数 " + MP + " 若要领取请输入 @在线点数/@jcds";
                     chr.dropMessage(MSG);
                 }
             }
@@ -8656,7 +8655,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * public String getLoginKey(int aid) {
      * return loadLoginKey(aid);
      * }
-     * 
+     *
      * public String loadLoginKey(int accountID) {
      * String loginkey = null;
      * try (Connection con =
@@ -8670,7 +8669,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * ps.close();
      * rs.close();
      * }
-     * 
+     *
      * } catch (SQLException e) {
      * FileoutputUtil.outError("logs/资料库异常.txt", e);
      * }
@@ -8685,7 +8684,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * public String getServerKey(int aid) {
      * return loadServerKey(aid);
      * }
-     * 
+     *
      * public String loadServerKey(int accountID) {
      * String serverkey = null;
      * try (Connection con =
@@ -8699,7 +8698,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * ps.close();
      * rs.close();
      * }
-     * 
+     *
      * } catch (SQLException e) {
      * FileoutputUtil.outError("logs/资料库异常.txt", e);
      * }
@@ -8714,7 +8713,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * public String getClientKey(int aid) {
      * return loadClientKey(aid);
      * }
-     * 
+     *
      * public String loadClientKey(int accountID) {
      * String serverkey = null;
      * try (Connection con =
@@ -8728,7 +8727,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * ps.close();
      * rs.close();
      * }
-     * 
+     *
      * } catch (SQLException e) {
      * FileoutputUtil.outError("logs/资料库异常.txt", e);
      * }
@@ -8739,8 +8738,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         String ip = lip.substring(1, lip.lastIndexOf(':'));
         boolean ret = false;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con
-                        .prepareStatement("SELECT COUNT(*) FROM dangerousip WHERE ? LIKE CONCAT(ip, '%')")) {
+             PreparedStatement ps = con
+                     .prepareStatement("SELECT COUNT(*) FROM dangerousip WHERE ? LIKE CONCAT(ip, '%')")) {
             ps.setString(1, ip);
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
@@ -8770,7 +8769,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     public final void updateNewState(int newstate, int accountId) {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `loggedin` = ? WHERE id = ?")) {
+             PreparedStatement ps = con.prepareStatement("UPDATE `accounts` SET `loggedin` = ? WHERE id = ?")) {
             ps.setInt(1, newstate);
             ps.setInt(2, accountId);
             ps.executeUpdate();
@@ -8859,7 +8858,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * public int getCSDJ() {
      * return getCSDJ(this);
      * }
-     * 
+     *
      * public int getCSDJ(MapleCharacter chr) {
      * int maxtimes = 10;
      * int nowtime = 0;
@@ -8905,7 +8904,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * } while (error && (nowtime < maxtimes));
      * return x;
      * }
-     * 
+     *
      * public void setCSDJ(int x) {
      * try (Connection con =
      * DBConPool.getInstance().getDataSource().getConnection()) {
@@ -8924,11 +8923,11 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * FileoutputUtil.outError("logs/资料库异常.txt", ex);
      * }
      * }
-     * 
+     *
      * public int getOCSDJ() {
      * return getCSDJ(this);
      * }
-     * 
+     *
      * public byte getOCSDJ(MapleCharacter chr) {
      * int maxtimes = 10;
      * int nowtime = 0;
@@ -8974,7 +8973,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
      * } while (error && (nowtime < maxtimes));
      * return x;
      * }
-     * 
+     *
      * public void setOCSDJ(byte x) {
      * try (Connection con =
      * DBConPool.getInstance().getDataSource().getConnection()) {
@@ -9044,8 +9043,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public boolean ChrDangerousAcc(String acc) {
         boolean ret = false;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con
-                        .prepareStatement("SELECT COUNT(*) FROM dangerousacc WHERE ? LIKE CONCAT(acc, '%')")) {
+             PreparedStatement ps = con
+                     .prepareStatement("SELECT COUNT(*) FROM dangerousacc WHERE ? LIKE CONCAT(acc, '%')")) {
             ps.setString(1, acc);
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
@@ -9899,7 +9898,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     /**
      * 获取怪物手册增加的四维+hp/mp
-     * 
+     *
      * @return
      */
     public short getMonsterBookUpStat() {
@@ -10532,7 +10531,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
         return Integer.parseInt(stat.getCustomData());
     }
-    
+
     public final int[] StringtoInt(final String str) {
         int[] ret = new int[100]; //最大支持100个前置条件参数
         StringTokenizer toKenizer = new StringTokenizer(str, ",");
@@ -10543,8 +10542,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         }
         return ret;
     }
-    
-        //高级任务系统 - 检查基础条件是否符合所有任务前置条件
+
+    //高级任务系统 - 检查基础条件是否符合所有任务前置条件
     public final boolean MissionCanMake(final int missionid) {
         boolean ret = true;
         for (int i = 1; i < 5; i++) {
@@ -10667,7 +10666,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                     break;
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionGetIntData:"+ ex);
+            System.err.println("Error MissionGetIntData:" + ex);
         }
         return ret;
     }
@@ -10709,7 +10708,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                     break;
             }
         } catch (SQLException ex) {
-            System.err.println("Error MissionCanMake:"+ ex);
+            System.err.println("Error MissionCanMake:" + ex);
         }
         return ret;
     }
@@ -10730,7 +10729,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionGetJoblist:"+ ex);
+            System.err.println("Error MissionGetJoblist:" + ex);
         }
         return ret.toString();
     }
@@ -10748,7 +10747,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ps.executeUpdate();
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionMake:"+ ex);
+            System.err.println("Error MissionMake:" + ex);
         }
     }
 
@@ -10766,7 +10765,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ps.executeUpdate();
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionFinish:"+ ex);
+            System.err.println("Error MissionFinish:" + ex);
         }
     }
 
@@ -10797,7 +10796,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionFinish:"+ ex);
+            System.err.println("Error MissionFinish:" + ex);
         }
         return ret;
     }
@@ -10811,7 +10810,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ps.executeUpdate();
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionDelete:"+ ex);
+            System.err.println("Error MissionDelete:" + ex);
         }
     }
 
@@ -10825,7 +10824,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ps.executeUpdate();
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionAddNum:"+ ex);
+            System.err.println("Error MissionAddNum:" + ex);
         }
     }
 
@@ -10839,7 +10838,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ps.executeUpdate();
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionAddNum:"+ ex);
+            System.err.println("Error MissionAddNum:" + ex);
         }
     }
 
@@ -10870,7 +10869,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionMob:"+ ex);
+            System.err.println("Error MissionMob:" + ex);
         }
         return ret;
     }
@@ -10902,7 +10901,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionMob:"+ ex);
+            System.err.println("Error MissionMob:" + ex);
         }
         return ret;
     }
@@ -10922,7 +10921,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionMob:"+ ex);
+            System.err.println("Error MissionMob:" + ex);
         }
         return ret;
     }
@@ -10937,7 +10936,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ps.executeUpdate();
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionAddNum:"+ ex);
+            System.err.println("Error MissionAddNum:" + ex);
         }
     }
 
@@ -10951,7 +10950,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ps.executeUpdate();
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionMaxNum:"+ ex);
+            System.err.println("Error MissionMaxNum:" + ex);
         }
     }
 
@@ -10970,7 +10969,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionMob:"+ ex);
+            System.err.println("Error MissionMob:" + ex);
         }
         return ret;
     }
@@ -10984,7 +10983,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 ps.executeUpdate();
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionDeleteNotFinish:"+ ex);
+            System.err.println("Error MissionDeleteNotFinish:" + ex);
         }
     }
 
@@ -11035,7 +11034,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
             }
         } catch (final SQLException ex) {
-            System.err.println("Error MissionStatus:"+ ex);
+            System.err.println("Error MissionStatus:" + ex);
         }
         //判断检查状态类型
         switch (checktype) {
@@ -11124,5 +11123,5 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     public int getNX() {
         return this.getCSPoints(1);
     }
-    
+
 }

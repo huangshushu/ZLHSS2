@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Administrator
  */
 public class 游戏抽奖工具 extends javax.swing.JFrame {
@@ -57,19 +56,19 @@ public class 游戏抽奖工具 extends javax.swing.JFrame {
         删除NPC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         游戏抽奖.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "物品代码", "名称"
-            }
+                },
+                new String[]{
+                        "物品代码", "名称"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane106.setViewportView(游戏抽奖);
@@ -142,6 +141,7 @@ public class 游戏抽奖工具 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "请输入数字 ");
         }
     }//GEN-LAST:event_删除游戏抽奖ActionPerformed
+
     public void 刷新游戏抽奖() {
         for (int i = this.游戏抽奖.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.游戏抽奖.getModel())).removeRow(i);

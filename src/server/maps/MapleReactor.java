@@ -177,7 +177,7 @@ public class MapleReactor extends AbstractMapleMapObject {
         }
     }
     */
-    
+
     public void hitReactor(int charPos, short stance, MapleClient c) {
         if (stats.getType(state) < 999 && stats.getType(state) != -1) {
             //type 2 = only hit from right (kerning swamp plants), 00 is air left 02 is ground left

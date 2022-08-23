@@ -214,7 +214,7 @@ public class FamilyPacket {
 
     /**
      * Family Result Message
-     *
+     * <p>
      * Possible values for <code>type</code>:<br>
      * 67: You do not belong to the same family.<br>
      * 69: The character you wish to add as\r\na Junior must be in the same

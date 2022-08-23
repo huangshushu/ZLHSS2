@@ -267,8 +267,8 @@ public enum RecvPacketOpcode implements WritableIntValueHolder {
         String fileName = "recv.ini";
         Properties props = new Properties();
         try (FileInputStream fileInputStream = new FileInputStream(fileName);
-                BufferedReader br = new BufferedReader(
-                        new InputStreamReader(fileInputStream, StringUtil.codeString(fileName)))) {
+             BufferedReader br = new BufferedReader(
+                     new InputStreamReader(fileInputStream, StringUtil.codeString(fileName)))) {
             props.load(br);
         } catch (IOException ex) {
             InputStream in = RecvPacketOpcode.class.getClassLoader().getResourceAsStream("properties/" + fileName);

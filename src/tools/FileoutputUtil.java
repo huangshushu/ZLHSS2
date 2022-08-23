@@ -35,9 +35,9 @@ public class FileoutputUtil {
             Login_Error = "logs\\Log_Login_Error.txt",
             IP_Log = "logs\\Log_AccountIP.txt",
             GMCommand_Log = "logs\\Log_GMCommand.txt",
-            // Zakum_Log = "Log_Zakum.rtf",
-            // Horntail_Log = "Log_Horntail.rtf",
-            UnknownPacket_Log = "logs\\数据包_未知.txt",
+    // Zakum_Log = "Log_Zakum.rtf",
+    // Horntail_Log = "Log_Horntail.rtf",
+    UnknownPacket_Log = "logs\\数据包_未知.txt",
             Packet_Log = "logs\\数据包收发\\Log.txt",
             Pinkbean_Log = "logs\\Log_Pinkbean.rtf",
             ScriptEx_Log = "logs\\Log_Script_Except.txt",
@@ -49,7 +49,7 @@ public class FileoutputUtil {
             Client_Error_2 = "logs/Client/用户端_报错_非38.txt",
             Client_Error = "logs/Client/用户端_报错.txt",
             CommandEx_Log = "logs/Except/Log_Command_Except.txt" // PQ_Log = "Log_PQ.rtf"
-    ;
+                    ;
     // End
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static final SimpleDateFormat sdfGMT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -160,7 +160,6 @@ public class FileoutputUtil {
     }
 
     /**
-     *
      * @param file      - 档案名称(包含目录)
      * @param msg       - 要记录的讯息
      * @param notExists - 档案是否存在

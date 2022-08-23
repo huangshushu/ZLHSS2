@@ -8,7 +8,6 @@ package constants;
 import client.MapleJob;
 
 /**
- *
  * @author pungin
  */
 public class SkillConstants {
@@ -147,7 +146,7 @@ public class SkillConstants {
         return ((skil < 80000000 || skil >= 100000000) && (skil % 10000 < 8000 || skil % 10000 > 8006) && !isAngel(skil)) || skil >= 92000000 || (skil >= 80000000 && skil < 80010000); //no additional/decent skills
     }
 
-//    public static boolean isApplicableSkill_(int skil) { //not applicable to saving but is more of temporary
+    //    public static boolean isApplicableSkill_(int skil) { //not applicable to saving but is more of temporary
 //        for (int i : PlayerStats.pvpSkills) {
 //            if (skil == i) {
 //                return true;
@@ -405,7 +404,7 @@ public class SkillConstants {
         return 0;
     }
 
-//    private static List<Integer> SoulSkills;
+    //    private static List<Integer> SoulSkills;
 //    public static List<Integer> getSoulSkills() {
 //        if (SoulSkills != null) {
 //            return SoulSkills;

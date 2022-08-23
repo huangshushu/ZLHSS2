@@ -121,7 +121,7 @@ public class LoginPacket {
         mplew.write(HexTool.getByteArrayFromHexString("00 00 00 00 00"));
         mplew.write(reason);
         mplew.writeLong(timestampTill); // Tempban date is handled as a 64-bit long, number of 100NS intervals since
-                                        // 1/1/1601. Lulz.
+        // 1/1/1601. Lulz.
 
         return mplew.getPacket();
     }
@@ -300,7 +300,7 @@ public class LoginPacket {
     }
 
     private static final void addCharEntry(final MaplePacketLittleEndianWriter mplew, final MapleCharacter chr,
-            boolean ranking) {
+                                           boolean ranking) {
         PacketHelper.addCharStats(mplew, chr);
         PacketHelper.addCharLook(mplew, chr, true);
         mplew.write(0); // <-- who knows

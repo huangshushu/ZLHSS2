@@ -7,7 +7,6 @@ import javax.swing.table.DefaultTableModel;
 import java.util.Map;
 
 /**
- *
  * @author Administrator
  */
 public class 代码查询工具 extends javax.swing.JFrame {
@@ -54,9 +53,9 @@ public class 代码查询工具 extends javax.swing.JFrame {
         DefaultTableModel model = ((DefaultTableModel) jTable1.getModel());
         for (int i : data.keySet()) {
             model.addRow(new Object[]{
-                type.name(),
-                data.get(i),
-                i
+                    type.name(),
+                    data.get(i),
+                    i
             });
         }
         return true;
@@ -98,7 +97,7 @@ public class 代码查询工具 extends javax.swing.JFrame {
         jLabel1.setText("搜索类型:");
         jPanel4.add(jLabel1);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "全部", "道具", "NPC", "地图", "怪物", "任务", "技能", "职业", "服务端包头", "客户端包头", "发型", "脸型", "SN" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"全部", "道具", "NPC", "地图", "怪物", "任务", "技能", "职业", "服务端包头", "客户端包头", "发型", "脸型", "SN"}));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -121,26 +120,26 @@ public class 代码查询工具 extends javax.swing.JFrame {
         jPanel4.add(jButton1);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "类型", "名称或ID", "值"
-            }
+                },
+                new String[]{
+                        "类型", "名称或ID", "值"
+                }
         ) {
-            final Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            final Class[] types = new Class[]{
+                    java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
-            final boolean[] canEdit = new boolean [] {
-                false, true, true
+            final boolean[] canEdit = new boolean[]{
+                    false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane1.setViewportView(jTable1);

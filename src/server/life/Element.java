@@ -5,18 +5,18 @@ public enum Element {
 
     private final int value;
     private boolean special = false;
-    
+
     Element(int v) {
-	this.value = v;
+        this.value = v;
     }
 
     Element(int v, boolean special) {
-	this.value = v;
-	this.special = special;
+        this.value = v;
+        this.special = special;
     }
 
     public boolean isSpecial() {
-	return special;
+        return special;
     }
 
     public static Element getFromChar(char c) {
@@ -41,14 +41,14 @@ public enum Element {
 
     public static Element getFromId(int c) {
         for (Element e : Element.values()) {
-	    if (e.value == c) {
-		return e;
-	    }
-	}
-	throw new IllegalArgumentException("unknown elemnt id " + c);
+            if (e.value == c) {
+                return e;
+            }
+        }
+        throw new IllegalArgumentException("unknown elemnt id " + c);
     }
 
     public int getValue() {
-	return value;
+        return value;
     }
 }

@@ -511,7 +511,7 @@ public class PlayersHandler {
     }
 
     public static void LieDetector(final LittleEndianAccessor slea, final MapleClient c, final MapleCharacter chr,
-            boolean isItem) {
+                                   boolean isItem) {
         if ((chr == null) || (chr.getMap() == null)) {
             return;
         }

@@ -1,5 +1,4 @@
 package org.jvnet.substance.theme;
 
-public class BusinessBlackSteelSkin
-{
+public class BusinessBlackSteelSkin {
 }

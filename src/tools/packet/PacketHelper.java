@@ -70,7 +70,7 @@ public class PacketHelper {
         }
         return time + FT_UT_OFFSET;
     }
-    
+
     public static void addImageInfo(MaplePacketLittleEndianWriter mplew, byte[] image) {
         mplew.writeInt(image.length);
         mplew.write(image);

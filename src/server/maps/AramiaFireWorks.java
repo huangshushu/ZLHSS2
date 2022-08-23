@@ -41,9 +41,9 @@ public class AramiaFireWorks {
     private static final int[] arrayX = {-255};
     private static final int[] arrayY = {340};
     private static final int[] array_X = {720, 180, 630, 270, 360, 540, 450, 142,
-        142, 218, 772, 810, 848, 232, 308, 142};
+            142, 218, 772, 810, 848, 232, 308, 142};
     private static final int[] array_Y = {1234, 1234, 1174, 1234, 1174, 1174, 1174, 1260,
-        1234, 1234, 1234, 1234, 1234, 1114, 1114, 1140};
+            1234, 1234, 1234, 1234, 1234, 1114, 1114, 1140};
     private static final int flake_Y = 149;
 
     public static final AramiaFireWorks getInstance() {

@@ -53,7 +53,8 @@ public enum MapleWeaponType {
     琉(1.49f, 20),
     璃(1.34f, 20),
     ESP限制器(1.0f, 20),
-    未知(0.0f, 0),;
+    未知(0.0f, 0),
+    ;
     private final float damageMultiplier; // 武器系数
     private final int baseMastery; // 初始武器熟练度
 

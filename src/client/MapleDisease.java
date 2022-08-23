@@ -41,7 +41,8 @@ public enum MapleDisease implements Serializable {
     SEAL(0x8000000000000L),
     DARKNESS(0x10000000000000L),
     WEAKEN(0x4000000000000000L),
-    CURSE(0x8000000000000000L),;
+    CURSE(0x8000000000000000L),
+    ;
 
     // 0x100 is disable skill except buff
     private static final long serialVersionUID = 0L;

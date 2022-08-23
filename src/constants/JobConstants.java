@@ -12,7 +12,8 @@ public class JobConstants {
 
         冒险家(0),
         皇家骑士团(1),
-        狂狼勇士(2),;
+        狂狼勇士(2),
+        ;
         private final int jobType;
         private final boolean enableCreate = true;
 

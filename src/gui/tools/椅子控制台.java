@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Administrator
  */
 public class 椅子控制台 extends javax.swing.JFrame {
@@ -465,6 +464,7 @@ public class 椅子控制台 extends javax.swing.JFrame {
             Logger.getLogger(椅子控制台.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_备注修改ActionPerformed
+
     private void 刷新泡澡浴桶() {
         浴桶间隔.setText("" + gui.Maple.ConfigValuesMap.get("浴桶椅子0") + "");
         浴桶经验1.setText("" + gui.Maple.ConfigValuesMap.get("浴桶椅子1") + "");

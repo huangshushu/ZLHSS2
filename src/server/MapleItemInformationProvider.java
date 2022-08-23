@@ -133,7 +133,7 @@ public class MapleItemInformationProvider {
          * 0);
          * item.incMHP = (short) MapleDataTool.getIntConvert("incMHP", level, 0);
          * item.incMMP = (short) MapleDataTool.getIntConvert("incMMP", level, 0);
-         * 
+         *
          * item.incSTR = (byte) MapleDataTool.getIntConvert("incSTR", level, 0);
          * item.incDEX = (byte) MapleDataTool.getIntConvert("incDEX", level, 0);
          * item.incINT = (byte) MapleDataTool.getIntConvert("incINT", level, 0);
@@ -292,11 +292,11 @@ public class MapleItemInformationProvider {
 
     public MapleWeaponType getWeaponType(int itemId) {
         int cat = (itemId / 10000) % 100;
-        MapleWeaponType[] type = { MapleWeaponType.单手剑, MapleWeaponType.单手斧, MapleWeaponType.单手棍, MapleWeaponType.短剑,
+        MapleWeaponType[] type = {MapleWeaponType.单手剑, MapleWeaponType.单手斧, MapleWeaponType.单手棍, MapleWeaponType.短剑,
                 MapleWeaponType.没有武器, MapleWeaponType.没有武器, MapleWeaponType.没有武器, MapleWeaponType.长杖,
                 MapleWeaponType.短杖, MapleWeaponType.没有武器, MapleWeaponType.双手剑, MapleWeaponType.双手斧, MapleWeaponType.双手棍,
                 MapleWeaponType.矛, MapleWeaponType.枪, MapleWeaponType.弓, MapleWeaponType.弩, MapleWeaponType.拳套,
-                MapleWeaponType.指虎, MapleWeaponType.火枪 };
+                MapleWeaponType.指虎, MapleWeaponType.火枪};
         if (cat < 30 || cat > 49) {
             return MapleWeaponType.没有武器;
         }
@@ -639,7 +639,7 @@ public class MapleItemInformationProvider {
         for (MapleData dat : info.getChildren()) {
             for (MapleData data : dat.getChildren()) { // why we have to do this? check if number has skills or not
                 if (data.getName().length() == 1) { // the numbers all them are one digit. everything else isnt so we're
-                                                    // lucky here..
+                    // lucky here..
                     List<Integer> adds = new ArrayList<>();
                     for (MapleData skil : data.getChildByPath("Skill").getChildren()) {
                         adds.add(MapleDataTool.getIntConvert("id", skil, 0));
@@ -706,7 +706,7 @@ public class MapleItemInformationProvider {
     }
 
     public final boolean canEquip(final Map<String, Integer> stats, final int itemid, final int level, final int job,
-            final int fame, final int str, final int dex, final int luk, final int int_, final int supremacy) {
+                                  final int fame, final int str, final int dex, final int luk, final int int_, final int supremacy) {
         if ((level + supremacy) >= stats.get("reqLevel") && str >= stats.get("reqSTR") && dex >= stats.get("reqDEX")
                 && luk >= stats.get("reqLUK") && int_ >= stats.get("reqINT")) {
             final int fameReq = stats.get("reqPOP");
@@ -758,23 +758,23 @@ public class MapleItemInformationProvider {
     }
 
     public final IItem scrollEquipWithId(final IItem equip, final IItem scrollId, final boolean ws,
-            final MapleCharacter chr, final int vegas) {
+                                         final MapleCharacter chr, final int vegas) {
         if (equip.getType() == 1) { // See IItem.java
             final Equip nEquip = (Equip) equip;
             final Map<String, Integer> stats = getEquipStats(scrollId.getItemId());
             final Map<String, Integer> eqstats = getEquipStats(equip.getItemId());
             final int succ = (GameConstants
                     .isTablet(scrollId.getItemId())
-                            ? GameConstants.getSuccessTablet(scrollId.getItemId(), nEquip.getLevel())
-                            : ((GameConstants.isEquipScroll(scrollId.getItemId())
-                                    || GameConstants.isPotentialScroll(scrollId.getItemId()) ? 0
-                                            : stats.get("success"))));
+                    ? GameConstants.getSuccessTablet(scrollId.getItemId(), nEquip.getLevel())
+                    : ((GameConstants.isEquipScroll(scrollId.getItemId())
+                    || GameConstants.isPotentialScroll(scrollId.getItemId()) ? 0
+                    : stats.get("success"))));
             final int curse = (GameConstants
                     .isTablet(scrollId.getItemId())
-                            ? GameConstants.getCurseTablet(scrollId.getItemId(), nEquip.getLevel())
-                            : ((GameConstants.isEquipScroll(scrollId.getItemId())
-                                    || GameConstants.isPotentialScroll(scrollId.getItemId()) ? 0
-                                            : stats.get("cursed"))));
+                    ? GameConstants.getCurseTablet(scrollId.getItemId(), nEquip.getLevel())
+                    : ((GameConstants.isEquipScroll(scrollId.getItemId())
+                    || GameConstants.isPotentialScroll(scrollId.getItemId()) ? 0
+                    : stats.get("cursed"))));
             int success = succ + (vegas == 5610000 && succ == 10 ? 20 : (vegas == 5610001 && succ == 60 ? 30 : 0));
             if (GameConstants.isPotentialScroll(scrollId.getItemId())
                     || GameConstants.isEquipScroll(scrollId.getItemId()) || Randomizer.nextInt(100) <= success) {
@@ -1417,7 +1417,7 @@ public class MapleItemInformationProvider {
         if (!faceList.isEmpty()) {
             return;
         }
-        String[] types = { "Face" };
+        String[] types = {"Face"};
         for (String type : types) {
             for (MapleData c : stringData.getData("Eqp.img").getChildByPath("Eqp/" + type)) {
                 if (equipData
@@ -1455,7 +1455,7 @@ public class MapleItemInformationProvider {
             return null;
         }
         int totalprob = 0; // As there are some rewards with prob above 2000, we can't assume it's always
-                           // 100
+        // 100
         List<StructRewardItem> all = new ArrayList<>();
 
         for (final MapleData reward : rewards) {
@@ -1652,7 +1652,7 @@ public class MapleItemInformationProvider {
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             try {
                 try (PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_hairdata ORDER BY `hairid`");
-                        ResultSet rs = ps.executeQuery()) {
+                     ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
                         hairList.put(rs.getInt("hairid"), rs.getString("name"));
                     }
@@ -1664,7 +1664,7 @@ public class MapleItemInformationProvider {
             }
             try {
                 try (PreparedStatement ps = con.prepareStatement("SELECT * FROM wz_facedata ORDER BY `faceid`");
-                        ResultSet rs = ps.executeQuery()) {
+                     ResultSet rs = ps.executeQuery()) {
                     while (rs.next()) {
                         faceLists.put(rs.getInt("faceid"), rs.getString("name"));
                     }

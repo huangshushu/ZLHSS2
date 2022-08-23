@@ -19,7 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Administrator
  */
 public class 药水冷却时间控制台 extends javax.swing.JFrame {
@@ -62,22 +61,22 @@ public class 药水冷却时间控制台 extends javax.swing.JFrame {
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         药水冷却.setModel(new DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "序号", "药水", "冷却"
-            }
+                new Object[][]{
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null}
+                },
+                new String[]{
+                        "序号", "药水", "冷却"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane2.setViewportView(药水冷却);
@@ -128,6 +127,7 @@ public class 药水冷却时间控制台 extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         刷新药水冷却();
     }//GEN-LAST:event_jButton5ActionPerformed
+
     private void 刷新药水冷却() {
         for (int i = this.药水冷却.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.药水冷却.getModel())).removeRow(i);
@@ -139,9 +139,9 @@ public class 药水冷却时间控制台 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 药水冷却.getModel()).insertRow(药水冷却.getRowCount(), new Object[]{
-                    rs.getInt("id"),
-                    rs.getString("Name"),
-                    rs.getInt("Val")
+                        rs.getInt("id"),
+                        rs.getString("Name"),
+                        rs.getInt("Val")
                 });
             }
         } catch (SQLException ex) {
@@ -160,6 +160,7 @@ public class 药水冷却时间控制台 extends javax.swing.JFrame {
         });
 
     }
+
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         PreparedStatement ps = null;

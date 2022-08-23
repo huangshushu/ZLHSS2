@@ -34,7 +34,7 @@ public class StatsHandling {
 
     //分配属性点
     public static final void DistributeAP(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                          final MapleCharacter chr) {
         Map<MapleStat, Integer> statupdate = new EnumMap<>(MapleStat.class);
         if (chr != null) {
             c.sendPacket(MaplePacketCreator.updatePlayerStats(statupdate, true, chr));
@@ -291,7 +291,7 @@ public class StatsHandling {
     }
 
     public static final void AutoAssignAP(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                          final MapleCharacter chr) {
         chr.updateTick(slea.readInt());
         slea.skip(4);
 

@@ -20,7 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Administrator
  */
 public class 金锤子成功率控制台 extends javax.swing.JFrame {
@@ -120,19 +119,19 @@ public class 金锤子成功率控制台 extends javax.swing.JFrame {
         金锤子表.setFont(new java.awt.Font("幼圆", 0, 20)); // NOI18N
         金锤子表.setForeground(new java.awt.Color(255, 255, 255));
         金锤子表.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "类型", "成功率/%"
-            }
+                },
+                new String[]{
+                        "序号", "类型", "成功率/%"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         金锤子表.getTableHeader().setReorderingAllowed(false);
@@ -221,6 +220,7 @@ public class 金锤子成功率控制台 extends javax.swing.JFrame {
         按键开关("金锤子提升上限", 601);
         刷新金锤子上限();
     }//GEN-LAST:event_金锤子提升上限ActionPerformed
+
     private void 金锤子提升上限(String str) {
         金锤子提升上限.setText(str);
     }
@@ -263,6 +263,7 @@ public class 金锤子成功率控制台 extends javax.swing.JFrame {
         }
         金锤子提升上限(金锤子提升上限显示);
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel332;
     private javax.swing.JLabel jLabel334;

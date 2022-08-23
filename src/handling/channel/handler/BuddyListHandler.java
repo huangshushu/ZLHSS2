@@ -242,7 +242,7 @@ public class BuddyListHandler {
     }
 
     private static void notifyRemoteChannel(final MapleClient c, final int remoteChannel, final int otherCid,
-            final String group, final BuddyOperation operation) {
+                                            final String group, final BuddyOperation operation) {
         final MapleCharacter player = c.getPlayer();
 
         if (remoteChannel > 0) {

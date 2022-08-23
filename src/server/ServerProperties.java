@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- *
  * @author Emilyx3
  */
 public class ServerProperties {

@@ -20,7 +20,6 @@ public class BuddyList implements Serializable {
 
     /**
      * 好友名单操作
-     *
      */
     public enum BuddyOperation {
 
@@ -180,7 +179,6 @@ public class BuddyList implements Serializable {
     }
 
     /**
-     *
      * @param data
      */
     public void loadFromTransfer(final Map<BuddyEntry, Boolean> data) {
@@ -252,7 +250,7 @@ public class BuddyList implements Serializable {
      * @param buddyJob     新增的好友的职业
      */
     public void addBuddyRequest(MapleClient client, int buddyId, String buddyName, int buddyChannel, int buddyLevel,
-            int buddyJob) {
+                                int buddyJob) {
 
         this.put(
                 new BuddyEntry(buddyName, buddyId, BuddyList.DEFAULT_GROUP, buddyChannel, false, buddyLevel, buddyJob));
@@ -273,8 +271,8 @@ public class BuddyList implements Serializable {
     public static int getBuddyCount(int chrId, int pending) {
         int count = 0;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement(
-                        "SELECT COUNT(*) as buddyCount FROM buddies WHERE characterid = ? AND pending = ?")) {
+             PreparedStatement ps = con.prepareStatement(
+                     "SELECT COUNT(*) as buddyCount FROM buddies WHERE characterid = ? AND pending = ?")) {
             ps.setInt(1, chrId);
             ps.setInt(2, pending);
             try (ResultSet rs = ps.executeQuery()) {
@@ -295,7 +293,7 @@ public class BuddyList implements Serializable {
     public static int getBuddyCapacity(int charId) {
         int capacity = -1;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT buddyCapacity FROM characters WHERE id = ?")) {
+             PreparedStatement ps = con.prepareStatement("SELECT buddyCapacity FROM characters WHERE id = ?")) {
             ps.setInt(1, charId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -313,8 +311,8 @@ public class BuddyList implements Serializable {
     public static int getBuddyPending(int chrId, int buddyId) {
         int pending = -1;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con
-                        .prepareStatement("SELECT pending FROM buddies WHERE characterid = ? AND buddyid = ?")) {
+             PreparedStatement ps = con
+                     .prepareStatement("SELECT pending FROM buddies WHERE characterid = ? AND buddyid = ?")) {
             ps.setInt(1, chrId);
             ps.setInt(2, buddyId);
             try (ResultSet rs = ps.executeQuery()) {
@@ -333,8 +331,8 @@ public class BuddyList implements Serializable {
     public static void addBuddyToDB(MapleCharacter player, BuddyEntry buddy) {
         try {
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                    PreparedStatement ps = con.prepareStatement(
-                            "INSERT INTO buddies (`characterid`, `buddyid`, `groupname`, `pending`) VALUES (?, ?, ?, 1)")) {
+                 PreparedStatement ps = con.prepareStatement(
+                         "INSERT INTO buddies (`characterid`, `buddyid`, `groupname`, `pending`) VALUES (?, ?, ?, 1)")) {
                 ps.setInt(1, buddy.getCharacterId());
                 ps.setInt(2, player.getId());
                 ps.setString(3, buddy.getGroup());

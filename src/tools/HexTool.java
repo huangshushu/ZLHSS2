@@ -25,8 +25,8 @@ import java.nio.ByteBuffer;
 
 public class HexTool {
 
-    private static final char[] HEX = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
-            'F' };
+    private static final char[] HEX = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
+            'F'};
 
     /**
      * Turns a byte into a hexadecimal string.
@@ -36,7 +36,7 @@ public class HexTool {
      */
     public static final String toString(final byte byteValue) {
         final int tmp = byteValue << 8;
-        char[] retstr = new char[] { HEX[(tmp >> 12) & 0x0F], HEX[(tmp >> 8) & 0x0F] };
+        char[] retstr = new char[]{HEX[(tmp >> 12) & 0x0F], HEX[(tmp >> 8) & 0x0F]};
         return String.valueOf(retstr);
     }
 
@@ -129,7 +129,8 @@ public class HexTool {
         int nexti = 0;
         int nextb = 0;
         boolean highoc = true;
-        outer: for (;;) {
+        outer:
+        for (; ; ) {
             int number = -1;
             while (number == -1) {
                 if (nexti == hex.length()) {

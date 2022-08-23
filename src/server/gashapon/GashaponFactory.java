@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- *
  * @author TEST
  */
 public class GashaponFactory {

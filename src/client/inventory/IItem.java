@@ -35,17 +35,17 @@ public interface IItem extends Comparable<IItem> {
     String getGMLog();
 
     int getItemId();
-    
+
     void setItemId(int ui);
 
     MaplePet getPet();
 
     int getUniqueId();
-    
+
     boolean hasSetOnlyId();
-    
+
     long getEquipOnlyId();
-    
+
     long getInventoryId();
 
     IItem copy();
@@ -57,9 +57,9 @@ public interface IItem extends Comparable<IItem> {
     void setFlag(byte flag);
 
     void setUniqueId(int id);
-    
+
     void setEquipOnlyId(long OnlyId);
-    
+
     void setInventoryId(long ui);
 
     void setPosition(short position);

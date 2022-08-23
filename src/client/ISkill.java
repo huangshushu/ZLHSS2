@@ -24,7 +24,6 @@ import server.MapleStatEffect;
 import server.life.Element;
 
 /**
- *
  * 广泛型技能的介面
  */
 public interface ISkill {
@@ -81,7 +80,6 @@ public interface ISkill {
     boolean hasAction();
 
     /**
-     *
      * @return
      */
     boolean isTimeLimited();

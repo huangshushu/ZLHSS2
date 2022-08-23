@@ -11,7 +11,6 @@ import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 
 /**
- *
  * @author Windyboy
  */
 public class SkilledCommand {

@@ -64,7 +64,7 @@ public class PlayerStats implements Serializable {
     public transient int def, element_ice, element_fire, element_light, element_psn;
     public final static short maxStr = 999;
     public ReentrantLock lock = new ReentrantLock(); // we're getting concurrentmodificationexceptions, but would this
-                                                     // slow things down?
+    // slow things down?
     public short pickRate;
     public int defRange;
     public transient int dotTime;
@@ -394,7 +394,7 @@ public class PlayerStats implements Serializable {
                 setHandling.put(set, value); // id of Set, number of items to go with the set
             }
             if (equip.getState() > 1) {
-                int[] potentials = { equip.getPotential1(), equip.getPotential2(), equip.getPotential3() };
+                int[] potentials = {equip.getPotential1(), equip.getPotential2(), equip.getPotential3()};
                 for (int i : potentials) {
                     if (i > 0) {
                         pot = ii.getPotentialInfo(i).get(ii.getReqLevel(equip.getItemId()) / 10);
@@ -460,8 +460,8 @@ public class PlayerStats implements Serializable {
             }
             if (canEquipLevel && GameConstants.getMaxLevel(equip.getItemId()) > 0
                     && (GameConstants.getStatFromWeapon(equip.getItemId()) == null
-                            ? (equip.getEquipLevel() <= GameConstants.getMaxLevel(equip.getItemId()))
-                            : (equip.getEquipLevel() < GameConstants.getMaxLevel(equip.getItemId())))) {
+                    ? (equip.getEquipLevel() <= GameConstants.getMaxLevel(equip.getItemId()))
+                    : (equip.getEquipLevel() < GameConstants.getMaxLevel(equip.getItemId())))) {
                 equipLevelHandling.add((Equip) equip);
             }
         }
@@ -530,15 +530,15 @@ public class PlayerStats implements Serializable {
                 expMod = 2;
             } else if (expMod < 2 && (item.getItemId() == 5210002 || item.getItemId() == 5210003)
                     && (((hour >= 6 && hour <= 18) && (weekDay >= 2 && weekDay <= 6))
-                            || (weekDay == 1 || weekDay == 7))) {
+                    || (weekDay == 1 || weekDay == 7))) {
                 expMod = 2;
             } else if (expMod < 2 && (item.getItemId() == 5210004 || item.getItemId() == 5210005)
                     && (((hour >= 18 || hour <= 6) && (weekDay >= 2 && weekDay <= 6))
-                            || (weekDay == 1 || weekDay == 7))) {
+                    || (weekDay == 1 || weekDay == 7))) {
                 expMod = 2;
             } else if (expMod < 2 && (item.getItemId() == 5210000 || item.getItemId() == 5210001)
                     && (((hour >= 10 && hour <= 22) && (weekDay >= 2 && weekDay <= 6))
-                            || (weekDay == 1 || weekDay == 7))) {
+                    || (weekDay == 1 || weekDay == 7))) {
                 expMod = 2;
                 // } else if (expMod < 1.5 && (item.getItemId() == 5211077 || item.getItemId()
                 // == 5211078 || item.getItemId() == 5211079 || item.getItemId() == 5211068)) {
@@ -957,7 +957,7 @@ public class PlayerStats implements Serializable {
                                     final ISkill skil = SkillFactory.getSkill(z);
                                     if (skil != null && skil.canBeLearnedBy(chr.getJob())
                                             && chr.getSkillLevel(skil) < chr.getMasterLevel(skil)) { // dont go over
-                                                                                                     // masterlevel :D
+                                        // masterlevel :D
                                         chr.changeSkillLevel(skil, (byte) (chr.getSkillLevel(skil) + 1),
                                                 chr.getMasterLevel(skil));
                                     }
@@ -1065,11 +1065,11 @@ public class PlayerStats implements Serializable {
             return;
         }
         passive_mastery = (byte) ((player.getSkillLevel(skil) / 2) + (player.getSkillLevel(skil) % 2)); // after bb,
-                                                                                                        // simpler?
+        // simpler?
     }
 
     private void CalcPassive_SharpEye(final MapleCharacter player, final int added_sharpeye_rate,
-            final int added_sharpeye_dmg) {
+                                      final int added_sharpeye_dmg) {
         switch (player.getJob()) { // Apply passive Critical bonus
             case 410:
             case 411:
@@ -1502,7 +1502,7 @@ public class PlayerStats implements Serializable {
 
         shouldHealHP = 10 + recoverHP; // Reset
         shouldHealMP = GameConstants.isDemon(chra.getJob()) ? 0 : (3 + mpRestore + recoverMP + (localint_ / 10)); // i
-                                                                                                                  // think
+        // think
         int mpRecoverTime = 0;
         int hpRecoverTime = 0;
         if (playerjob == 111 || playerjob == 112) {

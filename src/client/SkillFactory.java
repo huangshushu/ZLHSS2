@@ -27,7 +27,6 @@ import java.util.*;
 
 /**
  * 技能工厂
- *
  */
 public class SkillFactory {
 

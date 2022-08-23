@@ -6,9 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
  * @author Windyboy
- *
  */
 public class PiPiConfig {
 

@@ -71,7 +71,7 @@ public class Skill implements ISkill {
     private boolean invisible;
     private boolean chargeskill;
     private boolean timeLimited;
-    
+
     private final int skillType = 0; //4 is alert
 
     public Skill(final int id) {
@@ -194,10 +194,10 @@ public class Skill implements ISkill {
                 case 22171004: //hero will
                 case 22181000: //onyx blessing
                 case 22181003: //soul stone
-                //case 22121000:
-                //case 22141003:
-                //case 22151001:
-                //case 22161002:
+                    //case 22121000:
+                    //case 22141003:
+                    //case 22151001:
+                    //case 22161002:
                 case 4331003: //owl spirit
                 case 15101006: //spark
                 case 15111006: //spark
@@ -221,7 +221,7 @@ public class Skill implements ISkill {
                 case 35111007: //TEMP
                 case 35121005: //missile
                 case 35121013:
-                //case 35111004: //siege
+                    //case 35111004: //siege
                 case 35101002: //TEMP
                 case 33111003: //puppet ?
                 case 1211009:
@@ -316,8 +316,8 @@ public class Skill implements ISkill {
             return false;
         } else // wrong 3rd/4th job
             if ((skillForJob / 10) % 10 > (jid / 10) % 10) { // wrong 2nd job
-            return false;
-        } else return skillForJob % 10 <= jid % 10;
+                return false;
+            } else return skillForJob % 10 <= jid % 10;
     }
 
     @Override
@@ -356,7 +356,7 @@ public class Skill implements ISkill {
         int jobId = id / 10000;
         return jobId == 0 || jobId == 1000 || jobId == 2000 || jobId == 2001 || jobId == 3000;
     }
-    
+
     public int getSkillType() {
         return skillType;
     }

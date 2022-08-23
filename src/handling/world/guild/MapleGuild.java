@@ -43,6 +43,7 @@ public class MapleGuild implements java.io.Serializable {
 
         NONE, DISBAND, EMBELMCHANGE
     }
+
     public static final long serialVersionUID = 6322150443228168192L;
     private final List<MapleGuildCharacter> members = new CopyOnWriteArrayList<>();
     private final String[] rankTitles = new String[5]; // 1 = master, 2 = jr, 5 = lowest member
@@ -728,7 +729,7 @@ public class MapleGuild implements java.io.Serializable {
                 member.setJobId(mgc.getJobId());
                 member.setLevel((short) mgc.getLevel());
                 if (mgc.getLevel() > old_level) {
-                   // gainGP((mgc.getLevel() - old_level) * mgc.getLevel() / 10, false); //level 199->200 = 20 gp
+                    // gainGP((mgc.getLevel() - old_level) * mgc.getLevel() / 10, false); //level 199->200 = 20 gp
                 }
                 if (old_level != mgc.getLevel()) {
                     this.broadcast(MaplePacketCreator.sendLevelup(false, mgc.getLevel(), mgc.getName()), mgc.getId());

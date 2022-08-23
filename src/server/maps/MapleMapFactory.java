@@ -179,7 +179,7 @@ public class MapleMapFactory {
                             final MapleMonster mob = (MapleMonster) myLife;
 
                             herbRocks.add(map.addMonsterSpawn(mob, MapleDataTool.getInt("mobTime", life, 0),
-                                    (byte) MapleDataTool.getInt("team", life, -1), mob.getId() == bossid ? msg : null)
+                                            (byte) MapleDataTool.getInt("team", life, -1), mob.getId() == bossid ? msg : null)
                                     .getPosition());
                             if (mob.getStats().getLevel() > highestLevel && !mob.getStats().isBoss()) {
                                 highestLevel = mob.getStats().getLevel();
@@ -283,7 +283,7 @@ public class MapleMapFactory {
                     map.setStreetName("");
                 }
                 map.setClock(mapData.getChildByPath("clock") != null); // clock was changed in wz to have
-                                                                       // x,y,width,height
+                // x,y,width,height
                 map.setEverlast(MapleDataTool.getInt(mapData.getChildByPath("info/everlast"), 0) > 0);
                 map.setTown(MapleDataTool.getInt(mapData.getChildByPath("info/town"), 0) > 0);
                 map.setSoaring(MapleDataTool.getInt(mapData.getChildByPath("info/needSkillForFly"), 0) > 0);
@@ -880,7 +880,7 @@ public class MapleMapFactory {
         // }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
             try (java.sql.PreparedStatement ps = con.prepareStatement("SELECT * FROM `wz_customlife`");
-                    ResultSet rs = ps.executeQuery()) {
+                 ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     final int mapid = rs.getInt("mid");
                     final AbstractLoadedMapleLife myLife = loadLife(rs.getInt("dataid"), rs.getInt("f"),
@@ -913,7 +913,7 @@ public class MapleMapFactory {
     }
 
     private static AbstractLoadedMapleLife loadLife(int id, int f, boolean hide, int fh, int cy, int rx0, int rx1,
-            int x, int y, String type, int mtime) {
+                                                    int x, int y, String type, int mtime) {
         final AbstractLoadedMapleLife myLife = MapleLifeFactory.getLife(id, type);
         if (myLife == null) {
             System.err.println("自订 npc " + id + " 异常...");

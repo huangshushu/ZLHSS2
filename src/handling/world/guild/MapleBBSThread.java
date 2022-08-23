@@ -33,7 +33,7 @@ public class MapleBBSThread implements java.io.Serializable {
     public Map<Integer, MapleBBSReply> replies = new HashMap<>();
 
     public MapleBBSThread(final int localthreadID, final String name, final String text, final long timestamp,
-            final int guildID, final int ownerID, final int icon) {
+                          final int guildID, final int ownerID, final int icon) {
         this.localthreadID = localthreadID;
         this.name = name;
         this.text = text;

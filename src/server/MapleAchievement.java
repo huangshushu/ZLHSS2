@@ -21,7 +21,6 @@
 package server;
 
 /**
- *
  * @author KyleShum
  */
 public class MapleAchievement {

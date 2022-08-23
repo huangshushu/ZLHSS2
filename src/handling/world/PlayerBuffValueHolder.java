@@ -36,7 +36,7 @@ public class PlayerBuffValueHolder implements Serializable {
     public List<Pair<MapleBuffStat, Integer>> statup;
 
     public PlayerBuffValueHolder(final long startTime, final MapleStatEffect effect,
-            final List<Pair<MapleBuffStat, Integer>> statup, int localDuration, int cid) {
+                                 final List<Pair<MapleBuffStat, Integer>> statup, int localDuration, int cid) {
         this.startTime = startTime;
         this.effect = effect;
         this.statup = statup;

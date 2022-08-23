@@ -98,7 +98,7 @@ public class CashShopOperation {
 
         if (!LoginServer.CanLoginKey(client.getPlayer().getLoginKey(), client.getPlayer().getAccountID())
                 || (LoginServer.getLoginKey(client.getPlayer().getAccountID()) == null
-                        && !client.getPlayer().getLoginKey().isEmpty())) {
+                && !client.getPlayer().getLoginKey().isEmpty())) {
             FileoutputUtil.logToFile("logs/Data/客户端登录KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
                     + client.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + client.getAccountName()
                     + " 客户端key：" + LoginServer.getLoginKey(client.getPlayer().getAccountID()) + " 伺服端key："
@@ -110,7 +110,7 @@ public class CashShopOperation {
         }
         if (!LoginServer.CanServerKey(client.getPlayer().getServerKey(), client.getPlayer().getAccountID())
                 || (LoginServer.getServerKey(client.getPlayer().getAccountID()) == null
-                        && !client.getPlayer().getServerKey().isEmpty())) {
+                && !client.getPlayer().getServerKey().isEmpty())) {
             FileoutputUtil.logToFile("logs/Data/客户端频道KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
                     + client.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + client.getAccountName()
                     + " 客户端key：" + LoginServer.getServerKey(client.getPlayer().getAccountID()) + " 伺服端key："
@@ -122,7 +122,7 @@ public class CashShopOperation {
         }
         if (!LoginServer.CanClientKey(client.getPlayer().getClientKey(), client.getPlayer().getAccountID())
                 || (LoginServer.getClientKey(client.getPlayer().getAccountID()) == null
-                        && !client.getPlayer().getClientKey().isEmpty())) {
+                && !client.getPlayer().getClientKey().isEmpty())) {
             FileoutputUtil.logToFile("logs/Data/客户端进入KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
                     + client.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + client.getAccountName()
                     + " 客户端key：" + LoginServer.getClientKey(client.getPlayer().getAccountID()) + " 伺服端key："
@@ -157,7 +157,7 @@ public class CashShopOperation {
 
         if (!LoginServer.CanLoginKey(client.getPlayer().getLoginKey(), client.getPlayer().getAccountID())
                 || (LoginServer.getLoginKey(client.getPlayer().getAccountID()) == null
-                        && !client.getPlayer().getLoginKey().isEmpty())) {
+                && !client.getPlayer().getLoginKey().isEmpty())) {
             FileoutputUtil.logToFile("logs/Data/客户端登录KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
                     + client.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + client.getAccountName()
                     + " 客户端key：" + LoginServer.getLoginKey(client.getPlayer().getAccountID()) + " 伺服端key："
@@ -169,7 +169,7 @@ public class CashShopOperation {
         }
         if (!LoginServer.CanServerKey(client.getPlayer().getServerKey(), client.getPlayer().getAccountID())
                 || (LoginServer.getServerKey(client.getPlayer().getAccountID()) == null
-                        && !client.getPlayer().getServerKey().isEmpty())) {
+                && !client.getPlayer().getServerKey().isEmpty())) {
             FileoutputUtil.logToFile("logs/Data/客户端频道KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
                     + client.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + client.getAccountName()
                     + " 客户端key：" + LoginServer.getServerKey(client.getPlayer().getAccountID()) + " 伺服端key："
@@ -181,7 +181,7 @@ public class CashShopOperation {
         }
         if (!LoginServer.CanClientKey(client.getPlayer().getClientKey(), client.getPlayer().getAccountID())
                 || (LoginServer.getClientKey(client.getPlayer().getAccountID()) == null
-                        && !client.getPlayer().getClientKey().isEmpty())) {
+                && !client.getPlayer().getClientKey().isEmpty())) {
             FileoutputUtil.logToFile("logs/Data/客户端进入KEY异常.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: "
                     + client.getSession().remoteAddress().toString().split(":")[0] + " 帐号: " + client.getAccountName()
                     + " 客户端key：" + LoginServer.getClientKey(client.getPlayer().getAccountID()) + " 伺服端key："
@@ -276,7 +276,7 @@ public class CashShopOperation {
     }
 
     public static final void BuyCashItem(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                         final MapleCharacter chr) {
 
         final int action = slea.readByte();
 

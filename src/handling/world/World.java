@@ -301,7 +301,7 @@ public class World {
         }
 
         private static void updateBuddies(int characterId, int channel, Collection<Integer> buddies, boolean offline,
-                int gmLevel, boolean isHidden) {
+                                          int gmLevel, boolean isHidden) {
             for (Integer buddy : buddies) {
                 int ch = Find.findChannel(buddy);
                 if (ch > 0) {
@@ -327,7 +327,7 @@ public class World {
         }
 
         public static void buddyChanged(int cid, int cidFrom, String name, int channel, BuddyOperation operation,
-                int level, int job, String group) {
+                                        int level, int job, String group) {
             int ch = Find.findChannel(cid);
             if (ch > 0) {
                 final MapleCharacter addChar = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterById(cid);
@@ -354,7 +354,7 @@ public class World {
         }
 
         public static BuddyAddResult requestBuddyAdd(String addName, int channelFrom, int cidFrom, String nameFrom,
-                int levelFrom, int jobFrom) {
+                                                     int levelFrom, int jobFrom) {
             // int ch = Find.findChannel(cidFrom);
             int ch = World.Find.findChannel(addName);
             if (ch > 0) {
@@ -377,12 +377,12 @@ public class World {
         }
 
         public static void loggedOn(String name, int characterId, int channel, Collection<Integer> buddies, int gmLevel,
-                boolean isHidden) {
+                                    boolean isHidden) {
             updateBuddies(characterId, channel, buddies, false, gmLevel, isHidden);
         }
 
         public static void loggedOff(String name, int characterId, int channel, Collection<Integer> buddies,
-                int gmLevel, boolean isHidden) {
+                                     int gmLevel, boolean isHidden) {
             updateBuddies(characterId, channel, buddies, true, gmLevel, isHidden);
         }
     }
@@ -481,7 +481,7 @@ public class World {
         }
 
         public static void joinMessenger(int messengerid, MapleMessengerCharacter target, String from,
-                int fromchannel) {
+                                         int fromchannel) {
             MapleMessenger messenger = getMessenger(messengerid);
             if (messenger == null) {
                 throw new IllegalArgumentException("No messenger with the specified messengerid exists");
@@ -812,7 +812,7 @@ public class World {
         }
 
         public static int addBBSThread(final int guildid, final String title, final String text, final int icon,
-                final boolean bNotice, final int posterID) {
+                                       final boolean bNotice, final int posterID) {
             final MapleGuild g = getGuild(guildid);
             if (g != null) {
                 return g.addBBSThread(title, text, icon, bNotice, posterID);
@@ -821,7 +821,7 @@ public class World {
         }
 
         public static final void editBBSThread(final int guildid, final int localthreadid, final String title,
-                final String text, final int icon, final int posterID, final int guildRank) {
+                                               final String text, final int icon, final int posterID, final int guildRank) {
             final MapleGuild g = getGuild(guildid);
             if (g != null) {
                 g.editBBSThread(localthreadid, title, text, icon, posterID, guildRank);
@@ -829,7 +829,7 @@ public class World {
         }
 
         public static final void deleteBBSThread(final int guildid, final int localthreadid, final int posterID,
-                final int guildRank) {
+                                                 final int guildRank) {
             final MapleGuild g = getGuild(guildid);
             if (g != null) {
                 g.deleteBBSThread(localthreadid, posterID, guildRank);
@@ -837,7 +837,7 @@ public class World {
         }
 
         public static final void addBBSReply(final int guildid, final int localthreadid, final String text,
-                final int posterID) {
+                                             final int posterID) {
             final MapleGuild g = getGuild(guildid);
             if (g != null) {
                 g.addBBSReply(localthreadid, text, posterID);
@@ -845,7 +845,7 @@ public class World {
         }
 
         public static final void deleteBBSReply(final int guildid, final int localthreadid, final int replyid,
-                final int posterID, final int guildRank) {
+                                                final int posterID, final int guildRank) {
             final MapleGuild g = getGuild(guildid);
             if (g != null) {
                 g.deleteBBSReply(localthreadid, replyid, posterID, guildRank);
@@ -1199,7 +1199,7 @@ public class World {
         }
 
         public static boolean createAlliance(final String alliancename, final int cid, final int cid2, final int gid,
-                final int gid2) {
+                                             final int gid2) {
             final int allianceid = MapleGuildAlliance.createToDb(cid, alliancename, gid, gid2);
             if (allianceid <= 0) {
                 return false;
@@ -1392,7 +1392,7 @@ public class World {
         }
 
         public static void setFamily(int familyid, int seniorid, int junior1, int junior2, int currentrep, int totalrep,
-                int cid) {
+                                     int cid) {
             int ch = Find.findChannel(cid);
             if (ch == -1) {
                 // System.out.println("ERROR: cannot find player in given channel");
@@ -1496,9 +1496,9 @@ public class World {
     }
 
     public static void handleCooldowns(final MapleCharacter chr, final int numTimes, final boolean hurt) { // is putting
-                                                                                                           // it here a
-                                                                                                           // good idea?
-                                                                                                           // expensive?
+        // it here a
+        // good idea?
+        // expensive?
         final long now = System.currentTimeMillis();
         for (MapleCoolDownValueHolder m : chr.getCooldowns()) {
             if (m.startTime + m.length < now) {
@@ -1625,15 +1625,15 @@ public class World {
 
     /*
      * public static void AutoSave(int min) {
-     * 
+     *
      * Timer.EventTimer.getInstance().register(new Runnable() {
-     * 
+     *
      * @Override
      * public void run() {
      * for (ChannelServer cs : ChannelServer.getAllInstances()) {
      * for (MapleCharacter chr : cs.getPlayerStorage().getAllCharactersThreadSafe())
      * {
-     * 
+     *
      * // ??
      * if (chr == null) {
      * break;
@@ -1652,7 +1652,7 @@ public class World {
      * chr.getClient().getAccID() + " 角色名 " + chr.getName() + " 角色ID " +
      * chr.getId());
      * FileoutputUtil.outError("logs/AutoSave保存数据异常.txt", e);
-     * 
+     *
      * }
      * }
      * }
@@ -1767,7 +1767,7 @@ public class World {
     /*
      * public static void ClearMemory(int min) {
      * Timer.EventTimer.getInstance().register(new Runnable() {
-     * 
+     *
      * @Override
      * public void run() {
      * System.gc();

@@ -6,14 +6,12 @@
 package client.messages.commands;
 
 /**
- *
  * @author Flower
  */
 public abstract class ConsoleCommandExecute {
 
     /**
      * The method executed when this command is used.
-     *
      *
      * @param paramArrayOfString
      * @return 1 if you want to log the command, 0 if not. TODO: USE

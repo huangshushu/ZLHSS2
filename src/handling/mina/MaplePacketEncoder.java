@@ -88,7 +88,7 @@ public class MaplePacketEncoder extends MessageToByteEncoder<Object> {
                 System.arraycopy(unencrypted, 0, ret, 4, unencrypted.length);
                 /*
                  * if (ServerConfig.Encoder) {
-                 * 
+                 *
                  * for (int i = 0; i < ret.length; i++) {
                  * ret[i] ^= 0xD;
                  * }

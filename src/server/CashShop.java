@@ -62,7 +62,7 @@ public class CashShop implements Serializable {
         //} else if (jobType / 10 == 43) {
         //    factory = ItemLoader.CASHSHOP_DB;
         //} else {
-            factory = ItemLoader.CASHSHOP_EXPLORER;
+        factory = ItemLoader.CASHSHOP_EXPLORER;
         //}
 
         for (Pair<IItem, MapleInventoryType> item : factory.loadItems(false, accountId).values()) {
@@ -165,10 +165,10 @@ public class CashShop implements Serializable {
         // }
 
         //if (chr != null) {
-            if (!加倍卡) {
-                period = 36500;
-            }
-       // }
+        if (!加倍卡) {
+            period = 36500;
+        }
+        // }
         if (cItem.getId() == 1112015 || cItem.getId() == 1112810 || cItem.getId() == 1112811 || cItem.getId() == 1112001 || cItem.getId() == 1112007 || cItem.getId() == 1112012 || cItem.getId() == 1112003) {
             period = 36500;
         }

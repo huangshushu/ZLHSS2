@@ -52,7 +52,6 @@ public class CommandProcessor {
     }
 
     /**
-     *
      * @param c    MapleClient
      * @param type 0 = NormalCommand 1 = VipCommand
      */
@@ -64,9 +63,9 @@ public class CommandProcessor {
             commandList = NormalCommandList;
             check = c.getPlayer().getGMLevel();
         } // else if (type == 1) {
-          // commandList = VipCommandList;
-          // check = /*c.getPlayer().getVip()*/ c.getPlayer().getVip(c.getAccID());
-          // }
+        // commandList = VipCommandList;
+        // check = /*c.getPlayer().getVip()*/ c.getPlayer().getVip(c.getAccID());
+        // }
         for (int i = 0; i <= check; i++) {
             if (commandList.containsKey(i)) {
                 sb.append(type == 1 ? "VIP" : "").append("权限等级： ").append(i).append("\r\n");
@@ -197,9 +196,9 @@ public class CommandProcessor {
                             dropHelp(c, 0);
                             return true;
                         } // else if (splitted[0].equals(line.charAt(0) + "viphelp")) {
-                          // dropHelp(c, 1);
-                          // return true;
-                          // }
+                        // dropHelp(c, 1);
+                        // return true;
+                        // }
                         sendDisplayMessage(c, "没有这个指令.", type);
                         return true;
                     }
@@ -354,7 +353,7 @@ public class CommandProcessor {
         };
         for (Class<?> clasz : CommandFiles) {
             try {
-                PlayerGMRank rankNeeded = (PlayerGMRank) clasz.getMethod("getPlayerLevelRequired", new Class<?>[] {})
+                PlayerGMRank rankNeeded = (PlayerGMRank) clasz.getMethod("getPlayerLevelRequired", new Class<?>[]{})
                         .invoke(null, (Object[]) null);
                 Class<?>[] commandClasses = clasz.getDeclaredClasses();
                 ArrayList<String> cL = new ArrayList<>();
@@ -378,14 +377,14 @@ public class CommandProcessor {
                             }
                         }
                     } catch (InstantiationException | IllegalAccessException | SecurityException
-                            | IllegalArgumentException ex) {
+                             | IllegalArgumentException ex) {
                         FilePrinter.printError(FilePrinter.CommandProccessor, ex);
                     }
                 }
                 Collections.sort(cL);
                 NormalCommandList.put(rankNeeded.getLevel(), cL);
             } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException ex) {
+                     | InvocationTargetException ex) {
                 FilePrinter.printError(FilePrinter.CommandProccessor, ex);
             }
         }

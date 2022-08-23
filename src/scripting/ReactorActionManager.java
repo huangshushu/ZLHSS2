@@ -42,7 +42,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
  * @author Flower
  */
 public class ReactorActionManager extends AbstractPlayerInteraction {

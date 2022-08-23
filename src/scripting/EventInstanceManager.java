@@ -421,7 +421,6 @@ public class EventInstanceManager {
     }
 
     /**
-     *
      * @param chr
      * @param mob
      */

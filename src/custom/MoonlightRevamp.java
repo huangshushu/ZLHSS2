@@ -58,7 +58,7 @@ public class MoonlightRevamp {
         private final int position, shopid, itemid, price, reqitem, reqitemq, buyable, category, minlevel, expiration;
 
         MoonlightShop(int position, int shopid, int itemid, int price, int reqitem, int reqitemq, byte rank,
-                int buyable, int category, int minlevel, int expiration) {
+                      int buyable, int category, int minlevel, int expiration) {
             this.shopid = shopid;
             this.itemid = itemid;
             this.price = price;

@@ -165,22 +165,22 @@ public class 永恒重生装备控制台 extends javax.swing.JFrame {
         getContentPane().add(重生升级开关, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 130, 30));
 
         升级经验信息.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "*", "等级", "经验"
-            }
+                new Object[][]{
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null}
+                },
+                new String[]{
+                        "*", "等级", "经验"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane4.setViewportView(升级经验信息);
@@ -229,22 +229,22 @@ public class 永恒重生装备控制台 extends javax.swing.JFrame {
         getContentPane().add(jLabel258, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, 30));
 
         装备升级设置.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "1", "信息", "值"
-            }
+                new Object[][]{
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null}
+                },
+                new String[]{
+                        "1", "信息", "值"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane5.setViewportView(装备升级设置);
@@ -302,6 +302,7 @@ public class 永恒重生装备控制台 extends javax.swing.JFrame {
         按键开关("重生升级开关", 2129);
         刷新重生升级开关();
     }//GEN-LAST:event_重生升级开关ActionPerformed
+
     public void 刷新装备升级经验表() {
         for (int i = this.升级经验信息.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.升级经验信息.getModel())).removeRow(i);
@@ -313,9 +314,9 @@ public class 永恒重生装备控制台 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 升级经验信息.getModel()).insertRow(升级经验信息.getRowCount(), new Object[]{
-                    rs.getString("id"),
-                    rs.getString("name"),
-                    rs.getString("Val")
+                        rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getString("Val")
                 });
             }
         } catch (SQLException ex) {
@@ -345,9 +346,9 @@ public class 永恒重生装备控制台 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 装备升级设置.getModel()).insertRow(装备升级设置.getRowCount(), new Object[]{
-                    rs.getString("id"),
-                    rs.getString("name"),
-                    rs.getString("Val")
+                        rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getString("Val")
                 });
             }
         } catch (SQLException ex) {
@@ -365,6 +366,7 @@ public class 永恒重生装备控制台 extends javax.swing.JFrame {
             }
         });
     }
+
     private void 刷新经验表ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_刷新经验表ActionPerformed
         刷新装备升级经验表();
     }//GEN-LAST:event_刷新经验表ActionPerformed

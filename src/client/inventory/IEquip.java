@@ -26,6 +26,7 @@ public interface IEquip extends IItem {
 
         SUCCESS, FAIL, CURSE
     }
+
     int ARMOR_RATIO = 350000;
     int WEAPON_RATIO = 700000;
 
@@ -94,6 +95,6 @@ public interface IEquip extends IItem {
     short getMpR();
 
     int getGrade();
-    
+
     int getLimitBreak();
 }

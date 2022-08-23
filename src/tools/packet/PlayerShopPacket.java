@@ -294,7 +294,7 @@ public class PlayerShopPacket {
 
         return mplew.getPacket();
     }
-	
+
     public static final byte[] ShowMerchItemStore(int npc, int mapid, int ch) {
         final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         mplew.writeShort(SendPacketOpcode.MERCH_ITEM_STORE.getValue());
@@ -304,7 +304,7 @@ public class PlayerShopPacket {
         mplew.write(ch - 1);
         return mplew.getPacket();
     }
-    
+
     public static final byte[] merchItemStore(final byte op) {
         final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
         // [28 01] [22 01] - Invalid Asiasoft Passport

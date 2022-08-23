@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Administrator
  */
 public class 删除自添加NPC工具 extends javax.swing.JFrame {
@@ -57,19 +56,19 @@ public class 删除自添加NPC工具 extends javax.swing.JFrame {
         删除NPC.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         自添加NPC.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "地图代码", "NPC代码"
-            }
+                },
+                new String[]{
+                        "地图代码", "NPC代码"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane106.setViewportView(自添加NPC);
@@ -142,6 +141,7 @@ public class 删除自添加NPC工具 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "请输入数字 ");
         }
     }//GEN-LAST:event_删除自添加npcActionPerformed
+
     public void 刷新自添加NPC() {
         for (int i = this.自添加NPC.getModel().getRowCount() - 1; i >= 0; i--) {
             ((DefaultTableModel) (this.自添加NPC.getModel())).removeRow(i);

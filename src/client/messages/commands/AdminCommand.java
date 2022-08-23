@@ -34,7 +34,6 @@ import java.sql.SQLException;
 import java.util.concurrent.ScheduledFuture;
 
 /**
- *
  * @author Emilyx3
  */
 public class AdminCommand {

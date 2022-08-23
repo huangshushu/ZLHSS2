@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
- *
  * @author wubin
  */
 public class BeansConstants {
@@ -138,11 +137,11 @@ public class BeansConstants {
      * public String[] get豆豆装备() {
      * return 豆豆装备;
      * }
-     * 
+     *
      * public String[] get豆豆坐骑() {
      * return 豆豆坐骑;
      * }
-     * 
+     *
      * public String[] get消耗品() {
      * return 消耗品;
      * }

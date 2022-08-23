@@ -79,7 +79,7 @@ public enum MapleBuffStat implements Serializable {
     COMBO(21),
     // 召唤兽
     SUMMON(21), // hack buffstat for summons ^.- (does/should not increase damage... hopefully
-                // <3)
+    // <3)
     // 属性攻击
     WK_CHARGE(22),
     // 龙之力量 ? 需要测试

@@ -1,7 +1,6 @@
 package server;
 
 /**
- *
  * @author RM
  */
 public interface ShutdownServerMBean extends Runnable {

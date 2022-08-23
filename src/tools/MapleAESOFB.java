@@ -33,7 +33,7 @@ public class MapleAESOFB {
     private byte[] iv;
     private Cipher cipher;
     private final short mapleVersion;
-    private final static SecretKeySpec skey = new SecretKeySpec(new byte[] {
+    private final static SecretKeySpec skey = new SecretKeySpec(new byte[]{
             0x13, 0x00, 0x00, 0x00,
             0x08, 0x00, 0x00, 0x00,
             0x06, 0x00, 0x00, 0x00,
@@ -41,7 +41,7 @@ public class MapleAESOFB {
             0x1B, 0x00, 0x00, 0x00,
             0x0F, 0x00, 0x00, 0x00,
             0x33, 0x00, 0x00, 0x00,
-            0x52, 0x00, 0x00, 0x00 }, "AES");
+            0x52, 0x00, 0x00, 0x00}, "AES");
 
     // private final static SecretKeySpec skey = new SecretKeySpec(new byte[]{0x14,
     // 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, (byte)
@@ -52,7 +52,7 @@ public class MapleAESOFB {
     // 0x5B, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x10,
     // 0x00, 0x00, 0x00, 0x60, 0x00, 0x00, 0x00}
     /* VANA */
-    private static final byte[] funnyBytes = new byte[] { (byte) 0xEC, (byte) 0x3F, (byte) 0x77, (byte) 0xA4,
+    private static final byte[] funnyBytes = new byte[]{(byte) 0xEC, (byte) 0x3F, (byte) 0x77, (byte) 0xA4,
             (byte) 0x45, (byte) 0xD0, (byte) 0x71, (byte) 0xBF, (byte) 0xB7, (byte) 0x98, (byte) 0x20, (byte) 0xFC,
             (byte) 0x4B, (byte) 0xE9, (byte) 0xB3, (byte) 0xE1, (byte) 0x5C, (byte) 0x22, (byte) 0xF7, (byte) 0x0C,
             (byte) 0x44, (byte) 0x1B, (byte) 0x81, (byte) 0xBD, (byte) 0x63, (byte) 0x8D, (byte) 0xD4, (byte) 0xC3,
@@ -84,7 +84,7 @@ public class MapleAESOFB {
             (byte) 0x52, (byte) 0x33, (byte) 0xF0, (byte) 0xD9, (byte) 0x29, (byte) 0x80, (byte) 0xB1, (byte) 0x16,
             (byte) 0xD3, (byte) 0xAB, (byte) 0x91, (byte) 0xB9, (byte) 0x84, (byte) 0x7F, (byte) 0x61, (byte) 0x1E,
             (byte) 0xCF, (byte) 0xC5, (byte) 0xD1, (byte) 0x56, (byte) 0x3D, (byte) 0xCA, (byte) 0xF4, (byte) 0x05,
-            (byte) 0xC6, (byte) 0xE5, (byte) 0x08, (byte) 0x49 };
+            (byte) 0xC6, (byte) 0xE5, (byte) 0x08, (byte) 0x49};
 
     /*
      * ORIGINAL
@@ -137,7 +137,7 @@ public class MapleAESOFB {
      * 0x05, (byte) 0xC6, (byte) 0xE5, 0x08, 0x49, 0x4F, 0x64, 0x69, 0x6E, 0x4D,
      * 0x53, 0x7E, 0x46, 0x72, 0x7A };
      */
-    private static final byte[] rammyByte = new byte[] { (byte) 0xEC, (byte) 0x3F, (byte) 0x77, (byte) 0xA4, (byte) 0x45,
+    private static final byte[] rammyByte = new byte[]{(byte) 0xEC, (byte) 0x3F, (byte) 0x77, (byte) 0xA4, (byte) 0x45,
             (byte) 0xD0, (byte) 0x71, (byte) 0xBF, (byte) 0xB7, (byte) 0x98, (byte) 0x20, (byte) 0xFC,
             (byte) 0x4B, (byte) 0xE9, (byte) 0xB3, (byte) 0xE1, (byte) 0x5C, (byte) 0x22, (byte) 0xF7, (byte) 0x0C,
             (byte) 0x44, (byte) 0x1B, (byte) 0x81, (byte) 0xBD, (byte) 0x63, (byte) 0x8D, (byte) 0xD4, (byte) 0xC3,
@@ -169,7 +169,7 @@ public class MapleAESOFB {
             (byte) 0x52, (byte) 0x33, (byte) 0xF0, (byte) 0xD9, (byte) 0x29, (byte) 0x80, (byte) 0xB1, (byte) 0x16,
             (byte) 0xD3, (byte) 0xAB, (byte) 0x91, (byte) 0xB9, (byte) 0x84, (byte) 0x7F, (byte) 0x61, (byte) 0x1E,
             (byte) 0xCF, (byte) 0xC5, (byte) 0xD1, (byte) 0x56, (byte) 0x3D, (byte) 0xCA, (byte) 0xF4, (byte) 0x05,
-            (byte) 0xC6, (byte) 0xE5, (byte) 0x08, (byte) 0x49 };
+            (byte) 0xC6, (byte) 0xE5, (byte) 0x08, (byte) 0x49};
 
     /**
      * Class constructor - Creates an instance of the MapleStory encryption
@@ -272,8 +272,8 @@ public class MapleAESOFB {
         int iiv = (((iv[3]) & 0xFF) | ((iv[2] << 8) & 0xFF00)) ^ mapleVersion;
         int mlength = (((length << 8) & 0xFF00) | (length >>> 8)) ^ iiv;
 
-        return new byte[] { (byte) ((iiv >>> 8) & 0xFF), (byte) (iiv & 0xFF), (byte) ((mlength >>> 8) & 0xFF),
-                (byte) (mlength & 0xFF) };
+        return new byte[]{(byte) ((iiv >>> 8) & 0xFF), (byte) (iiv & 0xFF), (byte) ((mlength >>> 8) & 0xFF),
+                (byte) (mlength & 0xFF)};
     }
 
     /**
@@ -293,7 +293,7 @@ public class MapleAESOFB {
      *
      * @param packet The packet to check.
      * @return <code>True</code> if the packet has a correct header,
-     *         <code>false</code> otherwise.
+     * <code>false</code> otherwise.
      */
     public boolean checkPacket(byte[] packet) {
         return ((((packet[0] ^ iv[2]) & 0xFF) == ((mapleVersion >> 8) & 0xFF))
@@ -305,10 +305,10 @@ public class MapleAESOFB {
      *
      * @param packetHeader The packet header to check.
      * @return <code>True</code> if the header is correct, <code>false</code>
-     *         otherwise.
+     * otherwise.
      */
     public boolean checkPacket(int packetHeader) {
-        return checkPacket(new byte[] { (byte) ((packetHeader >> 24) & 0xFF), (byte) ((packetHeader >> 16) & 0xFF) });
+        return checkPacket(new byte[]{(byte) ((packetHeader >> 24) & 0xFF), (byte) ((packetHeader >> 16) & 0xFF)});
     }
 
     /**
@@ -318,7 +318,7 @@ public class MapleAESOFB {
      * @return The new IV.
      */
     public static byte[] getNewIv(byte[] oldIv) {
-        byte[] in = { (byte) 0xf2, 0x53, (byte) 0x50, (byte) 0xc6 }; // magic
+        byte[] in = {(byte) 0xf2, 0x53, (byte) 0x50, (byte) 0xc6}; // magic
         // ;)
         for (int x = 0; x < 4; x++) {
             funnyShit(oldIv[x], in);

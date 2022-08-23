@@ -237,7 +237,7 @@ public enum ItemLoader {
             query_2.append(")");
             ps = con.prepareStatement(query_2.toString(), Statement.RETURN_GENERATED_KEYS);
             PreparedStatement pse = con.prepareStatement("INSERT INTO " + table_equip
-                    + " VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                            + " VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
             final Iterator<Pair<IItem, MapleInventoryType>> iter = items.iterator();
             Pair<IItem, MapleInventoryType> pair;

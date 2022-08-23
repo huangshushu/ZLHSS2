@@ -364,8 +364,8 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
         String fileName = "send.ini";
         Properties props = new Properties();
         try (FileInputStream fileInputStream = new FileInputStream(fileName);
-                BufferedReader br = new BufferedReader(
-                        new InputStreamReader(fileInputStream, StringUtil.codeString(fileName)))) {
+             BufferedReader br = new BufferedReader(
+                     new InputStreamReader(fileInputStream, StringUtil.codeString(fileName)))) {
             props.load(br);
         } catch (IOException ex) {
             InputStream in = SendPacketOpcode.class.getClassLoader().getResourceAsStream("properties/" + fileName);

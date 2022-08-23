@@ -51,8 +51,8 @@ public class ShutdownServer implements Runnable, ShutdownServerMBean {
         EtcTimer.getInstance().stop();
         PingTimer.getInstance().stop();
         System.out.println("Timer 关闭完成");
-        
-        
+
+
         Set<Integer> channels = ChannelServer.getAllChannels();
 
         for (Integer channel : channels) {

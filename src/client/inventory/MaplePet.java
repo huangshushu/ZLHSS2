@@ -116,7 +116,7 @@ public class MaplePet implements Serializable {
     public static final MaplePet loadFromDb(final int itemid, final int petid, final short inventorypos) {
         final MaplePet ret = new MaplePet(itemid, petid, inventorypos);
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM pets WHERE petid = ?")) {
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM pets WHERE petid = ?")) {
             ps.setInt(1, petid);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -153,8 +153,8 @@ public class MaplePet implements Serializable {
         }
 
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement(
-                        "UPDATE pets SET name = ?, level = ?, closeness = ?, fullness = ?, seconds = ?, flags = ?, excluded = ?  WHERE petid = ?")) {
+             PreparedStatement ps = con.prepareStatement(
+                     "UPDATE pets SET name = ?, level = ?, closeness = ?, fullness = ?, seconds = ?, flags = ?, excluded = ?  WHERE petid = ?")) {
             ps.setString(1, name); // Set name
             ps.setByte(2, level); // Set Level
             ps.setShort(3, closeness); // Set Closeness
@@ -191,13 +191,13 @@ public class MaplePet implements Serializable {
     // uniqueid, itemid == 5000054 ? 18000 : 0);
     // }
     public static final MaplePet createPet(int itemid, String name, int level, int closeness, int fullness,
-            int uniqueid, int limitedLife, short flag) {
+                                           int uniqueid, int limitedLife, short flag) {
         if (uniqueid <= -1) { // wah
             uniqueid = MapleInventoryIdentifier.getInstance();
         }
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement pse = con.prepareStatement(
-                        "INSERT INTO pets (petid, name, level, closeness, fullness, seconds, flags) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+             PreparedStatement pse = con.prepareStatement(
+                     "INSERT INTO pets (petid, name, level, closeness, fullness, seconds, flags) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
             pse.setInt(1, uniqueid);
             pse.setString(2, name);
             pse.setByte(3, (byte) level);

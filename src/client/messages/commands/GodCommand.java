@@ -13,7 +13,6 @@ import constants.PiPiConfig;
 import constants.ServerConstants.PlayerGMRank;
 
 /**
- *
  * @author benq
  */
 public class GodCommand {
@@ -139,7 +138,7 @@ public class GodCommand {
             return "!Hair <发型代码> - 修改发型";
         }
     }
-    
+
     public static class face extends CommandExecute {
 
         @Override

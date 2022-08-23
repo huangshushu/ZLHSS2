@@ -207,7 +207,7 @@ public class PlayerHandler {
     }
 
     public static final void TrockAddMap(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                         final MapleCharacter chr) {
         final byte addrem = slea.readByte();
         final byte vip = slea.readByte();
 
@@ -251,7 +251,7 @@ public class PlayerHandler {
     }
 
     public static final void TakeDamage(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                        final MapleCharacter chr) {
         // System.out.println(slea.toString());
         if (slea.available() < 5) {
             return;
@@ -352,8 +352,8 @@ public class PlayerHandler {
                         ? chr.getStat().DAMreflect
                         : 0)
                         + (type == -1 && chr.getBuffedValue(MapleBuffStat.POWERGUARD) != null
-                                ? chr.getBuffedValue(MapleBuffStat.POWERGUARD)
-                                : 0);
+                        ? chr.getBuffedValue(MapleBuffStat.POWERGUARD)
+                        : 0);
                 if (bouncedam_ > 0 && attacker != null) {
                     long bouncedamage = (long) damage * bouncedam_ / 100;
                     chr.getMap().broadcastMessage(chr, MobPacket.damageMonster(oid, bouncedamage), chr.getPosition());
@@ -514,7 +514,7 @@ public class PlayerHandler {
     }
 
     public static final void SpecialMove(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                         final MapleCharacter chr) {
         if (chr == null || !chr.isAlive() || chr.getMap() == null) {
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
@@ -622,7 +622,7 @@ public class PlayerHandler {
     }
 
     public static final void closeRangeAttack(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr, final boolean energy) {
+                                              final MapleCharacter chr, final boolean energy) {
         if (chr == null || (energy && chr.getBuffedValue(MapleBuffStat.ENERGY_CHARGE) == null
                 && chr.getBuffedValue(MapleBuffStat.BODY_PRESSURE) == null && !GameConstants.isKOC(chr.getJob()))) {
             return;
@@ -826,7 +826,7 @@ public class PlayerHandler {
     }
 
     public static final void rangedAttack(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                          final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -1047,7 +1047,7 @@ public class PlayerHandler {
     }
 
     public static final void MagicDamage(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                         final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -1196,7 +1196,7 @@ public class PlayerHandler {
     }
 
     public static final void MovePlayer(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                        final MapleCharacter chr) {
         // slea.skip(5); // unknown
         if (chr == null) {
             return;
@@ -1406,8 +1406,8 @@ public class PlayerHandler {
                     final MapleMap to = ChannelServer.getInstance(c.getChannel()).getMapFactory().getMap(targetid);
                     chr.changeMap(to, to.getPortal(0));
                 } else if (divi == 9140902 && (targetid == 140030000 || targetid == 140000000)) { // thing is. dont
-                                                                                                  // really know which
-                                                                                                  // one!
+                    // really know which
+                    // one!
                     c.sendPacket(UIPacket.IntroDisableUI(false));
                     c.sendPacket(UIPacket.IntroLock(false));
                     c.sendPacket(MaplePacketCreator.enableActions());
@@ -1475,7 +1475,7 @@ public class PlayerHandler {
     }
 
     public static final void InnerPortal(final LittleEndianAccessor slea, final MapleClient c,
-            final MapleCharacter chr) {
+                                         final MapleCharacter chr) {
         if (chr == null) {
             return;
         }
@@ -1545,9 +1545,9 @@ public class PlayerHandler {
     // }
     /*
      * public String getcharmessage(final MapleClient c) {
-     * 
+     *
      * return c.getPlayer().getcharmessage();
-     * 
+     *
      * }
      * public void setcharmessage(final MapleClient c, String s) {
      * c.getPlayer().setcharmessage(s);
@@ -1616,7 +1616,7 @@ public class PlayerHandler {
                 sb.append(" and SessionIP = ?");
             }
             try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                    PreparedStatement ps = con.prepareStatement(sb.toString())) {
+                 PreparedStatement ps = con.prepareStatement(sb.toString())) {
                 ps.setString(1, ACname);
                 if (c != null) {
                     ps.setString(2, ip);

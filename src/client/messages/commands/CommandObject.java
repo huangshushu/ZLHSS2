@@ -34,7 +34,7 @@ public class CommandObject {
      * Call this to apply this command to the specified {@link MapleClient} with
      * the specified arguments.
      *
-     * @param c the MapleClient to apply this to
+     * @param c        the MapleClient to apply this to
      * @param splitted the arguments
      * @return See {@link CommandExecute#execute}
      */

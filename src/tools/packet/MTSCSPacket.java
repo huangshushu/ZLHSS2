@@ -318,7 +318,7 @@ public class MTSCSPacket {
     }
 
     public static byte[] showBoughtCashItem(int itemid, int sn, int uniqueid, int accid, int quantity, String giftFrom,
-            long expire) {
+                                            long expire) {
         MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         mplew.writeShort(SendPacketOpcode.CS_OPERATION.getValue());
@@ -443,18 +443,18 @@ public class MTSCSPacket {
     }
 
     public static final void addCashItemInfo(MaplePacketLittleEndianWriter mplew, IItem item, int accId, int sn,
-            boolean isFirst) {
+                                             boolean isFirst) {
         addCashItemInfo(mplew, item.getUniqueId(), accId, item.getItemId(), sn, item.getQuantity(), item.getGiftFrom(),
                 item.getExpiration(), isFirst); // owner for the lulz
     }
 
     public static final void addCashItemInfo(MaplePacketLittleEndianWriter mplew, int uniqueid, int accId, int itemid,
-            int sn, int quantity, String sender, long expire) {
+                                             int sn, int quantity, String sender, long expire) {
         addCashItemInfo(mplew, uniqueid, accId, itemid, sn, quantity, sender, expire, true);
     }
 
     public static final void addCashItemInfo(MaplePacketLittleEndianWriter mplew, int uniqueid, int accId, int itemid,
-            int sn, int quantity, String sender, long expire, boolean isFirst) {
+                                             int sn, int quantity, String sender, long expire, boolean isFirst) {
         mplew.writeLong(uniqueid > 0 ? uniqueid : 0);
         mplew.writeLong(accId);
         mplew.writeInt(itemid);
@@ -478,7 +478,7 @@ public class MTSCSPacket {
         /*
          * F3 C2 35 01
          * FF FF 01 00
-         * 
+         *
          * 0F 0E 10 00
          * 01 00
          * 5A 7C 15 00
@@ -496,10 +496,10 @@ public class MTSCSPacket {
          * 00 00
          * 00 00
          * 00"
-         * 
+         *
          * 61 48 37 01
          * FF FF 01 00
-         * 
+         *
          * F1 E6 0F 00
          * 01 00
          * 46 00 00 00
@@ -744,7 +744,7 @@ public class MTSCSPacket {
     }
 
     public static final byte[] sendMTS(final List<MTSItemInfo> items, final int tab, final int type, final int page,
-            final int pages) {
+                                       final int pages) {
         final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         mplew.writeShort(SendPacketOpcode.MTS_OPERATION.getValue());
@@ -766,7 +766,7 @@ public class MTSCSPacket {
     }
 
     public static final byte[] sendMTS1(final List<MTSItemInfo> items, final int tab, final int type, final int page,
-            final int pages) {
+                                        final int pages) {
         final MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
 
         mplew.writeShort(SendPacketOpcode.MTS_OPERATION.getValue());

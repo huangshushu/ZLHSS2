@@ -1982,9 +1982,9 @@ public class GMCommand {
                 if (fff == null) {
                     c.getPlayer().dropMessage(6, "玩家必须上线");
                 } else {
-                    int[] ringID = { MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance() };
+                    int[] ringID = {MapleInventoryIdentifier.getInstance(), MapleInventoryIdentifier.getInstance()};
                     try {
-                        MapleCharacter[] chrz = { fff, c.getPlayer() };
+                        MapleCharacter[] chrz = {fff, c.getPlayer()};
                         for (int i = 0; i < chrz.length; i++) {
                             Equip eq = (Equip) MapleItemInformationProvider.getInstance().getEquipById(itemId);
                             if (eq == null) {
@@ -2522,7 +2522,7 @@ public class GMCommand {
             boolean next = false;
             boolean Action = false;
             String LogType = null;
-            String[] Log = { "伤害", "聊天", "商城", "广播", "精灵商人" };
+            String[] Log = {"伤害", "聊天", "商城", "广播", "精灵商人"};
             StringBuilder show_log = new StringBuilder();
             for (String s : Log) {
                 show_log.append(s);
@@ -2699,7 +2699,7 @@ public class GMCommand {
             if (splitted.length > 1) {
                 ch = ChannelServer.getInstance(Integer.parseInt(splitted[1]));
             }
-            int[] maps = { 240060000, 240060100, 240060200 };
+            int[] maps = {240060000, 240060100, 240060200};
             for (int i = 0; i < maps.length; i++) {
                 int mapid = maps[i];
                 ch.getMapFactory().destroyMap(mapid, true);
@@ -3150,8 +3150,9 @@ public class GMCommand {
                 MapleMap newMap = player.getClient().getChannelServer().getMapFactory().getMap(mapid);
                 MaplePortal newPor = newMap.getPortal(0);
                 LinkedHashSet<MapleCharacter> mcs = new LinkedHashSet<>(map.getCharacters()); // do NOT remove, fixing
-                                                                                              // ConcurrentModificationEx.
-                outerLoop: for (MapleCharacter m : mcs) {
+                // ConcurrentModificationEx.
+                outerLoop:
+                for (MapleCharacter m : mcs) {
                     for (int x = 0; x < 5; x++) {
                         try {
                             m.changeMap(newMap, newPor);

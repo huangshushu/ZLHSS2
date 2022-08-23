@@ -24,7 +24,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
  * @author TEST
  */
 public final class Gashapon {

@@ -12,7 +12,6 @@ import java.io.*;
 import java.net.URL;
 
 /**
- *
  * @author wubin
  */
 public class LieDetectorScript {

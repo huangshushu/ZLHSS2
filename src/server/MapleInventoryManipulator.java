@@ -73,7 +73,7 @@ public class MapleInventoryManipulator {
         }
         return uniqueid;
     }
-        
+
     public static boolean addById(MapleClient c, int itemId, short quantity) {
         return addById(c, itemId, quantity, null, null, 0);
     }
@@ -751,8 +751,8 @@ public class MapleInventoryManipulator {
             }
         }
     }
-    
-        public static boolean removeFromSlot(MapleClient c, MapleInventoryType type, short slot, short quantity, boolean fromDrop, int a) {
+
+    public static boolean removeFromSlot(MapleClient c, MapleInventoryType type, short slot, short quantity, boolean fromDrop, int a) {
         return removeFromSlot(c, type, slot, quantity, fromDrop, false, a);
     }
 
@@ -848,7 +848,7 @@ public class MapleInventoryManipulator {
         //换装备时更新战斗力
         if (c.getPlayer().getGuildId() > 0) {
             c.sendPacket(MaplePacketCreator.showGuildInfo(c.getPlayer()));
-        }else{
+        } else {
             c.sendPacket(MaplePacketCreator.勋章(c.getPlayer()));
         }
 
@@ -1002,7 +1002,7 @@ public class MapleInventoryManipulator {
         return drop(c, type, src, quantity, npcInduced, false);
     }
 
-public static boolean drop(final MapleClient c, MapleInventoryType type, final short src, short quantity, final boolean npcInduced, final boolean cs) {
+    public static boolean drop(final MapleClient c, MapleInventoryType type, final short src, short quantity, final boolean npcInduced, final boolean cs) {
         final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
         if (World.isShutDown) {
             c.getPlayer().dropMessage(1, "目前無法丟落物品。");
@@ -1036,9 +1036,9 @@ public static boolean drop(final MapleClient c, MapleInventoryType type, final s
             if (c.getPlayer().getLevel() < 10) {
                 c.getPlayer().dropMessage(1, "等级过低，无法丢出物品");
                 c.sendPacket(MaplePacketCreator.enableActions());
-            return false;
-        }
-            
+                return false;
+            }
+
             if (!cs) {
                 if (ii.isCash(source.getItemId())) {
                     c.sendPacket(MaplePacketCreator.enableActions());
@@ -1057,30 +1057,30 @@ public static boolean drop(final MapleClient c, MapleInventoryType type, final s
                 }
                 FileoutputUtil.logToFile("logs/Data/丟棄貴重物品.txt", "\r\n " + FileoutputUtil.NowTime() + " IP: " + c.getSession().remoteAddress().toString().split(":")[0] + " 帳號 " + c.getAccountName() + " 帳號ID " + c.getAccID() + " 角色名 " + c.getPlayer().getName() + " 角色ID " + c.getPlayer().getId() + " 類型 " + type + " src " + src + quantity + " 物品 " + ii.getName(source.getItemId()) + " (" + source.getItemId() + ") x" + quantity);
             }
-            
+
             if (quantity < 0 || source == null || (!npcInduced && GameConstants.isPet(source.getItemId())) || (quantity == 0 && !GameConstants.isRechargable(source.getItemId()))) {
                 c.sendPacket(MaplePacketCreator.enableActions());
                 return false;
             }
-            
+
             if (!cs) {
                 if (ii.isCash(source.getItemId())) {
                     c.sendPacket(MaplePacketCreator.enableActions());
                     return false;
                 }
             }
-            
+
             final short flag = source.getFlag();
             if (quantity > source.getQuantity()) {
                 c.sendPacket(MaplePacketCreator.enableActions());
                 return false;
             }
-            
+
             if (ItemFlag.LOCK.check(flag) || (quantity != 1 && type == MapleInventoryType.EQUIP)) { // hack
                 c.sendPacket(MaplePacketCreator.enableActions());
                 return false;
             }
-            
+
             final Point dropPos = new Point(c.getPlayer().getPosition());
             c.getPlayer().getCheatTracker().checkDrop();
             if (quantity < source.getQuantity() && !GameConstants.isRechargable(source.getItemId())) {
@@ -1164,7 +1164,7 @@ public static boolean drop(final MapleClient c, MapleInventoryType type, final s
             }
         }
     }
-    
+
     public static void removeAllById(MapleClient c, int itemId, boolean checkEquipped) {
         MapleInventoryType type = GameConstants.getInventoryType(itemId);
         for (IItem item : c.getPlayer().getInventory(type).listById(itemId)) {
@@ -1180,5 +1180,5 @@ public static boolean drop(final MapleClient c, MapleInventoryType type, final s
             }
         }
     }
-    
+
 }

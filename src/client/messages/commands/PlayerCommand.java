@@ -19,12 +19,10 @@ import tools.FileoutputUtil;
 import tools.MaplePacketCreator;
 import tools.StringUtil;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 
 /**
- *
  * @author Emilyx3
  */
 public class PlayerCommand {
@@ -93,7 +91,7 @@ public class PlayerCommand {
                 9000001,
                 9000058,
                 9330082,
-                9209002 };
+                9209002};
 
         @Override
         public boolean execute(MapleClient c, String[] splitted) {
@@ -112,10 +110,10 @@ public class PlayerCommand {
                 }
                 if (c.getPlayer().getMap().getSquadByMap() != null || c.getPlayer()
                         .getEventInstance() != null || c.getPlayer().getMap().getEMByMap() != null || c.getPlayer()
-                                .getMapId() >= 990000000/*
-                                                         * || FieldLimitType.VipRock.check(c.getPlayer().getMap().
-                                                         * getFieldLimit())
-                                                         */) {
+                        .getMapId() >= 990000000/*
+                 * || FieldLimitType.VipRock.check(c.getPlayer().getMap().
+                 * getFieldLimit())
+                 */) {
                     c.getPlayer().dropMessage(1, "你不能在这里使用指令.");
                     return true;
                 }
@@ -167,11 +165,11 @@ public class PlayerCommand {
 
     /*
      * public static class bspq extends OpenNPCCommand {
-     * 
+     *
      * public bspq() {
      * npc = 3;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new StringBuilder().append("@bspq - 呼叫Boss挑战npc").toString();
@@ -180,19 +178,19 @@ public class PlayerCommand {
      */
     /*
      * public static class pk extends 猜拳 {
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new StringBuilder().append("@pk - 呼叫猜拳npc").toString();
      * }
      * }
-     * 
+     *
      * public static class 猜拳 extends OpenNPCCommand {
-     * 
+     *
      * public 猜拳() {
      * npc = 4;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new StringBuilder().append("@猜拳 - 呼叫猜拳npc").toString();
@@ -203,9 +201,9 @@ public class PlayerCommand {
     /*
      * public static class save extends 存档 {
      * }
-     * 
+     *
      * public static class 存档 extends CommandExecute {
-     * 
+     *
      * @Override
      * public boolean execute(MapleClient c, String[] splitted) {
      * try {
@@ -216,11 +214,11 @@ public class PlayerCommand {
      * c.getPlayer().dropMessage(5, "保存失败！");
      * }
      * } catch (UnsupportedOperationException ex) {
-     * 
+     *
      * }
      * return true;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new StringBuilder().append("@save - 存档").toString();
@@ -245,16 +243,16 @@ public class PlayerCommand {
 
     /*
      * public static class 在线人数 extends online {
-     * 
+     *
      * }
-     * 
+     *
      * public static class online extends CommandExecute {
-     * 
+     *
      * @Override
      * public boolean execute(MapleClient c, String[] splitted) {
      * int channelOnline = c.getChannelServer().getConnectedClients();
      * int totalOnline = 0;
-     * 
+     *
      * for (ChannelServer cserv : ChannelServer.getAllInstances()) {
      * totalOnline += cserv.getConnectedClients();
      * }
@@ -264,7 +262,7 @@ public class PlayerCommand {
      * append("个").toString());
      * return true;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new StringBuilder().append("@online - 查看线上人数").toString();
@@ -519,8 +517,8 @@ public class PlayerCommand {
                     autoReply = true;
                 } else if (talk.contains("贡献") || talk.contains("666")
                         || ((talk.contains("取") || talk.contains("拿") || talk.contains("发") || talk.contains("领"))
-                                && ((talk.contains("勋") || talk.contains("徽") || talk.contains("勋"))
-                                        && talk.contains("章")))) {
+                        && ((talk.contains("勋") || talk.contains("徽") || talk.contains("勋"))
+                        && talk.contains("章")))) {
                     c.getPlayer().dropMessage(1, "勋章请去点拍卖NPC案领取勋章\r\n如尚未被加入清单请耐心等候GM。");
                     autoReply = true;
                 } else if ((talk.contains("商人") && talk.contains("吃"))
@@ -532,7 +530,7 @@ public class PlayerCommand {
                     autoReply = true;
                 } else if ((talk.contains("缺") || talk.contains("少"))
                         && ((talk.contains("技") && talk.contains("能") && talk.contains("点"))
-                                || talk.toUpperCase().contains("SP"))) {
+                        || talk.toUpperCase().contains("SP"))) {
                     c.getPlayer().dropMessage(1, "缺少技能点请重练，没有其他方法了唷");
                     autoReply = true;
 
@@ -712,7 +710,7 @@ public class PlayerCommand {
 
     /*
      * public static class dpm extends CommandExecute {
-     * 
+     *
      * @Override
      * public boolean execute(final MapleClient c, String splitted[]) {
      * if (c.getPlayer().getMapId() == 100000000 && c.getPlayer().getLevel() >= 70
@@ -735,7 +733,7 @@ public class PlayerCommand {
      * c.getPlayer().getMap().spawnMonsterOnGroundBelow(mm, p);
      * final MapleMap nowMap = c.getPlayer().getMap();
      * Timer.EventTimer.getInstance().schedule(new Runnable() {
-     * 
+     *
      * @Override
      * public void run() {
      * long health = mm.getHp();
@@ -751,7 +749,7 @@ public class PlayerCommand {
      * c.getPlayer().getDPS() + ".");
      * c.getPlayer().toggleTestingDPS();
      * }
-     * 
+     *
      * }
      * }, 60000);
      * } else {
@@ -764,7 +762,7 @@ public class PlayerCommand {
      * }
      * return true;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new StringBuilder().append("").toString();
@@ -789,7 +787,7 @@ public class PlayerCommand {
 
     /*
      * public static class 匿名广播 extends CommandExecute {
-     * 
+     *
      * @Override
      * public boolean execute(MapleClient c, String[] splitted) {
      * if (splitted.length < 3) {
@@ -805,7 +803,7 @@ public class PlayerCommand {
      * return true;
      * }
      * String msg = splitted[2];
-     * 
+     *
      * if (msg.length() > 65) {
      * return false;
      * }
@@ -824,7 +822,7 @@ public class PlayerCommand {
      * }
      * final List<String> messages = new LinkedList<>();
      * messages.add("匿名广播" + " : " + msg);
-     * 
+     *
      * if (mod == 1) {
      * if (c.getPlayer().getLevel() < 50) {
      * c.getPlayer().dropMessage(5, "您的等级不足50等，无法使用匿名广播。");
@@ -847,7 +845,7 @@ public class PlayerCommand {
      * }
      * c.getPlayer().modifyCSPoints(2, -50, true);
      * }
-     * 
+     *
      * World.Broadcast.broadcastSmega(MaplePacketCreator.SkullSmega(messages, false,
      * c.getChannel()));
      * FileoutputUtil.logToFile("logs/聊天/匿名广播.txt", "\r\n " +
@@ -856,7 +854,7 @@ public class PlayerCommand {
      * " 玩家: " + c.getPlayer().getName() + " 说了 :" + msg);
      * return true;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new
@@ -868,7 +866,7 @@ public class PlayerCommand {
 
     /*
      * public static class 查询玩家信息 extends CommandExecute {
-     * 
+     *
      * @Override
      * public boolean execute(MapleClient c, String[] splitted) {
      * if (splitted.length < 2) {
@@ -897,7 +895,7 @@ public class PlayerCommand {
      * }
      * return true;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new
@@ -909,7 +907,7 @@ public class PlayerCommand {
 
     /*
      * static class 使用鱼包 extends CommandExecute {
-     * 
+     *
      * @Override
      * public boolean execute(MapleClient c, String[] splitted) {
      * if (splitted.length < 2) {
@@ -925,7 +923,7 @@ public class PlayerCommand {
      * c.getPlayer().dropMessage(5, "最多只能一次性放100包鱼包。");
      * return true;
      * }
-     * 
+     *
      * if (c.getPlayer().haveItem(itemId, quantity, false, true)) {
      * if (c.getPlayer().isGM() ||
      * !FieldLimitType.SummoningBag.check(c.getPlayer().getMap().getFieldLimit())) {
@@ -935,14 +933,14 @@ public class PlayerCommand {
      * true));
      * final List<Pair<Integer, Integer>> toSpawn =
      * MapleItemInformationProvider.getInstance().getSummonMobs(itemId);
-     * 
+     *
      * if (toSpawn == null) {
      * c.sendPacket(MaplePacketCreator.enableActions());
      * return true;
      * }
      * MapleMonster ht;
      * int type = 0;
-     * 
+     *
      * for (Pair<Integer, Integer> toSpawn1 : toSpawn) {
      * for (int i = 0; i < quantity; i++) {
      * if (Randomizer.nextInt(99) <= toSpawn1.getRight()) {
@@ -952,7 +950,7 @@ public class PlayerCommand {
      * }
      * }
      * }
-     * 
+     *
      * }
      * } else {
      * c.getPlayer().dropMessage(5, "你没有那么多鱼包。");
@@ -960,7 +958,7 @@ public class PlayerCommand {
      * }
      * return true;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new
@@ -971,27 +969,27 @@ public class PlayerCommand {
      */
     /*
      * public static class 推荐人 extends CommandExecute {
-     * 
+     *
      * @Override
      * public boolean execute(MapleClient c, String[] splitted) {
      * if (splitted.length < 2) {
      * return false;
      * }
      * String name = splitted[1];
-     * 
+     *
      * MapleCharacter victim = MapleCharacter.getCharacterByName(name);
-     * 
+     *
      * int ch = World.Find.findChannel(name);
      * if (ch <= 0) {
      * c.getPlayer().dropMessage("该玩家不在线上,无法推荐。");
      * return true;
      * }
-     * 
+     *
      * if (c.getPlayer().getAccountID() == victim.getAccountID()) {
      * c.getPlayer().dropMessage("您不能推荐自己。");
      * return true;
      * }
-     * 
+     *
      * if (c.getPlayer().getLevel() < 20) {
      * c.getPlayer().dropMessage("您的等级小于20级不能填写推荐人信息。");
      * return true;
@@ -1000,12 +998,12 @@ public class PlayerCommand {
      * c.getPlayer().dropMessage("推荐您玩游戏的玩家小于35级，无法被推荐。");
      * return true;
      * }
-     * 
+     *
      * if (c.getPlayer().getAcLogS("推荐人") > 0) {
      * c.getPlayer().dropMessage("您的该帐号已经填写过推荐人信息。");
      * return true;
      * }
-     * 
+     *
      * byte reta;
      * reta = MapleClient.setTGJF(c.getPlayer().getName(), c.getPlayer().getTGJF() +
      * 1);
@@ -1018,7 +1016,7 @@ public class PlayerCommand {
      * } else {
      * c.getPlayer().dropMessage(6, "[" + "被推荐人" + "] 成功推荐");
      * }
-     * 
+     *
      * byte ret;
      * ret = MapleClient.setTGJF(name, victim.getTGJF() + 1);
      * if (ret == -2) {
@@ -1041,7 +1039,7 @@ public class PlayerCommand {
      * + " " + "1推广积分");
      * return true;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new StringBuilder().append("!推荐人 <玩家> ").toString();
@@ -1050,20 +1048,20 @@ public class PlayerCommand {
      */
     /*
      * public static class 告白广播 extends CommandExecute {
-     * 
+     *
      * @Override
      * public boolean execute(MapleClient c, String[] splitted) {
      * if (splitted.length < 3) {
      * return false;
      * }
-     * 
+     *
      * int mod = Integer.parseInt(splitted[1]);
      * if (mod < 1 || mod > 2) {
      * c.getPlayer().dropMessage(5, "消费类型错误，只有1或2。");
      * return true;
      * }
      * String msg = splitted[2];
-     * 
+     *
      * if (msg.length() > 65) {
      * return false;
      * }
@@ -1082,7 +1080,7 @@ public class PlayerCommand {
      * }
      * final List<String> messages = new LinkedList<>();
      * messages.add("告白广播" + " : " + msg);
-     * 
+     *
      * if (mod == 1) {
      * if (c.getPlayer().getLevel() < 50) {
      * c.getPlayer().dropMessage(5, "您的等级不足50等，无法使用告白广播。");
@@ -1105,7 +1103,7 @@ public class PlayerCommand {
      * }
      * c.getPlayer().modifyCSPoints(2, -100, true);
      * }
-     * 
+     *
      * //World.Broadcast.broadcastSmega(MaplePacketCreator.SkullSmega(messages,
      * false, c.getChannel()));
      * World.Broadcast.broadcastSmega(MaplePacketCreator.HeartSmega(messages, false,
@@ -1116,7 +1114,7 @@ public class PlayerCommand {
      * " 玩家: " + c.getPlayer().getName() + " 说了 :" + msg);
      * return true;
      * }
-     * 
+     *
      * @Override
      * public String getMessage() {
      * return new StringBuilder().
@@ -1141,11 +1139,11 @@ public class PlayerCommand {
              * return false;
              * }
              * MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
-             * 
+             *
              * short src = (short) Integer.parseInt(splitted[1]);
              * Item toUse =
              * c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(src);
-             * 
+             *
              * if ((toUse == null) || (toUse.getQuantity() < 1) ||
              * (!ii.isCash(toUse.getItemId()))) {
              * c.getPlayer().dropMessage(6, "丢弃点装出错，装备栏的第 " + src + " 个道具信息为空，或者该道具不是点装。");

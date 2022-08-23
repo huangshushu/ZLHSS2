@@ -100,7 +100,7 @@ public class DamageParse {
             if (attack.skill == 圣魂剑士2.灵魂之刃) {
                 last = 2;
             }
-            
+
             if (attack.skill == 闪雷悍将3.鲸噬) {
                 last = 3;
             }

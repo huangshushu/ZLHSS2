@@ -336,7 +336,7 @@ class BytesEncodingDetect extends Encoding {
                         && // Extended GB range
                         i + 1 < rawtextlen
                         && (((byte) 0x80 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0xFE)
-                                || ((byte) 0x40 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0x7E))) {
+                        || ((byte) 0x40 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0x7E))) {
                     gbchars++;
                     totalfreq += 500;
                     row = rawtext[i] + 256 - 0x81;
@@ -469,7 +469,7 @@ class BytesEncodingDetect extends Encoding {
                 if ((byte) 0xA1 <= rawtext[i]
                         && rawtext[i] <= (byte) 0xF9
                         && (((byte) 0x40 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0x7E)
-                                || ((byte) 0xA1 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0xFE))) {
+                        || ((byte) 0xA1 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0xFE))) {
                     bfchars++;
                     totalfreq += 500;
                     row = rawtext[i] + 256 - 0xA1;
@@ -624,8 +624,8 @@ class BytesEncodingDetect extends Encoding {
         for (i = 0; i < rawtextlen - 1; i++) {
             if (rawtext[i] == (byte) 0x1B && i + 3 < rawtextlen) { // Escape char ESC
                 if (rawtext[i + 1] == (byte) 0x24 && rawtext[i + 2] == 0x29 && rawtext[i + 3] == (byte) 0x41) { // GB
-                                                                                                                // Escape
-                                                                                                                // $ ) A
+                    // Escape
+                    // $ ) A
                     i += 4;
                     while (rawtext[i] != (byte) 0x1B) {
                         dbchars++;
@@ -757,7 +757,7 @@ class BytesEncodingDetect extends Encoding {
          * // Three bytes if (i+2 < rawtextlen &&
          * (rawtext[i+1] & (byte)0xBF) == rawtext[i+1] && (rawtext[i+2] & (byte)0xBF) ==
          * rawtext[i+2]) { goodbytes += 3; i+=2; } } }
-         * 
+         *
          * score = (int)(100 * ((float)goodbytes/(float)rawtext.length)); // An all
          * ASCII file is also a good UTF8 file, but I'd
          * rather it // get identified as ASCII. Can delete following 3 lines otherwise
@@ -851,9 +851,9 @@ class BytesEncodingDetect extends Encoding {
                 if ((byte) 0x81 <= rawtext[i]
                         && rawtext[i] <= (byte) 0xFE
                         && ((byte) 0x41 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0x5A
-                                || (byte) 0x61 <= rawtext[i + 1]
-                                        && rawtext[i + 1] <= (byte) 0x7A
-                                || (byte) 0x81 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0xFE)) {
+                        || (byte) 0x61 <= rawtext[i + 1]
+                        && rawtext[i + 1] <= (byte) 0x7A
+                        || (byte) 0x81 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0xFE)) {
                     krchars++;
                     totalfreq += 500;
                     if ((byte) 0xA1 <= rawtext[i] && rawtext[i] <= (byte) 0xFE && (byte) 0xA1 <= rawtext[i + 1]
@@ -956,9 +956,9 @@ class BytesEncodingDetect extends Encoding {
                 dbchars++;
                 if (i + 1 < rawtext.length
                         && (((byte) 0x81 <= rawtext[i] && rawtext[i] <= (byte) 0x9F)
-                                || ((byte) 0xE0 <= rawtext[i] && rawtext[i] <= (byte) 0xEF))
+                        || ((byte) 0xE0 <= rawtext[i] && rawtext[i] <= (byte) 0xEF))
                         && (((byte) 0x40 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0x7E)
-                                || ((byte) 0x80 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0xFC))) {
+                        || ((byte) 0x80 <= rawtext[i + 1] && rawtext[i + 1] <= (byte) 0xFC))) {
                     jpchars++;
                     totalfreq += 500;
                     row = rawtext[i] + 256;

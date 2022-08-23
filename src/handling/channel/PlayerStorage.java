@@ -319,14 +319,14 @@ public class PlayerStorage {
                 chr = itr.next();
 
                 if (chr.getClient().isLoggedIn() && chr.getSmega()) {
-                        chr.getClient().sendPacket(data);
+                    chr.getClient().sendPacket(data);
                 }
             }
         } finally {
             readLock.unlock();
         }
     }
-    
+
     public final void broadcastGashponmegaPacket(final byte[] data) {
         readLock.lock();
         try {
@@ -336,7 +336,7 @@ public class PlayerStorage {
                 chr = itr.next();
 
                 if (chr.getClient().isLoggedIn() && chr.getGashponmega()) {
-                        chr.getClient().sendPacket(data);
+                    chr.getClient().sendPacket(data);
                 }
             }
         } finally {

@@ -303,7 +303,7 @@ public class ChatHandler {
                         target.getClient().sendPacket(MaplePacketCreator.messengerNote(c.getPlayer().getName(), 5, 0));
                     }
                 } else // Other channel
-                 if (!c.getPlayer().isGM()) {
+                    if (!c.getPlayer().isGM()) {
                         World.Messenger.declineChat(targeted, c.getPlayer().getName());
                     }
                 break;

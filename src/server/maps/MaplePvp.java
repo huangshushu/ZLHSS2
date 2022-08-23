@@ -14,7 +14,6 @@ import server.life.MapleMonster;
 import tools.MaplePacketCreator;
 
 /**
- *
  * @author wubin
  */
 public class MaplePvp {
@@ -71,8 +70,8 @@ public class MaplePvp {
             case 2121003:    //Fire Demon
             case 2221006:    //Chain Lightning
             case 2221003:    //Ice Demon
-            case 2111006:	 //Element Composition F/P
-            case 2211006:	 //Element Composition I/L
+            case 2111006:     //Element Composition F/P
+            case 2211006:     //Element Composition I/L
             case 2321007:    //Angel's Ray
             case 3121003:    //Dragon Pulse
             case 3121004:    //Hurricane

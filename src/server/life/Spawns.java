@@ -31,7 +31,7 @@ public abstract class Spawns {
     public abstract byte getCarnivalTeam();
 
     public abstract boolean shouldSpawn();
-    
+
     public abstract boolean shouldSpawn2();
 
     public abstract int getCarnivalId();

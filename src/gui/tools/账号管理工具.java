@@ -32,6 +32,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static server.MapleCarnivalChallenge.getJobNameById;
+
 public class 账号管理工具 extends javax.swing.JFrame {
 
     /**
@@ -296,26 +297,26 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         账号信息.setFont(new java.awt.Font("幼圆", 0, 14)); // NOI18N
         账号信息.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "账号ID", "账号", "IP地址", "MAC地址", "绑定QQ", "点券", "抵用", "最近上线", "在线", "封号", "GM"
-            }
+                },
+                new String[]{
+                        "账号ID", "账号", "IP地址", "MAC地址", "绑定QQ", "点券", "抵用", "最近上线", "在线", "封号", "GM"
+                }
         ) {
-            final Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
+            final Class[] types = new Class[]{
+                    java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
             };
-            final boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         账号信息.getTableHeader().setReorderingAllowed(false);
@@ -516,68 +517,68 @@ public class 账号管理工具 extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
         jPanel23.setLayout(jPanel23Layout);
         jPanel23Layout.setHorizontalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel23Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel23Layout.createSequentialGroup()
-                        .addComponent(刷新账号信息)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(在线账号)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(离线账号)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(已封账号)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(删除账号)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(解卡)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(封锁账号)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(解封)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(账号操作, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(jPanel23Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(显示在线账号, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addGroup(jPanel23Layout.createSequentialGroup()
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 883, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(账号提示语言, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel32, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel23Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel23Layout.createSequentialGroup()
+                                                .addComponent(刷新账号信息)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(在线账号)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(离线账号)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(已封账号)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(删除账号)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(解卡)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(封锁账号)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(解封)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(账号操作, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap())
+                                        .addGroup(jPanel23Layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(显示在线账号, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel23Layout.createSequentialGroup()
+                                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 883, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(账号提示语言, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jPanel32, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jPanel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel23Layout.createSequentialGroup()
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(刷新账号信息, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(在线账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(离线账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(已封账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(删除账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(解卡, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(封锁账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(解封, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(账号操作, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(账号提示语言, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(显示在线账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel23Layout.createSequentialGroup()
+                                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(刷新账号信息, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(在线账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(离线账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(已封账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(删除账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(解卡, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(封锁账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(解封, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(账号操作, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(5, 5, 5)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(账号提示语言, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(显示在线账号, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane8.addTab("账号管理", jPanel23);
@@ -588,19 +589,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
         角色信息.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         角色信息.setFont(new java.awt.Font("幼圆", 0, 12)); // NOI18N
         角色信息.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "角色ID", "账号ID", "角色昵称", "职业", "等级", "力量", "敏捷", "智力", "运气", "MaxHP", "MaxMP", "金币", "所在地图", "状态", "GM", "发型", "脸型"
-            }
+                },
+                new String[]{
+                        "角色ID", "账号ID", "角色昵称", "职业", "等级", "力量", "敏捷", "智力", "运气", "MaxHP", "MaxMP", "金币", "所在地图", "状态", "GM", "发型", "脸型"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         角色信息.setName(""); // NOI18N
@@ -898,19 +899,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         角色背包穿戴.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         角色背包穿戴.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "物品代码", "物品名字"
-            }
+                },
+                new String[]{
+                        "序号", "物品代码", "物品名字"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         角色背包穿戴.getTableHeader().setReorderingAllowed(false);
@@ -970,19 +971,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         角色装备背包.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         角色装备背包.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "物品代码", "物品名字"
-            }
+                },
+                new String[]{
+                        "序号", "物品代码", "物品名字"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         角色装备背包.getTableHeader().setReorderingAllowed(false);
@@ -1042,19 +1043,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         角色消耗背包.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         角色消耗背包.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "物品代码", "物品名字", "物品数量"
-            }
+                },
+                new String[]{
+                        "序号", "物品代码", "物品名字", "物品数量"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         角色消耗背包.getTableHeader().setReorderingAllowed(false);
@@ -1114,19 +1115,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         角色设置背包.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         角色设置背包.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "物品代码", "物品名字", "物品数量"
-            }
+                },
+                new String[]{
+                        "序号", "物品代码", "物品名字", "物品数量"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         角色设置背包.getTableHeader().setReorderingAllowed(false);
@@ -1186,19 +1187,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         角色其他背包.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         角色其他背包.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "物品代码", "物品名字", "物品数量"
-            }
+                },
+                new String[]{
+                        "序号", "物品代码", "物品名字", "物品数量"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         角色其他背包.getTableHeader().setReorderingAllowed(false);
@@ -1258,19 +1259,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         角色特殊背包.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         角色特殊背包.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "物品代码", "物品名字", "物品数量"
-            }
+                },
+                new String[]{
+                        "序号", "物品代码", "物品名字", "物品数量"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         角色特殊背包.getTableHeader().setReorderingAllowed(false);
@@ -1330,19 +1331,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         角色游戏仓库.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         角色游戏仓库.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "物品代码", "物品名字", "物品数量"
-            }
+                },
+                new String[]{
+                        "序号", "物品代码", "物品名字", "物品数量"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         角色游戏仓库.getTableHeader().setReorderingAllowed(false);
@@ -1402,19 +1403,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         角色商城仓库.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         角色商城仓库.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "物品代码", "物品名字", "物品数量"
-            }
+                },
+                new String[]{
+                        "序号", "物品代码", "物品名字", "物品数量"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         角色商城仓库.getTableHeader().setReorderingAllowed(false);
@@ -1473,19 +1474,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         角色点券拍卖行.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         角色点券拍卖行.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "物品代码", "物品名字", "物品数量"
-            }
+                },
+                new String[]{
+                        "序号", "物品代码", "物品名字", "物品数量"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         角色点券拍卖行.getTableHeader().setReorderingAllowed(false);
@@ -1545,19 +1546,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         角色金币拍卖行.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         角色金币拍卖行.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "物品代码", "物品名字"
-            }
+                },
+                new String[]{
+                        "序号", "物品代码", "物品名字"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         角色金币拍卖行.getTableHeader().setReorderingAllowed(false);
@@ -1617,12 +1618,12 @@ public class 账号管理工具 extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 890, Short.MAX_VALUE)
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 890, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 730, Short.MAX_VALUE)
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 730, Short.MAX_VALUE)
         );
 
         角色背包.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -30, 890, 730));
@@ -1635,19 +1636,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         技能信息.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         技能信息.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序号", "技能名字", "技能代码", "目前等级", "最高等级"
-            }
+                },
+                new String[]{
+                        "序号", "技能名字", "技能代码", "目前等级", "最高等级"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         技能信息.getTableHeader().setReorderingAllowed(false);
@@ -1735,19 +1736,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         家族信息.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         家族信息.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "家族ID", "家族名称", "族长/角色ID", "成员2", "成员3", "成员4", "成员5", "家族GP"
-            }
+                },
+                new String[]{
+                        "家族ID", "家族名称", "族长/角色ID", "成员2", "成员3", "成员4", "成员5", "家族GP"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         家族信息.getTableHeader().setReorderingAllowed(false);
@@ -1852,86 +1853,86 @@ public class 账号管理工具 extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel50Layout = new javax.swing.GroupLayout(jPanel50);
         jPanel50.setLayout(jPanel50Layout);
         jPanel50Layout.setHorizontalGroup(
-            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel50Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane24))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel50Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(刷新家族信息, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(280, 280, 280))
-            .addGroup(jPanel50Layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel194, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(家族ID, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel50Layout.createSequentialGroup()
-                        .addComponent(家族名称, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(家族族长, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(家族成员2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(家族成员3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(家族成员4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel50Layout.createSequentialGroup()
-                        .addComponent(jLabel195)
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel196)
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel198)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel199)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel200)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel50Layout.createSequentialGroup()
-                        .addComponent(家族成员5, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(家族GP, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel50Layout.createSequentialGroup()
-                        .addComponent(jLabel313)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel314)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel50Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane24))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel50Layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(刷新家族信息, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(280, 280, 280))
+                        .addGroup(jPanel50Layout.createSequentialGroup()
+                                .addGap(94, 94, 94)
+                                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel194, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(家族ID, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel50Layout.createSequentialGroup()
+                                                .addComponent(家族名称, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(家族族长, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(家族成员2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(家族成员3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(家族成员4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel50Layout.createSequentialGroup()
+                                                .addComponent(jLabel195)
+                                                .addGap(35, 35, 35)
+                                                .addComponent(jLabel196)
+                                                .addGap(26, 26, 26)
+                                                .addComponent(jLabel198)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel199)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel200)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel50Layout.createSequentialGroup()
+                                                .addComponent(家族成员5, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(家族GP, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel50Layout.createSequentialGroup()
+                                                .addComponent(jLabel313)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel314)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel50Layout.setVerticalGroup(
-            jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel50Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane24, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
-                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel194)
-                        .addComponent(jLabel195)
-                        .addComponent(jLabel196)
-                        .addComponent(jLabel198)
-                        .addComponent(jLabel199)
-                        .addComponent(jLabel200)
-                        .addComponent(jLabel313)
-                        .addComponent(jLabel314))
-                    .addGroup(jPanel50Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(家族ID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(家族名称, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(家族族长, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(家族成员2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(家族成员3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(家族成员4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(家族成员5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(家族GP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(22, 22, 22)
-                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(刷新家族信息, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel50Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane24, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
+                                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(jLabel194)
+                                                .addComponent(jLabel195)
+                                                .addComponent(jLabel196)
+                                                .addComponent(jLabel198)
+                                                .addComponent(jLabel199)
+                                                .addComponent(jLabel200)
+                                                .addComponent(jLabel313)
+                                                .addComponent(jLabel314))
+                                        .addGroup(jPanel50Layout.createSequentialGroup()
+                                                .addGap(20, 20, 20)
+                                                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(家族ID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(家族名称, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(家族族长, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(家族成员2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(家族成员3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(家族成员4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(家族成员5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(家族GP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(22, 22, 22)
+                                .addGroup(jPanel50Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(刷新家族信息, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButton34, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 20, 20))
         );
 
         jTabbedPane8.addTab("游戏家族", jPanel50);
@@ -1941,38 +1942,38 @@ public class 账号管理工具 extends javax.swing.JFrame {
 
         封IP.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         封IP.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序列号", "IP地址"
-            }
+                },
+                new String[]{
+                        "序列号", "IP地址"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane107.setViewportView(封IP);
 
         封MAC.setFont(new java.awt.Font("幼圆", 0, 15)); // NOI18N
         封MAC.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "序列号", "MAC地址"
-            }
+                },
+                new String[]{
+                        "序列号", "MAC地址"
+                }
         ) {
-            final boolean[] canEdit = new boolean [] {
-                false, false
+            final boolean[] canEdit = new boolean[]{
+                    false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane108.setViewportView(封MAC);
@@ -2018,50 +2019,50 @@ public class 账号管理工具 extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel65Layout = new javax.swing.GroupLayout(jPanel65);
         jPanel65.setLayout(jPanel65Layout);
         jPanel65Layout.setHorizontalGroup(
-            jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel65Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel347)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(删MAC代码, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(删除MAC, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(刷新封MAC, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
-                .addComponent(jLabel346)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(删除IP代码, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(删除IP, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(刷新封IP, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(160, 160, 160))
-            .addGroup(jPanel65Layout.createSequentialGroup()
-                .addComponent(jScrollPane108, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane107, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel65Layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel347)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(删MAC代码, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(删除MAC, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(刷新封MAC, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(101, 101, 101)
+                                .addComponent(jLabel346)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(删除IP代码, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(删除IP, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(刷新封IP, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(160, 160, 160))
+                        .addGroup(jPanel65Layout.createSequentialGroup()
+                                .addComponent(jScrollPane108, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane107, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addContainerGap())
         );
         jPanel65Layout.setVerticalGroup(
-            jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel65Layout.createSequentialGroup()
-                .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane108, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
-                    .addComponent(jScrollPane107))
-                .addGap(20, 20, 20)
-                .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(删MAC代码, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel347, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(删除MAC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(刷新封MAC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(删除IP代码, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel346, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(删除IP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(刷新封IP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel65Layout.createSequentialGroup()
+                                .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jScrollPane108, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane107))
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(删MAC代码, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel347, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(删除MAC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(刷新封MAC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel65Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(删除IP代码, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel346, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(删除IP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(刷新封IP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane8.addTab("MAC/IP封禁", jPanel65);
@@ -2069,12 +2070,12 @@ public class 账号管理工具 extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 892, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTabbedPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 892, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 728, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTabbedPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 728, Short.MAX_VALUE)
         );
 
         pack();
@@ -2177,17 +2178,17 @@ public class 账号管理工具 extends javax.swing.JFrame {
                     QQ = "未绑定QQ";
                 }
                 ((DefaultTableModel) 账号信息.getModel()).insertRow(账号信息.getRowCount(), new Object[]{
-                    rs.getInt("id"), //账号ID
-                    rs.getString("name"), //账号
-                    rs.getString("SessionIP"), //账号IP地址
-                    rs.getString("macs"), ///账号MAC地址
-                    QQ,//注册时间
-                    rs.getInt("ACash"),//点券
-                    rs.getInt("mPoints"),//抵用
-                    rs.getString("lastlogin"),//最近上线
-                    在线,
-                    封号,
-                    rs.getInt("gm")
+                        rs.getInt("id"), //账号ID
+                        rs.getString("name"), //账号
+                        rs.getString("SessionIP"), //账号IP地址
+                        rs.getString("macs"), ///账号MAC地址
+                        QQ,//注册时间
+                        rs.getInt("ACash"),//点券
+                        rs.getInt("mPoints"),//抵用
+                        rs.getString("lastlogin"),//最近上线
+                        在线,
+                        封号,
+                        rs.getInt("gm")
                 });
 
             }
@@ -2254,17 +2255,17 @@ public class 账号管理工具 extends javax.swing.JFrame {
                     QQ = "未绑定QQ";
                 }
                 ((DefaultTableModel) 账号信息.getModel()).insertRow(账号信息.getRowCount(), new Object[]{
-                    rs.getInt("id"), //账号ID
-                    rs.getString("name"), //账号
-                    rs.getString("SessionIP"), //账号IP地址
-                    rs.getString("macs"), ///账号MAC地址
-                    QQ,//注册时间
-                    rs.getInt("ACash"),//点券
-                    rs.getInt("mPoints"),//抵用
-                    rs.getString("lastlogin"),//最近上线
-                    在线,
-                    封号,
-                    rs.getInt("gm")
+                        rs.getInt("id"), //账号ID
+                        rs.getString("name"), //账号
+                        rs.getString("SessionIP"), //账号IP地址
+                        rs.getString("macs"), ///账号MAC地址
+                        QQ,//注册时间
+                        rs.getInt("ACash"),//点券
+                        rs.getInt("mPoints"),//抵用
+                        rs.getString("lastlogin"),//最近上线
+                        在线,
+                        封号,
+                        rs.getInt("gm")
                 });
             }
         } catch (SQLException ex) {
@@ -2306,17 +2307,17 @@ public class 账号管理工具 extends javax.swing.JFrame {
                     QQ = "未绑定QQ";
                 }
                 ((DefaultTableModel) 账号信息.getModel()).insertRow(账号信息.getRowCount(), new Object[]{
-                    rs.getInt("id"), //账号ID
-                    rs.getString("name"), //账号
-                    rs.getString("SessionIP"), //账号IP地址
-                    rs.getString("macs"), ///账号MAC地址
-                    QQ,//注册时间
-                    rs.getInt("ACash"),//点券
-                    rs.getInt("mPoints"),//抵用
-                    rs.getString("lastlogin"),//最近上线
-                    在线,
-                    封号,
-                    rs.getInt("gm")
+                        rs.getInt("id"), //账号ID
+                        rs.getString("name"), //账号
+                        rs.getString("SessionIP"), //账号IP地址
+                        rs.getString("macs"), ///账号MAC地址
+                        QQ,//注册时间
+                        rs.getInt("ACash"),//点券
+                        rs.getInt("mPoints"),//抵用
+                        rs.getString("lastlogin"),//最近上线
+                        在线,
+                        封号,
+                        rs.getInt("gm")
                 });
             }
         } catch (SQLException ex) {
@@ -2424,24 +2425,24 @@ public class 账号管理工具 extends javax.swing.JFrame {
                     在线 = "离线";
                 }
                 ((DefaultTableModel) 角色信息.getModel()).insertRow(角色信息.getRowCount(), new Object[]{
-                    rs.getInt("id"),
-                    rs.getInt("accountid"),
-                    rs.getString("name"),
-                    getJobNameById(rs.getInt("job")),
-                    rs.getInt("level"),
-                    rs.getInt("str"),
-                    rs.getInt("dex"),
-                    rs.getInt("int"),
-                    rs.getInt("luk"),
-                    rs.getInt("maxhp"),
-                    rs.getInt("maxmp"),
-                    rs.getInt("meso"),
-                    rs.getInt("map"),
-                    在线,
-                    rs.getInt("gm"),
-                    rs.getInt("hair"),
-                    rs.getInt("face"
-                    )});
+                        rs.getInt("id"),
+                        rs.getInt("accountid"),
+                        rs.getString("name"),
+                        getJobNameById(rs.getInt("job")),
+                        rs.getInt("level"),
+                        rs.getInt("str"),
+                        rs.getInt("dex"),
+                        rs.getInt("int"),
+                        rs.getInt("luk"),
+                        rs.getInt("maxhp"),
+                        rs.getInt("maxmp"),
+                        rs.getInt("meso"),
+                        rs.getInt("map"),
+                        在线,
+                        rs.getInt("gm"),
+                        rs.getInt("hair"),
+                        rs.getInt("face"
+                        )});
             }
             JOptionPane.showMessageDialog(null, "[信息]:显示游戏所有管理员角色信息。");
         } catch (SQLException ex) {
@@ -2796,24 +2797,24 @@ public class 账号管理工具 extends javax.swing.JFrame {
             while (rs.next()) {
                 if (World.Find.findChannel(rs.getString("name")) <= 0) {
                     ((DefaultTableModel) 角色信息.getModel()).insertRow(角色信息.getRowCount(), new Object[]{
-                        rs.getInt("id"),
-                        rs.getInt("accountid"),
-                        rs.getString("name"),
-                        getJobNameById(rs.getInt("job")),
-                        rs.getInt("level"),
-                        rs.getInt("str"),
-                        rs.getInt("dex"),
-                        rs.getInt("int"),
-                        rs.getInt("luk"),
-                        rs.getInt("maxhp"),
-                        rs.getInt("maxmp"),
-                        rs.getInt("meso"),
-                        rs.getInt("map"),
-                        "在线",
-                        rs.getInt("gm"),
-                        rs.getInt("hair"),
-                        rs.getInt("face"
-                        )});
+                            rs.getInt("id"),
+                            rs.getInt("accountid"),
+                            rs.getString("name"),
+                            getJobNameById(rs.getInt("job")),
+                            rs.getInt("level"),
+                            rs.getInt("str"),
+                            rs.getInt("dex"),
+                            rs.getInt("int"),
+                            rs.getInt("luk"),
+                            rs.getInt("maxhp"),
+                            rs.getInt("maxmp"),
+                            rs.getInt("meso"),
+                            rs.getInt("map"),
+                            "在线",
+                            rs.getInt("gm"),
+                            rs.getInt("hair"),
+                            rs.getInt("face"
+                            )});
                 }
             }
             JOptionPane.showMessageDialog(null, "[信息]:显示游戏所有离线角色信息。");
@@ -2839,24 +2840,24 @@ public class 账号管理工具 extends javax.swing.JFrame {
             while (rs.next()) {
                 if (World.Find.findChannel(rs.getString("name")) > 0) {
                     ((DefaultTableModel) 角色信息.getModel()).insertRow(角色信息.getRowCount(), new Object[]{
-                        rs.getInt("id"),
-                        rs.getInt("accountid"),
-                        rs.getString("name"),
-                        getJobNameById(rs.getInt("job")),
-                        rs.getInt("level"),
-                        rs.getInt("str"),
-                        rs.getInt("dex"),
-                        rs.getInt("int"),
-                        rs.getInt("luk"),
-                        rs.getInt("maxhp"),
-                        rs.getInt("maxmp"),
-                        rs.getInt("meso"),
-                        rs.getInt("map"),
-                        "在线",
-                        rs.getInt("gm"),
-                        rs.getInt("hair"),
-                        rs.getInt("face"
-                        )});
+                            rs.getInt("id"),
+                            rs.getInt("accountid"),
+                            rs.getString("name"),
+                            getJobNameById(rs.getInt("job")),
+                            rs.getInt("level"),
+                            rs.getInt("str"),
+                            rs.getInt("dex"),
+                            rs.getInt("int"),
+                            rs.getInt("luk"),
+                            rs.getInt("maxhp"),
+                            rs.getInt("maxmp"),
+                            rs.getInt("meso"),
+                            rs.getInt("map"),
+                            "在线",
+                            rs.getInt("gm"),
+                            rs.getInt("hair"),
+                            rs.getInt("face"
+                            )});
                 }
             }
             JOptionPane.showMessageDialog(null, "[信息]:显示游戏所有在线角色信息。");
@@ -3332,6 +3333,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "请输入数字 ");
         }
     }//GEN-LAST:event_删除IPActionPerformed
+
     private void 刷新家族信息() {
         try {
             Connection con = DBConPool.getInstance().getDataSource().getConnection();
@@ -3354,16 +3356,16 @@ public class 账号管理工具 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 家族信息.getModel()).insertRow(家族信息.getRowCount(), new Object[]{
-                    rs.getInt("guildid"),
-                    rs.getString("name"),
-                    //ooors.getInt("leader"),
-                    //    NPCConversationManager.角色ID取名字(rs.getInt("leader")),
-                    rs.getString("rank1title"),
-                    rs.getString("rank2title"),
-                    rs.getString("rank3title"),
-                    rs.getString("rank4title"),
-                    rs.getString("rank5title"),
-                    rs.getString("GP")
+                        rs.getInt("guildid"),
+                        rs.getString("name"),
+                        //ooors.getInt("leader"),
+                        //    NPCConversationManager.角色ID取名字(rs.getInt("leader")),
+                        rs.getString("rank1title"),
+                        rs.getString("rank2title"),
+                        rs.getString("rank3title"),
+                        rs.getString("rank4title"),
+                        rs.getString("rank5title"),
+                        rs.getString("GP")
                 });
             }
         } catch (SQLException ex) {
@@ -3406,9 +3408,9 @@ public class 账号管理工具 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 封MAC.getModel()).insertRow(封MAC.getRowCount(), new Object[]{
-                    rs.getInt("macbanid"),
-                    rs.getString("mac"),
-                    NPCConversationManager.MAC取账号(rs.getString("mac"))
+                        rs.getInt("macbanid"),
+                        rs.getString("mac"),
+                        NPCConversationManager.MAC取账号(rs.getString("mac"))
                 });
             }
         } catch (SQLException ex) {
@@ -3430,9 +3432,9 @@ public class 账号管理工具 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 封IP.getModel()).insertRow(封IP.getRowCount(), new Object[]{
-                    rs.getInt("ipbanid"),
-                    rs.getString("ip"),
-                    NPCConversationManager.IP取账号(rs.getString("ip"))
+                        rs.getInt("ipbanid"),
+                        rs.getString("ip"),
+                        NPCConversationManager.IP取账号(rs.getString("ip"))
                 });
             }
         } catch (SQLException ex) {
@@ -3592,19 +3594,19 @@ public class 账号管理工具 extends javax.swing.JFrame {
                     QQ = "未绑定QQ";
                 }
                 ((DefaultTableModel) 账号信息.getModel()).insertRow(账号信息.getRowCount(), new Object[]{
-                    rs.getInt("id"), //账号ID
-                    rs.getString("name"), //账号
-                    rs.getString("SessionIP"), //账号IP地址
-                    rs.getString("macs"), ///账号MAC地址
-                    QQ,
-                    rs.getInt("ACash"),//点券
-                    rs.getInt("mPoints"),//抵用
-                    rs.getString("lastlogin"),//最近上线
-                    //rs.getInt("loggedin"),//在线
-                    //rs.getInt("banned")//封号
-                    在线,
-                    封号,
-                    rs.getInt("gm")
+                        rs.getInt("id"), //账号ID
+                        rs.getString("name"), //账号
+                        rs.getString("SessionIP"), //账号IP地址
+                        rs.getString("macs"), ///账号MAC地址
+                        QQ,
+                        rs.getInt("ACash"),//点券
+                        rs.getInt("mPoints"),//抵用
+                        rs.getString("lastlogin"),//最近上线
+                        //rs.getInt("loggedin"),//在线
+                        //rs.getInt("banned")//封号
+                        在线,
+                        封号,
+                        rs.getInt("gm")
                 });
             }
         } catch (SQLException ex) {
@@ -3646,17 +3648,17 @@ public class 账号管理工具 extends javax.swing.JFrame {
                     QQ = "未绑定QQ";
                 }
                 ((DefaultTableModel) 账号信息.getModel()).insertRow(账号信息.getRowCount(), new Object[]{
-                    rs.getInt("id"), //账号ID
-                    rs.getString("name"), //账号
-                    rs.getString("SessionIP"), //账号IP地址
-                    rs.getString("macs"), ///账号MAC地址
-                    QQ,//注册时间
-                    rs.getInt("ACash"),//点券
-                    rs.getInt("mPoints"),//抵用
-                    rs.getString("lastlogin"),//最近上线
-                    在线,
-                    封号,
-                    rs.getInt("gm")
+                        rs.getInt("id"), //账号ID
+                        rs.getString("name"), //账号
+                        rs.getString("SessionIP"), //账号IP地址
+                        rs.getString("macs"), ///账号MAC地址
+                        QQ,//注册时间
+                        rs.getInt("ACash"),//点券
+                        rs.getInt("mPoints"),//抵用
+                        rs.getString("lastlogin"),//最近上线
+                        在线,
+                        封号,
+                        rs.getInt("gm")
                 });
             }
             账号提示语言.setText("[信息]:查找账号 " + this.账号操作.getText() + " 成功。");
@@ -3706,17 +3708,17 @@ public class 账号管理工具 extends javax.swing.JFrame {
                     在线 = "在线";
                 }
                 ((DefaultTableModel) 账号信息.getModel()).insertRow(账号信息.getRowCount(), new Object[]{
-                    rs.getInt("id"), //账号ID
-                    rs.getString("name"), //账号
-                    rs.getString("SessionIP"), //账号IP地址
-                    rs.getString("macs"), ///账号MAC地址
-                    rs.getString("qq"),//注册时间
-                    rs.getInt("ACash"),//点券
-                    rs.getInt("mPoints"),//抵用
-                    rs.getString("lastlogin"),//最近上线
-                    在线,
-                    封号,
-                    rs.getInt("gm")
+                        rs.getInt("id"), //账号ID
+                        rs.getString("name"), //账号
+                        rs.getString("SessionIP"), //账号IP地址
+                        rs.getString("macs"), ///账号MAC地址
+                        rs.getString("qq"),//注册时间
+                        rs.getInt("ACash"),//点券
+                        rs.getInt("mPoints"),//抵用
+                        rs.getString("lastlogin"),//最近上线
+                        在线,
+                        封号,
+                        rs.getInt("gm")
                 });
             }
             账号提示语言.setText("[信息]:查找账号 " + this.账号操作.getText() + " 成功。");
@@ -3766,11 +3768,11 @@ public class 账号管理工具 extends javax.swing.JFrame {
                         }
                     }
                     ((DefaultTableModel) 技能信息.getModel()).insertRow(技能信息.getRowCount(), new Object[]{
-                        rs.getInt("id"),
-                        itemName,
-                        rs.getInt("skillid"),
-                        rs.getInt("skilllevel"),
-                        rs.getInt("masterlevel")
+                            rs.getInt("id"),
+                            itemName,
+                            rs.getInt("skillid"),
+                            rs.getInt("skilllevel"),
+                            rs.getInt("masterlevel")
                     });
                 }
             } catch (SQLException ex) {
@@ -3819,23 +3821,23 @@ public class 账号管理工具 extends javax.swing.JFrame {
                     在线 = "离线";
                 }
                 ((DefaultTableModel) 角色信息.getModel()).insertRow(角色信息.getRowCount(), new Object[]{
-                    rs.getInt("id"),
-                    rs.getInt("accountid"),
-                    rs.getString("name"),
-                    getJobNameById(rs.getInt("job")),
-                    rs.getInt("level"),
-                    rs.getInt("str"),
-                    rs.getInt("dex"),
-                    rs.getInt("luk"),
-                    rs.getInt("int"),
-                    rs.getInt("maxhp"),
-                    rs.getInt("maxmp"),
-                    rs.getInt("meso"),
-                    rs.getInt("map"),
-                    在线,
-                    rs.getInt("gm"),
-                    rs.getInt("hair"),
-                    rs.getInt("face")
+                        rs.getInt("id"),
+                        rs.getInt("accountid"),
+                        rs.getString("name"),
+                        getJobNameById(rs.getInt("job")),
+                        rs.getInt("level"),
+                        rs.getInt("str"),
+                        rs.getInt("dex"),
+                        rs.getInt("luk"),
+                        rs.getInt("int"),
+                        rs.getInt("maxhp"),
+                        rs.getInt("maxmp"),
+                        rs.getInt("meso"),
+                        rs.getInt("map"),
+                        在线,
+                        rs.getInt("gm"),
+                        rs.getInt("hair"),
+                        rs.getInt("face")
                 });
 
             }
@@ -3893,10 +3895,10 @@ public class 账号管理工具 extends javax.swing.JFrame {
             while (rs.next()) {
 
                 ((DefaultTableModel) 角色背包穿戴.getModel()).insertRow(角色背包穿戴.getRowCount(), new Object[]{
-                    rs.getInt("inventoryitemid"),
-                    rs.getInt("itemid"),
-                    MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
-                    rs.getInt("quantity")});
+                        rs.getInt("inventoryitemid"),
+                        rs.getInt("itemid"),
+                        MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
+                        rs.getInt("quantity")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
@@ -3928,10 +3930,10 @@ public class 账号管理工具 extends javax.swing.JFrame {
             while (rs.next()) {
 
                 ((DefaultTableModel) 角色装备背包.getModel()).insertRow(角色装备背包.getRowCount(), new Object[]{
-                    rs.getInt("inventoryitemid"),
-                    rs.getInt("itemid"),
-                    MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
-                    rs.getInt("quantity")});
+                        rs.getInt("inventoryitemid"),
+                        rs.getInt("itemid"),
+                        MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
+                        rs.getInt("quantity")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
@@ -3963,10 +3965,10 @@ public class 账号管理工具 extends javax.swing.JFrame {
             while (rs.next()) {
 
                 ((DefaultTableModel) 角色消耗背包.getModel()).insertRow(角色消耗背包.getRowCount(), new Object[]{
-                    rs.getInt("inventoryitemid"),
-                    rs.getInt("itemid"),
-                    MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
-                    rs.getInt("quantity")});
+                        rs.getInt("inventoryitemid"),
+                        rs.getInt("itemid"),
+                        MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
+                        rs.getInt("quantity")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
@@ -3997,10 +3999,10 @@ public class 账号管理工具 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 角色特殊背包.getModel()).insertRow(角色特殊背包.getRowCount(), new Object[]{
-                    rs.getInt("inventoryitemid"),
-                    rs.getInt("itemid"),
-                    MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
-                    rs.getInt("quantity")});
+                        rs.getInt("inventoryitemid"),
+                        rs.getInt("itemid"),
+                        MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
+                        rs.getInt("quantity")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
@@ -4031,10 +4033,10 @@ public class 账号管理工具 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 角色游戏仓库.getModel()).insertRow(角色游戏仓库.getRowCount(), new Object[]{
-                    rs.getInt("inventoryitemid"),
-                    rs.getInt("itemid"),
-                    MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
-                    rs.getInt("quantity")});
+                        rs.getInt("inventoryitemid"),
+                        rs.getInt("itemid"),
+                        MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
+                        rs.getInt("quantity")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
@@ -4065,10 +4067,10 @@ public class 账号管理工具 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 角色商城仓库.getModel()).insertRow(角色商城仓库.getRowCount(), new Object[]{
-                    rs.getInt("inventoryitemid"),
-                    rs.getInt("itemid"),
-                    MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
-                    rs.getInt("quantity")});
+                        rs.getInt("inventoryitemid"),
+                        rs.getInt("itemid"),
+                        MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
+                        rs.getInt("quantity")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
@@ -4099,9 +4101,9 @@ public class 账号管理工具 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 角色点券拍卖行.getModel()).insertRow(角色点券拍卖行.getRowCount(), new Object[]{
-                    rs.getInt("id"),
-                    MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
-                    rs.getInt("characterName")
+                        rs.getInt("id"),
+                        MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
+                        rs.getInt("characterName")
                 });
             }
         } catch (SQLException ex) {
@@ -4129,9 +4131,9 @@ public class 账号管理工具 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 角色金币拍卖行.getModel()).insertRow(角色金币拍卖行.getRowCount(), new Object[]{
-                    rs.getInt("id"),
-                    MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
-                    rs.getInt("characterName")
+                        rs.getInt("id"),
+                        MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
+                        rs.getInt("characterName")
                 });
             }
         } catch (SQLException ex) {
@@ -4159,10 +4161,10 @@ public class 账号管理工具 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 角色其他背包.getModel()).insertRow(角色其他背包.getRowCount(), new Object[]{
-                    rs.getInt("inventoryitemid"),
-                    rs.getInt("itemid"),
-                    MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
-                    rs.getInt("quantity")});
+                        rs.getInt("inventoryitemid"),
+                        rs.getInt("itemid"),
+                        MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
+                        rs.getInt("quantity")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
@@ -4193,10 +4195,10 @@ public class 账号管理工具 extends javax.swing.JFrame {
             rs = ps.executeQuery();
             while (rs.next()) {
                 ((DefaultTableModel) 角色设置背包.getModel()).insertRow(角色设置背包.getRowCount(), new Object[]{
-                    rs.getInt("inventoryitemid"),
-                    rs.getInt("itemid"),
-                    MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
-                    rs.getInt("quantity")});
+                        rs.getInt("inventoryitemid"),
+                        rs.getInt("itemid"),
+                        MapleItemInformationProvider.getInstance().getName(rs.getInt("itemid")),
+                        rs.getInt("quantity")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
@@ -4234,23 +4236,23 @@ public class 账号管理工具 extends javax.swing.JFrame {
                     在线 = "离线";
                 }
                 ((DefaultTableModel) 角色信息.getModel()).insertRow(角色信息.getRowCount(), new Object[]{
-                    rs.getInt("id"),
-                    rs.getInt("accountid"),
-                    rs.getString("name"),
-                    getJobNameById(rs.getInt("job")),
-                    rs.getInt("level"),
-                    rs.getInt("str"),
-                    rs.getInt("dex"),
-                    rs.getInt("luk"),
-                    rs.getInt("int"),
-                    rs.getInt("maxhp"),
-                    rs.getInt("maxmp"),
-                    rs.getInt("meso"),
-                    rs.getInt("map"),
-                    在线,
-                    rs.getInt("gm"),
-                    rs.getInt("hair"),
-                    rs.getInt("face")});
+                        rs.getInt("id"),
+                        rs.getInt("accountid"),
+                        rs.getString("name"),
+                        getJobNameById(rs.getInt("job")),
+                        rs.getInt("level"),
+                        rs.getInt("str"),
+                        rs.getInt("dex"),
+                        rs.getInt("luk"),
+                        rs.getInt("int"),
+                        rs.getInt("maxhp"),
+                        rs.getInt("maxmp"),
+                        rs.getInt("meso"),
+                        rs.getInt("map"),
+                        在线,
+                        rs.getInt("gm"),
+                        rs.getInt("hair"),
+                        rs.getInt("face")});
             }
         } catch (SQLException ex) {
             Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
@@ -4291,6 +4293,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
             }
         });
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField GM;
     private javax.swing.JTextField HP;

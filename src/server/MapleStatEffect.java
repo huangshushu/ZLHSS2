@@ -45,7 +45,7 @@ public class MapleStatEffect implements Serializable {
     private List<MapleDisease> cureDebuffs;
 
     public static final MapleStatEffect loadSkillEffectFromData(final MapleData source, final int skillid,
-            final boolean overtime, final byte level) {
+                                                                final boolean overtime, final byte level) {
         return loadFromData(source, skillid, true, overtime, level);
     }
 
@@ -54,14 +54,14 @@ public class MapleStatEffect implements Serializable {
     }
 
     private static void addBuffStatPairToListIfNotZero(final List<Pair<MapleBuffStat, Integer>> list,
-            final MapleBuffStat buffstat, final Integer val) {
+                                                       final MapleBuffStat buffstat, final Integer val) {
         if (val != 0) {
             list.add(new Pair<>(buffstat, val));
         }
     }
 
     private static MapleStatEffect loadFromData(final MapleData source, final int sourceid, final boolean skill,
-            final boolean overTime, final byte level) {
+                                                final boolean overTime, final byte level) {
         final MapleStatEffect ret = new MapleStatEffect();
         ret.sourceid = sourceid;
         ret.skill = skill;
@@ -673,17 +673,17 @@ public class MapleStatEffect implements Serializable {
     }
 
     private boolean applyTo(final MapleCharacter applyfrom, final MapleCharacter applyto, final boolean primary,
-            final Point pos) {
+                            final Point pos) {
         return applyTo(applyfrom, applyto, primary, pos, duration);
     }
 
     public final boolean applyTo(final MapleCharacter applyfrom, final MapleCharacter applyto, final boolean primary,
-            final Point pos, int newDuration) {
+                                 final Point pos, int newDuration) {
         return applyTo(applyfrom, applyto, primary, pos, newDuration, false);
     }
 
     public final boolean applyTo(final MapleCharacter applyfrom, final MapleCharacter applyto, final boolean primary,
-            final Point pos, int newDuration, final boolean dc) {
+                                 final Point pos, int newDuration, final boolean dc) {
         if (isHeal() && (applyfrom.getMapId() == 749040100 || applyto.getMapId() == 749040100)) {
             return false; // z
             // } else if (isSoaring() && !applyfrom.getMap().canSoar()) {
@@ -1080,7 +1080,7 @@ public class MapleStatEffect implements Serializable {
     }
 
     public final void silentApplyBuff(final MapleCharacter chr, final long starttime, final int localDuration,
-            final List<Pair<MapleBuffStat, Integer>> statup, final int cid) {
+                                      final List<Pair<MapleBuffStat, Integer>> statup, final int cid) {
         chr.registerEffect(this, starttime,
                 BuffTimer.getInstance().schedule(new CancelEffectAction(chr, this, starttime),
                         ((starttime + localDuration) - System.currentTimeMillis())),
@@ -1108,7 +1108,7 @@ public class MapleStatEffect implements Serializable {
         final List<Pair<MapleBuffStat, Integer>> stat = Collections
                 .singletonList(new Pair<>(MapleBuffStat.ARAN_COMBO, combo));
         applyto.getClient().sendPacket(MaplePacketCreator.giveBuff(sourceid, 99999, stat, this)); // Hackish timing,
-                                                                                                  // todo find out
+        // todo find out
 
         final long starttime = System.currentTimeMillis();
         applyto.registerEffect(this, starttime, null, applyto.getId());
@@ -1137,7 +1137,7 @@ public class MapleStatEffect implements Serializable {
     }
 
     private void applyBuffEffect(final MapleCharacter applyfrom, final MapleCharacter applyto, final boolean primary,
-            final int newDuration, final boolean dc) {
+                                 final int newDuration, final boolean dc) {
         int localDuration = newDuration;
         if (primary && applyto.getBuffedValue(MapleBuffStat.MORPH) == null) {
             localDuration = dc ? newDuration : alchemistModifyVal(applyfrom, localDuration, false);
@@ -1145,7 +1145,7 @@ public class MapleStatEffect implements Serializable {
                     false);
         }
         // 怪物手册加成buff持续时间
-        double[] buffUpgrades = { 2.0, 4.0, 6.0, 12.0, 20.0, 32.0, 46.0, 62.0, 80.0, 100.0 };
+        double[] buffUpgrades = {2.0, 4.0, 6.0, 12.0, 20.0, 32.0, 46.0, 62.0, 80.0, 100.0};
         if (applyto.isGM()) {
             applyto.dropMessage(5, "buff原持续时间：" + localDuration);
         }
@@ -1294,7 +1294,7 @@ public class MapleStatEffect implements Serializable {
                  * applyfrom.updateBuffTime(sourceid, localDuration);
                  * }
                  * }
-                 * 
+                 *
                  * if (sourceid == 2001002) {
                  * if (applyfrom.getBuffTimeCout(sourceid) < 1) {
                  * applyfrom.setBuffTime(sourceid, localDuration);
@@ -2033,9 +2033,8 @@ public class MapleStatEffect implements Serializable {
     }
 
     /**
-     *
      * @return true if the effect should happen based on it's probablity, false
-     *         otherwise
+     * otherwise
      */
     public final boolean makeChanceResult() {
         return prop == 100 || Randomizer.nextInt(99) < prop;

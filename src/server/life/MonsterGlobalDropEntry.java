@@ -23,15 +23,13 @@ package server.life;
 public class MonsterGlobalDropEntry {
 
     /**
-     *
-     * @param itemId 物品代码
-     * @param chance 机率
-     * @param dropType 掉落型态
+     * @param itemId    物品代码
+     * @param chance    机率
+     * @param dropType  掉落型态
      * @param continent 大陆
-     * @param questid 任务代码
+     * @param questid   任务代码
      * @param Maximum
-     * @param Minimum Maximum 最小/最大 爆击率
-     *
+     * @param Minimum   Maximum 最小/最大 爆击率
      */
     public MonsterGlobalDropEntry(int itemId, int chance, int continent, byte dropType, int Minimum, int Maximum, short questid) {
         this.itemId = itemId;
@@ -53,6 +51,7 @@ public class MonsterGlobalDropEntry {
         this.Maximum = Maximum;
         this.onlySelf = onlySelf;
     }
+
     public byte dropType;
     public short questid;
     public int itemId, chance, Minimum, Maximum, continent;

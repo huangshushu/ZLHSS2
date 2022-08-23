@@ -36,7 +36,6 @@ import java.util.*;
 public class MobSkill {
 
     /**
-     *
      * @param skillId,    skillLevel 技能ID 技能等级
      * @param mpCon       可用的MP
      * @param spawnEffect 召唤效果
@@ -47,7 +46,6 @@ public class MobSkill {
      * @param toSummon    召唤
      * @param x           y 座标
      * @param lt          rb 座标
-     *
      */
     private final int skillId, skillLevel;
     private int mpCon, spawnEffect, hp, x, y;

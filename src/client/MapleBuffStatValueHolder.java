@@ -32,7 +32,7 @@ public class MapleBuffStatValueHolder {
     public ScheduledFuture<?> schedule;
 
     public MapleBuffStatValueHolder(MapleStatEffect effect, long startTime, ScheduledFuture<?> schedule, int value,
-            int localDuration, int cid, int skillid) {
+                                    int localDuration, int cid, int skillid) {
         super();
         this.effect = effect;
         this.startTime = startTime;

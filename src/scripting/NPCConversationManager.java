@@ -74,7 +74,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     private final Invocable iv;
 
     public NPCConversationManager(MapleClient c, int npc, int questid, int mode, String npcscript, byte type,
-            Invocable iv) {
+                                  Invocable iv) {
         super(c);
         this.c = c;
         this.npc = npc;
@@ -1007,8 +1007,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     public long getMerchantMesos() {
         long mesos = 0;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con
-                        .prepareStatement("SELECT mesos FROM hiredmerchants WHERE merchantid = ?")) {
+             PreparedStatement ps = con
+                     .prepareStatement("SELECT mesos FROM hiredmerchants WHERE merchantid = ?")) {
             ps.setInt(1, getPlayer().getId());
             try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next()) {
@@ -1771,12 +1771,12 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                     ch = de.chance * getClient().getChannelServer().getDropRate();
                     name.append((num + 1) + ") #v" + itemId + "#"
                             + namez /*
-                                     * + " - " + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() /
-                                     * 10000.0) + "% 爆率。 "
-                                     */
+                     * + " - " + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() /
+                     * 10000.0) + "% 爆率。 "
+                     */
                             + (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0
-                                    ? ("需要接受任务 " + MapleQuest.getInstance(de.questid).getName() + "")
-                                    : "")
+                            ? ("需要接受任务 " + MapleQuest.getInstance(de.questid).getName() + "")
+                            : "")
                             + "\r\n");
                     num++;
                 }
@@ -1818,22 +1818,22 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
                         if (!GM) {
                             name.append("#k" + (num + 1) + ": #v" + itemId + "# " + namez
                                     + ((chr.isGM()) ? "#d  掉落机率："
-                                            + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0)
-                                            + "%\r\n" : "\r\n")
+                                    + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0)
+                                    + "%\r\n" : "\r\n")
                                     + "#b(掉落条件:"
                                     + (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0
-                                            ? ("需要接取任务#r " + MapleQuest.getInstance(de.questid).getName() + " #b)\r\n")
-                                            : "#r无#b)")
+                                    ? ("需要接取任务#r " + MapleQuest.getInstance(de.questid).getName() + " #b)\r\n")
+                                    : "#r无#b)")
                                     + "\r\n");
                         } else {
                             name.append("#L" + itemId + "##k" + (num + 1) + ": #v" + itemId + "# " + namez
                                     + ((chr.isGM()) ? "#d  掉落机率："
-                                            + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0)
-                                            + "%(点选更改)\r\n" : "\r\n")
+                                    + (Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0)
+                                    + "%(点选更改)\r\n" : "\r\n")
                                     + "#b(掉落条件:"
                                     + (de.questid > 0 && MapleQuest.getInstance(de.questid).getName().length() > 0
-                                            ? ("需要接取任务#r " + MapleQuest.getInstance(de.questid).getName() + " #b)\r\n")
-                                            : "#r无#b)")
+                                    ? ("需要接取任务#r " + MapleQuest.getInstance(de.questid).getName() + " #b)\r\n")
+                                    : "#r无#b)")
                                     + "\r\n");
                         }
                         // name.append("#k" + (num + 1) + ": #v" + itemId + "# " + namez + " #d"
@@ -1956,12 +1956,12 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             int chance = mi.getDropChance(mobs.get(i)) * getClient().getChannelServer().getDropRate();
 
             text += "#r#o" + mobs.get(i) + "##k " /*
-                                                   * + (Integer.valueOf(chance >= 999999 ? 1000000 :
-                                                   * chance).doubleValue() / 10000.0) + "%"
-                                                   */
+             * + (Integer.valueOf(chance >= 999999 ? 1000000 :
+             * chance).doubleValue() / 10000.0) + "%"
+             */
                     + (quest > 0 && MapleQuest.getInstance(quest).getName().length() > 0
-                            ? ("#b需要进行 " + MapleQuest.getInstance(quest).getName() + " 任务来取得#k")
-                            : "")
+                    ? ("#b需要进行 " + MapleQuest.getInstance(quest).getName() + " 任务来取得#k")
+                    : "")
                     + "\r\n";
 
         }
@@ -2031,7 +2031,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     }
 
     public void gainEquiPproperty(int upgr, int watk, int matk, int str, int dex, int Int, int luk, int hp, int mp,
-            int acc, int avoid) {
+                                  int acc, int avoid) {
         Equip item = (Equip) this.c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem((short) 1).copy();
         item.setUpgradeSlots((byte) (item.getUpgradeSlots() + upgr));
         item.setWatk((short) (item.getWatk() + watk));
@@ -2242,7 +2242,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     }
 
     public void 键盘上技能(final int id, final int key, final int type, final int action, final byte level,
-            final byte masterlevel) throws SQLException {
+                           final byte masterlevel) throws SQLException {
         // 给予技能先
         c.getPlayer().changeSkillLevel(SkillFactory.getSkill(action), level, masterlevel);
         c.getPlayer().dropMessage(1, "<提示>\r\n5秒后你会自动下线，请1分钟后再次登陆。");
@@ -2907,8 +2907,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             return -1;
         }
     }
-    
-        public static String 角色ID取名字(final int id) {
+
+    public static String 角色ID取名字(final int id) {
         String data = "";
         try {
             final Connection con = DBConPool.getInstance().getDataSource().getConnection();
@@ -2928,8 +2928,8 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         }
         return data;
     }
-        
-            public static int 角色名字取ID(final String id) {
+
+    public static int 角色名字取ID(final String id) {
         int data = 0;
         try {
             final Connection con = DBConPool.getInstance().getDataSource().getConnection();

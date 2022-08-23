@@ -76,7 +76,7 @@ public class MapleGuildRanking {
         ranks.clear();
         ResultSet rs;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM guilds ORDER BY `GP` DESC LIMIT 50")) {
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM guilds ORDER BY `GP` DESC LIMIT 50")) {
             rs = ps.executeQuery();
             while (rs.next()) {
                 final GuildRankingInfo rank = new GuildRankingInfo(
@@ -126,8 +126,8 @@ public class MapleGuildRanking {
         ranks2.clear();
         ResultSet rs;
         try (Connection con = DBConPool.getInstance().getDataSource().getConnection();
-                PreparedStatement ps = con.prepareStatement(
-                        "SELECT *, ( chr.meso + s.meso ) as money FROM `characters` as chr , `storages` as s WHERE chr.gm < 1  AND s.accountid = chr.accountid ORDER BY money DESC LIMIT 20")) {
+             PreparedStatement ps = con.prepareStatement(
+                     "SELECT *, ( chr.meso + s.meso ) as money FROM `characters` as chr , `storages` as s WHERE chr.gm < 1  AND s.accountid = chr.accountid ORDER BY money DESC LIMIT 20")) {
             rs = ps.executeQuery();
             while (rs.next()) {
                 final mesoRankingInfo rank2 = new mesoRankingInfo(

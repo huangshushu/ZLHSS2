@@ -43,26 +43,26 @@ public class ValidateCode {
      */
     /*
      * public static void main(String[] args) {
-     * 
+     *
      * // 在内存中创建图象
      * int width = 194, height = 43;
      * BufferedImage image = new BufferedImage(width, height,
      * BufferedImage.TYPE_INT_RGB);
-     * 
+     *
      * // 获取图形上下文
      * Graphics g = image.getGraphics();
-     * 
+     *
      * // 生成随机类
      * Random random = new Random();
-     * 
+     *
      * // 设定背景色
      * //g.setColor(getRandColor(200, 250));
      * g.setColor(new Color(250, 250, 250));
      * g.fillRect(0, 0, width, height);
-     * 
+     *
      * // 设定字体
      * g.setFont(new Font("Times New Roman", Font.BOLD, 24));
-     * 
+     *
      * // 画边框
      * // g.setColor(new Color());
      * // g.drawRect(0,0,width-1,height-1);
@@ -75,7 +75,7 @@ public class ValidateCode {
      * int yl = random.nextInt(12);
      * g.drawLine(x, y, x + xl, y + yl);
      * }
-     * 
+     *
      * // 取随机产生的认证码(5位数字)
      * String sRand = "";
      * int i0 = 0;
@@ -84,7 +84,7 @@ public class ValidateCode {
      * int i3 = 0;
      * int i4 = 0;
      * int i5 = 0;
-     * 
+     *
      * for (int i = 0; i < 6; i++) {
      * String rand = String.valueOf(random.nextInt(10));
      * if (i == 0) {
@@ -111,22 +111,22 @@ public class ValidateCode {
      * random.nextInt(110)));//调用函数出来的颜色相同，可能是因为种子太接近，所以只能直接生成
      * g.drawString(rand, 34 * i + 6, 30);
      * }
-     * 
+     *
      * // 将认证码存入SESSION
      * // session.setAttribute("CertiCode",sRand);
      * // 图象生效
      * g.dispose();
      * String filepath = "scripts/liedetector/" + i0 + i1 + i2 + i3 + i4 + i5 +
      * ".jpg";
-     * 
+     *
      * File imgfile = new File(filepath);
-     * 
+     *
      * FileOutputStream fos;
      * try {
      * fos = new FileOutputStream(imgfile);
      * BufferedOutputStream bos = new BufferedOutputStream(fos);
      * JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(bos);
-     * 
+     *
      * encoder.encode(image);
      * bos.close();
      * } catch (FileNotFoundException e) {
@@ -136,7 +136,7 @@ public class ValidateCode {
      * // TODO Auto-generated catch block
      * e.printStackTrace();
      * }
-     * 
+     *
      * }
      */
 
