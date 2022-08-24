@@ -28,8 +28,6 @@ import java.util.List;
 public class MapleParty implements Serializable {
 
     private static final long serialVersionUID = 9179541993413738569L;
-    public static int 怪物倍率 = 1;
-    public static boolean 怪物倍怪 = false;
     private MaplePartyCharacter leader;
     private final List<MaplePartyCharacter> members = new LinkedList<>();
     private int id;

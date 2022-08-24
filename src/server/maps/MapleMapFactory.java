@@ -190,7 +190,7 @@ public class MapleMapFactory {
                         if (myLife instanceof MapleMonster && !GameConstants.isNoSpawn(mapid)) {
                             MapleMonster mob = (MapleMonster) myLife;
                             if (MapleStorydMapAddMob.booleanValue()) {
-                                if (MapleStorydMapAddMobMapList.size() < 1) /*     */ {
+                                if (MapleStorydMapAddMobMapList.size() < 1) {
                                     for (int i = 0; i < list.size(); i++) {
                                         MapleStorydMapAddMobMapList.add(Integer.valueOf(Integer.parseInt(list.get(i).toString())));
                                     }
@@ -236,10 +236,6 @@ public class MapleMapFactory {
                     for (AbstractLoadedMapleLife n : custom) {
                         if ("n".equals(n.getCType())) {
                             map.addMapObject(n);
-                            // case "m":
-                            // final MapleMonster monster = (MapleMonster) n;
-                            // map.addMonsterSpawn(monster, n.getMTime(), (byte) -1, null);
-                             break;
                         }
                     }
                 }
@@ -300,7 +296,6 @@ public class MapleMapFactory {
                 for (AbstractLoadedMapleLife n : custom) {
                     if ("n".equals(n.getCType())) {
                         map.addMapObject(n);
-                        break;
                     }
                 }
             }
