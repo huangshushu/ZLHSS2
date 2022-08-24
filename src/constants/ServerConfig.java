@@ -30,6 +30,9 @@ public class ServerConfig {
     public static int RSGS = 0;
     public static int maxlevel = 250;
     public static int kocmaxlevel = 200;
+    public static boolean dMapAddMob;
+    public static int dMapAddMobNum;
+    public static String dMapAddMobMapList;
 
     public static boolean isPvPChannel(int ch) {
         return pvp && ch == pvpch;
@@ -142,6 +145,9 @@ public class ServerConfig {
         AUTO_REGISTER = ServerProperties.getProperty("server.settings.autoRegister", AUTO_REGISTER);
         SERVER_NAME = ServerProperties.getProperty("server.settings.serverName", SERVER_NAME);
         DEBUG_MODE = ServerProperties.getProperty("server.settings.debug", DEBUG_MODE);
+        dMapAddMob = ServerProperties.getProperty("server.settings.dMapAddMob", dMapAddMob);//自定义地图刷怪开关
+        dMapAddMobNum = ServerProperties.getProperty("server.settings.dMapAddMobNum", dMapAddMobNum);//自定义地图刷怪倍数
+        dMapAddMobMapList = ServerProperties.getProperty("server.settings.dMapAddMobMapList", dMapAddMobMapList);//地图列表id
     }
 
     static {

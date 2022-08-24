@@ -23,7 +23,7 @@ package handling.cashshop;
 import constants.ServerConfig;
 import handling.MapleServerHandler;
 import handling.channel.PlayerStorage;
-import handling.mina.ServerConnection;
+import handling.netty.ServerConnection;
 import server.MTSStorage;
 import server.ServerProperties;
 

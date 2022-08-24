@@ -4007,16 +4007,15 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane6" alignment="0" min="-2" pref="363" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                          <Component id="jLabel264" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="怪物倍率" min="-2" pref="56" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                                          <Component id="修改怪物倍率" min="-2" pref="80" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jScrollPane6" min="-2" pref="363" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="刷怪状态" pref="112" max="32767" attributes="0"/>
+                                              <Component id="怪物倍率" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Component id="jButton10" min="-2" pref="96" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -4031,13 +4030,15 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jScrollPane6" min="-2" pref="187" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="修改怪物倍率" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="怪物倍率" alignment="3" max="32767" attributes="0"/>
-                                      <Component id="jLabel264" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton10" alignment="3" pref="31" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jButton10" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="刷怪状态" min="-2" pref="17" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="怪物倍率" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -4079,23 +4080,21 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JLabel" name="jLabel264">
+                        <Component class="javax.swing.JLabel" name="&#x5237;&#x602a;&#x72b6;&#x6001;">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="&#x5e7c;&#x5706;" size="14" style="0"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="&#x602a;&#x7269;&#x500d;&#x7387;"/>
+                            <Property name="text" type="java.lang.String" value="&#x5237;&#x602a;&#x72b6;&#x6001;&#xff1a;&#x5173;"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="&#x602a;&#x7269;&#x500d;&#x7387;">
-                        </Component>
-                        <Component class="javax.swing.JButton" name="&#x4fee;&#x6539;&#x602a;&#x7269;&#x500d;&#x7387;">
+                        <Component class="javax.swing.JLabel" name="&#x602a;&#x7269;&#x500d;&#x7387;">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="&#x4fee;&#x6539;"/>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="&#x5e7c;&#x5706;" size="14" style="0"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="&#x602a;&#x7269;&#x500d;&#x7387;&#xff1a;1"/>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="&#x4fee;&#x6539;&#x602a;&#x7269;&#x500d;&#x7387;ActionPerformed"/>
-                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

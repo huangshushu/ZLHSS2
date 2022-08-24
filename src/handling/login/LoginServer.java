@@ -23,7 +23,7 @@ package handling.login;
 import client.MapleClient;
 import constants.ServerConfig;
 import handling.MapleServerHandler;
-import handling.mina.ServerConnection;
+import handling.netty.ServerConnection;
 import server.ServerProperties;
 import tools.FileoutputUtil;
 

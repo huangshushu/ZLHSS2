@@ -26,7 +26,7 @@ import constants.ServerConfig;
 import constants.WorldConstants;
 import handling.cashshop.CashShopServer;
 import handling.login.LoginServer;
-import handling.mina.ServerConnection;
+import handling.netty.ServerConnection;
 import handling.world.CheaterData;
 import scripting.EventScriptManager;
 import server.MapleSquad;

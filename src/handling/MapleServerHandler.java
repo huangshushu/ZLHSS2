@@ -31,7 +31,7 @@ import handling.channel.ChannelServer;
 import handling.channel.handler.*;
 import handling.login.LoginServer;
 import handling.login.handler.CharLoginHandler;
-import handling.mina.MaplePacketDecoder;
+import handling.netty.MaplePacketDecoder;
 import handling.world.World;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

@@ -76,6 +76,7 @@ public class ShutdownServer implements Runnable, ShutdownServerMBean {
         } catch (Exception e2) {
             System.out.println("[购物商城关闭失败]");
         }
+        System.exit(0);
 }
     @Override
     public void shutdown() {
