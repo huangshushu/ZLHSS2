@@ -23,20 +23,37 @@ public class MapleShop {
     private final List<MapleShopItem> items;
 
     static {
-        for (int i = 2070000; i <= 2070018; i++) {
-            rechargeableItems.add(i);
-        }
-        rechargeableItems.remove(2070014);
-        rechargeableItems.remove(2070015);
-        rechargeableItems.remove(2070016);
-        rechargeableItems.remove(2070017);
-        rechargeableItems.remove(2070018);
+        rechargeableItems.add(2070000); //海星镖
+        rechargeableItems.add(2070001); //回旋镖
+        rechargeableItems.add(2070002); //黑色利刃
+        rechargeableItems.add(2070003); //雪花镖
+        rechargeableItems.add(2070004); //黑色刺
+        rechargeableItems.add(2070005); //金钱镖
+        rechargeableItems.add(2070006); //齿轮镖
+        rechargeableItems.add(2070007); //月牙镖
+        rechargeableItems.add(2070008); //小雪球
+        rechargeableItems.add(2070009); //木制陀螺
+        rechargeableItems.add(2070010); //冰菱
+        rechargeableItems.add(2070011); //枫叶镖
+        rechargeableItems.add(2070012); //纸飞机
+        rechargeableItems.add(2070013); //橘子
+        rechargeableItems.add(2070015); //初学者标
+        rechargeableItems.add(2070016); //雪球
+        rechargeableItems.add(2070019); //高科技电光镖
+        rechargeableItems.add(2070020); //鞭炮
+        rechargeableItems.add(2070021); //蛋糕镖
+        rechargeableItems.add(2070023); //火焰飞镖
+        rechargeableItems.add(2070024); //无限飞镖
 
-        for (int i = 2330000; i <= 2330005; i++) {
-            rechargeableItems.add(i);
-        }
-        rechargeableItems.add(2331000);
-        rechargeableItems.add(2332000);
+        rechargeableItems.add(2330000); //子弹
+        rechargeableItems.add(2330001); //手枪弹
+        rechargeableItems.add(2330002); //铜头子弹
+        rechargeableItems.add(2330003); //银子弹
+        rechargeableItems.add(2330004); //高爆弹
+        rechargeableItems.add(2330005); //穿甲弹
+        rechargeableItems.add(2330006); //新手专用弹
+        //rechargeableItems.add(2330007); //高科技穿甲弹
+        //rechargeableItems.add(2330008); //钢铁子弹
     }
 
     /**
