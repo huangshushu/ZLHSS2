@@ -3756,7 +3756,7 @@ public class 账号管理工具 extends javax.swing.JFrame {
                 ps = con.prepareStatement("SELECT * FROM skills  WHERE characterid =" + this.角色ID.getText() + "");
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    MapleDataProvider data = MapleDataProviderFactory.getDataProvider(new File(System.getProperty("net.sf.odinms.wzpath") + "/String.wz"));
+                    MapleDataProvider data = MapleDataProviderFactory.getDataProvider(new File((System.getProperty("wzpath") != null ? System.getProperty("wzpath") : "") + "wz/String.wz"));
                     MapleData itemsData;
                     int itemId;
                     String itemName = "";
