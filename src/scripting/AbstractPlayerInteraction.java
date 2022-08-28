@@ -3702,6 +3702,74 @@ public abstract class AbstractPlayerInteraction {
         }
         return a;
     }
+    
+    public int getzb() {
+        int money = 0;
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            int cid = getPlayer().getAccountID();
+            ResultSet rs;
+            try (PreparedStatement limitCheck = con.prepareStatement("SELECT * FROM accounts WHERE id=" + cid + "")) {
+                rs = limitCheck.executeQuery();
+                if (rs.next()) {
+                    money = rs.getInt("money");
+                }
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            System.err.println("getzb" + ex);
+            FileoutputUtil.outputFileError("logs/数据库异常.txt", ex);
+            ex.getStackTrace();
+        }
+        return money;
+    }
+
+    public void setzb(int slot) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            int cid = getPlayer().getAccountID();
+            try (PreparedStatement ps = con.prepareStatement("UPDATE accounts SET money =money+ " + slot + " WHERE id = " + cid + "")) {
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.err.println("setzb" + ex);
+            FileoutputUtil.outputFileError("logs/数据库异常.txt", ex);
+            ex.getStackTrace();
+        }
+    }
+    
+        public int getmoneyb() {
+        int moneyb = 0;
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            int cid = getPlayer().getAccountID();
+            ResultSet rs;
+            try (PreparedStatement limitCheck = con.prepareStatement("SELECT * FROM accounts WHERE id=" + cid + "")) {
+                rs = limitCheck.executeQuery();
+                if (rs.next()) {
+                    moneyb = rs.getInt("moneyb");
+                }
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            System.err.println("getmoneyb" + ex);
+            FileoutputUtil.outputFileError("logs/数据库异常.txt", ex);
+            ex.getStackTrace();
+        }
+        return moneyb;
+    }
+
+    public void setmoneyb(int slot) {
+        try (Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            int cid = getPlayer().getAccountID();
+            try (PreparedStatement ps = con.prepareStatement("UPDATE accounts SET moneyb =moneyb+ " + slot + " WHERE id = " + cid + "")) {
+                ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.err.println("setmoneyb" + ex);
+            FileoutputUtil.outputFileError("logs/数据库异常.txt", ex);
+            ex.getStackTrace();
+        }
+    }
+            
+            
 
 
 }
