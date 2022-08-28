@@ -3613,4 +3613,13 @@ public class GameConstants {
                 || mapID == 980010100 || mapID == 980010200 || mapID == 980010300 || mapID == 980010020;
     }
 
+    public static boolean isItemBox(int a) {
+        switch (a) {
+            case 1204033:
+                return true;
+            default:
+                return false;
+        }
+    }
+
 }

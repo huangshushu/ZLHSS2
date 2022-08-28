@@ -70,6 +70,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import scripting.ItemScriptManager;
 
 public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Serializable {
 
@@ -9875,7 +9876,6 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     }
 
     public final void openNpc(final MapleClient cg, final int id) {
-        NPCScriptManager.getInstance().dispose(cg);
         openNpc(cg, id, 0, null);
     }
 
@@ -9889,6 +9889,8 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     public final void openNpc(final MapleClient cg, final int id, final int mode, final String script) {
         cg.removeClickedNPC();
+        NPCScriptManager.getInstance().dispose(cg);
+        ItemScriptManager.getInstance().dispose(cg);
         NPCScriptManager.getInstance().start(cg, id, mode, script);
     }
 

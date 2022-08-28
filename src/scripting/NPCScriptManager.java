@@ -21,6 +21,7 @@
 package scripting;
 
 import client.MapleClient;
+import constants.GameConstants;
 import server.quest.MapleQuest;
 import tools.FilePrinter;
 import tools.MaplePacketCreator;
@@ -62,11 +63,6 @@ public class NPCScriptManager extends AbstractScriptManager {
             if (c.getPlayer().getMapId() == 180000001) {
                 return;
             }
-            if (c.getPlayer().isGM()) {
-                c.getPlayer().dropMessage("[系统提示]您已经建立与NPC:" + npc + (script == null ? "" : ("(" + script + ")"))
-                        + (mode == 0 ? "" : "型号: " + mode) + "的对话。");
-            }
-
             if (!cms.containsKey(c) && c.canClickNPC()) {
                 if (c.getPlayer() != null && c.getPlayer().getDebugMessage()) {
                     c.getPlayer().dropMessage("start - !cms.containsKey(c) && c.canClickNPC()");
@@ -76,17 +72,35 @@ public class NPCScriptManager extends AbstractScriptManager {
                     c.getPlayer().dropMessage("start - setInvocable");
                 }
                 if (script == null) {
-                    if (mode != 0) {
+                    if (mode != 0 && !GameConstants.isItemBox(npc)) {
                         iv = getInvocable("npc/" + npc + "_" + mode + ".js", c, true); // safe disposal
+                        if (c.getPlayer().isGM()) {
+                            c.getPlayer().dropMessage("[系统提示]您已经建立与[NPC/" + npc + "_" + mode +"]的对话。");
+                        }
                     } else {
                         iv = getInvocable("npc/" + npc + ".js", c, true); // safe disposal
+                        if (c.getPlayer().isGM()) {
+                            c.getPlayer().dropMessage("[系统提示]您已经建立与[NPC/" + npc +"]的对话。");
+                        }
                     }
                 } else {
                     iv = getInvocable("special/" + script + ".js", c, true); // safe disposal
+                    if (c.getPlayer().isGM()) {
+                        c.getPlayer().dropMessage("[系统提示]您已经建立与[special/" + script +"]的对话。");
+                    }
                 }
-
+                    if (GameConstants.isItemBox(npc)) {
+                    //iv = getInvocable("item/" + npc + "_" + mode + ".js", c, true);
+                    iv = getInvocable("item/" + mode + ".js", c, true);
+                    if (c.getPlayer().isGM()) {
+                        c.getPlayer().dropMessage("[系统提示]您已经建立与[item/" + mode +"]的对话。");
+                    }
+                }
                 if (iv == null) {
                     iv = getInvocable("special/notcoded.js", c, true); // safe disposal
+                    if (c.getPlayer().isGM()) {
+                        c.getPlayer().dropMessage("[系统提示]您已经建立与notcoded的对话。");
+                    }
                     if (iv == null) {
                         dispose(c);
                         return;

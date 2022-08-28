@@ -508,53 +508,59 @@ public class NPCHandler {
     }
 
     public static final void NPCMoreTalk(final LittleEndianAccessor slea, final MapleClient c) {
-        final byte lastMsg = slea.readByte(); // 00 (last msg type I think)
-        final byte action = slea.readByte(); // 00 = end chat, 01 == follow
-
+        final byte lastMsg = slea.readByte();
+        final byte action = slea.readByte();
         final NPCConversationManager cm = NPCScriptManager.getInstance().getCM(c);
-
-        if (c == null || c.getPlayer() == null || cm == null || c.getPlayer().getConversation() == 0
-                || cm.getLastMsg() != lastMsg) {
+        if (c == null || c.getPlayer() == null || cm == null || c.getPlayer().getConversation() == 0 || cm.getLastMsg() != lastMsg) {
             return;
         }
-        cm.setLastMsg((byte) -1);
+        cm.setLastMsg((byte)(-1));
         if (lastMsg == 2) {
             if (action != 0) {
                 cm.setGetText(slea.readMapleAsciiString());
                 if (cm.getType() == 0) {
                     NPCScriptManager.getInstance().startQuest(c, action, lastMsg, -1);
-                } else if (cm.getType() == 1) {
+                }
+                else if (cm.getType() == 1) {
                     NPCScriptManager.getInstance().endQuest(c, action, lastMsg, -1);
-                } else {
+                }
+                else {
                     NPCScriptManager.getInstance().action(c, action, lastMsg, -1);
                 }
-            } else {
+            }
+            else {
                 cm.dispose();
             }
-        } else {
+        }
+        else {
             int selection = -1;
-            if (slea.available() >= 4) {
+            if (slea.available() >= 4L) {
                 selection = slea.readInt();
-            } else if (slea.available() > 0) {
+            }
+            else if (slea.available() > 0L) {
                 selection = slea.readByte();
             }
             if (lastMsg == 4 && selection == -1) {
                 cm.dispose();
-                return;// h4x
+                return;
             }
             if (selection >= -1 && action != -1) {
                 switch (cm.getType()) {
-                    case 0:
+                    case 0: {
                         NPCScriptManager.getInstance().startQuest(c, action, lastMsg, selection);
                         break;
-                    case 1:
+                    }
+                    case 1: {
                         NPCScriptManager.getInstance().endQuest(c, action, lastMsg, selection);
                         break;
-                    default:
+                    }
+                    default: {
                         NPCScriptManager.getInstance().action(c, action, lastMsg, selection);
                         break;
+                    }
                 }
-            } else {
+            }
+            else {
                 cm.dispose();
             }
         }

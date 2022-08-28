@@ -31,6 +31,10 @@ import handling.world.family.MapleFamilyCharacter;
 import handling.world.guild.MapleGuildCharacter;
 import io.netty.channel.Channel;
 import io.netty.util.AttributeKey;
+import scripting.ItemActionManager;
+import scripting.ItemScriptManager;
+import scripting.NPCConversationManager;
+import scripting.NPCScriptManager;
 import server.Timer.PingTimer;
 import server.maps.MapleMap;
 import server.quest.MapleQuest;
@@ -1968,6 +1972,20 @@ public class MapleClient {
             System.err.println("error loading characters cids by id " + e);
         }
         return Acc;
+    }
+
+    public NPCConversationManager getCM() {
+        return NPCScriptManager.getInstance().getCM(this);
+    }
+
+    /*
+    public QuestActionManager getQM() {
+        return QuestScriptManager.getInstance().getQM(this);
+    }
+     */
+
+    public ItemActionManager getIM() {
+        return ItemScriptManager.getInstance().getIM(this);
     }
 
 }

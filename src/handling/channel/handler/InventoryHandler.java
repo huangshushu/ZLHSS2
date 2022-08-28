@@ -3376,7 +3376,9 @@ public class InventoryHandler {
             default:
                 c.sendPacket(MaplePacketCreator.enableActions());
                 NPCScriptManager.getInstance().dispose(c);
-                ItemScriptManager.getInstance().start(c, 9900004, toUse);
+                //ItemScriptManager.getInstance().dispose(c);
+                //ItemScriptManager.getInstance().start(c, 9900004, toUse);
+                NPCScriptManager.getInstance().start(c, 1204033, item);
                 return;
 
         }

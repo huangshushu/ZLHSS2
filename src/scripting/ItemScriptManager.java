@@ -47,7 +47,7 @@ public class ItemScriptManager extends AbstractScriptManager {
             scriptengine.put("im", im);
             c.getPlayer().setConversation(1);
             c.setClickedNPC();
-            try {
+            try {       
                 iv.invokeFunction("start");
             } catch (NoSuchMethodException nsme) {
                 iv.invokeFunction("action", (byte) 1, (byte) 0, (int) (byte) 0);
@@ -77,7 +77,6 @@ public class ItemScriptManager extends AbstractScriptManager {
                 int npcId = im.getNpc();
                 int itemId = im.getItemId();
                 System.err.println("执行NPC脚本出错 NPC ID : " + npcId + " 道具ID: " + itemId + " 错误信息: " + e);
-                FilePrinter.printError("AbstractScriptManager.txt", e);
                 dispose(c);
                 notice(c, itemId);
             }
