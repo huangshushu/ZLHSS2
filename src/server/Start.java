@@ -11,6 +11,7 @@ import handling.channel.ChannelServer;
 import handling.channel.MapleGuildRanking;
 import handling.login.LoginInformationProvider;
 import handling.login.LoginServer;
+import handling.world.MapleParty;
 import handling.world.World;
 import handling.world.family.MapleFamilyBuff;
 import server.Timer.*;
@@ -25,10 +26,16 @@ import tools.MaplePacketCreator;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javafx.scene.input.KeyCode.Z;
 
 public class Start {
     public static boolean 是否控制台启动 = true;
     private static int 回收内存;
+     private static int 记录在线时间;
+     private static Boolean isClearBossLog = false;
 
     private static void resetAllLoginState() {
         String name = null;
@@ -41,79 +48,6 @@ public class Start {
             FileoutputUtil.outError("logs/资料库异常.txt", ex);
             throw new RuntimeException("【错误】 请确认资料库是否正确连接");
         }
-        /*
-         * try (Connection con =
-         * DBConPool.getInstance().getDataSource().getConnection(); PreparedStatement ps
-         * = con.prepareStatement("SELECT count(*) FROM characters WHERE gm = 100");
-         * ResultSet rs = ps.executeQuery()) {
-         * rs.beforeFirst();
-         * while (rs.next()) {
-         * size = rs.getInt(1);
-         * }
-         * } catch (SQLException ex) {
-         * FileoutputUtil.outError("logs/资料库异常.txt", ex);
-         * throw new RuntimeException("【错误】 请确认资料库是否正确连接");
-         * }
-         * if (size > 1) {
-         * System.out.println("警告：资料表内ＧＭ权限异常 ");
-         * }
-         */
-
-        /*
-         * try (Connection con =
-         * DBConPool.getInstance().getDataSource().getConnection()) {
-         * try (PreparedStatement ps =
-         * con.prepareStatement("select id, name, vip FROM accounts where vip > 12");
-         * ResultSet rs = ps.executeQuery()) {
-         * rs.beforeFirst();
-         * while (rs.next()) {
-         * name = rs.getString("name");
-         * vip = rs.getInt("vip");
-         * id = rs.getInt("id");
-         * System.err.println("VIP权限异常: 帐号[" + name + "], 编号[" + id + "], VIP[" + vip +
-         * "]");
-         * }
-         * }
-         * } catch (SQLException ex) {
-         * FileoutputUtil.outError("logs/资料库异常.txt", ex);
-         * throw new RuntimeException("【错误】 请确认资料库是否正确连接");
-         * }
-         */
-
-        /*
-         * try (Connection con =
-         * DBConPool.getInstance().getDataSource().getConnection()) {
-         * try (PreparedStatement ps = con.
-         * prepareStatement("SELECT inventoryequipmentid FROM inventoryequipment WHERE inventoryequipmentid >= 9000000000 ORDER BY inventoryequipmentid DESC LIMIT 1"
-         * ); ResultSet rs = ps.executeQuery()) {
-         * rs.beforeFirst();
-         * while (rs.next()) {
-         * throw new
-         * RuntimeException("资料表[inventoryequipment] 栏位[inventoryequipmentid] 流水号已达 : "
-         * + rs.getLong("inventoryequipmentid"));
-         * }
-         * }
-         * } catch (SQLException ex) {
-         * FileoutputUtil.outError("logs/资料库异常.txt", ex);
-         * throw new RuntimeException("【错误】 请确认资料库是否正确连接");
-         * }
-         *
-         * try (Connection con =
-         * DBConPool.getInstance().getDataSource().getConnection()) {
-         * try (PreparedStatement ps = con.
-         * prepareStatement("SELECT queststatusid FROM queststatus WHERE queststatusid >= 9000000000 ORDER BY queststatusid DESC LIMIT 1"
-         * ); ResultSet rs = ps.executeQuery()) {
-         * rs.beforeFirst();
-         * while (rs.next()) {
-         * throw new RuntimeException("资料表[queststatus] 栏位[queststatusid] 流水号已达 : " +
-         * rs.getLong("queststatusid"));
-         * }
-         * }
-         * } catch (SQLException ex) {
-         * FileoutputUtil.outError("logs/资料库异常.txt", ex);
-         * throw new RuntimeException("【错误】 请确认资料库是否正确连接");
-         * }
-         */
     }
 
     public final static void main(final String[] args) {
@@ -216,6 +150,8 @@ public class Start {
         OnlyID.getInstance();
         // 自动泡点
         AutoNx(1);
+        //在线时间管理
+        OnlinetimeManagement(1);
         // 开启酷Q消息推送
         // KQClient.runClient();
         // System.out.println("【禁止玩家使用:启动 如果要开放请GM上线打:!禁止玩家使用】");
@@ -247,5 +183,106 @@ public class Start {
                 }
             }
         }, 60000L * time);
+    }
+    
+        public static void OnlinetimeManagement(final int time) {
+        WorldTimer.getInstance().register((Runnable)new Runnable() {
+            @Override
+            public void run() {
+                if (记录在线时间 > 0) {
+                    final Calendar calendar = Calendar.getInstance();
+                    final int 时 = Calendar.getInstance().get(11);
+                    final int 分 = Calendar.getInstance().get(12);
+                    final int 星期 = Calendar.getInstance().get(7);
+                    if (时 == 0 && !isClearBossLog) {
+                        System.err.println("[服务端]" + FileoutputUtil.CurrentReadable_Time() + " : ------------------------------");
+                        System.err.println("[服务端]" + FileoutputUtil.CurrentReadable_Time() + " : 服务端开始清理每日信息 √");
+                        try {
+                            try (final PreparedStatement ps = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("UPDATE characters SET todayOnlineTime = 0")) {
+                                ps.executeUpdate();
+                                System.err.println("[服务端]" + FileoutputUtil.CurrentReadable_Time() + " : 清理今日在线时间完成 √");
+                            }
+                            System.err.println("[服务端]" + FileoutputUtil.CurrentReadable_Time() + " : 服务端清理每日信息完成 √");
+                            System.err.println("[服务端]" + FileoutputUtil.CurrentReadable_Time() + " : ------------------------------");
+                        }
+                        catch (SQLException ex) {
+                            System.err.println("[服务端]" + FileoutputUtil.CurrentReadable_Time() + " : 服务端处理每日数据出错 × " + ex.getMessage());
+                            System.err.println("[服务端]" + FileoutputUtil.CurrentReadable_Time() + " : ------------------------------");
+                        }
+                        isClearBossLog = true;
+                    }else if (时 == 23 && 分 == 0) {
+                        isClearBossLog = false;
+                    }
+                       
+                    for (final ChannelServer cserv : ChannelServer.getAllInstances()) {
+                        for (final MapleCharacter chr : cserv.getPlayerStorage().getAllCharacters()) {
+                            if (chr == null) {
+                                continue;
+                            }
+                            try(final Connection con = DBConPool.getInstance().getDataSource().getConnection().getConnection()) {
+                                try (final PreparedStatement psu = con.prepareStatement("UPDATE characters SET todayOnlineTime = todayOnlineTime + ?, totalOnlineTime = totalOnlineTime + ? WHERE id = ?")) {
+                                    psu.setInt(1, time);
+                                    psu.setInt(2, time);
+                                    psu.setInt(3, chr.getId());
+                                    psu.executeUpdate();
+                                    psu.close();
+                                }
+                                chr.getClient().sendPacket(MaplePacketCreator.enableActions());
+                            }
+                            catch (SQLException ex2) {
+                                try {
+                                    Start.BackupOnlinetime(chr.getId());
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    记录在线时间++;
+                }
+            }
+        }, (long)(60000 * time));
+    }
+        
+            public static void BackupOnlinetime(final int a) throws SQLException {
+                final Connection con = DBConPool.getInstance().getDataSource().getConnection().getConnection();
+        try (final PreparedStatement psu = con.prepareStatement("UPDATE characters SET todayOnlineTime = todayOnlineTime + ?, totalOnlineTime = totalOnlineTime + ? WHERE id = ?")) {
+            psu.setInt(1, 1);
+            psu.setInt(2, 1);
+            psu.setInt(3, a);
+            psu.executeUpdate();
+            psu.close();
+        }
+        catch (SQLException ex) {
+            BackupOnlinetime2(a);
+        }
+    }
+            
+                public static void BackupOnlinetime2(final int a) throws SQLException {
+        final Connection con = DBConPool.getInstance().getDataSource().getConnection().getConnection();
+        try (final PreparedStatement psu = con.prepareStatement("UPDATE characters SET todayOnlineTime = todayOnlineTime + ?, totalOnlineTime = totalOnlineTime + ? WHERE id = ?")) {
+            psu.setInt(1, 1);
+            psu.setInt(2, 1);
+            psu.setInt(3, a);
+            psu.executeUpdate();
+            psu.close();
+        }
+        catch (SQLException ex) {
+            BackupOnlinetime3(a);
+        }
+    }
+    
+    public static void BackupOnlinetime3(final int a) throws SQLException {
+        final Connection con = DBConPool.getInstance().getDataSource().getConnection().getConnection();
+        try (final PreparedStatement psu = con.prepareStatement("UPDATE characters SET todayOnlineTime = todayOnlineTime + ?, totalOnlineTime = totalOnlineTime + ? WHERE id = ?")) {
+            psu.setInt(1, 1);
+            psu.setInt(2, 1);
+            psu.setInt(3, a);
+            psu.executeUpdate();
+            psu.close();
+        }
+        catch (SQLException ex) {}
     }
 }

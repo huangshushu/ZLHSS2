@@ -116,16 +116,16 @@ function action(mode, type, selection) {
         slot.push(i);
       }
       cm.sendSimple(
-        "#b\r\n#L9999#传送到该玩家身边#l\r\n\r\n"+
-        "----------------------------------\r\n"+
-        "以下是玩家#r" +
+        "#b\r\n#L9999#传送到该玩家身边#l\r\n\r\n" +
+          "----------------------------------\r\n" +
+          "以下是玩家#r" +
           jsname +
           "#k身上的装备#d点击想要的查询详细信息#k\r\n" +
           avail
       );
     }
   } else if (status == 2) {
-    if(selection = 9999){
+    if ((selection = 9999)) {
       cm.根据ID跟踪玩家(jiIdp[sele]);
       cm.dispose();
       return;

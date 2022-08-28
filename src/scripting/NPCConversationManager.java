@@ -3325,4 +3325,54 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         return name.toString();
     }
         
+        /*
+         public void 总在线时间排行榜() {
+        MapleGuild.总在线时间排行(getClient(), this.npc);
+    }*/
+
+    public int 查询今日在线时间() {
+        int data = 0;
+        try( Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            PreparedStatement psu = con.prepareStatement("SELECT todayOnlineTime FROM characters WHERE id = ?");
+            psu.setInt(1, c.getPlayer().getId());
+            ResultSet rs = psu.executeQuery();
+            if (rs.next()) {
+                data = rs.getInt("todayOnlineTime");
+            }
+            rs.close();
+            psu.close();
+
+        } catch (SQLException ex) {
+            System.err.println("查询今日在线时间出错：" + ex.getMessage());
+        }
+
+        return data;
+    }
+
+    public int 查询总在线时间() {
+        int data = 0;
+        try( Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            PreparedStatement psu = con.prepareStatement("SELECT totalOnlineTime FROM characters WHERE id = ?");
+            psu.setInt(1, c.getPlayer().getId());
+            ResultSet rs = psu.executeQuery();
+            if (rs.next()) {
+                data = rs.getInt("totalOnlineTime");
+            }
+            rs.close();
+            psu.close();
+        } catch (SQLException ex) {
+            System.err.println("查询总在线时间出错：" + ex.getMessage());
+        }
+
+        return data;
+    }
+
+    public int 查询在线人数() {
+        int count = 0;
+        for (ChannelServer chl : ChannelServer.getAllInstances()) {
+            count += chl.getPlayerStorage().getAllCharacters().size();
+        }
+        return count;
+    }
+        
 }
