@@ -4,7 +4,7 @@ import server.ServerProperties;
 
 public class WorldConstants {
 
-    public static Option WORLD = WorldOption.雪吉拉;
+    public static Option WORLD = WorldOption.绿水灵;
     public static boolean ADMIN_ONLY = true;
     public static boolean JZSD = false;
     public static boolean WUYANCHI = true;
@@ -42,23 +42,18 @@ public class WorldConstants {
      */
     public enum WorldOption implements Option {
 
-        泰勒熊(16),
-        神兽(15),
-        皮卡啾(14),
-        鲸鱼号(13),
-        电击象(12),
-        海努斯(11),
-        巴洛古(10),
-        蝴蝶精(9),
-        火独眼兽(8),
-        木妖(7),
-        三眼章鱼(6),
-        绿水灵(5),
-        蓝宝(4),
-        缎带肥肥(3),
-        星光精灵(120),
-        菇菇宝贝(1),
-        雪吉拉(120);
+        蓝蜗牛(0), 
+        蘑菇仔(1), 
+        绿水灵(2), 
+        漂漂猪(3), 
+        小青蛇(4), 
+        红螃蟹(5), 
+        大海龟(6), 
+        章鱼怪(7), 
+        顽皮猴(8), 
+        星精灵(9), 
+        胖企鹅(10), 
+        童话村(121);
 
         private final int world;
 
