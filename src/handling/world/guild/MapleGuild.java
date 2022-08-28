@@ -929,4 +929,34 @@ public class MapleGuild implements java.io.Serializable {
     public String getPrefix(MapleCharacter chr) {
         return chr.getPrefix();
     }
+    
+        public static void 总在线时间排行(MapleClient c, int npcid) {
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            PreparedStatement ps = con.prepareStatement("select `name`, totalOnlineTime AS `data`, `level`, meso from characters order by `data` desc LIMIT 10");
+            Throwable localThrowable2 = null;
+            ResultSet rs;
+            try {
+                rs = ps.executeQuery();
+                c.sendPacket(MaplePacketCreator.showCustomRanks(npcid, rs));
+            } catch (Throwable localThrowable1) {
+                localThrowable2 = localThrowable1;
+                throw localThrowable1;
+            } finally {
+                if (ps != null) {
+                    if (localThrowable2 != null) {
+                        try {
+                            ps.close();
+                        } catch (Throwable x2) {
+                            localThrowable2.addSuppressed(x2);
+                        }
+                    } else {
+                        ps.close();
+                    }
+                }
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.err.println("总在线时间排行出错！");
+        }
+    }
 }

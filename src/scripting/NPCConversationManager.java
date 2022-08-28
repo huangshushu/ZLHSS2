@@ -3325,10 +3325,10 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         return name.toString();
     }
         
-        /*
+        
          public void 总在线时间排行榜() {
         MapleGuild.总在线时间排行(getClient(), this.npc);
-    }*/
+    }
 
     public int 查询今日在线时间() {
         int data = 0;

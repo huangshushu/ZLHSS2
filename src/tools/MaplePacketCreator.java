@@ -62,6 +62,8 @@ import java.util.Map.Entry;
 
 import static client.MapleStat.AVAILABLEAP;
 import static client.MapleStat.AVAILABLESP;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MaplePacketCreator {
 
@@ -5378,6 +5380,29 @@ public class MaplePacketCreator {
         mplew.writeShort(op);
         mplew.writeMapleAsciiString(msg);
 
+        return mplew.getPacket();
+    }
+    
+        public static byte[] showCustomRanks(int npcid, ResultSet rs) throws SQLException {
+        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+
+        mplew.writeShort(SendPacketOpcode.GUILD_OPERATION.getValue());
+        mplew.write(73);
+        mplew.writeInt(npcid);
+        if (!rs.last()) {
+            mplew.writeInt(0);
+            return mplew.getPacket();
+        }
+        mplew.writeInt(rs.getRow());
+        rs.beforeFirst();
+        while (rs.next()) {
+            mplew.writeMapleAsciiString(rs.getString("name"));
+            mplew.writeInt(rs.getInt("data"));
+            mplew.writeInt(rs.getInt("level"));
+            mplew.writeInt(rs.getInt("meso"));
+            mplew.writeInt(0);
+            mplew.writeInt(0);
+        }
         return mplew.getPacket();
     }
 
