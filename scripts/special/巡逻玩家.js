@@ -15,6 +15,7 @@ var selection;
 var 彩虹 = "#fEffect/ItemEff/1071085/effect/walk1/2#";
 var 积分 = new Array(1, 2);
 var 随机积分 = 积分[Math.floor(Math.random() * 积分.length)];
+var jiIdp = new Array();
 var jilusl = new Array();
 var jilupd = new Array();
 var jilname = new Array();
@@ -49,10 +50,12 @@ function action(mode, type, selection) {
         i++;
         var mch = cserv1.next();
         //mch.getClient().getChannel();
+        chrId = mch.getId();
         jsname = mch.getName();
         mapid = mch.getMapId();
         pdid = mch.getClient().getChannel();
 
+        jiIdp[i] = chrId;
         jilname[i] = jsname;
         jilusl[i] = mapid;
         jilupd[i] = pdid;
@@ -122,10 +125,11 @@ function action(mode, type, selection) {
       );
     }
   } else if (status == 2) {
-    if (selection == 9999) {
-        cm.getPlayer().ForcechangeChannel(jilupd[sele]);
-        cm.dispose();
-      }
+    if(selection = 9999){
+      cm.根据ID跟踪玩家(jiIdp[sele]);
+      cm.dispose();
+      return;
+    }
     status = -1;
     jj = -selection;
     a = Packages.client.MapleCharacter.getCharacterByName(jsname)
