@@ -25,7 +25,8 @@ function action(mode, type, selection) {
         cm.sendSimple(selStr);
     } else if (status == 1) {
         mobid = selection;
-        cm.sendNext(cm.checkDrop(cm.getPlayer(), selection, cm.getPlayer().isGM()));
+        cm.sendNext(cm.怪物详细(selection));
+        //cm.sendNext(cm.checkDrop(cm.getPlayer(), selection, cm.getPlayer().isGM()));
     } else if (status == 2) {
         if (!cm.getPlayer().isGM()) {
             cm.dispose();

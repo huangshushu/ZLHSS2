@@ -61,6 +61,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static server.MapleCarnivalChallenge.getJobNameById;
+import server.life.Element;
+import server.life.MapleLifeFactory;
 
 public class NPCConversationManager extends AbstractPlayerInteraction {
 
@@ -3137,5 +3139,190 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
         }
         return data;
     }
+    
+        public String 怪物详细(int a) {
+        StringBuilder name = new StringBuilder();
+        MapleMonster monster = null;
+        int AA = 0;
+        for (final MapleMapObject monstermo : c.getPlayer().getMap().getMapObjectsInRange(c.getPlayer().getPosition(), 10000000, Arrays.asList(MapleMapObjectType.MONSTER))) {
+            monster = (MapleMonster) monstermo;
+            if (AA == 0) {
+                if (monster.getId() == a) {
+                    AA++;
+                    name.append("#e#d").append(serverName()).append("怪物详细信息预览：#k#n\r\n");
+                    name.append("\r\n#d名字#k : #b").append(monster.stats.getName()).append(" (").append(monster.getId()).append(")");
+                    name.append("\r\n#d等级#k : #b").append(monster.stats.getLevel());
+                    String 级别 = "";
+                    if (!monster.stats.isBoss()) {
+                        级别 = "普通";
+                    } else if (monster.stats.isBoss()) {
+                        级别 = "高级";
+                    } else {
+                        级别 = "未知";
+                    }
+                    name.append("\r\n#d级别#k : #b").append(级别);
+                    name.append("\r\n#d物防#k : #b").append(monster.stats.getPhysicalDefense()).append("");
+                    name.append("\r\n#d魔防#k : #b").append(monster.stats.getMagicDefense()).append("");
+                    name.append("\r\n#d血量#k : #k( #b").append(monster.getMobMaxHp()).append("#k / #r").append(monster.getHp()).append("#k )");
+                    if (monster.stats.getNoSkills() > 0) {
+                        name.append("\r\n\r\n#d#e能力技能详解：#k#n \r\n\r\n#b");
+                        for (int i = 0; i < (int) monster.stats.getNoSkills(); i++) {
+                            switch (monster.stats.getSkills().get(i).left) {
+                                case 102:
+                                case 112:
+                                case 152:
+                                    name.append(" 物理防御增幅 ");
+                                    break;
+                                case 131:
+                                    name.append(" 毒雾 ");
+                                    break;
+                                case 128:
+                                    name.append(" 诱导 ");
+                                    break;
+                                case 103:
+                                case 113:
+                                case 153:
+                                    name.append(" 魔法防御增幅 ");
+                                    break;
+                                case 110:
+                                case 150:
+                                    name.append(" 物理攻击增幅 ");
+                                    break;
+                                case 101:
+                                case 111:
+                                case 151:
+                                    name.append(" 魔法攻击增幅 ");
+                                    break;
+                                case 120:
+                                    name.append(" 封印 ");
+                                    break;
+                                case 121:
+                                    name.append(" 黑暗 ");
+                                    break;
+                                case 122:
+                                    name.append(" 弱化 ");
+                                    break;
+                                case 124:
+                                    name.append(" 诅咒 ");
+                                    break;
+                                case 114:
+                                    name.append(" 治愈 ");
+                                    break;
+                                case 140:
+                                    name.append(" 物理无效 ");
+                                    break;
+                                case 141:
+                                    name.append(" 魔法无效 ");
+                                    break;
+                                case 200:
+                                    name.append(" 召唤 ");
+                                    break;
+                                default:
+                                    name.append(" 未知 ");
+                                    break;
+                            }
+                            if (i % 3 == 2) {
+                                name.append("\r\n");
+                            }
+                        }
+                    }
+                    name.append("\r\n\r\n#d#e属性伤害鉴别：#k#n \r\n");
+                    name.append("\r\n#d光明#k : #b").append(monster.stats.getEffectiveness(Element.HOLY));
+                    name.append("   #d黑暗#k : #b").append(monster.stats.getEffectiveness(Element.DARKNESS));
+                    name.append("   #d雷电#k : #b").append(monster.stats.getEffectiveness(Element.LIGHTING));
+                    name.append("\r\n#d冰冻#k : #b").append(monster.stats.getEffectiveness(Element.ICE));
+                    name.append("   #d毒素#k : #b").append(monster.stats.getEffectiveness(Element.POISON));
+                    name.append("   #d火焰#k : #b").append(monster.stats.getEffectiveness(Element.FIRE));
+                    name.append("\r\n\r\n#d#e物品掉落详细：#k#n\r\n\r\n");
+                    if (MapleLifeFactory.getMonster(a) == null) {
+                        return "";
+                    }
+                    int rate = getClient().getChannelServer().getDropRate();
+                    MapleMonster mob = MapleLifeFactory.getMonster(a);
+                    /*
+                    if (MapleLifeFactory.getMonster(a) != null) {
+                        if (mob.getStats().isBoss()) {
+                            rate = getClient().getChannelServer().getBossDropRate();
+                        }
+                    }
+                    */
+                    List ranks = MapleMonsterInformationProvider.getInstance().retrieveDrop(a);
+                    if ((ranks != null) && (ranks.size() > 0)) {
+                        int itemId = 0;
+                        int ch = 0;
+                        MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+                        for (int i = 0; i < ranks.size(); i++) {
+                            MonsterDropEntry de = (MonsterDropEntry) ranks.get(i);
+                            if ((de.chance > 0) && ((de.questid <= 0) || ((de.questid > 0) && (MapleQuest.getInstance(de.questid).getName().length() > 0)))) {
+                                itemId = de.itemId;
+                                if (!ii.itemExists(itemId)) {
+                                    continue;
+                                }
+                                String namez = new StringBuilder().append("#z").append(itemId).append("#").toString();
+                                ch = de.chance * rate;
+                                if (getPlayer().isAdmin()) {
+                                    name.append("#b").append(namez).append("#k     #r爆率: ").append(Integer.valueOf(ch >= 999999 ? 1000000 : ch).doubleValue() / 10000.0D).append(" %").append((de.questid > 0) && (MapleQuest.getInstance(de.questid).getName().length() > 0) ? new StringBuilder().append("  #d需要接受任务: #r").append(MapleQuest.getInstance(de.questid).getName()).toString() : "#k").append("\r\n");
+                                } else {
+                                    name.append("#b").append(namez).append((de.questid > 0) && (MapleQuest.getInstance(de.questid).getName().length() > 0) ? new StringBuilder().append("  #d任务: #r").append(MapleQuest.getInstance(de.questid).getName()).toString() : "#k").append("\r\n");
+                                }
+                            }
+                        }
 
+                    } else {
+                        name.append(" 未查到爆物数据。");
+                    }
+                }
+            }
+        }
+        if (name.length() > 0) {
+            return name.toString();
+        } else {
+            return " 周围没有怪物，请离你要查询的怪物近一点。 ";
+        }
+    }
+        
+       public void 根据ID跟踪玩家(int cid) {
+        if (c.getPlayer().getId() == cid) {
+            return;
+        }
+        for (ChannelServer cs : ChannelServer.getAllInstances()) {
+            for (MapleCharacter chr : cs.getPlayerStorage().getAllCharacters()) {
+                if (chr.getId() == cid) {
+                    if (c.getPlayer().getClient().getChannel() != chr.getClient().getChannel()) {
+                        c.getPlayer().dropMessage(6, "正在换频道,请等待。");
+                        c.getPlayer().changeChannel(chr.getClient().getChannel());
+
+                    } else if (c.getPlayer().getId() != chr.getMapId()) {
+                        MapleMap mapp = c.getChannelServer().getMapFactory().getMap(chr.getMapId());
+                        c.getPlayer().changeMap(mapp, mapp.getPortal(0));
+                    }
+                }
+            }
+        }
+    }
+
+    public void 根据ID封号玩家(int cid) {
+        if (c.getPlayer().getId() == cid) {
+            return;
+        }
+        int ch = World.Find.findChannel(角色ID取名字(cid));
+        MapleCharacter target = ChannelServer.getInstance(ch).getPlayerStorage().getCharacterByName(角色ID取名字(cid));
+        if (target.ban("被巡查封禁/" + c.getPlayer().getName() + "", c.getPlayer().isAdmin(), false, false)) {
+            String 信息 = "[系统提醒] : 玩家 " + target.getName() + " 因为使用非法插件/破坏游戏平衡，被系统永久封号。";
+            World.Broadcast.broadcastMessage(MaplePacketCreator.serverNotice(6, 信息));
+        }
+    }
+    
+        public String 显示在线玩家() {
+        StringBuilder name = new StringBuilder();
+        for (ChannelServer cs : ChannelServer.getAllInstances()) {
+            for (MapleCharacter chr : cs.getPlayerStorage().getAllCharacters()) {
+                if (c.getPlayer().getId() != chr.getId() && !chr.isGM()) {
+                        name.append("\t\t\t#b#L").append(chr.getId()).append("# 玩家: #d").append(chr.getName()).append("#l\r\n");
+                }
+            }
+        }
+        return name.toString();
+    }
+        
 }

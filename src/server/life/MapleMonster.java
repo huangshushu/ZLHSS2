@@ -54,7 +54,7 @@ public class MapleMonster extends AbstractLoadedMapleLife {
      * @param dropItemSchedule 怪物掉落物品
      * @param shouldDropItem 应该掉落该有的物品
      */
-    private MapleMonsterStats stats;
+    public MapleMonsterStats stats;
     private OverrideMonsterStats ostats = null;
     private long hp, nextKill;
     private int mp;

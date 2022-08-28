@@ -1083,12 +1083,11 @@ public abstract class AbstractPlayerInteraction {
     }
 
     public final void openNpc(final MapleClient cg, final int id) {
-        NPCScriptManager.getInstance().dispose(cg);
         openNpc(cg, id, 0, null);
     }
 
     public final void openNpc(final int id, final String script) {
-        openNpc(getClient(), id, script);
+        openNpc(getClient(), id,0, script);
     }
 
     public final void openNpc(final MapleClient cg, final int id, final String script) {
@@ -1097,6 +1096,7 @@ public abstract class AbstractPlayerInteraction {
 
     public final void openNpc(final MapleClient cg, final int id, final int mode, final String script) {
         cg.removeClickedNPC();
+        NPCScriptManager.getInstance().dispose(cg);
         NPCScriptManager.getInstance().start(cg, id, mode, script);
     }
 
@@ -3687,6 +3687,19 @@ public abstract class AbstractPlayerInteraction {
             }
         }
         return true;
+    }
+
+    public int 判断团队每日(String bossid, int b) {
+        int a = 0;
+        for (final MaplePartyCharacter chr : getPlayer().getParty().getMembers()) {
+            final MapleCharacter curChar = getMap().getCharacterById(chr.getId());
+            if (curChar != null) {
+                if (curChar.getBossLog(bossid) >= b) {
+                    a = 1;
+                }
+            }
+        }
+        return a;
     }
 
 

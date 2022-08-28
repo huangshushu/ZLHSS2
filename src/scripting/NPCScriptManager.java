@@ -128,7 +128,7 @@ public class NPCScriptManager extends AbstractScriptManager {
                     if (c.getPlayer() != null && c.getPlayer().getDebugMessage()) {
                         c.getPlayer().dropMessage("start - cms");
                     }
-                } catch (NoSuchMethodException nsme) {
+                } catch (final NoSuchMethodException nsme) {
                     iv.invokeFunction("action", (byte) 1, (byte) 0, 0);
                 }
             } else if (c.getPlayer() != null) {
