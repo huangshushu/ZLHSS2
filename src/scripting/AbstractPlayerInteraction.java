@@ -3768,6 +3768,92 @@ public abstract class AbstractPlayerInteraction {
             ex.getStackTrace();
         }
     }
+    
+    public final void 给属性装备(final int id, final int sj, final int Flag, final int str, final int dex, final int luk, final int Int, final int hp, int mp, int watk, int matk, int wdef, int mdef, int hb, int mz, int ty, int yd) {
+        给属性装备(id, sj, Flag, str, dex, luk, Int, hp, mp, watk, matk, wdef, mdef, hb, mz, ty, yd, 0, c);
+    }
+
+    public final void 给属性装备(final int id, final int sj, final int Flag, final int str, final int dex, final int luk, final int Int, final int hp, int mp, int watk, int matk, int wdef, int mdef, int hb, int mz, int ty, int yd, int 给予时间) {
+        给属性装备(id, sj, Flag, str, dex, luk, Int, hp, mp, watk, matk, wdef, mdef, hb, mz, ty, yd, 给予时间, c);
+    }
+
+    public final void 给属性装备(final int id, final int sj, final int Flag, final int str, final int dex, final int luk, final int Int, final int hp, int mp, int watk, int matk, int wdef, int mdef, int hb, int mz, int ty, int yd, long 给予时间, final MapleClient cg) {
+        if (1 >= 0) {
+            final MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+            final MapleInventoryType type = GameConstants.getInventoryType(id);
+
+            if (!MapleInventoryManipulator.checkSpace(cg, id, 1, "")) {
+                return;
+            }
+            if (type.equals(MapleInventoryType.EQUIP) && !GameConstants.isThrowingStar(id) && !GameConstants.isBullet(id)) {
+                final Equip item = (Equip) (ii.getEquipById(id));
+
+                final String name = ii.getName(id);
+                if (id / 10000 == 114 && name != null && name.length() > 0) { //medal
+                    final String msg = "你已获得称号 <" + name + ">";
+                    cg.getPlayer().dropMessage(5, msg);
+                    //cg.getPlayer().dropMessage(5, msg);
+                }
+                if (sj > 0) {
+                    item.setUpgradeSlots((byte) (short) sj);
+                }
+                if (Flag > 0) {
+                    item.setFlag((byte) (short) Flag);
+                }
+                if (str > 0) {
+                    item.setStr((short) str);
+                }
+                if (dex > 0) {
+                    item.setDex((short) dex);
+                }
+                if (luk > 0) {
+                    item.setLuk((short) luk);
+                }
+                if (Int > 0) {
+                    item.setInt((short) Int);
+                }
+                if (hp > 0) {
+                    item.setHp((short) hp);
+                }
+                if (mp > 0) {
+                    item.setMp((short) mp);
+                }
+                if (watk > 0) {
+                    item.setWatk((short) watk);
+                }
+                if (matk > 0) {
+                    item.setMatk((short) matk);
+                }
+                if (wdef > 0) {
+                    item.setWdef((short) wdef);
+                }
+                if (mdef > 0) {
+                    item.setMdef((short) mdef);
+                }
+                if (hb > 0) {
+                    item.setAvoid((short) hb);
+                }
+                if (mz > 0) {
+                    item.setAcc((short) mz);
+                }
+                if (ty > 0) {
+                    item.setJump((short) ty);
+                }
+                if (yd > 0) {
+                    item.setSpeed((short) yd);
+                }
+                if (给予时间 > 0) {
+                    item.setExpiration(System.currentTimeMillis() + (给予时间 * 60 * 60 * 1000));
+                }
+                MapleInventoryManipulator.addbyItem(cg, item.copy());
+            } else {
+                MapleInventoryManipulator.addById(cg, id, (short) 1, "", null);
+            }
+        } else {
+            MapleInventoryManipulator.removeById(cg, GameConstants.getInventoryType(id), id, -1, true, false);
+        }
+        cg.sendPacket(MaplePacketCreator.getShowItemGain(id, (short) 1, true));
+    }
             
             
 

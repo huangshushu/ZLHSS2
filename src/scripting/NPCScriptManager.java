@@ -72,7 +72,7 @@ public class NPCScriptManager extends AbstractScriptManager {
                     c.getPlayer().dropMessage("start - setInvocable");
                 }
                 if (script == null) {
-                    if (mode != 0 && !GameConstants.isItemBox(npc)) {
+                    if (mode != 0) {
                         iv = getInvocable("npc/" + npc + "_" + mode + ".js", c, true); // safe disposal
                         if (c.getPlayer().isGM()) {
                             c.getPlayer().dropMessage("[系统提示]您已经建立与[NPC/" + npc + "_" + mode +"]的对话。");
@@ -90,7 +90,6 @@ public class NPCScriptManager extends AbstractScriptManager {
                     }
                 }
                     if (GameConstants.isItemBox(npc)) {
-                    //iv = getInvocable("item/" + npc + "_" + mode + ".js", c, true);
                     iv = getInvocable("item/" + mode + ".js", c, true);
                     if (c.getPlayer().isGM()) {
                         c.getPlayer().dropMessage("[系统提示]您已经建立与[item/" + mode +"]的对话。");
@@ -156,7 +155,11 @@ public class NPCScriptManager extends AbstractScriptManager {
             System.err.println("NPC 脚本错误, 它ID为 : " + npc + "." + e);
             if (c.getPlayer() != null) {
                 if (c.getPlayer().isGM()) {
-                    c.getPlayer().dropMessage("[系统提示] NPC " + npc + "脚本错误 " + e + "");
+                    if(script == null){
+                        c.getPlayer().dropMessage("[系统提示] NPC " + npc + "脚本错误 " + e + "");
+                    }else{
+                        c.getPlayer().dropMessage("[系统提示] NPC " + npc + script + "脚本错误 " + e + "");
+                    }
                 }
             }
             FilePrinter.printError("NPCScriptManager.txt", "Error executing NPC script, NPC ID : " + npc + "." + e);
