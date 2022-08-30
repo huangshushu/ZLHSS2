@@ -5,9 +5,6 @@
  */
 package constants;
 
-/**
- * @author Flower
- */
 public class SkillType {
 
     public final static class 冒险之技 {

@@ -1988,4 +1988,8 @@ public class MapleClient {
         return ItemScriptManager.getInstance().getIM(this);
     }
 
+    public final void announce(final byte[] array) {
+        session.writeAndFlush(array);
+    }
+
 }

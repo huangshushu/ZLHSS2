@@ -215,13 +215,6 @@ public class MapleMapFactory {
                                     break;
                                 }
                             }
-                            /*
-                             * for (int id : GameConstants.unusedNpcs) {
-                             * if (myLife.getId() == id) {
-                             * spawn = false;
-                             * }
-                             * }
-                             */
                             if (spawn) {
                                 map.addMapObject(myLife);
                             }

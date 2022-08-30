@@ -74,31 +74,31 @@ public class NPCScriptManager extends AbstractScriptManager {
                 if (script == null) {
                     if (mode != 0) {
                         iv = getInvocable("npc/" + npc + "_" + mode + ".js", c, true); // safe disposal
-                        if (c.getPlayer().isGM()) {
-                            c.getPlayer().dropMessage("[系统提示]您已经建立与[NPC/" + npc + "_" + mode +"]的对话。");
+                        if (c.getPlayer().isGM() && !GameConstants.isItemBox(npc)) {
+                            c.getPlayer().dropMessage("[scripts提示]您已经建立与[NPC/" + npc + "_" + mode +"]的对话。");
                         }
                     } else {
                         iv = getInvocable("npc/" + npc + ".js", c, true); // safe disposal
-                        if (c.getPlayer().isGM()) {
-                            c.getPlayer().dropMessage("[系统提示]您已经建立与[NPC/" + npc +"]的对话。");
+                        if (c.getPlayer().isGM() && !GameConstants.isItemBox(npc)) {
+                            c.getPlayer().dropMessage("[scripts提示]您已经建立与[NPC/" + npc +"]的对话。");
                         }
                     }
                 } else {
                     iv = getInvocable("special/" + script + ".js", c, true); // safe disposal
-                    if (c.getPlayer().isGM()) {
-                        c.getPlayer().dropMessage("[系统提示]您已经建立与[special/" + script +"]的对话。");
+                    if (c.getPlayer().isGM() && !GameConstants.isItemBox(npc)) {
+                        c.getPlayer().dropMessage("[scripts提示]您已经建立与[special/" + script +"]的对话。");
                     }
                 }
                     if (GameConstants.isItemBox(npc)) {
                     iv = getInvocable("item/" + mode + ".js", c, true);
                     if (c.getPlayer().isGM()) {
-                        c.getPlayer().dropMessage("[系统提示]您已经建立与[item/" + mode +"]的对话。");
+                        c.getPlayer().dropMessage("[scripts提示]您已经建立与[item/" + mode +"]的对话。");
                     }
                 }
                 if (iv == null) {
                     iv = getInvocable("special/notcoded.js", c, true); // safe disposal
                     if (c.getPlayer().isGM()) {
-                        c.getPlayer().dropMessage("[系统提示]您已经建立与notcoded的对话。");
+                        c.getPlayer().dropMessage("[scripts提示]您已经建立与notcoded的对话。");
                     }
                     if (iv == null) {
                         dispose(c);
@@ -156,9 +156,9 @@ public class NPCScriptManager extends AbstractScriptManager {
             if (c.getPlayer() != null) {
                 if (c.getPlayer().isGM()) {
                     if(script == null){
-                        c.getPlayer().dropMessage("[系统提示] NPC " + npc + "脚本错误 " + e + "");
+                        c.getPlayer().dropMessage("[scripts提示] NPC " + npc + "脚本错误 " + e + "");
                     }else{
-                        c.getPlayer().dropMessage("[系统提示] NPC " + npc + script + "脚本错误 " + e + "");
+                        c.getPlayer().dropMessage("[scripts提示] NPC " + npc + script + "脚本错误 " + e + "");
                     }
                 }
             }
@@ -188,7 +188,7 @@ public class NPCScriptManager extends AbstractScriptManager {
             } catch (final ScriptException | NoSuchMethodException e) {
                 if (c.getPlayer() != null) {
                     if (c.getPlayer().isGM()) {
-                        c.getPlayer().dropMessage("[系统提示] NPC " + cm.getNpc() + "脚本错误 " + e + "");
+                        c.getPlayer().dropMessage("[scripts提示] NPC " + cm.getNpc() + "脚本错误 " + e + "");
                     }
                 }
                 System.err.println("NPC 脚本错误. 它ID为 : " + cm.getNpc() + ":" + e);
@@ -223,7 +223,7 @@ public class NPCScriptManager extends AbstractScriptManager {
                 c.getPlayer().setConversation(1);
                 c.setClickedNPC();
                 if (c.getPlayer().isGM()) {
-                    c.getPlayer().dropMessage("[系统提示]您已经建立与任务脚本:" + quest + "的往来。");
+                    c.getPlayer().dropMessage("[scripts提示]您已经建立与任务脚本:" + quest + "的往来。");
                 }
                 // System.out.println("NPCID started: " + npc + " startquest " + quest);
                 iv.invokeFunction("start", (byte) 1, (byte) 0, 0); // start it off as something
@@ -257,7 +257,7 @@ public class NPCScriptManager extends AbstractScriptManager {
             }
         } catch (ScriptException | NoSuchMethodException e) {
             if (c.getPlayer().isGM()) {
-                c.getPlayer().dropMessage("[系统提示]任务脚本:" + cm.getQuest() + "错误...NPC: " + cm.getNpc() + ":" + e);
+                c.getPlayer().dropMessage("[scripts提示]任务脚本:" + cm.getQuest() + "错误...NPC: " + cm.getNpc() + ":" + e);
             }
             System.err.println("Error executing Quest script. (" + cm.getQuest() + ")...NPC: " + cm.getNpc() + ":" + e);
             FilePrinter.printError("NPCScriptManager.txt",
@@ -297,7 +297,7 @@ public class NPCScriptManager extends AbstractScriptManager {
             }
         } catch (ScriptException | NoSuchMethodException e) {
             if (c.getPlayer().isGM()) {
-                c.getPlayer().dropMessage("[系统提示]任务脚本:" + quest + "错误...NPC: " + quest + ":" + e);
+                c.getPlayer().dropMessage("[scripts提示]任务脚本:" + quest + "错误...NPC: " + quest + ":" + e);
             }
             System.err.println("Error executing Quest script. (" + quest + ")..NPCID: " + npc + ":" + e);
             FilePrinter.printError("NPCScriptManager.txt",
@@ -324,7 +324,7 @@ public class NPCScriptManager extends AbstractScriptManager {
             }
         } catch (ScriptException | NoSuchMethodException e) {
             if (c.getPlayer().isGM()) {
-                c.getPlayer().dropMessage("[系统提示]任务脚本:" + cm.getQuest() + "错误...NPC: " + cm.getNpc() + ":" + e);
+                c.getPlayer().dropMessage("[scripts提示]任务脚本:" + cm.getQuest() + "错误...NPC: " + cm.getNpc() + ":" + e);
             }
             System.err.println("Error executing Quest script. (" + cm.getQuest() + ")...NPC: " + cm.getNpc() + ":" + e);
             FilePrinter.printError("NPCScriptManager.txt",

@@ -71,6 +71,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import scripting.ItemScriptManager;
+import client.inventory.EquipCash;
 
 public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Serializable {
 
@@ -152,6 +153,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
     private long lasttime = 0L;
     private long currenttime = 0L;
     private long deadtime = 1000L;
+    private Map<Integer, EquipCash> equeipCashs = new HashMap<>();
 
     private MapleCharacter(final boolean ChannelServer) {
         this.setStance(0);
@@ -347,6 +349,9 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         ret.day = ct.day;
         ret.gachexp = ct.gachexp;
         ret.makeMFC(ct.familyid, ct.seniorid, ct.junior1, ct.junior2);
+        ret.equeipCashs = ct.equeipCashs;
+
+
         if (ret.guildid > 0) {
             ret.mgc = new MapleGuildCharacter(ret);
         }
@@ -596,7 +601,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
                 }
                 rs.close();
                 ps.close();
-
+                ret.equeipCashs = EquipCash.loadEquipCash(ret.accountid);
                 boolean compensate_previousEvans = false;
                 ps = con.prepareStatement("SELECT * FROM queststatus WHERE characterid = ?");
                 ps.setInt(1, charid);
@@ -1248,7 +1253,7 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
             }
             ps.close();
             pse.close();
-
+            EquipCash.saveToDB(this.equeipCashs.values(), this.accountid);
             deleteWhereCharacterId(con, "DELETE FROM skills WHERE characterid = ?");
             ps = con.prepareStatement(
                     "INSERT INTO skills (characterid, skillid, skilllevel, masterlevel, expiration) VALUES (?, ?, ?, ?, ?)");
@@ -5718,6 +5723,88 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
         } catch (Exception Ex) {
             System.err.println("Error while set bosslog." + Ex);
         }
+    }
+
+    public int getBossLog3(String log1) {
+        int jf = 0;
+        try(Connection con = DBConPool.getInstance().getDataSource().getConnection()) {
+            PreparedStatement ps = con.prepareStatement(("select * from bosslog3 where id =? and log = ?"));
+            ps.setInt(1, this.id);
+            ps.setString(2, log1);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                jf = rs.getInt("sz1");
+            } else {
+                PreparedStatement psu = DBConPool.getInstance().getDataSource().getConnection().prepareStatement("insert into bosslog3 (id,log, sz1) VALUES (?,?, ?)");
+                psu.setInt(1, this.id);
+                psu.setString(2, log1);
+                psu.setInt(3, 0);
+                psu.executeUpdate();
+                psu.close();
+            }
+            ps.close();
+            rs.close();
+            DBConPool.getInstance().getDataSource().getConnection().close();
+        } catch (SQLException ex) {
+            System.err.println("bosslog读取发生错误: " + ex);
+        }
+        return jf;
+    }
+    public void setBossLog3(String log1, int slot) {
+        int jf = getBossLog3(log1);
+        try {
+            Connection druidPooledConnection = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = druidPooledConnection.prepareStatement("UPDATE bosslog3 SET sz1 = ? where id = ? AND log = ?");
+            ps.setInt(1, jf + slot);
+            ps.setInt(2, this.id);
+            ps.setString(3, log1);
+            ps.executeUpdate();
+            ps.close();
+            druidPooledConnection.close();
+        } catch (SQLException ex) {
+            System.err.println("bosslog加减发生错误: " + ex);
+        }
+    }
+    public void setBossLog4(String log1, int slot) {
+        int jf = getBossLog4(log1);
+        try {
+            Connection druidPooledConnection = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = druidPooledConnection.prepareStatement("UPDATE bosslog4 SET sz1 = ? where id = ? AND log = ?");
+            ps.setInt(1, jf + slot);
+            ps.setInt(2, this.accountid);
+            ps.setString(3, log1);
+            ps.executeUpdate();
+            ps.close();
+            druidPooledConnection.close();
+        } catch (SQLException ex) {
+            System.err.println("bosslog加减发生错误: " + ex);
+        }
+    }
+    public int getBossLog4(String log1) {
+        int jf = 0;
+        try {
+            Connection druidPooledConnection = DBConPool.getInstance().getDataSource().getConnection();
+            PreparedStatement ps = druidPooledConnection.prepareStatement("select * from bosslog4 where id =? and log = ?");
+            ps.setInt(1, this.accountid);
+            ps.setString(2, log1);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                jf = rs.getInt("sz1");
+            } else {
+                PreparedStatement psu = druidPooledConnection.prepareStatement("insert into bosslog4 (id,log, sz1) VALUES (?,?, ?)");
+                psu.setInt(1, this.accountid);
+                psu.setString(2, log1);
+                psu.setInt(3, 0);
+                psu.executeUpdate();
+                psu.close();
+            }
+            ps.close();
+            rs.close();
+            druidPooledConnection.close();
+        } catch (SQLException ex) {
+            System.err.println("bosslog读取发生错误: " + ex);
+        }
+        return jf;
     }
 
     public int getAccNewTime(String time) {
@@ -11124,6 +11211,14 @@ public class MapleCharacter extends AbstractAnimatedMapleMapObject implements Se
 
     public int getNX() {
         return this.getCSPoints(1);
+    }
+
+   public Map<Integer, EquipCash> getEqueipCashs() {
+     return this.equeipCashs;
+   }
+
+    public EquipCash getEquipCash() {
+        return new EquipCash();
     }
 
 }

@@ -3612,14 +3612,6 @@ public class GameConstants {
                 || mapID == 925020013 || mapID == 925020014 || mapID == 682020000 || mapID == 980010000
                 || mapID == 980010100 || mapID == 980010200 || mapID == 980010300 || mapID == 980010020;
     }
-
-    public static boolean isItemBox(int a) {
-        switch (a) {
-            case 1204033:
-                return true;
-            default:
-                return false;
-        }
-    }
+    public static boolean isItemBox(int a) {return a == ServerConfig.ScriptedItemNPCid;}
 
 }

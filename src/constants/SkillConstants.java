@@ -7,9 +7,7 @@ package constants;
 
 import client.MapleJob;
 
-/**
- * @author pungin
- */
+
 public class SkillConstants {
 
     public static boolean isSkill92XX0000(int skillId) {

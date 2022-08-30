@@ -3228,6 +3228,7 @@ public class InventoryHandler {
         final byte slot = (byte) slea.readShort();
         final int item = slea.readInt();
         final IItem toUse = c.getPlayer().getInventory(MapleInventoryType.USE).getItem(slot);
+        MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
 
         if (toUse.getItemId() != item) {
             c.sendPacket(MaplePacketCreator.enableActions());
@@ -3378,7 +3379,7 @@ public class InventoryHandler {
                 NPCScriptManager.getInstance().dispose(c);
                 //ItemScriptManager.getInstance().dispose(c);
                 //ItemScriptManager.getInstance().start(c, 9900004, toUse);
-                NPCScriptManager.getInstance().start(c, 1204033, item);
+                NPCScriptManager.getInstance().start(c, constants.ServerConfig.ScriptedItemNPCid, item);
                 return;
 
         }

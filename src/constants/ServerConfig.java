@@ -1,5 +1,6 @@
 package constants;
 
+import server.ScriptedItem;
 import server.ServerProperties;
 
 import java.io.File;
@@ -33,6 +34,7 @@ public class ServerConfig {
     public static boolean dMapAddMob;
     public static int dMapAddMobNum;
     public static String dMapAddMobMapList;
+    public static int ScriptedItemNPCid = 1204033;
 
     public static boolean isPvPChannel(int ch) {
         return pvp && ch == pvpch;
@@ -148,6 +150,7 @@ public class ServerConfig {
         dMapAddMob = ServerProperties.getProperty("server.settings.dMapAddMob", dMapAddMob);//自定义地图刷怪开关
         dMapAddMobNum = ServerProperties.getProperty("server.settings.dMapAddMobNum", dMapAddMobNum);//自定义地图刷怪倍数
         dMapAddMobMapList = ServerProperties.getProperty("server.settings.dMapAddMobMapList", dMapAddMobMapList);//地图列表id
+        ScriptedItemNPCid = ServerProperties.getProperty("server.settings.ScriptedItemNPCid", ScriptedItemNPCid);//箱子道具NPC
     }
 
     static {

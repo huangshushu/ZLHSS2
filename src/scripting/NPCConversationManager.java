@@ -75,8 +75,7 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
     public boolean pendingDisposal = false;
     private final Invocable iv;
 
-    public NPCConversationManager(MapleClient c, int npc, int questid, int mode, String npcscript, byte type,
-                                  Invocable iv) {
+    public NPCConversationManager(MapleClient c, int npc, int questid, int mode, String npcscript, byte type, Invocable iv) {
         super(c);
         this.c = c;
         this.npc = npc;
@@ -3373,6 +3372,55 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
             count += chl.getPlayerStorage().getAllCharacters().size();
         }
         return count;
+    }
+
+    public int 查询骑士团职业数量(int level){
+        int count = 0;
+        try {
+            final Connection con = DBConPool.getInstance().getDataSource().getConnection();
+            final PreparedStatement ps = con.prepareStatement("SELECT * FROM characters WHERE accountid = ?");
+            ps.setInt(1, 角色名字取账号ID(c.getPlayer().getName()));
+            try (final ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    if(MapleJob.is皇家骑士团(rs.getInt("job")) && rs.getInt("level") >= level){
+                        count += 1;
+                    }
+                }
+            }
+            ps.close();
+        } catch (SQLException Ex) {
+            System.err.println("获取角色名字取ID出错 - 数据库查询失败：" + Ex);
+        }
+        return count;
+    }
+
+    public int[] getCanHairFace(int[] id) {
+        MapleItemInformationProvider ii = MapleItemInformationProvider.getInstance();
+        List<Integer> canHairFace = new ArrayList<>();
+        List<Integer> cantHairFace = new ArrayList<>();
+        for (int hairfaceid : id) {
+            if (ii.hairfaceExists(hairfaceid)) {
+                canHairFace.add(Integer.valueOf(hairfaceid));
+            } else {
+                cantHairFace.add(Integer.valueOf(hairfaceid));
+            }
+        }
+        if (cantHairFace.size() > 0 && (this.c.getPlayer().isGM())) {
+            StringBuilder sb = new StringBuilder("正在读取的发型里有");
+            sb.append(cantHairFace.size()).append("个发型客户端不支持显示，已经被清除：");
+            for (int j = 0; j < cantHairFace.size(); j++) {
+                sb.append(cantHairFace.get(j));
+                if (j < cantHairFace.size() - 1) {
+                    sb.append(",");
+                }
+            }
+            playerMessage(6, sb.toString());
+        }
+        int[] getHairFace = new int[canHairFace.size()];
+        for (int i = 0; i < canHairFace.size(); i++) {
+            getHairFace[i] = ((Integer)canHairFace.get(i)).intValue();
+        }
+        return getHairFace;
     }
         
 }

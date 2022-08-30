@@ -1,10 +1,6 @@
 package constants;
 
-/**
- * CLogin::BALLOON
- *
- * @author Eric
- */
+
 public class Balloon {
 
     public int nX, nY;

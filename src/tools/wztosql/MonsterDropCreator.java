@@ -1,7 +1,7 @@
-/*     */
+
 package tools.wztosql;
-/*     */
-/*     */
+
+
 
 import provider.MapleData;
 import provider.MapleDataProvider;
@@ -22,12 +22,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/*     */
-/*     */ public class MonsterDropCreator /*     */ {
-    /*     */ private static final int COMMON_ETC_RATE = 600000;
-    /*     */    private static final int SUPER_BOSS_ITEM_RATE = 300000;
-    /*     */    private static final int POTION_RATE = 20000;
-    /*     */    private static final int ARROWS_RATE = 25000;
+
+ public class MonsterDropCreator  {
+     private static final int COMMON_ETC_RATE = 600000;
+        private static final int SUPER_BOSS_ITEM_RATE = 300000;
+        private static final int POTION_RATE = 20000;
+        private static final int ARROWS_RATE = 25000;
     /*  35 */    private static final int lastmonstercardid = 2388070;
     /*  36 */    private static boolean addFlagData = false;
     /*  37 */    protected static String monsterQueryData = "drop_data";
@@ -35,21 +35,21 @@ import java.util.Map;
     /*  39 */    protected static List<Pair<Integer, MobInfo>> mobCache = new ArrayList();
     /*  40 */    protected static Map<Integer, Boolean> bossCache = new HashMap();
 
-    /*     */
-    /*     */
+
+
     public static void main(String[] args) throws IOException, NotBoundException, InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException, MalformedObjectNameException {
         /*  43 */
         MapleData data = MapleDataProviderFactory.getDataProvider("String.wz").getData("MonsterBook.img");
-        /*     */
+
         /*  45 */
         System.out.println("准备提取数据!");
         /*  46 */
         System.out.println("按任意键继续...");
-        /*     */
+
         /*  49 */
         long currtime = System.currentTimeMillis();
         /*  50 */    // addFlagData = Boolean.parseBoolean(args[0]);
-        /*     */
+
         addFlagData = false;
         /*  52 */
         System.out.println("载入: 物品名称.");
@@ -59,17 +59,17 @@ import java.util.Map;
         System.out.println("载入: 怪物数据.");
         /*  55 */
         getAllMobs();
-        /*     */
+
         /*  58 */
         StringBuilder sb = new StringBuilder();
         /*  59 */
         FileOutputStream out = new FileOutputStream("mobDrop.sql", true);
-        /*     */
+
         /*  62 */
         for (Map.Entry e : getDropsNotInMonsterBook().entrySet()) {
             /*  63 */
             boolean first = true;
-            /*     */
+
             /*  65 */
             sb.append("INSERT INTO ").append(monsterQueryData).append(" VALUES ");
             /*  66 */
@@ -80,30 +80,30 @@ import java.util.Map;
                 int monsterId = ((Integer) e.getKey()).intValue();
                 /*  69 */
                 int rate = getChance(itemid, monsterId, bossCache.containsKey(Integer.valueOf(monsterId)));
-                /*     */
+
                 /*  71 */
                 if (rate <= 100000) {
                     /*  72 */
                     switch (monsterId) {
-                        /*     */
+
                         case 9400121:
                             /*  74 */
                             rate *= 5;
                             /*  75 */
                             break;
-                        /*     */
+
                         case 9400112:
-                            /*     */
+
                         case 9400113:
-                            /*     */
+
                         case 9400300:
                             /*  79 */
                             rate *= 10;
-                            /*     */
+
                     }
-                    /*     */
+
                 }
-                /*     */
+
                 /*  83 */
                 for (int i = 0; i < multipleDropsIncrement(itemid, monsterId); i++) {
                     /*  84 */
@@ -112,11 +112,11 @@ import java.util.Map;
                         sb.append("(DEFAULT, ");
                         /*  86 */
                         first = false;
-                        /*     */
+
                     } else {
                         /*  88 */
                         sb.append(", (DEFAULT, ");
-                        /*     */
+
                     }
                     /*  90 */
                     sb.append(monsterId).append(", ");
@@ -124,7 +124,7 @@ import java.util.Map;
                     if (addFlagData) {
                         /*  92 */
                         sb.append("'', ");
-                        /*     */
+
                     }
                     /*  94 */
                     sb.append(itemid).append(", ");
@@ -140,7 +140,7 @@ import java.util.Map;
                     sb.append(")");
                     /* 100 */
                     first = false;
-                    /*     */
+
                 }
                 /* 102 */
                 sb.append("\n");
@@ -150,20 +150,20 @@ import java.util.Map;
                 retriveNLogItemName(sb, itemid);
                 /* 105 */
                 sb.append("\n");
-                /*     */
+
             }
             /* 107 */
             sb.append(";");
             /* 108 */
             sb.append("\n");
-            /*     */
+
             /* 110 */
             out.write(sb.toString().getBytes());
             /* 111 */
             sb.delete(0, 2147483647);
-            /*     */
+
         }
-        /*     */
+
         /* 115 */
         System.out.println("载入: Drops from String.wz/MonsterBook.img.");
         /* 116 */
@@ -174,12 +174,12 @@ import java.util.Map;
             int idtoLog = monsterId;
             /* 119 */
             boolean first = true;
-            /*     */
+
             /* 121 */
             if (monsterId == 9400408) {
                 /* 122 */
                 idtoLog = 9400409;
-                /*     */
+
             }
             /* 124 */
             if (dataz.getChildByPath("reward").getChildren().size() > 0) {
@@ -191,7 +191,7 @@ import java.util.Map;
                     int itemid = MapleDataTool.getInt(drop);
                     /* 128 */
                     int rate = getChance(itemid, idtoLog, bossCache.containsKey(Integer.valueOf(idtoLog)));
-                    /*     */
+
                     /* 130 */
                     for (Pair Pair : mobCache) {
                         /* 131 */
@@ -211,17 +211,17 @@ import java.util.Map;
                             if (((MobInfo) Pair.getRight()).rateItemDropLevel() == 3) {
                                 /* 137 */
                                 switch (monsterId) {
-                                    /*     */
+
                                     case 8810018:
                                         /* 139 */
                                         rate *= 48;
-                                        /*     */
+
                                     case 8800002:
                                         /* 141 */
                                         rate *= 45;
                                         /* 142 */
                                         break;
-                                    /*     */
+
                                     default:
                                         /* 144 */
                                         rate *= 30;

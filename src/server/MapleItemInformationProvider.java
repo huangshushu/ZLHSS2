@@ -74,6 +74,7 @@ public class MapleItemInformationProvider {
     public static final Map<Integer, String> hairList = new HashMap<>();
     protected Map<Integer, MapleInventoryType> inventoryTypeCache = new HashMap<>();
     protected final Map<Integer, Integer> chairMountId = new HashMap<>();
+    private static final Map<Integer, String> hairfaceList = new HashMap<>();
 
     protected MapleItemInformationProvider() {
         System.out.println("【读取中】 MapleItemInformationProvider :::");
@@ -1849,5 +1850,9 @@ public class MapleItemInformationProvider {
         }
         return 2100000000;
     }
+
+     public boolean hairfaceExists(int hair) {
+           return hairfaceList.containsKey(Integer.valueOf(hair));
+        }
 
 }

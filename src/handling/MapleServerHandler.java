@@ -54,7 +54,6 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
     public final static int LOGIN_SERVER = 0;
     private final List<String> BlockedIP = new ArrayList<>();
     private final Map<String, Pair<Long, Byte>> tracker = new ConcurrentHashMap<>();
-    // private static final String nl = System.getProperty("line.separator");
 
     public MapleServerHandler(int world, int channel) {
         this.world = world;
@@ -71,76 +70,9 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
         blocked.addAll(Arrays.asList(block));
     }
 
-    /*
-     * private static class LoggedPacket {
-     *
-     * private static final String nl = System.getProperty("line.separator");
-     * private String ip, accName, accId, chrName;
-     * private LittleEndianAccessor packet;
-     * private long timestamp;
-     * private RecvPacketOpcode op;
-     *
-     * public LoggedPacket(LittleEndianAccessor p, RecvPacketOpcode op, String ip,
-     * int id, String accName, String chrName) {
-     * setInfo(p, op, ip, id, accName, chrName);
-     * }
-     *
-     * public final void setInfo(LittleEndianAccessor p, RecvPacketOpcode op, String
-     * ip, int id, String accName, String chrName) {
-     * this.ip = ip;
-     * this.op = op;
-     * packet = p;
-     * this.accName = accName;
-     * this.chrName = chrName;
-     * timestamp = System.currentTimeMillis();
-     * }
-     *
-     * @Override
-     * public String toString() {
-     * StringBuilder sb = new StringBuilder();
-     * sb.append("[IP: ").append(ip).append("] [").append(accId).append('|').append(
-     * accName).append('|').append(chrName).append("] [Time: ").append(timestamp).
-     * append(']');
-     * sb.append(nl);
-     * sb.append("[Op: ").append(op.toString()).append(']');
-     * sb.append(" [Data: ").append(packet.toString()).append(']');
-     * return sb.toString();
-     * }
-     * }
-     */
     @Override
     public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) throws Exception {
 
-        /*
-         * try {
-         * if (cause.getMessage() != null) {
-         * System.err.println("[异常信息] " + cause.getMessage());
-         * }
-         * if ((!(cause instanceof IOException))) {
-         * MapleClient client = (MapleClient)
-         * ctx.channel().attr(MapleClient.CLIENT_KEY).get();
-         * if ((client != null) && (client.getPlayer() != null)) {
-         * try {
-         * client.getPlayer().saveToDB(false, channel ==
-         * MapleServerHandler.CASH_SHOP_SERVER);
-         * } catch (Exception eex) {
-         * FileoutputUtil.logToFile("logs/异常抛出保存数据异常.txt", "\r\n " +
-         * FileoutputUtil.NowTime() + " IP: " +
-         * client.getSession().remoteAddress().toString().split(":")[0] + " 帐号 " +
-         * client.getAccountName() + " 帐号ID " + client.getAccID() + " 角色名 " +
-         * client.getPlayer().getName() + " 角色ID " + client.getPlayer().getId());
-         * FileoutputUtil.outError("logs/异常抛出保存数据异常.txt", eex);
-         * }
-         * FileoutputUtil.printError("logs/发现异常.txt", cause, "发现异常 by: 玩家:" +
-         * client.getPlayer().getName() + " 职业:" + client.getPlayer().getJob() + " 地图:"
-         * + client.getPlayer().getMap().getMapName() + " - " +
-         * client.getPlayer().getMapId());
-         * }
-         * }
-         * } catch (Exception e) {
-         * FileoutputUtil.outError("logs/异常扑捉.txt", e);
-         * }
-         */
     }
 
     @Override
@@ -231,36 +163,6 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(final ChannelHandlerContext ctx) throws Exception {
-        /*
-         * try {
-         * MapleClient client = (MapleClient)
-         * ctx.channel().attr(MapleClient.CLIENT_KEY).get();
-         *
-         * if (client != null) {
-         * if (client.getPlayer() != null) {
-         * client.getPlayer().saveToDB(true, channel ==
-         * MapleServerHandler.CASH_SHOP_SERVER);
-         * if (!(client.getLoginState() == MapleClient.CASH_SHOP_TRANSITION||
-         * client.getLoginState() == MapleClient.CHANGE_CHANNEL|| client.getLoginState()
-         * == MapleClient.LOGIN_SERVER_TRANSITION) && client.getPlayer() != null) {
-         * int ch = World.Find.findChannel(client.getPlayer().getId());
-         * ChannelServer.getInstance(ch).removePlayer(client.getPlayer());
-         * client.disconnect(true, channel == MapleServerHandler.CASH_SHOP_SERVER);
-         * }
-         * }
-         * if (channel == MapleServerHandler.LOGIN_SERVER) {
-         * LoginServer.removeClient(client);
-         * }
-         * }
-         *
-         * if (client != null) {
-         * ctx.channel().attr(MapleClient.CLIENT_KEY).remove();
-         * }
-         *
-         * } finally {
-         * super.channelInactive(ctx);
-         * }
-         */
         try {
             final MapleClient client = ctx.channel().attr(MapleClient.CLIENT_KEY).get();
 
@@ -274,7 +176,6 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
                 } finally {
                     ctx.channel().close();
                     ctx.channel().attr(MapleClient.CLIENT_KEY).remove();
-                    // ctx.channel().attr(MaplePacketDecoder.DECODER_STATE_KEY).remove();
                 }
             }
         } catch (Exception e) {
@@ -294,16 +195,6 @@ public class MapleServerHandler extends ChannelInboundHandlerAdapter {
             return;
         }
         final short header_num = slea.readShort();
-        /*
-         * if (ServerConfig.Encoder) {
-         * if (!c.isLoggedIn()) {
-         * if (header_num > 0x100) {
-         * ctx.channel().close();
-         * return;
-         * }
-         * }
-         * }
-         */
 
         for (final RecvPacketOpcode recv : RecvPacketOpcode.values()) {
             if (recv.getValue() == header_num) {

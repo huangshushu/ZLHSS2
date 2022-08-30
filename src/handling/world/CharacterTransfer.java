@@ -21,6 +21,7 @@
 package handling.world;
 
 import client.*;
+import client.inventory.EquipCash;
 import client.inventory.MapleMount;
 import client.inventory.MaplePet;
 import server.quest.MapleQuest;
@@ -30,10 +31,7 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CharacterTransfer implements Externalizable {
 
@@ -64,6 +62,7 @@ public class CharacterTransfer implements Externalizable {
     // MapleStatEffect.java
     public boolean 精灵商人购买开关, 玩家私聊开关, 玩家密语开关, 好友聊天开关, 队伍聊天开关, 公会聊天开关, 联盟聊天开关, GM吸怪讯息开关, Vip_Medal, auto吸怪, DebugMessage,
             canTalk, smega, gashponmega;
+    public Map<Integer, EquipCash> equeipCashs = new HashMap<>();
 
     public CharacterTransfer() {
     }
@@ -150,6 +149,7 @@ public class CharacterTransfer implements Externalizable {
         this.battleshipHP = chr.currentBattleshipHP();
         this.prefix = chr.getPrefix();
         this.gachexp = chr.getGachExp();
+        this.equeipCashs = chr.getEqueipCashs();
 
         boolean uneq = false;
         for (int i = 0; i < this.petStore.length; i++) {

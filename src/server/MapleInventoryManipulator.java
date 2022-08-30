@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import client.inventory.EquipCash;
 
 public class MapleInventoryManipulator {
 
@@ -841,16 +842,6 @@ public class MapleInventoryManipulator {
             c.sendPacket(MaplePacketCreator.enableActions());
             return;
         }
-        if (c.getPlayer().isGM()) {
-            c.getPlayer().dropMessage("穿装备: src : " + src + " dst : " + dst + " 代码：" + source.getItemId());
-        }
-
-        //换装备时更新战斗力
-        if (c.getPlayer().getGuildId() > 0) {
-            c.sendPacket(MaplePacketCreator.showGuildInfo(c.getPlayer()));
-        } else {
-            c.sendPacket(MaplePacketCreator.勋章(c.getPlayer()));
-        }
 
         if (dst == -6) { // unequip the overall
             IItem top = c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem((byte) -5);
@@ -904,29 +895,45 @@ public class MapleInventoryManipulator {
         //1112413, 1112414, 1112405 (Lilin's Ring)
         source = (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(src);
         Equip target = (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem(dst);
+        source = (Equip)EquipCash.getEquipCashItem(c.getPlayer(), dst, (Item)source, true); //定义时装
         c.getPlayer().getInventory(MapleInventoryType.EQUIP).removeSlot(src);
+
         if (target != null) {
             c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).removeSlot(dst);
         }
 
+        if(MapleItemInformationProvider.getInstance().isCash(source.getItemId())){
+            itemChanged = true;
+        }
+
+        //装备如果有更新信息 必须在设置新位置之前就加入列表
         final List<ModifyInventory> mods = new ArrayList<>();
         if (itemChanged) {
-            mods.add(new ModifyInventory(3, source));
-            mods.add(new ModifyInventory(0, source.copy()));//to prevent crashes
+            mods.add(new ModifyInventory(3, source));//删除道具
+            mods.add(new ModifyInventory(0, source.copy()));//获得道具
         }
 
         source.setPosition(dst);
         c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).addFromDB(source);
         if (target != null) {
+            target = (Equip)EquipCash.getEquipCashItem(c.getPlayer(), dst, (Item)target, false);
+            if(MapleItemInformationProvider.getInstance().isCash(target.getItemId())){
+                c.getPlayer().forceUpdateItem(target);
+            }
             target.setPosition(src);
             c.getPlayer().getInventory(MapleInventoryType.EQUIP).addFromDB(target);
         }
+
         if (c.getPlayer().getBuffedValue(MapleBuffStat.BOOSTER) != null && isWeapon(source.getItemId())) {
             c.getPlayer().cancelBuffStats(MapleBuffStat.BOOSTER);
         }
 
+        if (c.getPlayer().isGM()) {
+            c.getPlayer().dropMessage("穿装备: src : " + src + " dst : " + dst + " 代码：" + source.getItemId());
+        }
+
         mods.add(new ModifyInventory(2, source, src));
-        c.sendPacket(MaplePacketCreator.modifyInventory(true, mods));
+        c.sendPacket(MaplePacketCreator.modifyInventory(true, mods));//移动道具
         int reqlv = MapleItemInformationProvider.getInstance().getReqLevel(source.getItemId());
         if (reqlv > c.getPlayer().getLevel() + c.getPlayer().getStat().levelBonus && !c.getPlayer().isGM()) {
             FileoutputUtil.logToFile("logs/Hack/Ban/修改封包.txt", "\r\n " + FileoutputUtil.NowTime() + " 玩家：" + c.getPlayer().getName() + "(" + c.getPlayer().getId() + ") <等级: " + c.getPlayer().getLevel() + " > 修改装备(" + source.getItemId() + ")封包，穿上装备时封锁。 该装备需求等级: " + reqlv);
@@ -937,6 +944,12 @@ public class MapleInventoryManipulator {
             return;
         }
         c.getPlayer().equipChanged();
+        //换装备时更新战斗力
+        if (c.getPlayer().getGuildId() > 0) {
+            c.sendPacket(MaplePacketCreator.showGuildInfo(c.getPlayer()));
+        } else {
+            c.sendPacket(MaplePacketCreator.勋章(c.getPlayer()));
+        }
     }
 
     private static boolean isOverall(int itemId) {
@@ -950,6 +963,9 @@ public class MapleInventoryManipulator {
     public static void unequip(final MapleClient c, final short src, final short dst) {
         Equip source = (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).getItem(src);
         Equip target = (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(dst);
+        source = (Equip)EquipCash.getEquipCashItem(c.getPlayer(), src, (Item)source, false);
+        boolean itemChanged = false;
+
         if (dst < 0) {
             return;
         }
@@ -971,12 +987,18 @@ public class MapleInventoryManipulator {
         if (target != null) {
             c.getPlayer().getInventory(MapleInventoryType.EQUIP).removeSlot(dst);
         }
+
+        if(MapleItemInformationProvider.getInstance().isCash(source.getItemId())){
+            c.getPlayer().forceUpdateItem(source);
+        }
+
         source.setPosition(dst);
         c.getPlayer().getInventory(MapleInventoryType.EQUIP).addFromDB(source);
         if (target != null) {
             target.setPosition(src);
             c.getPlayer().getInventory(MapleInventoryType.EQUIPPED).addFromDB(target);
         }
+
         c.sendPacket(MaplePacketCreator.modifyInventory(true, Collections.singletonList(new ModifyInventory(2, source, src))));
         int reqlv = MapleItemInformationProvider.getInstance().getReqLevel(source.getItemId());
         if (reqlv > c.getPlayer().getLevel() + c.getPlayer().getStat().levelBonus && !c.getPlayer().isGM()) {
@@ -988,6 +1010,12 @@ public class MapleInventoryManipulator {
             return;
         }
         c.getPlayer().equipChanged();
+        //换装备时更新战斗力
+        if (c.getPlayer().getGuildId() > 0) {
+            c.sendPacket(MaplePacketCreator.showGuildInfo(c.getPlayer()));
+        } else {
+            c.sendPacket(MaplePacketCreator.勋章(c.getPlayer()));
+        }
     }
 
     public static boolean dropCs(final MapleClient c, MapleInventoryType type, final short src, final short quantity) {

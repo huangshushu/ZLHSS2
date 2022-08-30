@@ -2,6 +2,12 @@
 .vscode/*
 out/*
 .idea/*
-logs/*
+/logs/*
 充值卡后台库存/*
 ZLHSS2.iml
+/充值卡后台库存/
+/.idea/
+/.vscode/
+/img/
+/logs/
+/out/

@@ -1804,14 +1804,6 @@ public class MaplePacketCreator {
                 mplew.writeMapleAsciiString("尚未加入联盟");
             }
         }
-        // mplew.write(isSelf ? 1 : 0);
-        // mplew.writeMapleAsciiString(chr.getcharmessage()); // 角色讯息
-        // mplew.writeMapleAsciiString("安安"); // 角色讯息
-        // mplew.write(chr.getexpression());// 表情
-        // mplew.write(chr.getconstellation());// 星座
-        // mplew.write(chr.getblood());// 血型
-        // mplew.write(chr.getmonth());// 月
-        // mplew.write(chr.getday());// 日
 
         byte index = 1;
         for (final MaplePet pet : chr.getSummonedPets()) {
@@ -1863,11 +1855,6 @@ public class MaplePacketCreator {
         for (MapleQuestStatus q : completed) {
             if (q.getQuest().getMedalItem() > 0
                     && GameConstants.getInventoryType(q.getQuest().getMedalItem()) == MapleInventoryType.EQUIP) { // chair
-                // kind
-                // medal
-                // viewmedal
-                // is
-                // weird
                 medalQuests.add(q.getQuest().getId());
             }
         }
@@ -5405,5 +5392,51 @@ public class MaplePacketCreator {
         }
         return mplew.getPacket();
     }
+
+    public static byte[] moveInventoryItem(MapleInventoryType type, short src, short dst, boolean bag, boolean bothBag) {
+        return moveInventoryItem(type, src, dst, (short)-1, bag, bothBag);
+    }
+
+    public static byte[] moveInventoryItem(MapleInventoryType type, short src, short dst, short equipIndicator, boolean bag, boolean bothBag) {
+        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+
+        mplew.writeShort(SendPacketOpcode.INVENTORY_OPERATION.getValue());
+        mplew.write(1);
+        mplew.write(1);
+
+
+        mplew.write(bag ? 5 : (bothBag ? 8 : 2));
+        mplew.write(type.getType());
+        mplew.writeShort(src);
+        mplew.writeShort(dst);
+        if (bag) {
+            mplew.writeShort(0);
+        }
+        if (equipIndicator != -1) {
+            mplew.write(equipIndicator);
+        }
+
+        return mplew.getPacket();
+    }
+
+    public static byte[] updateInventorySlot(MapleInventoryType type, IItem item, boolean fromDrop) {
+        MaplePacketLittleEndianWriter mplew = new MaplePacketLittleEndianWriter();
+
+        mplew.writeShort(SendPacketOpcode.MODIFY_INVENTORY_ITEM.getValue());
+        mplew.write(fromDrop ? 1 : 0);
+        //	mplew.write((slot2 > 0 ? 1 : 0) + 1);
+        mplew.write(1);
+        mplew.write(1);
+        mplew.write(type.getType()); // iv type
+        mplew.writeShort(item.getPosition()); // slot id
+        mplew.writeShort(item.getQuantity());
+        /*
+         * if (slot2 > 0) { mplew.write(1); mplew.write(type.getType());
+         * mplew.writeShort(slot2); mplew.writeShort(amt2); }
+         */
+        return mplew.getPacket();
+    }
+
+
 
 }

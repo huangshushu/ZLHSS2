@@ -3037,6 +3037,30 @@ public abstract class AbstractPlayerInteraction {
         }
     }
 
+    public final void 喇叭(final int type, final String message) {// 喇叭
+        switch (type) {
+            case 1: // 弹窗
+            case 2: // 粉蓝色底蓝色字
+            case 3: // 粉紫色底紫色字(带频道标记)
+            case 5: // 无底色粉红字
+            case 6: // 无底色粉蓝字
+            case 9: // 无底色粉蓝字
+            case 11:// 带爱心的白色底粉红字
+            case 12:// 带电话的粉蓝底素字
+            case 13:// 带电话的粉蓝底素字
+            case 14:// 带电话的粉蓝底素字
+            case 15:// 带电话的粉蓝底素字
+            case 16:// 带电话的粉蓝底素字
+            case 17:// 带电话的粉蓝底素字
+            case 18:// 带电话的粉蓝底素字
+                World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(type, c.getChannel(), message));
+                break;
+            default:
+                World.Broadcast.broadcastSmega(MaplePacketCreator.serverNotice(6, c.getChannel(), message));
+                break;
+        }
+    }
+
     public final void 个人公告(final String message) {
         playerMessage(6, message);
     }
@@ -3854,8 +3878,9 @@ public abstract class AbstractPlayerInteraction {
         }
         cg.sendPacket(MaplePacketCreator.getShowItemGain(id, (short) 1, true));
     }
-            
-            
 
+    public Equip getEquipBySlot(short slot) {
+        return (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(slot);
+    }
 
 }

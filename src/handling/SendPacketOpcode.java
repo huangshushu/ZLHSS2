@@ -286,6 +286,7 @@ public enum SendPacketOpcode implements WritableIntValueHolder {
     PET_AUTO_MP,
     TOP_MSG,
     CHAR_CASH,
+    INVENTORY_OPERATION((short)32),
     CS_WEB;
 
     private short code = -2;

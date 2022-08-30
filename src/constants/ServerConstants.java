@@ -22,14 +22,15 @@ package constants;
 
 import server.ServerProperties;
 
-public class ServerConstants {
+public enum ServerConstants {
+    ;
 
     /*
      * Specifics which job gives an additional EXP to party
      * returns the percentage of EXP to increase
      */
     // Start of Poll
-    public static boolean TESPIA = false;
+    public static boolean TESPIA;
     public static final boolean PollEnabled = false;
     public static final String Poll_Question = "Are you mudkiz?";
     public static final String[] Poll_Answers = {"test1", "test2", "test3"};
@@ -37,7 +38,7 @@ public class ServerConstants {
     public static final short MAPLE_VERSION = 79;
     public static final String MAPLE_PATCH = "1";
     public static MapleType MAPLE_TYPE = MapleType.中国;
-    public static boolean Use_Fixed_IV = false;
+    public static boolean Use_Fixed_IV;
     public static final int MIN_MTS = 1;
     public static final int MTS_BASE = 10; //+1000 to everything in MSEA but cash is costly here
     public static final int MTS_TAX = 10; //+% to everything
@@ -53,7 +54,7 @@ public class ServerConstants {
     public static int MopDropMPointMax = 2;
     public static int 攻击上限 = 50000000;
 
-    public static int 是否已关服 = 0;
+    public static int 是否已关服;
 
     public enum PlayerGMRank {
 
@@ -68,7 +69,7 @@ public class ServerConstants {
         private final int level;
 
         PlayerGMRank(int level) {
-            this.commandPrefix = level > 0 ? '!' : '@';
+            this.commandPrefix = 0 < level ? '!' : '@';
             this.level = level;
         }
 
@@ -144,7 +145,7 @@ public class ServerConstants {
             if (!ServerConstants.TESPIA) {
                 return type;
             }
-            if (this == 한국 || this == 한국_TEST) {
+            if (MapleType.한국 == this || MapleType.한국_TEST == this) {
                 return 2;//KMS测试机
             } else {
                 return 5;//测试机
