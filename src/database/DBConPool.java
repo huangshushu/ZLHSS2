@@ -89,7 +89,7 @@ public class DBConPool {
         //要求程序从池中get到连接后, N 秒后必须close,否则druid 会强制回收该连接,不管该连接中是活动还是空闲, 以防止进程不会进行close而霸占连接。
         dataSource.setRemoveAbandoned(true);
         //设置druid 强制回收连接的时限，当程序从池中get到连接开始算起，超过此值后，druid将强制回收该连接，单位秒。
-        dataSource.setRemoveAbandonedTimeout(1800);
+        dataSource.setRemoveAbandonedTimeout(5);
         //当druid强制回收连接后，是否将stack trace 记录到日志中
         dataSource.setLogAbandoned(false);
     }

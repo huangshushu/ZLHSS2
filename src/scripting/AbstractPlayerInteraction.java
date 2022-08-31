@@ -3883,4 +3883,25 @@ public abstract class AbstractPlayerInteraction {
         return (Equip) c.getPlayer().getInventory(MapleInventoryType.EQUIP).getItem(slot);
     }
 
+    public int gainGachaponItem(int id, int quantity, String msg, int 概率, String t) {
+        try {
+            if (!MapleItemInformationProvider.getInstance().itemExists(id)) {
+                return -1;
+            }
+            IItem item = MapleInventoryManipulator.addbyId_Gachapon(this.c, id, (short)quantity);
+
+            if (item == null) {
+                return -1;
+            }
+            if (概率 > 0) {
+                World.Broadcast.broadcastMessage(MaplePacketCreator.getGachaponMega("[" + msg + "] " + this.c.getPlayer().getName(), " : " + t, item, (byte)0, getPlayer().getClient().getChannel()));
+            }
+            return item.getItemId();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return -1;
+        }
+    }
+
 }
